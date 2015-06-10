@@ -7,11 +7,12 @@
 //
 
 #import "MMTMeteorogramController.h"
+#import "MMTMeteorogramStore.h"
 
 @interface MMTMeteorogramController ()
 
+@property (strong, nonatomic) IBOutlet UIImageView *meteorogramImage;
 @property (strong, nonatomic) IBOutlet UINavigationBar *navigationBar;
-@property (strong, nonatomic) IBOutlet UILabel *lblInfo;
 @end
 
 @implementation MMTMeteorogramController
@@ -22,14 +23,14 @@
     
     self.navigationBar.topItem.prompt = self.meteorogramTitle;
     self.navigationBar.topItem.title = self.cityName;
-    NSLog(@"Location: %@", self.cityLocation);
+
     if(![self.cityLocation isEqual:[NSNull null]])
     {
-        self.lblInfo.text = [NSString stringWithFormat:@"Meteorogram: Lat: %f Lng: %f", self.cityLocation.coordinate.latitude, self.cityLocation.coordinate.longitude];
-    }
-    else
-    {
-        self.lblInfo.text = @"Meteorogram";
+        MMTMeteorogramQuery *query = [[MMTMeteorogramQuery alloc] initWithLocation:self.cityLocation date:[NSDate date]];
+        [[MMTMeteorogramStore new] getMeteorogramWithQuery:query completion:^(NSData *meteorogram, NSError *error)
+        {
+            self.meteorogramImage.image = [UIImage imageWithData:meteorogram];
+        }];
     }
 }
 

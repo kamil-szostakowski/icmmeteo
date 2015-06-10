@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F9E6967F1AFCC06600273DA3"
-               BuildableName = "Mobile MeteoTests.xctest"
-               BlueprintName = "Mobile MeteoTests"
-               ReferencedContainer = "container:Mobile Meteo.xcodeproj">
+               BuildableName = "MobileMeteoTests.xctest"
+               BlueprintName = "MobileMeteoTests"
+               ReferencedContainer = "container:MobileMeteo.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F9E696631AFCC06600273DA3"
-            BuildableName = "Mobile Meteo.app"
-            BlueprintName = "Mobile Meteo"
-            ReferencedContainer = "container:Mobile Meteo.xcodeproj">
+            BuildableName = "MobileMeteo.app"
+            BlueprintName = "MobileMeteo"
+            ReferencedContainer = "container:MobileMeteo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -77,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F9E696631AFCC06600273DA3"
-            BuildableName = "Mobile Meteo.app"
-            BlueprintName = "Mobile Meteo"
-            ReferencedContainer = "container:Mobile Meteo.xcodeproj">
+            BuildableName = "MobileMeteo.app"
+            BlueprintName = "MobileMeteo"
+            ReferencedContainer = "container:MobileMeteo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
