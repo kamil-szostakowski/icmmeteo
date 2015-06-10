@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VAh-Ln-Mxc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VAh-Ln-Mxc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
         <!--Model COAMPS-->
@@ -124,7 +124,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tNU-2w-XXV">
+                            <navigationBar contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="tNU-2w-XXV">
                                 <rect key="frame" x="0.0" y="20" width="600" height="74"/>
                                 <items>
                                     <navigationItem title="Miasto" prompt="Nazwa modelu" id="pkw-kA-ZXA">
@@ -139,28 +139,20 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zo9-bc-FiZ">
                                 <rect key="frame" x="0.0" y="94" width="600" height="457"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meteorogram" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqx-rZ-vKY">
-                                <rect key="frame" x="248" y="312" width="104" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="zo9-bc-FiZ" firstAttribute="leading" secondItem="3sI-9X-sH4" secondAttribute="leading" id="0Ma-bm-3rV"/>
                             <constraint firstAttribute="trailing" secondItem="zo9-bc-FiZ" secondAttribute="trailing" id="NDu-8e-jfj"/>
                             <constraint firstAttribute="trailing" secondItem="tNU-2w-XXV" secondAttribute="trailing" id="P1a-5h-SfB"/>
-                            <constraint firstAttribute="centerY" secondItem="gqx-rZ-vKY" secondAttribute="centerY" constant="-22.5" id="Q7H-Ax-I1L"/>
                             <constraint firstItem="tNU-2w-XXV" firstAttribute="top" secondItem="UQ4-RS-Rju" secondAttribute="bottom" id="U1S-vG-VQu"/>
-                            <constraint firstAttribute="centerX" secondItem="gqx-rZ-vKY" secondAttribute="centerX" id="cux-Lc-ZHe"/>
                             <constraint firstItem="tNU-2w-XXV" firstAttribute="leading" secondItem="3sI-9X-sH4" secondAttribute="leading" id="hyT-Xo-Qnd"/>
                             <constraint firstItem="Hri-oe-C16" firstAttribute="top" secondItem="zo9-bc-FiZ" secondAttribute="bottom" id="rLB-AI-WHa"/>
                             <constraint firstItem="zo9-bc-FiZ" firstAttribute="top" secondItem="tNU-2w-XXV" secondAttribute="bottom" id="zfK-aP-5by"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="lblInfo" destination="gqx-rZ-vKY" id="BGu-KJ-8qD"/>
+                        <outlet property="meteorogramImage" destination="zo9-bc-FiZ" id="3cF-TO-adQ"/>
                         <outlet property="navigationBar" destination="tNU-2w-XXV" id="2kA-Ar-2Iw"/>
                         <segue destination="VAf-RY-Lle" kind="unwind" identifier="UnwindToListOfCities" unwindAction="unwindToListOfCities:" id="vtl-wk-Up4"/>
                     </connections>
