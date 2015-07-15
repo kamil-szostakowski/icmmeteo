@@ -9,9 +9,9 @@
 #ifndef Mobile_Meteo_Mobile_Meteo_pch
 #define Mobile_Meteo_Mobile_Meteo_pch
 
-#import "NSURL+MMT.h"
-
 #define kSegueUnwindToListOfCities @"UnwindToListOfCities"
 #define kSegueDisplayMeteorogram @"DisplayMeteorogram"
+
+#import "MobileMeteo-Swift.h"
 
 #endif
