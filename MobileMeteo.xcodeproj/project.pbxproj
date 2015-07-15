@@ -7,25 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8EA9C0871B223F9E00F11508 /* MMTMeteorogramQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9C0861B223F9E00F11508 /* MMTMeteorogramQueryTests.m */; };
-		8EA9C08A1B22401100F11508 /* MMTMeteorogramQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9C0891B22401100F11508 /* MMTMeteorogramQuery.m */; };
-		8ECC3AE01B24CBDB008A88D5 /* MMTMeteorogramStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECC3ADF1B24CBDB008A88D5 /* MMTMeteorogramStore.m */; };
 		DD63E1C13E4AA3D211BB1799 /* libPods-MobileMeteoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1FC1906742E93B61199BA9 /* libPods-MobileMeteoTests.a */; };
-		F9900EB81B282AA2006880A1 /* MMTCategoryNSURLTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F9900EB71B282AA2006880A1 /* MMTCategoryNSURLTests.m */; };
-		F9900EBC1B282BA3006880A1 /* NSURL+MMT.m in Sources */ = {isa = PBXBuildFile; fileRef = F9900EBB1B282BA3006880A1 /* NSURL+MMT.m */; };
-		F99F9EA71B25BA1D00952605 /* MMTMeteorogramFetchDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F99F9EA61B25BA1D00952605 /* MMTMeteorogramFetchDelegateTests.m */; };
-		F99F9EAA1B25BA7C00952605 /* MMTMeteorogramFetchDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F99F9EA91B25BA7C00952605 /* MMTMeteorogramFetchDelegate.m */; };
+		F917E6C21B42B7BC000FAA76 /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F917E6C11B42B7BC000FAA76 /* NSURL.swift */; };
+		F95754491B4CFF0A00C4E672 /* MMTMeteorogramController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95754481B4CFF0A00C4E672 /* MMTMeteorogramController.swift */; };
+		F957544B1B4D032800C4E672 /* MMTMeteorogramStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F957544A1B4D032800C4E672 /* MMTMeteorogramStore.swift */; };
+		F957544D1B4D050C00C4E672 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F957544C1B4D050C00C4E672 /* Constants.swift */; };
+		F957544F1B4D068400C4E672 /* MMTModelUmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F957544E1B4D068400C4E672 /* MMTModelUmController.swift */; };
+		F9AB98371B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AB98361B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift */; };
+		F9B2BA3F1B4BEC5B0081AC29 /* MMTMeteorogramFetchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B2BA3E1B4BEC5B0081AC29 /* MMTMeteorogramFetchDelegate.swift */; };
+		F9B2BA411B4BFD0F0081AC29 /* MMTCitiesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B2BA401B4BFD0F0081AC29 /* MMTCitiesStore.swift */; };
+		F9B33DEE1B43C39F00556ED1 /* MMTMeteorogramQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B33DED1B43C39F00556ED1 /* MMTMeteorogramQuery.swift */; };
+		F9DB428E1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DB428D1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift */; };
 		F9E6966A1AFCC06600273DA3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9E696691AFCC06600273DA3 /* main.m */; };
 		F9E6966D1AFCC06600273DA3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F9E6966C1AFCC06600273DA3 /* AppDelegate.m */; };
 		F9E696701AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F9E6966E1AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld */; };
-		F9E696731AFCC06600273DA3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9E696721AFCC06600273DA3 /* ViewController.m */; };
 		F9E696761AFCC06600273DA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9E696741AFCC06600273DA3 /* Main.storyboard */; };
 		F9E696781AFCC06600273DA3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9E696771AFCC06600273DA3 /* Images.xcassets */; };
 		F9E6967B1AFCC06600273DA3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9E696791AFCC06600273DA3 /* LaunchScreen.xib */; };
-		F9E696971AFCC50E00273DA3 /* MMTModelUmController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9E696961AFCC50E00273DA3 /* MMTModelUmController.m */; };
-		F9E6969B1AFCC8BC00273DA3 /* MMTMeteorogramController.m in Sources */ = {isa = PBXBuildFile; fileRef = F9E6969A1AFCC8BC00273DA3 /* MMTMeteorogramController.m */; };
-		F9E696A21AFCDEC800273DA3 /* MMTCitiesStore.m in Sources */ = {isa = PBXBuildFile; fileRef = F9E696A11AFCDEC800273DA3 /* MMTCitiesStore.m */; };
 		F9E696A41AFCE70700273DA3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9E696A31AFCE70700273DA3 /* CoreLocation.framework */; };
+		F9FA38211B42728800A6EC00 /* MMTCategoryNSURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FA38201B42728800A6EC00 /* MMTCategoryNSURLTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,39 +41,33 @@
 /* Begin PBXFileReference section */
 		04AE35C0443F7462483E0937 /* Pods-MobileMeteoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileMeteoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests.release.xcconfig"; sourceTree = "<group>"; };
 		59DAFA5A45295B2517C31E1E /* Pods-MobileMeteoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileMeteoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		8EA9C0861B223F9E00F11508 /* MMTMeteorogramQueryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTMeteorogramQueryTests.m; sourceTree = "<group>"; };
-		8EA9C0881B22401100F11508 /* MMTMeteorogramQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTMeteorogramQuery.h; sourceTree = "<group>"; };
-		8EA9C0891B22401100F11508 /* MMTMeteorogramQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTMeteorogramQuery.m; sourceTree = "<group>"; };
-		8ECC3ADE1B24CBDB008A88D5 /* MMTMeteorogramStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTMeteorogramStore.h; sourceTree = "<group>"; };
-		8ECC3ADF1B24CBDB008A88D5 /* MMTMeteorogramStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTMeteorogramStore.m; sourceTree = "<group>"; };
 		CC1FC1906742E93B61199BA9 /* libPods-MobileMeteoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileMeteoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F9900EB71B282AA2006880A1 /* MMTCategoryNSURLTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTCategoryNSURLTests.m; sourceTree = "<group>"; };
-		F9900EBA1B282BA3006880A1 /* NSURL+MMT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+MMT.h"; sourceTree = "<group>"; };
-		F9900EBB1B282BA3006880A1 /* NSURL+MMT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+MMT.m"; sourceTree = "<group>"; };
-		F99F9EA61B25BA1D00952605 /* MMTMeteorogramFetchDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTMeteorogramFetchDelegateTests.m; sourceTree = "<group>"; };
-		F99F9EA81B25BA7C00952605 /* MMTMeteorogramFetchDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTMeteorogramFetchDelegate.h; sourceTree = "<group>"; };
-		F99F9EA91B25BA7C00952605 /* MMTMeteorogramFetchDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTMeteorogramFetchDelegate.m; sourceTree = "<group>"; };
+		F917E6C01B42B7BC000FAA76 /* MobileMeteo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileMeteo-Bridging-Header.h"; sourceTree = "<group>"; };
+		F917E6C11B42B7BC000FAA76 /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
+		F95754481B4CFF0A00C4E672 /* MMTMeteorogramController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramController.swift; sourceTree = "<group>"; };
+		F957544A1B4D032800C4E672 /* MMTMeteorogramStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramStore.swift; sourceTree = "<group>"; };
+		F957544C1B4D050C00C4E672 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F957544E1B4D068400C4E672 /* MMTModelUmController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTModelUmController.swift; sourceTree = "<group>"; };
+		F9AB98361B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramQueryTests.swift; sourceTree = "<group>"; };
+		F9B2BA3E1B4BEC5B0081AC29 /* MMTMeteorogramFetchDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramFetchDelegate.swift; sourceTree = "<group>"; };
+		F9B2BA401B4BFD0F0081AC29 /* MMTCitiesStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesStore.swift; sourceTree = "<group>"; };
+		F9B33DED1B43C39F00556ED1 /* MMTMeteorogramQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramQuery.swift; sourceTree = "<group>"; };
+		F9DB428D1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramFetchDelegateTests.swift; sourceTree = "<group>"; };
 		F9E696641AFCC06600273DA3 /* MobileMeteo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileMeteo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9E696681AFCC06600273DA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9E696691AFCC06600273DA3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		F9E6966B1AFCC06600273DA3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		F9E6966C1AFCC06600273DA3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		F9E6966F1AFCC06600273DA3 /* Mobile_Meteo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Mobile_Meteo.xcdatamodel; sourceTree = "<group>"; };
-		F9E696711AFCC06600273DA3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F9E696721AFCC06600273DA3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		F9E696751AFCC06600273DA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F9E696771AFCC06600273DA3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F9E6967A1AFCC06600273DA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		F9E696801AFCC06600273DA3 /* MobileMeteoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MobileMeteoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9E696851AFCC06600273DA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F9E696951AFCC50E00273DA3 /* MMTModelUmController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTModelUmController.h; sourceTree = "<group>"; };
-		F9E696961AFCC50E00273DA3 /* MMTModelUmController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTModelUmController.m; sourceTree = "<group>"; };
-		F9E696991AFCC8BC00273DA3 /* MMTMeteorogramController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTMeteorogramController.h; sourceTree = "<group>"; };
-		F9E6969A1AFCC8BC00273DA3 /* MMTMeteorogramController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTMeteorogramController.m; sourceTree = "<group>"; };
 		F9E6969D1AFCD04500273DA3 /* MobileMeteo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileMeteo-Prefix.pch"; sourceTree = "<group>"; };
-		F9E696A01AFCDEC800273DA3 /* MMTCitiesStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMTCitiesStore.h; sourceTree = "<group>"; };
-		F9E696A11AFCDEC800273DA3 /* MMTCitiesStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMTCitiesStore.m; sourceTree = "<group>"; };
 		F9E696A31AFCE70700273DA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		F9FA381F1B42728700A6EC00 /* MobileMeteoTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileMeteoTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		F9FA38201B42728800A6EC00 /* MMTCategoryNSURLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCategoryNSURLTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,8 +110,7 @@
 		F9900EB91B282B86006880A1 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				F9900EBA1B282BA3006880A1 /* NSURL+MMT.h */,
-				F9900EBB1B282BA3006880A1 /* NSURL+MMT.m */,
+				F917E6C11B42B7BC000FAA76 /* NSURL.swift */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -151,10 +144,9 @@
 				F9900EB91B282B86006880A1 /* Categories */,
 				F9E6966B1AFCC06600273DA3 /* AppDelegate.h */,
 				F9E6966C1AFCC06600273DA3 /* AppDelegate.m */,
-				F9E696711AFCC06600273DA3 /* ViewController.h */,
-				F9E696721AFCC06600273DA3 /* ViewController.m */,
 				F9E696741AFCC06600273DA3 /* Main.storyboard */,
 				F9E696791AFCC06600273DA3 /* LaunchScreen.xib */,
+				F957544C1B4D050C00C4E672 /* Constants.swift */,
 				F9E696771AFCC06600273DA3 /* Images.xcassets */,
 				F9E6966E1AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld */,
 				F9E696671AFCC06600273DA3 /* Supporting Files */,
@@ -168,6 +160,7 @@
 				F9E696681AFCC06600273DA3 /* Info.plist */,
 				F9E696691AFCC06600273DA3 /* main.m */,
 				F9E6969D1AFCD04500273DA3 /* MobileMeteo-Prefix.pch */,
+				F917E6C01B42B7BC000FAA76 /* MobileMeteo-Bridging-Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -175,10 +168,11 @@
 		F9E696831AFCC06600273DA3 /* MobileMeteoTests */ = {
 			isa = PBXGroup;
 			children = (
-				8EA9C0861B223F9E00F11508 /* MMTMeteorogramQueryTests.m */,
-				F99F9EA61B25BA1D00952605 /* MMTMeteorogramFetchDelegateTests.m */,
-				F9900EB71B282AA2006880A1 /* MMTCategoryNSURLTests.m */,
+				F9AB98361B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift */,
+				F9DB428D1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift */,
+				F9FA38201B42728800A6EC00 /* MMTCategoryNSURLTests.swift */,
 				F9E696841AFCC06600273DA3 /* Supporting Files */,
+				F9FA381F1B42728700A6EC00 /* MobileMeteoTests-Bridging-Header.h */,
 			);
 			path = MobileMeteoTests;
 			sourceTree = "<group>";
@@ -206,8 +200,7 @@
 		F9E696911AFCC42500273DA3 /* Model UM */ = {
 			isa = PBXGroup;
 			children = (
-				F9E696951AFCC50E00273DA3 /* MMTModelUmController.h */,
-				F9E696961AFCC50E00273DA3 /* MMTModelUmController.m */,
+				F957544E1B4D068400C4E672 /* MMTModelUmController.swift */,
 			);
 			name = "Model UM";
 			sourceTree = "<group>";
@@ -236,8 +229,7 @@
 		F9E696981AFCC89400273DA3 /* Meteorogram */ = {
 			isa = PBXGroup;
 			children = (
-				F9E696991AFCC8BC00273DA3 /* MMTMeteorogramController.h */,
-				F9E6969A1AFCC8BC00273DA3 /* MMTMeteorogramController.m */,
+				F95754481B4CFF0A00C4E672 /* MMTMeteorogramController.swift */,
 			);
 			name = Meteorogram;
 			sourceTree = "<group>";
@@ -245,14 +237,10 @@
 		F9E6969F1AFCDEA200273DA3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				F9E696A01AFCDEC800273DA3 /* MMTCitiesStore.h */,
-				F9E696A11AFCDEC800273DA3 /* MMTCitiesStore.m */,
-				8EA9C0881B22401100F11508 /* MMTMeteorogramQuery.h */,
-				8EA9C0891B22401100F11508 /* MMTMeteorogramQuery.m */,
-				8ECC3ADE1B24CBDB008A88D5 /* MMTMeteorogramStore.h */,
-				8ECC3ADF1B24CBDB008A88D5 /* MMTMeteorogramStore.m */,
-				F99F9EA81B25BA7C00952605 /* MMTMeteorogramFetchDelegate.h */,
-				F99F9EA91B25BA7C00952605 /* MMTMeteorogramFetchDelegate.m */,
+				F9B2BA401B4BFD0F0081AC29 /* MMTCitiesStore.swift */,
+				F9B33DED1B43C39F00556ED1 /* MMTMeteorogramQuery.swift */,
+				F957544A1B4D032800C4E672 /* MMTMeteorogramStore.swift */,
+				F9B2BA3E1B4BEC5B0081AC29 /* MMTMeteorogramFetchDelegate.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -393,17 +381,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9E696971AFCC50E00273DA3 /* MMTModelUmController.m in Sources */,
-				F9900EBC1B282BA3006880A1 /* NSURL+MMT.m in Sources */,
 				F9E696701AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld in Sources */,
-				F9E696A21AFCDEC800273DA3 /* MMTCitiesStore.m in Sources */,
-				8ECC3AE01B24CBDB008A88D5 /* MMTMeteorogramStore.m in Sources */,
+				F957544F1B4D068400C4E672 /* MMTModelUmController.swift in Sources */,
+				F9B33DEE1B43C39F00556ED1 /* MMTMeteorogramQuery.swift in Sources */,
+				F9B2BA411B4BFD0F0081AC29 /* MMTCitiesStore.swift in Sources */,
+				F957544D1B4D050C00C4E672 /* Constants.swift in Sources */,
 				F9E6966D1AFCC06600273DA3 /* AppDelegate.m in Sources */,
-				F9E6969B1AFCC8BC00273DA3 /* MMTMeteorogramController.m in Sources */,
-				F9E696731AFCC06600273DA3 /* ViewController.m in Sources */,
-				8EA9C08A1B22401100F11508 /* MMTMeteorogramQuery.m in Sources */,
+				F917E6C21B42B7BC000FAA76 /* NSURL.swift in Sources */,
+				F9B2BA3F1B4BEC5B0081AC29 /* MMTMeteorogramFetchDelegate.swift in Sources */,
+				F95754491B4CFF0A00C4E672 /* MMTMeteorogramController.swift in Sources */,
+				F957544B1B4D032800C4E672 /* MMTMeteorogramStore.swift in Sources */,
 				F9E6966A1AFCC06600273DA3 /* main.m in Sources */,
-				F99F9EAA1B25BA7C00952605 /* MMTMeteorogramFetchDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,9 +399,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9900EB81B282AA2006880A1 /* MMTCategoryNSURLTests.m in Sources */,
-				8EA9C0871B223F9E00F11508 /* MMTMeteorogramQueryTests.m in Sources */,
-				F99F9EA71B25BA1D00952605 /* MMTMeteorogramFetchDelegateTests.m in Sources */,
+				F9DB428E1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift in Sources */,
+				F9AB98371B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift in Sources */,
+				F9FA38211B42728800A6EC00 /* MMTCategoryNSURLTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -531,10 +519,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/MobileMeteo-Prefix.pch";
 				INFOPLIST_FILE = MobileMeteo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = MobileMeteo;
+				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -542,10 +535,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/MobileMeteo-Prefix.pch";
 				INFOPLIST_FILE = MobileMeteo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = MobileMeteo;
+				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -554,6 +551,9 @@
 			baseConfigurationReference = 59DAFA5A45295B2517C31E1E /* Pods-MobileMeteoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -565,6 +565,8 @@
 				INFOPLIST_FILE = MobileMeteoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = MobileMeteoTests;
+				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteoTests/MobileMeteoTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileMeteo.app/MobileMeteo";
 			};
 			name = Debug;
@@ -574,6 +576,9 @@
 			baseConfigurationReference = 04AE35C0443F7462483E0937 /* Pods-MobileMeteoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -581,6 +586,7 @@
 				INFOPLIST_FILE = MobileMeteoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = MobileMeteoTests;
+				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteoTests/MobileMeteoTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileMeteo.app/MobileMeteo";
 			};
 			name = Release;

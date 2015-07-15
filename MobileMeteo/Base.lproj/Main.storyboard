@@ -34,7 +34,7 @@
         <!--Model UM-->
         <scene sceneID="Izp-fd-wZY">
             <objects>
-                <viewController id="WYV-gA-76P" customClass="MMTModelUmController" sceneMemberID="viewController">
+                <viewController id="WYV-gA-76P" customClass="MMTModelUmController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9HV-St-ff9"/>
                         <viewControllerLayoutGuide type="bottom" id="GN3-RM-Cni"/>
@@ -103,8 +103,8 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Model UM" id="7Vu-Dc-7ts"/>
                     <connections>
-                        <outlet property="searchBar" destination="duU-CU-zjU" id="8Zq-iJ-jrZ"/>
-                        <outlet property="tableView" destination="c9a-Dj-a8h" id="ZEx-yK-Jip"/>
+                        <outlet property="searchBar" destination="duU-CU-zjU" id="Jf3-0R-vFi"/>
+                        <outlet property="tableView" destination="c9a-Dj-a8h" id="2gF-yA-cqw"/>
                         <segue destination="lDT-Dp-3bJ" kind="show" identifier="DisplayMeteorogram" id="dj6-QC-1jS"/>
                     </connections>
                 </viewController>
@@ -115,7 +115,7 @@
         <!--Meteorogram Controller-->
         <scene sceneID="28n-8a-qI6">
             <objects>
-                <viewController id="lDT-Dp-3bJ" customClass="MMTMeteorogramController" sceneMemberID="viewController">
+                <viewController id="lDT-Dp-3bJ" customClass="MMTMeteorogramController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UQ4-RS-Rju"/>
                         <viewControllerLayoutGuide type="bottom" id="Hri-oe-C16"/>
@@ -130,7 +130,7 @@
                                     <navigationItem title="Miasto" prompt="Nazwa modelu" id="pkw-kA-ZXA">
                                         <barButtonItem key="rightBarButtonItem" title="zamknij" id="MLC-j3-gFA">
                                             <connections>
-                                                <action selector="onCloseBtnTouchAction:" destination="lDT-Dp-3bJ" id="J1N-fq-t5K"/>
+                                                <action selector="onCloseBtnTouchAction:" destination="lDT-Dp-3bJ" id="7FR-PX-N1n"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -152,8 +152,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="meteorogramImage" destination="zo9-bc-FiZ" id="3cF-TO-adQ"/>
-                        <outlet property="navigationBar" destination="tNU-2w-XXV" id="2kA-Ar-2Iw"/>
+                        <outlet property="meteorogramImage" destination="zo9-bc-FiZ" id="AoA-w2-YjM"/>
+                        <outlet property="navigationBar" destination="tNU-2w-XXV" id="9Ll-kq-ZPX"/>
                         <segue destination="VAf-RY-Lle" kind="unwind" identifier="UnwindToListOfCities" unwindAction="unwindToListOfCities:" id="vtl-wk-Up4"/>
                     </connections>
                 </viewController>
