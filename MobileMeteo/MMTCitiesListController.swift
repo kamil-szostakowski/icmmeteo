@@ -9,14 +9,23 @@
 import UIKit
 import Foundation
 
-class MMTModelUmController: UIViewController, UITableViewDelegate, UISearchBarDelegate
+enum MMTModelType: String
+{
+    case UM = "um"
+    case COAMPS = "coamps"
+    case WAM = "wam"
+}
+
+class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBarDelegate
 {
     // MARK: Outlets
     
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var tableView: UITableView!
-    
+        
     // MARK: Properties
+    
+    var modelType: MMTModelType!
     
     private var citiesStore: MMTCitiesStore!
     private var cities: [MMTCity]!
@@ -37,13 +46,8 @@ class MMTModelUmController: UIViewController, UITableViewDelegate, UISearchBarDe
         if (segue.identifier == Segue.DisplayMeteorogram) {                                                
             segue.destinationViewController.setValue(selectedCity?.name, forKey: "cityName")
             segue.destinationViewController.setValue(selectedCity?.location, forKey: "cityLocation")
-            segue.destinationViewController.setValue("Model UM", forKey: "meteorogramTitle")
+            segue.destinationViewController.setValue(tabBarItem.title, forKey: "meteorogramTitle")
         }
-    }
-    
-    override func canPerformUnwindSegueAction(action: Selector, fromViewController: UIViewController, withSender sender: AnyObject) -> Bool
-    {
-        return true
     }
     
     // MARK: Actions
