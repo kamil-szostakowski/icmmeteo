@@ -8,38 +8,20 @@
 
 import Foundation
 import CoreLocation
-
-class MMTCity: NSObject
-{
-    var name: String
-    var region: String
-    var location: CLLocation?
-    
-    init(name: String, region: String, location: CLLocation?)
-    {
-        self.name = name
-        self.region = region
-        self.location = location
-    }
-    
-    convenience init(name: String)
-    {
-        self.init(name: name, region: "", location: nil)
-    }
-    
-    convenience init(placemark: CLPlacemark)
-    {
-        self.init(name: placemark.name, region: placemark.administrativeArea, location: placemark.location)
-    }
-}
+import CoreData
 
 class MMTCitiesStore: NSObject
 {
-    private let geocoder: CLGeocoder
+    private typealias CitiesArray = [[String: AnyObject]]
     
-    override init()
+    private let geocoder: CLGeocoder
+    private let database: MMTDatabase
+    
+    init(db: MMTDatabase)
     {
         geocoder = CLGeocoder()
+        database = db
+        
         super.init()
     }
     
@@ -47,19 +29,29 @@ class MMTCitiesStore: NSObject
     
     func getAllCities() -> [MMTCity]
     {
-        let names = [
-            "Białystok", "Bydgoszcz", "Gdańsk", "Gorzów Wielkopolski", "Katowice", "Kielce",
-            "Kraków", "Lublin", "Łódź", "Olsztyn", "Opole", "Poznań", "Rzeszów", "Szczecin",
-            "Toruń", "Warszawa", "Wrocław", "Zielona Góra"
-        ]
-     
-        var cities = [MMTCity]()
+        let request = database.managedObjectModel.fetchRequestTemplateForName("FetchPopular")!
+        let cities = database.managedObjectContext.executeFetchRequest(request, error: nil)
+                
+        return cities as! [MMTCity]
+    }
+    
+    func getPredefinedCitiesFromFile(file: String) -> [MMTCity]
+    {
+        var result = [MMTCity]()
         
-        for name in names {
-            cities.append(MMTCity(name: name))
+        if let citiesList = getPredefinedCitiesFromFile(file)
+        {
+            for city in citiesList
+            {
+                let name = city["name"] as! String
+                let lat = city["latitude"] as! Double
+                let lng = city["longitude"] as! Double
+                
+                result.append(MMTCity(name: name, location: CLLocation(latitude: lat, longitude: lng)))
+            }
         }
         
-        return cities
+        return result
     }
     
     func getCitiesMachingCriteria(criteria: String) -> [MMTCity]
@@ -75,12 +67,27 @@ class MMTCitiesStore: NSObject
             (placemarks: [AnyObject]!, error: NSError!) in
             
             var cities = [MMTCity]()
-            
-            for placemark: CLPlacemark in placemarks as! [CLPlacemark] {
+
+            for placemark: CLPlacemark in placemarks as! [CLPlacemark] {                
                 cities.append(MMTCity(placemark: placemark))
             }
             
             completion(cities);
         })
+    }
+    
+    // MARK: Helper methods
+    
+    private func getPredefinedCitiesFromFile(path: String) -> CitiesArray?
+    {
+        if let data = NSData(contentsOfFile: path)
+        {
+            if let json: AnyObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: nil)
+            {
+                return json as? CitiesArray
+            }
+        }
+        
+        return nil
     }
 }

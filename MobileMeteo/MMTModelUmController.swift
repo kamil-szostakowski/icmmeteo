@@ -28,7 +28,7 @@ class MMTModelUmController: UIViewController, UITableViewDelegate, UISearchBarDe
     {
         super.viewDidLoad()
         
-        citiesStore = MMTCitiesStore()
+        citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         cities = citiesStore.getAllCities()
     }
     
