@@ -4,37 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
-        <!--Model COAMPS-->
-        <scene sceneID="AdW-zJ-S69">
-            <objects>
-                <viewController id="ao1-Rp-0xT" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hto-I2-bFE"/>
-                        <viewControllerLayoutGuide type="bottom" id="5mQ-rD-wQu"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="4C5-Iq-x4E">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Model COAMPS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gqc-HA-E16">
-                                <rect key="frame" x="188" y="258" width="127" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Model COAMPS" id="B8R-da-kWs"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="42u-93-vvC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="245" y="992"/>
-        </scene>
-        <!--Model UM-->
+        <!--Model-->
         <scene sceneID="Izp-fd-wZY">
             <objects>
-                <viewController id="WYV-gA-76P" customClass="MMTModelUmController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="WYV-gA-76P" customClass="MMTCitiesListController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9HV-St-ff9"/>
                         <viewControllerLayoutGuide type="bottom" id="GN3-RM-Cni"/>
@@ -101,7 +74,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Model UM" id="7Vu-Dc-7ts"/>
+                    <tabBarItem key="tabBarItem" title="Model" id="7Vu-Dc-7ts"/>
                     <connections>
                         <outlet property="searchBar" destination="duU-CU-zjU" id="Jf3-0R-vFi"/>
                         <outlet property="tableView" destination="c9a-Dj-a8h" id="2gF-yA-cqw"/>
@@ -110,7 +83,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ewx-d7-4a5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1057" y="992"/>
+            <point key="canvasLocation" x="-150" y="127.5"/>
         </scene>
         <!--Meteorogram Controller-->
         <scene sceneID="28n-8a-qI6">
@@ -160,12 +133,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WlD-H1-iXH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="VAf-RY-Lle" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-1054" y="1747"/>
+            <point key="canvasLocation" x="679.5" y="127.5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Jf9-ix-tX7">
             <objects>
-                <tabBarController id="VAh-Ln-Mxc" sceneMemberID="viewController">
+                <tabBarController id="VAh-Ln-Mxc" customClass="MMTTabBarController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="AQa-ng-TR8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -174,14 +147,14 @@
                     </tabBar>
                     <connections>
                         <segue destination="WYV-gA-76P" kind="relationship" relationship="viewControllers" id="CQD-83-f01"/>
-                        <segue destination="ao1-Rp-0xT" kind="relationship" relationship="viewControllers" id="jRg-ZG-Ghz"/>
-                        <segue destination="ZR4-As-A6f" kind="relationship" relationship="viewControllers" id="NmJ-vg-MGB"/>
                         <segue destination="sj4-kp-3OW" kind="relationship" relationship="viewControllers" id="sn4-HF-EfS"/>
+                        <segue destination="WYV-gA-76P" kind="relationship" relationship="viewControllers" id="vZf-c0-6TB"/>
+                        <segue destination="WYV-gA-76P" kind="relationship" relationship="viewControllers" id="Ynw-5k-cdW"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gVD-sy-iWH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-407" y="183"/>
+            <point key="canvasLocation" x="-1209" y="390"/>
         </scene>
         <!--Legenda-->
         <scene sceneID="2lb-S5-Lie">
@@ -200,34 +173,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRB-zu-26c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="379" y="183"/>
-        </scene>
-        <!--Model WAM-->
-        <scene sceneID="8JL-q8-LOa">
-            <objects>
-                <viewController id="ZR4-As-A6f" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="dRa-s9-mdq"/>
-                        <viewControllerLayoutGuide type="bottom" id="KUA-aD-svG"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="e8f-Zp-6kE">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Model WAM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9aC-4D-Ax2">
-                                <rect key="frame" x="241" y="264" width="95" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Model WAM" id="FSB-Rc-ugJ"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="t2g-lS-RMQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-407" y="992"/>
+            <point key="canvasLocation" x="-150" y="780"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="vZf-c0-6TB"/>
+    </inferredMetricsTieBreakers>
 </document>
