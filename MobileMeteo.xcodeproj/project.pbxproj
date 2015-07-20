@@ -204,8 +204,8 @@
 		F9E696901AFCC41D00273DA3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F957544E1B4D068400C4E672 /* MMTCitiesListController.swift */,
 				F9B686441B58DDD300E838BD /* MMTTabBarController.swift */,
+				F957544E1B4D068400C4E672 /* MMTCitiesListController.swift */,
 				F95754481B4CFF0A00C4E672 /* MMTMeteorogramController.swift */,
 			);
 			name = Controllers;

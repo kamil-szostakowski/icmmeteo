@@ -19,9 +19,7 @@ class MMTMeteorogramController: UIViewController
 
     // MARK: Properties
     
-    var meteorogramTitle: String?
-    var cityName: String?
-    var cityLocation: CLLocation?
+    var query: MMTMeteorogramQuery?
 
     // MARK: Controller methods
     
@@ -29,19 +27,18 @@ class MMTMeteorogramController: UIViewController
     {
         super.viewDidLoad()
         
-        navigationBar.topItem!.prompt = meteorogramTitle
-        navigationBar.topItem!.title = cityName
+        navigationBar.topItem!.prompt = query?.type.rawValue
+        navigationBar.topItem!.title = query?.locationName
         
-        if let location = cityLocation {
-            let query = MMTMeteorogramQuery(location: location, date: NSDate())
-            
-            MMTMeteorogramStore().getMeteorogramWithQuery(query, completion: {(data: NSData?, error: NSError?) in
+        MMTMeteorogramStore().getMeteorogramWithQuery(query!, completion: {(data: NSData?, error: NSError?) in
                 
-                if let meteorogram = data {
-                    self.meteorogramImage.image = UIImage(data: meteorogram)
-                }
-            })
-        }
+            if let meteorogram = data {
+                self.meteorogramImage.image = UIImage(data: meteorogram)
+            }
+            else {
+                NSLog("Meteorogram fetch error \(error)")
+            }
+        })
     }
 
     // MARK: Actions

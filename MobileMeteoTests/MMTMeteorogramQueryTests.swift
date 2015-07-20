@@ -15,17 +15,19 @@ class MMTMeteorogramQueryTests : XCTestCase
 {
     // MARK: Setup
     
-    var location : CLLocation!;
-    var formatter : NSDateFormatter!;
+    var location : CLLocation!
+    var formatter : NSDateFormatter!
+    var type: MMTModelType!
     
     override func setUp()
     {
         super.setUp()
         
         location = CLLocation(latitude: 53.03, longitude: 18.57)
-        formatter = NSDateFormatter();
+        formatter = NSDateFormatter()
         formatter.dateFormat = "YYYY-MM-dd'T'HH:mm"
         formatter.timeZone = NSTimeZone(forSecondsFromGMT:7200)
+        type = .UM
     }
     
     override func tearDown()
@@ -41,24 +43,39 @@ class MMTMeteorogramQueryTests : XCTestCase
     func testCoordinate()
     {
         let date = formatter.dateFromString("2015-04-15T10:00")!
-        let query = MMTMeteorogramQuery(location:location, date:date)
+        let query = MMTMeteorogramQuery(location:location, date:date, type: type)
     
         XCTAssertEqual(53.03, query.location.coordinate.latitude)
         XCTAssertEqual(18.57, query.location.coordinate.longitude)
     }
     
+    func testType()
+    {
+        let date = formatter.dateFromString("2015-04-15T10:00")!
+        let query = MMTMeteorogramQuery(location:location, date:date, type: type)
+        
+        XCTAssertEqual(.UM, query.type)
+    }
+    
+    func testName()
+    {
+        let query = MMTMeteorogramQuery(location: location, name: "Example", type: .UM)
+        
+        XCTAssertEqual("Example", query.locationName!)
+    }
+    
     func testDateBeforeNoon()
     {
         let date = formatter.dateFromString("2015-04-15T10:00")!
-        let query = MMTMeteorogramQuery(location:location, date:date)
+        let query = MMTMeteorogramQuery(location:location, date:date, type: type)
     
-        XCTAssertEqual("2015041500", query.date)
+        XCTAssertEqual(.UM, query.type)
     }
     
     func testDateAfterNoonOfLocalTimeZone()
     {
         let date = formatter.dateFromString("2015-02-13T13:00")!
-        let query = MMTMeteorogramQuery(location:location, date:date)
+        let query = MMTMeteorogramQuery(location:location, date:date, type: type)
     
         XCTAssertEqual("2015021300", query.date)
     }
@@ -66,7 +83,7 @@ class MMTMeteorogramQueryTests : XCTestCase
     func testDateAfterNoonOfGMTTimeZone()
     {
         let date = formatter.dateFromString("2015-02-13T14:00")!
-        let query = MMTMeteorogramQuery(location:location, date:date)
+        let query = MMTMeteorogramQuery(location:location, date:date, type: type)
         
         XCTAssertEqual("2015021312", query.date)
     }
