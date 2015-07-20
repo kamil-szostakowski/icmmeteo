@@ -12,9 +12,9 @@ class MMTMeteorogramStore: NSObject
 {
     func getMeteorogramWithQuery(query: MMTMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
     {
-        let delegate = MMTMeteorogramFetchDelegate(completion: completion)
+        let delegate = MMTMeteorogramFetchDelegate(query: query, completion: completion)
         let request = NSURLRequest(URL: NSURL.mmt_meteorogramSearchUrlWithQuery(query))
-        
+
         NSURLConnection(request: request, delegate: delegate)?.start()
     }
 }

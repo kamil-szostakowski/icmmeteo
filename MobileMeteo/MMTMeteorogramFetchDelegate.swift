@@ -13,15 +13,17 @@ public typealias MMTFetchMeteorogramCompletion = (data: NSData?, error: NSError?
 public class MMTMeteorogramFetchDelegate: NSObject, NSURLConnectionDataDelegate
 {
     let completion: MMTFetchMeteorogramCompletion
+    let query: MMTMeteorogramQuery!
     var responseData: NSData?
     
     // MARK: initializers
     
-    public init(completion: MMTFetchMeteorogramCompletion)
+    public init(query: MMTMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
     {
         self.completion = completion;
+        self.query = query
         
-        super.init();
+        super.init()
     }
     
     // MARK: Delegate methods
@@ -33,7 +35,7 @@ public class MMTMeteorogramFetchDelegate: NSObject, NSURLConnectionDataDelegate
         {
             let locationUri = redirectResponse.allHeaderFields["Location"] as? String
             let queryString = locationUri?.componentsSeparatedByString("?").last
-            let redirectUrl = NSURL(string: "?\(queryString!)", relativeToURL: NSURL.mmt_meteorogramDownloadBaseUrl())
+            let redirectUrl = NSURL(string: "?\(queryString!)", relativeToURL: NSURL.mmt_meteorogramDownloadBaseUrl(query.type))
             
             if let url = redirectUrl {
                 return NSURLRequest(URL: url)

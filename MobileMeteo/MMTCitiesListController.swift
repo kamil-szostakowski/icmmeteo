@@ -9,13 +9,6 @@
 import UIKit
 import Foundation
 
-enum MMTModelType: String
-{
-    case UM = "um"
-    case COAMPS = "coamps"
-    case WAM = "wam"
-}
-
 class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBarDelegate
 {
     // MARK: Outlets
@@ -31,6 +24,12 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     private var cities: [MMTCity]!
     private var selectedCity: MMTCity?
     
+    private var query: MMTMeteorogramQuery
+    {
+        var city = self.selectedCity!
+        return MMTMeteorogramQuery(location: city.location, name: city.name, type: self.modelType)
+    }
+    
     // MARK: Controller methods
     
     override func viewDidLoad()
@@ -43,10 +42,8 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        if (segue.identifier == Segue.DisplayMeteorogram) {                                                
-            segue.destinationViewController.setValue(selectedCity?.name, forKey: "cityName")
-            segue.destinationViewController.setValue(selectedCity?.location, forKey: "cityLocation")
-            segue.destinationViewController.setValue(tabBarItem.title, forKey: "meteorogramTitle")
+        if (segue.identifier == Segue.DisplayMeteorogram) {
+            segue.destinationViewController.setValue(query, forKey: "query")
         }
     }
     
