@@ -19,10 +19,7 @@ class MMTTabBarController: UITabBarController
         modelControllerAtIndex(0).modelType = MMTModelType.UM
         
         itemAtIndex(1).title = "Model COAMPS"
-        modelControllerAtIndex(1).modelType = MMTModelType.COAMPS
-        
-        itemAtIndex(2).title = "Model WAM"
-        modelControllerAtIndex(2).modelType = MMTModelType.WAM
+        modelControllerAtIndex(1).modelType = MMTModelType.COAMPS        
     }
     
     // MARK: Helper methods
