@@ -7,12 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8E8CC6161B62EF4A00579C46 /* MMTWamHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8CC6151B62EF4A00579C46 /* MMTWamHeaderView.swift */; };
 		DD63E1C13E4AA3D211BB1799 /* libPods-MobileMeteoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1FC1906742E93B61199BA9 /* libPods-MobileMeteoTests.a */; };
 		F917E6C21B42B7BC000FAA76 /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F917E6C11B42B7BC000FAA76 /* NSURL.swift */; };
+		F950E0D91B60C0D4000757B2 /* MMTModelWamSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F950E0D81B60C0D4000757B2 /* MMTModelWamSettingsController.swift */; };
 		F95754491B4CFF0A00C4E672 /* MMTMeteorogramController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95754481B4CFF0A00C4E672 /* MMTMeteorogramController.swift */; };
 		F957544B1B4D032800C4E672 /* MMTMeteorogramStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F957544A1B4D032800C4E672 /* MMTMeteorogramStore.swift */; };
 		F957544D1B4D050C00C4E672 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F957544C1B4D050C00C4E672 /* Constants.swift */; };
 		F957544F1B4D068400C4E672 /* MMTCitiesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F957544E1B4D068400C4E672 /* MMTCitiesListController.swift */; };
+		F987DB3C1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987DB3B1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift */; };
+		F987DB3E1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987DB3D1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift */; };
+		F9A751DA1B5CDDFC003B0B38 /* MMTMeteorogramWamController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A751D91B5CDDFC003B0B38 /* MMTMeteorogramWamController.swift */; };
+		F9A751DC1B5CEAAA003B0B38 /* MMTWamCategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A751DB1B5CEAAA003B0B38 /* MMTWamCategoryItem.swift */; };
 		F9AB98371B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AB98361B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift */; };
 		F9B2BA3F1B4BEC5B0081AC29 /* MMTMeteorogramFetchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B2BA3E1B4BEC5B0081AC29 /* MMTMeteorogramFetchDelegate.swift */; };
 		F9B2BA411B4BFD0F0081AC29 /* MMTCitiesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B2BA401B4BFD0F0081AC29 /* MMTCitiesStore.swift */; };
@@ -22,6 +28,7 @@
 		F9BB149F1B5670FD00C81B3F /* MMTDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BB149E1B5670FD00C81B3F /* MMTDatabase.swift */; };
 		F9BB14A41B56765700C81B3F /* MMTCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BB14A31B56765700C81B3F /* MMTCity.swift */; };
 		F9BB14A61B5697EE00C81B3F /* Cities.json in Resources */ = {isa = PBXBuildFile; fileRef = F9BB14A51B5697EE00C81B3F /* Cities.json */; };
+		F9C23A981B621DE400A94A4B /* MMTCollectionViewWamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C23A971B621DE400A94A4B /* MMTCollectionViewWamLayout.swift */; };
 		F9DB428E1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DB428D1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift */; };
 		F9E6966A1AFCC06600273DA3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9E696691AFCC06600273DA3 /* main.m */; };
 		F9E696701AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F9E6966E1AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld */; };
@@ -45,13 +52,20 @@
 /* Begin PBXFileReference section */
 		04AE35C0443F7462483E0937 /* Pods-MobileMeteoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileMeteoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests.release.xcconfig"; sourceTree = "<group>"; };
 		59DAFA5A45295B2517C31E1E /* Pods-MobileMeteoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileMeteoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8E8CC6151B62EF4A00579C46 /* MMTWamHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamHeaderView.swift; sourceTree = "<group>"; };
+		8E975CCF1B64248C00566C8B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		CC1FC1906742E93B61199BA9 /* libPods-MobileMeteoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileMeteoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F917E6C01B42B7BC000FAA76 /* MobileMeteo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileMeteo-Bridging-Header.h"; sourceTree = "<group>"; };
 		F917E6C11B42B7BC000FAA76 /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
+		F950E0D81B60C0D4000757B2 /* MMTModelWamSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTModelWamSettingsController.swift; sourceTree = "<group>"; };
 		F95754481B4CFF0A00C4E672 /* MMTMeteorogramController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramController.swift; sourceTree = "<group>"; };
 		F957544A1B4D032800C4E672 /* MMTMeteorogramStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramStore.swift; sourceTree = "<group>"; };
 		F957544C1B4D050C00C4E672 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F957544E1B4D068400C4E672 /* MMTCitiesListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesListController.swift; sourceTree = "<group>"; };
+		F987DB3B1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTActionSheetPresentationController.swift; sourceTree = "<group>"; };
+		F987DB3D1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTActionSheetTransitioningDelegate.swift; sourceTree = "<group>"; };
+		F9A751D91B5CDDFC003B0B38 /* MMTMeteorogramWamController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramWamController.swift; sourceTree = "<group>"; };
+		F9A751DB1B5CEAAA003B0B38 /* MMTWamCategoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamCategoryItem.swift; sourceTree = "<group>"; };
 		F9AB98361B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramQueryTests.swift; sourceTree = "<group>"; };
 		F9B2BA3E1B4BEC5B0081AC29 /* MMTMeteorogramFetchDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramFetchDelegate.swift; sourceTree = "<group>"; };
 		F9B2BA401B4BFD0F0081AC29 /* MMTCitiesStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesStore.swift; sourceTree = "<group>"; };
@@ -61,6 +75,7 @@
 		F9BB149E1B5670FD00C81B3F /* MMTDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTDatabase.swift; sourceTree = "<group>"; };
 		F9BB14A31B56765700C81B3F /* MMTCity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MMTCity.swift; path = ../MMTCity.swift; sourceTree = "<group>"; };
 		F9BB14A51B5697EE00C81B3F /* Cities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Cities.json; sourceTree = "<group>"; };
+		F9C23A971B621DE400A94A4B /* MMTCollectionViewWamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCollectionViewWamLayout.swift; sourceTree = "<group>"; };
 		F9DB428D1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramFetchDelegateTests.swift; sourceTree = "<group>"; };
 		F9E696641AFCC06600273DA3 /* MobileMeteo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileMeteo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9E696681AFCC06600273DA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -100,6 +115,8 @@
 		1E0B96656B6BD26F0DC667D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F9E696A31AFCE70700273DA3 /* CoreLocation.framework */,
+				8E975CCF1B64248C00566C8B /* CoreGraphics.framework */,
 				CC1FC1906742E93B61199BA9 /* libPods-MobileMeteoTests.a */,
 			);
 			name = Frameworks;
@@ -114,12 +131,31 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F987DB361B5F6B5B0034B7A0 /* ActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				F987DB3B1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift */,
+				F987DB3D1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift */,
+			);
+			name = ActionSheet;
+			sourceTree = "<group>";
+		};
 		F9900EB91B282B86006880A1 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
 				F917E6C11B42B7BC000FAA76 /* NSURL.swift */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		F9A873451B68D7AD00A1B949 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				8E8CC6151B62EF4A00579C46 /* MMTWamHeaderView.swift */,
+				F9A751DB1B5CEAAA003B0B38 /* MMTWamCategoryItem.swift */,
+				F9C23A971B621DE400A94A4B /* MMTCollectionViewWamLayout.swift */,
+			);
+			name = CollectionView;
 			sourceTree = "<group>";
 		};
 		F9BB14A01B56749E00C81B3F /* Entities */ = {
@@ -130,13 +166,31 @@
 			name = Entities;
 			sourceTree = "<group>";
 		};
+		F9C23A951B621D7200A94A4B /* OtehrModels */ = {
+			isa = PBXGroup;
+			children = (
+				F957544E1B4D068400C4E672 /* MMTCitiesListController.swift */,
+				F95754481B4CFF0A00C4E672 /* MMTMeteorogramController.swift */,
+			);
+			name = OtehrModels;
+			sourceTree = "<group>";
+		};
+		F9C23A961B621DA600A94A4B /* WamModel */ = {
+			isa = PBXGroup;
+			children = (
+				F9A873451B68D7AD00A1B949 /* CollectionView */,
+				F950E0D81B60C0D4000757B2 /* MMTModelWamSettingsController.swift */,
+				F9A751D91B5CDDFC003B0B38 /* MMTMeteorogramWamController.swift */,
+			);
+			name = WamModel;
+			sourceTree = "<group>";
+		};
 		F9E6965B1AFCC06600273DA3 = {
 			isa = PBXGroup;
 			children = (
 				F9E696661AFCC06600273DA3 /* MobileMeteo */,
 				F9E696831AFCC06600273DA3 /* MobileMeteoTests */,
 				F9E696651AFCC06600273DA3 /* Products */,
-				F9E696A31AFCE70700273DA3 /* CoreLocation.framework */,
 				30633BBDDD04849C6D04A982 /* Pods */,
 				1E0B96656B6BD26F0DC667D3 /* Frameworks */,
 			);
@@ -154,6 +208,7 @@
 		F9E696661AFCC06600273DA3 /* MobileMeteo */ = {
 			isa = PBXGroup;
 			children = (
+				F987DB361B5F6B5B0034B7A0 /* ActionSheet */,
 				F9E6969F1AFCDEA200273DA3 /* Model */,
 				F9E696901AFCC41D00273DA3 /* Controllers */,
 				F9900EB91B282B86006880A1 /* Categories */,
@@ -204,9 +259,9 @@
 		F9E696901AFCC41D00273DA3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				F9C23A961B621DA600A94A4B /* WamModel */,
+				F9C23A951B621D7200A94A4B /* OtehrModels */,
 				F9B686441B58DDD300E838BD /* MMTTabBarController.swift */,
-				F957544E1B4D068400C4E672 /* MMTCitiesListController.swift */,
-				F95754481B4CFF0A00C4E672 /* MMTMeteorogramController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -363,15 +418,22 @@
 				F9BB149B1B56379C00C81B3F /* AppDelegate.swift in Sources */,
 				F9E696701AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld in Sources */,
 				F9BB14A41B56765700C81B3F /* MMTCity.swift in Sources */,
+				8E8CC6161B62EF4A00579C46 /* MMTWamHeaderView.swift in Sources */,
+				F9A751DC1B5CEAAA003B0B38 /* MMTWamCategoryItem.swift in Sources */,
 				F957544F1B4D068400C4E672 /* MMTCitiesListController.swift in Sources */,
 				F9B33DEE1B43C39F00556ED1 /* MMTMeteorogramQuery.swift in Sources */,
 				F9B2BA411B4BFD0F0081AC29 /* MMTCitiesStore.swift in Sources */,
+				F987DB3C1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift in Sources */,
 				F957544D1B4D050C00C4E672 /* Constants.swift in Sources */,
+				F9C23A981B621DE400A94A4B /* MMTCollectionViewWamLayout.swift in Sources */,
 				F917E6C21B42B7BC000FAA76 /* NSURL.swift in Sources */,
+				F950E0D91B60C0D4000757B2 /* MMTModelWamSettingsController.swift in Sources */,
 				F9BB149F1B5670FD00C81B3F /* MMTDatabase.swift in Sources */,
 				F9B2BA3F1B4BEC5B0081AC29 /* MMTMeteorogramFetchDelegate.swift in Sources */,
 				F95754491B4CFF0A00C4E672 /* MMTMeteorogramController.swift in Sources */,
+				F9A751DA1B5CDDFC003B0B38 /* MMTMeteorogramWamController.swift in Sources */,
 				F957544B1B4D032800C4E672 /* MMTMeteorogramStore.swift in Sources */,
+				F987DB3E1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift in Sources */,
 				F9B686451B58DDD300E838BD /* MMTTabBarController.swift in Sources */,
 				F9E6966A1AFCC06600273DA3 /* main.m in Sources */,
 			);
