@@ -22,7 +22,7 @@ class MMTWamSettingsTests: XCTestCase
     {
         super.setUp()
         
-        let date = getDate(2015, 7, 30, 0)
+        let date = TT.getDate(2015, 7, 30, 0)
         
         settings = MMTWamSettings(date, forecastLength: 84);
     }
@@ -62,10 +62,10 @@ class MMTWamSettingsTests: XCTestCase
     {
         var moments = settings.forecastMoments
 
-        XCTAssertEqual(getDate(2015, 7, 30, 3), moments[0].date)
-        XCTAssertEqual(getDate(2015, 7, 31, 9), moments[10].date)
-        XCTAssertEqual(getDate(2015, 8, 1, 6), moments[17].date)
-        XCTAssertEqual(getDate(2015, 8, 2, 12), moments[27].date)
+        XCTAssertEqual(TT.getDate(2015, 7, 30, 3), moments[0].date)
+        XCTAssertEqual(TT.getDate(2015, 7, 31, 9), moments[10].date)
+        XCTAssertEqual(TT.getDate(2015, 8, 1, 6), moments[17].date)
+        XCTAssertEqual(TT.getDate(2015, 8, 2, 12), moments[27].date)
     }
     
     func testForecastDaysCount()
@@ -85,8 +85,8 @@ class MMTWamSettingsTests: XCTestCase
     
     func testRetreiveForecastMoment()
     {
-        let date1 = getDate(2015, 7, 30, 3)
-        let date2 = getDate(2015, 8, 31, 6)
+        let date1 = TT.getDate(2015, 7, 30, 3)
+        let date2 = TT.getDate(2015, 8, 31, 6)
 
         XCTAssertTrue(settings.momentForDate(date1) != nil)
         XCTAssertTrue(settings.momentForDate(date2) == nil)
@@ -94,8 +94,8 @@ class MMTWamSettingsTests: XCTestCase
     
     func testForecastMomentsSelection()
     {
-        let date1 = getDate(2015, 7, 30, 3)
-        let date2 = getDate(2015, 7, 30, 6)
+        let date1 = TT.getDate(2015, 7, 30, 3)
+        let date2 = TT.getDate(2015, 7, 30, 6)
         
         settings.setMomentSelection(date1, selected: true)
         settings.setMomentSelection(date2, selected: true)
@@ -106,7 +106,7 @@ class MMTWamSettingsTests: XCTestCase
     
     func testForecastMomentsDeselection()
     {
-        let date = getDate(2015, 7, 30, 3)
+        let date = TT.getDate(2015, 7, 30, 3)
         
         settings.setMomentSelection(date, selected: true)
         XCTAssertTrue(settings.momentForDate(date)!.selected)
@@ -118,27 +118,13 @@ class MMTWamSettingsTests: XCTestCase
     func testForecastMomentsBulkSelection()
     {
         let dates = [
-            getDate(2015, 7, 30, 3),
-            getDate(2015, 7, 30, 6),
+            TT.getDate(2015, 7, 30, 3),
+            TT.getDate(2015, 7, 30, 6),
         ]
         
         settings.setMomentsSelection(dates, selected: true)
         
         XCTAssertTrue(settings.momentForDate(dates[0])!.selected)
         XCTAssertTrue(settings.momentForDate(dates[1])!.selected)
-    }
-    
-    // MARK: Helper methods
-    
-    private func getDate(year: Int, _ month: Int, _ day: Int, _ hour: Int) -> NSDate
-    {
-        var components = NSDateComponents()
-        components.timeZone = NSTimeZone(name: "UTC")
-        components.year = year
-        components.month = month
-        components.day = day
-        components.hour = hour
-        
-        return NSCalendar.currentCalendar().dateFromComponents(components)!
-    }
+    }    
 }

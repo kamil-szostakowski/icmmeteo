@@ -8,11 +8,11 @@
 
 import Foundation
 
+public typealias MMTWamMoment = (date: NSDate, selected: Bool)
+public typealias MMTWamMomentGroups = [String: [MMTWamMoment]]
+
 public class MMTWamSettings: NSObject
 {
-    public typealias MMTWamMoment = (date: NSDate, selected: Bool)
-    public typealias MMTWamMomentGroups = [String: [MMTWamMoment]]
-    
     // MARK: Properties
     
     private let momentLength: Int
@@ -24,8 +24,14 @@ public class MMTWamSettings: NSObject
     public var categorySpectrumPeakPeriodEnabled: Bool = true
     
     public var forecastMoments: [MMTWamMoment]
+    
     public var forecastMomentsGrouppedByDay: [[MMTWamMoment]] {
         return getOrderedArrayOfGroups(getGroupedMoments(forecastMoments))
+    }
+    
+    public override var description: String
+    {
+        return "<MMTWamSettings \n categoryTideHeightEnabled: \(categoryTideHeightEnabled) \n categoryAvgTidePeriodEnabled: \(categoryAvgTidePeriodEnabled) \n categorySpectrumPeakPeriodEnabled: \(categorySpectrumPeakPeriodEnabled) \n moments: \(forecastMomentsGrouppedByDay.description)>"
     }
     
     // MARK: Initializers
