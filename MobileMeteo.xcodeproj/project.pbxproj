@@ -30,6 +30,8 @@
 		F9BB14A61B5697EE00C81B3F /* Cities.json in Resources */ = {isa = PBXBuildFile; fileRef = F9BB14A51B5697EE00C81B3F /* Cities.json */; };
 		F9C23A981B621DE400A94A4B /* MMTCollectionViewWamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C23A971B621DE400A94A4B /* MMTCollectionViewWamLayout.swift */; };
 		F9DB428E1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DB428D1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift */; };
+		F9E5D02D1B68EF85006429BA /* MMTWamSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E5D02C1B68EF85006429BA /* MMTWamSettingsTests.swift */; };
+		F9E5D02F1B68EFA3006429BA /* MMTWamSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E5D02E1B68EFA3006429BA /* MMTWamSettings.swift */; };
 		F9E6966A1AFCC06600273DA3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F9E696691AFCC06600273DA3 /* main.m */; };
 		F9E696701AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F9E6966E1AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld */; };
 		F9E696761AFCC06600273DA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9E696741AFCC06600273DA3 /* Main.storyboard */; };
@@ -77,6 +79,8 @@
 		F9BB14A51B5697EE00C81B3F /* Cities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Cities.json; sourceTree = "<group>"; };
 		F9C23A971B621DE400A94A4B /* MMTCollectionViewWamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCollectionViewWamLayout.swift; sourceTree = "<group>"; };
 		F9DB428D1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramFetchDelegateTests.swift; sourceTree = "<group>"; };
+		F9E5D02C1B68EF85006429BA /* MMTWamSettingsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamSettingsTests.swift; sourceTree = "<group>"; };
+		F9E5D02E1B68EFA3006429BA /* MMTWamSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamSettings.swift; sourceTree = "<group>"; };
 		F9E696641AFCC06600273DA3 /* MobileMeteo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileMeteo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9E696681AFCC06600273DA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9E696691AFCC06600273DA3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -242,6 +246,7 @@
 				F9AB98361B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift */,
 				F9DB428D1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift */,
 				F9FA38201B42728800A6EC00 /* MMTCategoryNSURLTests.swift */,
+				F9E5D02C1B68EF85006429BA /* MMTWamSettingsTests.swift */,
 				F9E696841AFCC06600273DA3 /* Supporting Files */,
 				F9FA381F1B42728700A6EC00 /* MobileMeteoTests-Bridging-Header.h */,
 			);
@@ -274,6 +279,7 @@
 				F9B33DED1B43C39F00556ED1 /* MMTMeteorogramQuery.swift */,
 				F957544A1B4D032800C4E672 /* MMTMeteorogramStore.swift */,
 				F9B2BA3E1B4BEC5B0081AC29 /* MMTMeteorogramFetchDelegate.swift */,
+				F9E5D02E1B68EFA3006429BA /* MMTWamSettings.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -302,11 +308,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F9E6968D1AFCC06600273DA3 /* Build configuration list for PBXNativeTarget "MobileMeteoTests" */;
 			buildPhases = (
-				82214AA5A5C6176E427A991D /* Check Pods Manifest.lock */,
 				F9E6967C1AFCC06600273DA3 /* Sources */,
 				F9E6967D1AFCC06600273DA3 /* Frameworks */,
 				F9E6967E1AFCC06600273DA3 /* Resources */,
-				CA97CB0A635D760B0ED1B160 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -377,45 +381,13 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		82214AA5A5C6176E427A991D /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		CA97CB0A635D760B0ED1B160 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		F9E696601AFCC06600273DA3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				F9BB149B1B56379C00C81B3F /* AppDelegate.swift in Sources */,
+				F9E5D02F1B68EFA3006429BA /* MMTWamSettings.swift in Sources */,
 				F9E696701AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld in Sources */,
 				F9BB14A41B56765700C81B3F /* MMTCity.swift in Sources */,
 				8E8CC6161B62EF4A00579C46 /* MMTWamHeaderView.swift in Sources */,
@@ -446,6 +418,7 @@
 				F9DB428E1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift in Sources */,
 				F9AB98371B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift in Sources */,
 				F9FA38211B42728800A6EC00 /* MMTCategoryNSURLTests.swift in Sources */,
+				F9E5D02D1B68EF85006429BA /* MMTWamSettingsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,7 +565,6 @@
 		};
 		F9E6968E1AFCC06600273DA3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 59DAFA5A45295B2517C31E1E /* Pods-MobileMeteoTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -617,7 +589,6 @@
 		};
 		F9E6968F1AFCC06600273DA3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 04AE35C0443F7462483E0937 /* Pods-MobileMeteoTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
