@@ -12,4 +12,5 @@ struct Segue
 {
     static let UnwindToListOfCities = "UnwindToListOfCities"
     static let DisplayMeteorogram = "DisplayMeteorogram"
+    static let DisplayWamSettings = "DisplayWamSettings"
 }

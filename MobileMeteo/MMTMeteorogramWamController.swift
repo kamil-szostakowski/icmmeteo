@@ -16,6 +16,8 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     @IBOutlet var refreshControl: UIView!
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var refreshControlTrailingOffset: NSLayoutConstraint!
+    
+    private var wamSettings: MMTWamSettings!
 
     // MARK: Properties
     
@@ -42,6 +44,8 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        wamSettings = MMTWamSettings()
     }
     
     override func viewDidAppear(animated: Bool)
@@ -58,8 +62,16 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         refreshControlTrailingOffset.constant = -refreshControl.frame.size.width
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if segue.identifier == Segue.DisplayWamSettings {
+            segue.destinationViewController.setValue(wamSettings, forKey: "wamSettings")
+        }
+    }
+    
     @IBAction func unwindToWamModel(unwindSegue: UIStoryboardSegue)
     {
+        wamSettings = unwindSegue.sourceViewController.valueForKey("wamSettings") as! MMTWamSettings
     }
     
     // MARK: UICollectionViewDataSource methods

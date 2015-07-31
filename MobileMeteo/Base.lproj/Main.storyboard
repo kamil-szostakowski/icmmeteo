@@ -192,6 +192,9 @@
                                 <subviews>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="saN-hT-Ac1" userLabel="Switch 1">
                                         <rect key="frame" x="-25" y="-15" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="didChangeTideHeightSelection:" destination="R10-eJ-oix" eventType="valueChanged" id="c8t-JG-9Tv"/>
+                                        </connections>
                                     </switch>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wysokość fali znacznej i średni kierunek fali" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4HP-9T-FnK">
                                         <rect key="frame" x="0.0" y="36" width="335" height="21"/>
@@ -259,6 +262,9 @@
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5m1-Zl-TM3" userLabel="Switch 2">
                                         <rect key="frame" x="-25" y="-15" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="didChangeAvgTidePeriodSelection:" destination="R10-eJ-oix" eventType="valueChanged" id="K1R-vx-IWE"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -318,6 +324,9 @@
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JSO-xP-iAc" userLabel="Switch 3">
                                         <rect key="frame" x="-25" y="-15" width="51" height="31"/>
+                                        <connections>
+                                            <action selector="didChangeSpectrumPeakPeriodSelection:" destination="R10-eJ-oix" eventType="valueChanged" id="vJw-b8-8OL"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -370,23 +379,81 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WamSettingsHeader" textLabel="niH-ft-NiP" rowHeight="25" style="IBUITableViewCellStyleDefault" id="uA4-k1-9qx">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WamSettingsHeader" rowHeight="25" id="uA4-k1-9qx" customClass="MMTWamMomentHeaderView" customModule="MobileMeteo" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uA4-k1-9qx" id="uUa-Ob-0fO">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="25.03.205" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="niH-ft-NiP">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="25.06.2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oct-eZ-HWd">
+                                                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact">
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    </variation>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xOP-VD-VM0">
+                                                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <state key="normal" title="wybierz">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" title="usuń zaznaczenie">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="didTapSelectButton:" destination="uA4-k1-9qx" eventType="touchUpInside" id="oSs-ZR-IbL"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Oct-eZ-HWd" firstAttribute="top" secondItem="uUa-Ob-0fO" secondAttribute="top" constant="3" id="ED4-xF-nbR">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                                                </constraint>
+                                                <constraint firstItem="xOP-VD-VM0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Oct-eZ-HWd" secondAttribute="trailing" priority="999" constant="10" id="OYe-nL-n5a">
+                                                    <variation key="heightClass=regular-widthClass=compact" constant="8"/>
+                                                </constraint>
+                                                <constraint firstItem="Oct-eZ-HWd" firstAttribute="leading" secondItem="uUa-Ob-0fO" secondAttribute="leading" constant="15" id="P7a-cE-1W0"/>
+                                                <constraint firstItem="xOP-VD-VM0" firstAttribute="top" secondItem="uUa-Ob-0fO" secondAttribute="top" id="VYo-rM-rpZ"/>
+                                                <constraint firstAttribute="trailing" secondItem="xOP-VD-VM0" secondAttribute="trailing" constant="8" id="f45-WL-3Qz"/>
+                                                <constraint firstAttribute="bottom" secondItem="Oct-eZ-HWd" secondAttribute="bottom" id="sE1-3f-kNj"/>
+                                                <constraint firstAttribute="bottom" secondItem="xOP-VD-VM0" secondAttribute="bottom" id="wGn-Ts-NdN"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="Oct-eZ-HWd"/>
+                                                    <exclude reference="xOP-VD-VM0"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="ED4-xF-nbR"/>
+                                                    <exclude reference="P7a-cE-1W0"/>
+                                                    <exclude reference="sE1-3f-kNj"/>
+                                                    <exclude reference="OYe-nL-n5a"/>
+                                                    <exclude reference="VYo-rM-rpZ"/>
+                                                    <exclude reference="f45-WL-3Qz"/>
+                                                    <exclude reference="wGn-Ts-NdN"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="Oct-eZ-HWd"/>
+                                                    <include reference="xOP-VD-VM0"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <include reference="ED4-xF-nbR"/>
+                                                    <include reference="P7a-cE-1W0"/>
+                                                    <include reference="sE1-3f-kNj"/>
+                                                    <include reference="OYe-nL-n5a"/>
+                                                    <include reference="VYo-rM-rpZ"/>
+                                                    <include reference="f45-WL-3Qz"/>
+                                                    <include reference="wGn-Ts-NdN"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="btnSelect" destination="xOP-VD-VM0" id="V4n-Dt-dvh"/>
+                                            <outlet property="lblTitle" destination="Oct-eZ-HWd" id="1l6-Sg-o0C"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WamSettingsTimeItem" textLabel="LfN-Mq-3ad" detailTextLabel="SZ2-Ri-DEf" style="IBUITableViewCellStyleSubtitle" id="arg-Lj-XOc">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -429,7 +496,11 @@
                                                 <segue destination="bm5-ak-SW3" kind="unwind" unwindAction="unwindToWamModel:" id="iZj-is-KUc"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="pokaż" id="fvc-eg-Voa"/>
+                                        <barButtonItem key="rightBarButtonItem" title="pokaż" id="fvc-eg-Voa">
+                                            <connections>
+                                                <segue destination="bm5-ak-SW3" kind="unwind" unwindAction="unwindToWamModel:" id="ZLE-N0-7Hg"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -508,6 +579,12 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="avgTidePeriodSwitch" destination="5m1-Zl-TM3" id="q0Y-Sb-vvo"/>
+                        <outlet property="spectrumPeakPeriodSwitch" destination="JSO-xP-iAc" id="GWl-NK-KL2"/>
+                        <outlet property="tableView" destination="fAR-ry-Yoa" id="hYB-dY-KHt"/>
+                        <outlet property="tideHeightSwitch" destination="saN-hT-Ac1" id="jum-Uq-MPP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qWl-wn-PQR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="bm5-ak-SW3" userLabel="Exit" sceneMemberID="exit"/>
@@ -535,7 +612,7 @@
                                             <navigationItem id="53d-BO-YMj">
                                                 <barButtonItem key="rightBarButtonItem" style="done" systemItem="compose" id="hAC-Sd-DBv">
                                                     <connections>
-                                                        <segue destination="R10-eJ-oix" kind="presentation" id="GbL-GK-VTQ"/>
+                                                        <segue destination="R10-eJ-oix" kind="presentation" identifier="DisplayWamSettings" id="GbL-GK-VTQ"/>
                                                     </connections>
                                                 </barButtonItem>
                                             </navigationItem>

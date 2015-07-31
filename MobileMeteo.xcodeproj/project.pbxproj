@@ -17,6 +17,10 @@
 		F957544F1B4D068400C4E672 /* MMTCitiesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F957544E1B4D068400C4E672 /* MMTCitiesListController.swift */; };
 		F987DB3C1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987DB3B1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift */; };
 		F987DB3E1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987DB3D1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift */; };
+		F99F24611B6B572300622E1E /* NSDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99F24601B6B572300622E1E /* NSDateFormatter.swift */; };
+		F99F24641B6B574900622E1E /* MMTTestTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99F24631B6B574900622E1E /* MMTTestTools.swift */; };
+		F99F24661B6B585000622E1E /* MMTCategoryNSDateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99F24651B6B585000622E1E /* MMTCategoryNSDateFormatterTests.swift */; };
+		F99F24681B6B725800622E1E /* MMTWamMomentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99F24671B6B725800622E1E /* MMTWamMomentHeaderView.swift */; };
 		F9A751DA1B5CDDFC003B0B38 /* MMTMeteorogramWamController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A751D91B5CDDFC003B0B38 /* MMTMeteorogramWamController.swift */; };
 		F9A751DC1B5CEAAA003B0B38 /* MMTWamCategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A751DB1B5CEAAA003B0B38 /* MMTWamCategoryItem.swift */; };
 		F9AB98371B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AB98361B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift */; };
@@ -66,6 +70,10 @@
 		F957544E1B4D068400C4E672 /* MMTCitiesListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesListController.swift; sourceTree = "<group>"; };
 		F987DB3B1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTActionSheetPresentationController.swift; sourceTree = "<group>"; };
 		F987DB3D1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTActionSheetTransitioningDelegate.swift; sourceTree = "<group>"; };
+		F99F24601B6B572300622E1E /* NSDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateFormatter.swift; sourceTree = "<group>"; };
+		F99F24631B6B574900622E1E /* MMTTestTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTTestTools.swift; sourceTree = "<group>"; };
+		F99F24651B6B585000622E1E /* MMTCategoryNSDateFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCategoryNSDateFormatterTests.swift; sourceTree = "<group>"; };
+		F99F24671B6B725800622E1E /* MMTWamMomentHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamMomentHeaderView.swift; sourceTree = "<group>"; };
 		F9A751D91B5CDDFC003B0B38 /* MMTMeteorogramWamController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramWamController.swift; sourceTree = "<group>"; };
 		F9A751DB1B5CEAAA003B0B38 /* MMTWamCategoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamCategoryItem.swift; sourceTree = "<group>"; };
 		F9AB98361B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramQueryTests.swift; sourceTree = "<group>"; };
@@ -148,8 +156,17 @@
 			isa = PBXGroup;
 			children = (
 				F917E6C11B42B7BC000FAA76 /* NSURL.swift */,
+				F99F24601B6B572300622E1E /* NSDateFormatter.swift */,
 			);
 			name = Categories;
+			sourceTree = "<group>";
+		};
+		F99F24621B6B573500622E1E /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				F99F24631B6B574900622E1E /* MMTTestTools.swift */,
+			);
+			name = Tools;
 			sourceTree = "<group>";
 		};
 		F9A873451B68D7AD00A1B949 /* CollectionView */ = {
@@ -185,6 +202,7 @@
 				F9A873451B68D7AD00A1B949 /* CollectionView */,
 				F950E0D81B60C0D4000757B2 /* MMTModelWamSettingsController.swift */,
 				F9A751D91B5CDDFC003B0B38 /* MMTMeteorogramWamController.swift */,
+				F99F24671B6B725800622E1E /* MMTWamMomentHeaderView.swift */,
 			);
 			name = WamModel;
 			sourceTree = "<group>";
@@ -243,10 +261,12 @@
 		F9E696831AFCC06600273DA3 /* MobileMeteoTests */ = {
 			isa = PBXGroup;
 			children = (
+				F99F24621B6B573500622E1E /* Tools */,
 				F9AB98361B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift */,
 				F9DB428D1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift */,
 				F9FA38201B42728800A6EC00 /* MMTCategoryNSURLTests.swift */,
 				F9E5D02C1B68EF85006429BA /* MMTWamSettingsTests.swift */,
+				F99F24651B6B585000622E1E /* MMTCategoryNSDateFormatterTests.swift */,
 				F9E696841AFCC06600273DA3 /* Supporting Files */,
 				F9FA381F1B42728700A6EC00 /* MobileMeteoTests-Bridging-Header.h */,
 			);
@@ -398,12 +418,14 @@
 				F987DB3C1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift in Sources */,
 				F957544D1B4D050C00C4E672 /* Constants.swift in Sources */,
 				F9C23A981B621DE400A94A4B /* MMTCollectionViewWamLayout.swift in Sources */,
+				F99F24611B6B572300622E1E /* NSDateFormatter.swift in Sources */,
 				F917E6C21B42B7BC000FAA76 /* NSURL.swift in Sources */,
 				F950E0D91B60C0D4000757B2 /* MMTModelWamSettingsController.swift in Sources */,
 				F9BB149F1B5670FD00C81B3F /* MMTDatabase.swift in Sources */,
 				F9B2BA3F1B4BEC5B0081AC29 /* MMTMeteorogramFetchDelegate.swift in Sources */,
 				F95754491B4CFF0A00C4E672 /* MMTMeteorogramController.swift in Sources */,
 				F9A751DA1B5CDDFC003B0B38 /* MMTMeteorogramWamController.swift in Sources */,
+				F99F24681B6B725800622E1E /* MMTWamMomentHeaderView.swift in Sources */,
 				F957544B1B4D032800C4E672 /* MMTMeteorogramStore.swift in Sources */,
 				F987DB3E1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift in Sources */,
 				F9B686451B58DDD300E838BD /* MMTTabBarController.swift in Sources */,
@@ -415,9 +437,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F99F24641B6B574900622E1E /* MMTTestTools.swift in Sources */,
 				F9DB428E1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift in Sources */,
 				F9AB98371B42809D00E68EC1 /* MMTMeteorogramQueryTests.swift in Sources */,
 				F9FA38211B42728800A6EC00 /* MMTCategoryNSURLTests.swift in Sources */,
+				F99F24661B6B585000622E1E /* MMTCategoryNSDateFormatterTests.swift in Sources */,
 				F9E5D02D1B68EF85006429BA /* MMTWamSettingsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
