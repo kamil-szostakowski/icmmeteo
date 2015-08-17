@@ -15,6 +15,8 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var topSpacing: NSLayoutConstraint!
+    @IBOutlet var infoBar: UIView!
         
     // MARK: Properties
     
@@ -38,6 +40,8 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         cities = citiesStore.getAllCities()
+        
+        tableView.tableHeaderView?.frame = CGRectMake(0, 0, view.frame.size.width, searchBar.bounds.height)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -82,6 +86,41 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         performSegueWithIdentifier(Segue.DisplayMeteorogram, sender: self)
     }
     
+    func scrollViewDidScroll(scrollView: UIScrollView)
+    {
+        let scrolled = scrollView.contentOffset.y > 0
+        let offset: CGFloat = scrolled ? max(-44, -scrollView.contentOffset.y) : 0
+        
+        self.animateInfoBarScrollWithOffset(offset)
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool)
+    {
+        let offset: CGFloat = scrollView.contentOffset.y > 0 ? -44 : 0
+        
+        self.animateInfoBarScrollWithOffset(offset)
+        
+        if scrollView.contentOffset.y < self.searchBar.bounds.height {
+            self.tableView.adjustContentOffsetForHeaderOfHeight(self.searchBar.bounds.height)
+        }
+    }
+    
+    private func animateInfoBarScrollWithOffset(offset: CGFloat)
+    {
+        let alpha: CGFloat = offset < 0 ? 0 : 1
+        
+        if topSpacing.constant != offset
+        {
+            let animations = { () -> Void in
+                self.topSpacing.constant = offset
+                self.infoBar.alpha = alpha
+                self.view.layoutIfNeeded()
+            }
+            
+            UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: nil, animations: animations, completion: nil)
+        }
+    }    
+    
     // MARK: UISearchBarDelegate methods
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
@@ -104,7 +143,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     {
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
-        searchBar.text = "";
+        searchBar.text = ""
     
         self.displayCities(citiesStore.getAllCities())
     }

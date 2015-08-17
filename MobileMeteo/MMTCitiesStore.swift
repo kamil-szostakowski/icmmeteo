@@ -67,9 +67,12 @@ class MMTCitiesStore: NSObject
             (placemarks: [AnyObject]!, error: NSError!) in
             
             var cities = [MMTCity]()
-
-            for placemark: CLPlacemark in placemarks as! [CLPlacemark] {                
-                cities.append(MMTCity(placemark: placemark))
+            
+            if error == nil
+            {
+                for placemark: CLPlacemark in placemarks as! [CLPlacemark] {
+                    cities.append(MMTCity(placemark: placemark))
+                }
             }
             
             completion(cities);
