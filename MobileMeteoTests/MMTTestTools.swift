@@ -23,4 +23,24 @@ class MMTTestTools
         
         return NSCalendar.currentCalendar().dateFromComponents(components)!
     }
+    
+    static var localFormatter: NSDateFormatter
+    {
+        let
+        localFormatter = NSDateFormatter()
+        localFormatter.dateFormat = "YYYY-MM-dd'T'HH:mm"
+        localFormatter.timeZone = NSTimeZone(forSecondsFromGMT:7200)
+        
+        return localFormatter
+    }
+    
+    static var utcFormatter: NSDateFormatter
+    {
+        let
+        utcFormatter = NSDateFormatter()
+        utcFormatter.dateFormat = "YYYY-MM-dd'T'HH:mm"
+        utcFormatter.timeZone = NSTimeZone(name: "UTC")
+            
+        return utcFormatter
+    }
 }

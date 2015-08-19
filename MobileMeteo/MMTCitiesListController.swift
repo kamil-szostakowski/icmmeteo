@@ -12,25 +12,21 @@ import Foundation
 class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBarDelegate
 {
     // MARK: Outlets
-    
+
+    @IBOutlet var topSpacing: NSLayoutConstraint!    
+    @IBOutlet var infoBar: UIView!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var topSpacing: NSLayoutConstraint!
-    @IBOutlet var infoBar: UIView!
+    @IBOutlet var lblForecastLenght: UILabel!
+    @IBOutlet var lblForecastStart: UILabel!
         
     // MARK: Properties
     
-    var modelType: MMTModelType!
+    var meteorogramStore: MMTMeteorogramStore!
     
     private var citiesStore: MMTCitiesStore!
     private var cities: [MMTCity]!
     private var selectedCity: MMTCity?
-    
-    private var query: MMTMeteorogramQuery
-    {
-        var city = self.selectedCity!
-        return MMTMeteorogramQuery(location: city.location, name: city.name, type: self.modelType)
-    }
     
     // MARK: Controller methods
     
@@ -46,8 +42,12 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        if (segue.identifier == Segue.DisplayMeteorogram) {
-            segue.destinationViewController.setValue(query, forKey: "query")
+        if (segue.identifier == Segue.DisplayMeteorogram)
+        {            
+            let query = MMTMeteorogramQuery(location: selectedCity!.location, name: selectedCity!.name)
+         
+            segue.destinationViewController.setValue(query, forKey: "query")            
+            segue.destinationViewController.setValue(meteorogramStore, forKey: "meteorogramStore")
         }
     }
     

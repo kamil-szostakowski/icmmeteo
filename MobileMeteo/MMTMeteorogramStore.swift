@@ -8,13 +8,13 @@
 
 import Foundation
 
-class MMTMeteorogramStore: NSObject
+public class MMTMeteorogramStore: NSObject
 {
-    func getMeteorogramWithQuery(query: MMTMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
-    {
-        let delegate = MMTMeteorogramFetchDelegate(query: query, completion: completion)
-        let request = NSURLRequest(URL: NSURL.mmt_meteorogramSearchUrlWithQuery(query))
-
-        NSURLConnection(request: request, delegate: delegate)?.start()
-    }
+    var meteorogramTitle: String { fatalError("") }
+    
+    var forecastLength: Int { fatalError("") }
+    
+    func forecastStartDateForDate(date: NSDate) -> NSDate { fatalError("") }
+    
+    func getMeteorogramWithQuery(query: MMTMeteorogramQuery, completion: MMTFetchMeteorogramCompletion) { fatalError("") }
 }
