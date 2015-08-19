@@ -19,7 +19,8 @@ class MMTMeteorogramController: UIViewController
 
     // MARK: Properties
     
-    var query: MMTMeteorogramQuery?
+    var query: MMTMeteorogramQuery!
+    var meteorogramStore: MMTMeteorogramStore!
 
     // MARK: Controller methods
     
@@ -27,10 +28,10 @@ class MMTMeteorogramController: UIViewController
     {
         super.viewDidLoad()
         
-        navigationBar.topItem!.prompt = query?.type.rawValue
-        navigationBar.topItem!.title = query?.locationName
+        navigationBar.topItem!.prompt = meteorogramStore.meteorogramTitle
+        navigationBar.topItem!.title = query.locationName
         
-        MMTMeteorogramStore().getMeteorogramWithQuery(query!, completion: {(data: NSData?, error: NSError?) in
+        meteorogramStore.getMeteorogramWithQuery(query, completion: {(data: NSData?, error: NSError?) in
                 
             if let meteorogram = data {
                 self.meteorogramImage.image = UIImage(data: meteorogram)

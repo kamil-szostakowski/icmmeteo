@@ -9,59 +9,32 @@
 import Foundation
 import CoreLocation
 
-public enum MMTModelType: String
-{
-    case UM = "Model UM"
-    case COAMPS = "Model COAMPS"
-    case WAM = "Model WAM"
-}
-
 public class MMTMeteorogramQuery: NSObject
 {
     // MARK: properties
     
-    private let storedLocation: CLLocation
-    private let storedDate: NSDate
-    private let storedType: MMTModelType
-    
-    public var locationName: String?
-    public var location: CLLocation { return storedLocation }
-    public var date: String { return generateDateString(storedDate) }
-    public var type: MMTModelType { return storedType }
+    public let date: NSDate
+    public let location: CLLocation
+    public let locationName: String?
     
     // MARK: initializers
     
-    public init(location: CLLocation, date: NSDate, type: MMTModelType)
+    public init(location: CLLocation, date: NSDate, name: String?)
     {
-        storedType = type
-        storedLocation = location
-        storedDate = date
-        
-        super.init()
-    }
-    
-    public convenience init(location: CLLocation, name: String, type: MMTModelType)
-    {
-        self.init(location: location, date: NSDate(), type: type)
+        self.location = location
+        self.date = date
         self.locationName = name
-    }
+
+        super.init()
+    }    
     
-    public convenience init(location: CLLocation, type: MMTModelType)
+    public convenience init(location: CLLocation, name: String)
     {
-        self.init(location: location, date: NSDate(), type: type)
+        self.init(location: location, date: NSDate(), name: name)
     }
-    
-    // MARK: Helper methods
-    
-    private func generateDateString(date: NSDate) -> String
+
+    public convenience init(location: CLLocation)
     {
-        let units: NSCalendarUnit = (.CalendarUnitYear)|(.CalendarUnitMonth)|(.CalendarUnitDay)|(.CalendarUnitHour)
-        let calendar = NSCalendar.currentCalendar().copy() as! NSCalendar
-        calendar.timeZone = NSTimeZone(name: "GMT")!
-        
-        let components = calendar.components(units, fromDate: date)
-        let tZero = components.hour < 12 ? 0 : 12;
-        
-        return String(format: "%04ld%02ld%02ld%02ld", components.year, components.month, components.day, tZero)
+        self.init(location: location, date: NSDate(), name: nil)
     }
 }

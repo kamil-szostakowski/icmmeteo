@@ -6,31 +6,27 @@
 //  Copyright (c) 2015 Kamil Szostakowski. All rights reserved.
 //
 
-import Foundation
 import UIKit
+import Foundation
 
 class MMTTabBarController: UITabBarController
 {
     override func viewDidLoad()
     {
         super.viewDidLoad()
-                        
-        itemAtIndex(0).title = "Model UM"
-        modelControllerAtIndex(0).modelType = MMTModelType.UM
         
-        itemAtIndex(1).title = "Model COAMPS"
-        modelControllerAtIndex(1).modelType = MMTModelType.COAMPS        
+        initItemAtIndex(0, withStore: MMTUmMeteorogramStore())
+        initItemAtIndex(1, withStore: MMTCoampsMeteorogramStore())
     }
     
     // MARK: Helper methods
     
-    func itemAtIndex(index: Int) -> UITabBarItem
+    private func initItemAtIndex(index: Int, withStore store: MMTMeteorogramStore)
     {
-        return tabBar.items?[index] as! UITabBarItem
-    }
-    
-    func modelControllerAtIndex(index: Int) -> MMTCitiesListController
-    {
-        return viewControllers?[index] as! MMTCitiesListController
+        let item = tabBar.items?[index] as! UITabBarItem
+        let controller = viewControllers?[index] as! MMTCitiesListController
+        
+        item.title = store.meteorogramTitle
+        controller.meteorogramStore = store
     }
 }
