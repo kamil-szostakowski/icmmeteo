@@ -951,16 +951,16 @@
                                 <exclude reference="S0z-Xw-SxZ"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="2Y4-xx-jc2"/>
-                                <exclude reference="buG-pC-07g"/>
-                                <exclude reference="ABk-PS-0Gx"/>
-                                <exclude reference="VRU-K5-Hgx"/>
-                                <exclude reference="i76-F0-H4y"/>
                                 <exclude reference="MyJ-wn-ubV"/>
                                 <exclude reference="fDF-Zo-gyf"/>
                                 <exclude reference="x1j-lI-LgD"/>
                                 <exclude reference="9MI-Yg-S1D"/>
                                 <exclude reference="AN3-s6-ZUT"/>
+                                <exclude reference="ABk-PS-0Gx"/>
+                                <exclude reference="VRU-K5-Hgx"/>
+                                <exclude reference="i76-F0-H4y"/>
+                                <exclude reference="2Y4-xx-jc2"/>
+                                <exclude reference="buG-pC-07g"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -970,16 +970,16 @@
                                 <include reference="S0z-Xw-SxZ"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="2Y4-xx-jc2"/>
-                                <include reference="buG-pC-07g"/>
-                                <include reference="ABk-PS-0Gx"/>
-                                <include reference="VRU-K5-Hgx"/>
-                                <include reference="i76-F0-H4y"/>
                                 <include reference="MyJ-wn-ubV"/>
                                 <include reference="fDF-Zo-gyf"/>
                                 <include reference="x1j-lI-LgD"/>
                                 <include reference="9MI-Yg-S1D"/>
                                 <include reference="AN3-s6-ZUT"/>
+                                <include reference="ABk-PS-0Gx"/>
+                                <include reference="VRU-K5-Hgx"/>
+                                <include reference="i76-F0-H4y"/>
+                                <include reference="2Y4-xx-jc2"/>
+                                <include reference="buG-pC-07g"/>
                             </mask>
                         </variation>
                     </view>

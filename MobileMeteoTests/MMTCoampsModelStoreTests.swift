@@ -10,16 +10,16 @@ import XCTest
 import Foundation
 import MobileMeteo
 
-class MMTCoampsMeteorogramStoreTests: XCTestCase
+class MMTCoampsModelStoreTests: XCTestCase
 {
-    var store: MMTCoampsMeteorogramStore!
+    var store: MMTCoampsModelStore!
     
     // MARK: Setup methods
     
     override func setUp()
     {
         super.setUp()
-        store = MMTCoampsMeteorogramStore()
+        store = MMTCoampsModelStore()
     }
     
     override func tearDown()

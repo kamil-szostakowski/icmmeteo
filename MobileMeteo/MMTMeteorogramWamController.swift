@@ -17,6 +17,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var refreshControlTrailingOffset: NSLayoutConstraint!
     
+    @IBOutlet var img: UIImageView!
     private var wamSettings: MMTWamSettings!
 
     // MARK: Properties
@@ -45,7 +46,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     {
         super.viewDidLoad()
         
-        wamSettings = MMTWamSettings()
+        wamSettings = MMTWamSettings()        
     }
     
     override func viewDidAppear(animated: Bool)

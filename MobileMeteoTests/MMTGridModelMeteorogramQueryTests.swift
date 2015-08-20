@@ -11,7 +11,7 @@ import Foundation
 import CoreLocation
 import MobileMeteo
 
-class MMTMeteorogramQueryTests : XCTestCase
+class MMTGridModelMeteorogramQueryTests : XCTestCase
 {
     // MARK: Setup
     
@@ -41,14 +41,14 @@ class MMTMeteorogramQueryTests : XCTestCase
     func testDate()
     {
         let date = formatter.dateFromString("2015-04-15T10:00")!
-        let query = MMTMeteorogramQuery(location:location, date: date, name: nil)
+        let query = MMTGridModelMeteorogramQuery(location:location, date: date, name: nil)
         
         XCTAssertEqual(date, query.date)
     }
     
     func testCoordinate()
     {
-        let query = MMTMeteorogramQuery(location:location)
+        let query = MMTGridModelMeteorogramQuery(location:location)
     
         XCTAssertEqual(53.03, query.location.coordinate.latitude)
         XCTAssertEqual(18.57, query.location.coordinate.longitude)
@@ -56,7 +56,7 @@ class MMTMeteorogramQueryTests : XCTestCase
     
     func testName()
     {
-        let query = MMTMeteorogramQuery(location: location, name: "Example")
+        let query = MMTGridModelMeteorogramQuery(location: location, name: "Example")
         
         XCTAssertEqual("Example", query.locationName!)
     }        

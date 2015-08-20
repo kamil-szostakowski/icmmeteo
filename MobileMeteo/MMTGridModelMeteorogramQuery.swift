@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-public class MMTMeteorogramQuery: NSObject
+public class MMTGridModelMeteorogramQuery: NSObject
 {
     // MARK: properties
     
