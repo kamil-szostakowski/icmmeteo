@@ -8,13 +8,11 @@
 
 import Foundation
 
-public class MMTMeteorogramStore: NSObject
+public class MMTClimateModelStore: NSObject
 {
     var meteorogramTitle: String { fatalError("") }
     
     var forecastLength: Int { fatalError("") }
     
-    func forecastStartDateForDate(date: NSDate) -> NSDate { fatalError("") }
-    
-    func getMeteorogramWithQuery(query: MMTMeteorogramQuery, completion: MMTFetchMeteorogramCompletion) { fatalError("") }
+    func forecastStartDateForDate(date: NSDate) -> NSDate { fatalError("") }    
 }

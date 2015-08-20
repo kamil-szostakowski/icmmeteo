@@ -53,4 +53,54 @@ class MMTCategoryNSURLTests: XCTestCase
         
         XCTAssertEqual(expectedUrl, NSURL.mmt_modelCoampsSearchUrl(location, tZero: date).absoluteString!);
     }
+    
+    // MARK: Model wam related tests
+    
+    func testModelWamTideHeightThumbnailUrl()
+    {
+        let expectedUrl = "http://www.meteo.pl/wamcoamps/pict/2015081900/small-crop-wavehgt_0W_2015081900_006-00.gif"
+        let date = TT.utcFormatter.dateFromString("2015-08-19T00:00")!
+        
+        XCTAssertEqual(expectedUrl, NSURL.mmt_modelWamTideHeightThumbnailUrl(date, plus: 6).absoluteString!)
+    }
+    
+    func testModelWamAvgTidePeriodThumbnailUrl()
+    {
+        let expectedUrl = "http://www.meteo.pl/wamcoamps/pict/2015081900/small-crop-m_period_0W_2015081900_003-00.gif"
+        let date = TT.utcFormatter.dateFromString("2015-08-19T00:00")!
+        
+        XCTAssertEqual(expectedUrl, NSURL.mmt_modelWamAvgTidePeriodThumbnailUrl(date, plus: 3).absoluteString!)
+    }
+    
+    func testModelWamSpectrumPeakPeriodThumbnailUrl()
+    {
+        let expectedUrl = "http://www.meteo.pl/wamcoamps/pict/2015081900/small-crop-p_period_0W_2015081900_003-00.gif"
+        let date = TT.utcFormatter.dateFromString("2015-08-19T00:00")!
+        
+        XCTAssertEqual(expectedUrl, NSURL.mmt_modelWamSpectrumPeakPeriodThumbnailUrl(date, plus: 3).absoluteString!)
+    }
+    
+    func testModelWamTideHeightDownloadUrl()
+    {
+        let expectedUrl = "http://www.meteo.pl/wamcoamps/pict/2015081900/wavehgt_0W_2015081900_003-00.png"
+        let date = TT.utcFormatter.dateFromString("2015-08-19T00:00")!
+        
+        XCTAssertEqual(expectedUrl, NSURL.mmt_modelWamTideHeightDownloadUrl(date, plus: 3).absoluteString!)
+    }
+    
+    func testModelWamAvgTidePeriodDownloadUrl()
+    {
+        let expectedUrl = "http://www.meteo.pl/wamcoamps/pict/2015081900/m_period_0W_2015081900_006-00.png"
+        let date = TT.utcFormatter.dateFromString("2015-08-19T00:00")!
+        
+        XCTAssertEqual(expectedUrl, NSURL.mmt_modelWamAvgTidePeriodDownloadUrl(date, plus: 6).absoluteString!)
+    }
+    
+    func testModelWamSpectrumPeakPeriodDownloadUrl()
+    {
+        let expectedUrl = "http://www.meteo.pl/wamcoamps/pict/2015081900/p_period_0W_2015081900_003-00.png"
+        let date = TT.utcFormatter.dateFromString("2015-08-19T00:00")!
+        
+        XCTAssertEqual(expectedUrl, NSURL.mmt_modelWamSpectrumPeakPeriodDownloadUrl(date, plus: 3).absoluteString!)
+    }
 }

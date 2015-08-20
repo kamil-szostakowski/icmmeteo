@@ -2,7 +2,7 @@
 //  MMTMeteorogramFetchDelegate.swift
 //  MobileMeteo
 //
-//  Created by Kamil Szostakowski on 07.07.2015.
+//  Created by Kamil Szostakowski on 20.08.2015.
 //  Copyright (c) 2015 Kamil Szostakowski. All rights reserved.
 //
 
@@ -12,38 +12,21 @@ public typealias MMTFetchMeteorogramCompletion = (data: NSData?, error: NSError?
 
 public class MMTMeteorogramFetchDelegate: NSObject, NSURLConnectionDataDelegate
 {
+    // MARK: Properties
+    
     let completion: MMTFetchMeteorogramCompletion
-    let downloadBaseUrl: NSURL!
     var responseData: NSData?
     
-    // MARK: initializers
+    // MARK: Initializers
     
-    public init(url: NSURL, completion: MMTFetchMeteorogramCompletion)
+    public init(completion: MMTFetchMeteorogramCompletion)
     {
         self.completion = completion;
-        self.downloadBaseUrl = url
         
         super.init()
     }
     
-    // MARK: Delegate methods
-    
-    public func connection(connection: NSURLConnection, willSendRequest request: NSURLRequest, redirectResponse response: NSURLResponse?)
-        -> NSURLRequest?
-    {
-        if let redirectResponse = (response as? NSHTTPURLResponse)
-        {
-            let locationUri = redirectResponse.allHeaderFields["Location"] as? String
-            let queryString = locationUri?.componentsSeparatedByString("?").last
-            let redirectUrl = NSURL(string: "?\(queryString!)", relativeToURL: downloadBaseUrl)
-            
-            if let url = redirectUrl {
-                return NSURLRequest(URL: url)
-            }
-        }
-        
-        return request;
-    }
+    // MARK: Protocol methods
     
     public func connection(connection: NSURLConnection, didReceiveData data: NSData)
     {

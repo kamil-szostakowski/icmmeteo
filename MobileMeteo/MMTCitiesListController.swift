@@ -22,7 +22,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         
     // MARK: Properties
     
-    var meteorogramStore: MMTMeteorogramStore!
+    var meteorogramStore: MMTGridClimateModelStore!
     
     private var citiesStore: MMTCitiesStore!
     private var cities: [MMTCity]!
@@ -44,7 +44,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     {
         if (segue.identifier == Segue.DisplayMeteorogram)
         {            
-            let query = MMTMeteorogramQuery(location: selectedCity!.location, name: selectedCity!.name)
+            let query = MMTGridModelMeteorogramQuery(location: selectedCity!.location, name: selectedCity!.name)
          
             segue.destinationViewController.setValue(query, forKey: "query")            
             segue.destinationViewController.setValue(meteorogramStore, forKey: "meteorogramStore")

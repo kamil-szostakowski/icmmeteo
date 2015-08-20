@@ -18,6 +18,8 @@ public extension NSURL
         return NSURL(string: "http://www.meteo.pl")!
     }
     
+    // MARK: Model UM related methods
+    
     public static func mmt_modelUmSearchUrl(location: CLLocation, tZero: NSDate) -> NSURL
     {
         let lat = location.coordinate.latitude
@@ -31,6 +33,8 @@ public extension NSURL
     {
         return NSURL(string: "/um/metco/mgram_pict.php", relativeToURL: mmt_baseUrl())!
     }
+    
+    // MARK: Model COAMPS related methods
     
     public static func mmt_modelCoampsSearchUrl(location: CLLocation, tZero: NSDate) -> NSURL
     {
@@ -46,7 +50,55 @@ public extension NSURL
         return NSURL(string: "/metco/mgram_pict.php", relativeToURL: mmt_baseUrl())!
     }
     
+    // MARK: Model WAM related methods
+    
+    public static func mmt_modelWamTideHeightThumbnailUrl(tZero: NSDate, plus: Int) -> NSURL
+    {
+        return mmt_modelWamThumbnailUrl("wavehgt", tZero: tZero, plus: plus)
+    }
+    
+    public static func mmt_modelWamAvgTidePeriodThumbnailUrl(tZero: NSDate, plus: Int) -> NSURL
+    {
+        return mmt_modelWamThumbnailUrl("m_period", tZero: tZero, plus: plus)
+    }
+    
+    public static func mmt_modelWamSpectrumPeakPeriodThumbnailUrl(tZero: NSDate, plus: Int) -> NSURL
+    {
+        return mmt_modelWamThumbnailUrl("p_period", tZero: tZero, plus: plus)
+    }
+    
+    public static func mmt_modelWamTideHeightDownloadUrl(tZero: NSDate, plus: Int) -> NSURL
+    {
+        return mmt_modelWamDownloadUrl("wavehgt", tZero: tZero, plus: plus)
+    }
+    
+    public static func mmt_modelWamAvgTidePeriodDownloadUrl(tZero: NSDate, plus: Int) -> NSURL
+    {
+        return mmt_modelWamDownloadUrl("m_period", tZero: tZero, plus: plus)
+    }
+    
+    public static func mmt_modelWamSpectrumPeakPeriodDownloadUrl(tZero: NSDate, plus: Int) -> NSURL
+    {
+        return mmt_modelWamDownloadUrl("p_period", tZero: tZero, plus: plus)
+    }
+    
     // MARK: Helper methods
+    
+    private static func mmt_modelWamDownloadUrl(infix: String, tZero: NSDate, plus: Int) -> NSURL
+    {
+        let tZeroString = tZeroStringForDate(tZero)
+        let tZeroPlus = NSString(format: "%03ld", plus)
+        
+        return NSURL(string: "/wamcoamps/pict/\(tZeroString)/\(infix)_0W_\(tZeroString)_\(tZeroPlus)-00.png", relativeToURL: mmt_baseUrl())!
+    }
+    
+    private static func mmt_modelWamThumbnailUrl(infix: String, tZero: NSDate, plus: Int) -> NSURL
+    {
+        let tZeroString = tZeroStringForDate(tZero)
+        let tZeroPlus = NSString(format: "%03ld", plus)
+        
+        return NSURL(string: "/wamcoamps/pict/\(tZeroString)/small-crop-\(infix)_0W_\(tZeroString)_\(tZeroPlus)-00.gif", relativeToURL: mmt_baseUrl())!
+    }
     
     private static func tZeroStringForDate(date: NSDate) -> String
     {

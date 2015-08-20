@@ -15,13 +15,13 @@ class MMTTabBarController: UITabBarController
     {
         super.viewDidLoad()
         
-        initItemAtIndex(0, withStore: MMTUmMeteorogramStore())
-        initItemAtIndex(1, withStore: MMTCoampsMeteorogramStore())
+        initItemAtIndex(0, withStore: MMTUmModelStore())
+        initItemAtIndex(1, withStore: MMTCoampsModelStore())
     }
     
     // MARK: Helper methods
     
-    private func initItemAtIndex(index: Int, withStore store: MMTMeteorogramStore)
+    private func initItemAtIndex(index: Int, withStore store: MMTGridClimateModelStore)
     {
         let item = tabBar.items?[index] as! UITabBarItem
         let controller = viewControllers?[index] as! MMTCitiesListController

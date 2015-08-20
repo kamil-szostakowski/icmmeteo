@@ -19,8 +19,8 @@ class MMTMeteorogramController: UIViewController
 
     // MARK: Properties
     
-    var query: MMTMeteorogramQuery!
-    var meteorogramStore: MMTMeteorogramStore!
+    var query: MMTGridModelMeteorogramQuery!
+    var meteorogramStore: MMTGridClimateModelStore!
 
     // MARK: Controller methods
     
