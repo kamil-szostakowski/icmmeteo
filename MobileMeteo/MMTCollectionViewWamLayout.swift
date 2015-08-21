@@ -41,17 +41,19 @@ class MMTCollectionViewWamLayout: UICollectionViewLayout
         }
         
         itemSize = calculateItemSize()
-        
+        cellLayoutAttributes = MMTLayoutIndex()
+        headerLayoutAttributes = MMTLayoutIndex()        
+
         for section in 0..<collectionView!.numberOfSections() {
             for item in 0..<collectionView!.numberOfItemsInSection(section) {
-                
                 let indexPath = NSIndexPath(forItem: item, inSection: section)
                 cellLayoutAttributes[indexPath] = createCellLayoutAttributesForIndexPath(indexPath)
             }
             
             let indexPath = NSIndexPath(forItem: 0, inSection: section)
             headerLayoutAttributes[indexPath] = createHeaderLayoutAttributesForIndexPath(indexPath)
-        }        
+        }
+        return
     }
     
     private func calculateItemSize() -> CGSize

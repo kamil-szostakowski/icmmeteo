@@ -42,12 +42,12 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        if (segue.identifier == Segue.DisplayMeteorogram)
-        {            
-            let query = MMTGridModelMeteorogramQuery(location: selectedCity!.location, name: selectedCity!.name)
-         
-            segue.destinationViewController.setValue(query, forKey: "query")            
-            segue.destinationViewController.setValue(meteorogramStore, forKey: "meteorogramStore")
+        if (segue.identifier == MMTSegue.DisplayMeteorogram)
+        {
+            let
+            controller = segue.destinationViewController as! MMTMeteorogramController
+            controller.query = MMTGridModelMeteorogramQuery(location: selectedCity!.location, date: NSDate(), locationName: selectedCity!.name)
+            controller.meteorogramStore = meteorogramStore
         }
     }
     
@@ -83,7 +83,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath)
     {
         selectedCity = cities[indexPath.row]        
-        performSegueWithIdentifier(Segue.DisplayMeteorogram, sender: self)
+        performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView)

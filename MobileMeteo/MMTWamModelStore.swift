@@ -8,8 +8,34 @@
 
 import Foundation
 
+public enum MMTWamCategory: Int
+{
+    case TideHeight = 0
+    case AvgTidePeriod
+    case SpectrumPeakPeriod
+    
+    var description: String
+    {
+        let descriptions = [
+            "Wysokość fali znacznej i średni kierunek fali",
+            "Średni okres fali",
+            "Okres piku widma"
+        ]
+            
+        return descriptions[self.rawValue]
+    }
+}
+
+public typealias MMTWamModelMeteorogramQuery = (category: MMTWamCategory, moment: NSDate)
+public typealias MMTWamMoment = (date: NSDate, selected: Bool)
+
 public class MMTWamModelStore: MMTClimateModelStore
 {
+    // MARK: Properties
+    
+    private let momentLength = 3
+    public let startDate: NSDate
+    
     public override var meteorogramTitle: String {
         return "Model WAM"
     }
@@ -17,8 +43,14 @@ public class MMTWamModelStore: MMTClimateModelStore
     public override var forecastLength: Int {
         return 84
     }
-
-    public override func forecastStartDateForDate(date: NSDate) -> NSDate
+    
+    public override var forecastStartDate: NSDate {
+        return self.startDate
+    }
+    
+    // MARK: Initializers
+    
+    public init(date: NSDate)
     {
         let units: NSCalendarUnit = (.CalendarUnitYear)|(.CalendarUnitMonth)|(.CalendarUnitDay)|(.CalendarUnitHour)
         
@@ -27,18 +59,28 @@ public class MMTWamModelStore: MMTClimateModelStore
         components.hour = 0
         components.minute = 0
         
-        return NSCalendar.utcCalendar.dateFromComponents(components)!
+        startDate = NSCalendar.utcCalendar.dateFromComponents(components)!
+        
+        super.init()
+    }
+    
+    // MARK: Methods
+    
+    public func getHoursFromForecastStartDate(forDate endDate: NSDate) -> Int
+    {
+        return Int(endDate.timeIntervalSinceDate(startDate)/3600)
     }
     
     public func getMeteorogramMomentThumbnailWithQuery(query: MMTWamModelMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
     {
         var downloadUrl: NSURL!
+        let tZeroPlus = getHoursFromForecastStartDate(forDate: query.moment)
         
         switch query.category
         {
-            case .TideHeight: downloadUrl = NSURL.mmt_modelWamTideHeightThumbnailUrl(query.tZero, plus: query.tZeroPlus)
-            case .AvgTidePeriod: downloadUrl = NSURL.mmt_modelWamAvgTidePeriodThumbnailUrl(query.tZero, plus: query.tZeroPlus)
-            case .SpectrumPeakPeriod: downloadUrl = NSURL.mmt_modelWamSpectrumPeakPeriodThumbnailUrl(query.tZero, plus: query.tZeroPlus)
+            case .TideHeight: downloadUrl = NSURL.mmt_modelWamTideHeightThumbnailUrl(startDate, plus: tZeroPlus)
+            case .AvgTidePeriod: downloadUrl = NSURL.mmt_modelWamAvgTidePeriodThumbnailUrl(startDate, plus: tZeroPlus)
+            case .SpectrumPeakPeriod: downloadUrl = NSURL.mmt_modelWamSpectrumPeakPeriodThumbnailUrl(startDate, plus: tZeroPlus)
         }
 
         NSURLConnection(request: NSURLRequest(URL: downloadUrl), delegate: MMTMeteorogramFetchDelegate(completion: completion))?.start()
@@ -47,14 +89,31 @@ public class MMTWamModelStore: MMTClimateModelStore
     public func getMeteorogramMomentWithQuery(query: MMTWamModelMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
     {
         var downloadUrl: NSURL!
+        let tZeroPlus = getHoursFromForecastStartDate(forDate: query.moment)
         
         switch query.category
         {
-            case .TideHeight: downloadUrl = NSURL.mmt_modelWamTideHeightDownloadUrl(query.tZero, plus: query.tZeroPlus)
-            case .AvgTidePeriod: downloadUrl = NSURL.mmt_modelWamAvgTidePeriodDownloadUrl(query.tZero, plus: query.tZeroPlus)
-            case .SpectrumPeakPeriod: downloadUrl = NSURL.mmt_modelWamSpectrumPeakPeriodDownloadUrl(query.tZero, plus: query.tZeroPlus)
+            case .TideHeight: downloadUrl = NSURL.mmt_modelWamTideHeightDownloadUrl(startDate, plus: tZeroPlus)
+            case .AvgTidePeriod: downloadUrl = NSURL.mmt_modelWamAvgTidePeriodDownloadUrl(startDate, plus: tZeroPlus)
+            case .SpectrumPeakPeriod: downloadUrl = NSURL.mmt_modelWamSpectrumPeakPeriodDownloadUrl(startDate, plus: tZeroPlus)
         }
 
         NSURLConnection(request: NSURLRequest(URL: downloadUrl), delegate: MMTMeteorogramFetchDelegate(completion: completion))?.start()
+    }
+    
+    public func getForecastMoments() -> [MMTWamMoment]
+    {
+        let momentsCount = forecastLength/momentLength
+        var forecastMoments = [MMTWamMoment]()
+        
+        for index in 1...momentsCount
+        {
+            let momentOffset = NSTimeInterval(index*momentLength*3600)
+            let moment = startDate.dateByAddingTimeInterval(momentOffset)
+            
+            forecastMoments.append((date: moment, selected: false))
+        }
+        
+        return forecastMoments
     }
 }

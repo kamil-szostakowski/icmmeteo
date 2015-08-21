@@ -8,9 +8,15 @@
 
 import Foundation
 
-struct Segue
+struct MMTSegue
 {
     static let UnwindToListOfCities = "UnwindToListOfCities"
     static let DisplayMeteorogram = "DisplayMeteorogram"
     static let DisplayWamSettings = "DisplayWamSettings"
+}
+
+struct MMTFormat
+{
+    static let TZeroPlus = "t0 +%03ldh"
+    static let TZero = "%04ld%02ld%02ld%02ld"
 }

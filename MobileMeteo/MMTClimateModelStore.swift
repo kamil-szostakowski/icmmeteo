@@ -14,5 +14,5 @@ public class MMTClimateModelStore: NSObject
     
     var forecastLength: Int { fatalError("") }
     
-    func forecastStartDateForDate(date: NSDate) -> NSDate { fatalError("") }    
+    var forecastStartDate: NSDate { fatalError("") }    
 }

@@ -22,9 +22,40 @@ class MMTWamSettingsTests: XCTestCase
     {
         super.setUp()
         
-        let date = TT.getDate(2015, 7, 30, 0)
-        
-        settings = MMTWamSettings(date, forecastLength: 84);
+        settings = MMTWamSettings(
+        [
+            (date: TT.getDate(2015, 07, 30, 3), selected: false),
+            (date: TT.getDate(2015, 07, 30, 6), selected: false),
+            (date: TT.getDate(2015, 07, 30, 9), selected: false),
+            (date: TT.getDate(2015, 07, 30, 12), selected: false),
+            (date: TT.getDate(2015, 07, 30, 15), selected: false),
+            (date: TT.getDate(2015, 07, 30, 18), selected: false),
+            (date: TT.getDate(2015, 07, 30, 21), selected: false),
+            
+            (date: TT.getDate(2015, 07, 31, 0), selected: false),
+            (date: TT.getDate(2015, 07, 31, 3), selected: false),
+            (date: TT.getDate(2015, 07, 31, 6), selected: false),
+            (date: TT.getDate(2015, 07, 31, 9), selected: false),
+            (date: TT.getDate(2015, 07, 31, 12), selected: false),
+            (date: TT.getDate(2015, 07, 31, 15), selected: false),
+            (date: TT.getDate(2015, 07, 31, 18), selected: false),
+            (date: TT.getDate(2015, 07, 31, 21), selected: false),
+            
+            (date: TT.getDate(2015, 08, 01, 0), selected: false),
+            (date: TT.getDate(2015, 08, 01, 3), selected: false),
+            (date: TT.getDate(2015, 08, 01, 6), selected: false),
+            (date: TT.getDate(2015, 08, 01, 9), selected: false),
+            (date: TT.getDate(2015, 08, 01, 12), selected: false),
+            (date: TT.getDate(2015, 08, 01, 15), selected: false),
+            (date: TT.getDate(2015, 08, 01, 18), selected: false),
+            (date: TT.getDate(2015, 08, 01, 21), selected: false),
+            
+            (date: TT.getDate(2015, 08, 02, 0), selected: false),
+            (date: TT.getDate(2015, 08, 02, 3), selected: false),
+            (date: TT.getDate(2015, 08, 02, 6), selected: false),
+            (date: TT.getDate(2015, 08, 02, 9), selected: false),
+            (date: TT.getDate(2015, 08, 02, 12), selected: false),
+        ]);
     }
     
     override func tearDown()
@@ -37,36 +68,28 @@ class MMTWamSettingsTests: XCTestCase
     
     func testSelectedForecastCategoriesForDefaultSettings()
     {
-        XCTAssertTrue(settings.categoryTideHeightEnabled)
-        XCTAssertTrue(settings.categoryAvgTidePeriodEnabled)
-        XCTAssertTrue(settings.categorySpectrumPeakPeriodEnabled)
-    }
-    
-    func testDisableForecastCategory()
-    {
-        settings.categoryTideHeightEnabled = false
-        settings.categoryAvgTidePeriodEnabled = false
-        settings.categorySpectrumPeakPeriodEnabled = false
+        let expected: [MMTWamCategory] = [.TideHeight, .AvgTidePeriod, .SpectrumPeakPeriod]
         
-        XCTAssertFalse(settings.categoryTideHeightEnabled)
-        XCTAssertFalse(settings.categoryAvgTidePeriodEnabled)
-        XCTAssertFalse(settings.categorySpectrumPeakPeriodEnabled)
+        XCTAssertEqual(expected, settings.selectedCategories)
     }
     
-    func testForecastMomentsCount()
+    func testDisableAllForecastCategories()
     {
-        XCTAssertEqual(28, settings.forecastMoments.count)
+        settings.setCategory(.TideHeight, enabled: false)
+        settings.setCategory(.AvgTidePeriod, enabled: false)
+        settings.setCategory(.SpectrumPeakPeriod, enabled: false)
+        
+        XCTAssertEqual([], settings.selectedCategories)
     }
     
-    func testForecastMoments()
+    func testDisableSelectedForecastCategories()
     {
-        var moments = settings.forecastMoments
-
-        XCTAssertEqual(TT.getDate(2015, 7, 30, 3), moments[0].date)
-        XCTAssertEqual(TT.getDate(2015, 7, 31, 9), moments[10].date)
-        XCTAssertEqual(TT.getDate(2015, 8, 1, 6), moments[17].date)
-        XCTAssertEqual(TT.getDate(2015, 8, 2, 12), moments[27].date)
-    }
+        settings.setCategory(.TideHeight, enabled: false)
+        settings.setCategory(.AvgTidePeriod, enabled: false)
+        settings.setCategory(.TideHeight, enabled: true)
+        
+        XCTAssertEqual([.TideHeight, .SpectrumPeakPeriod], settings.selectedCategories)
+    }    
     
     func testForecastDaysCount()
     {
@@ -102,6 +125,17 @@ class MMTWamSettingsTests: XCTestCase
         
         XCTAssertTrue(settings.momentForDate(date1)!.selected)
         XCTAssertTrue(settings.momentForDate(date2)!.selected)
+    }
+    
+    func testSelectedForecastMoments()
+    {
+        let date1 = TT.getDate(2015, 7, 30, 3)
+        let date2 = TT.getDate(2015, 7, 30, 6)
+        
+        settings.setMomentSelection(date1, selected: true)
+        settings.setMomentSelection(date2, selected: true)
+        
+        XCTAssertEqual(2, settings.forecastSelectedMoments.count)
     }
     
     func testForecastMomentsDeselection()

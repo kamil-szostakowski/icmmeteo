@@ -16,6 +16,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
     private let categoryTag = 100
     private var currentDate = NSDate()
     private var selectedIndexes = [NSIndexPath]()
+    private var wamStore: MMTWamModelStore!
     
     @IBOutlet var spectrumPeakPeriodSwitch: UISwitch!
     @IBOutlet var tideHeightSwitch: UISwitch!
@@ -31,30 +32,33 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         super.viewDidLoad()
         
         setupCategorySwitches()
+        wamStore = MMTWamModelStore(date: NSDate())
     }
     
     private func setupCategorySwitches()
     {
-        tideHeightSwitch.on = wamSettings.categoryTideHeightEnabled
-        avgTidePeriodSwitch.on = wamSettings.categoryAvgTidePeriodEnabled
-        spectrumPeakPeriodSwitch.on = wamSettings.categorySpectrumPeakPeriodEnabled
+        let categories = wamSettings.selectedCategories
+        
+        tideHeightSwitch.on = find(categories, .TideHeight) != nil
+        avgTidePeriodSwitch.on = find(categories, .AvgTidePeriod) != nil
+        spectrumPeakPeriodSwitch.on = find(categories, .SpectrumPeakPeriod) != nil
     }
     
     // MARK: Actions
     
     @IBAction func didChangeTideHeightSelection(sender: UISwitch)
     {
-        wamSettings.categoryTideHeightEnabled = sender.on
+        wamSettings.setCategory(.TideHeight, enabled: sender.on)
     }
     
     @IBAction func didChangeAvgTidePeriodSelection(sender: UISwitch)
     {
-        wamSettings.categoryAvgTidePeriodEnabled = sender.on
+        wamSettings.setCategory(.AvgTidePeriod, enabled: sender.on)
     }
     
     @IBAction func didChangeSpectrumPeakPeriodSelection(sender: UISwitch)
     {
-        wamSettings.categorySpectrumPeakPeriodEnabled = sender.on
+        wamSettings.setCategory(.SpectrumPeakPeriod, enabled: sender.on)
     }
     
     func didSelectCategory(category: UITableViewCell)
@@ -81,11 +85,12 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let moment = momentForIndexPath(indexPath)
-        let date = wamSettings.forecastMomentsGrouppedByDay[indexPath.section][indexPath.row].date
+        let date = wamSettings.forecastMomentsGrouppedByDay[indexPath.section][indexPath.row].date        
+        let tZeroPlus = wamStore.getHoursFromForecastStartDate(forDate: date)
         
         let
         cell = tableView.dequeueReusableCellWithIdentifier("WamSettingsTimeItem", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel?.text = NSDateFormatter.momentStyle.stringFromDate(date)
+        cell.textLabel?.text = String(NSString(format: MMTFormat.TZeroPlus, tZeroPlus))
         cell.detailTextLabel?.text = NSDateFormatter.shortStyle.stringFromDate(date)
         cell.accessoryType =  moment.selected ? .Checkmark : .None
         

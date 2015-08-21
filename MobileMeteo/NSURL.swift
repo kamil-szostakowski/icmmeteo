@@ -105,6 +105,6 @@ public extension NSURL
         let units: NSCalendarUnit = (.CalendarUnitYear)|(.CalendarUnitMonth)|(.CalendarUnitDay)|(.CalendarUnitHour)        
         let components = NSCalendar.utcCalendar.components(units, fromDate: date)
         
-        return String(format: "%04ld%02ld%02ld%02ld", components.year, components.month, components.day, components.hour)
+        return String(format: MMTFormat.TZero, components.year, components.month, components.day, components.hour)
     }
 }
