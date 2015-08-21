@@ -21,6 +21,17 @@ public extension NSDateFormatter
         return formatter
     }
     
+    public static var shortTimeStyle: NSDateFormatter
+    {
+        var
+        formatter = NSDateFormatter()
+        formatter.timeZone = NSTimeZone(name: "UTC")
+        formatter.dateStyle = .NoStyle
+        formatter.timeStyle = .ShortStyle
+        
+        return formatter
+    }
+    
     public static var momentStyle: NSDateFormatter
     {
         var

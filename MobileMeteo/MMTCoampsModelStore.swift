@@ -11,7 +11,10 @@ import CoreLocation
 
 public class MMTCoampsModelStore: MMTGridClimateModelStore
 {
-    private let waitingTime: NSTimeInterval = 18000    
+    // MARK: Properties
+    
+    private let waitingTime: NSTimeInterval = 18000
+    private var startDate: NSDate!
     
     public override var meteorogramTitle: String {
         return "Model COAMPS"
@@ -21,14 +24,23 @@ public class MMTCoampsModelStore: MMTGridClimateModelStore
         return 84
     }
     
-    public override func forecastStartDateForDate(date: NSDate) -> NSDate
-    {
-        return NSCalendar.utcCalendar.dateFromComponents(tZeroComponentsForDate(date))!
+    public override var forecastStartDate: NSDate {
+        return self.startDate
     }
     
-    public override func getMeteorogramWithQuery(query: MMTGridModelMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
+    // MARK: Initializers
+    
+    public init(date: NSDate)
     {
-        let searchUrl = NSURL.mmt_modelCoampsSearchUrl(query.location, tZero: forecastStartDateForDate(query.date))
+        super.init()
+        startDate = NSCalendar.utcCalendar.dateFromComponents(tZeroComponentsForDate(date))!
+    }
+    
+    // MARK: Methods
+    
+    public override func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion)
+    {
+        let searchUrl = NSURL.mmt_modelCoampsSearchUrl(location, tZero: forecastStartDate)
         let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL.mmt_modelCoampsDownloadBaseUrl(), completion: completion)
         
         NSURLConnection(request: NSURLRequest(URL: searchUrl), delegate: delegate)?.start()

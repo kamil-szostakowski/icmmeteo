@@ -31,7 +31,7 @@ class MMTMeteorogramController: UIViewController
         navigationBar.topItem!.prompt = meteorogramStore.meteorogramTitle
         navigationBar.topItem!.title = query.locationName
         
-        meteorogramStore.getMeteorogramWithQuery(query, completion: {(data: NSData?, error: NSError?) in
+        meteorogramStore.getMeteorogramForLocation(query.location, completion: {(data: NSData?, error: NSError?) in
                 
             if let meteorogram = data {
                 self.meteorogramImage.image = UIImage(data: meteorogram)
@@ -46,6 +46,6 @@ class MMTMeteorogramController: UIViewController
 
     @IBAction func onCloseBtnTouchAction(sender: UIBarButtonItem)
     {        
-        performSegueWithIdentifier(Segue.UnwindToListOfCities, sender: self)
+        performSegueWithIdentifier(MMTSegue.UnwindToListOfCities, sender: self)
     }
 }

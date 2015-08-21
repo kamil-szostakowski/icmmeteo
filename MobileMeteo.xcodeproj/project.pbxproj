@@ -35,16 +35,12 @@
 		F9DAEAA21B85D2DE00D4CD34 /* MMTClimateModelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEA9A1B85D2DE00D4CD34 /* MMTClimateModelStore.swift */; };
 		F9DAEAA31B85D2DE00D4CD34 /* MMTCoampsModelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEA9B1B85D2DE00D4CD34 /* MMTCoampsModelStore.swift */; };
 		F9DAEAA41B85D2DE00D4CD34 /* MMTGridClimateModelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEA9C1B85D2DE00D4CD34 /* MMTGridClimateModelStore.swift */; };
-		F9DAEAA51B85D2DE00D4CD34 /* MMTGridModelMeteorogramQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEA9D1B85D2DE00D4CD34 /* MMTGridModelMeteorogramQuery.swift */; };
 		F9DAEAA61B85D2DE00D4CD34 /* MMTMeteorogramRedirectionFetchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEA9E1B85D2DE00D4CD34 /* MMTMeteorogramRedirectionFetchDelegate.swift */; };
 		F9DAEAA71B85D2DE00D4CD34 /* MMTUmModelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEA9F1B85D2DE00D4CD34 /* MMTUmModelStore.swift */; };
-		F9DAEAA81B85D2DE00D4CD34 /* MMTWamModelMeteorogramQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEAA01B85D2DE00D4CD34 /* MMTWamModelMeteorogramQuery.swift */; };
 		F9DAEAA91B85D2DE00D4CD34 /* MMTWamModelStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEAA11B85D2DE00D4CD34 /* MMTWamModelStore.swift */; };
 		F9DAEAB31B85D39A00D4CD34 /* MMTCoampsModelStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEAAD1B85D39A00D4CD34 /* MMTCoampsModelStoreTests.swift */; };
-		F9DAEAB41B85D39A00D4CD34 /* MMTGridModelMeteorogramQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEAAE1B85D39A00D4CD34 /* MMTGridModelMeteorogramQueryTests.swift */; };
 		F9DAEAB51B85D39A00D4CD34 /* MMTMeteorogramRedirectionFetchDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEAAF1B85D39A00D4CD34 /* MMTMeteorogramRedirectionFetchDelegateTests.swift */; };
 		F9DAEAB61B85D39A00D4CD34 /* MMTUmModelStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEAB01B85D39A00D4CD34 /* MMTUmModelStoreTests.swift */; };
-		F9DAEAB71B85D39A00D4CD34 /* MMTWamModelMeteorogramQueryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEAB11B85D39A00D4CD34 /* MMTWamModelMeteorogramQueryTests.swift */; };
 		F9DAEAB81B85D39A00D4CD34 /* MMTWamModelStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEAB21B85D39A00D4CD34 /* MMTWamModelStoreTests.swift */; };
 		F9DB428E1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DB428D1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift */; };
 		F9E5D02D1B68EF85006429BA /* MMTWamSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E5D02C1B68EF85006429BA /* MMTWamSettingsTests.swift */; };
@@ -101,16 +97,12 @@
 		F9DAEA9A1B85D2DE00D4CD34 /* MMTClimateModelStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTClimateModelStore.swift; sourceTree = "<group>"; };
 		F9DAEA9B1B85D2DE00D4CD34 /* MMTCoampsModelStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCoampsModelStore.swift; sourceTree = "<group>"; };
 		F9DAEA9C1B85D2DE00D4CD34 /* MMTGridClimateModelStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTGridClimateModelStore.swift; sourceTree = "<group>"; };
-		F9DAEA9D1B85D2DE00D4CD34 /* MMTGridModelMeteorogramQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTGridModelMeteorogramQuery.swift; sourceTree = "<group>"; };
 		F9DAEA9E1B85D2DE00D4CD34 /* MMTMeteorogramRedirectionFetchDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramRedirectionFetchDelegate.swift; sourceTree = "<group>"; };
 		F9DAEA9F1B85D2DE00D4CD34 /* MMTUmModelStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTUmModelStore.swift; sourceTree = "<group>"; };
-		F9DAEAA01B85D2DE00D4CD34 /* MMTWamModelMeteorogramQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamModelMeteorogramQuery.swift; sourceTree = "<group>"; };
 		F9DAEAA11B85D2DE00D4CD34 /* MMTWamModelStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamModelStore.swift; sourceTree = "<group>"; };
 		F9DAEAAD1B85D39A00D4CD34 /* MMTCoampsModelStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCoampsModelStoreTests.swift; sourceTree = "<group>"; };
-		F9DAEAAE1B85D39A00D4CD34 /* MMTGridModelMeteorogramQueryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTGridModelMeteorogramQueryTests.swift; sourceTree = "<group>"; };
 		F9DAEAAF1B85D39A00D4CD34 /* MMTMeteorogramRedirectionFetchDelegateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramRedirectionFetchDelegateTests.swift; sourceTree = "<group>"; };
 		F9DAEAB01B85D39A00D4CD34 /* MMTUmModelStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTUmModelStoreTests.swift; sourceTree = "<group>"; };
-		F9DAEAB11B85D39A00D4CD34 /* MMTWamModelMeteorogramQueryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamModelMeteorogramQueryTests.swift; sourceTree = "<group>"; };
 		F9DAEAB21B85D39A00D4CD34 /* MMTWamModelStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamModelStoreTests.swift; sourceTree = "<group>"; };
 		F9DB428D1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramFetchDelegateTests.swift; sourceTree = "<group>"; };
 		F9E5D02C1B68EF85006429BA /* MMTWamSettingsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamSettingsTests.swift; sourceTree = "<group>"; };
@@ -191,7 +183,6 @@
 			isa = PBXGroup;
 			children = (
 				F9DAEAAC1B85D32800D4CD34 /* FetchDelegates */,
-				F9DAEAAB1B85D31D00D4CD34 /* Queries */,
 				F9DAEAAA1B85D30200D4CD34 /* Abstracts */,
 				F9B2BA401B4BFD0F0081AC29 /* MMTCitiesStore.swift */,
 				F9DAEA9F1B85D2DE00D4CD34 /* MMTUmModelStore.swift */,
@@ -275,15 +266,6 @@
 			name = Abstracts;
 			sourceTree = "<group>";
 		};
-		F9DAEAAB1B85D31D00D4CD34 /* Queries */ = {
-			isa = PBXGroup;
-			children = (
-				F9DAEA9D1B85D2DE00D4CD34 /* MMTGridModelMeteorogramQuery.swift */,
-				F9DAEAA01B85D2DE00D4CD34 /* MMTWamModelMeteorogramQuery.swift */,
-			);
-			name = Queries;
-			sourceTree = "<group>";
-		};
 		F9DAEAAC1B85D32800D4CD34 /* FetchDelegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,15 +273,6 @@
 				F9DAEA9E1B85D2DE00D4CD34 /* MMTMeteorogramRedirectionFetchDelegate.swift */,
 			);
 			name = FetchDelegates;
-			sourceTree = "<group>";
-		};
-		F9DAEAB91B85D3AE00D4CD34 /* QueriesTests */ = {
-			isa = PBXGroup;
-			children = (
-				F9DAEAAE1B85D39A00D4CD34 /* MMTGridModelMeteorogramQueryTests.swift */,
-				F9DAEAB11B85D39A00D4CD34 /* MMTWamModelMeteorogramQueryTests.swift */,
-			);
-			name = QueriesTests;
 			sourceTree = "<group>";
 		};
 		F9DAEABA1B85D3C000D4CD34 /* FetchDelegatesTests */ = {
@@ -366,7 +339,6 @@
 			isa = PBXGroup;
 			children = (
 				F9DAEABA1B85D3C000D4CD34 /* FetchDelegatesTests */,
-				F9DAEAB91B85D3AE00D4CD34 /* QueriesTests */,
 				F99A8A371B849A850098E170 /* CategoriesTests */,
 				F99A8A361B849A760098E170 /* StoresTests */,
 				F99F24621B6B573500622E1E /* Tools */,
@@ -518,13 +490,11 @@
 				F9BB14A41B56765700C81B3F /* MMTCity.swift in Sources */,
 				8E8CC6161B62EF4A00579C46 /* MMTWamHeaderView.swift in Sources */,
 				F9A751DC1B5CEAAA003B0B38 /* MMTWamCategoryItem.swift in Sources */,
-				F9DAEAA51B85D2DE00D4CD34 /* MMTGridModelMeteorogramQuery.swift in Sources */,
 				F957544F1B4D068400C4E672 /* MMTCitiesListController.swift in Sources */,
 				F9B2BA411B4BFD0F0081AC29 /* MMTCitiesStore.swift in Sources */,
 				F987DB3C1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift in Sources */,
 				F9C5B5B01B81D1FC00CFB503 /* UIScrollView.swift in Sources */,
 				F957544D1B4D050C00C4E672 /* Constants.swift in Sources */,
-				F9DAEAA81B85D2DE00D4CD34 /* MMTWamModelMeteorogramQuery.swift in Sources */,
 				F99A8A301B846A4B0098E170 /* NSCalendar.swift in Sources */,
 				F9C23A981B621DE400A94A4B /* MMTCollectionViewWamLayout.swift in Sources */,
 				F99A8A2C1B8463FE0098E170 /* NSURL.swift in Sources */,
@@ -550,11 +520,9 @@
 				F99A8A2E1B8464E50098E170 /* MMTCategoryNSURLTests.swift in Sources */,
 				F9DAEAB61B85D39A00D4CD34 /* MMTUmModelStoreTests.swift in Sources */,
 				F9DB428E1B42852200BF5299 /* MMTMeteorogramFetchDelegateTests.swift in Sources */,
-				F9DAEAB71B85D39A00D4CD34 /* MMTWamModelMeteorogramQueryTests.swift in Sources */,
 				F9DAEAB51B85D39A00D4CD34 /* MMTMeteorogramRedirectionFetchDelegateTests.swift in Sources */,
 				F9DAEAB31B85D39A00D4CD34 /* MMTCoampsModelStoreTests.swift in Sources */,
 				F99F24661B6B585000622E1E /* MMTCategoryNSDateFormatterTests.swift in Sources */,
-				F9DAEAB41B85D39A00D4CD34 /* MMTGridModelMeteorogramQueryTests.swift in Sources */,
 				F9DAEAB81B85D39A00D4CD34 /* MMTWamModelStoreTests.swift in Sources */,
 				F9E5D02D1B68EF85006429BA /* MMTWamSettingsTests.swift in Sources */,
 			);

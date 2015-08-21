@@ -15,8 +15,8 @@ class MMTTabBarController: UITabBarController
     {
         super.viewDidLoad()
         
-        initItemAtIndex(0, withStore: MMTUmModelStore())
-        initItemAtIndex(1, withStore: MMTCoampsModelStore())
+        initItemAtIndex(0, withStore: MMTUmModelStore(date: NSDate()))
+        initItemAtIndex(1, withStore: MMTCoampsModelStore(date: NSDate()))
     }
     
     // MARK: Helper methods

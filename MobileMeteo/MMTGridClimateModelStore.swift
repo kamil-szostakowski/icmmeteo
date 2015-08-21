@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import CoreLocation
+
+public typealias MMTGridModelMeteorogramQuery = (location: CLLocation, date: NSDate, locationName: String?)
 
 public class MMTGridClimateModelStore: MMTClimateModelStore
 {    
-    func getMeteorogramWithQuery(query: MMTGridModelMeteorogramQuery, completion: MMTFetchMeteorogramCompletion) { fatalError("") }
+    func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion) { fatalError("") }
 }

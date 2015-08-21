@@ -8,52 +8,58 @@
 
 import Foundation
 
-public typealias MMTWamMoment = (date: NSDate, selected: Bool)
 public typealias MMTWamMomentGroups = [String: [MMTWamMoment]]
 
 public class MMTWamSettings: NSObject
 {
     // MARK: Properties
     
-    private let momentLength: Int
-    private let forecastStart: NSDate
-    public let forecastLength: Int
-    
-    public var categoryTideHeightEnabled: Bool = true
-    public var categoryAvgTidePeriodEnabled: Bool = true
-    public var categorySpectrumPeakPeriodEnabled: Bool = true
+    private var categories: [MMTWamCategory] = [.TideHeight, .AvgTidePeriod, .SpectrumPeakPeriod]
     
     public var forecastMoments: [MMTWamMoment]
     
-    public var forecastMomentsGrouppedByDay: [[MMTWamMoment]] {
+    public var forecastSelectedMoments: [MMTWamMoment]
+    {
+        return forecastMoments.filter(){ $0.selected }
+    }
+    
+    public var selectedCategories: [MMTWamCategory]
+    {
+        return categories.sorted(){ $0.rawValue < $1.rawValue }
+    }
+    
+    public var forecastMomentsGrouppedByDay: [[MMTWamMoment]]
+    {
         return getOrderedArrayOfGroups(getGroupedMoments(forecastMoments))
     }
     
     public override var description: String
     {
-        return "<MMTWamSettings \n categoryTideHeightEnabled: \(categoryTideHeightEnabled) \n categoryAvgTidePeriodEnabled: \(categoryAvgTidePeriodEnabled) \n categorySpectrumPeakPeriodEnabled: \(categorySpectrumPeakPeriodEnabled) \n moments: \(forecastMomentsGrouppedByDay.description)>"
+        return "<MMTWamSettings \n categories: \(selectedCategories.description) \n moments: \(forecastMomentsGrouppedByDay.description)>"
     }
     
     // MARK: Initializers
     
-    public init(_ date: NSDate, forecastLength lenght: Int)
+    public init(_ moments: [MMTWamMoment])
     {
-        momentLength = 3
-        forecastLength = lenght
-        forecastStart = date
-        forecastMoments = [MMTWamMoment]()
-        
+        forecastMoments = moments        
         super.init()
-
-        generateMoments()
-    }
-    
-    public convenience override init()
-    {
-        self.init(NSDate(), forecastLength: 84)
     }
     
     // MARK: Methods
+    
+    public func setCategory(category: MMTWamCategory, enabled: Bool)
+    {
+        let found = find(categories, category)
+        
+        if found != nil && !enabled {
+            categories.removeAtIndex(found!)
+        }
+        
+        else if found == nil && enabled {
+            categories.append(category)
+        }        
+    }
     
     public func momentForDate(date: NSDate) -> MMTWamMoment?
     {
@@ -77,19 +83,7 @@ public class MMTWamSettings: NSObject
         }
     }
     
-    // MARK: Helper methods
-    
-    private func generateMoments()
-    {
-        let momentsCount = forecastLength/momentLength
-        for index in 1...momentsCount
-        {
-            let momentOffset = NSTimeInterval(index*momentLength*3600)
-            let moment = forecastStart.dateByAddingTimeInterval(momentOffset)
-            
-            forecastMoments.append((date: moment, selected: false))
-        }
-    }
+    // MARK: Helper methods    
     
     private func getOrderedArrayOfGroups(groupedMoments: MMTWamMomentGroups) -> [[MMTWamMoment]]
     {
