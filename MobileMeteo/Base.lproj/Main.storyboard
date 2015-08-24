@@ -28,13 +28,13 @@
                                             <rect key="frame" x="0.0" y="-20" width="0.0" height="44"/>
                                         </variation>
                                     </navigationBar>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="start prognozy t0 : 2015.07.23 00:00 UTC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TB7-Qq-V0f">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Długość prognozy: 84h, Siatka 4km" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TB7-Qq-V0f">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Długość prognozy: 84h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csI-Kb-QLu">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="start prognozy t0 : 2015.07.23 00:00 UTC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csI-Kb-QLu">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -190,8 +190,8 @@
                     <tabBarItem key="tabBarItem" title="Model" id="7Vu-Dc-7ts"/>
                     <connections>
                         <outlet property="infoBar" destination="tVZ-dR-7tL" id="3fM-qs-hrf"/>
-                        <outlet property="lblForecastLenght" destination="csI-Kb-QLu" id="kZ4-iX-WNf"/>
-                        <outlet property="lblForecastStart" destination="TB7-Qq-V0f" id="8kk-5f-MSi"/>
+                        <outlet property="lblForecastLenght" destination="TB7-Qq-V0f" id="UnI-T2-zQi"/>
+                        <outlet property="lblForecastStart" destination="csI-Kb-QLu" id="Hu1-ed-ufN"/>
                         <outlet property="searchBar" destination="duU-CU-zjU" id="Jf3-0R-vFi"/>
                         <outlet property="tableView" destination="c9a-Dj-a8h" id="2gF-yA-cqw"/>
                         <outlet property="topSpacing" destination="yZz-Je-1E1" id="QZe-Bs-YIE"/>
@@ -735,13 +735,13 @@
                                             </navigationItem>
                                         </items>
                                     </navigationBar>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="start prognozy t0 : 2015.07.23 00:00 UTC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ge9-ht-NJA">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Długość prognozy: 84h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ge9-ht-NJA">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Długość prognozy: 84h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xdv-Ah-Krf">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="start prognozy t0 : 2015.07.23 00:00 UTC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xdv-Ah-Krf">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -858,7 +858,7 @@
                                                         </constraint>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
@@ -904,18 +904,18 @@
                                                 <exclude reference="3EN-xj-YZK"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <exclude reference="HiS-T2-Itn"/>
-                                                <exclude reference="OW8-m7-ZGM"/>
-                                                <exclude reference="nAO-gV-EUx"/>
                                                 <exclude reference="E13-qv-AB6"/>
                                                 <exclude reference="LzF-rd-PQh"/>
                                                 <exclude reference="QL7-DR-TP7"/>
-                                                <exclude reference="6UH-HU-hBV"/>
-                                                <exclude reference="qJL-lP-XdE"/>
                                                 <exclude reference="Hyv-A1-YHC"/>
                                                 <exclude reference="JsX-HY-hMu"/>
                                                 <exclude reference="ely-wZ-zsx"/>
                                                 <exclude reference="qbx-Fr-d69"/>
+                                                <exclude reference="HiS-T2-Itn"/>
+                                                <exclude reference="OW8-m7-ZGM"/>
+                                                <exclude reference="nAO-gV-EUx"/>
+                                                <exclude reference="6UH-HU-hBV"/>
+                                                <exclude reference="qJL-lP-XdE"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -926,18 +926,18 @@
                                                 <include reference="3EN-xj-YZK"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <include reference="HiS-T2-Itn"/>
-                                                <include reference="OW8-m7-ZGM"/>
-                                                <include reference="nAO-gV-EUx"/>
                                                 <include reference="E13-qv-AB6"/>
                                                 <include reference="LzF-rd-PQh"/>
                                                 <include reference="QL7-DR-TP7"/>
-                                                <include reference="6UH-HU-hBV"/>
-                                                <include reference="qJL-lP-XdE"/>
                                                 <include reference="Hyv-A1-YHC"/>
                                                 <include reference="JsX-HY-hMu"/>
                                                 <include reference="ely-wZ-zsx"/>
                                                 <include reference="qbx-Fr-d69"/>
+                                                <include reference="HiS-T2-Itn"/>
+                                                <include reference="OW8-m7-ZGM"/>
+                                                <include reference="nAO-gV-EUx"/>
+                                                <include reference="6UH-HU-hBV"/>
+                                                <include reference="qJL-lP-XdE"/>
                                             </mask>
                                         </variation>
                                         <connections>
@@ -970,13 +970,13 @@
                                 <exclude reference="bdG-B4-X8c"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="buG-pC-07g"/>
                                 <exclude reference="MyJ-wn-ubV"/>
                                 <exclude reference="fDF-Zo-gyf"/>
                                 <exclude reference="x1j-lI-LgD"/>
                                 <exclude reference="9MI-Yg-S1D"/>
                                 <exclude reference="AN3-s6-ZUT"/>
                                 <exclude reference="thC-rh-hvI"/>
-                                <exclude reference="buG-pC-07g"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -985,19 +985,21 @@
                                 <include reference="bdG-B4-X8c"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="buG-pC-07g"/>
                                 <include reference="MyJ-wn-ubV"/>
                                 <include reference="fDF-Zo-gyf"/>
                                 <include reference="x1j-lI-LgD"/>
                                 <include reference="9MI-Yg-S1D"/>
                                 <include reference="AN3-s6-ZUT"/>
                                 <include reference="thC-rh-hvI"/>
-                                <include reference="buG-pC-07g"/>
                             </mask>
                         </variation>
                     </view>
                     <tabBarItem key="tabBarItem" title="Model WAM" id="9fY-hx-D3Q"/>
                     <connections>
                         <outlet property="collectionView" destination="bdG-B4-X8c" id="9P3-d7-mse"/>
+                        <outlet property="forecastLength" destination="Ge9-ht-NJA" id="Ra1-KC-Ghe"/>
+                        <outlet property="forecastStart" destination="Xdv-Ah-Krf" id="b2p-vf-GzP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bbu-NI-GgB" userLabel="First Responder" sceneMemberID="firstResponder"/>

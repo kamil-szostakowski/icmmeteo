@@ -26,13 +26,10 @@ class MMTCategoryNSDateFormatterTests: XCTestCase
         let date = TT.getDate(2015, 7, 30, 23)
         XCTAssertEqual("23:00", NSDateFormatter.shortTimeStyle.stringFromDate(date))
     }
-    
-    func testMomentStyleFormatter()
+
+    func testShortStyleUtcDatetimeString()
     {
-        let date1 = TT.getDate(2015, 7, 30, 6)
-        XCTAssertEqual("t0 +006h", NSDateFormatter.momentStyle.stringFromDate(date1))
-        
-        let date2 = TT.getDate(2015, 7, 30, 12)
-        XCTAssertEqual("t0 +012h", NSDateFormatter.momentStyle.stringFromDate(date2))
+        let date = TT.getDate(2015, 7, 30, 23)
+        XCTAssertEqual("30.07.2015 23:00 UTC", NSDateFormatter.shortStyleUtcDatetime(date))
     }
 }

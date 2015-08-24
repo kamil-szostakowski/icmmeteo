@@ -32,12 +32,11 @@ public extension NSDateFormatter
         return formatter
     }
     
-    public static var momentStyle: NSDateFormatter
+    public static func shortStyleUtcDatetime(date: NSDate) -> String
     {
-        var
-        formatter = NSDateFormatter()
-        formatter.timeZone = NSTimeZone(name: "UTC")
-        formatter.dateFormat = "'t0 +'HHH'h'"
-        return formatter
+        let datePart = shortStyle.stringFromDate(date)
+        let timePart = shortTimeStyle.stringFromDate(date)
+        
+        return "\(datePart) \(timePart) UTC"
     }
 }

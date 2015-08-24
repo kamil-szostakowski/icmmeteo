@@ -12,6 +12,8 @@ import CoreLocation
 public typealias MMTGridModelMeteorogramQuery = (location: CLLocation, date: NSDate, locationName: String?)
 
 public class MMTGridClimateModelStore: MMTClimateModelStore
-{    
-    func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion) { fatalError("") }
+{
+    public var gridNodeSize: Int { fatalError("") }
+    
+    public func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion) { fatalError("") }
 }
