@@ -20,6 +20,12 @@ class MMTCoampsModelStoreTests: XCTestCase
         XCTAssertEqual(84, store.forecastLength)
     }
     
+    func testGridNodeSize()
+    {
+        let store = MMTCoampsModelStore(date: NSDate())
+        XCTAssertEqual(13, store.gridNodeSize)
+    }
+    
     func testForecastStartDatePreviousDay()
     {
         let date = TT.localFormatter.dateFromString("2015-06-08T04:00")!

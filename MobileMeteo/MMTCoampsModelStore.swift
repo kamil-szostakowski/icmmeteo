@@ -24,6 +24,10 @@ public class MMTCoampsModelStore: MMTGridClimateModelStore
         return 84
     }
     
+    public override var gridNodeSize: Int {
+        return 13
+    }
+    
     public override var forecastStartDate: NSDate {
         return self.startDate
     }

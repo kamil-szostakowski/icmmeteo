@@ -37,6 +37,9 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         cities = citiesStore.getAllCities()
         
+        lblForecastStart.text = "start prognozy t0: \(NSDateFormatter.shortStyleUtcDatetime(meteorogramStore.forecastStartDate))"        
+        lblForecastLenght.text = "Długość prognozy: \(meteorogramStore.forecastLength)h, siatka \(meteorogramStore.gridNodeSize)km"
+        
         tableView.tableHeaderView?.frame = CGRectMake(0, 0, view.frame.size.width, searchBar.bounds.height)
     }
     

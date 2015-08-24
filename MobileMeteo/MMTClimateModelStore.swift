@@ -10,9 +10,9 @@ import Foundation
 
 public class MMTClimateModelStore: NSObject
 {
-    var meteorogramTitle: String { fatalError("") }
+    public var meteorogramTitle: String { fatalError("") }
     
-    var forecastLength: Int { fatalError("") }
+    public var forecastLength: Int { fatalError("") }
     
-    var forecastStartDate: NSDate { fatalError("") }    
+    public var forecastStartDate: NSDate { fatalError("") }    
 }

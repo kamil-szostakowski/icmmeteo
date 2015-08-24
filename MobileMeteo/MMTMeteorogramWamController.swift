@@ -15,6 +15,8 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
 {
     // MARK: Outlets
     
+    @IBOutlet var forecastLength: UILabel!
+    @IBOutlet var forecastStart: UILabel!
     @IBOutlet var collectionView: UICollectionView!
     
     private var cache: NSCache = NSCache()
@@ -43,6 +45,9 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     {
         super.viewDidLoad()
         
+        wamStore = MMTWamModelStore(date: NSDate())        
+        
+        setupInfoBar()
         setupSettings()
         setupCollectionView()
     }
@@ -72,7 +77,6 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     private func setupSettings()
     {
-        wamStore = MMTWamModelStore(date: NSDate())
         wamSettings = MMTWamSettings(wamStore.getForecastMoments())
         
         for moment in wamSettings.forecastMomentsGrouppedByDay.first! {
@@ -86,6 +90,12 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         let identifier = MMTCollectionViewWamLayout.headerViewIdentifier
         
         collectionView.registerClass(headerClass, forSupplementaryViewOfKind: identifier, withReuseIdentifier: identifier)
+    }
+    
+    private func setupInfoBar()
+    {
+        forecastLength.text = "Długość prognozy: \(wamStore.forecastLength)h"
+        forecastStart.text = "start prognozy t0: \(NSDateFormatter.shortStyleUtcDatetime(wamStore.forecastStartDate))"
     }
     
     // MARK: Actions
@@ -115,7 +125,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         
         let
         cell = collectionView.dequeueReusableCellWithReuseIdentifier("WamMomentItem", forIndexPath: indexPath) as! MMTWamCategoryItem
-        cell.headerLabel.text = formattedCellHeaderDate(date)
+        cell.headerLabel.text = NSDateFormatter.shortStyleUtcDatetime(date)
         cell.footerLabel.text = String(NSString(format: MMTFormat.TZeroPlus, tZeroPlus))
         
         getThumbnailWithQuery(MMTWamModelMeteorogramQuery(category, date)) {
@@ -150,15 +160,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         return headerView
     }
     
-    // MARK: Helper methods
-    
-    private func formattedCellHeaderDate(date: NSDate) -> String
-    {
-        let datePart = NSDateFormatter.shortStyle.stringFromDate(date)
-        let timePart = NSDateFormatter.shortTimeStyle.stringFromDate(date)
-        
-        return "\(datePart) \(timePart) UTC"
-    }
+    // MARK: Helper methods    
     
     private func getThumbnailWithQuery(query: MMTWamModelMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
     {
