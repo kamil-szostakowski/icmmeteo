@@ -9,6 +9,7 @@
 import XCTest
 import Foundation
 import MobileMeteo
+import CoreGraphics
 
 class MMTUmModelStoreTests : XCTestCase
 {
@@ -70,5 +71,17 @@ class MMTUmModelStoreTests : XCTestCase
         let store = MMTUmModelStore(date: date)
         
         XCTAssertEqual(expectedDate, store.forecastStartDate)
+    }
+    
+    func testMeteorogramSize()
+    {
+        let store = MMTUmModelStore(date: NSDate())
+        XCTAssertEqual(CGSize(width: 540, height: 660), store.meteorogramSize)
+    }
+    
+    func testLegendSize()
+    {
+        let store = MMTUmModelStore(date: NSDate())
+        XCTAssertEqual(CGSize(width: 280, height: 660), store.legendSize)
     }
 }

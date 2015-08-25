@@ -34,6 +34,11 @@ public extension NSURL
         return NSURL(string: "/um/metco/mgram_pict.php", relativeToURL: mmt_baseUrl())!
     }
     
+    public static func mmt_modelUmLegendUrl() -> NSURL
+    {
+        return NSURL(string: "/um/metco/leg_um_pl_cbase_256.png", relativeToURL: mmt_baseUrl())!
+    }
+    
     // MARK: Model COAMPS related methods
     
     public static func mmt_modelCoampsSearchUrl(location: CLLocation, tZero: NSDate) -> NSURL
@@ -48,6 +53,11 @@ public extension NSURL
     public static func mmt_modelCoampsDownloadBaseUrl() -> NSURL
     {
         return NSURL(string: "/metco/mgram_pict.php", relativeToURL: mmt_baseUrl())!
+    }
+    
+    public static func mmt_modelCoampsLegendUrl() -> NSURL
+    {
+        return NSURL(string: "/metco/leg4_pl.png", relativeToURL: mmt_baseUrl())!
     }
     
     // MARK: Model WAM related methods
