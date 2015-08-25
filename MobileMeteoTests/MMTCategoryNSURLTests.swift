@@ -37,6 +37,12 @@ class MMTCategoryNSURLTests: XCTestCase
         XCTAssertEqual(expectedUrl, NSURL.mmt_modelUmSearchUrl(location, tZero: date).absoluteString!);
     }
     
+    func testModelUmLegendUrl()
+    {
+        let expectedUrl = "http://www.meteo.pl/um/metco/leg_um_pl_cbase_256.png"
+        XCTAssertEqual(expectedUrl, NSURL.mmt_modelUmLegendUrl().absoluteString!);
+    }
+    
     // MARK: Model coamps related tests
     
     func testModelCoampsDownloadBaseUrl()
@@ -52,6 +58,12 @@ class MMTCategoryNSURLTests: XCTestCase
         let date = TT.utcFormatter.dateFromString("2015-06-07T12:00")!
         
         XCTAssertEqual(expectedUrl, NSURL.mmt_modelCoampsSearchUrl(location, tZero: date).absoluteString!);
+    }
+    
+    func testModelCoampsLegendUrl()
+    {
+        let expectedUrl = "http://www.meteo.pl/metco/leg4_pl.png"
+        XCTAssertEqual(expectedUrl, NSURL.mmt_modelCoampsLegendUrl().absoluteString!);
     }
     
     // MARK: Model wam related tests

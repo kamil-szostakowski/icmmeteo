@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import CoreGraphics
 
 public class MMTCoampsModelStore: MMTGridClimateModelStore
 {
@@ -32,6 +33,14 @@ public class MMTCoampsModelStore: MMTGridClimateModelStore
         return self.startDate
     }
     
+    public override var meteorogramSize: CGSize {
+        return CGSize(width: 660, height: 570)
+    }
+    
+    public override var legendSize: CGSize {
+        return CGSize(width: 280, height: 570)
+    }
+    
     // MARK: Initializers
     
     public init(date: NSDate)
@@ -48,6 +57,12 @@ public class MMTCoampsModelStore: MMTGridClimateModelStore
         let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL.mmt_modelCoampsDownloadBaseUrl(), completion: completion)
         
         NSURLConnection(request: NSURLRequest(URL: searchUrl), delegate: delegate)?.start()
+    }
+    
+    public override func getMeteorogramLegend(completion: MMTFetchMeteorogramCompletion)
+    {
+        let legendUrl = NSURL.mmt_modelCoampsLegendUrl()
+        NSURLConnection(request: NSURLRequest(URL: legendUrl), delegate: MMTMeteorogramFetchDelegate(completion: completion))?.start()
     }
     
     // MARK: Helper methods

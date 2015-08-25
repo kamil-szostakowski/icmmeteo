@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import CoreGraphics
 
 public typealias MMTGridModelMeteorogramQuery = (location: CLLocation, date: NSDate, locationName: String?)
 
@@ -15,5 +16,11 @@ public class MMTGridClimateModelStore: MMTClimateModelStore
 {
     public var gridNodeSize: Int { fatalError("") }
     
+    public var meteorogramSize: CGSize { fatalError("") }
+    
+    public var legendSize: CGSize { fatalError("") }
+    
     public func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion) { fatalError("") }
+    
+    public func getMeteorogramLegend(completion: MMTFetchMeteorogramCompletion) { fatalError("") }
 }
