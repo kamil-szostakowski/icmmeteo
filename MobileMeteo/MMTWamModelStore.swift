@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreGraphics
 
 public enum MMTWamCategory: Int
 {
@@ -38,6 +39,10 @@ public class MMTWamModelStore: MMTClimateModelStore
     
     public override var meteorogramTitle: String {
         return "Model WAM"
+    }
+    
+    public override var meteorogramSize: CGSize {
+        return CGSize(width: 720, height: 702)
     }
 
     public override var forecastLength: Int {

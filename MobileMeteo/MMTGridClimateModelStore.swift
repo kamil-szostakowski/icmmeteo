@@ -14,9 +14,7 @@ public typealias MMTGridModelMeteorogramQuery = (location: CLLocation, date: NSD
 
 public class MMTGridClimateModelStore: MMTClimateModelStore
 {
-    public var gridNodeSize: Int { fatalError("") }
-    
-    public var meteorogramSize: CGSize { fatalError("") }
+    public var gridNodeSize: Int { fatalError("") }        
     
     public var legendSize: CGSize { fatalError("") }
     

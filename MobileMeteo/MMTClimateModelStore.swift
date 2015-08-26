@@ -7,10 +7,13 @@
 //
 
 import Foundation
+import CoreGraphics
 
 public class MMTClimateModelStore: NSObject
 {
     public var meteorogramTitle: String { fatalError("") }
+    
+    public var meteorogramSize: CGSize { fatalError("") }
     
     public var forecastLength: Int { fatalError("") }
     

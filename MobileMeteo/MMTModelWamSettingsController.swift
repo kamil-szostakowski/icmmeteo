@@ -18,9 +18,6 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
     private var selectedIndexes = [NSIndexPath]()
     private var wamStore: MMTWamModelStore!
     
-    @IBOutlet var spectrumPeakPeriodSwitch: UISwitch!
-    @IBOutlet var tideHeightSwitch: UISwitch!
-    @IBOutlet var avgTidePeriodSwitch: UISwitch!
     @IBOutlet var tableView: UITableView!
     
     var wamSettings: MMTWamSettings!
@@ -30,36 +27,10 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        setupCategorySwitches()
         wamStore = MMTWamModelStore(date: NSDate())
     }
     
-    private func setupCategorySwitches()
-    {
-        let categories = wamSettings.selectedCategories
-        
-        tideHeightSwitch.on = find(categories, .TideHeight) != nil
-        avgTidePeriodSwitch.on = find(categories, .AvgTidePeriod) != nil
-        spectrumPeakPeriodSwitch.on = find(categories, .SpectrumPeakPeriod) != nil
-    }
-    
     // MARK: Actions
-    
-    @IBAction func didChangeTideHeightSelection(sender: UISwitch)
-    {
-        wamSettings.setCategory(.TideHeight, enabled: sender.on)
-    }
-    
-    @IBAction func didChangeAvgTidePeriodSelection(sender: UISwitch)
-    {
-        wamSettings.setCategory(.AvgTidePeriod, enabled: sender.on)
-    }
-    
-    @IBAction func didChangeSpectrumPeakPeriodSelection(sender: UISwitch)
-    {
-        wamSettings.setCategory(.SpectrumPeakPeriod, enabled: sender.on)
-    }
     
     func didSelectCategory(category: UITableViewCell)
     {
@@ -91,7 +62,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         let
         cell = tableView.dequeueReusableCellWithIdentifier("WamSettingsTimeItem", forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel?.text = String(NSString(format: MMTFormat.TZeroPlus, tZeroPlus))
-        cell.detailTextLabel?.text = NSDateFormatter.shortStyle.stringFromDate(date)
+        cell.detailTextLabel?.text = NSDateFormatter.shortStyleUtcDatetime(date)
         cell.accessoryType =  moment.selected ? .Checkmark : .None
         
         return cell
