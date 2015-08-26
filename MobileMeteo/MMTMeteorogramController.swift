@@ -27,14 +27,6 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     var meteorogramStore: MMTGridClimateModelStore!
     
     private var requestCount: Int = 0
-    
-    private var minZoomScale: CGFloat {
-        return scrollView.bounds.width/meteorogramStore.meteorogramSize.width
-    }
-    
-    private var defaultZoomScale: CGFloat {
-        return scrollView.bounds.height/meteorogramStore.meteorogramSize.height
-    }
 
     // MARK: Controller methods
     
@@ -68,26 +60,12 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     
     private func setupScrollView()
     {
-        setupImage(meteorogramImage, withSize: meteorogramStore.meteorogramSize)
-        setupImage(legendImage, withSize: meteorogramStore.legendSize)
+        meteorogramImage.updateSizeConstraints(meteorogramStore.meteorogramSize)
+        legendImage.updateSizeConstraints(meteorogramStore.legendSize)
 
         scrollView.maximumZoomScale = 1
-        scrollView.minimumZoomScale = minZoomScale
-        scrollView.zoomScale = defaultZoomScale
-    }
-    
-    private func setupImage(image: UIImageView, withSize size: CGSize)
-    {
-        for constraint in image.constraints() as! [NSLayoutConstraint]
-        {
-            if constraint.firstAttribute == NSLayoutAttribute.Width {
-                constraint.constant = size.width
-            }
-            
-            if constraint.firstAttribute == NSLayoutAttribute.Height {
-                constraint.constant = size.height
-            }
-        }
+        scrollView.minimumZoomScale = scrollView.minZoomScaleForSize(meteorogramStore.meteorogramSize)
+        scrollView.zoomScale = scrollView.defaultZoomScale(meteorogramStore.meteorogramSize)
     }
 
     // MARK: Actions
@@ -99,13 +77,9 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     
     @IBAction func onScrollViewDoubleTapAction(sender: UITapGestureRecognizer)
     {
-        let animation = { () -> Void in
+        let defaultZoomScale = scrollView.defaultZoomScale(meteorogramStore.meteorogramSize)
         
-            self.scrollView.zoomScale = self.defaultZoomScale
-            self.scrollView.contentOffset = CGPoint.zeroPoint
-        }
-        
-        UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 10, options: nil, animations: animation, completion: nil)
+        scrollView.animatedZoomToScale(defaultZoomScale)
     }
 
     // MARK: UIScrollViewDelegate methods

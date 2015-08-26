@@ -64,32 +64,7 @@ class MMTWamSettingsTests: XCTestCase
         super.tearDown()
     }
     
-    // MARK: Test methods
-    
-    func testSelectedForecastCategoriesForDefaultSettings()
-    {
-        let expected: [MMTWamCategory] = [.TideHeight, .AvgTidePeriod, .SpectrumPeakPeriod]
-        
-        XCTAssertEqual(expected, settings.selectedCategories)
-    }
-    
-    func testDisableAllForecastCategories()
-    {
-        settings.setCategory(.TideHeight, enabled: false)
-        settings.setCategory(.AvgTidePeriod, enabled: false)
-        settings.setCategory(.SpectrumPeakPeriod, enabled: false)
-        
-        XCTAssertEqual([], settings.selectedCategories)
-    }
-    
-    func testDisableSelectedForecastCategories()
-    {
-        settings.setCategory(.TideHeight, enabled: false)
-        settings.setCategory(.AvgTidePeriod, enabled: false)
-        settings.setCategory(.TideHeight, enabled: true)
-        
-        XCTAssertEqual([.TideHeight, .SpectrumPeakPeriod], settings.selectedCategories)
-    }    
+    // MARK: Test methods       
     
     func testForecastDaysCount()
     {

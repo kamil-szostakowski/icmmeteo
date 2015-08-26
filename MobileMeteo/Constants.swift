@@ -13,6 +13,7 @@ struct MMTSegue
     static let UnwindToListOfCities = "UnwindToListOfCities"
     static let DisplayMeteorogram = "DisplayMeteorogram"
     static let DisplayWamSettings = "DisplayWamSettings"
+    static let DisplayWamCategoryPreview = "DisplayWamCategoryPreview"
 }
 
 struct MMTFormat

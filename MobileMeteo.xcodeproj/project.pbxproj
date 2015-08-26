@@ -51,6 +51,8 @@
 		F9E696781AFCC06600273DA3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9E696771AFCC06600273DA3 /* Images.xcassets */; };
 		F9E6967B1AFCC06600273DA3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9E696791AFCC06600273DA3 /* LaunchScreen.xib */; };
 		F9E696A41AFCE70700273DA3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9E696A31AFCE70700273DA3 /* CoreLocation.framework */; };
+		F9FFEE451B8D92D200C30EDD /* MMTWamCategoryPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FFEE441B8D92D200C30EDD /* MMTWamCategoryPreviewController.swift */; };
+		F9FFEE471B8DCEF900C30EDD /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FFEE461B8DCEF900C30EDD /* UIImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +121,8 @@
 		F9E6969D1AFCD04500273DA3 /* MobileMeteo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileMeteo-Prefix.pch"; sourceTree = "<group>"; };
 		F9E696A31AFCE70700273DA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F9FA381F1B42728700A6EC00 /* MobileMeteoTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileMeteoTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		F9FFEE441B8D92D200C30EDD /* MMTWamCategoryPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamCategoryPreviewController.swift; sourceTree = "<group>"; };
+		F9FFEE461B8DCEF900C30EDD /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +177,7 @@
 			children = (
 				F99F24601B6B572300622E1E /* NSDateFormatter.swift */,
 				F9C5B5AF1B81D1FC00CFB503 /* UIScrollView.swift */,
+				F9FFEE461B8DCEF900C30EDD /* UIImageView.swift */,
 				F99A8A2B1B8463FE0098E170 /* NSURL.swift */,
 				F99A8A2F1B846A4B0098E170 /* NSCalendar.swift */,
 			);
@@ -250,9 +255,10 @@
 			isa = PBXGroup;
 			children = (
 				F9A873451B68D7AD00A1B949 /* CollectionView */,
+				F99F24671B6B725800622E1E /* MMTWamMomentHeaderView.swift */,
 				F950E0D81B60C0D4000757B2 /* MMTModelWamSettingsController.swift */,
 				F9A751D91B5CDDFC003B0B38 /* MMTMeteorogramWamController.swift */,
-				F99F24671B6B725800622E1E /* MMTWamMomentHeaderView.swift */,
+				F9FFEE441B8D92D200C30EDD /* MMTWamCategoryPreviewController.swift */,
 			);
 			name = WamModel;
 			sourceTree = "<group>";
@@ -487,6 +493,7 @@
 				F9DAEAA71B85D2DE00D4CD34 /* MMTUmModelStore.swift in Sources */,
 				F9E5D02F1B68EFA3006429BA /* MMTWamSettings.swift in Sources */,
 				F9E696701AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld in Sources */,
+				F9FFEE471B8DCEF900C30EDD /* UIImageView.swift in Sources */,
 				F9BB14A41B56765700C81B3F /* MMTCity.swift in Sources */,
 				8E8CC6161B62EF4A00579C46 /* MMTWamHeaderView.swift in Sources */,
 				F9A751DC1B5CEAAA003B0B38 /* MMTWamCategoryItem.swift in Sources */,
@@ -494,6 +501,7 @@
 				F9B2BA411B4BFD0F0081AC29 /* MMTCitiesStore.swift in Sources */,
 				F987DB3C1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift in Sources */,
 				F9C5B5B01B81D1FC00CFB503 /* UIScrollView.swift in Sources */,
+				F9FFEE451B8D92D200C30EDD /* MMTWamCategoryPreviewController.swift in Sources */,
 				F957544D1B4D050C00C4E672 /* Constants.swift in Sources */,
 				F99A8A301B846A4B0098E170 /* NSCalendar.swift in Sources */,
 				F9C23A981B621DE400A94A4B /* MMTCollectionViewWamLayout.swift in Sources */,

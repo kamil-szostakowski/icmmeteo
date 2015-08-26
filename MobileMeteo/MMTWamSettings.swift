@@ -12,20 +12,15 @@ public typealias MMTWamMomentGroups = [String: [MMTWamMoment]]
 
 public class MMTWamSettings: NSObject
 {
-    // MARK: Properties
+    // MARK: Properties        
     
-    private var categories: [MMTWamCategory] = [.TideHeight, .AvgTidePeriod, .SpectrumPeakPeriod]
+    public var selectedCategory: MMTWamCategory?
     
     public var forecastMoments: [MMTWamMoment]
     
     public var forecastSelectedMoments: [MMTWamMoment]
     {
         return forecastMoments.filter(){ $0.selected }
-    }
-    
-    public var selectedCategories: [MMTWamCategory]
-    {
-        return categories.sorted(){ $0.rawValue < $1.rawValue }
     }
     
     public var forecastMomentsGrouppedByDay: [[MMTWamMoment]]
@@ -35,7 +30,7 @@ public class MMTWamSettings: NSObject
     
     public override var description: String
     {
-        return "<MMTWamSettings \n categories: \(selectedCategories.description) \n moments: \(forecastMomentsGrouppedByDay.description)>"
+        return "<MMTWamSettings \n moments: \(forecastMomentsGrouppedByDay.description)>"
     }
     
     // MARK: Initializers
@@ -47,19 +42,6 @@ public class MMTWamSettings: NSObject
     }
     
     // MARK: Methods
-    
-    public func setCategory(category: MMTWamCategory, enabled: Bool)
-    {
-        let found = find(categories, category)
-        
-        if found != nil && !enabled {
-            categories.removeAtIndex(found!)
-        }
-        
-        else if found == nil && enabled {
-            categories.append(category)
-        }        
-    }
     
     public func momentForDate(date: NSDate) -> MMTWamMoment?
     {
