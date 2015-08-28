@@ -27,7 +27,6 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     var meteorogramStore: MMTGridClimateModelStore!
     
     private var requestCount: Int = 0
-    private var query: MMTGridModelMeteorogramQuery!
     private var citiesStore: MMTCitiesStore!
 
     // MARK: Controller methods
@@ -37,7 +36,6 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
         super.viewDidLoad()
 
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
-        query = MMTGridModelMeteorogramQuery(location: city.location, date: NSDate(), locationName: city.name)
         navigationBar.topItem!.title = city.name
 
         setupStarButton()
@@ -49,7 +47,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
         
         setupScrollView()
         
-        meteorogramStore.getMeteorogramForLocation(query.location, completion: completionWithErrorHandling(){
+        meteorogramStore.getMeteorogramForLocation(city.location, completion: completionWithErrorHandling(){
             (data: NSData?, error: NSError?) in
             
             self.meteorogramImage.image = UIImage(data: data!)
@@ -113,17 +111,21 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
          
             self.requestCount += 1
             
-            if let err = error {
-                NSLog("Image fetch error \(error)")
-            }
-            
-            else {
+            if let image = data
+            {
                 completion(data: data, error: error)
             }
+
+            else if error?.domain == MMTErrorDomain
+            {
+                let message = MMTError(rawValue: error!.code)!.description
+                UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: "zamknij").show()
+            }
             
-            if self.requestCount == 2 {
+            if self.requestCount == 2
+            {
                 self.activityIndicator.hidden = true
             }
         }
-    }
+    }    
 }

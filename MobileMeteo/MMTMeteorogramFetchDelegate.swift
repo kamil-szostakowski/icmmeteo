@@ -14,6 +14,8 @@ public class MMTMeteorogramFetchDelegate: NSObject, NSURLConnectionDataDelegate
 {
     // MARK: Properties
     
+    private let MMTEmptyMeteorogramSize = 71
+    
     let completion: MMTFetchMeteorogramCompletion
     var responseData: NSData?
     
@@ -43,12 +45,25 @@ public class MMTMeteorogramFetchDelegate: NSObject, NSURLConnectionDataDelegate
     
     public func connectionDidFinishLoading(connection: NSURLConnection)
     {
-        completion(data: responseData, error: nil)
+        switch responseData?.length <= MMTEmptyMeteorogramSize
+        {
+            case true: completion(data: nil, error: errorWithCode(.MeteorogramNotFound))
+            case false: completion(data: responseData, error: nil)
+            
+            default: break
+        }
     }
     
     public func connection(connection: NSURLConnection, didFailWithError error: NSError)
     {
         responseData = nil
-        completion(data: nil, error: error)
+        completion(data: nil, error: errorWithCode(.MeteorogramFetchFailure))
+    }
+    
+    // MARK: Helper methods
+    
+    private func errorWithCode(code: MMTError) -> NSError
+    {
+        return NSError(domain: MMTErrorDomain, code: code.rawValue, userInfo: nil)
     }
 }

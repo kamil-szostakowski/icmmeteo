@@ -25,6 +25,8 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     private var categoryPreviewSettings: MMTWamSettings!
     private var wamStore: MMTWamModelStore!
     private var presented = false
+    private var failureCount = 0
+    private var failureWatch: NSTimer!
 
     // MARK: Properties
 
@@ -58,13 +60,17 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         super.viewDidAppear(animated)
         
         presented = true
+        failureWatch = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "failureCheck", userInfo: nil, repeats: true)
         collectionView.reloadData()
     }
     
     override func viewWillDisappear(animated: Bool)
     {
         super.viewWillDisappear(animated)
-        self.presented = false
+        
+        presented = false
+        failureWatch.invalidate()
+        failureWatch = nil
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -113,6 +119,15 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         }
     }
     
+    @objc func failureCheck()
+    {
+        if failureCount>0
+        {
+            failureCount=0
+            collectionView.reloadData()
+        }
+    }
+    
     // MARK: UICollectionViewDataSource methods
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int
@@ -140,11 +155,9 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
             (data: NSData?, error: NSError?) in
         
             if let err = error {
-                NSLog("Thumbnail fetch error")
-                return
-            }
-            
-            if let image = data {
+                self.failureCount++
+            }            
+            else if let image = data {
                 cell.map.image = UIImage(data: image)
             }
         }
