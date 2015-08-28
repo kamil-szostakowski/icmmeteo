@@ -10,8 +10,6 @@ import Foundation
 import CoreLocation
 import CoreGraphics
 
-public typealias MMTGridModelMeteorogramQuery = (location: CLLocation, date: NSDate, locationName: String?)
-
 public class MMTGridClimateModelStore: MMTClimateModelStore
 {
     public var gridNodeSize: Int { fatalError("") }        

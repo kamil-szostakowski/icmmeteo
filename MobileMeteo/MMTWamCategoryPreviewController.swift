@@ -153,9 +153,11 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
                 self.cache.setObject(image, forKey: key)
                 completion(data: data, error: error)
             }
-            
-            if let err = error {
-                NSLog("Image fetch error: \(err)")
+                
+            else if error?.domain == MMTErrorDomain
+            {
+                let message = MMTError(rawValue: error!.code)!.description
+                UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: "zamknij").show()
             }
         }
     }
