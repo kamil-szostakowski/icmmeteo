@@ -128,22 +128,40 @@
                                     </variation>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="detailButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CitiesListCell" textLabel="UVv-7L-hgV" detailTextLabel="jdO-YX-ze2" style="IBUITableViewCellStyleSubtitle" id="KKt-1U-S6P">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CitiesListHeader" textLabel="UVv-7L-hgV" rowHeight="24" style="IBUITableViewCellStyleDefault" id="KKt-1U-S6P">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KKt-1U-S6P" id="ydL-34-mgA">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UVv-7L-hgV">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Header Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UVv-7L-hgV">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jdO-YX-ze2">
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.92000000000000004" alpha="1" colorSpace="calibratedWhite"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="detailButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CitiesListCell" textLabel="L7a-vM-89s" detailTextLabel="ACu-82-Djp" style="IBUITableViewCellStyleSubtitle" id="Lmv-5P-aMf">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lmv-5P-aMf" id="d2J-8x-WBs">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L7a-vM-89s">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ACu-82-Djp">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -230,7 +248,11 @@
                                                 <action selector="onCloseBtnTouchAction:" destination="lDT-Dp-3bJ" id="7FR-PX-N1n"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="bookmarks" id="Iqr-si-d4i"/>
+                                        <barButtonItem key="rightBarButtonItem" image="star-outline" style="plain" id="Iqr-si-d4i" userLabel="Favourite">
+                                            <connections>
+                                                <action selector="onStartBtnTouchAction:" destination="lDT-Dp-3bJ" id="gbY-6R-rbh"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                                 <variation key="default">
@@ -569,13 +591,13 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prognoza została udostępniona nieodpłatnie przez serwis meteo.pl prowadzony przez ICM, Uniwersytet Warszawski. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vd-h5-NfU">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wyniki uzyskano przy użyciu oprogramowania Met Office. Material produced using Met Office Software." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqM-tk-ebb">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="HSw-Xp-6FR">
@@ -617,9 +639,6 @@
                                         <exclude reference="HSw-Xp-6FR"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <exclude reference="JZM-5L-59U"/>
-                                        <exclude reference="lbc-Dq-JH4"/>
-                                        <exclude reference="sok-ML-skR"/>
                                         <exclude reference="468-mn-Yd4"/>
                                         <exclude reference="cmJ-TV-x8J"/>
                                         <exclude reference="f7a-X1-zjW"/>
@@ -627,6 +646,9 @@
                                         <exclude reference="ZZt-dJ-hj2"/>
                                         <exclude reference="bPf-nQ-L6I"/>
                                         <exclude reference="ld6-gK-YZb"/>
+                                        <exclude reference="JZM-5L-59U"/>
+                                        <exclude reference="lbc-Dq-JH4"/>
+                                        <exclude reference="sok-ML-skR"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -636,9 +658,6 @@
                                         <include reference="HSw-Xp-6FR"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <include reference="JZM-5L-59U"/>
-                                        <include reference="lbc-Dq-JH4"/>
-                                        <include reference="sok-ML-skR"/>
                                         <include reference="468-mn-Yd4"/>
                                         <include reference="cmJ-TV-x8J"/>
                                         <include reference="f7a-X1-zjW"/>
@@ -646,6 +665,9 @@
                                         <include reference="ZZt-dJ-hj2"/>
                                         <include reference="bPf-nQ-L6I"/>
                                         <include reference="ld6-gK-YZb"/>
+                                        <include reference="JZM-5L-59U"/>
+                                        <include reference="lbc-Dq-JH4"/>
+                                        <include reference="sok-ML-skR"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -669,6 +691,7 @@
                                 <exclude reference="PE8-1C-i4E"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="auA-gr-ccV"/>
                                 <exclude reference="BQA-JR-3K4"/>
                                 <exclude reference="DlK-LH-d93"/>
                                 <exclude reference="p54-Ql-SVr"/>
@@ -676,7 +699,6 @@
                                 <exclude reference="LA5-VQ-4V6"/>
                                 <exclude reference="W5m-yu-UvX"/>
                                 <exclude reference="tXW-ST-L2m"/>
-                                <exclude reference="auA-gr-ccV"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -685,6 +707,7 @@
                                 <include reference="PE8-1C-i4E"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="auA-gr-ccV"/>
                                 <include reference="BQA-JR-3K4"/>
                                 <include reference="DlK-LH-d93"/>
                                 <include reference="p54-Ql-SVr"/>
@@ -692,7 +715,6 @@
                                 <include reference="LA5-VQ-4V6"/>
                                 <include reference="W5m-yu-UvX"/>
                                 <include reference="tXW-ST-L2m"/>
-                                <include reference="auA-gr-ccV"/>
                             </mask>
                         </variation>
                     </view>
@@ -923,7 +945,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="start +72h  =  2015.8.29 0:00 UTC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzT-kb-sbi">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -1502,6 +1524,7 @@
     </scenes>
     <resources>
         <image name="logo" width="512" height="328"/>
+        <image name="star-outline" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="CQD-83-f01"/>

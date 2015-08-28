@@ -23,18 +23,24 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     
     // MARK: Properties
     
-    var query: MMTGridModelMeteorogramQuery!
+    var city: MMTCity!
     var meteorogramStore: MMTGridClimateModelStore!
     
     private var requestCount: Int = 0
+    private var query: MMTGridModelMeteorogramQuery!
+    private var citiesStore: MMTCitiesStore!
 
     // MARK: Controller methods
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        navigationBar.topItem!.title = query.locationName
+
+        citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
+        query = MMTGridModelMeteorogramQuery(location: city.location, date: NSDate(), locationName: city.name)
+        navigationBar.topItem!.title = city.name
+
+        setupStarButton()
     }
     
     override func viewDidAppear(animated: Bool)
@@ -67,6 +73,12 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
         scrollView.minimumZoomScale = scrollView.minZoomScaleForSize(meteorogramStore.meteorogramSize)
         scrollView.zoomScale = scrollView.defaultZoomScale(meteorogramStore.meteorogramSize)
     }
+    
+    private func setupStarButton()
+    {
+        let imageName = city.isFavourite ? "star" : "star-outline"
+        navigationBar.topItem?.rightBarButtonItem?.image = UIImage(named: imageName)
+    }
 
     // MARK: Actions
 
@@ -80,6 +92,12 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
         let defaultZoomScale = scrollView.defaultZoomScale(meteorogramStore.meteorogramSize)
         
         scrollView.animatedZoomToScale(defaultZoomScale)
+    }
+    
+    @IBAction func onStartBtnTouchAction(sender: UIBarButtonItem)
+    {
+        citiesStore.markCity(city, asFavourite: !city.isFavourite)
+        setupStarButton()        
     }
 
     // MARK: UIScrollViewDelegate methods
