@@ -25,7 +25,9 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     var meteorogramStore: MMTGridClimateModelStore!
     
     private var citiesStore: MMTCitiesStore!
-    private var cities: [MMTCity]!
+    private var capitalCities: [MMTCity]!
+    private var favouriteCities: [MMTCity]!
+    private var foundCities: [MMTCity]!
     private var selectedCity: MMTCity?
     
     // MARK: Controller methods
@@ -35,22 +37,24 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         super.viewDidLoad()
         
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
-        cities = citiesStore.getAllCities()
         
         lblForecastStart.text = "start prognozy t0: \(NSDateFormatter.shortStyleUtcDatetime(meteorogramStore.forecastStartDate))"        
         lblForecastLenght.text = "Długość prognozy: \(meteorogramStore.forecastLength)h, siatka \(meteorogramStore.gridNodeSize)km"
         
         tableView.tableHeaderView?.frame = CGRectMake(0, 0, view.frame.size.width, searchBar.bounds.height)
+        displayCities(citiesStore.getAllCities())
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
+        searchBar.text = ""
+        
         if (segue.identifier == MMTSegue.DisplayMeteorogram)
         {
             let
             controller = segue.destinationViewController as! MMTMeteorogramController
-            controller.query = MMTGridModelMeteorogramQuery(location: selectedCity!.location, date: NSDate(), locationName: selectedCity!.name)
             controller.meteorogramStore = meteorogramStore
+            controller.city = selectedCity
         }
     }
     
@@ -58,36 +62,56 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     @IBAction func unwindToListOfCities(unwindSegue: UIStoryboardSegue)
     {
+        searchBarCancelButtonClicked(searchBar)
     }
     
     // MARK: UITableViewDelegate methods
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        return 1
+        return favouriteCities.count>0 ? 2 : 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return cities.count;
+        let nonCapitalsCount = favouriteCities.count+foundCities.count
+        
+        return section==0 && nonCapitalsCount>0 ? nonCapitalsCount : capitalCities.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let city = cities[indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier("CitiesListCell", forIndexPath: indexPath) as! UITableViewCell
+        let city = cityAtIndexPath(indexPath)
         
-        cell.textLabel?.text = city.name
-        cell.detailTextLabel?.text = city.region
+        let
+        cell = tableView.dequeueReusableCellWithIdentifier("CitiesListCell", forIndexPath: indexPath) as! UITableViewCell
+        cell.textLabel!.text = city.name
+        cell.detailTextLabel!.text = count(city.region)>0 ? city.region : " "
         
-        return cell;
+        return cell
     }
     
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath)
     {
-        selectedCity = cities[indexPath.row]        
+        selectedCity = cityAtIndexPath(indexPath)
         performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
     }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
+        return 24
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    {
+        let
+        header = tableView.dequeueReusableCellWithIdentifier("CitiesListHeader") as! UITableViewCell
+        header.textLabel?.text = titleForSection(section)
+        
+        return header
+    }
+    
+    // MARK: UIScrollViewDelegate methods
     
     func scrollViewDidScroll(scrollView: UIScrollView)
     {
@@ -142,7 +166,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         }
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) // called when cancel button pressed
+    func searchBarCancelButtonClicked(searchBar: UISearchBar)
     {
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
@@ -155,7 +179,36 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     func displayCities(cities: [MMTCity])
     {
-        self.cities = cities
+        capitalCities = cities.filter(){ $0.isCapital && !$0.isFavourite }
+        favouriteCities = cities.filter(){ $0.isFavourite }
+        foundCities = cities.filter(){ !$0.isCapital && !$0.isFavourite }
+        
         tableView.reloadData()
+    }
+    
+    func cityAtIndexPath(indexPath: NSIndexPath) -> MMTCity
+    {
+        if indexPath.section == 0 && favouriteCities.count>0 {
+            return favouriteCities[indexPath.row]
+        }
+        
+        if indexPath.section == 0 && foundCities.count>0 {
+            return foundCities[indexPath.row]
+        }
+        
+        return capitalCities[indexPath.row]
+    }
+    
+    func titleForSection(section: Int) -> String
+    {
+        if section == 0 && favouriteCities.count>0 {
+            return "Ulubione"
+        }
+        
+        if section == 0 && foundCities.count>0 {
+            return "Znalezione"
+        }
+        
+        return "Miasta wojewódzkie"
     }
 }
