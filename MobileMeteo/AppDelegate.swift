@@ -19,6 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     {
         tryInitDatabase()
         
+        let attributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBold", size: 16)!]
+        
+        UINavigationBar.appearance().titleTextAttributes = attributes
+        UIBarButtonItem.appearance().setTitleTextAttributes(attributes, forState: UIControlState.Normal)
+        
         return true
     }
     

@@ -32,7 +32,7 @@ class MMTWamHeaderView: UICollectionReusableView
     
     private func setupView()
     {
-        backgroundColor = UIColor(white: 0.92, alpha: 1)
+        backgroundColor = UIColor(white: 0.95, alpha: 1)
     }
     
     // Mark: Overrides
@@ -51,7 +51,7 @@ class MMTWamHeaderView: UICollectionReusableView
         style.alignment = .Center
         
         let textAttributes = [
-            NSFontAttributeName: UIFont.systemFontOfSize(12),
+            NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 12)!,
             NSParagraphStyleAttributeName: style
         ]
         

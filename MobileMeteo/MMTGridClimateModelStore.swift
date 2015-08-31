@@ -11,7 +11,7 @@ import CoreLocation
 import CoreGraphics
 
 public class MMTGridClimateModelStore: MMTClimateModelStore
-{
+{    
     public var gridNodeSize: Int { fatalError("") }        
     
     public var legendSize: CGSize { fatalError("") }
