@@ -45,6 +45,12 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         displayCities(citiesStore.getAllCities())
     }
     
+    override func viewWillAppear(animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        searchBarCancelButtonClicked(searchBar)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         searchBar.text = ""
@@ -62,7 +68,6 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     @IBAction func unwindToListOfCities(unwindSegue: UIStoryboardSegue)
     {
-        searchBarCancelButtonClicked(searchBar)
     }
     
     // MARK: UITableViewDelegate methods
@@ -89,9 +94,9 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         cell.detailTextLabel!.text = count(city.region)>0 ? city.region : " "
         
         return cell
-    }
+    }    
     
-    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath)
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
         selectedCity = cityAtIndexPath(indexPath)
         performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
@@ -99,7 +104,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        return 24
+        return 30
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?

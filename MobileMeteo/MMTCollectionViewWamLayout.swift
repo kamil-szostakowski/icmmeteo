@@ -28,7 +28,7 @@ class MMTCollectionViewWamLayout: UICollectionViewLayout
     @IBInspectable var itemSize: CGSize! = CGSizeMake(130, 140)
     @IBInspectable var headerViewWidth: NSNumber! = 50
     @IBInspectable var itemSpacing: NSNumber! = 2
-    @IBInspectable var sectionSpacing: NSNumber! = 5
+    @IBInspectable var sectionSpacing: NSNumber! = 2
     
     static let headerViewIdentifier = "MMTWamLayoutHeaderViewIdentifier"
     
@@ -78,7 +78,7 @@ class MMTCollectionViewWamLayout: UICollectionViewLayout
         let itemWidth = itemSize.width+CGFloat(itemSpacing)
         let itemHeight = itemSize.height+CGFloat(sectionSpacing)
         
-        let x = CGFloat(indexPath.item)*itemWidth+CGFloat(headerViewWidth)
+        let x = CGFloat(indexPath.item)*itemWidth+CGFloat(headerViewWidth)+CGFloat(itemSpacing)
         let y = CGFloat(indexPath.section)*itemHeight
         
         return CGRectMake(x, y, itemSize.width, itemSize.height)
@@ -121,7 +121,7 @@ class MMTCollectionViewWamLayout: UICollectionViewLayout
             }
         }
 
-        return CGSizeMake(CGFloat(width)+CGFloat(headerViewWidth), CGFloat(height))
+        return CGSizeMake(CGFloat(width)+CGFloat(headerViewWidth)+CGFloat(itemSpacing), CGFloat(height))
     }
     
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]?

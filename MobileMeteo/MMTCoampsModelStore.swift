@@ -17,8 +17,8 @@ public class MMTCoampsModelStore: MMTGridClimateModelStore
     private let waitingTime: NSTimeInterval = 18000
     private var startDate: NSDate!
     
-    public override var meteorogramTitle: String {
-        return "Model COAMPS"
+    public override var meteorogramId: MMTClimateModel {
+        return .COAMPS
     }
     
     public override var forecastLength: Int {

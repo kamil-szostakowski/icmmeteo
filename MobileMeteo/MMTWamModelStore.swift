@@ -37,8 +37,8 @@ public class MMTWamModelStore: MMTClimateModelStore
     private let momentLength = 3
     public let startDate: NSDate
     
-    public override var meteorogramTitle: String {
-        return "Model WAM"
+    public override var meteorogramId: MMTClimateModel {
+        return .WAM
     }
     
     public override var meteorogramSize: CGSize {

@@ -68,6 +68,11 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         return cell
     }
     
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    {
+        return 30
+    }
+    
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         let date = wamSettings.forecastMomentsGrouppedByDay[section].first!.date
