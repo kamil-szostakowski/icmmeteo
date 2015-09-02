@@ -11,12 +11,12 @@ import CoreData
 
 @objc(MMTCity)
 
-class MMTCity: NSManagedObject
+public class MMTCity: NSManagedObject
 {
-    @NSManaged var lat: NSNumber
-    @NSManaged var lng: NSNumber
-    @NSManaged var name: String
-    @NSManaged var region: String
-    @NSManaged var favourite: NSNumber
-    @NSManaged var capital: NSNumber
+    @NSManaged public var lat: NSNumber
+    @NSManaged public var lng: NSNumber
+    @NSManaged public var name: String
+    @NSManaged public var region: String
+    @NSManaged public var favourite: NSNumber
+    @NSManaged public var capital: NSNumber
 }

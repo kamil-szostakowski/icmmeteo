@@ -151,14 +151,31 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L7a-vM-89s">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ACu-82-Djp">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="14"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SpecialListCell" textLabel="IZE-Jf-c7U" style="IBUITableViewCellStyleDefault" id="cdG-DQ-GEg">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cdG-DQ-GEg" id="p9r-6T-Dgt">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IZE-Jf-c7U">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    </variation>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -168,7 +185,7 @@
                                     <rect key="frame" x="0.0" y="64" width="800" height="488"/>
                                 </variation>
                                 <connections>
-                                    <outlet property="dataSource" destination="WYV-gA-76P" id="q5Z-cg-et4"/>
+                                    <outlet property="dataSource" destination="WYV-gA-76P" id="vLT-hD-fNC"/>
                                     <outlet property="delegate" destination="WYV-gA-76P" id="Xdv-gW-ZXI"/>
                                 </connections>
                             </tableView>
@@ -530,6 +547,7 @@
                                 <exclude reference="tNU-2w-XXV"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="Epr-I6-vCH"/>
                                 <exclude reference="5ey-KG-4xt"/>
                                 <exclude reference="FDq-YG-Mhy"/>
                                 <exclude reference="b0D-6K-6qE"/>
@@ -538,7 +556,6 @@
                                 <exclude reference="NNp-1Y-cud"/>
                                 <exclude reference="X3d-mq-N26"/>
                                 <exclude reference="ZFU-lw-PCy"/>
-                                <exclude reference="Epr-I6-vCH"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -549,6 +566,7 @@
                                 <include reference="tNU-2w-XXV"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="Epr-I6-vCH"/>
                                 <include reference="5ey-KG-4xt"/>
                                 <include reference="FDq-YG-Mhy"/>
                                 <include reference="b0D-6K-6qE"/>
@@ -557,7 +575,6 @@
                                 <include reference="NNp-1Y-cud"/>
                                 <include reference="X3d-mq-N26"/>
                                 <include reference="ZFU-lw-PCy"/>
-                                <include reference="Epr-I6-vCH"/>
                             </mask>
                         </variation>
                     </view>
@@ -824,7 +841,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xOP-VD-VM0">
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xOP-VD-VM0">
                                                     <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                                     <state key="normal" title="wybierz">
@@ -832,6 +849,9 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="selected" title="usuń zaznaczenie"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="259" y="0.0" width="53" height="29"/>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="didTapSelectButton:" destination="uA4-k1-9qx" eventType="touchUpInside" id="oSs-ZR-IbL"/>
                                                     </connections>
@@ -1161,11 +1181,11 @@
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="dm4-R9-TSm"/>
+                                        <exclude reference="C5s-pb-qXh"/>
+                                        <exclude reference="smK-aP-kYp"/>
                                         <exclude reference="OHv-ue-smv"/>
                                         <exclude reference="o9Z-RC-gBT"/>
                                         <exclude reference="xRQ-Ta-53L"/>
-                                        <exclude reference="C5s-pb-qXh"/>
-                                        <exclude reference="smK-aP-kYp"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
@@ -1175,11 +1195,11 @@
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="dm4-R9-TSm"/>
+                                        <include reference="C5s-pb-qXh"/>
+                                        <include reference="smK-aP-kYp"/>
                                         <include reference="OHv-ue-smv"/>
                                         <include reference="o9Z-RC-gBT"/>
                                         <include reference="xRQ-Ta-53L"/>
-                                        <include reference="C5s-pb-qXh"/>
-                                        <include reference="smK-aP-kYp"/>
                                     </mask>
                                 </variation>
                             </view>
