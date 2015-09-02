@@ -19,7 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     {
         tryInitDatabase()
         
-        let attributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBold", size: 16)!]
+        let attributes = [
+            NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBold", size: 16)!,
+            NSForegroundColorAttributeName: MMTAppearance.textColor
+        ]
         
         UINavigationBar.appearance().titleTextAttributes = attributes
         UIBarButtonItem.appearance().setTitleTextAttributes(attributes, forState: UIControlState.Normal)

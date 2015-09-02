@@ -25,16 +25,6 @@ public enum MMTClimateModel: String
             case .WAM: return "Model WAM"
         }
     }
-    
-    public var tintColor: UIColor
-    {
-        switch self
-        {
-            case .UM: return UIColor.redColor()
-            case .COAMPS: return UIColor.greenColor()
-            case .WAM: return UIColor.blueColor()
-        }
-    }
 }
 
 public class MMTClimateModelStore: NSObject

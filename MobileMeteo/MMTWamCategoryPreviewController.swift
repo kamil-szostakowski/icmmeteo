@@ -78,9 +78,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         
         scrollView.maximumZoomScale = 1
         scrollView.minimumZoomScale = scrollView.minZoomScaleForSize(wamStore.meteorogramSize)
-        scrollView.zoomScale = scrollView.defaultZoomScale(wamStore.meteorogramSize)
-        
-        NSLog("\(scrollView.zoomScale)")
+        scrollView.zoomScale = scrollView.defaultZoomScale(wamStore.meteorogramSize)        
     }
     
     // MARK: Action methods    
