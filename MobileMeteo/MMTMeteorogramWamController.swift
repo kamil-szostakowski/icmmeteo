@@ -106,8 +106,8 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     private func setupInfoBar()
     {
+        forecastStart.text = "Start prognozy t0: \(NSDateFormatter.shortStyleUtcDatetime(wamStore.forecastStartDate))"        
         forecastLength.text = "Długość prognozy: \(wamStore.forecastLength)h"
-        forecastStart.text = "start prognozy t0: \(NSDateFormatter.shortStyleUtcDatetime(wamStore.forecastStartDate))"
     }
     
     // MARK: Actions

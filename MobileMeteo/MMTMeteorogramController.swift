@@ -44,7 +44,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     override func viewDidAppear(animated: Bool)
     {
         super.viewDidAppear(animated)
-        
+                
         setupScrollView()
         
         meteorogramStore.getMeteorogramForLocation(city.location, completion: completionWithErrorHandling(){

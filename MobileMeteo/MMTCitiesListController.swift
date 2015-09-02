@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBarDelegate
-{
+{        
     // MARK: Outlets
 
     @IBOutlet var topSpacing: NSLayoutConstraint!    
@@ -24,11 +24,11 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     var meteorogramStore: MMTGridClimateModelStore!
     
+    private var citiesIndex: MMTCitiesIndex!
     private var citiesStore: MMTCitiesStore!
-    private var capitalCities: [MMTCity]!
-    private var favouriteCities: [MMTCity]!
-    private var foundCities: [MMTCity]!
     private var selectedCity: MMTCity?
+    
+    private let kCurrentLocationKey = "currentLocation"
     
     // MARK: Controller methods
     
@@ -36,19 +36,27 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     {
         super.viewDidLoad()
         
+        citiesIndex = MMTCitiesIndex()
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         
-        lblForecastStart.text = "start prognozy t0: \(NSDateFormatter.shortStyleUtcDatetime(meteorogramStore.forecastStartDate))"        
+        lblForecastStart.text = "Start prognozy t0: \(NSDateFormatter.shortStyleUtcDatetime(meteorogramStore.forecastStartDate))"        
         lblForecastLenght.text = "Długość prognozy: \(meteorogramStore.forecastLength)h, siatka \(meteorogramStore.gridNodeSize)km"
         
         tableView.tableHeaderView?.frame = CGRectMake(0, 0, view.frame.size.width, searchBar.bounds.height)
-        displayCities(citiesStore.getAllCities())
     }
     
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(animated)
+        
         searchBarCancelButtonClicked(searchBar)
+        citiesStore.addObserver(self, forKeyPath: kCurrentLocationKey, options: .New, context: nil)
+    }
+    
+    override func viewWillDisappear(animated: Bool)
+    {
+        super.viewWillDisappear(animated)
+        citiesStore.removeObserver(self, forKeyPath: kCurrentLocationKey)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -64,6 +72,13 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         }
     }
     
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>)
+    {
+        if keyPath == kCurrentLocationKey && searchBar.text == "" {
+            citiesStore.getAllCities() { self.displayCities($0) }
+        }
+    }
+    
     // MARK: Actions
     
     @IBAction func unwindToListOfCities(unwindSegue: UIStoryboardSegue)
@@ -74,46 +89,50 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        return favouriteCities.count>0 ? 2 : 1
+        return citiesIndex.getAllGroups().count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        let nonCapitalsCount = favouriteCities.count+foundCities.count
-        
-        return section==0 && nonCapitalsCount>0 ? nonCapitalsCount : capitalCities.count
+        return citiesIndex.citiesForGroupAtIndex(section).count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let city = cityAtIndexPath(indexPath)
-        
+        let city = citiesIndex.cityAtIndexPath(indexPath)
+        let reuseId = count(city.region)>0 ? "CitiesListCell" : "SpecialListCell"
+        let others = citiesIndex.typeForGroupAtIndex(indexPath.section) != .Others
+      
         let
-        cell = tableView.dequeueReusableCellWithIdentifier("CitiesListCell", forIndexPath: indexPath) as! UITableViewCell
+        cell = tableView.dequeueReusableCellWithIdentifier(reuseId, forIndexPath: indexPath) as! UITableViewCell
+        cell.detailTextLabel?.text = others ? city.region : "Obecna lokalizacja"        
         cell.textLabel!.text = city.name
-        cell.detailTextLabel!.text = count(city.region)>0 ? city.region : " "
         
         return cell
-    }    
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
-        selectedCity = cityAtIndexPath(indexPath)
-        performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        return 30
+        return citiesIndex.typeForGroupAtIndex(section) == .Others ? 0 : 30
     }
-    
+
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
+        if citiesIndex.typeForGroupAtIndex(section) == .Others {
+            return nil
+        }
+        
         let
         header = tableView.dequeueReusableCellWithIdentifier("CitiesListHeader") as! UITableViewCell
-        header.textLabel?.text = titleForSection(section)
+        header.textLabel?.text = citiesIndex.labelForGroupAtIndex(section)
         
         return header
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        selectedCity = citiesIndex.cityAtIndexPath(indexPath)
+        performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
     }
     
     // MARK: UIScrollViewDelegate methods
@@ -158,16 +177,12 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
     {
         searchBar.setShowsCancelButton(true, animated: true)
-        let filteredCities = citiesStore.getCitiesMachingCriteria(searchBar.text)
         
         if searchBar.text == "" {
-            displayCities(citiesStore.getAllCities())
-        }
-        else if filteredCities.count>0 {
-            displayCities(filteredCities)
+            citiesStore.getAllCities() { self.displayCities($0) }
         }
         else {
-            citiesStore.findCitiesMachingCriteris(searchBar.text) {(cities: [MMTCity]) in self.displayCities(cities) }
+            citiesStore.getCitiesMatchingCriteria(searchBar.text) { self.displayCities($0) }
         }
     }
     
@@ -177,43 +192,14 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         searchBar.resignFirstResponder()
         searchBar.text = ""
     
-        self.displayCities(citiesStore.getAllCities())
+        citiesStore.getAllCities() { self.displayCities($0) }
     }
     
-    // MARK: Helper methods
+    // MARK: Helper methods    
     
-    func displayCities(cities: [MMTCity])
+    private func displayCities(cities: [MMTCity])
     {
-        capitalCities = cities.filter(){ $0.isCapital && !$0.isFavourite }
-        favouriteCities = cities.filter(){ $0.isFavourite }
-        foundCities = cities.filter(){ !$0.isCapital && !$0.isFavourite }
-        
+        citiesIndex = MMTCitiesIndex(cities: cities)
         tableView.reloadData()
-    }
-    
-    func cityAtIndexPath(indexPath: NSIndexPath) -> MMTCity
-    {
-        if indexPath.section == 0 && favouriteCities.count>0 {
-            return favouriteCities[indexPath.row]
-        }
-        
-        if indexPath.section == 0 && foundCities.count>0 {
-            return foundCities[indexPath.row]
-        }
-        
-        return capitalCities[indexPath.row]
-    }
-    
-    func titleForSection(section: Int) -> String
-    {
-        if section == 0 && favouriteCities.count>0 {
-            return "Ulubione"
-        }
-        
-        if section == 0 && foundCities.count>0 {
-            return "Znalezione"
-        }
-        
-        return "Miasta wojewódzkie"
     }
 }
