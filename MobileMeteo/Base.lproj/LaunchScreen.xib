@@ -11,10 +11,10 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meteo" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Meteo" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
                     <rect key="frame" x="20" y="140" width="441" height="43"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="36"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="8TO-5s-xzP">
@@ -36,7 +36,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darmowy czytnik prognozy pogody dla serwisu meteo.pl" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kmg-St-AY1">
                     <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
@@ -78,9 +78,9 @@
                     <exclude reference="joB-51-EyV"/>
                     <exclude reference="m72-Yb-Kbc"/>
                     <exclude reference="nQD-SL-Gjo"/>
+                    <exclude reference="Boc-cA-ksb"/>
                     <exclude reference="qQY-6E-B3x"/>
                     <exclude reference="vW8-Dr-zZW"/>
-                    <exclude reference="Boc-cA-ksb"/>
                 </mask>
             </variation>
             <variation key="heightClass=regular-widthClass=compact">
@@ -94,9 +94,9 @@
                     <include reference="joB-51-EyV"/>
                     <include reference="m72-Yb-Kbc"/>
                     <include reference="nQD-SL-Gjo"/>
+                    <include reference="Boc-cA-ksb"/>
                     <include reference="qQY-6E-B3x"/>
                     <include reference="vW8-Dr-zZW"/>
-                    <include reference="Boc-cA-ksb"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="548" y="455"/>

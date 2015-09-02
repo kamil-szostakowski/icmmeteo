@@ -101,11 +101,11 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     {
         let city = citiesIndex.cityAtIndexPath(indexPath)
         let reuseId = count(city.region)>0 ? "CitiesListCell" : "SpecialListCell"
-        let others = citiesIndex.typeForGroupAtIndex(indexPath.section) != .Others
+        let others = citiesIndex.typeForGroupAtIndex(indexPath.section) == .Others && searchBar.text == ""
       
         let
         cell = tableView.dequeueReusableCellWithIdentifier(reuseId, forIndexPath: indexPath) as! UITableViewCell
-        cell.detailTextLabel?.text = others ? city.region : "Obecna lokalizacja"        
+        cell.detailTextLabel?.text = !others ? city.region : "Obecna lokalizacja"
         cell.textLabel!.text = city.name
         
         return cell

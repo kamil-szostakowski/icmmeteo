@@ -17,12 +17,12 @@ class MMTTabBarController: UITabBarController
         
         initItemAtIndex(0, withStore: MMTUmModelStore(date: NSDate()))
         initItemAtIndex(1, withStore: MMTCoampsModelStore(date: NSDate()))
-        
-        let attributes = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Light", size: 10)!,
-        ]
+
+        let attributes = [NSFontAttributeName: MMTAppearance.fontWithSize(10)]
 
         UITabBarItem.appearance().setTitleTextAttributes(attributes, forState: UIControlState.Normal)
         UITabBarItem.appearance().setTitleTextAttributes(attributes, forState: UIControlState.Selected)
+        UITabBar.appearance().tintColor = MMTAppearance.textColor
     }
     
     // MARK: Helper methods
@@ -34,7 +34,6 @@ class MMTTabBarController: UITabBarController
         let icon = UIImage(named: store.meteorogramId.rawValue)
         
         controller.meteorogramStore = store
-//        controller.view.tintColor = store.meteorogramId.tintColor
         
         item.title = store.meteorogramId.description
         item.image = icon
