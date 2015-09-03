@@ -34,8 +34,9 @@ public class MMTWamModelStore: MMTClimateModelStore
 {
     // MARK: Properties
     
+    private let waitingTime: NSTimeInterval = 25200
     private let momentLength = 3
-    public let startDate: NSDate
+    private var startDate: NSDate!
     
     public override var meteorogramId: MMTClimateModel {
         return .WAM
@@ -50,23 +51,15 @@ public class MMTWamModelStore: MMTClimateModelStore
     }
     
     public override var forecastStartDate: NSDate {
-        return self.startDate
+        return startDate
     }
     
     // MARK: Initializers
     
     public init(date: NSDate)
     {
-        let units: NSCalendarUnit = (.CalendarUnitYear)|(.CalendarUnitMonth)|(.CalendarUnitDay)|(.CalendarUnitHour)
-        
-        let
-        components = NSCalendar.utcCalendar.components(units, fromDate: date)
-        components.hour = 0
-        components.minute = 0
-        
-        startDate = NSCalendar.utcCalendar.dateFromComponents(components)!
-        
-        super.init()
+        super.init()        
+        startDate = NSCalendar.utcCalendar.dateFromComponents(tZeroComponentsForDate(date))!
     }
     
     // MARK: Methods
@@ -120,5 +113,19 @@ public class MMTWamModelStore: MMTClimateModelStore
         }
         
         return forecastMoments
+    }
+    
+    // MARK: Helper methods
+    
+    private func tZeroComponentsForDate(date: NSDate) -> NSDateComponents
+    {
+        let dateWithOffset = date.dateByAddingTimeInterval(-waitingTime)
+        let units: NSCalendarUnit = (.CalendarUnitYear)|(.CalendarUnitMonth)|(.CalendarUnitDay)|(.CalendarUnitHour)
+        
+        let
+        components = NSCalendar.utcCalendar.components(units, fromDate: dateWithOffset)
+        components.hour = components.hour < 12 ? 0 : 12
+        
+        return components
     }
 }
