@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import AddressBook
 import CoreData
 
 typealias MMTCititesQueryCompletion = ([MMTCity]) -> Void
@@ -20,6 +21,10 @@ class MMTCitiesStore: NSObject, CLLocationManagerDelegate
     private let geocoder: CLGeocoder
     private let database: MMTDatabase
     private let locationManager: CLLocationManager
+    
+    private var isGeocoderAuthorized: Bool {
+        return CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse
+    }
     
     dynamic var currentLocation: CLLocation?
     
@@ -41,7 +46,7 @@ class MMTCitiesStore: NSObject, CLLocationManagerDelegate
     {
         var cities = getAllCities()
         
-        if CLLocationManager.authorizationStatus() != .AuthorizedWhenInUse {
+        if !isGeocoderAuthorized {
             completion(cities)
             return
         }
@@ -59,12 +64,21 @@ class MMTCitiesStore: NSObject, CLLocationManagerDelegate
         let predicate = NSPredicate(format: "SELF.name CONTAINS[cd] %@", criteria)
         var cities = getAllCities().filter(){ predicate.evaluateWithObject($0) }
         
-        if cities.count > 0 {
+        if cities.count > 0 || !isGeocoderAuthorized {
             completion(cities)
             return
-        }
+        }        
         
-        geocoder.geocodeAddressString("\(criteria), Poland", completionHandler:{
+        let address: [NSObject:NSObject] =
+        [
+            kABPersonAddressCityKey: criteria,
+            kABPersonAddressCountryKey: "Poland",
+            kABPersonAddressCountryCodeKey: "PL",
+        ]
+        
+        geocoder.cancelGeocode()
+        
+        geocoder.geocodeAddressDictionary(address, completionHandler:{
             (placemarks: [AnyObject]!, error: NSError!) in
             
             if error == nil {

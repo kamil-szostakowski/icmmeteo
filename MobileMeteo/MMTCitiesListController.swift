@@ -174,14 +174,14 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     // MARK: UISearchBarDelegate methods
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar)
     {
         searchBar.setShowsCancelButton(true, animated: true)
-        
-        if searchBar.text == "" {
-            citiesStore.getAllCities() { self.displayCities($0) }
-        }
-        else {
+    }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
+    {
+        if count(searchBar.text) > 0 {
             citiesStore.getCitiesMatchingCriteria(searchBar.text) { self.displayCities($0) }
         }
     }
@@ -192,6 +192,11 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         searchBar.resignFirstResponder()
         searchBar.text = ""
     
+        citiesStore.getAllCities() { self.displayCities($0) }
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar)
+    {
         citiesStore.getAllCities() { self.displayCities($0) }
     }
     
