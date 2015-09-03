@@ -20,21 +20,37 @@ class MMTWamModelStoreTests: XCTestCase
         let store = MMTWamModelStore(date: NSDate())
         XCTAssertEqual(84, store.forecastLength)
     }
-    
-    func testStartForecastDate()
+
+    func testStartForecastDate12am()
     {
-        let expectedDate = TT.utcFormatter.dateFromString("2015-03-11T00:00")!
-        let store = MMTWamModelStore(date: TT.localFormatter.dateFromString("2015-03-12T01:34")!)
+        let expectedDate = TT.utcFormatter.dateFromString("2015-09-02T12:00")!
+        let store = MMTWamModelStore(date: TT.localFormatter.dateFromString("2015-09-03T08:30")!)
         
         XCTAssertEqual(expectedDate, store.forecastStartDate)
     }
     
-    func testHoursFromForecastStart()
+    func testStartForecastDateMidnight()
     {
-        let date = TT.utcFormatter.dateFromString("2015-03-12T15:00")!
+        let expectedDate = TT.utcFormatter.dateFromString("2015-03-11T00:00")!
+        let store = MMTWamModelStore(date: TT.localFormatter.dateFromString("2015-03-11T010:34")!)
+        
+        XCTAssertEqual(expectedDate, store.forecastStartDate)
+    }
+    
+    func testHoursFromForecastStartAt12am()
+    {
+        let date = TT.utcFormatter.dateFromString("2015-03-12T15:31")!
         let store = MMTWamModelStore(date: TT.localFormatter.dateFromString("2015-03-12T01:34")!)
         
-        XCTAssertEqual(39, store.getHoursFromForecastStartDate(forDate: date))
+        XCTAssertEqual(27, store.getHoursFromForecastStartDate(forDate: date))
+    }
+    
+    func testHoursFromForecastStartAtMidnight()
+    {
+        let date = TT.utcFormatter.dateFromString("2015-03-12T15:31")!
+        let store = MMTWamModelStore(date: TT.localFormatter.dateFromString("2015-03-12T09:34")!)
+        
+        XCTAssertEqual(15, store.getHoursFromForecastStartDate(forDate: date))
     }
     
     func testForecastMomentsCount()
@@ -43,9 +59,20 @@ class MMTWamModelStoreTests: XCTestCase
         XCTAssertEqual(28, store.getForecastMoments().count)
     }
     
-    func testForecastMoments()
+    func testForecastMomentsForForecastStartAt12am()
     {
         let store = MMTWamModelStore(date: TT.utcFormatter.dateFromString("2015-07-30T00:00")!)
+        let moments = store.getForecastMoments()
+        
+        XCTAssertEqual(TT.getDate(2015, 7, 29, 15), moments[0].date)
+        XCTAssertEqual(TT.getDate(2015, 7, 30, 21), moments[10].date)
+        XCTAssertEqual(TT.getDate(2015, 7, 31, 18), moments[17].date)
+        XCTAssertEqual(TT.getDate(2015, 8, 2, 0), moments[27].date)
+    }
+    
+    func testForecastMomentsForForecastStartAtMidnight()
+    {
+        let store = MMTWamModelStore(date: TT.utcFormatter.dateFromString("2015-07-30T07:00")!)
         let moments = store.getForecastMoments()
         
         XCTAssertEqual(TT.getDate(2015, 7, 30, 3), moments[0].date)

@@ -30,7 +30,7 @@ public class MMTCoampsModelStore: MMTGridClimateModelStore
     }
     
     public override var forecastStartDate: NSDate {
-        return self.startDate
+        return startDate
     }
     
     public override var meteorogramSize: CGSize {
