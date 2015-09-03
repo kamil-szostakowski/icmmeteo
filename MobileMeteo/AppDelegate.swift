@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool
     {
         tryInitDatabase()
-        
+
         let attributes = [
             NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBold", size: 16)!,
             NSForegroundColorAttributeName: MMTAppearance.textColor
