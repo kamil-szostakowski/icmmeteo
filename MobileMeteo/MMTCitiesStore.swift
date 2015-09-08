@@ -11,7 +11,8 @@ import CoreLocation
 import AddressBook
 import CoreData
 
-typealias MMTCititesQueryCompletion = ([MMTCity]) -> Void
+typealias MMTCityQueryCompletion = (MMTCity?) -> Void
+typealias MMTCitiesQueryCompletion = ([MMTCity]) -> Void
 
 class MMTCitiesStore: NSObject, CLLocationManagerDelegate
 {
@@ -24,7 +25,7 @@ class MMTCitiesStore: NSObject, CLLocationManagerDelegate
     
     private var isGeocoderAuthorized: Bool {
         return CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse
-    }
+    }    
     
     dynamic var currentLocation: CLLocation?
     
@@ -42,32 +43,51 @@ class MMTCitiesStore: NSObject, CLLocationManagerDelegate
     
     // MARK: Methods    
     
-    func getAllCities(completion: MMTCititesQueryCompletion)
+    func getAllCities(completion: MMTCitiesQueryCompletion)
     {
-        var cities = getAllCities()
-        
-        if !isGeocoderAuthorized {
-            completion(cities)
+        completion(getAllCities())
+    }
+    
+    func findCityForLocation(location: CLLocation, completion: MMTCityQueryCompletion)
+    {
+        if !isGeocoderAuthorized
+        {
+            completion(nil)
             return
         }
         
-        getCityForCurrentLocation() {
+        geocoder.reverseGeocodeLocation(location) {
+            (placemarks, error) in
             
-            if let currentCity = $0 {
-                completion(cities+[currentCity])
+            if error == nil && placemarks.count>0
+            {
+                let markers = placemarks as! [CLPlacemark]
+                completion(MMTCity(placemark: markers.first!))
+            }
+            else
+            {
+                completion(nil)
             }
         }
     }
     
-    func getCitiesMatchingCriteria(criteria: String, completion: MMTCititesQueryCompletion)
+    func getCitiesMatchingCriteria(criteria: String, completion: MMTCitiesQueryCompletion)
     {
         let predicate = NSPredicate(format: "SELF.name CONTAINS[cd] %@", criteria)
         var cities = getAllCities().filter(){ predicate.evaluateWithObject($0) }
         
-        if cities.count > 0 || !isGeocoderAuthorized {
-            completion(cities)
+        completion(cities)
+    }
+    
+    func findCitiesMatchingCriteria(criteria: String, completion: MMTCitiesQueryCompletion)
+    {
+        if !isGeocoderAuthorized
+        {
+            completion([])
             return
-        }        
+        }
+        
+        var cities = [MMTCity]()
         
         let address: [NSObject:NSObject] =
         [
@@ -103,7 +123,7 @@ class MMTCitiesStore: NSObject, CLLocationManagerDelegate
             database.managedObjectContext.deleteObject(city)
         }
         
-        MMTDatabase.instance.saveContext()                
+        MMTDatabase.instance.saveContext()
     }
     
     func getPredefinedCitiesFromFile(file: String) -> [MMTCity]
@@ -159,23 +179,6 @@ class MMTCitiesStore: NSObject, CLLocationManagerDelegate
         let cities = database.managedObjectContext.executeFetchRequest(request, error: nil)
         
         return cities as! [MMTCity]
-    }
-    
-    private func getCityForCurrentLocation(completion: MMTCurrentCityQueryCompletion)
-    {
-        geocoder.reverseGeocodeLocation(locationManager.location) {
-            (placemarks, error) in
-            
-            if error == nil && placemarks.count>0
-            {
-                let markers = placemarks as! [CLPlacemark]
-                completion(MMTCity(placemark: markers.first!))
-            }
-            else
-            {
-                completion(nil)
-            }
-        }
     }
     
     private func getPredefinedCitiesFromFile(path: String) -> MMTCitiesArray?

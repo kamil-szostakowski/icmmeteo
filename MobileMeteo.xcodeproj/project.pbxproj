@@ -16,6 +16,8 @@
 		F980D3E41B9596440011F032 /* MMTCitiesIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F980D3E31B9596440011F032 /* MMTCitiesIndex.swift */; };
 		F987DB3C1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987DB3B1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift */; };
 		F987DB3E1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987DB3D1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift */; };
+		F989C52F1B9D6B1A002A1903 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F989C52E1B9D6B1A002A1903 /* MapKit.framework */; };
+		F989C5311B9D6BDA002A1903 /* MMTCityMapPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F989C5301B9D6BDA002A1903 /* MMTCityMapPickerController.swift */; };
 		F99A8A2C1B8463FE0098E170 /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99A8A2B1B8463FE0098E170 /* NSURL.swift */; };
 		F99A8A2E1B8464E50098E170 /* MMTCategoryNSURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99A8A2D1B8464E50098E170 /* MMTCategoryNSURLTests.swift */; };
 		F99A8A301B846A4B0098E170 /* NSCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99A8A2F1B846A4B0098E170 /* NSCalendar.swift */; };
@@ -83,6 +85,8 @@
 		F980D3E31B9596440011F032 /* MMTCitiesIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesIndex.swift; sourceTree = "<group>"; };
 		F987DB3B1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTActionSheetPresentationController.swift; sourceTree = "<group>"; };
 		F987DB3D1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTActionSheetTransitioningDelegate.swift; sourceTree = "<group>"; };
+		F989C52E1B9D6B1A002A1903 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		F989C5301B9D6BDA002A1903 /* MMTCityMapPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCityMapPickerController.swift; sourceTree = "<group>"; };
 		F99A8A2B1B8463FE0098E170 /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
 		F99A8A2D1B8464E50098E170 /* MMTCategoryNSURLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCategoryNSURLTests.swift; sourceTree = "<group>"; };
 		F99A8A2F1B846A4B0098E170 /* NSCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCalendar.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F989C52F1B9D6B1A002A1903 /* MapKit.framework in Frameworks */,
 				F9E696A41AFCE70700273DA3 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -153,6 +158,7 @@
 		1E0B96656B6BD26F0DC667D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F989C52E1B9D6B1A002A1903 /* MapKit.framework */,
 				F9E696A31AFCE70700273DA3 /* CoreLocation.framework */,
 				8E975CCF1B64248C00566C8B /* CoreGraphics.framework */,
 				CC1FC1906742E93B61199BA9 /* libPods-MobileMeteoTests.a */,
@@ -253,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				F957544E1B4D068400C4E672 /* MMTCitiesListController.swift */,
+				F989C5301B9D6BDA002A1903 /* MMTCityMapPickerController.swift */,
 				F95754481B4CFF0A00C4E672 /* MMTMeteorogramController.swift */,
 			);
 			name = OtehrModels;
@@ -518,6 +525,7 @@
 				F9C23A981B621DE400A94A4B /* MMTCollectionViewWamLayout.swift in Sources */,
 				F99A8A2C1B8463FE0098E170 /* NSURL.swift in Sources */,
 				F99F24611B6B572300622E1E /* NSDateFormatter.swift in Sources */,
+				F989C5311B9D6BDA002A1903 /* MMTCityMapPickerController.swift in Sources */,
 				F950E0D91B60C0D4000757B2 /* MMTModelWamSettingsController.swift in Sources */,
 				F9BB149F1B5670FD00C81B3F /* MMTDatabase.swift in Sources */,
 				F9B2BA3F1B4BEC5B0081AC29 /* MMTMeteorogramFetchDelegate.swift in Sources */,
