@@ -31,6 +31,7 @@ struct MMTSegue
     static let DisplayMeteorogram = "DisplayMeteorogram"
     static let DisplayWamSettings = "DisplayWamSettings"
     static let DisplayWamCategoryPreview = "DisplayWamCategoryPreview"
+    static let DisplayMapScreen = "DisplayMapScreen"
 }
 
 struct MMTFormat

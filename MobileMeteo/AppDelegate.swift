@@ -27,6 +27,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         UINavigationBar.appearance().titleTextAttributes = attributes
         UIBarButtonItem.appearance().setTitleTextAttributes(attributes, forState: UIControlState.Normal)
         
+        let disabledAttributes = [
+            NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBold", size: 16)!,
+            NSForegroundColorAttributeName: UIColor.lightGrayColor()
+        ]
+
+        UIBarButtonItem.appearance().setTitleTextAttributes(disabledAttributes, forState: UIControlState.Disabled)
+        
         return true
     }
     

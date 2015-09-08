@@ -168,14 +168,11 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cdG-DQ-GEg" id="p9r-6T-Dgt">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IZE-Jf-c7U">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Wskaż lokalizację na mapie" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IZE-Jf-c7U">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
-                                                    <variation key="heightClass=regular-widthClass=compact">
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    </variation>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -233,6 +230,7 @@
                         <outlet property="tableView" destination="c9a-Dj-a8h" id="2gF-yA-cqw"/>
                         <outlet property="topSpacing" destination="yZz-Je-1E1" id="QZe-Bs-YIE"/>
                         <segue destination="lDT-Dp-3bJ" kind="presentation" identifier="DisplayMeteorogram" id="dj6-QC-1jS"/>
+                        <segue destination="i3E-TH-02Z" kind="presentation" identifier="DisplayMapScreen" id="enP-3D-Gaj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ewx-d7-4a5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -817,6 +815,115 @@
             </objects>
             <point key="canvasLocation" x="-246" y="781.5"/>
         </scene>
+        <!--City Map Picker Controller-->
+        <scene sceneID="pFM-Pp-k6s">
+            <objects>
+                <viewController id="i3E-TH-02Z" customClass="MMTCityMapPickerController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="J1D-yb-pjN"/>
+                        <viewControllerLayoutGuide type="bottom" id="hhH-zm-SvF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gg7-CK-wch">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="b3x-5F-DcE">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Pvd-JI-8jf" appends="YES" id="aaS-ND-fbW"/>
+                                </connections>
+                            </mapView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oj7-vk-Ve9">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="XsE-jz-81i"/>
+                                </constraints>
+                                <color key="barTintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <items>
+                                    <navigationItem title="Wybierz lokalizację" id="aYU-fT-aKy">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="IXb-Zd-1SH">
+                                            <connections>
+                                                <segue destination="JpU-QH-EL2" kind="unwind" identifier="UnwindToListOfCities" unwindAction="unwindToListOfCities:" id="JrN-dY-NUv"/>
+                                            </connections>
+                                        </barButtonItem>
+                                        <barButtonItem key="rightBarButtonItem" title="Pokaż" id="SxL-e7-iV7">
+                                            <connections>
+                                                <action selector="didClickShowButton:" destination="i3E-TH-02Z" id="MAP-68-Pot"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="XsE-jz-81i"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="XsE-jz-81i"/>
+                                    </mask>
+                                </variation>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Oj7-vk-Ve9" firstAttribute="leading" secondItem="gg7-CK-wch" secondAttribute="leading" id="4gY-Yq-irq"/>
+                            <constraint firstAttribute="trailing" secondItem="Oj7-vk-Ve9" secondAttribute="trailing" id="HXe-Up-2UT"/>
+                            <constraint firstItem="hhH-zm-SvF" firstAttribute="top" secondItem="b3x-5F-DcE" secondAttribute="bottom" id="Uy1-xd-xTI"/>
+                            <constraint firstAttribute="trailing" secondItem="b3x-5F-DcE" secondAttribute="trailing" id="ZPe-Wj-fQC"/>
+                            <constraint firstItem="b3x-5F-DcE" firstAttribute="leading" secondItem="gg7-CK-wch" secondAttribute="leading" id="ne0-sC-iBn"/>
+                            <constraint firstItem="Oj7-vk-Ve9" firstAttribute="top" secondItem="J1D-yb-pjN" secondAttribute="bottom" id="rW7-g7-77t"/>
+                            <constraint firstItem="b3x-5F-DcE" firstAttribute="top" secondItem="Oj7-vk-Ve9" secondAttribute="bottom" id="sxD-vi-gqL"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="b3x-5F-DcE"/>
+                                <exclude reference="Oj7-vk-Ve9"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="4gY-Yq-irq"/>
+                                <exclude reference="HXe-Up-2UT"/>
+                                <exclude reference="rW7-g7-77t"/>
+                                <exclude reference="ZPe-Wj-fQC"/>
+                                <exclude reference="ne0-sC-iBn"/>
+                                <exclude reference="sxD-vi-gqL"/>
+                                <exclude reference="Uy1-xd-xTI"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="b3x-5F-DcE"/>
+                                <include reference="Oj7-vk-Ve9"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="4gY-Yq-irq"/>
+                                <include reference="HXe-Up-2UT"/>
+                                <include reference="rW7-g7-77t"/>
+                                <include reference="ZPe-Wj-fQC"/>
+                                <include reference="ne0-sC-iBn"/>
+                                <include reference="sxD-vi-gqL"/>
+                                <include reference="Uy1-xd-xTI"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="btnClose" destination="IXb-Zd-1SH" id="K07-nT-1GQ"/>
+                        <outlet property="btnShow" destination="SxL-e7-iV7" id="fcP-Py-b2D"/>
+                        <outlet property="mapView" destination="b3x-5F-DcE" id="hzz-bB-kH5"/>
+                        <segue destination="lDT-Dp-3bJ" kind="presentation" identifier="DisplayMeteorogram" id="Yu3-qe-1v6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="itG-WL-yjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="JpU-QH-EL2" userLabel="Exit" sceneMemberID="exit"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="Pvd-JI-8jf">
+                    <connections>
+                        <action selector="longPressDidRecognized:" destination="i3E-TH-02Z" id="Ccc-uA-PxB"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1137" y="-288.75"/>
+        </scene>
         <!--Model Wam Settings Controller-->
         <scene sceneID="Ztk-YB-ZmQ">
             <objects>
@@ -852,6 +959,9 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <state key="selected" title="usuń zaznaczenie"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="259" y="0.0" width="53" height="29"/>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="didTapSelectButton:" destination="uA4-k1-9qx" eventType="touchUpInside" id="oSs-ZR-IbL"/>
                                                     </connections>
@@ -1655,5 +1765,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="CQD-83-f01"/>
+        <segue reference="Yu3-qe-1v6"/>
     </inferredMetricsTieBreakers>
 </document>
