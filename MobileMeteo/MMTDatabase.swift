@@ -15,7 +15,7 @@ class MMTDatabase: NSObject
     
     // MARK: CoreData stack
     
-    lazy var managedObjectModel: NSManagedObjectModel =
+    lazy var model: NSManagedObjectModel =
     {
         let modelURL = NSBundle.mainBundle().URLForResource("Mobile_Meteo", withExtension: "momd")
         return NSManagedObjectModel(contentsOfURL: modelURL!)!
@@ -24,7 +24,7 @@ class MMTDatabase: NSObject
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator =
     {
         let type = NSSQLiteStoreType
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.model)
         let storeURL = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Mobile_Meteo.sqlite")
         
         var error: NSError?
@@ -36,7 +36,7 @@ class MMTDatabase: NSObject
         return coordinator
     }()
     
-    lazy var managedObjectContext: NSManagedObjectContext =
+    lazy var context: NSManagedObjectContext =
     {
         let context = NSManagedObjectContext()
         context.persistentStoreCoordinator = self.persistentStoreCoordinator
@@ -47,7 +47,7 @@ class MMTDatabase: NSObject
     func saveContext()
     {
         var error: NSError?
-        if managedObjectContext.hasChanges && !managedObjectContext.save(&error) {
+        if context.hasChanges && !context.save(&error) {
             reportFatalError(error)
         }
     }    

@@ -8,11 +8,13 @@
 
 import UIKit
 import Foundation
+import CoreLocation
 
-class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBarDelegate
+class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate
 {        
     // MARK: Outlets
 
+    @IBOutlet var tableViewHeader: UIView!
     @IBOutlet var topSpacing: NSLayoutConstraint!    
     @IBOutlet var infoBar: UIView!
     @IBOutlet var searchBar: UISearchBar!
@@ -24,16 +26,14 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     var meteorogramStore: MMTGridClimateModelStore!
     
+    private var locationManager: CLLocationManager!
+    private var searchInput: MMTSearchInput!
     private var citiesIndex: [MMTCitiesGroup]!
     private var citiesStore: MMTCitiesStore!
     private var selectedCity: MMTCity?
     private var shouldDisplayMeteorogram = false
     
-    private let kCurrentLocationKey = "currentLocation"
-    
-    private var isSearching: Bool {
-        return count(searchBar.text) > 0
-    }
+    private let kCurrentLocationKey = "location"
     
     // MARK: Controller methods
     
@@ -41,34 +41,29 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     {
         super.viewDidLoad()
         
+        searchInput = MMTSearchInput("")
         citiesIndex = [MMTCitiesGroup]()
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
+        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()        
         
         lblForecastStart.text = "Start prognozy t0: \(NSDateFormatter.shortStyleUtcDatetime(meteorogramStore.forecastStartDate))"        
         lblForecastLenght.text = "Długość prognozy: \(meteorogramStore.forecastLength)h, siatka \(meteorogramStore.gridNodeSize)km"
         
-        tableView.tableHeaderView?.frame = CGRectMake(0, 0, view.frame.size.width, searchBar.bounds.height)
+        tableViewHeader.frame = CGRectMake(0, 0, view.frame.size.width, searchBar.bounds.height)
     }
     
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(animated)
-        
         searchBarCancelButtonClicked(searchBar)
-        citiesStore.addObserver(self, forKeyPath: kCurrentLocationKey, options: .New, context: nil)
-    }
-    
-    override func viewWillDisappear(animated: Bool)
-    {
-        super.viewWillDisappear(animated)
-        citiesStore.removeObserver(self, forKeyPath: kCurrentLocationKey)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        searchBar.text = ""
-        
-        let a = segue.destinationViewController.respondsToSelector(Selector("city"))
+        searchBarCancelButtonClicked(searchBar)
         
         if segue.identifier == MMTSegue.DisplayMeteorogram
         {
@@ -86,11 +81,27 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         }
     }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>)
+    // MARK: CLLocationManagerDelegate
+    
+    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus)
     {
-        if keyPath == kCurrentLocationKey && !isSearching {
-            updateIndexWithAllCities() { self.tableView.reloadData() }
+        let authorized = status == .AuthorizedWhenInUse
+    
+        if authorized {
+            locationManager.startMonitoringSignificantLocationChanges()
         }
+        
+        if !authorized {
+            locationManager.stopMonitoringSignificantLocationChanges()
+        }
+
+        tableView.tableHeaderView = authorized ? tableViewHeader : nil
+        updateIndexWithAllCities() { self.tableView.reloadData() }
+    }
+    
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!)
+    {
+        updateIndexWithAllCities() { self.tableView.reloadData() }
     }
     
     // MARK: Actions
@@ -166,20 +177,26 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     func scrollViewDidScroll(scrollView: UIScrollView)
     {
-        let scrolled = scrollView.contentOffset.y > 0
-        let offset: CGFloat = scrolled ? max(-44, -scrollView.contentOffset.y) : 0
+        if scrollView.contentSize.height > scrollView.bounds.height
+        {
+            let scrolled = scrollView.contentOffset.y > 0
+            let offset: CGFloat = scrolled ? max(-44, -scrollView.contentOffset.y) : 0
         
-        self.animateInfoBarScrollWithOffset(offset)
+            animateInfoBarScrollWithOffset(offset)
+        }
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool)
     {
-        let offset: CGFloat = scrollView.contentOffset.y > 0 ? -44 : 0
+        if scrollView.contentSize.height > scrollView.bounds.height
+        {
+            let offset: CGFloat = scrollView.contentOffset.y > 0 ? -44 : 0
         
-        self.animateInfoBarScrollWithOffset(offset)
+            animateInfoBarScrollWithOffset(offset)
         
-        if scrollView.contentOffset.y < self.searchBar.bounds.height {
-            self.tableView.adjustContentOffsetForHeaderOfHeight(self.searchBar.bounds.height)
+            if scrollView.contentOffset.y < searchBar.bounds.height {
+                tableView.adjustContentOffsetForHeaderOfHeight(searchBar.bounds.height)
+            }
         }
     }
     
@@ -208,9 +225,10 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
     {
-//        searchBar.text = searchBar.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        searchInput = MMTSearchInput(searchBar.text)
+        searchBar.text = searchInput.stringValue
 
-        if isSearching
+        if searchInput.isValid
         {
             updateIndexWithCitiesMatchingCriteria(searchText) { self.tableView.reloadData() }
         }
@@ -222,8 +240,8 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar)
     {
-        searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
         searchBar.text = ""
         
         updateIndexWithAllCities() { self.tableView.reloadData() }
@@ -241,18 +259,18 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         citiesStore.getAllCities()
         {
             var index = self.getIndexForCities($0)
-            var location = self.citiesStore.currentLocation
             
-            if location == nil
+            if self.locationManager.location == nil
             {
                 self.citiesIndex = index
                 completion()
                 return
             }
             
-            self.citiesStore.findCityForLocation(location!)
-            {
-                if let currentCity = $0
+            self.citiesStore.findCityForLocation(self.locationManager.location!) {
+                (city: MMTCity?, error: NSError?) in
+
+                if let currentCity = city
                 {
                     let group = MMTCitiesGroup(type: .CurrentLocation, cities: [currentCity])
                     index.insert(group, atIndex: 0)
@@ -266,26 +284,21 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     private func updateIndexWithCitiesMatchingCriteria(criteria: String, completion: MMTCompletion)
     {
+        var queryCompletion: MMTCitiesQueryCompletion =
+        {
+            self.citiesIndex = [
+                MMTCitiesGroup(type: .SearchResults, cities: $0),
+                MMTCitiesGroup(type: .NotFound, cities: []),
+            ]
+            
+            completion()
+        }
+        
         citiesStore.getCitiesMatchingCriteria(criteria)
         {
-            if $0.count > 0
-            {
-                self.citiesIndex = self.getIndexForCities($0)
-                completion()
-            }
-            else
-            {
-                self.citiesStore.findCitiesMatchingCriteria(criteria)
-                {
-                    let searchResults = $0.filter(){ !$0.isCapital && !$0.isFavourite }
-                    
-                    self.citiesIndex = [
-                        MMTCitiesGroup(type: .SearchResults, cities: searchResults),
-                        MMTCitiesGroup(type: .NotFound, cities: []),
-                    ]                    
-                    completion()
-                }
-            }
+            if $0.count > 0 { queryCompletion($0) }
+                
+            else { self.citiesStore.findCitiesMatchingCriteria(criteria){ queryCompletion($0) }}
         }
     }
     

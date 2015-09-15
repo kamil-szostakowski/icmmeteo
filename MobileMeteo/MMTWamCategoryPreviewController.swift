@@ -19,7 +19,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet var scrollView: UIScrollView!
     
-    var wamSettings: MMTWamSettings!
+    @NSCopying var wamSettings: MMTWamSettings!
     
     private var cache: NSCache = NSCache()
     private var wamStore = MMTWamModelStore(date: NSDate())

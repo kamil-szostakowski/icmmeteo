@@ -51,13 +51,16 @@ public extension MMTCity
     
     public convenience init(placemark: CLPlacemark)
     {
-        self.init(name: placemark.locality, region: placemark.administrativeArea, location: placemark.location)
+        let name = placemark.locality != nil ? placemark.locality : placemark.name
+        let region = placemark.administrativeArea != nil ? placemark.administrativeArea : ""
+        
+        self.init(name: name, region: region, location: placemark.location)
     }
     
     // MARK: Helper methods
     
     private class var entityDescription: NSEntityDescription
     {
-        return NSEntityDescription.entityForName("MMTCity", inManagedObjectContext: MMTDatabase.instance.managedObjectContext)!
+        return NSEntityDescription.entityForName("MMTCity", inManagedObjectContext: MMTDatabase.instance.context)!
     }
 }

@@ -51,7 +51,6 @@ class MMTWamHeaderView: UICollectionReusableView
         style.alignment = .Center
         
         let textAttributes = [
-            NSForegroundColorAttributeName: MMTAppearance.textColor,
             NSFontAttributeName: MMTAppearance.fontWithSize(12),
             NSParagraphStyleAttributeName: style
         ]

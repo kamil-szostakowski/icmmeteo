@@ -8,9 +8,9 @@
 
 import Foundation
 
-public typealias MMTWamMomentGroups = [String: [MMTWamMoment]]
+private typealias MMTWamMomentGroups = [Int: [MMTWamMoment]]
 
-public class MMTWamSettings: NSObject
+public class MMTWamSettings: NSObject, NSCopying
 {
     // MARK: Properties        
     
@@ -97,12 +97,21 @@ public class MMTWamSettings: NSObject
         return groups
     }
     
-    private func keyForDate(date: NSDate) -> String
+    private func keyForDate(date: NSDate) -> Int
     {
-        let year = NSCalendar.currentCalendar().component(.CalendarUnitYear, fromDate: date)
-        let month = NSCalendar.currentCalendar().component(.CalendarUnitMonth, fromDate: date)
-        let day = NSCalendar.currentCalendar().component(.CalendarUnitDay, fromDate: date)
+        let units: NSCalendarUnit = (.CalendarUnitYear)|(.CalendarUnitMonth)|(.CalendarUnitDay)
+        let components = NSCalendar.currentCalendar().components(units, fromDate: date)
         
-        return "\(year)\(month)\(day)"
+        return Int(NSCalendar.currentCalendar().dateFromComponents(components)!.timeIntervalSince1970)
+    }
+    
+    public func copyWithZone(zone: NSZone) -> AnyObject
+    {
+        let
+        settings = MMTWamSettings([])
+        settings.selectedCategory = selectedCategory
+        settings.forecastMoments = forecastMoments
+
+        return settings
     }
 }

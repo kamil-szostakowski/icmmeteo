@@ -23,7 +23,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Usługi lokalizacji są niezbędne w celu wyszukiwania miejscowości oraz prezentowania meteorogramów dla miejsca, w którym aktualnie przebywasz.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

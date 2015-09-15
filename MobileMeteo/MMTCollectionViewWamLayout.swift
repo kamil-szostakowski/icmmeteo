@@ -25,10 +25,10 @@ class MMTCollectionViewWamLayout: UICollectionViewLayout
         return collectionView?.delegate as? MMTCollectionViewDelegateWamLayout
     }
     
-    @IBInspectable var itemSize: CGSize! = CGSizeMake(130, 140)
-    @IBInspectable var headerViewWidth: NSNumber! = 50
-    @IBInspectable var itemSpacing: NSNumber! = 2
-    @IBInspectable var sectionSpacing: NSNumber! = 2
+    var itemSize: CGSize! = CGSizeMake(130, 140)
+    var headerViewWidth: NSNumber! = 50
+    var itemSpacing: NSNumber! = 2
+    var sectionSpacing: NSNumber! = 2
     
     static let headerViewIdentifier = "MMTWamLayoutHeaderViewIdentifier"
     

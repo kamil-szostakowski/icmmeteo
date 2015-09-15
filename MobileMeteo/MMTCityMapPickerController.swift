@@ -44,6 +44,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
         super.viewDidLoad()
         
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
+        btnShow.enabled = false
         
         setupMapView()
     }
@@ -80,6 +81,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
             let pressedCoordinates = mapView.convertPoint(pressedPoint, toCoordinateFromView: mapView)
             
             selectedLocation = CLLocation(latitude: pressedCoordinates.latitude, longitude: pressedCoordinates.longitude)
+            btnShow.enabled = true
 
             mapView.removeAnnotations(mapView.annotations)
             mapView.addAnnotation(MMTCityAnnotation(coordinate: pressedCoordinates))
@@ -88,22 +90,38 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
     
     @IBAction func didClickShowButton(sender: UIBarButtonItem)
     {
-        if mapView.annotations.count == 1
-        {
-            btnClose.enabled = false
-            btnShow.enabled = false
-            mapView.userInteractionEnabled = false
-            
-            citiesStore.findCityForLocation(selectedLocation)
-            {                
-                self.selectedCity = $0 != nil ? $0! : MMTCity(name: "", region: "", location: self.selectedLocation)
+        setInteractionEnabled(false)
+        
+        citiesStore.findCityForLocation(selectedLocation) {
+            (city: MMTCity?, error: NSError?) in
+                
+            if city != nil
+            {
+                self.selectedCity = city!
                 self.performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
             }
+            
+            else if error != nil
+            {
+                self.displayAlertForError(error!)
+                self.setInteractionEnabled(true)
+            }
         }
-        
-        else
-        {
-            UIAlertView(title: nil, message: "Wybierz lokalizację dla której chcesz zobaczyć meteorogram.", delegate: nil, cancelButtonTitle: "Zamknij").show()
+    }
+    
+    // MARK: Helper methods
+    
+    private func setInteractionEnabled(enabled: Bool)
+    {
+        btnClose.enabled = enabled
+        btnShow.enabled = enabled
+        mapView.userInteractionEnabled = enabled
+    }
+    
+    private func displayAlertForError(error: NSError)
+    {
+        if error.domain == MMTErrorDomain {
+            UIAlertView(title: "", message: MMTError(rawValue: error.code)?.description, delegate: nil, cancelButtonTitle: "zamknij").show()
         }
     }
 }

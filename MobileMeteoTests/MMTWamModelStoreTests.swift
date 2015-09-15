@@ -59,7 +59,7 @@ class MMTWamModelStoreTests: XCTestCase
         XCTAssertEqual(28, store.getForecastMoments().count)
     }
     
-    func testForecastMomentsForForecastStartAt12am()
+    func testForecastMomentsOnTurnOfTheMonthForForecastStartAt12am()
     {
         let store = MMTWamModelStore(date: TT.utcFormatter.dateFromString("2015-07-30T00:00")!)
         let moments = store.getForecastMoments()
@@ -70,7 +70,7 @@ class MMTWamModelStoreTests: XCTestCase
         XCTAssertEqual(TT.getDate(2015, 8, 2, 0), moments[27].date)
     }
     
-    func testForecastMomentsForForecastStartAtMidnight()
+    func testForecastMomentsOnTurnOfTheMonthForForecastStartAtMidnight()
     {
         let store = MMTWamModelStore(date: TT.utcFormatter.dateFromString("2015-07-30T07:00")!)
         let moments = store.getForecastMoments()
@@ -79,6 +79,17 @@ class MMTWamModelStoreTests: XCTestCase
         XCTAssertEqual(TT.getDate(2015, 7, 31, 9), moments[10].date)
         XCTAssertEqual(TT.getDate(2015, 8, 1, 6), moments[17].date)
         XCTAssertEqual(TT.getDate(2015, 8, 2, 12), moments[27].date)
+    }
+    
+    func testForecastMomentsForForecastStartAtMidnight()
+    {
+        let store = MMTWamModelStore(date: TT.utcFormatter.dateFromString("2015-07-08T07:00")!)
+        let moments = store.getForecastMoments()
+        
+        XCTAssertEqual(TT.getDate(2015, 7, 8, 3), moments[0].date)
+        XCTAssertEqual(TT.getDate(2015, 7, 9, 9), moments[10].date)
+        XCTAssertEqual(TT.getDate(2015, 7, 10, 6), moments[17].date)
+        XCTAssertEqual(TT.getDate(2015, 7, 11, 12), moments[27].date)
     }
     
     func testMeteorogramSize()

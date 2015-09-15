@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import CoreLocation
 
-class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
+class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, UIAlertViewDelegate
 {
     // MARK: Outlets
     
@@ -26,7 +26,6 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     var city: MMTCity!
     var meteorogramStore: MMTGridClimateModelStore!
     
-    private var requestCount: Int = 0
     private var citiesStore: MMTCitiesStore!
 
     // MARK: Controller methods
@@ -45,19 +44,9 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     {
         super.viewDidAppear(animated)
                 
-        setupScrollView()
-        
-        meteorogramStore.getMeteorogramForLocation(city.location, completion: completionWithErrorHandling(){
-            (data: NSData?, error: NSError?) in
-            
-            self.meteorogramImage.image = UIImage(data: data!)
-        })
-        
-        meteorogramStore.getMeteorogramLegend(completionWithErrorHandling(){
-            (data: NSData?, error: NSError?) in
-            
-            self.legendImage.image = UIImage(data: data!)
-        })
+        setupScrollView()        
+        setupMeteorogram()
+        setupMeteorogramLegend()
     }
     
     // MARK: Setup methods
@@ -76,6 +65,41 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     {
         let imageName = city.isFavourite ? "star" : "star-outline"
         navigationBar.topItem?.rightBarButtonItem?.image = UIImage(named: imageName)
+    }
+    
+    private func setupMeteorogram()
+    {
+        meteorogramStore.getMeteorogramForLocation(city.location){
+            (data: NSData?, error: NSError?) in
+            
+            if let e = error
+            {
+                UIAlertView(title: "", message: MMTError(rawValue: e.code)!.description, delegate: self, cancelButtonTitle: "zamknij").show()
+                return
+            }
+            
+            self.meteorogramImage.image = UIImage(data: data!)
+            self.activityIndicator.hidden = true
+        }
+    }
+    
+    private func setupMeteorogramLegend()
+    {
+        meteorogramStore.getMeteorogramLegend(){
+            (data: NSData?, error: NSError?) in
+            
+            if error != nil
+            {
+                var
+                size = self.meteorogramStore.legendSize
+                size.width = 0
+                
+                self.legendImage.updateSizeConstraints(size)
+                return
+            }
+            
+            self.legendImage.image = UIImage(data: data!)
+        }
     }
 
     // MARK: Actions
@@ -105,27 +129,13 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
         return scrollViewContainer
     }
     
-    private func completionWithErrorHandling(completion: MMTFetchMeteorogramCompletion) -> MMTFetchMeteorogramCompletion
+    // MARK: UIAlertViewDelegate
+    
+    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int)
     {
-        return { (data: NSData?, error: NSError?) in
-         
-            self.requestCount += 1
-            
-            if let image = data
-            {
-                completion(data: data, error: error)
-            }
-
-            else if error?.domain == MMTErrorDomain
-            {
-                let message = MMTError(rawValue: error!.code)!.description
-                UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: "zamknij").show()
-            }
-            
-            if self.requestCount == 2
-            {
-                self.activityIndicator.hidden = true
-            }
-        }
-    }    
+        performSegueWithIdentifier(MMTSegue.UnwindToListOfCities, sender: self)
+    }
+    
+    // MARK: Helper methods
+    
 }
