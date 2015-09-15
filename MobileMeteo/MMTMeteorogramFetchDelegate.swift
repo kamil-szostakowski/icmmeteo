@@ -23,8 +23,7 @@ public class MMTMeteorogramFetchDelegate: NSObject, NSURLConnectionDataDelegate
     
     public init(completion: MMTFetchMeteorogramCompletion)
     {
-        self.completion = completion;
-        
+        self.completion = completion;        
         super.init()
     }
     
@@ -44,26 +43,15 @@ public class MMTMeteorogramFetchDelegate: NSObject, NSURLConnectionDataDelegate
     }
     
     public func connectionDidFinishLoading(connection: NSURLConnection)
-    {
-        switch responseData?.length <= MMTEmptyMeteorogramSize
-        {
-            case true: completion(data: nil, error: errorWithCode(.MeteorogramNotFound))
-            case false: completion(data: responseData, error: nil)
-            
-            default: break
-        }
+    {        
+        completion(data: responseData, error: nil)
     }
     
     public func connection(connection: NSURLConnection, didFailWithError error: NSError)
     {
+        let err = error.domain == MMTErrorDomain ? error : NSError(code: .MeteorogramFetchFailure)
+        
         responseData = nil
-        completion(data: nil, error: errorWithCode(.MeteorogramFetchFailure))
-    }
-    
-    // MARK: Helper methods
-    
-    private func errorWithCode(code: MMTError) -> NSError
-    {
-        return NSError(domain: MMTErrorDomain, code: code.rawValue, userInfo: nil)
-    }
+        completion(data: nil, error: err)
+    }        
 }

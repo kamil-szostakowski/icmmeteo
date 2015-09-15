@@ -15,6 +15,8 @@ class MMTWamSettingsTests: XCTestCase
     // MARK: Properties
     
     var settings: MMTWamSettings!
+    var momentsOnTurnOfTheMonth: [MMTWamMoment]!
+    var moments: [MMTWamMoment]!
     
     // MARK: Setup methods
     
@@ -22,45 +24,35 @@ class MMTWamSettingsTests: XCTestCase
     {
         super.setUp()
         
-        settings = MMTWamSettings(
+        momentsOnTurnOfTheMonth =
         [
             (date: TT.getDate(2015, 07, 30, 3), selected: false),
             (date: TT.getDate(2015, 07, 30, 6), selected: false),
-            (date: TT.getDate(2015, 07, 30, 9), selected: false),
-            (date: TT.getDate(2015, 07, 30, 12), selected: false),
-            (date: TT.getDate(2015, 07, 30, 15), selected: false),
-            (date: TT.getDate(2015, 07, 30, 18), selected: false),
-            (date: TT.getDate(2015, 07, 30, 21), selected: false),
-            
-            (date: TT.getDate(2015, 07, 31, 0), selected: false),
             (date: TT.getDate(2015, 07, 31, 3), selected: false),
             (date: TT.getDate(2015, 07, 31, 6), selected: false),
-            (date: TT.getDate(2015, 07, 31, 9), selected: false),
-            (date: TT.getDate(2015, 07, 31, 12), selected: false),
-            (date: TT.getDate(2015, 07, 31, 15), selected: false),
-            (date: TT.getDate(2015, 07, 31, 18), selected: false),
-            (date: TT.getDate(2015, 07, 31, 21), selected: false),
-            
             (date: TT.getDate(2015, 08, 01, 0), selected: false),
-            (date: TT.getDate(2015, 08, 01, 3), selected: false),
-            (date: TT.getDate(2015, 08, 01, 6), selected: false),
-            (date: TT.getDate(2015, 08, 01, 9), selected: false),
-            (date: TT.getDate(2015, 08, 01, 12), selected: false),
-            (date: TT.getDate(2015, 08, 01, 15), selected: false),
-            (date: TT.getDate(2015, 08, 01, 18), selected: false),
-            (date: TT.getDate(2015, 08, 01, 21), selected: false),
-            
             (date: TT.getDate(2015, 08, 02, 0), selected: false),
-            (date: TT.getDate(2015, 08, 02, 3), selected: false),
-            (date: TT.getDate(2015, 08, 02, 6), selected: false),
-            (date: TT.getDate(2015, 08, 02, 9), selected: false),
-            (date: TT.getDate(2015, 08, 02, 12), selected: false),
-        ]);
+        ];
+        
+        moments =
+        [
+            (date: TT.getDate(2015, 07, 08, 3), selected: false),
+            (date: TT.getDate(2015, 07, 08, 6), selected: false),
+            (date: TT.getDate(2015, 07, 09, 0), selected: false),
+            (date: TT.getDate(2015, 07, 09, 3), selected: false),
+            (date: TT.getDate(2015, 07, 10, 0), selected: false),
+            (date: TT.getDate(2015, 07, 11, 0), selected: false),
+        ]
+        
+        settings = MMTWamSettings(momentsOnTurnOfTheMonth)
     }
     
     override func tearDown()
     {
-        settings = nil;
+        momentsOnTurnOfTheMonth = nil
+        moments = nil
+        settings = nil
+        
         super.tearDown()
     }
     
@@ -75,10 +67,30 @@ class MMTWamSettingsTests: XCTestCase
     {
         let gruppedMoments = settings.forecastMomentsGrouppedByDay
         
-        XCTAssertEqual(7, gruppedMoments[0].count)
-        XCTAssertEqual(8, gruppedMoments[1].count)
-        XCTAssertEqual(8, gruppedMoments[2].count)
-        XCTAssertEqual(5, gruppedMoments[3].count)
+        XCTAssertEqual(2, gruppedMoments[0].count)
+        XCTAssertEqual(2, gruppedMoments[1].count)
+        XCTAssertEqual(1, gruppedMoments[2].count)
+        XCTAssertEqual(1, gruppedMoments[3].count)
+    }
+    
+    func testForecastMomentsOrder()
+    {
+        let gruppedMoments = MMTWamSettings(moments).forecastMomentsGrouppedByDay
+        
+        XCTAssertEqual(TT.getDate(2015, 07, 08, 3), gruppedMoments[0].first!.date)
+        XCTAssertEqual(TT.getDate(2015, 07, 09, 0), gruppedMoments[1].first!.date)
+        XCTAssertEqual(TT.getDate(2015, 07, 10, 0), gruppedMoments[2].first!.date)
+        XCTAssertEqual(TT.getDate(2015, 07, 11, 0), gruppedMoments[3].first!.date)
+    }
+    
+    func testForecastMomentsOrderForTheTurnOfTheMont()
+    {
+        let gruppedMoments = settings.forecastMomentsGrouppedByDay
+        
+        XCTAssertEqual(TT.getDate(2015, 07, 30, 3), gruppedMoments[0].first!.date)
+        XCTAssertEqual(TT.getDate(2015, 07, 31, 3), gruppedMoments[1].first!.date)
+        XCTAssertEqual(TT.getDate(2015, 08, 01, 0), gruppedMoments[2].first!.date)
+        XCTAssertEqual(TT.getDate(2015, 08, 02, 0), gruppedMoments[3].first!.date)
     }
     
     func testRetreiveForecastMoment()
@@ -135,5 +147,5 @@ class MMTWamSettingsTests: XCTestCase
         
         XCTAssertTrue(settings.momentForDate(dates[0])!.selected)
         XCTAssertTrue(settings.momentForDate(dates[1])!.selected)
-    }    
+    }
 }

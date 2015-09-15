@@ -53,7 +53,7 @@ class MMTMeteorogramRedirectionFetchDelegateTests: XCTestCase
         let url = NSURL(string: "http://www.meteo.pl/um/php/mgram_search.php?NALL=53.585869&EALL=19.570815&lang=pl&fdate=2015060812")
         let redirectResponse = NSHTTPURLResponse(URL: url!, statusCode: 301, HTTPVersion: "1.1", headerFields: [
             "Location": "./meteorogram_map_um.php?ntype=0u&row=367&col=227&lang=pl&fdate=2015060812"
-            ])
+        ])
         
         let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL.mmt_modelUmDownloadBaseUrl(), completion: idleClosure)
         let request = delegate.connection(connection, willSendRequest: NSURLRequest(), redirectResponse: redirectResponse)
@@ -68,11 +68,56 @@ class MMTMeteorogramRedirectionFetchDelegateTests: XCTestCase
         let url = NSURL(string: "http://www.meteo.pl/php/mgram_search.php?NALL=53.014417&EALL=18.598111&lang=pl&fdate=2015071900")
         let redirectResponse = NSHTTPURLResponse(URL: url!, statusCode: 301, HTTPVersion: "1.1", headerFields: [
             "Location": "./meteorogram_map.php?ntype=2n&fdate=2015071900&row=127&col=83&lang=pl"
-            ])
+        ])
         
         let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL.mmt_modelCoampsDownloadBaseUrl(), completion: idleClosure)
         let request = delegate.connection(connection, willSendRequest: NSURLRequest(), redirectResponse: redirectResponse)
         
         XCTAssertEqual(expectedUrl, request!.URL!.absoluteString!);
+    }
+    
+    func testFinishCallbackForPreparedMeteorogram()
+    {
+        let responseData = NSData(data: NSMutableData(length: 71)!)
+        let finishCallbackExpectation = expectationWithDescription("Finish callback expectation")
+        
+        let url = NSURL(string: "http://www.meteo.pl/php/mgram_search.php?NALL=53.014417&EALL=18.598111&lang=pl&fdate=2015071900")
+        let redirectResponse = NSHTTPURLResponse(URL: url!, statusCode: 301, HTTPVersion: "1.1", headerFields: [
+            "Location": "./meteorogram_map.php?ntype=2n&fdate=2015071900&row=127&col=83&lang=pl"
+        ])
+        
+        let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL.mmt_modelCoampsDownloadBaseUrl()) {
+            (var image: NSData?, var error: NSError?) in
+            
+            XCTAssertNil(error)
+            XCTAssertNotNil(image)
+            XCTAssertEqual(image!, responseData)
+            
+            finishCallbackExpectation.fulfill()
+        }
+        
+        delegate.connection(connection, willSendRequest: NSURLRequest(), redirectResponse: redirectResponse)
+        delegate.connection(connection, didReceiveData: responseData)
+        delegate.connectionDidFinishLoading(NSURLConnection())
+        waitForExpectationsWithTimeout(1, handler: nil)
+    }
+    
+    func testFinishCallbackForUnpreparedMeteorogram()
+    {
+        let finishCallbackExpectation = expectationWithDescription("Finish callback expectation")
+        let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL.mmt_modelCoampsDownloadBaseUrl()) {
+            (var image: NSData?, var error: NSError?) in
+    
+            XCTAssertNil(image)
+            XCTAssertNotNil(error)
+            XCTAssertEqual(error!.domain, MMTErrorDomain)
+            XCTAssertEqual(error!.code, MMTError.MeteorogramNotFound.rawValue)
+    
+            finishCallbackExpectation.fulfill()
+        }
+    
+        delegate.connection(connection, didReceiveData: NSData(data: NSMutableData(length: 71)!))
+        delegate.connectionDidFinishLoading(NSURLConnection())
+        waitForExpectationsWithTimeout(1, handler: nil)
     }
 }

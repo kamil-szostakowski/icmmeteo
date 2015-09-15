@@ -11,34 +11,23 @@ import CoreLocation
 import AddressBook
 import CoreData
 
-typealias MMTCityQueryCompletion = (MMTCity?) -> Void
+typealias MMTCityQueryCompletion = (MMTCity?, NSError?) -> Void
 typealias MMTCitiesQueryCompletion = ([MMTCity]) -> Void
 
-class MMTCitiesStore: NSObject, CLLocationManagerDelegate
+class MMTCitiesStore: NSObject
 {
     private typealias MMTCitiesArray = [[String: AnyObject]]
     private typealias MMTCurrentCityQueryCompletion = (MMTCity?) -> Void
     
-    private let geocoder: CLGeocoder
     private let database: MMTDatabase
-    private let locationManager: CLLocationManager
-    
-    private var isGeocoderAuthorized: Bool {
-        return CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse
-    }    
-    
-    dynamic var currentLocation: CLLocation?
+    private let geocoder: CLGeocoder
     
     init(db: MMTDatabase)
     {
-        locationManager = CLLocationManager()
         geocoder = CLGeocoder()
         database = db
         
-        super.init()        
-        
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.delegate = self
+        super.init()
     }
     
     // MARK: Methods    
@@ -50,24 +39,27 @@ class MMTCitiesStore: NSObject, CLLocationManagerDelegate
     
     func findCityForLocation(location: CLLocation, completion: MMTCityQueryCompletion)
     {
-        if !isGeocoderAuthorized
-        {
-            completion(nil)
-            return
-        }
-        
         geocoder.reverseGeocodeLocation(location) {
-            (placemarks, error) in
+            (placemarks, translationError) in
             
-            if error == nil && placemarks.count>0
-            {
-                let markers = placemarks as! [CLPlacemark]
-                completion(MMTCity(placemark: markers.first!))
+            var city: MMTCity? = nil
+            var error: NSError? = nil
+            var markers = placemarks as? [CLPlacemark]
+            
+            if translationError != nil {
+                error = NSError(code: .LocationNotFound)
             }
-            else
+            
+            else if markers != nil && markers!.count>0
             {
-                completion(nil)
+                city = self.getCityForPlacemark(markers!.first!)
+                
+                if city == nil {
+                    error = NSError(code: .LocationUnsupported)
+                }
             }
+            
+            completion(city, error)
         }
     }
     
@@ -81,12 +73,6 @@ class MMTCitiesStore: NSObject, CLLocationManagerDelegate
     
     func findCitiesMatchingCriteria(criteria: String, completion: MMTCitiesQueryCompletion)
     {
-        if !isGeocoderAuthorized
-        {
-            completion([])
-            return
-        }
-        
         var cities = [MMTCity]()
         
         let address: [NSObject:NSObject] =
@@ -101,9 +87,14 @@ class MMTCitiesStore: NSObject, CLLocationManagerDelegate
         geocoder.geocodeAddressDictionary(address, completionHandler:{
             (placemarks: [AnyObject]!, error: NSError!) in
             
-            if error == nil {
-                for placemark: CLPlacemark in placemarks as! [CLPlacemark] {
-                    cities.append(MMTCity(placemark: placemark))
+            if error != nil {
+                completion(cities)
+                return
+            }
+            
+            for placemark: CLPlacemark in placemarks as! [CLPlacemark] {
+                if let city = self.getCityForPlacemark(placemark) {
+                    cities.append(city)
                 }
             }
             
@@ -116,11 +107,11 @@ class MMTCitiesStore: NSObject, CLLocationManagerDelegate
         city.favourite = favourite
         
         if favourite && city.managedObjectContext == nil {
-            database.managedObjectContext.insertObject(city)
+            database.context.insertObject(city)
         }
         
         if !favourite && !city.isCapital {
-            database.managedObjectContext.deleteObject(city)
+            database.context.deleteObject(city)
         }
         
         MMTDatabase.instance.saveContext()
@@ -146,37 +137,19 @@ class MMTCitiesStore: NSObject, CLLocationManagerDelegate
                 result.append(city)
             }
         }
-        
+
         return result
-    }
-    
-    // MARK: CLLocationManagerDelegate
-    
-    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus)
-    {
-        let authorized = status == .AuthorizedWhenInUse
-        
-        if status == .AuthorizedWhenInUse {
-            locationManager.startMonitoringSignificantLocationChanges()
-        }
-        
-        currentLocation = !authorized ? nil : locationManager.location
-    }
-    
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!)
-    {
-        currentLocation = locationManager.location        
-    }
+    }    
     
     // MARK: Helper methods
     
     private func getAllCities() -> [MMTCity]
     {
         let
-        request = NSFetchRequest(entityName: "MMTCity")
+        request = database.model.fetchRequestFromTemplateWithName(MMTFetch.AllCities, substitutionVariables: [NSObject: AnyObject]())!
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
-        let cities = database.managedObjectContext.executeFetchRequest(request, error: nil)
+        let cities = database.context.executeFetchRequest(request, error: nil)
         
         return cities as! [MMTCity]
     }
@@ -192,5 +165,19 @@ class MMTCitiesStore: NSObject, CLLocationManagerDelegate
         }
         
         return nil
+    }
+    
+    private func getCityForPlacemark(placemark: CLPlacemark) -> MMTCity?
+    {
+        if placemark.ocean != nil {
+            return nil
+        }
+        
+        let name = placemark.locality != nil ? placemark.locality : placemark.name
+        
+        let fetchRequest = database.model.fetchRequestFromTemplateWithName(MMTFetch.CityWithName, substitutionVariables: ["NAME": name])!        
+        let city = database.context.executeFetchRequest(fetchRequest, error: nil)?.first as? MMTCity
+        
+        return city != nil ? city! : MMTCity(placemark: placemark)
     }
 }

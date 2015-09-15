@@ -20,7 +20,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
     
     @IBOutlet var tableView: UITableView!
     
-    var wamSettings: MMTWamSettings!
+    @NSCopying var wamSettings: MMTWamSettings!
     
     // MARK: Overrides
     
@@ -28,6 +28,9 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
     {
         super.viewDidLoad()
         wamStore = MMTWamModelStore(date: NSDate())
+        let moments = wamSettings.forecastMomentsGrouppedByDay
+        
+        return
     }
     
     // MARK: Actions

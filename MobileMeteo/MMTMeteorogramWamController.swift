@@ -114,6 +114,10 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     @IBAction func unwindToWamModel(unwindSegue: UIStoryboardSegue)
     {
+    }
+    
+    @IBAction func unwindToWamModelAndUpdateSettings(unwindSegue: UIStoryboardSegue)
+    {
         if let controller = unwindSegue.sourceViewController as? MMTModelWamSettingsController {
             wamSettings = controller.wamSettings
         }

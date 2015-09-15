@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         tryInitDatabase()
 
         let attributes = [
-            NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBold", size: 16)!,
+            NSFontAttributeName: MMTAppearance.boldFontWithSize(16),
             NSForegroundColorAttributeName: MMTAppearance.textColor
         ]
         
@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         UIBarButtonItem.appearance().setTitleTextAttributes(attributes, forState: UIControlState.Normal)
         
         let disabledAttributes = [
-            NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBold", size: 16)!,
+            NSFontAttributeName: MMTAppearance.boldFontWithSize(16),
             NSForegroundColorAttributeName: UIColor.lightGrayColor()
         ]
 
@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             let cities = MMTCitiesStore(db: MMTDatabase.instance).getPredefinedCitiesFromFile(filePath!)
             
             for city in cities {
-                MMTDatabase.instance.managedObjectContext.insertObject(city)
+                MMTDatabase.instance.context.insertObject(city)
             }
             
             MMTDatabase.instance.saveContext()

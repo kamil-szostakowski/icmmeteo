@@ -12,13 +12,15 @@ public class MMTMeteorogramRedirectionFetchDelegate: MMTMeteorogramFetchDelegate
 {
     // MARK: Properties    
     
-    let downloadBaseUrl: NSURL!
+    private let downloadBaseUrl: NSURL!
+    private var wasRedirected = false
+    
     
     // MARK: initializers
     
     public init(url: NSURL, completion: MMTFetchMeteorogramCompletion)
     {
-        self.downloadBaseUrl = url
+        downloadBaseUrl = url
         super.init(completion: completion)
     }
     
@@ -33,11 +35,24 @@ public class MMTMeteorogramRedirectionFetchDelegate: MMTMeteorogramFetchDelegate
             let queryString = locationUri?.componentsSeparatedByString("?").last
             let redirectUrl = NSURL(string: "?\(queryString!)", relativeToURL: downloadBaseUrl)
             
-            if let url = redirectUrl {
+            if let url = redirectUrl
+            {
+                wasRedirected = true
                 return NSURLRequest(URL: url)
             }
         }
         
-        return request;
-    }    
+        return request
+    }
+    
+    public override func connectionDidFinishLoading(connection: NSURLConnection)
+    {
+        if wasRedirected {
+            super.connectionDidFinishLoading(connection)
+        }
+        
+        else {
+            super.connection(connection, didFailWithError: NSError(code: .MeteorogramNotFound))
+        }
+    }
 }

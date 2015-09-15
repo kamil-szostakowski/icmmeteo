@@ -38,7 +38,7 @@ class MMTMeteorogramFetchDelegateTests : XCTestCase
     func testFinishCallback()
     {
         let finishCallbackExpectation = expectationWithDescription("Finish callback expectation")
-        let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL(), completion: {(var image: NSData?, var error: NSError?) in
+        let delegate = MMTMeteorogramFetchDelegate(completion: {(var image: NSData?, var error: NSError?) in
             
             finishCallbackExpectation.fulfill()
         })
@@ -52,7 +52,7 @@ class MMTMeteorogramFetchDelegateTests : XCTestCase
         let data = NSData(data: NSMutableData(length: 100)!)
         let finishCallbackExpectation = expectationWithDescription("Finish callback expectation")
     
-        let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL(), completion: {(var image: NSData?, var error: NSError?) in
+        let delegate = MMTMeteorogramFetchDelegate(completion: {(var image: NSData?, var error: NSError?) in
     
             XCTAssertNil(error);
             XCTAssertNotNil(image);
@@ -72,7 +72,7 @@ class MMTMeteorogramFetchDelegateTests : XCTestCase
         let responseData = NSData(data: NSMutableData(length: 300)!)
         let finishCallbackExpectation = expectationWithDescription("Finish callback expectation")
     
-        let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL()) {
+        let delegate = MMTMeteorogramFetchDelegate() {
             (var image: NSData?, var error: NSError?) in
     
             XCTAssertNil(error)
@@ -86,35 +86,14 @@ class MMTMeteorogramFetchDelegateTests : XCTestCase
         delegate.connection(connection, didReceiveData: partOfResponse)
         delegate.connectionDidFinishLoading(NSURLConnection())
         waitForExpectationsWithTimeout(1, handler: nil)
-    }
-    
-    func testFinishCallbackForUnpreparedMeteorogram()
-    {
-        let response = NSData(data: NSMutableData(length: 71)!)
-        let finishCallbackExpectation = expectationWithDescription("Finish callback expectation")
-        
-        let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL()) {
-            (var image: NSData?, var error: NSError?) in
-            
-            XCTAssertNil(image)
-            XCTAssertNotNil(error)
-            XCTAssertEqual(error!.domain, MMTErrorDomain)
-            XCTAssertEqual(error!.code, MMTError.MeteorogramNotFound.rawValue)
-            
-            finishCallbackExpectation.fulfill()
-        }
-        
-        delegate.connection(connection, didReceiveData: response)
-        delegate.connectionDidFinishLoading(NSURLConnection())
-        waitForExpectationsWithTimeout(1, handler: nil)
-    }
+    }    
     
     // MARK: Delegate test methods    
     
     func testConnectionFailedWithError()
     {
         let finishCallbackExpectation = expectationWithDescription("Finish callback expectation")
-        let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL()) {
+        let delegate = MMTMeteorogramFetchDelegate() {
             (var image: NSData?, var error: NSError?) in
             
             XCTAssertNotNil(error)
