@@ -45,20 +45,26 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         citiesIndex = [MMTCitiesGroup]()
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()        
-        
-        lblForecastStart.text = "Start prognozy t0: \(NSDateFormatter.shortStyleUtcDatetime(meteorogramStore.forecastStartDate))"        
-        lblForecastLenght.text = "Długość prognozy: \(meteorogramStore.forecastLength)h, siatka \(meteorogramStore.gridNodeSize)km"
-        
-        tableViewHeader.frame = CGRectMake(0, 0, view.frame.size.width, searchBar.bounds.height)
+        setupLocationManager()
+        setupHeader()
     }
     
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(animated)
+        
+        let handler = Selector("handleApplicationDidBecomeActiveNotification:")
+        let notification = UIApplicationDidBecomeActiveNotification
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: handler, name: notification, object: nil)
+        
         searchBarCancelButtonClicked(searchBar)
+    }
+    
+    override func viewWillDisappear(animated: Bool)
+    {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -81,6 +87,23 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         }
     }
     
+    // MARK: Setup methods
+    
+    private func setupLocationManager()
+    {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
+    private func setupHeader()
+    {
+        lblForecastStart.text = "Start prognozy t0: \(NSDateFormatter.shortStyleUtcDatetime(meteorogramStore.forecastStartDate))"
+        lblForecastLenght.text = "Długość prognozy: \(meteorogramStore.forecastLength)h, siatka \(meteorogramStore.gridNodeSize)km"
+        
+        tableViewHeader.frame = CGRectMake(0, 0, view.frame.size.width, searchBar.bounds.height)
+    }
+    
     // MARK: CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus)
@@ -101,13 +124,22 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!)
     {
-        updateIndexWithAllCities() { self.tableView.reloadData() }
+        if !searchInput.isValid {
+            updateIndexWithAllCities() { self.tableView.reloadData() }
+        }
     }
     
     // MARK: Actions
     
     @IBAction func unwindToListOfCities(unwindSegue: UIStoryboardSegue)
     {
+    }
+    
+    func handleApplicationDidBecomeActiveNotification(notification: NSNotification)
+    {
+        if !searchInput.isValid {
+            updateIndexWithAllCities() { self.tableView.reloadData() }
+        }
     }
     
     // MARK: UITableViewDelegate methods
