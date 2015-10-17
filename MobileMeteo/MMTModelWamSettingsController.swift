@@ -27,10 +27,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        wamStore = MMTWamModelStore(date: NSDate())
-        let moments = wamSettings.forecastMomentsGrouppedByDay
-        
-        return
+        wamStore = MMTWamModelStore(date: NSDate())  
     }
     
     // MARK: Actions
@@ -63,7 +60,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         let tZeroPlus = wamStore.getHoursFromForecastStartDate(forDate: date)
         
         let
-        cell = tableView.dequeueReusableCellWithIdentifier("WamSettingsTimeItem", forIndexPath: indexPath) as! UITableViewCell
+        cell = tableView.dequeueReusableCellWithIdentifier("WamSettingsTimeItem", forIndexPath: indexPath) 
         cell.textLabel?.text = String(NSString(format: MMTFormat.TZeroPlus, tZeroPlus))
         cell.detailTextLabel?.text = NSDateFormatter.shortStyleUtcDatetime(date)
         cell.accessoryType =  moment.selected ? .Checkmark : .None
@@ -73,7 +70,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        return 30
+        return 34
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
@@ -81,7 +78,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         let date = wamSettings.forecastMomentsGrouppedByDay[section].first!.date
         
         let
-        cell = tableView.dequeueReusableCellWithIdentifier("WamSettingsHeader") as! UITableViewCell
+        cell = tableView.dequeueReusableCellWithIdentifier("WamSettingsHeader")!
         cell.textLabel?.text = NSDateFormatter.shortStyle.stringFromDate(date)
         cell.selected = isSectionSelected(section)
         cell.tag = tagForSection(section)

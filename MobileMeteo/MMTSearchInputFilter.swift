@@ -18,7 +18,7 @@ public class MMTSearchInput: NSObject
     }
     
     public var isValid: Bool {
-        return count(stringWithRemovedDuplicatedWhitespaces(rawInput))>2
+        return stringWithRemovedDuplicatedWhitespaces(rawInput).characters.count>2
     }
     
     // MARK: Initializers
@@ -29,7 +29,7 @@ public class MMTSearchInput: NSObject
         
         rawInput = stringWithRemovedDuplicatedWhitespaces(input)
         
-        if count(rawInput) > 0 && Array(input).last == Character(" ")
+        if rawInput.characters.count > 0 && Array(input.characters).last == Character(" ")
         {
             rawInput.append(Character(" "))
         }
@@ -40,8 +40,8 @@ public class MMTSearchInput: NSObject
     private func stringWithRemovedDuplicatedWhitespaces(input: String) -> String
     {
         let characterSet = NSCharacterSet.whitespaceCharacterSet()
-        let components = input.componentsSeparatedByCharactersInSet(characterSet).filter(){ count($0) > 0 }
+        let components = input.componentsSeparatedByCharactersInSet(characterSet).filter(){ $0.characters.count > 0 }
         
-        return join(" ", components)
+        return components.joinWithSeparator(" ")
     }
 }

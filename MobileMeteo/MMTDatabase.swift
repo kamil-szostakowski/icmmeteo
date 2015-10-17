@@ -27,9 +27,9 @@ class MMTDatabase: NSObject
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.model)
         let storeURL = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Mobile_Meteo.sqlite")
         
-        var error: NSError?
-        if coordinator.addPersistentStoreWithType(type, configuration: nil, URL: storeURL, options: nil, error: &error) == nil
-        {
+        do { try coordinator.addPersistentStoreWithType(type, configuration: nil, URL: storeURL, options: nil) }
+        
+        catch let error as NSError {
             self.reportFatalError(error)
         }
         
@@ -46,10 +46,15 @@ class MMTDatabase: NSObject
     
     func saveContext()
     {
-        var error: NSError?
-        if context.hasChanges && !context.save(&error) {
-            reportFatalError(error)
+        if context.hasChanges
+        {
+            do { try context.save() }
+                
+            catch let error as NSError {
+                reportFatalError(error)
+            }
         }
+        
     }    
     
     // MARK: Helper methods    
@@ -59,7 +64,7 @@ class MMTDatabase: NSObject
         let path = NSSearchPathDirectory.DocumentDirectory
         let domain = NSSearchPathDomainMask.UserDomainMask
         
-        return NSFileManager.defaultManager().URLsForDirectory(path, inDomains: domain).last as! NSURL
+        return NSFileManager.defaultManager().URLsForDirectory(path, inDomains: domain).last!
     }()
     
     private func reportFatalError(error: NSError?)

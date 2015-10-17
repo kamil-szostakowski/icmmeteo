@@ -17,8 +17,6 @@
 		F977E33E1BA007C200608270 /* MMTSearchInputFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F977E33D1BA007C200608270 /* MMTSearchInputFilter.swift */; };
 		F977E3401BA013EB00608270 /* MMTSearchInputFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F977E33F1BA013EB00608270 /* MMTSearchInputFilterTests.swift */; };
 		F980D3E41B9596440011F032 /* MMTCitiesIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F980D3E31B9596440011F032 /* MMTCitiesIndex.swift */; };
-		F987DB3C1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987DB3B1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift */; };
-		F987DB3E1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F987DB3D1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift */; };
 		F989C52F1B9D6B1A002A1903 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F989C52E1B9D6B1A002A1903 /* MapKit.framework */; };
 		F989C5311B9D6BDA002A1903 /* MMTCityMapPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F989C5301B9D6BDA002A1903 /* MMTCityMapPickerController.swift */; };
 		F99A8A2C1B8463FE0098E170 /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99A8A2B1B8463FE0098E170 /* NSURL.swift */; };
@@ -89,8 +87,6 @@
 		F977E33D1BA007C200608270 /* MMTSearchInputFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTSearchInputFilter.swift; sourceTree = "<group>"; };
 		F977E33F1BA013EB00608270 /* MMTSearchInputFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTSearchInputFilterTests.swift; sourceTree = "<group>"; };
 		F980D3E31B9596440011F032 /* MMTCitiesIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesIndex.swift; sourceTree = "<group>"; };
-		F987DB3B1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTActionSheetPresentationController.swift; sourceTree = "<group>"; };
-		F987DB3D1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTActionSheetTransitioningDelegate.swift; sourceTree = "<group>"; };
 		F989C52E1B9D6B1A002A1903 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F989C5301B9D6BDA002A1903 /* MMTCityMapPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCityMapPickerController.swift; sourceTree = "<group>"; };
 		F99894FB1BA2C4C700FC924E /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
@@ -181,15 +177,6 @@
 				04AE35C0443F7462483E0937 /* Pods-MobileMeteoTests.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		F987DB361B5F6B5B0034B7A0 /* ActionSheet */ = {
-			isa = PBXGroup;
-			children = (
-				F987DB3B1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift */,
-				F987DB3D1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift */,
-			);
-			name = ActionSheet;
 			sourceTree = "<group>";
 		};
 		F9900EB91B282B86006880A1 /* Categories */ = {
@@ -336,7 +323,6 @@
 		F9E696661AFCC06600273DA3 /* MobileMeteo */ = {
 			isa = PBXGroup;
 			children = (
-				F987DB361B5F6B5B0034B7A0 /* ActionSheet */,
 				F9E6969F1AFCDEA200273DA3 /* Model */,
 				F9E696901AFCC41D00273DA3 /* Controllers */,
 				F9900EB91B282B86006880A1 /* Categories */,
@@ -455,11 +441,14 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = MMT;
-				LastUpgradeCheck = 0630;
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Kamil Szostakowski";
 				TargetAttributes = {
 					F9E696631AFCC06600273DA3 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = FKJG939MG3;
 					};
 					F9E6967F1AFCC06600273DA3 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -528,7 +517,6 @@
 				8EC56D6E1BA0B528003A5020 /* NSError.swift in Sources */,
 				F957544F1B4D068400C4E672 /* MMTCitiesListController.swift in Sources */,
 				F9B2BA411B4BFD0F0081AC29 /* MMTCitiesStore.swift in Sources */,
-				F987DB3C1B5F7FF00034B7A0 /* MMTActionSheetPresentationController.swift in Sources */,
 				F9C5B5B01B81D1FC00CFB503 /* UIScrollView.swift in Sources */,
 				F9FFEE451B8D92D200C30EDD /* MMTWamCategoryPreviewController.swift in Sources */,
 				F957544D1B4D050C00C4E672 /* MMTConstants.swift in Sources */,
@@ -544,7 +532,6 @@
 				F95754491B4CFF0A00C4E672 /* MMTMeteorogramController.swift in Sources */,
 				F9A751DA1B5CDDFC003B0B38 /* MMTMeteorogramWamController.swift in Sources */,
 				F99F24681B6B725800622E1E /* MMTWamMomentHeaderView.swift in Sources */,
-				F987DB3E1B5F81F50034B7A0 /* MMTActionSheetTransitioningDelegate.swift in Sources */,
 				F9DAEAA41B85D2DE00D4CD34 /* MMTGridClimateModelStore.swift in Sources */,
 				F977E33E1BA007C200608270 /* MMTSearchInputFilter.swift in Sources */,
 				F9B686451B58DDD300E838BD /* MMTTabBarController.swift in Sources */,
@@ -623,6 +610,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -687,12 +675,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/MobileMeteo-Prefix.pch";
 				INFOPLIST_FILE = MobileMeteo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.szostakowski.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = MobileMeteo;
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -703,12 +696,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/MobileMeteo-Prefix.pch";
 				INFOPLIST_FILE = MobileMeteo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.szostakowski.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = MobileMeteo;
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-Bridging-Header.h";
 			};
 			name = Release;
@@ -729,7 +727,9 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = MobileMeteoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.szostakowski.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = MobileMeteoTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteoTests/MobileMeteoTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -749,7 +749,9 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = MobileMeteoTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.szostakowski.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = MobileMeteoTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteoTests/MobileMeteoTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileMeteo.app/MobileMeteo";

@@ -29,7 +29,7 @@ class MMTTabBarController: UITabBarController
     
     private func initItemAtIndex(index: Int, withStore store: MMTGridClimateModelStore)
     {
-        let item = tabBar.items?[index] as! UITabBarItem
+        let item = tabBar.items![index]
         let controller = viewControllers?[index] as! MMTCitiesListController
         let icon = UIImage(named: store.meteorogramId.rawValue)
         

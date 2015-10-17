@@ -45,7 +45,7 @@ public class MMTWamSettings: NSObject, NSCopying
     
     public func momentForDate(date: NSDate) -> MMTWamMoment?
     {
-        if let index = find(forecastMoments.map(){ $0.date }, date) {
+        if let index = (forecastMoments.map(){ $0.date }).indexOf(date) {
             return forecastMoments[index]
         }
         return nil
@@ -53,7 +53,7 @@ public class MMTWamSettings: NSObject, NSCopying
     
     public func setMomentSelection(date: NSDate, selected: Bool)
     {
-        if let index = find(forecastMoments.map(){ $0.date }, date) {
+        if let index = (forecastMoments.map(){ $0.date }).indexOf(date) {
             forecastMoments[index].selected = selected
         }
     }
@@ -69,7 +69,7 @@ public class MMTWamSettings: NSObject, NSCopying
     
     private func getOrderedArrayOfGroups(groupedMoments: MMTWamMomentGroups) -> [[MMTWamMoment]]
     {
-        let sortedLabels = groupedMoments.keys.array.sorted { $0 < $1 }
+        let sortedLabels = groupedMoments.keys.sort { $0 < $1 }
         var groups = [[MMTWamMoment]]()
         
         for label in sortedLabels {
@@ -99,9 +99,7 @@ public class MMTWamSettings: NSObject, NSCopying
     
     private func keyForDate(date: NSDate) -> Int
     {
-        let units: NSCalendarUnit = (.CalendarUnitYear)|(.CalendarUnitMonth)|(.CalendarUnitDay)
-        let components = NSCalendar.currentCalendar().components(units, fromDate: date)
-        
+        let components = NSCalendar.currentCalendar().components([.Year, .Month, .Day], fromDate: date)
         return Int(NSCalendar.currentCalendar().dateFromComponents(components)!.timeIntervalSince1970)
     }
     

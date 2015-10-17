@@ -13,7 +13,7 @@ extension UIImageView
 {
     func updateSizeConstraints(size: CGSize)
     {
-        for constraint in self.constraints() as! [NSLayoutConstraint]
+        for constraint in self.constraints 
         {
             if constraint.firstAttribute == NSLayoutAttribute.Width {
                 constraint.constant = size.width

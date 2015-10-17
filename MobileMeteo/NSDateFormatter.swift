@@ -12,7 +12,7 @@ public extension NSDateFormatter
 {
     public static var shortStyle: NSDateFormatter
     {
-        var
+        let
         formatter = NSDateFormatter()
         formatter.timeZone = NSTimeZone(name: "UTC")
         formatter.dateStyle = .ShortStyle
@@ -23,7 +23,7 @@ public extension NSDateFormatter
     
     public static var shortTimeStyle: NSDateFormatter
     {
-        var
+        let
         formatter = NSDateFormatter()
         formatter.timeZone = NSTimeZone(name: "UTC")
         formatter.dateStyle = .NoStyle

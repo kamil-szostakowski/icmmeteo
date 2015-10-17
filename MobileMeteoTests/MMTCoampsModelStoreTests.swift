@@ -30,7 +30,7 @@ class MMTCoampsModelStoreTests: XCTestCase
     func testForecastStartDatePreviousDay()
     {
         let date = TT.localFormatter.dateFromString("2015-06-08T04:00")!
-        let expectedDate = TT.utcFormatter.dateFromString("2015-06-07-12:00")!
+        let expectedDate = TT.utcFormatter.dateFromString("2015-06-07T12:00")!
         let store = MMTCoampsModelStore(date: date)
         
         XCTAssertEqual(expectedDate, store.forecastStartDate)
