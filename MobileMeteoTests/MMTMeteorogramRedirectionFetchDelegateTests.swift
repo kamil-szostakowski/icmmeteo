@@ -24,7 +24,7 @@ class MMTMeteorogramRedirectionFetchDelegateTests: XCTestCase
     {
         super.setUp();
         connection = NSURLConnection();
-        idleClosure = {(var image: NSData?, var error: NSError?) in }
+        idleClosure = {(let image: NSData?, let error: NSError?) in }
     }
     
     override func tearDown()
@@ -43,7 +43,7 @@ class MMTMeteorogramRedirectionFetchDelegateTests: XCTestCase
         let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL(), completion: idleClosure)
         let req = delegate.connection(connection, willSendRequest: request, redirectResponse: nil)
         
-        XCTAssertEqual(url.absoluteString!, req!.URL!.absoluteString!);
+        XCTAssertEqual(url.absoluteString, req!.URL!.absoluteString);
     }
     
     func testRedirectionRequestForModelUm()
@@ -58,7 +58,7 @@ class MMTMeteorogramRedirectionFetchDelegateTests: XCTestCase
         let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL.mmt_modelUmDownloadBaseUrl(), completion: idleClosure)
         let request = delegate.connection(connection, willSendRequest: NSURLRequest(), redirectResponse: redirectResponse)
         
-        XCTAssertEqual(expectedUrl, request!.URL!.absoluteString!);
+        XCTAssertEqual(expectedUrl, request!.URL!.absoluteString);
     }
     
     func testRedirectionRequestForModelCoamps()
@@ -73,7 +73,7 @@ class MMTMeteorogramRedirectionFetchDelegateTests: XCTestCase
         let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL.mmt_modelCoampsDownloadBaseUrl(), completion: idleClosure)
         let request = delegate.connection(connection, willSendRequest: NSURLRequest(), redirectResponse: redirectResponse)
         
-        XCTAssertEqual(expectedUrl, request!.URL!.absoluteString!);
+        XCTAssertEqual(expectedUrl, request!.URL!.absoluteString);
     }
     
     func testFinishCallbackForPreparedMeteorogram()
@@ -87,7 +87,7 @@ class MMTMeteorogramRedirectionFetchDelegateTests: XCTestCase
         ])
         
         let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL.mmt_modelCoampsDownloadBaseUrl()) {
-            (var image: NSData?, var error: NSError?) in
+            (let image: NSData?, let error: NSError?) in
             
             XCTAssertNil(error)
             XCTAssertNotNil(image)
@@ -106,7 +106,7 @@ class MMTMeteorogramRedirectionFetchDelegateTests: XCTestCase
     {
         let finishCallbackExpectation = expectationWithDescription("Finish callback expectation")
         let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL.mmt_modelCoampsDownloadBaseUrl()) {
-            (var image: NSData?, var error: NSError?) in
+            (let image: NSData?, let error: NSError?) in
     
             XCTAssertNil(image)
             XCTAssertNotNil(error)

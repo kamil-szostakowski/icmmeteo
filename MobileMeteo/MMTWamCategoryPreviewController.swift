@@ -59,7 +59,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         let moments = wamSettings.forecastMoments.map(){ $0.date }
         let selectedMoment = wamSettings.forecastSelectedMoments.first!.date
         
-        currentMoment = find(moments, selectedMoment)!
+        currentMoment = moments.indexOf(selectedMoment)!
     }
     
     private func setupMomentLabelForDate(date: NSDate)

@@ -70,8 +70,8 @@ public class MMTCoampsModelStore: MMTGridClimateModelStore
     private func tZeroComponentsForDate(date: NSDate) -> NSDateComponents
     {
         let dateWithOffset = date.dateByAddingTimeInterval(-waitingTime)
-        let units: NSCalendarUnit = (.CalendarUnitYear)|(.CalendarUnitMonth)|(.CalendarUnitDay)|(.CalendarUnitHour)
-        
+        let units: NSCalendarUnit = [.Year, .Month, .Day, .Hour]
+
         let
         components = NSCalendar.utcCalendar.components(units, fromDate: dateWithOffset)
         components.hour = components.hour < 12 ? 0 : 12

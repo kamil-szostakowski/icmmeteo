@@ -154,11 +154,13 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         cell = collectionView.dequeueReusableCellWithReuseIdentifier("WamMomentItem", forIndexPath: indexPath) as! MMTWamCategoryItem
         cell.headerLabel.text = NSDateFormatter.shortStyleUtcDatetime(date)
         cell.footerLabel.text = String(NSString(format: MMTFormat.TZeroPlus, tZeroPlus))
+        cell.setNeedsLayout()
+        cell.layoutIfNeeded()
         
         getThumbnailWithQuery(MMTWamModelMeteorogramQuery(category, date)) {
             (data: NSData?, error: NSError?) in
         
-            if let err = error {
+            if error != nil {
                 self.failureCount++
             }            
             else if let image = data {

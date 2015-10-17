@@ -24,7 +24,7 @@ class MMTMeteorogramFetchDelegateTests : XCTestCase
     {
         super.setUp();
         connection = NSURLConnection();
-        idleClosure = {(var image: NSData?, var error: NSError?) in }
+        idleClosure = {( image: NSData?, error: NSError?) in }
     }
     
     override func tearDown()
@@ -38,7 +38,7 @@ class MMTMeteorogramFetchDelegateTests : XCTestCase
     func testFinishCallback()
     {
         let finishCallbackExpectation = expectationWithDescription("Finish callback expectation")
-        let delegate = MMTMeteorogramFetchDelegate(completion: {(var image: NSData?, var error: NSError?) in
+        let delegate = MMTMeteorogramFetchDelegate(completion: {(image: NSData?, error: NSError?) in
             
             finishCallbackExpectation.fulfill()
         })
@@ -52,7 +52,7 @@ class MMTMeteorogramFetchDelegateTests : XCTestCase
         let data = NSData(data: NSMutableData(length: 100)!)
         let finishCallbackExpectation = expectationWithDescription("Finish callback expectation")
     
-        let delegate = MMTMeteorogramFetchDelegate(completion: {(var image: NSData?, var error: NSError?) in
+        let delegate = MMTMeteorogramFetchDelegate(completion: {(image: NSData?, error: NSError?) in
     
             XCTAssertNil(error);
             XCTAssertNotNil(image);
@@ -73,7 +73,7 @@ class MMTMeteorogramFetchDelegateTests : XCTestCase
         let finishCallbackExpectation = expectationWithDescription("Finish callback expectation")
     
         let delegate = MMTMeteorogramFetchDelegate() {
-            (var image: NSData?, var error: NSError?) in
+            (image: NSData?, error: NSError?) in
     
             XCTAssertNil(error)
             XCTAssertNotNil(image)
@@ -94,7 +94,7 @@ class MMTMeteorogramFetchDelegateTests : XCTestCase
     {
         let finishCallbackExpectation = expectationWithDescription("Finish callback expectation")
         let delegate = MMTMeteorogramFetchDelegate() {
-            (var image: NSData?, var error: NSError?) in
+            (image: NSData?, error: NSError?) in
             
             XCTAssertNotNil(error)
             XCTAssertEqual(error!.domain, MMTErrorDomain)

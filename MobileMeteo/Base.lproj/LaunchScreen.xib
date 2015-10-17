@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,98 +13,55 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Meteo" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
-                    <rect key="frame" x="20" y="140" width="441" height="43"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="36"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="8TO-5s-xzP">
-                    <rect key="frame" x="0.0" y="-328" width="512" height="328"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rfm-HG-QBY" userLabel="Container">
+                    <rect key="frame" x="8" y="8" width="464" height="464"/>
+                    <subviews>
+                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="8TO-5s-xzP">
+                            <rect key="frame" x="62" y="93" width="341" height="218"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="8TO-5s-xzP" secondAttribute="height" multiplier="341:218" id="tap-9W-Dz1"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darmowy czytnik prognozy pogody dla serwisu meteo.pl" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kmg-St-AY1" userLabel="Description">
+                            <rect key="frame" x="8" y="354" width="464" height="17"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meteo" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX" userLabel="Title">
+                            <rect key="frame" x="183" y="311" width="98" height="43"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="36"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="8TO-5s-xzP" secondAttribute="height" multiplier="64:41" id="3l0-LH-Fx1"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="8TO-5s-xzP" secondAttribute="trailing" id="5AR-o8-uAf"/>
+                        <constraint firstItem="kId-c2-rCX" firstAttribute="top" secondItem="8TO-5s-xzP" secondAttribute="bottom" id="QqO-o6-ued"/>
+                        <constraint firstAttribute="trailing" secondItem="Kmg-St-AY1" secondAttribute="trailingMargin" id="SF7-0d-IHw"/>
+                        <constraint firstItem="kId-c2-rCX" firstAttribute="centerX" secondItem="8TO-5s-xzP" secondAttribute="centerX" id="VwZ-6p-clK"/>
+                        <constraint firstItem="Kmg-St-AY1" firstAttribute="leading" secondItem="rfm-HG-QBY" secondAttribute="leadingMargin" id="Yab-v9-YGh"/>
+                        <constraint firstItem="8TO-5s-xzP" firstAttribute="centerY" secondItem="rfm-HG-QBY" secondAttribute="centerY" constant="-30" id="f8s-Bg-3Dm"/>
+                        <constraint firstItem="8TO-5s-xzP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="rfm-HG-QBY" secondAttribute="leading" id="pKy-6a-Mzc"/>
+                        <constraint firstItem="8TO-5s-xzP" firstAttribute="centerX" secondItem="rfm-HG-QBY" secondAttribute="centerX" id="qAY-VI-day"/>
+                        <constraint firstItem="Kmg-St-AY1" firstAttribute="top" secondItem="kId-c2-rCX" secondAttribute="bottom" id="s8j-Zg-r2m"/>
                     </constraints>
-                    <variation key="default">
-                        <mask key="constraints">
-                            <exclude reference="3l0-LH-Fx1"/>
-                        </mask>
-                    </variation>
-                    <variation key="heightClass=regular-widthClass=compact">
-                        <mask key="constraints">
-                            <include reference="3l0-LH-Fx1"/>
-                        </mask>
-                    </variation>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Darmowy czytnik prognozy pogody dla serwisu meteo.pl" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kmg-St-AY1">
-                    <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Kmg-St-AY1" firstAttribute="top" secondItem="kId-c2-rCX" secondAttribute="bottom" constant="8" id="Boc-cA-ksb">
-                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                </constraint>
-                <constraint firstItem="8TO-5s-xzP" firstAttribute="leading" secondItem="Kmg-St-AY1" secondAttribute="leading" constant="-18" id="aJR-3M-iUV">
-                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                </constraint>
-                <constraint firstItem="8TO-5s-xzP" firstAttribute="trailing" secondItem="Kmg-St-AY1" secondAttribute="trailing" constant="-12" id="e7v-A0-eiV">
-                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                </constraint>
-                <constraint firstItem="8TO-5s-xzP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="joB-51-EyV">
-                    <variation key="heightClass=regular-widthClass=compact" constant="20"/>
-                </constraint>
-                <constraint firstAttribute="centerY" secondItem="8TO-5s-xzP" secondAttribute="centerY" constant="74" id="m72-Yb-Kbc">
-                    <variation key="heightClass=regular-widthClass=compact" constant="40"/>
-                </constraint>
-                <constraint firstAttribute="trailing" secondItem="8TO-5s-xzP" secondAttribute="trailing" id="nQD-SL-Gjo">
-                    <variation key="heightClass=regular-widthClass=compact" constant="20"/>
-                </constraint>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="top" secondItem="8TO-5s-xzP" secondAttribute="bottom" constant="20" id="qQY-6E-B3x"/>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="centerX" secondItem="8TO-5s-xzP" secondAttribute="centerX" constant="0.5" id="vW8-Dr-zZW">
-                    <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
-                </constraint>
+                <constraint firstItem="rfm-HG-QBY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="036-pL-9Wu"/>
+                <constraint firstItem="rfm-HG-QBY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="0Ls-rg-GYT"/>
+                <constraint firstItem="rfm-HG-QBY" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailingMargin" id="Qa4-wQ-r2x"/>
+                <constraint firstItem="rfm-HG-QBY" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottomMargin" id="syP-WX-WfI"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <variation key="default">
-                <mask key="subviews">
-                    <exclude reference="8TO-5s-xzP"/>
-                    <exclude reference="Kmg-St-AY1"/>
-                </mask>
-                <mask key="constraints">
-                    <exclude reference="aJR-3M-iUV"/>
-                    <exclude reference="e7v-A0-eiV"/>
-                    <exclude reference="joB-51-EyV"/>
-                    <exclude reference="m72-Yb-Kbc"/>
-                    <exclude reference="nQD-SL-Gjo"/>
-                    <exclude reference="Boc-cA-ksb"/>
-                    <exclude reference="qQY-6E-B3x"/>
-                    <exclude reference="vW8-Dr-zZW"/>
-                </mask>
-            </variation>
-            <variation key="heightClass=regular-widthClass=compact">
-                <mask key="subviews">
-                    <include reference="8TO-5s-xzP"/>
-                    <include reference="Kmg-St-AY1"/>
-                </mask>
-                <mask key="constraints">
-                    <include reference="aJR-3M-iUV"/>
-                    <include reference="e7v-A0-eiV"/>
-                    <include reference="joB-51-EyV"/>
-                    <include reference="m72-Yb-Kbc"/>
-                    <include reference="nQD-SL-Gjo"/>
-                    <include reference="Boc-cA-ksb"/>
-                    <include reference="qQY-6E-B3x"/>
-                    <include reference="vW8-Dr-zZW"/>
-                </mask>
-            </variation>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
     <resources>
-        <image name="logo" width="512" height="328"/>
+        <image name="logo" width="341" height="218"/>
     </resources>
 </document>

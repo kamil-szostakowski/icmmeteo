@@ -112,8 +112,7 @@ public extension NSURL
     
     private static func tZeroStringForDate(date: NSDate) -> String
     {
-        let units: NSCalendarUnit = (.CalendarUnitYear)|(.CalendarUnitMonth)|(.CalendarUnitDay)|(.CalendarUnitHour)        
-        let components = NSCalendar.utcCalendar.components(units, fromDate: date)
+        let components = NSCalendar.utcCalendar.components([.Year, .Month, .Day, .Hour], fromDate: date)
         
         return String(format: MMTFormat.TZero, components.year, components.month, components.day, components.hour)
     }

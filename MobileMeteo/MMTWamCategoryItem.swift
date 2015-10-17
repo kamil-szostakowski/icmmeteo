@@ -29,10 +29,10 @@ class MMTWamCategoryItem: UICollectionViewCell
         footerLabel.text = ""
     }
     
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>)
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>)
     {
-        if keyPath == "image" {
-            enableActivityIndicator(change["new"] is NSNull)
+        if keyPath == "image" && change != nil {
+            enableActivityIndicator(change!["new"] is NSNull)
         }
     }
     

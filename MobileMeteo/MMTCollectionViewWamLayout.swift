@@ -124,7 +124,7 @@ class MMTCollectionViewWamLayout: UICollectionViewLayout
         return CGSizeMake(CGFloat(width)+CGFloat(headerViewWidth)+CGFloat(itemSpacing), CGFloat(height))
     }
     
-    override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]?
+    override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]?
     {
         let cellAttributes = getElementsInRect(rect, fromIndex: cellLayoutAttributes)
         let headerAttributes = getElementsInRect(rect, fromIndex: headerLayoutAttributes)
@@ -146,12 +146,12 @@ class MMTCollectionViewWamLayout: UICollectionViewLayout
         return attributes;
     }
     
-    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes!
+    override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes?
     {
         return cellLayoutAttributes[indexPath]
     }
     
-    override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes!
+    override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes?
     {
         return headerLayoutAttributes[indexPath]
     }    

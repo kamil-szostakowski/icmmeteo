@@ -106,7 +106,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     // MARK: CLLocationManagerDelegate
     
-    func locationManager(manager: CLLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus)
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
     {
         let authorized = status == .AuthorizedWhenInUse
     
@@ -122,7 +122,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         updateIndexWithAllCities() { self.tableView.reloadData() }
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!)
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         if !searchInput.isValid {
             updateIndexWithAllCities() { self.tableView.reloadData() }
@@ -159,14 +159,14 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         let sectionType = citiesIndex[indexPath.section].type
         
         if sectionType == .NotFound {
-            return tableView.dequeueReusableCellWithIdentifier("SpecialListCell", forIndexPath: indexPath) as! UITableViewCell
+            return tableView.dequeueReusableCellWithIdentifier("SpecialListCell", forIndexPath: indexPath) 
         }
         else
         {
             let city = citiesIndex[indexPath.section].cities[indexPath.row]
       
             let
-            cell = tableView.dequeueReusableCellWithIdentifier("CitiesListCell", forIndexPath: indexPath) as! UITableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier("CitiesListCell", forIndexPath: indexPath) 
             cell.detailTextLabel?.text = sectionType != .CurrentLocation ? city.region : "Obecna lokalizacja"
             cell.textLabel!.text = city.name
             
@@ -186,7 +186,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         if headerTitle == nil { return nil }
         
         let
-        header = tableView.dequeueReusableCellWithIdentifier("CitiesListHeader") as! UITableViewCell
+        header = tableView.dequeueReusableCellWithIdentifier("CitiesListHeader")!
         header.textLabel?.text = headerTitle
         
         return header
@@ -244,7 +244,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
                 self.view.layoutIfNeeded()
             }
             
-            UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: nil, animations: animations, completion: nil)
+            UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: [], animations: animations, completion: nil)
         }
     }    
     
@@ -257,7 +257,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
     {
-        searchInput = MMTSearchInput(searchBar.text)
+        searchInput = MMTSearchInput(searchBar.text!)
         searchBar.text = searchInput.stringValue
 
         if searchInput.isValid
@@ -316,7 +316,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     private func updateIndexWithCitiesMatchingCriteria(criteria: String, completion: MMTCompletion)
     {
-        var queryCompletion: MMTCitiesQueryCompletion =
+        let queryCompletion: MMTCitiesQueryCompletion =
         {
             self.citiesIndex = [
                 MMTCitiesGroup(type: .SearchResults, cities: $0),

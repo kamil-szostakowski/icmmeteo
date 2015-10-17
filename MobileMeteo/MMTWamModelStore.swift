@@ -120,10 +120,9 @@ public class MMTWamModelStore: MMTClimateModelStore
     private func tZeroComponentsForDate(date: NSDate) -> NSDateComponents
     {
         let dateWithOffset = date.dateByAddingTimeInterval(-waitingTime)
-        let units: NSCalendarUnit = (.CalendarUnitYear)|(.CalendarUnitMonth)|(.CalendarUnitDay)|(.CalendarUnitHour)
         
         let
-        components = NSCalendar.utcCalendar.components(units, fromDate: dateWithOffset)
+        components = NSCalendar.utcCalendar.components([.Year, .Month, .Day, .Hour], fromDate: dateWithOffset)
         components.hour = components.hour < 12 ? 0 : 12
         
         return components

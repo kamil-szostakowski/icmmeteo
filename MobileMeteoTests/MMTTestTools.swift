@@ -14,7 +14,7 @@ class MMTTestTools
 {
     static func getDate(year: Int, _ month: Int, _ day: Int, _ hour: Int) -> NSDate
     {
-        var components = NSDateComponents()
+        let components = NSDateComponents()
         components.timeZone = NSTimeZone(name: "UTC")
         components.year = year
         components.month = month

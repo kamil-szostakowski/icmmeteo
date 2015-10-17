@@ -51,10 +51,10 @@ public extension MMTCity
     
     public convenience init(placemark: CLPlacemark)
     {
-        let name = placemark.locality != nil ? placemark.locality : placemark.name
-        let region = placemark.administrativeArea != nil ? placemark.administrativeArea : ""
+        let name = placemark.locality ?? placemark.name!
+        let region = placemark.administrativeArea ?? ""
         
-        self.init(name: name, region: region, location: placemark.location)
+        self.init(name: name, region: region, location: placemark.location!)
     }
     
     // MARK: Helper methods
