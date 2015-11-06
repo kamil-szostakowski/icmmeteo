@@ -10,13 +10,13 @@ import Foundation
 import CoreLocation
 import CoreGraphics
 
-public class MMTGridClimateModelStore: MMTClimateModelStore
+protocol MMTGridClimateModelStore: MMTClimateModelStore
 {    
-    public var gridNodeSize: Int { fatalError("") }        
+    var gridNodeSize: Int { get }
     
-    public var legendSize: CGSize { fatalError("") }
+    var legendSize: CGSize { get }
     
-    public func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion) { fatalError("") }
+    func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion)
     
-    public func getMeteorogramLegend(completion: MMTFetchMeteorogramCompletion) { fatalError("") }
+    func getMeteorogramLegend(completion: MMTFetchMeteorogramCompletion)
 }

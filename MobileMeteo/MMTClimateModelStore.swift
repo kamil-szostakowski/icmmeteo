@@ -27,13 +27,13 @@ public enum MMTClimateModel: String
     }
 }
 
-public class MMTClimateModelStore: NSObject
+protocol MMTClimateModelStore: NSObjectProtocol
 {
-    public var meteorogramId: MMTClimateModel { fatalError("") }
+    var meteorogramId: MMTClimateModel { get }
     
-    public var meteorogramSize: CGSize { fatalError("") }
+    var meteorogramSize: CGSize { get }
     
-    public var forecastLength: Int { fatalError("") }
+    var forecastLength: Int { get }
     
-    public var forecastStartDate: NSDate { fatalError("") }    
+    var forecastStartDate: NSDate { get }
 }

@@ -10,40 +10,40 @@ import Foundation
 import CoreLocation
 import CoreGraphics
 
-public class MMTUmModelStore: MMTGridClimateModelStore
+class MMTUmModelStore: NSObject, MMTGridClimateModelStore
 {
     // MARK: Properties
     
     private let waitingTime: NSTimeInterval = 18000
     private var startDate: NSDate!
     
-    public override var meteorogramId: MMTClimateModel {
+    var meteorogramId: MMTClimateModel {
         return .UM
     }
     
-    public override var forecastLength: Int {
+    var forecastLength: Int {
         return 60
     }
     
-    public override var gridNodeSize: Int {
+    var gridNodeSize: Int {
         return 4
     }
     
-    public override var forecastStartDate: NSDate {
+    var forecastStartDate: NSDate {
         return startDate
     }
     
-    public override var meteorogramSize: CGSize {
+    var meteorogramSize: CGSize {
         return CGSize(width: 540, height: 660)
     }
     
-    public override var legendSize: CGSize {
+    var legendSize: CGSize {
         return CGSize(width: 280, height: 660)
     }
     
     // MARK: Initializers
     
-    public init(date: NSDate)
+    init(date: NSDate)
     {
         super.init()
         startDate = NSCalendar.utcCalendar.dateFromComponents(tZeroComponentsForDate(date))!
@@ -51,7 +51,7 @@ public class MMTUmModelStore: MMTGridClimateModelStore
     
     // MARK: Methods
     
-    public override func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion)
+    func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion)
     {
         let searchUrl = NSURL.mmt_modelUmSearchUrl(location, tZero: forecastStartDate)
         let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL.mmt_modelUmDownloadBaseUrl(), completion: completion)
@@ -59,7 +59,7 @@ public class MMTUmModelStore: MMTGridClimateModelStore
         NSURLConnection(request: NSURLRequest(URL: searchUrl), delegate: delegate)?.start()
     }
     
-    public override func getMeteorogramLegend(completion: MMTFetchMeteorogramCompletion)
+    func getMeteorogramLegend(completion: MMTFetchMeteorogramCompletion)
     {
         let legendUrl = NSURL.mmt_modelUmLegendUrl()
         NSURLConnection(request: NSURLRequest(URL: legendUrl), delegate: MMTMeteorogramFetchDelegate(completion: completion))?.start()

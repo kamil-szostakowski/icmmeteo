@@ -8,8 +8,8 @@
 
 import XCTest
 import Foundation
-import MobileMeteo
 import CoreGraphics
+@testable import MobileMeteo
 
 class MMTUmModelStoreTests : XCTestCase
 {

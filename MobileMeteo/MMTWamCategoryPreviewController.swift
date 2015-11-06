@@ -40,7 +40,10 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     {
         super.viewDidLoad()
         
-        navigationBar.topItem?.title = wamSettings.selectedCategory?.description
+        navigationBar.topItem?.title = wamSettings.selectedCategory?.description                
+        meteorogramImage.accessibilityIdentifier = "\(wamSettings.selectedCategory!)"
+        
+        setupNavigationButtons()
         setupCurrentMomentIndex()
     }
     
@@ -53,6 +56,15 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     }
     
     // MARK: Setup methods
+    
+    private func setupNavigationButtons()
+    {
+        prevMomentButton.enabled = false
+        prevMomentButton.accessibilityIdentifier = "PrevButton"
+        
+        nextMomentBtn.enabled = false
+        nextMomentBtn.accessibilityIdentifier = "NextButton"
+    }
     
     private func setupCurrentMomentIndex()
     {
@@ -118,14 +130,16 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         
         setupMomentLabelForDate(moment)
         
-        prevMomentButton.enabled = !isFirstMoment
-        nextMomentBtn.enabled = !isLastMoment
+        prevMomentButton.enabled = false
+        nextMomentBtn.enabled = false
         
         getMeteorogramWithQuery(MMTWamModelMeteorogramQuery(category: category, moment: moment)){
             
             (data: NSData?, error: NSError?) in
             
-            self.meteorogramImage.image = UIImage(data: data!)
+            self.meteorogramImage.image = UIImage(data: data!)            
+            self.prevMomentButton.enabled = !self.isFirstMoment
+            self.nextMomentBtn.enabled = !self.isLastMoment
         }
     }
     

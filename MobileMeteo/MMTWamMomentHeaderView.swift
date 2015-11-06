@@ -27,6 +27,12 @@ class MMTWamMomentHeaderView: UITableViewCell
         selected = false
     }
     
+    override func awakeFromNib()
+    {
+        super.awakeFromNib()
+        accessibilityElements = [lblTitle, btnSelect]
+    }
+    
     @IBAction func didTapSelectButton(sender: UIButton)
     {
         selected = !selected
