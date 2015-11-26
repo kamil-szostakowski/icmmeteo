@@ -17,8 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool
     {
+        #if DEBUG
+        if NSProcessInfo.processInfo().arguments.contains("CLEANUP_DB")
+        {
+            MMTDatabase.instance.flushDatabase()
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("Initialized")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+        #endif
+        
         tryInitDatabase()
-
+        
         let attributes = [
             NSFontAttributeName: MMTAppearance.boldFontWithSize(16),
             NSForegroundColorAttributeName: MMTAppearance.textColor
@@ -62,5 +71,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             userDefaults.setBool(true, forKey: "Initialized")
             userDefaults.synchronize()
         }
-    }
+    }    
 }

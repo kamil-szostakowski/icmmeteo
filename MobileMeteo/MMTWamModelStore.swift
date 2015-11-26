@@ -30,7 +30,7 @@ public enum MMTWamCategory: Int
 public typealias MMTWamModelMeteorogramQuery = (category: MMTWamCategory, moment: NSDate)
 public typealias MMTWamMoment = (date: NSDate, selected: Bool)
 
-public class MMTWamModelStore: MMTClimateModelStore
+class MMTWamModelStore: NSObject, MMTClimateModelStore
 {
     // MARK: Properties
     
@@ -38,25 +38,25 @@ public class MMTWamModelStore: MMTClimateModelStore
     private let momentLength = 3
     private var startDate: NSDate!
     
-    public override var meteorogramId: MMTClimateModel {
+    var meteorogramId: MMTClimateModel {
         return .WAM
     }
     
-    public override var meteorogramSize: CGSize {
+    var meteorogramSize: CGSize {
         return CGSize(width: 720, height: 702)
     }
 
-    public override var forecastLength: Int {
+    var forecastLength: Int {
         return 84
     }
     
-    public override var forecastStartDate: NSDate {
+    var forecastStartDate: NSDate {
         return startDate
     }
     
     // MARK: Initializers
     
-    public init(date: NSDate)
+    init(date: NSDate)
     {
         super.init()        
         startDate = NSCalendar.utcCalendar.dateFromComponents(tZeroComponentsForDate(date))!
@@ -64,12 +64,12 @@ public class MMTWamModelStore: MMTClimateModelStore
     
     // MARK: Methods
     
-    public func getHoursFromForecastStartDate(forDate endDate: NSDate) -> Int
+    func getHoursFromForecastStartDate(forDate endDate: NSDate) -> Int
     {
         return Int(endDate.timeIntervalSinceDate(startDate)/3600)
     }
     
-    public func getMeteorogramMomentThumbnailWithQuery(query: MMTWamModelMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
+    func getMeteorogramMomentThumbnailWithQuery(query: MMTWamModelMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
     {
         var downloadUrl: NSURL!
         let tZeroPlus = getHoursFromForecastStartDate(forDate: query.moment)
@@ -84,7 +84,7 @@ public class MMTWamModelStore: MMTClimateModelStore
         NSURLConnection(request: NSURLRequest(URL: downloadUrl), delegate: MMTMeteorogramFetchDelegate(completion: completion))?.start()
     }
     
-    public func getMeteorogramMomentWithQuery(query: MMTWamModelMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
+    func getMeteorogramMomentWithQuery(query: MMTWamModelMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
     {
         var downloadUrl: NSURL!
         let tZeroPlus = getHoursFromForecastStartDate(forDate: query.moment)
@@ -99,7 +99,7 @@ public class MMTWamModelStore: MMTClimateModelStore
         NSURLConnection(request: NSURLRequest(URL: downloadUrl), delegate: MMTMeteorogramFetchDelegate(completion: completion))?.start()
     }
     
-    public func getForecastMoments() -> [MMTWamMoment]
+    func getForecastMoments() -> [MMTWamMoment]
     {
         let momentsCount = forecastLength/momentLength
         var forecastMoments = [MMTWamMoment]()

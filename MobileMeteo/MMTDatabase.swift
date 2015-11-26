@@ -11,7 +11,7 @@ import CoreData
 
 class MMTDatabase: NSObject
 {
-    static let instance = MMTDatabase()
+    static private(set) var instance = MMTDatabase()
     
     // MARK: CoreData stack
     
@@ -38,7 +38,8 @@ class MMTDatabase: NSObject
     
     lazy var context: NSManagedObjectContext =
     {
-        let context = NSManagedObjectContext()
+        let
+        context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         context.persistentStoreCoordinator = self.persistentStoreCoordinator
 
         return context
@@ -53,9 +54,22 @@ class MMTDatabase: NSObject
             catch let error as NSError {
                 reportFatalError(error)
             }
+        }        
+    }
+    
+    func flushDatabase()
+    {
+        self.context.performBlockAndWait()
+        {
+            for store in self.persistentStoreCoordinator.persistentStores
+            {
+                _ = try? self.persistentStoreCoordinator.removePersistentStore(store)
+                _ = try? NSFileManager.defaultManager().removeItemAtPath(store.URL!.path!)
+            }
+            
+            MMTDatabase.instance = MMTDatabase()
         }
-        
-    }    
+    }
     
     // MARK: Helper methods    
     

@@ -33,6 +33,8 @@ class MMTWamHeaderView: UICollectionReusableView
     private func setupView()
     {
         backgroundColor = MMTAppearance.lightGrayBackgroundColor
+        isAccessibilityElement = true
+        accessibilityIdentifier = "MMTWamHeaderView"
     }
     
     // Mark: Overrides
@@ -40,11 +42,14 @@ class MMTWamHeaderView: UICollectionReusableView
     override func prepareForReuse()
     {
         categoryTitle = ""
+        accessibilityLabel = ""
         setNeedsDisplay()
     }
     
     override func drawRect(rect: CGRect)
     {
+        accessibilityLabel = String(categoryTitle)
+        
         let
         style = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
         style.lineBreakMode = .ByWordWrapping

@@ -64,6 +64,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         cell.textLabel?.text = String(NSString(format: MMTFormat.TZeroPlus, tZeroPlus))
         cell.detailTextLabel?.text = NSDateFormatter.shortStyleUtcDatetime(date)
         cell.accessoryType =  moment.selected ? .Checkmark : .None
+        cell.accessibilityIdentifier = "WamSettingsMoment: t0 +\(tZeroPlus)h"
         
         return cell
     }

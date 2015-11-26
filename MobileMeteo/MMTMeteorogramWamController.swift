@@ -154,6 +154,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         cell = collectionView.dequeueReusableCellWithReuseIdentifier("WamMomentItem", forIndexPath: indexPath) as! MMTWamCategoryItem
         cell.headerLabel.text = NSDateFormatter.shortStyleUtcDatetime(date)
         cell.footerLabel.text = String(NSString(format: MMTFormat.TZeroPlus, tZeroPlus))
+        cell.accessibilityIdentifier = "\(category) +\(tZeroPlus)"        
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
         
