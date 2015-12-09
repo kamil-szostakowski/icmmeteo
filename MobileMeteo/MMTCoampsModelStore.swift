@@ -14,7 +14,7 @@ class MMTCoampsModelStore: NSObject, MMTGridClimateModelStore
 {
     // MARK: Properties
     
-    private let waitingTime: NSTimeInterval = 18000
+    private let waitingTime: NSTimeInterval = 21600
     private var startDate: NSDate!
     
     var meteorogramId: MMTClimateModel {
