@@ -21,6 +21,7 @@
 		F977E33E1BA007C200608270 /* MMTSearchInputFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F977E33D1BA007C200608270 /* MMTSearchInputFilter.swift */; };
 		F977E3401BA013EB00608270 /* MMTSearchInputFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F977E33F1BA013EB00608270 /* MMTSearchInputFilterTests.swift */; };
 		F980D3E41B9596440011F032 /* MMTCitiesIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F980D3E31B9596440011F032 /* MMTCitiesIndex.swift */; };
+		F9829D711C3FB09E00314438 /* CAAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9829D701C3FB09D00314438 /* CAAnimation.swift */; };
 		F989C52F1B9D6B1A002A1903 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F989C52E1B9D6B1A002A1903 /* MapKit.framework */; };
 		F989C5311B9D6BDA002A1903 /* MMTCityMapPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F989C5301B9D6BDA002A1903 /* MMTCityMapPickerController.swift */; };
 		F9941A6F1BECE34C00700313 /* MMTCitiesListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9941A6E1BECE34C00700313 /* MMTCitiesListTests.swift */; };
@@ -104,6 +105,7 @@
 		F977E33D1BA007C200608270 /* MMTSearchInputFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTSearchInputFilter.swift; sourceTree = "<group>"; };
 		F977E33F1BA013EB00608270 /* MMTSearchInputFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTSearchInputFilterTests.swift; sourceTree = "<group>"; };
 		F980D3E31B9596440011F032 /* MMTCitiesIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesIndex.swift; sourceTree = "<group>"; };
+		F9829D701C3FB09D00314438 /* CAAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAAnimation.swift; sourceTree = "<group>"; };
 		F989C52E1B9D6B1A002A1903 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F989C5301B9D6BDA002A1903 /* MMTCityMapPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCityMapPickerController.swift; sourceTree = "<group>"; };
 		F9941A5A1BECE15800700313 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				F99A8A2B1B8463FE0098E170 /* NSURL.swift */,
 				8EC56D6D1BA0B528003A5020 /* NSError.swift */,
 				F99A8A2F1B846A4B0098E170 /* NSCalendar.swift */,
+				F9829D701C3FB09D00314438 /* CAAnimation.swift */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				F980D3E41B9596440011F032 /* MMTCitiesIndex.swift in Sources */,
 				F9C23A981B621DE400A94A4B /* MMTCollectionViewWamLayout.swift in Sources */,
 				F99A8A2C1B8463FE0098E170 /* NSURL.swift in Sources */,
+				F9829D711C3FB09E00314438 /* CAAnimation.swift in Sources */,
 				F99F24611B6B572300622E1E /* NSDateFormatter.swift in Sources */,
 				F989C5311B9D6BDA002A1903 /* MMTCityMapPickerController.swift in Sources */,
 				F950E0D91B60C0D4000757B2 /* MMTModelWamSettingsController.swift in Sources */,
