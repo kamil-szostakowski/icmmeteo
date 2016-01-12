@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VAh-Ln-Mxc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VAh-Ln-Mxc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -20,6 +20,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="30" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="c9a-Dj-a8h">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="cMF-AY-pik">
@@ -28,6 +29,7 @@
                                     <subviews>
                                         <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="szukaj miasta" translatesAutoresizingMaskIntoConstraints="NO" id="duU-CU-zjU">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="QeO-qw-ueZ"/>
                                             </constraints>
@@ -39,6 +41,7 @@
                                             </connections>
                                         </searchBar>
                                     </subviews>
+                                    <animations/>
                                     <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstItem="duU-CU-zjU" firstAttribute="leading" secondItem="cMF-AY-pik" secondAttribute="leading" id="0zI-fV-YRz"/>
@@ -58,19 +61,22 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Header Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UVv-7L-hgV">
                                                     <rect key="frame" x="15" y="0.0" width="570" height="29"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <animations/>
                                         </tableViewCellContentView>
+                                        <animations/>
                                         <color key="backgroundColor" white="0.95000000000000007" alpha="1" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration" identifier="CitiesListHeader">
                                             <accessibilityTraits key="traits" header="YES"/>
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CitiesListCell" textLabel="L7a-vM-89s" detailTextLabel="ACu-82-Djp" style="IBUITableViewCellStyleSubtitle" id="Lmv-5P-aMf">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CitiesListCell" textLabel="L7a-vM-89s" detailTextLabel="ACu-82-Djp" style="IBUITableViewCellStyleSubtitle" id="Lmv-5P-aMf">
                                         <rect key="frame" x="0.0" y="104" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lmv-5P-aMf" id="d2J-8x-WBs">
@@ -80,6 +86,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L7a-vM-89s">
                                                     <rect key="frame" x="15" y="3" width="32" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -87,17 +94,20 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ACu-82-Djp">
                                                     <rect key="frame" x="15" y="23" width="46" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <animations/>
                                         </tableViewCellContentView>
+                                        <animations/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SpecialListCell" textLabel="IZE-Jf-c7U" style="IBUITableViewCellStyleDefault" id="cdG-DQ-GEg">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SpecialListCell" textLabel="IZE-Jf-c7U" style="IBUITableViewCellStyleDefault" id="cdG-DQ-GEg">
                                         <rect key="frame" x="0.0" y="148" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cdG-DQ-GEg" id="p9r-6T-Dgt">
@@ -107,12 +117,15 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Wskaż lokalizację na mapie" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IZE-Jf-c7U">
                                                     <rect key="frame" x="15" y="0.0" width="550" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <animations/>
                                         </tableViewCellContentView>
+                                        <animations/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
@@ -131,6 +144,7 @@
                                 <subviews>
                                     <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKO-eC-qFS">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <animations/>
                                         <color key="barTintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <items>
                                             <navigationItem id="sMy-ua-URR"/>
@@ -138,15 +152,18 @@
                                     </navigationBar>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Długość prognozy: 84h, Siatka 4km" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TB7-Qq-V0f">
                                         <rect key="frame" x="215" y="24" width="170" height="13"/>
+                                        <animations/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="11"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="start prognozy t0 : 2015.07.23 00:00 UTC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="csI-Kb-QLu">
                                         <rect key="frame" x="182" y="4" width="237" height="16"/>
+                                        <animations/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="csI-Kb-QLu" firstAttribute="top" secondItem="tVZ-dR-7tL" secondAttribute="top" constant="4" id="5kP-X6-Bjn"/>
@@ -161,6 +178,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.0" green="0.5490196078431373" blue="0.45882352941176469" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -210,6 +228,7 @@
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zo9-bc-FiZ" userLabel="Meteorogram">
                                                 <rect key="frame" x="0.0" y="0.0" width="540" height="660"/>
+                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="660" id="Jj9-lh-C4J"/>
                                                     <constraint firstAttribute="width" constant="540" id="wr9-rh-3OG">
@@ -219,11 +238,13 @@
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="e9l-Lv-tF2" userLabel="Legend">
                                                 <rect key="frame" x="540" y="0.0" width="100" height="660"/>
+                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="100" id="da4-ZK-rq6"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
+                                        <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <constraints>
@@ -241,6 +262,7 @@
                                         </connections>
                                     </view>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="inx-gO-O0P" secondAttribute="trailing" id="PZT-hT-9gs"/>
@@ -257,14 +279,17 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ładowanie meteorogramu" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKu-oD-a6u">
                                         <rect key="frame" x="5" y="50" width="90" height="29"/>
+                                        <animations/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="hlj-bp-AJN">
                                         <rect key="frame" x="32" y="8" width="37" height="37"/>
+                                        <animations/>
                                     </activityIndicatorView>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.70000000000000007" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="cKu-oD-a6u" secondAttribute="trailing" constant="5" id="0dK-BS-9P6"/>
@@ -286,12 +311,14 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ttt-As-lq8">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
+                                        <animations/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="cum-tj-agA"/>
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="0.92000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="2BK-Uu-wqr"/>
@@ -302,6 +329,7 @@
                             </view>
                             <navigationBar contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="tNU-2w-XXV">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Nb7-mW-Fnc"/>
                                 </constraints>
@@ -322,6 +350,7 @@
                                 </items>
                             </navigationBar>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="0.92000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -367,6 +396,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="AQa-ng-TR8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="selectedImageTintColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
@@ -395,6 +425,7 @@
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJD-M1-X8o">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <animations/>
                                 <color key="barTintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
                                     <navigationItem title="Meteo" id="0gD-dT-mE5"/>
@@ -408,23 +439,27 @@
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="HSw-Xp-6FR">
                                                 <rect key="frame" x="110" y="0.0" width="341" height="218"/>
+                                                <animations/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="HSw-Xp-6FR" secondAttribute="height" multiplier="1024:656" id="z7K-Rr-VHt"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prognoza została udostępniona nieodpłatnie przez serwis meteo.pl prowadzony przez ICM, Uniwersytet Warszawski. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vd-h5-NfU">
                                                 <rect key="frame" x="0.0" y="243" width="560" height="36"/>
+                                                <animations/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wyniki uzyskano przy użyciu oprogramowania Met Office. Material produced using Met Office Software." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqM-tk-ebb">
                                                 <rect key="frame" x="0.0" y="299" width="560" height="36"/>
+                                                <animations/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
+                                        <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="2Vd-h5-NfU" firstAttribute="top" secondItem="HSw-Xp-6FR" secondAttribute="bottom" constant="25" id="468-mn-Yd4"/>
@@ -441,6 +476,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="PE8-1C-i4E" secondAttribute="trailing" constant="20" id="bT8-93-xfn"/>
@@ -451,6 +487,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="0.92000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -485,6 +522,7 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="b3x-5F-DcE">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <animations/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Pvd-JI-8jf" appends="YES" id="aaS-ND-fbW"/>
@@ -492,6 +530,7 @@
                             </mapView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oj7-vk-Ve9">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="XsE-jz-81i"/>
                                 </constraints>
@@ -512,6 +551,7 @@
                                 </items>
                             </navigationBar>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -555,6 +595,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="30" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fAR-ry-Yoa">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WamSettingsHeader" rowHeight="34" id="uA4-k1-9qx" customClass="MMTWamMomentHeaderView" customModule="MobileMeteo" customModuleProvider="target">
@@ -566,12 +607,14 @@
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="25.06.2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oct-eZ-HWd">
                                                     <rect key="frame" x="15" y="0.0" width="70" height="33"/>
+                                                    <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xOP-VD-VM0">
                                                     <rect key="frame" x="539" y="0.0" width="53" height="33"/>
+                                                    <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                                     <state key="normal" title="wybierz">
                                                         <color key="titleColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -583,6 +626,7 @@
                                                     </connections>
                                                 </button>
                                             </subviews>
+                                            <animations/>
                                             <constraints>
                                                 <constraint firstItem="Oct-eZ-HWd" firstAttribute="top" secondItem="uUa-Ob-0fO" secondAttribute="top" id="ED4-xF-nbR"/>
                                                 <constraint firstItem="xOP-VD-VM0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Oct-eZ-HWd" secondAttribute="trailing" priority="999" constant="8" id="OYe-nL-n5a"/>
@@ -593,6 +637,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="xOP-VD-VM0" secondAttribute="bottom" id="wGn-Ts-NdN"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <animations/>
                                         <color key="backgroundColor" white="0.95000000000000007" alpha="1" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration" identifier="WamSettingsHeader" label="">
                                             <accessibilityTraits key="traits" header="YES"/>
@@ -603,7 +648,7 @@
                                             <outlet property="lblTitle" destination="Oct-eZ-HWd" id="1l6-Sg-o0C"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WamSettingsTimeItem" textLabel="LfN-Mq-3ad" detailTextLabel="SZ2-Ri-DEf" style="IBUITableViewCellStyleSubtitle" id="arg-Lj-XOc">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WamSettingsTimeItem" textLabel="LfN-Mq-3ad" detailTextLabel="SZ2-Ri-DEf" style="IBUITableViewCellStyleSubtitle" id="arg-Lj-XOc">
                                         <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="arg-Lj-XOc" id="gK4-3X-n45">
@@ -613,6 +658,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="t0 +009h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LfN-Mq-3ad">
                                                     <rect key="frame" x="15" y="4" width="65" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -620,11 +666,14 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="25.03.2015 9:00 UTC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SZ2-Ri-DEf">
                                                     <rect key="frame" x="15" y="24" width="123" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <animations/>
                                         </tableViewCellContentView>
+                                        <animations/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
@@ -637,6 +686,7 @@
                             </tableView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2jn-Ho-kBE">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <animations/>
                                 <color key="backgroundColor" white="0.92000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="barTintColor" white="0.92000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
@@ -655,6 +705,7 @@
                                 </items>
                             </navigationBar>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="0.92000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -693,6 +744,7 @@
                                 <subviews>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rgh-pj-uDw">
                                         <rect key="frame" x="0.0" y="0.0" width="720" height="702"/>
+                                        <animations/>
                                         <accessibility key="accessibilityConfiguration">
                                             <bool key="isElement" value="YES"/>
                                         </accessibility>
@@ -706,6 +758,7 @@
                                         </connections>
                                     </imageView>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Rgh-pj-uDw" secondAttribute="trailing" id="WuI-9Q-Pfs"/>
@@ -722,14 +775,17 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ładowanie meteorogramu" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R9a-Bf-BXg">
                                         <rect key="frame" x="5" y="47" width="90" height="29"/>
+                                        <animations/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="V2e-e2-MrK">
                                         <rect key="frame" x="32" y="5" width="37" height="37"/>
+                                        <animations/>
                                     </activityIndicatorView>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="V2e-e2-MrK" firstAttribute="top" secondItem="Rub-hF-woF" secondAttribute="top" constant="5" id="NKD-Rx-qkh"/>
@@ -751,18 +807,21 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="start +72h  =  2015.8.29 0:00 UTC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzT-kb-sbi">
                                         <rect key="frame" x="195" y="3" width="211" height="17"/>
+                                        <animations/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b2P-Qj-ywD" userLabel="Border">
                                         <rect key="frame" x="0.0" y="23" width="600" height="1"/>
+                                        <animations/>
                                         <color key="backgroundColor" white="0.80000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="2HM-PM-QPV"/>
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="0.95000000000000007" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="uzT-kb-sbi" secondAttribute="centerX" id="C5s-pb-qXh"/>
@@ -775,6 +834,7 @@
                             </view>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GYk-Zd-0zu">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <animations/>
                                 <color key="barTintColor" white="0.92000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <navigationItem title="Wysokość fali znacznej i kierunek fali" id="ALl-bz-D0W"/>
@@ -782,6 +842,7 @@
                             </navigationBar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B1H-gT-lC8">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <animations/>
                                 <items>
                                     <barButtonItem systemItem="rewind" id="O6a-tb-wV6">
                                         <connections>
@@ -804,6 +865,7 @@
                                 <color key="barTintColor" white="0.92000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="0.92000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -859,6 +921,7 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="1" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bdG-B4-X8c">
                                 <rect key="frame" x="0.0" y="65" width="600" height="486"/>
+                                <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewLayout key="collectionViewLayout" id="1dJ-IO-FdA" customClass="MMTCollectionViewWamLayout" customModule="MobileMeteo" customModuleProvider="target"/>
                                 <cells>
@@ -871,17 +934,20 @@
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CfS-He-aOC">
                                                     <rect key="frame" x="-1" y="13" width="133" height="114"/>
+                                                    <animations/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZM9-ZF-ucp" userLabel="Item Header Box">
                                                     <rect key="frame" x="0.0" y="0.0" width="130" height="14"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2015.08.10 03:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vTn-XS-L3w" userLabel="Item Header">
                                                             <rect key="frame" x="5" y="0.0" width="120" height="14"/>
+                                                            <animations/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
                                                             <color key="textColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
+                                                    <animations/>
                                                     <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="bottom" secondItem="vTn-XS-L3w" secondAttribute="bottom" id="80I-rr-Dxp"/>
@@ -893,6 +959,7 @@
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="t0 +003h" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6Z-kr-xhJ" userLabel="Item Footer">
                                                     <rect key="frame" x="0.0" y="126" width="130" height="14"/>
+                                                    <animations/>
                                                     <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="14" id="Ax6-2S-hT5"/>
@@ -902,11 +969,14 @@
                                                 </label>
                                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="3EN-xj-YZK">
                                                     <rect key="frame" x="47" y="51" width="37" height="37"/>
+                                                    <animations/>
                                                     <color key="color" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </activityIndicatorView>
                                             </subviews>
+                                            <animations/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <animations/>
                                         <color key="backgroundColor" white="0.95999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="centerY" secondItem="3EN-xj-YZK" secondAttribute="centerY" constant="0.5" id="6UH-HU-hBV"/>
@@ -941,6 +1011,7 @@
                                 <subviews>
                                     <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b2Z-kq-fEG">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <animations/>
                                         <color key="barTintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <items>
                                             <navigationItem id="53d-BO-YMj">
@@ -954,15 +1025,18 @@
                                     </navigationBar>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Długość prognozy: 84h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ge9-ht-NJA">
                                         <rect key="frame" x="245" y="24" width="111" height="13"/>
+                                        <animations/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="11"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="start prognozy t0 : 2015.07.23 00:00 UTC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xdv-Ah-Krf">
                                         <rect key="frame" x="182" y="4" width="237" height="16"/>
+                                        <animations/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <animations/>
                                 <color key="backgroundColor" white="0.92000000000000004" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Xdv-Ah-Krf" firstAttribute="top" secondItem="ZIP-23-mx7" secondAttribute="top" constant="4" id="9mS-93-b8t"/>
@@ -977,6 +1051,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>

@@ -118,6 +118,10 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, UIAlertV
     
     @IBAction func onStartBtnTouchAction(sender: UIBarButtonItem)
     {
+        if let button = (navigationBar.layer.sublayers!.maxElement(){ $0.position.x < $1.position.x }) {
+            button.addAnimation(CAAnimation.mmt_DefaultScaleAnimation(), forKey: "scale")
+        }                
+        
         citiesStore.markCity(city, asFavourite: !city.isFavourite)
         setupStarButton()        
     }
