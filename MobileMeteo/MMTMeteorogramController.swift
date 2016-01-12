@@ -49,16 +49,33 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, UIAlertV
         setupMeteorogramLegend()
     }
     
+    override func viewWillDisappear(animated: Bool)
+    {
+        super.viewWillDisappear(animated)
+        citiesStore.markCity(city, asFavourite: city.isFavourite)
+    }
+    
+    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        coordinator.animateAlongsideTransition(nil) { (UIViewControllerTransitionCoordinatorContext) -> Void in
+                
+            self.adjustZoomScale()
+        }
+    }
+    
     // MARK: Setup methods
     
     private func setupScrollView()
     {
+        let contentSize = visibleContentSize()
+        let zoomScale = zoomScaleForVisibleContentSize(contentSize)
+        
         meteorogramImage.updateSizeConstraints(meteorogramStore.meteorogramSize)
         legendImage.updateSizeConstraints(meteorogramStore.legendSize)
 
         scrollView.maximumZoomScale = 1
-        scrollView.minimumZoomScale = scrollView.minZoomScaleForSize(meteorogramStore.meteorogramSize)
-        scrollView.zoomScale = scrollView.defaultZoomScale(meteorogramStore.meteorogramSize)
+        scrollView.minimumZoomScale = scrollView.minZoomScaleForSize(contentSize)
+        scrollView.zoomScale = zoomScale
     }
     
     private func setupStarButton()
@@ -111,18 +128,16 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, UIAlertV
     
     @IBAction func onScrollViewDoubleTapAction(sender: UITapGestureRecognizer)
     {
-        let defaultZoomScale = scrollView.defaultZoomScale(meteorogramStore.meteorogramSize)
-        
-        scrollView.animatedZoomToScale(defaultZoomScale)
+        adjustZoomScale()
     }
     
     @IBAction func onStartBtnTouchAction(sender: UIBarButtonItem)
     {
         if let button = (navigationBar.layer.sublayers!.maxElement(){ $0.position.x < $1.position.x }) {
-            button.addAnimation(CAAnimation.mmt_DefaultScaleAnimation(), forKey: "scale")
+            button.addAnimation(CAAnimation.defaultScaleAnimation(), forKey: "scale")
         }                
         
-        citiesStore.markCity(city, asFavourite: !city.isFavourite)
+        city.favourite = !city.isFavourite
         setupStarButton()        
     }
 
@@ -142,4 +157,26 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, UIAlertV
     
     // MARK: Helper methods
     
+    private func adjustZoomScale()
+    {
+        scrollView.animatedZoomToScale(zoomScaleForVisibleContentSize(visibleContentSize()))
+    }
+    
+    private func visibleContentSize() -> CGSize
+    {
+        var contentSize = meteorogramStore.meteorogramSize
+        
+        if self.traitCollection.verticalSizeClass == .Compact {
+            contentSize.width += meteorogramStore.legendSize.width
+        }
+        
+        return contentSize
+    }
+    
+    private func zoomScaleForVisibleContentSize(size: CGSize) -> CGFloat
+    {
+        let isLandscape = self.traitCollection.verticalSizeClass == .Compact
+        
+        return isLandscape ? scrollView.minZoomScaleForSize(size) : scrollView.defaultZoomScale(size)
+    }
 }

@@ -55,6 +55,11 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         displayCurrentMoment()
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
     // MARK: Setup methods
     
     private func setupNavigationButtons()

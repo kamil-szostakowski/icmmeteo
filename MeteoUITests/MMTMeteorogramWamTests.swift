@@ -21,6 +21,8 @@ class MMTMeteorogramWamTests: XCTestCase
         
         continueAfterFailure = false
         
+        XCUIDevice.sharedDevice().orientation = .Portrait
+        
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB"]
         app.launch()
