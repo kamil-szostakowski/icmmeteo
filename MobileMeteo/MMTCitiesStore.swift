@@ -11,7 +11,7 @@ import CoreLocation
 import AddressBook
 import CoreData
 
-typealias MMTCityQueryCompletion = (MMTCity?, NSError?) -> Void
+typealias MMTCityQueryCompletion = (MMTCity?, MMTError?) -> Void
 typealias MMTCitiesQueryCompletion = ([MMTCity]) -> Void
 
 class MMTCitiesStore: NSObject
@@ -42,10 +42,10 @@ class MMTCitiesStore: NSObject
         geocoder.reverseGeocodeLocation(location) { (placemarks, translationError) in
             
             var city: MMTCity? = nil
-            var error: NSError? = nil
+            var error: MMTError? = nil
             
             if translationError != nil {
-                error = NSError(code: .LocationNotFound)
+                error = .LocationNotFound
             }
             
             else if placemarks != nil && placemarks!.count>0
@@ -53,7 +53,7 @@ class MMTCitiesStore: NSObject
                 city = self.getCityForPlacemark(placemarks!.first!)
                 
                 if city == nil {
-                    error = NSError(code: .LocationUnsupported)
+                    error = .LocationUnsupported
                 }
             }
             
@@ -83,18 +83,15 @@ class MMTCitiesStore: NSObject
         geocoder.cancelGeocode()
         geocoder.geocodeAddressDictionary(address){ (placemarks: [CLPlacemark]?, error: NSError?) in
             
-            if error != nil {
-                completion(cities)
-            }
+            defer { completion(cities) }
             
-            else if let markers = placemarks
-            {
-                for placemark: CLPlacemark in markers {
-                    if let city = self.getCityForPlacemark(placemark) {
-                        cities.append(city)
-                    }
+            guard error == nil else { return }
+            guard let markers = placemarks else { return }
+            
+            for placemark: CLPlacemark in markers {
+                if let city = self.getCityForPlacemark(placemark) {
+                    cities.append(city)
                 }
-                completion(cities);
             }
         }
     }
@@ -116,23 +113,23 @@ class MMTCitiesStore: NSObject
     
     func getPredefinedCitiesFromFile(file: String) -> [MMTCity]
     {
+        guard let citiesList = getPredefinedCitiesFromJsonFile(file) else {
+            return []
+        }
+     
         var result = [MMTCity]()
-        
-        if let citiesList = getPredefinedCitiesFromJsonFile(file)
+        for city in citiesList
         {
-            for city in citiesList
-            {
-                let name = city["name"] as! String
-                let lat = city["latitude"] as! Double
-                let lng = city["longitude"] as! Double
-                let region = city["region"] as! String
+            let name = city["name"] as! String
+            let lat = city["latitude"] as! Double
+            let lng = city["longitude"] as! Double
+            let region = city["region"] as! String
                 
-                let
-                city = MMTCity(name: name, region: region, location: CLLocation(latitude: lat, longitude: lng))
-                city.capital = true
+            let
+            city = MMTCity(name: name, region: region, location: CLLocation(latitude: lat, longitude: lng))
+            city.capital = true
                 
-                result.append(city)
-            }
+            result.append(city)
         }
 
         return result
@@ -153,15 +150,12 @@ class MMTCitiesStore: NSObject
     
     private func getPredefinedCitiesFromJsonFile(path: String) -> MMTCitiesArray?
     {
-        if let data = NSData(contentsOfFile: path)
-        {
-            if let json: AnyObject = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)
-            {
-                return json as? MMTCitiesArray
-            }
+        guard let data = NSData(contentsOfFile: path) else { return nil }
+        guard let json = try? NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) else {
+            return nil
         }
         
-        return nil
+        return json as? MMTCitiesArray
     }
     
     private func getCityForPlacemark(placemark: CLPlacemark) -> MMTCity?

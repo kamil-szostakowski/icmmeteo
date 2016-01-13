@@ -8,9 +8,7 @@
 
 import Foundation
 
-public let MMTErrorDomain = "MMTErrorDomain"
-
-public enum MMTError: Int
+enum MMTError: Int
 {
     case MeteorogramNotFound = 0
     case MeteorogramFetchFailure = 1
@@ -28,13 +26,5 @@ public enum MMTError: Int
             case .LocationNotFound: return "Nie udało się odnaleźć szczegółów lokalizacji. Wybierz inną lokalizację lub spróbuj ponownie później."
             case .LocationServicesDisabled: return "Aplikacja nie ma dostępu do Twojej lokalizacji. Aby korzystać z tej funkcji włącz usługi lokalizacji w ustawieniach aplikacji."
         }
-    }
-}
-
-extension NSError
-{
-    convenience init(code: MMTError)
-    {
-        self.init(domain: MMTErrorDomain, code: code.rawValue, userInfo: nil)
     }
 }

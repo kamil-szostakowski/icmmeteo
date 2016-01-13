@@ -10,32 +10,32 @@ import Foundation
 
 private typealias MMTWamMomentGroups = [Int: [MMTWamMoment]]
 
-public class MMTWamSettings: NSObject, NSCopying
+class MMTWamSettings: NSObject, NSCopying
 {
     // MARK: Properties        
     
-    public var selectedCategory: MMTWamCategory?
+    var selectedCategory: MMTWamCategory?
     
-    public var forecastMoments: [MMTWamMoment]
+    var forecastMoments: [MMTWamMoment]
     
-    public var forecastSelectedMoments: [MMTWamMoment]
+    var forecastSelectedMoments: [MMTWamMoment]
     {
         return forecastMoments.filter(){ $0.selected }
     }
     
-    public var forecastMomentsGrouppedByDay: [[MMTWamMoment]]
+    var forecastMomentsGrouppedByDay: [[MMTWamMoment]]
     {
         return getOrderedArrayOfGroups(getGroupedMoments(forecastMoments))
     }
     
-    public override var description: String
+    override var description: String
     {
         return "<MMTWamSettings \n moments: \(forecastMomentsGrouppedByDay.description)>"
     }
     
     // MARK: Initializers
     
-    public init(_ moments: [MMTWamMoment])
+    init(_ moments: [MMTWamMoment])
     {
         forecastMoments = moments        
         super.init()
@@ -43,7 +43,7 @@ public class MMTWamSettings: NSObject, NSCopying
     
     // MARK: Methods
     
-    public func momentForDate(date: NSDate) -> MMTWamMoment?
+    func momentForDate(date: NSDate) -> MMTWamMoment?
     {
         if let index = (forecastMoments.map(){ $0.date }).indexOf(date) {
             return forecastMoments[index]
@@ -51,14 +51,14 @@ public class MMTWamSettings: NSObject, NSCopying
         return nil
     }
     
-    public func setMomentSelection(date: NSDate, selected: Bool)
+    func setMomentSelection(date: NSDate, selected: Bool)
     {
         if let index = (forecastMoments.map(){ $0.date }).indexOf(date) {
             forecastMoments[index].selected = selected
         }
     }
     
-    public func setMomentsSelection(dates: [NSDate], selected: Bool)
+    func setMomentsSelection(dates: [NSDate], selected: Bool)
     {
         for date in dates {
             setMomentSelection(date, selected: selected)
@@ -103,7 +103,7 @@ public class MMTWamSettings: NSObject, NSCopying
         return Int(NSCalendar.currentCalendar().dateFromComponents(components)!.timeIntervalSince1970)
     }
     
-    public func copyWithZone(zone: NSZone) -> AnyObject
+    func copyWithZone(zone: NSZone) -> AnyObject
     {
         let
         settings = MMTWamSettings([])

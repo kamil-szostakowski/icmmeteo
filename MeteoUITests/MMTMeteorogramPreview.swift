@@ -27,6 +27,7 @@ class MMTMeteorogramPreview: XCTestCase
         app.launchArguments = ["CLEANUP_DB"]
         app.launch()
         
+        app.tabBars.buttons["Model COAMPS"].tap()
         app.tables.cells["Białystok, Podlaskie"].tap()
     }
     

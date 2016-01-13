@@ -796,13 +796,13 @@
                                             <action selector="didClickPreviousMomentBtn:" destination="Sup-Ka-6lM" id="B5Z-VS-uGz"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="vXL-wd-yNE"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="l2t-2i-GQ4"/>
                                     <barButtonItem title="Item" systemItem="stop" id="wjL-Yk-YHA">
                                         <connections>
                                             <segue destination="pda-8B-LE3" kind="unwind" unwindAction="unwindToWamModel:" id="bfg-ek-DAY"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="0Eb-Y2-2ie"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="vXL-wd-yNE"/>
                                     <barButtonItem systemItem="fastForward" id="8bB-bT-49b">
                                         <connections>
                                             <action selector="didClickNextMomentBtn:" destination="Sup-Ka-6lM" id="AFe-d5-6ns"/>
