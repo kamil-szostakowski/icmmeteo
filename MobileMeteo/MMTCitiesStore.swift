@@ -39,8 +39,7 @@ class MMTCitiesStore: NSObject
     
     func findCityForLocation(location: CLLocation, completion: MMTCityQueryCompletion)
     {
-        geocoder.reverseGeocodeLocation(location) {
-            (placemarks, translationError) in
+        geocoder.reverseGeocodeLocation(location) { (placemarks, translationError) in
             
             var city: MMTCity? = nil
             var error: NSError? = nil
@@ -82,9 +81,7 @@ class MMTCitiesStore: NSObject
         ]
         
         geocoder.cancelGeocode()
-        
-        geocoder.geocodeAddressDictionary(address){
-            (placemarks: [CLPlacemark]?, error: NSError?) in
+        geocoder.geocodeAddressDictionary(address){ (placemarks: [CLPlacemark]?, error: NSError?) in
             
             if error != nil {
                 completion(cities)
@@ -105,7 +102,7 @@ class MMTCitiesStore: NSObject
     func markCity(city: MMTCity, asFavourite favourite: Bool)
     {
         city.favourite = favourite
-        
+
         if favourite && city.managedObjectContext == nil {
             database.context.insertObject(city)
         }

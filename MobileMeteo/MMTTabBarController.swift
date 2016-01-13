@@ -27,6 +27,28 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
         UITabBar.appearance().tintColor = MMTAppearance.textColor
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
+    // MARK: UITabBarControllerDelegate methods
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController)
+    {
+        if let index =  tabBarController.viewControllers?.indexOf(viewController)
+        {
+            let tabBarItems = tabBar.layer.sublayers!
+                .filter(){ $0.frame.size.width < tabBar.frame.size.width }
+                .sort(){ $0.frame.origin.x < $1.frame.origin.x }
+                .map() {
+                    $0.sublayers!.maxElement(){ $0.frame.size.height < $1.frame.size.height }!
+            }
+            
+            tabBarItems[index].addAnimation(CAAnimation.defaultScaleAnimation(), forKey: "basic")
+        }
+    }
+    
     // MARK: Helper methods
     
     private func initItemAtIndex(index: Int, withStore store: MMTGridClimateModelStore)
@@ -40,20 +62,5 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
         item.title = store.meteorogramId.description
         item.image = icon
         item.selectedImage = icon
-    }
-    
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController)
-    {
-        if let index =  tabBarController.viewControllers?.indexOf(viewController)
-        {
-            let tabBarItems = tabBar.layer.sublayers!
-                .filter(){ $0.frame.size.width < tabBar.frame.size.width }
-                .sort(){ $0.frame.origin.x < $1.frame.origin.x }
-                .map() {
-                    $0.sublayers!.maxElement(){ $0.frame.size.height < $1.frame.size.height }!
-                }            
-
-            tabBarItems[index].addAnimation(CAAnimation.mmt_DefaultScaleAnimation(), forKey: "basic")
-        }
     }
 }

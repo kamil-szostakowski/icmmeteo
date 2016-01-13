@@ -21,9 +21,13 @@ class MMTMeteorogramPreview: XCTestCase
         
         continueAfterFailure = false
         
+        XCUIDevice.sharedDevice().orientation = .Portrait
+        
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB"]
         app.launch()
+        
+        app.tables.cells["Białystok, Podlaskie"].tap()
     }
     
     override func tearDown()
@@ -34,15 +38,36 @@ class MMTMeteorogramPreview: XCTestCase
     
     // MARK: Test methods
     
-    func test01_ZoomingToDefaultScale()
+    func test01_ContentVisibilityInPortrait()
     {
-        app.tables.cells["Białystok, Podlaskie"].tap()
-        
+        XCTAssertTrue(isElementVisible(app.images["meteorogram"]))
+        XCTAssertFalse(isElementVisible(app.images["legend"]))
+    }
+    
+    func test02_ZoomingToDefaultScale()
+    {
         let
         element = app.scrollViews.elementBoundByIndex(0)
         element.swipeLeft()
         element.doubleTap()
         
         app.navigationBars["Białystok"].buttons["Zatrzymaj"].tap()
+    }
+    
+    func test03_ContentVisibilityInLandscape()
+    {
+        XCUIDevice.sharedDevice().orientation = .LandscapeLeft
+        sleep(1)
+        
+        XCTAssertTrue(isElementVisible(app.images["meteorogram"]))
+        XCTAssertTrue(isElementVisible(app.images["legend"]))
+    }
+    
+    // MARK: Helper methods
+    
+    private func isElementVisible(element: XCUIElement) -> Bool
+    {
+        let window = app.windows.elementBoundByIndex(0)
+        return CGRectIntersectsRect(window.frame, element.frame)
     }
 }

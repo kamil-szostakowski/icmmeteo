@@ -11,7 +11,7 @@ import Foundation
 
 extension CAAnimation
 {
-    class func mmt_DefaultScaleAnimation() -> CAAnimation
+    class func defaultScaleAnimation() -> CAAnimation
     {
         let
         animation = CAKeyframeAnimation(keyPath: "transform.scale")

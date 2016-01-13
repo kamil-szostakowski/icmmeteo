@@ -26,6 +26,9 @@ class MMTCitiesListTests: XCTestCase
         super.setUp()
         
         continueAfterFailure = false
+        
+        XCUIDevice.sharedDevice().orientation = .Portrait
+        
         app = XCUIApplication()
 
         dispatch_once(&MMTCitiesListTests.onceToken){

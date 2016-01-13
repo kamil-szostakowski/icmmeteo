@@ -30,6 +30,11 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         wamStore = MMTWamModelStore(date: NSDate())  
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
     // MARK: Actions
     
     func didSelectCategory(category: UITableViewCell)

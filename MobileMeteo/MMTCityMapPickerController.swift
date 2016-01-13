@@ -60,6 +60,11 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
         }
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
     // MARK: Setup methods
     
     private func setupMapView()
