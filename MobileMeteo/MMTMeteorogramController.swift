@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import CoreLocation
 
-class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, UIAlertViewDelegate
+class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
 {
     // MARK: Outlets
     
@@ -87,11 +87,11 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, UIAlertV
     private func setupMeteorogram()
     {
         meteorogramStore.getMeteorogramForLocation(city.location){
-            (data: NSData?, error: NSError?) in
+            (data: NSData?, error: MMTError?) in
             
-            if let e = error
+            guard error == nil else
             {
-                UIAlertView(title: "", message: MMTError(rawValue: e.code)!.description, delegate: self, cancelButtonTitle: "zamknij").show()
+                self.displayErrorAlert(error!)
                 return
             }
             
@@ -103,9 +103,9 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, UIAlertV
     private func setupMeteorogramLegend()
     {
         meteorogramStore.getMeteorogramLegend(){
-            (data: NSData?, error: NSError?) in
+            (data: NSData?, error: MMTError?) in
             
-            if error != nil
+            guard error == nil else
             {
                 var
                 size = self.meteorogramStore.legendSize
@@ -148,13 +148,6 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, UIAlertV
         return scrollViewContainer
     }
     
-    // MARK: UIAlertViewDelegate
-    
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int)
-    {
-        performSegueWithIdentifier(MMTSegue.UnwindToListOfCities, sender: self)
-    }
-    
     // MARK: Helper methods
     
     private func adjustZoomScale()
@@ -178,5 +171,14 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, UIAlertV
         let isLandscape = self.traitCollection.verticalSizeClass == .Compact
         
         return isLandscape ? scrollView.minZoomScaleForSize(size) : scrollView.defaultZoomScale(size)
+    }
+    
+    private func displayErrorAlert(error: MMTError)
+    {
+        let alert = UIAlertController.alertForMMTError(error){ (UIAlertAction) -> Void in
+            self.performSegueWithIdentifier(MMTSegue.UnwindToListOfCities, sender: self)
+        }
+        
+        presentViewController(alert, animated: true, completion: nil)
     }
 }

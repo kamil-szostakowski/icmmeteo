@@ -15,6 +15,7 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
     // MARK: Properties
     
     private let waitingTime: NSTimeInterval = 18000
+    private var urlSession: MMTMeteorogramUrlSession!
     private var startDate: NSDate!
     
     var meteorogramId: MMTClimateModel {
@@ -46,6 +47,8 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
     init(date: NSDate)
     {
         super.init()
+        
+        urlSession = MMTMeteorogramUrlSession(model: .UM)
         startDate = NSCalendar.utcCalendar.dateFromComponents(tZeroComponentsForDate(date))!
     }
     
@@ -54,15 +57,12 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
     func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion)
     {
         let searchUrl = NSURL.mmt_modelUmSearchUrl(location, tZero: forecastStartDate)
-        let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL.mmt_modelUmDownloadBaseUrl(), completion: completion)
-        
-        NSURLConnection(request: NSURLRequest(URL: searchUrl), delegate: delegate)?.start()
+        urlSession.fetchMeteorogramImageForUrl(searchUrl, completion: completion)
     }
     
     func getMeteorogramLegend(completion: MMTFetchMeteorogramCompletion)
-    {
-        let legendUrl = NSURL.mmt_modelUmLegendUrl()
-        NSURLConnection(request: NSURLRequest(URL: legendUrl), delegate: MMTMeteorogramFetchDelegate(completion: completion))?.start()
+    {        
+        urlSession.fetchImageFromUrl(NSURL.mmt_modelUmLegendUrl(), completion: completion)
     }
     
     // MARK: Helper methods    
@@ -76,5 +76,5 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
         components.hour = Int(components.hour/6)*6
 
         return components
-    }
+    }    
 }

@@ -12,6 +12,4 @@
 #define kSegueUnwindToListOfCities @"UnwindToListOfCities"
 #define kSegueDisplayMeteorogram @"DisplayMeteorogram"
 
-#import "MobileMeteo-Swift.h"
-
 #endif

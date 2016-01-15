@@ -125,11 +125,12 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     @objc func failureCheck()
     {
-        if failureCount>0
-        {
-            failureCount=0
-            collectionView.reloadData()
+        guard failureCount>0 else {
+            return
         }
+        
+        failureCount=0
+        collectionView.reloadData()
     }
     
     // MARK: UICollectionViewDataSource methods
@@ -159,14 +160,14 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         cell.layoutIfNeeded()
         
         getThumbnailWithQuery(MMTWamModelMeteorogramQuery(category, date)) {
-            (data: NSData?, error: NSError?) in
-        
-            if error != nil {
+            (data: NSData?, error: MMTError?) in
+            
+            guard error == nil && data != nil else {
                 self.failureCount++
-            }            
-            else if let image = data {
-                cell.map.image = UIImage(data: image)
+                return
             }
+            
+            cell.map.image = UIImage(data: data!)
         }
         
         return cell
@@ -213,7 +214,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         }
 
         wamStore.getMeteorogramMomentThumbnailWithQuery(query) {
-            (data: NSData?, error: NSError?) in
+            (data: NSData?, error: MMTError?) in
             
             if let image = data {
                 self.cache.setObject(image, forKey: key)

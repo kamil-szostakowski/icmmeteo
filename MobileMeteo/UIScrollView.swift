@@ -9,9 +9,9 @@
 import UIKit
 import Foundation
 
-public extension UIScrollView
+extension UIScrollView
 {
-    public func adjustContentOffsetForHeaderOfHeight(height: CGFloat)
+    func adjustContentOffsetForHeaderOfHeight(height: CGFloat)
     {
         let animations = { () -> Void in
             self.contentOffset.y = self.contentOffset.y >= height/2 ? height : 0
@@ -21,7 +21,7 @@ public extension UIScrollView
         UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: [], animations: animations, completion: nil)
     }
     
-    public func animatedZoomToScale(scale: CGFloat)
+    func animatedZoomToScale(scale: CGFloat)
     {
         let animation = { () -> Void in
             
@@ -32,12 +32,12 @@ public extension UIScrollView
         UIView.animateWithDuration(0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 10, options: [], animations: animation, completion: nil)
     }
     
-    public func minZoomScaleForSize(size: CGSize) -> CGFloat
+    func minZoomScaleForSize(size: CGSize) -> CGFloat
     {
         return self.bounds.width/size.width
     }
     
-    public func defaultZoomScale(size: CGSize) -> CGFloat
+    func defaultZoomScale(size: CGSize) -> CGFloat
     {
         return self.bounds.height/size.height
     }

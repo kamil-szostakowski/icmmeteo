@@ -36,17 +36,18 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController)
     {
-        if let index =  tabBarController.viewControllers?.indexOf(viewController)
-        {
-            let tabBarItems = tabBar.layer.sublayers!
-                .filter(){ $0.frame.size.width < tabBar.frame.size.width }
-                .sort(){ $0.frame.origin.x < $1.frame.origin.x }
-                .map() {
-                    $0.sublayers!.maxElement(){ $0.frame.size.height < $1.frame.size.height }!
-            }
-            
-            tabBarItems[index].addAnimation(CAAnimation.defaultScaleAnimation(), forKey: "basic")
+        guard let index =  tabBarController.viewControllers?.indexOf(viewController) else {
+            return
         }
+        
+        let tabBarItems = tabBar.layer.sublayers!
+            .filter(){ $0.frame.size.width < tabBar.frame.size.width }
+            .sort(){ $0.frame.origin.x < $1.frame.origin.x }
+            .map() {
+                $0.sublayers!.maxElement(){ $0.frame.size.height < $1.frame.size.height }!
+        }
+            
+        tabBarItems[index].addAnimation(CAAnimation.defaultScaleAnimation(), forKey: "basic")
     }
     
     // MARK: Helper methods

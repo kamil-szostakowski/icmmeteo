@@ -140,7 +140,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         
         getMeteorogramWithQuery(MMTWamModelMeteorogramQuery(category: category, moment: moment)){
             
-            (data: NSData?, error: NSError?) in
+            (data: NSData?, error: MMTError?) in
             
             self.meteorogramImage.image = UIImage(data: data!)            
             self.prevMomentButton.enabled = !self.isFirstMoment
@@ -161,21 +161,17 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         activityIndicator.hidden = false
         
         wamStore.getMeteorogramMomentWithQuery(query){
-            (data: NSData?, error: NSError?) in
+            (data: NSData?, error: MMTError?) in
             
             self.activityIndicator.hidden = true
             
-            if let image = data
-            {
-                self.cache.setObject(image, forKey: key)
-                completion(data: data, error: error)
+            guard error == nil else {
+                self.presentViewController(UIAlertController.alertForMMTError(error!), animated: true, completion: nil)
+                return
             }
-                
-            else if error?.domain == MMTErrorDomain
-            {
-                let message = MMTError(rawValue: error!.code)!.description
-                UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: "zamknij").show()
-            }
+            
+            self.cache.setObject(data!, forKey: key)
+            completion(data: data, error: error)
         }
     }
 }

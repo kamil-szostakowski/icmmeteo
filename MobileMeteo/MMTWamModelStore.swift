@@ -9,7 +9,7 @@
 import Foundation
 import CoreGraphics
 
-public enum MMTWamCategory: Int
+enum MMTWamCategory: Int
 {
     case TideHeight = 0
     case AvgTidePeriod
@@ -27,14 +27,15 @@ public enum MMTWamCategory: Int
     }
 }
 
-public typealias MMTWamModelMeteorogramQuery = (category: MMTWamCategory, moment: NSDate)
-public typealias MMTWamMoment = (date: NSDate, selected: Bool)
+typealias MMTWamModelMeteorogramQuery = (category: MMTWamCategory, moment: NSDate)
+typealias MMTWamMoment = (date: NSDate, selected: Bool)
 
 class MMTWamModelStore: NSObject, MMTClimateModelStore
 {
     // MARK: Properties
     
     private let waitingTime: NSTimeInterval = 25200
+    private var urlSession: MMTMeteorogramUrlSession!
     private let momentLength = 3
     private var startDate: NSDate!
     
@@ -58,7 +59,9 @@ class MMTWamModelStore: NSObject, MMTClimateModelStore
     
     init(date: NSDate)
     {
-        super.init()        
+        super.init()
+        
+        urlSession = MMTMeteorogramUrlSession(model: .WAM)
         startDate = NSCalendar.utcCalendar.dateFromComponents(tZeroComponentsForDate(date))!
     }
     
@@ -80,8 +83,8 @@ class MMTWamModelStore: NSObject, MMTClimateModelStore
             case .AvgTidePeriod: downloadUrl = NSURL.mmt_modelWamAvgTidePeriodThumbnailUrl(startDate, plus: tZeroPlus)
             case .SpectrumPeakPeriod: downloadUrl = NSURL.mmt_modelWamSpectrumPeakPeriodThumbnailUrl(startDate, plus: tZeroPlus)
         }
-
-        NSURLConnection(request: NSURLRequest(URL: downloadUrl), delegate: MMTMeteorogramFetchDelegate(completion: completion))?.start()
+        
+        urlSession.fetchImageFromUrl(downloadUrl, completion: completion)
     }
     
     func getMeteorogramMomentWithQuery(query: MMTWamModelMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
@@ -96,7 +99,7 @@ class MMTWamModelStore: NSObject, MMTClimateModelStore
             case .SpectrumPeakPeriod: downloadUrl = NSURL.mmt_modelWamSpectrumPeakPeriodDownloadUrl(startDate, plus: tZeroPlus)
         }
 
-        NSURLConnection(request: NSURLRequest(URL: downloadUrl), delegate: MMTMeteorogramFetchDelegate(completion: completion))?.start()
+        urlSession.fetchImageFromUrl(downloadUrl, completion: completion)
     }
     
     func getForecastMoments() -> [MMTWamMoment]

@@ -47,8 +47,12 @@ class MMTWamCategoryItem: UICollectionViewCell
     {
         activityIndicator.hidden = !enabled
         
-        if enabled { activityIndicator.startAnimating() }
-        else {
+        if enabled
+        {
+            activityIndicator.startAnimating()
+        }
+        else
+        {
             activityIndicator.stopAnimating()
         }
     }

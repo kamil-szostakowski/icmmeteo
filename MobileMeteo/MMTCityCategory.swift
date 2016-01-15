@@ -10,23 +10,23 @@ import Foundation
 import CoreLocation
 import CoreData
 
-public extension MMTCity
+extension MMTCity
 {
-    public var location: CLLocation {
+    var location: CLLocation {
         return CLLocation(latitude: lat.doubleValue, longitude: lng.doubleValue)
     }
     
-    public var isFavourite: Bool {
+    var isFavourite: Bool {
         return favourite.boolValue
     }
     
-    public var isCapital: Bool {
+    var isCapital: Bool {
         return capital.boolValue
     }
     
     private static var currentCityPriv: MMTCity?
     
-    public static var currentCity: MMTCity
+    static var currentCity: MMTCity
     {
         if currentCityPriv == nil {
             currentCityPriv = MMTCity(name: "Obecna lokalizacja", region: "", location: CLLocation())
@@ -37,7 +37,7 @@ public extension MMTCity
     
     // MARK: Initializers
     
-    public convenience init(name: String, region: String, location: CLLocation)
+    convenience init(name: String, region: String, location: CLLocation)
     {
         self.init(entity: MMTCity.entityDescription, insertIntoManagedObjectContext: nil)
         
@@ -49,7 +49,7 @@ public extension MMTCity
         self.favourite = false
     }    
     
-    public convenience init(placemark: CLPlacemark)
+    convenience init(placemark: CLPlacemark)
     {
         let name = placemark.locality ?? placemark.name!
         let region = placemark.administrativeArea ?? ""

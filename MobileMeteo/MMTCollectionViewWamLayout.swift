@@ -36,7 +36,7 @@ class MMTCollectionViewWamLayout: UICollectionViewLayout
     
     override func prepareLayout()
     {
-        if collectionView!.numberOfSections() == 0 {
+        guard collectionView!.numberOfSections() > 0 else {
             return
         }
         
@@ -53,7 +53,6 @@ class MMTCollectionViewWamLayout: UICollectionViewLayout
             let indexPath = NSIndexPath(forItem: 0, inSection: section)
             headerLayoutAttributes[indexPath] = createHeaderLayoutAttributesForIndexPath(indexPath)
         }
-        return
     }
     
     private func calculateItemSize() -> CGSize

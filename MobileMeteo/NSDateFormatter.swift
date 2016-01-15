@@ -8,9 +8,9 @@
 
 import Foundation
 
-public extension NSDateFormatter
+extension NSDateFormatter
 {
-    public static var shortStyle: NSDateFormatter
+    static var shortStyle: NSDateFormatter
     {
         let
         formatter = NSDateFormatter()
@@ -21,7 +21,7 @@ public extension NSDateFormatter
         return formatter
     }
     
-    public static var shortTimeStyle: NSDateFormatter
+    static var shortTimeStyle: NSDateFormatter
     {
         let
         formatter = NSDateFormatter()
@@ -32,7 +32,7 @@ public extension NSDateFormatter
         return formatter
     }
     
-    public static func shortStyleUtcDatetime(date: NSDate) -> String
+    static func shortStyleUtcDatetime(date: NSDate) -> String
     {
         let datePart = shortStyle.stringFromDate(date)
         let timePart = shortTimeStyle.stringFromDate(date)

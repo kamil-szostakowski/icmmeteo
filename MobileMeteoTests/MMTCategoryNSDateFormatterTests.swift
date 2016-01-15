@@ -8,7 +8,7 @@
 
 import XCTest
 import Foundation
-import MobileMeteo
+@testable import MobileMeteo
 
 class MMTCategoryNSDateFormatterTests: XCTestCase
 {

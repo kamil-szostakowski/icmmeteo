@@ -10,6 +10,28 @@ import UIKit
 import Foundation
 import CoreLocation
 
+enum MMTCityGroup
+{
+    case NotFound
+    case Capitals
+    case Favourites
+    case SearchResults
+    case CurrentLocation
+    
+    var description: String?
+    {
+        switch self
+        {
+            case .Capitals: return "Miasta wojewódzkie"
+            case .Favourites: return "Ulubione"
+            default: return nil
+        }
+    }
+}
+
+typealias MMTCompletion = () -> Void
+typealias MMTCitiesGroup = (type: MMTCityGroup, cities: [MMTCity])
+
 class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate
 {        
     // MARK: Outlets
@@ -158,20 +180,18 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     {
         let sectionType = citiesIndex[indexPath.section].type
         
-        if sectionType == .NotFound {
+        guard sectionType != .NotFound else {
             return tableView.dequeueReusableCellWithIdentifier("SpecialListCell", forIndexPath: indexPath) 
         }
-        else
-        {
-            let city = citiesIndex[indexPath.section].cities[indexPath.row]
+        
+        let city = citiesIndex[indexPath.section].cities[indexPath.row]
       
-            let
-            cell = tableView.dequeueReusableCellWithIdentifier("CitiesListCell", forIndexPath: indexPath) 
-            cell.detailTextLabel?.text = sectionType != .CurrentLocation ? city.region : "Obecna lokalizacja"
-            cell.textLabel!.text = city.name
+        let
+        cell = tableView.dequeueReusableCellWithIdentifier("CitiesListCell", forIndexPath: indexPath)
+        cell.detailTextLabel?.text = sectionType != .CurrentLocation ? city.region : "Obecna lokalizacja"
+        cell.textLabel!.text = city.name
             
-            return cell
-        }
+        return cell
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
@@ -181,9 +201,9 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
 
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
-        let headerTitle = citiesIndex[section].type.description
-        
-        if headerTitle == nil { return nil }
+        guard let headerTitle = citiesIndex[section].type.description else {
+            return nil
+        }
         
         let
         header = tableView.dequeueReusableCellWithIdentifier("CitiesListHeader")!
@@ -194,41 +214,40 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        if citiesIndex[indexPath.section].type != .NotFound
-        {
-            selectedCity = citiesIndex[indexPath.section].cities[indexPath.row]
-            performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
-        }
-        else
-        {
+        guard citiesIndex[indexPath.section].type != .NotFound else {
             performSegueWithIdentifier(MMTSegue.DisplayMapScreen, sender: self)
+            return
         }
+        
+        selectedCity = citiesIndex[indexPath.section].cities[indexPath.row]
+        performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
     }
     
     // MARK: UIScrollViewDelegate methods
     
     func scrollViewDidScroll(scrollView: UIScrollView)
     {
-        if scrollView.contentSize.height > scrollView.bounds.height
-        {
-            let scrolled = scrollView.contentOffset.y > 0
-            let offset: CGFloat = scrolled ? max(-44, -scrollView.contentOffset.y) : 0
-        
-            animateInfoBarScrollWithOffset(offset)
+        guard scrollView.contentSize.height > scrollView.bounds.height else {
+            return
         }
+        
+        let scrolled = scrollView.contentOffset.y > 0
+        let offset: CGFloat = scrolled ? max(-44, -scrollView.contentOffset.y) : 0
+        
+        animateInfoBarScrollWithOffset(offset)
     }
     
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool)
     {
-        if scrollView.contentSize.height > scrollView.bounds.height
-        {
-            let offset: CGFloat = scrollView.contentOffset.y > 0 ? -44 : 0
+        guard scrollView.contentSize.height > scrollView.bounds.height else {
+            return
+        }
         
-            animateInfoBarScrollWithOffset(offset)
+        let offset: CGFloat = scrollView.contentOffset.y > 0 ? -44 : 0
+        animateInfoBarScrollWithOffset(offset)
         
-            if scrollView.contentOffset.y < searchBar.bounds.height {
-                tableView.adjustContentOffsetForHeaderOfHeight(searchBar.bounds.height)
-            }
+        if scrollView.contentOffset.y < searchBar.bounds.height {
+            tableView.adjustContentOffsetForHeaderOfHeight(searchBar.bounds.height)
         }
     }
     
@@ -236,16 +255,17 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     {
         let alpha: CGFloat = offset < 0 ? 0 : 1
         
-        if topSpacing.constant != offset
-        {
-            let animations = { () -> Void in
-                self.topSpacing.constant = offset
-                self.infoBar.alpha = alpha
-                self.view.layoutIfNeeded()
-            }
-            
-            UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: [], animations: animations, completion: nil)
+        guard topSpacing.constant != offset else {
+            return
+        }        
+        
+        let animations = { () -> Void in
+            self.topSpacing.constant = offset
+            self.infoBar.alpha = alpha
+            self.view.layoutIfNeeded()
         }
+            
+        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: [], animations: animations, completion: nil)
     }    
     
     // MARK: UISearchBarDelegate methods
@@ -288,28 +308,28 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     private func updateIndexWithAllCities(completion: MMTCompletion)
     {
+        let aCompletion = { (index: [MMTCitiesGroup]) in
+            self.citiesIndex = index
+            completion()
+        }
+        
         citiesStore.getAllCities()
         {
             var index = self.getIndexForCities($0)
             
-            if self.locationManager.location == nil
-            {
-                self.citiesIndex = index
-                completion()
+            guard let location = self.locationManager.location else {
+                aCompletion(index)
                 return
             }
             
-            self.citiesStore.findCityForLocation(self.locationManager.location!) {
-                (city: MMTCity?, error: NSError?) in
+            self.citiesStore.findCityForLocation(location) {
+                (city: MMTCity?, error: MMTError?) in
 
-                if let currentCity = city
-                {
-                    let group = MMTCitiesGroup(type: .CurrentLocation, cities: [currentCity])
-                    index.insert(group, atIndex: 0)
-                }
+                defer { aCompletion(index) }
+                guard let currentCity = city else { return }
                 
-                self.citiesIndex = index
-                completion()
+                let group = MMTCitiesGroup(type: .CurrentLocation, cities: [currentCity])
+                index.insert(group, atIndex: 0)
             }
         }
     }
