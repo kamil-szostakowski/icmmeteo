@@ -81,6 +81,10 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         NSNotificationCenter.defaultCenter().addObserver(self, selector: handler, name: notification, object: nil)
         
         searchBarCancelButtonClicked(searchBar)
+        
+        if selectedCity != nil {
+            performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
+        }
     }
     
     override func viewWillDisappear(animated: Bool)
@@ -155,6 +159,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     @IBAction func unwindToListOfCities(unwindSegue: UIStoryboardSegue)
     {
+        selectedCity = (unwindSegue.sourceViewController as? MMTCityMapPickerController)?.selectedCity
     }
     
     func handleApplicationDidBecomeActiveNotification(notification: NSNotification)
@@ -315,6 +320,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         
         citiesStore.getAllCities()
         {
+            let aaa = $0
             var index = self.getIndexForCities($0)
             
             guard let location = self.locationManager.location else {

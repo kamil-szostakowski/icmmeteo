@@ -29,7 +29,11 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
     {
-        return UIInterfaceOrientationMask.Portrait
+        if presentedViewController is MMTMeteorogramController {
+            return .AllButUpsideDown
+        }
+        
+        return .Portrait
     }
     
     // MARK: UITabBarControllerDelegate methods

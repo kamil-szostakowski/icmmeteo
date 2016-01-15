@@ -39,7 +39,7 @@ class MMTCollectionViewWamLayout: UICollectionViewLayout
         guard collectionView!.numberOfSections() > 0 else {
             return
         }
-        
+
         itemSize = calculateItemSize()
         cellLayoutAttributes = MMTLayoutIndex()
         headerLayoutAttributes = MMTLayoutIndex()        
@@ -52,7 +52,7 @@ class MMTCollectionViewWamLayout: UICollectionViewLayout
             
             let indexPath = NSIndexPath(forItem: 0, inSection: section)
             headerLayoutAttributes[indexPath] = createHeaderLayoutAttributesForIndexPath(indexPath)
-        }
+        }        
     }
     
     private func calculateItemSize() -> CGSize

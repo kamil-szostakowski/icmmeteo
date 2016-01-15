@@ -78,7 +78,7 @@ class MMTWamCategoryPreviewTests: XCTestCase
         
         expectationForPredicate(NSPredicate(format: "enabled == true"), evaluatedWithObject: nextBtn){
             
-            XCTAssertTrue(self.app.staticTexts.elementBoundByIndex(1).label.containsString("+009h"))
+            XCTAssertTrue(self.app.staticTexts["MomentDetails"].label.containsString("+009h"))
             return true
         }
         
@@ -96,11 +96,11 @@ class MMTWamCategoryPreviewTests: XCTestCase
         
         expectationForPredicate(NSPredicate(format: "enabled == true"), evaluatedWithObject: prevBtn){
             
-            XCTAssertTrue(self.app.staticTexts.elementBoundByIndex(1).label.containsString("+006h"))
+            XCTAssertTrue(self.app.staticTexts["MomentDetails"].label.containsString("+006h"))
             return true
         }
         
-        waitForExpectationsWithTimeout(5, handler: nil)
+        waitForExpectationsWithTimeout(7, handler: nil)
     }
     
     func test05_RestoreDefaultZoom()
