@@ -49,7 +49,9 @@ class MMTDatabase: NSObject
     {
         if context.hasChanges
         {
-            do { try context.save() }
+            do { try context.save()
+                NSLog("Context saved")
+            }
                 
             catch let error as NSError {
                 reportFatalError(error)

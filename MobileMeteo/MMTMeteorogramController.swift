@@ -49,16 +49,9 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
         setupMeteorogramLegend()
     }
     
-    override func viewWillDisappear(animated: Bool)
+    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)
     {
-        super.viewWillDisappear(animated)
-        citiesStore.markCity(city, asFavourite: city.isFavourite)
-    }
-    
-    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        
-        coordinator.animateAlongsideTransition(nil) { (UIViewControllerTransitionCoordinatorContext) -> Void in
-                
+        coordinator.animateAlongsideTransition(nil) { (UIViewControllerTransitionCoordinatorContext) -> Void in                
             self.adjustZoomScale()
         }
     }
@@ -122,7 +115,8 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     // MARK: Actions
 
     @IBAction func onCloseBtnTouchAction(sender: UIBarButtonItem)
-    {        
+    {
+        citiesStore.markCity(city, asFavourite: city.isFavourite)
         performSegueWithIdentifier(MMTSegue.UnwindToListOfCities, sender: self)
     }
     

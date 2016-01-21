@@ -10,8 +10,8 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "3x",
-      "filename" : "start.png"
+      "filename" : "start-outline.png",
+      "scale" : "3x"
     }
   ],
   "info" : {

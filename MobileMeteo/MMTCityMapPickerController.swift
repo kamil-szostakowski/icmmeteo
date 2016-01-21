@@ -35,7 +35,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
     private var selectedLocation: CLLocation!
     
     var meteorogramStore: MMTGridClimateModelStore!    
-    var selectedCity: MMTCity!
+    var selectedCity: MMTCity?
  
     // MARK: Overrideds
     
@@ -47,18 +47,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
         btnShow.enabled = false
         
         setupMapView()
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
-    {
-        if (segue.identifier == MMTSegue.DisplayMeteorogram)
-        {
-            let
-            controller = segue.destinationViewController as! MMTMeteorogramController
-            controller.meteorogramStore = meteorogramStore
-            controller.city = selectedCity
-        }
-    }
+    }    
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
     {
@@ -93,6 +82,11 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
         }
     }
     
+    @IBAction func didClickCancelButton(sender: UIBarButtonItem)
+    {
+        selectedCity = nil
+    }
+    
     @IBAction func didClickShowButton(sender: UIBarButtonItem)
     {
         setInteractionEnabled(false)
@@ -112,7 +106,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
             }
             
             self.selectedCity = aCity
-            self.performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
+            self.performSegueWithIdentifier(MMTSegue.UnwindToListOfCities, sender: self)
         }
     }
     
