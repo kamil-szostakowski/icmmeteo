@@ -13,17 +13,20 @@ class MMTMeteorogramUrlSession: NSObject, NSURLSessionTaskDelegate
     // MARK: Properties
     
     private var urlSession: NSURLSession!
-    private var climateModel: MMTClimateModel
+    private var redirectionBaseUrl: NSURL?
     
     // MARK: Initializers
     
-    init(model: MMTClimateModel)
+    override init()
     {
-        climateModel = model
-        
         super.init()
-        
         urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate:self, delegateQueue:nil)
+    }
+    
+    convenience init(redirectionBaseUrl url: NSURL?)
+    {
+        self.init()
+        redirectionBaseUrl = url
     }
     
     // MARK: Interface methods
@@ -65,7 +68,7 @@ class MMTMeteorogramUrlSession: NSObject, NSURLSessionTaskDelegate
     
     func URLSession(session: NSURLSession, task: NSURLSessionTask, willPerformHTTPRedirection response: NSHTTPURLResponse, newRequest request: NSURLRequest, completionHandler: (NSURLRequest?) -> Void)
     {
-        guard let destinationUrl = meteorogramDownloadUrlForRedirection(request.URL!) else {
+        guard let destinationUrl = meteorogramDownloadFromRedirectionUrl(request.URL!) else {
             task.cancel()
             completionHandler(nil)
             return
@@ -74,13 +77,16 @@ class MMTMeteorogramUrlSession: NSObject, NSURLSessionTaskDelegate
         completionHandler(NSURLRequest(URL: destinationUrl))
     }
     
-    private func meteorogramDownloadUrlForRedirection(redirectionUrl: NSURL) -> NSURL?
+    private func meteorogramDownloadFromRedirectionUrl(redirectionUrl: NSURL) -> NSURL?
     {
-        switch climateModel
-        {
-            case .UM: return NSURL.mmt_modelUmMeteorogramUrl(redirectionUrl)
-            case .COAMPS: return NSURL.mmt_modelCoampsMeteorogramUrl(redirectionUrl)
-            default: return nil
+        guard let baseUrl = redirectionBaseUrl else {
+            return nil
         }
+        
+        guard let queryString = redirectionUrl.absoluteString.componentsSeparatedByString("?").last else {
+            return nil
+        }
+        
+        return NSURL(string: "?\(queryString)", relativeToURL: baseUrl)
     }
 }

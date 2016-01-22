@@ -40,7 +40,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     {
         super.viewDidLoad()
         
-        navigationBar.topItem?.title = wamSettings.selectedCategory?.description                
+        navigationBar.topItem?.title = wamSettings.selectedCategory?.rawValue
         meteorogramImage.accessibilityIdentifier = "\(wamSettings.selectedCategory!)"
         
         setupNavigationButtons()
@@ -53,6 +53,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         
         setupScrollView()
         displayCurrentMoment()
+        analytics?.sendScreenEntryReport("Model WAM category preview")
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask

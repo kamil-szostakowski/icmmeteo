@@ -24,9 +24,13 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     // MARK: Properties
     
     var city: MMTCity!
-    var meteorogramStore: MMTGridClimateModelStore!
+    var meteorogramStore: MMTGridClimateModelStore!    
     
     private var citiesStore: MMTCitiesStore!
+    
+    private var meteorogramType: String {
+        return meteorogramStore is MMTUmModelStore ? "UM" : "COAMPS"
+    }
 
     // MARK: Controller methods
     
@@ -37,7 +41,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         navigationBar.topItem!.title = city.name
 
-        setupStarButton()
+        setupStarButton()        
     }
     
     override func viewDidAppear(animated: Bool)
@@ -47,12 +51,18 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
         setupScrollView()        
         setupMeteorogram()
         setupMeteorogramLegend()
+        
+        analytics?.sendUserActionReport(.Meteorogram, action: .MeteorogramDidDisplay, actionLabel: meteorogramType)
     }
     
     override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)
     {
         coordinator.animateAlongsideTransition(nil) { (UIViewControllerTransitionCoordinatorContext) -> Void in                
             self.adjustZoomScale()
+        }
+        
+        if newCollection.verticalSizeClass == .Compact {
+            analytics?.sendUserActionReport(.Meteorogram, action: .MeteorogramDidDisplayInLandscape, actionLabel: meteorogramType)
         }
     }
     
@@ -132,7 +142,13 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
         }                
         
         city.favourite = !city.isFavourite
-        setupStarButton()        
+        setupStarButton()
+        
+        let action: MMTAnalyticsAction = city.isFavourite ?
+            MMTAnalyticsAction.LocationDidAddToFavourites :
+            MMTAnalyticsAction.LocationDidRemoveFromFavourites        
+        
+        analytics?.sendUserActionReport(.Locations, action: action, actionLabel:  city.name)
     }
 
     // MARK: UIScrollViewDelegate methods
@@ -153,7 +169,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     {
         var contentSize = meteorogramStore.meteorogramSize
         
-        if self.traitCollection.verticalSizeClass == .Compact {
+        if traitCollection.verticalSizeClass == .Compact {
             contentSize.width += meteorogramStore.legendSize.width
         }
         
@@ -162,7 +178,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     
     private func zoomScaleForVisibleContentSize(size: CGSize) -> CGFloat
     {
-        let isLandscape = self.traitCollection.verticalSizeClass == .Compact
+        let isLandscape = traitCollection.verticalSizeClass == .Compact
         
         return isLandscape ? scrollView.minZoomScaleForSize(size) : scrollView.defaultZoomScale(size)
     }

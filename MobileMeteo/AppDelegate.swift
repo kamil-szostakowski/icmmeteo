@@ -11,7 +11,7 @@ import Foundation
 
 @UIApplicationMain class AppDelegate: UIResponder, UIApplicationDelegate
 {
-    var window: UIWindow?
+    var window: UIWindow?    
         
     // MARK: Delegate methods
     
@@ -27,7 +27,21 @@ import Foundation
         #endif
         
         tryInitDatabase()
+        setupAppearance()
+        setupAnalytics()
         
+        return true
+    }
+    
+    func applicationWillTerminate(application: UIApplication)
+    {
+        MMTDatabase.instance.saveContext()
+    }
+    
+    // MARK: Setup methods
+    
+    private func setupAppearance()
+    {
         let attributes = [
             NSFontAttributeName: MMTAppearance.boldFontWithSize(16),
             NSForegroundColorAttributeName: MMTAppearance.textColor
@@ -40,15 +54,14 @@ import Foundation
             NSFontAttributeName: MMTAppearance.boldFontWithSize(16),
             NSForegroundColorAttributeName: UIColor.lightGrayColor()
         ]
-
-        UIBarButtonItem.appearance().setTitleTextAttributes(disabledAttributes, forState: UIControlState.Disabled)
         
-        return true
+        UIBarButtonItem.appearance().setTitleTextAttributes(disabledAttributes, forState: UIControlState.Disabled)
     }
     
-    func applicationWillTerminate(application: UIApplication)
+    private func setupAnalytics()
     {
-        MMTDatabase.instance.saveContext()
+        var error: NSError?
+        GGLContext.sharedInstance().configureWithError(&error)
     }
     
     // MARK: Helper methods
