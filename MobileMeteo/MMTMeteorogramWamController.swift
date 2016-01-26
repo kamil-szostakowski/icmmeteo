@@ -62,6 +62,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         presented = true
         failureWatch = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "failureCheck", userInfo: nil, repeats: true)
         collectionView.reloadData()
+        analytics?.sendScreenEntryReport("Model WAM")
     }
     
     override func viewWillDisappear(animated: Bool)
@@ -184,7 +185,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     {
         let
         headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: kind, forIndexPath: indexPath) as! MMTWamHeaderView
-        headerView.categoryTitle = categories[indexPath.section].description
+        headerView.categoryTitle = categories[indexPath.section].rawValue
 
         return headerView
     }

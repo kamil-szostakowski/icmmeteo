@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import CoreLocation
 
-enum MMTCityGroup
+enum MMTCityGroup: String
 {
     case NotFound
     case Capitals
@@ -68,7 +68,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         
         setupLocationManager()
-        setupHeader()
+        setupHeader()        
     }
     
     override func viewWillAppear(animated: Bool)
@@ -81,10 +81,11 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         NSNotificationCenter.defaultCenter().addObserver(self, selector: handler, name: notification, object: nil)
         
         searchBarCancelButtonClicked(searchBar)
+        analytics?.sendScreenEntryReport(MMTAnalyticsCategory.Locations.rawValue)
         
         if selectedCity != nil {
             performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
-        }
+        }        
     }
     
     override func viewWillDisappear(animated: Bool)
@@ -103,6 +104,8 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
             controller = segue.destinationViewController as! MMTMeteorogramController
             controller.meteorogramStore = meteorogramStore
             controller.city = selectedCity
+            
+            selectedCity = nil
         }
         
         if segue.identifier == MMTSegue.DisplayMapScreen
@@ -159,7 +162,11 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     @IBAction func unwindToListOfCities(unwindSegue: UIStoryboardSegue)
     {
-        selectedCity = (unwindSegue.sourceViewController as? MMTCityMapPickerController)?.selectedCity
+        guard let mapController = unwindSegue.sourceViewController as? MMTCityMapPickerController else { return }
+        guard let city = mapController.selectedCity else { return }
+        
+        selectedCity = city
+        analytics?.sendUserActionReport(.Locations, action: .LocationDidSelectOnMap, actionLabel: city.name)
     }
     
     func handleApplicationDidBecomeActiveNotification(notification: NSNotification)
@@ -224,8 +231,14 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
             return
         }
         
-        selectedCity = citiesIndex[indexPath.section].cities[indexPath.row]
+        let city = citiesIndex[indexPath.section].cities[indexPath.row]
+        
+        selectedCity = city
         performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
+        
+        guard let action = MMTAnalyticsAction(group: citiesIndex[indexPath.section].type) else { return }
+        
+        analytics?.sendUserActionReport(.Locations, action: action, actionLabel: city.name)
     }
     
     // MARK: UIScrollViewDelegate methods
@@ -320,7 +333,6 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         
         citiesStore.getAllCities()
         {
-            let aaa = $0
             var index = self.getIndexForCities($0)
             
             guard let location = self.locationManager.location else {
@@ -337,7 +349,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
                 let group = MMTCitiesGroup(type: .CurrentLocation, cities: [currentCity])
                 index.insert(group, atIndex: 0)
             }
-        }
+        }        
     }
     
     private func updateIndexWithCitiesMatchingCriteria(criteria: String, completion: MMTCompletion)

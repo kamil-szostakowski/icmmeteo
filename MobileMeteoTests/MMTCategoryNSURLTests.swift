@@ -43,14 +43,6 @@ class MMTCategoryNSURLTests: XCTestCase
         XCTAssertEqual(expectedUrl, NSURL.mmt_modelUmLegendUrl().absoluteString);
     }
     
-    func testModelUmMeteorogramRedirectionUrl()
-    {
-        let expectedUrl = "http://www.meteo.pl/um/metco/mgram_pict.php?ntype=0u&row=367&col=227&lang=pl&fdate=2015060812"
-        let redirectionUrl = NSURL(string: "http://www.meteo.pl/um/php/meteorogram_map_um.php?ntype=0u&row=367&col=227&lang=pl&fdate=2015060812")!
-        
-        XCTAssertEqual(expectedUrl, NSURL.mmt_modelUmMeteorogramUrl(redirectionUrl)!.absoluteString)
-    }
-    
     // MARK: Model coamps related tests
     
     func testModelCoampsDownloadBaseUrl()
@@ -72,15 +64,7 @@ class MMTCategoryNSURLTests: XCTestCase
     {
         let expectedUrl = "http://www.meteo.pl/metco/leg4_pl.png"
         XCTAssertEqual(expectedUrl, NSURL.mmt_modelCoampsLegendUrl().absoluteString);
-    }
-    
-    func testModelCoampsMeteorogramRedirectionUrl()
-    {
-        let expectedUrl = "http://www.meteo.pl/metco/mgram_pict.php?ntype=2n&fdate=2015071900&row=127&col=83&lang=pl"
-        let redirectionUrl = NSURL(string: "http://www.meteo.pl/php/meteorogram_map_coamps.php?ntype=2n&fdate=2015071900&row=127&col=83&lang=pl")!
-        
-        XCTAssertEqual(expectedUrl, NSURL.mmt_modelCoampsMeteorogramUrl(redirectionUrl)!.absoluteString)
-    }
+    }    
     
     // MARK: Model wam related tests
     

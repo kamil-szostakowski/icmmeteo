@@ -37,16 +37,7 @@ extension NSURL
     static func mmt_modelUmLegendUrl() -> NSURL
     {
         return NSURL(string: "/um/metco/leg_um_pl_cbase_256.png", relativeToURL: mmt_baseUrl())!
-    }
-    
-    static func mmt_modelUmMeteorogramUrl(redirectionUrl: NSURL) -> NSURL?
-    {
-        guard let queryString = redirectionUrl.absoluteString.componentsSeparatedByString("?").last else {
-            return nil
-        }
-        
-        return NSURL(string: "?\(queryString)", relativeToURL: NSURL.mmt_modelUmDownloadBaseUrl())
-    }
+    }    
     
     // MARK: Model COAMPS related methods
     
@@ -67,15 +58,6 @@ extension NSURL
     static func mmt_modelCoampsLegendUrl() -> NSURL
     {
         return NSURL(string: "/metco/leg4_pl.png", relativeToURL: mmt_baseUrl())!
-    }
-    
-    static func mmt_modelCoampsMeteorogramUrl(redirectionUrl: NSURL) -> NSURL?
-    {
-        guard let queryString = redirectionUrl.absoluteString.componentsSeparatedByString("?").last else {
-            return nil
-        }
-        
-        return NSURL(string: "?\(queryString)", relativeToURL: NSURL.mmt_modelCoampsDownloadBaseUrl())
     }
     
     // MARK: Model WAM related methods

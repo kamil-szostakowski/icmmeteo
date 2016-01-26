@@ -16,11 +16,7 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
     
     private let waitingTime: NSTimeInterval = 18000
     private var urlSession: MMTMeteorogramUrlSession!
-    private var startDate: NSDate!
-    
-    var meteorogramId: MMTClimateModel {
-        return .UM
-    }
+    private var startDate: NSDate!    
     
     var forecastLength: Int {
         return 60
@@ -48,7 +44,7 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
     {
         super.init()
         
-        urlSession = MMTMeteorogramUrlSession(model: .UM)
+        urlSession = MMTMeteorogramUrlSession(redirectionBaseUrl: NSURL.mmt_modelUmDownloadBaseUrl())
         startDate = NSCalendar.utcCalendar.dateFromComponents(tZeroComponentsForDate(date))!
     }
     

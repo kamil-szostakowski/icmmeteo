@@ -9,22 +9,11 @@
 import Foundation
 import CoreGraphics
 
-enum MMTWamCategory: Int
+enum MMTWamCategory: String
 {
-    case TideHeight = 0
-    case AvgTidePeriod
-    case SpectrumPeakPeriod
-    
-    var description: String
-    {
-        let descriptions = [
-            "Wysokość fali znacznej i średni kierunek fali",
-            "Średni okres fali",
-            "Okres piku widma"
-        ]
-            
-        return descriptions[self.rawValue]
-    }
+    case TideHeight = "Wysokość fali znacznej i średni kierunek fali"
+    case AvgTidePeriod = "Średni okres fali"
+    case SpectrumPeakPeriod = "Okres piku widma"    
 }
 
 typealias MMTWamModelMeteorogramQuery = (category: MMTWamCategory, moment: NSDate)
@@ -38,10 +27,6 @@ class MMTWamModelStore: NSObject, MMTClimateModelStore
     private var urlSession: MMTMeteorogramUrlSession!
     private let momentLength = 3
     private var startDate: NSDate!
-    
-    var meteorogramId: MMTClimateModel {
-        return .WAM
-    }
     
     var meteorogramSize: CGSize {
         return CGSize(width: 720, height: 702)
@@ -61,7 +46,7 @@ class MMTWamModelStore: NSObject, MMTClimateModelStore
     {
         super.init()
         
-        urlSession = MMTMeteorogramUrlSession(model: .WAM)
+        urlSession = MMTMeteorogramUrlSession()
         startDate = NSCalendar.utcCalendar.dateFromComponents(tZeroComponentsForDate(date))!
     }
     

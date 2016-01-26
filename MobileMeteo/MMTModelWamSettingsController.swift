@@ -30,6 +30,12 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         wamStore = MMTWamModelStore(date: NSDate())  
     }
     
+    override func viewWillAppear(animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        analytics?.sendScreenEntryReport("Model WAM settings")
+    }
+    
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
     {
         return UIInterfaceOrientationMask.Portrait

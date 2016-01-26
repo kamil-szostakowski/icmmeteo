@@ -13,27 +13,8 @@ import CoreGraphics
 
 typealias MMTFetchMeteorogramCompletion = (data: NSData?, error: MMTError?) -> Void
 
-enum MMTClimateModel: String
-{
-    case UM = "model-um"
-    case COAMPS = "model-coamps"
-    case WAM = "model-wam"
-    
-    var description: String
-    {
-        switch self
-        {
-            case .UM: return "Model UM"
-            case .COAMPS: return "Model COAMPS"
-            case .WAM: return "Model WAM"
-        }
-    }
-}
-
 protocol MMTClimateModelStore
-{
-    var meteorogramId: MMTClimateModel { get }
-    
+{    
     var meteorogramSize: CGSize { get }
     
     var forecastLength: Int { get }
