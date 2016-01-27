@@ -36,6 +36,27 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
         return .Portrait
     }
     
+    // MARK: Interface methods
+    
+    func presentMeteorogramUmForCity(city: MMTCityProt)
+    {
+        guard let umController = viewControllers?.first as? MMTCitiesListController else {
+            return
+        }
+        
+        if presentedViewController != nil {
+            dismissViewControllerAnimated(false, completion: nil)
+        }
+        
+        umController.selectedCity = city
+        
+        if selectedIndex == 0 {
+            umController.performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
+        }
+        
+        selectedIndex = 0
+    }
+    
     // MARK: UITabBarControllerDelegate methods
     
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController)

@@ -9,30 +9,11 @@
 import UIKit
 import Foundation
 import CoreLocation
-
-enum MMTCityGroup: String
-{
-    case NotFound
-    case Capitals
-    case Favourites
-    case SearchResults
-    case CurrentLocation
-    
-    var description: String?
-    {
-        switch self
-        {
-            case .Capitals: return "Miasta wojewódzkie"
-            case .Favourites: return "Ulubione"
-            default: return nil
-        }
-    }
-}
+import CoreSpotlight
 
 typealias MMTCompletion = () -> Void
-typealias MMTCitiesGroup = (type: MMTCityGroup, cities: [MMTCity])
 
-class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate
+class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CLLocationManagerDelegate
 {        
     // MARK: Outlets
 
@@ -47,12 +28,13 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     // MARK: Properties
     
     var meteorogramStore: MMTGridClimateModelStore!
+    var selectedCity: MMTCityProt?
     
     private var locationManager: CLLocationManager!
     private var searchInput: MMTSearchInput!
     private var citiesIndex: [MMTCitiesGroup]!
     private var citiesStore: MMTCitiesStore!
-    private var selectedCity: MMTCity?
+    private var cityOfCurrentLocation: MMTCityProt?
     private var shouldDisplayMeteorogram = false
     
     private let kCurrentLocationKey = "location"
@@ -64,23 +46,24 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         super.viewDidLoad()
         
         searchInput = MMTSearchInput("")
-        citiesIndex = [MMTCitiesGroup]()
+        citiesIndex = MMTCitiesIndex()
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         
         setupLocationManager()
-        setupHeader()        
+        setupHeader()
     }
     
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(animated)
         
-        let handler = Selector("handleApplicationDidBecomeActiveNotification:")
-        let notification = UIApplicationDidBecomeActiveNotification
+        resetSearchBar()
+        updateIndexWithAllCities() {
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: handler, name: notification, object: nil)
+            self.setupNotificationHandler()
+            self.tableView.reloadData()
+        }
         
-        searchBarCancelButtonClicked(searchBar)
         analytics?.sendScreenEntryReport(MMTAnalyticsCategory.Locations.rawValue)
         
         if selectedCity != nil {
@@ -96,8 +79,6 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
-        searchBarCancelButtonClicked(searchBar)
-        
         if segue.identifier == MMTSegue.DisplayMeteorogram
         {
             let
@@ -133,6 +114,14 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         tableViewHeader.frame = CGRectMake(0, 0, view.frame.size.width, searchBar.bounds.height)
     }
     
+    private func setupNotificationHandler()
+    {
+        let handler = Selector("handleApplicationDidBecomeActiveNotification:")
+        let notification = UIApplicationDidBecomeActiveNotification
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: handler, name: notification, object: nil)
+    }
+    
     // MARK: CLLocationManagerDelegate
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
@@ -141,6 +130,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
         if authorized {
             locationManager.startMonitoringSignificantLocationChanges()
+            updateIndexWithCityOfCurrentLocation() { self.tableView.reloadData() }
         }
         
         if !authorized {
@@ -154,7 +144,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         if !searchInput.isValid {
-            updateIndexWithAllCities() { self.tableView.reloadData() }
+            updateIndexWithCityOfCurrentLocation() { self.tableView.reloadData() }
         }
     }
     
@@ -237,7 +227,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
         
         guard let action = MMTAnalyticsAction(group: citiesIndex[indexPath.section].type) else { return }
-        
+
         analytics?.sendUserActionReport(.Locations, action: action, actionLabel: city.name)
     }
     
@@ -248,7 +238,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         guard scrollView.contentSize.height > scrollView.bounds.height else {
             return
         }
-        
+
         let scrolled = scrollView.contentOffset.y > 0
         let offset: CGFloat = scrolled ? max(-44, -scrollView.contentOffset.y) : 0
         
@@ -310,10 +300,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar)
     {
-        searchBar.resignFirstResponder()
-        searchBar.setShowsCancelButton(false, animated: true)
-        searchBar.text = ""
-        
+        resetSearchBar()
         updateIndexWithAllCities() { self.tableView.reloadData() }
     }
     
@@ -322,71 +309,49 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UISearchBa
         updateIndexWithAllCities() { self.tableView.reloadData() }
     }
     
-    // MARK: Helper methods
+    // MARK: Data update methods
     
     private func updateIndexWithAllCities(completion: MMTCompletion)
     {
-        let aCompletion = { (index: [MMTCitiesGroup]) in
-            self.citiesIndex = index
-            completion()
-        }
-        
         citiesStore.getAllCities()
         {
-            var index = self.getIndexForCities($0)
-            
-            guard let location = self.locationManager.location else {
-                aCompletion(index)
-                return
-            }
-            
-            self.citiesStore.findCityForLocation(location) {
-                (city: MMTCity?, error: MMTError?) in
-
-                defer { aCompletion(index) }
-                guard let currentCity = city else { return }
-                
-                let group = MMTCitiesGroup(type: .CurrentLocation, cities: [currentCity])
-                index.insert(group, atIndex: 0)
-            }
-        }        
+            self.citiesIndex =  MMTCitiesIndex.indexForCities($0, currentCity: self.cityOfCurrentLocation)
+            completion()
+        }
     }
     
     private func updateIndexWithCitiesMatchingCriteria(criteria: String, completion: MMTCompletion)
     {
-        let queryCompletion: MMTCitiesQueryCompletion =
+        citiesStore.findCitiesMatchingCriteria(criteria)
         {
-            self.citiesIndex = [
-                MMTCitiesGroup(type: .SearchResults, cities: $0),
-                MMTCitiesGroup(type: .NotFound, cities: []),
-            ]
-            
+            self.citiesIndex = MMTCitiesIndex.indexForSearchResult($0)
             completion()
-        }
-        
-        citiesStore.getCitiesMatchingCriteria(criteria)
-        {
-            if $0.count > 0 { queryCompletion($0) }
-                
-            else { self.citiesStore.findCitiesMatchingCriteria(criteria){ queryCompletion($0) }}
         }
     }
     
-    private func getIndexForCities(cities: [MMTCity]) -> [MMTCitiesGroup]
+    private func updateIndexWithCityOfCurrentLocation(completion: MMTCompletion)
     {
-        var index = [MMTCitiesGroup]()
-        
-        let favourites = cities.filter(){ $0.isFavourite }
-        let capitals = cities.filter(){ $0.isCapital && !$0.isFavourite }
-        
-        if favourites.count > 0 {
-            index.append(MMTCitiesGroup(type: .Favourites, cities: favourites))
+        guard let location = self.locationManager.location else {
+            return
         }
         
-        if capitals.count > 0 {
-            index.append(MMTCitiesGroup(type: .Capitals, cities: capitals))
+        citiesStore.findCityForLocation(location) { (city: MMTCityProt?, error: MMTError?) in
+            
+            guard let currentCity = city else { return }
+
+            self.cityOfCurrentLocation = currentCity
+            self.citiesIndex =  MMTCitiesIndex.indexForCities(self.citiesIndex.allCities, currentCity: currentCity)
+            
+            completion()
         }
-        
-        return index
+    }    
+    
+    // MARK: Helper methods
+    
+    private func resetSearchBar()
+    {
+        searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.text = ""
     }
 }

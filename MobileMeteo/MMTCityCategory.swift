@@ -10,29 +10,38 @@ import Foundation
 import CoreLocation
 import CoreData
 
-extension MMTCity
+@objc(MMTCityProt)
+protocol MMTCityProt
 {
-    var location: CLLocation {
-        return CLLocation(latitude: lat.doubleValue, longitude: lng.doubleValue)
-    }
-    
-    var isFavourite: Bool {
-        return favourite.boolValue
-    }
-    
-    var isCapital: Bool {
-        return capital.boolValue
-    }
-    
-    private static var currentCityPriv: MMTCity?
-    
-    static var currentCity: MMTCity
+    var name: String { get set }
+    var region: String { get set }
+    var location: CLLocation { get set }
+    var isFavourite: Bool { get set }
+    var isCapital: Bool { get set }
+}
+
+extension MMTCity: MMTCityProt
+{
+    var location: CLLocation
     {
-        if currentCityPriv == nil {
-            currentCityPriv = MMTCity(name: "Obecna lokalizacja", region: "", location: CLLocation())
+        get { return CLLocation(latitude: lat.doubleValue, longitude: lng.doubleValue) }
+        set
+        {
+            lat = newValue.coordinate.latitude
+            lng = newValue.coordinate.longitude
         }
-        
-        return currentCityPriv!
+    }
+    
+    var isFavourite: Bool
+    {
+        get { return favourite.boolValue }
+        set { favourite = newValue }
+    }
+    
+    var isCapital: Bool
+    {
+        get { return capital.boolValue }
+        set { capital = newValue }
     }
     
     // MARK: Initializers
@@ -43,10 +52,9 @@ extension MMTCity
         
         self.name = name
         self.region = region
-        self.lat = location.coordinate.latitude
-        self.lng = location.coordinate.longitude
-        self.capital = false
-        self.favourite = false
+        self.location = location
+        self.isCapital = false
+        self.isFavourite = false
     }    
     
     convenience init(placemark: CLPlacemark)

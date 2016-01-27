@@ -9,8 +9,9 @@
 import UIKit
 import Foundation
 import CoreLocation
+import CoreSpotlight
 
-class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
+class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserActivityDelegate
 {
     // MARK: Outlets
     
@@ -23,7 +24,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     
     // MARK: Properties
     
-    var city: MMTCity!
+    var city: MMTCityProt!
     var meteorogramStore: MMTGridClimateModelStore!    
     
     private var citiesStore: MMTCitiesStore!
@@ -41,7 +42,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         navigationBar.topItem!.title = city.name
 
-        setupStarButton()        
+        setupStarButton()
     }
     
     override func viewDidAppear(animated: Bool)
@@ -52,6 +53,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
         setupMeteorogram()
         setupMeteorogramLegend()
         
+        updateCityStateInSpotlightIndex(city)
         analytics?.sendUserActionReport(.Meteorogram, action: .MeteorogramDidDisplay, actionLabel: meteorogramType)
     }
     
@@ -105,8 +107,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
     
     private func setupMeteorogramLegend()
     {
-        meteorogramStore.getMeteorogramLegend(){
-            (data: NSData?, error: MMTError?) in
+        meteorogramStore.getMeteorogramLegend(){ (data: NSData?, error: MMTError?) in
             
             guard error == nil else
             {
@@ -141,8 +142,9 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
             button.addAnimation(CAAnimation.defaultScaleAnimation(), forKey: "scale")
         }                
         
-        city.favourite = !city.isFavourite
+        city.isFavourite = !city.isFavourite
         setupStarButton()
+        updateCityStateInSpotlightIndex(city)
         
         let action: MMTAnalyticsAction = city.isFavourite ?
             MMTAnalyticsAction.LocationDidAddToFavourites :
@@ -190,5 +192,19 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate
         }
         
         presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    private func updateCityStateInSpotlightIndex(city: MMTCityProt)
+    {
+        guard #available(iOS 9.0, *) else { return }        
+        guard CSSearchableIndex.isIndexingAvailable() else { return }
+        
+        if city.isFavourite {
+            CSSearchableIndex.defaultSearchableIndex().indexSearchableCity(city, completion: nil)
+        }
+        
+        if !city.isFavourite {
+            CSSearchableIndex.defaultSearchableIndex().deleteSearchableCity(city, completion: nil)
+        }
     }
 }
