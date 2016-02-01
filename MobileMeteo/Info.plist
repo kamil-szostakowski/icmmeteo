@@ -40,7 +40,11 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Usługi lokalizacji są niezbędne w celu wyszukiwania miejscowości oraz prezentowania meteorogramów dla miejsca, w którym aktualnie przebywasz.</string>
+	<string>Usługi lokalizacji są niezbędne do działania wyszukiwarki miejscowości. Pozwalają również na szybki dostęp do prognozy pogody dla miejsca, w którym aktualnie przebywasz.</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>com.szostakowski.meteo.um</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

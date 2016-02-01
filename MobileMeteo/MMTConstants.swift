@@ -27,4 +27,7 @@ struct MMTFetch
 {
     static let AllCities = "FetchAllCities"
     static let CityWithName = "FetchCityWithName"
+    static let CityWithLocation = "FetchCityWithLocation"
 }
+
+let MMTActivityTypeDisplayModelUm = "com.szostakowski.meteo.um"

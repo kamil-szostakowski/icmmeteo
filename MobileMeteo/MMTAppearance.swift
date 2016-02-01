@@ -28,6 +28,6 @@ struct MMTAppearance
     
     static func boldFontWithSize(size: CGFloat) -> UIFont
     {
-        return UIFont(name: "HelveticaNeue-CondensedBold", size: size)!
+        return UIFont(name: "HelveticaNeue-CondensedBold", size: size)!        
     }    
 }

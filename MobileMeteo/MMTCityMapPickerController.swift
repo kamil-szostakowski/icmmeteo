@@ -35,7 +35,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
     private var selectedLocation: CLLocation!
     
     var meteorogramStore: MMTGridClimateModelStore!    
-    var selectedCity: MMTCity?
+    var selectedCity: MMTCityProt?
  
     // MARK: Overrideds
     
@@ -92,7 +92,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
         setInteractionEnabled(false)
         
         citiesStore.findCityForLocation(selectedLocation) {
-            (city: MMTCity?, error: MMTError?) in
+            (city: MMTCityProt?, error: MMTError?) in
             
             guard error == nil else
             {

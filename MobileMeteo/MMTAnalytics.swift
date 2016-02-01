@@ -26,6 +26,7 @@ enum MMTAnalyticsAction: String
     case LocationDidSelectCurrentLocation
     case LocationDidSelectSearchResult
     case LocationDidSelectOnMap
+    case LocationDidSelectOnSpotlight
     
     init?(group: MMTCityGroup)
     {
