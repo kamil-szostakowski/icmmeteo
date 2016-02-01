@@ -423,8 +423,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oJa-Ym-ri5" userLabel="Content">
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PE8-1C-i4E" userLabel="Container">
-                                        <rect key="frame" x="20" y="45" width="560" height="398"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PE8-1C-i4E" userLabel="Container">
+                                        <rect key="frame" x="20" y="43" width="560" height="403"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="HSw-Xp-6FR">
                                                 <rect key="frame" x="110" y="0.0" width="341" height="218"/>
@@ -433,7 +433,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prognoza została udostępniona nieodpłatnie przez serwis meteo.pl prowadzony przez ICM, Uniwersytet Warszawski. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vd-h5-NfU">
-                                                <rect key="frame" x="0.0" y="238" width="560" height="36"/>
+                                                <rect key="frame" x="0.0" y="243" width="560" height="36"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -445,13 +445,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W przypadku pytań, problemów lub sugesti" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goB-rh-WOg">
-                                                <rect key="frame" x="0.0" y="322" width="560" height="18"/>
+                                                <rect key="frame" x="0.0" y="317" width="560" height="18"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fme-qe-1IX">
-                                                <rect key="frame" x="212" y="350" width="137" height="38"/>
+                                                <rect key="frame" x="212" y="345" width="137" height="38"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                                 <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
                                                 <state key="normal" title="napisz do nas">
@@ -464,13 +464,13 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="2Vd-h5-NfU" firstAttribute="top" secondItem="HSw-Xp-6FR" secondAttribute="bottom" constant="20" id="468-mn-Yd4"/>
+                                            <constraint firstItem="2Vd-h5-NfU" firstAttribute="top" secondItem="HSw-Xp-6FR" secondAttribute="bottom" constant="25" id="468-mn-Yd4"/>
                                             <constraint firstAttribute="bottom" secondItem="fme-qe-1IX" secondAttribute="bottom" constant="10" id="AZW-7Y-FB6"/>
-                                            <constraint firstItem="goB-rh-WOg" firstAttribute="top" secondItem="oqM-tk-ebb" secondAttribute="bottom" constant="15" id="Got-Dr-T1A"/>
+                                            <constraint firstItem="goB-rh-WOg" firstAttribute="top" secondItem="oqM-tk-ebb" secondAttribute="bottom" constant="10" id="Got-Dr-T1A"/>
                                             <constraint firstAttribute="trailing" secondItem="oqM-tk-ebb" secondAttribute="trailing" id="Ic1-ka-6qD"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HSw-Xp-6FR" secondAttribute="trailing" id="JZM-5L-59U"/>
                                             <constraint firstItem="HSw-Xp-6FR" firstAttribute="centerX" secondItem="PE8-1C-i4E" secondAttribute="centerX" id="SJM-Pq-aqN"/>
-                                            <constraint firstItem="oqM-tk-ebb" firstAttribute="top" secondItem="2Vd-h5-NfU" secondAttribute="bottom" constant="15" id="ZZt-dJ-hj2"/>
+                                            <constraint firstItem="oqM-tk-ebb" firstAttribute="top" secondItem="2Vd-h5-NfU" secondAttribute="bottom" constant="10" id="ZZt-dJ-hj2"/>
                                             <constraint firstItem="oqM-tk-ebb" firstAttribute="leading" secondItem="PE8-1C-i4E" secondAttribute="leading" id="bPf-nQ-L6I"/>
                                             <constraint firstItem="2Vd-h5-NfU" firstAttribute="leading" secondItem="PE8-1C-i4E" secondAttribute="leading" id="cmJ-TV-x8J"/>
                                             <constraint firstAttribute="trailing" secondItem="2Vd-h5-NfU" secondAttribute="trailing" id="f7a-X1-zjW"/>
