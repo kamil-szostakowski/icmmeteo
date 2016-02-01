@@ -15,6 +15,7 @@ enum MMTError: Int
     case LocationUnsupported = 2
     case LocationNotFound = 3
     case LocationServicesDisabled = 4
+    case MailNotAvailable = 5
     
     var description: String
     {
@@ -25,6 +26,7 @@ enum MMTError: Int
             case .LocationUnsupported: return "Wybrana lokacja nie jest obsługiwana."
             case .LocationNotFound: return "Nie udało się odnaleźć szczegółów lokalizacji. Wybierz inną lokalizację lub spróbuj ponownie później."
             case .LocationServicesDisabled: return "Aplikacja nie ma dostępu do Twojej lokalizacji. Aby korzystać z tej funkcji włącz usługi lokalizacji w ustawieniach aplikacji."
+            case .MailNotAvailable: return "Zanim będziesz mógł przesłać nam swoją opinię, powinieneś skonfigurować swoją skrzynkę pocztową."
         }
     }
 }

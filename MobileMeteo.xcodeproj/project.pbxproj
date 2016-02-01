@@ -20,6 +20,7 @@
 		F910AACF1C52358400A35170 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F910AACE1C52358400A35170 /* GoogleService-Info.plist */; };
 		F912E47A1C05EAD7003EF7A2 /* MMTMeteorogramWamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F912E4791C05EAD7003EF7A2 /* MMTMeteorogramWamTests.swift */; };
 		F91A63481C467F3900747AC3 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91A63471C467F3900747AC3 /* UIAlertController.swift */; };
+		F9326D2D1C5F83180033E11B /* MMTInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9326D2C1C5F83180033E11B /* MMTInfoController.swift */; };
 		F94051691C57B5CA00D52B1C /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F94051681C57B5CA00D52B1C /* CoreSpotlight.framework */; };
 		F940516C1C57B62800D52B1C /* CSSearchableIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F940516B1C57B62800D52B1C /* CSSearchableIndex.swift */; };
 		F950E0D91B60C0D4000757B2 /* MMTModelWamSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F950E0D81B60C0D4000757B2 /* MMTModelWamSettingsController.swift */; };
@@ -110,6 +111,7 @@
 		F910AACE1C52358400A35170 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F912E4791C05EAD7003EF7A2 /* MMTMeteorogramWamTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramWamTests.swift; sourceTree = "<group>"; };
 		F91A63471C467F3900747AC3 /* UIAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
+		F9326D2C1C5F83180033E11B /* MMTInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTInfoController.swift; sourceTree = "<group>"; };
 		F94051681C57B5CA00D52B1C /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		F940516B1C57B62800D52B1C /* CSSearchableIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSearchableIndex.swift; sourceTree = "<group>"; };
 		F950E0D81B60C0D4000757B2 /* MMTModelWamSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTModelWamSettingsController.swift; sourceTree = "<group>"; };
@@ -438,6 +440,7 @@
 				F9C23A961B621DA600A94A4B /* WamModel */,
 				F9C23A951B621D7200A94A4B /* OtehrModels */,
 				F9B686441B58DDD300E838BD /* MMTTabBarController.swift */,
+				F9326D2C1C5F83180033E11B /* MMTInfoController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -765,6 +768,7 @@
 				F99A8A301B846A4B0098E170 /* NSCalendar.swift in Sources */,
 				F9F9D6101C52643000A49ACA /* MMTGoogleAnalytics.swift in Sources */,
 				F90F72A71C5A3DA600130353 /* NSUserDefaults.swift in Sources */,
+				F9326D2D1C5F83180033E11B /* MMTInfoController.swift in Sources */,
 				F9C23A981B621DE400A94A4B /* MMTCollectionViewWamLayout.swift in Sources */,
 				F99A8A2C1B8463FE0098E170 /* NSURL.swift in Sources */,
 				F9829D711C3FB09E00314438 /* CAAnimation.swift in Sources */,
