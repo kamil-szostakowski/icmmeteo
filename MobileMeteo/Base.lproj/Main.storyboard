@@ -411,7 +411,7 @@
         <!--Źródło-->
         <scene sceneID="2lb-S5-Lie">
             <objects>
-                <viewController id="sj4-kp-3OW" sceneMemberID="viewController">
+                <viewController id="sj4-kp-3OW" customClass="MMTInfoController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zwG-xe-lBY"/>
                         <viewControllerLayoutGuide type="bottom" id="NDF-aG-cZF"/>
@@ -424,39 +424,61 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PE8-1C-i4E" userLabel="Container">
-                                        <rect key="frame" x="20" y="76" width="560" height="335"/>
+                                        <rect key="frame" x="20" y="45" width="560" height="398"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="HSw-Xp-6FR">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="HSw-Xp-6FR">
                                                 <rect key="frame" x="110" y="0.0" width="341" height="218"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="HSw-Xp-6FR" secondAttribute="height" multiplier="1024:656" id="z7K-Rr-VHt"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Prognoza została udostępniona nieodpłatnie przez serwis meteo.pl prowadzony przez ICM, Uniwersytet Warszawski. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vd-h5-NfU">
-                                                <rect key="frame" x="0.0" y="243" width="560" height="36"/>
+                                                <rect key="frame" x="0.0" y="238" width="560" height="36"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wyniki uzyskano przy użyciu oprogramowania Met Office. Material produced using Met Office Software." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqM-tk-ebb">
-                                                <rect key="frame" x="0.0" y="299" width="560" height="36"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wyniki uzyskano przy użyciu oprogramowania Met Office." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqM-tk-ebb">
+                                                <rect key="frame" x="0.0" y="289" width="560" height="18"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="W przypadku pytań, problemów lub sugesti" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goB-rh-WOg">
+                                                <rect key="frame" x="0.0" y="322" width="560" height="18"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fme-qe-1IX">
+                                                <rect key="frame" x="212" y="350" width="137" height="38"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                                <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
+                                                <state key="normal" title="napisz do nas">
+                                                    <color key="titleColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="feedbackBtnDidTap:" destination="sj4-kp-3OW" eventType="touchUpInside" id="EMb-c0-fmW"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="2Vd-h5-NfU" firstAttribute="top" secondItem="HSw-Xp-6FR" secondAttribute="bottom" constant="25" id="468-mn-Yd4"/>
+                                            <constraint firstItem="2Vd-h5-NfU" firstAttribute="top" secondItem="HSw-Xp-6FR" secondAttribute="bottom" constant="20" id="468-mn-Yd4"/>
+                                            <constraint firstAttribute="bottom" secondItem="fme-qe-1IX" secondAttribute="bottom" constant="10" id="AZW-7Y-FB6"/>
+                                            <constraint firstItem="goB-rh-WOg" firstAttribute="top" secondItem="oqM-tk-ebb" secondAttribute="bottom" constant="15" id="Got-Dr-T1A"/>
                                             <constraint firstAttribute="trailing" secondItem="oqM-tk-ebb" secondAttribute="trailing" id="Ic1-ka-6qD"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="HSw-Xp-6FR" secondAttribute="trailing" id="JZM-5L-59U"/>
                                             <constraint firstItem="HSw-Xp-6FR" firstAttribute="centerX" secondItem="PE8-1C-i4E" secondAttribute="centerX" id="SJM-Pq-aqN"/>
-                                            <constraint firstItem="oqM-tk-ebb" firstAttribute="top" secondItem="2Vd-h5-NfU" secondAttribute="bottom" constant="20" id="ZZt-dJ-hj2"/>
+                                            <constraint firstItem="oqM-tk-ebb" firstAttribute="top" secondItem="2Vd-h5-NfU" secondAttribute="bottom" constant="15" id="ZZt-dJ-hj2"/>
                                             <constraint firstItem="oqM-tk-ebb" firstAttribute="leading" secondItem="PE8-1C-i4E" secondAttribute="leading" id="bPf-nQ-L6I"/>
                                             <constraint firstItem="2Vd-h5-NfU" firstAttribute="leading" secondItem="PE8-1C-i4E" secondAttribute="leading" id="cmJ-TV-x8J"/>
                                             <constraint firstAttribute="trailing" secondItem="2Vd-h5-NfU" secondAttribute="trailing" id="f7a-X1-zjW"/>
+                                            <constraint firstItem="fme-qe-1IX" firstAttribute="top" secondItem="goB-rh-WOg" secondAttribute="bottom" constant="10" id="fdK-Js-YSw"/>
+                                            <constraint firstItem="fme-qe-1IX" firstAttribute="centerX" secondItem="goB-rh-WOg" secondAttribute="centerX" id="jCZ-bO-dPP"/>
+                                            <constraint firstAttribute="trailing" secondItem="goB-rh-WOg" secondAttribute="trailing" id="jXq-sf-5bb"/>
+                                            <constraint firstItem="goB-rh-WOg" firstAttribute="leading" secondItem="PE8-1C-i4E" secondAttribute="leading" id="lDf-0E-PiF"/>
                                             <constraint firstItem="HSw-Xp-6FR" firstAttribute="top" secondItem="PE8-1C-i4E" secondAttribute="top" id="lbc-Dq-JH4"/>
-                                            <constraint firstAttribute="bottom" secondItem="oqM-tk-ebb" secondAttribute="bottom" id="ld6-gK-YZb"/>
                                             <constraint firstItem="HSw-Xp-6FR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="PE8-1C-i4E" secondAttribute="leading" id="sok-ML-skR"/>
                                         </constraints>
                                     </view>
@@ -479,7 +501,7 @@
                             </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="0.92000000000000004" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.0" green="0.54901960780000003" blue="0.45882352939999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="NDF-aG-cZF" firstAttribute="top" secondItem="oJa-Ym-ri5" secondAttribute="bottom" id="3cp-Du-5fB"/>
                             <constraint firstItem="oJa-Ym-ri5" firstAttribute="top" secondItem="mJD-M1-X8o" secondAttribute="bottom" id="83M-4H-Rla"/>
@@ -493,6 +515,9 @@
                     <tabBarItem key="tabBarItem" title="Źródło" image="info" id="Quj-BL-oec">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="btnFeedback" destination="fme-qe-1IX" id="VYY-ae-Khp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRB-zu-26c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
