@@ -109,9 +109,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     private func setupHeader()
     {
         lblForecastStart.text = "Start prognozy t0: \(NSDateFormatter.shortStyleUtcDatetime(meteorogramStore.forecastStartDate))"
-        lblForecastLenght.text = "Długość prognozy: \(meteorogramStore.forecastLength)h, siatka \(meteorogramStore.gridNodeSize)km"
-        
-        tableViewHeader.frame = CGRectMake(0, 0, view.frame.size.width, searchBar.bounds.height)
+        lblForecastLenght.text = "Długość prognozy: \(meteorogramStore.forecastLength)h, siatka \(meteorogramStore.gridNodeSize)km"        
     }
     
     private func setupNotificationHandler()
@@ -137,7 +135,6 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
             locationManager.stopMonitoringSignificantLocationChanges()
         }
 
-        tableView.tableHeaderView = authorized ? tableViewHeader : nil
         updateIndexWithAllCities() { self.tableView.reloadData() }
     }
     
