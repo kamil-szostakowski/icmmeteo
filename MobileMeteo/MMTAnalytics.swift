@@ -35,8 +35,7 @@ enum MMTAnalyticsAction: String
             case .Capitals: self = .LocationDidSelectCapital
             case .Favourites: self = .LocationDidSelectFavourite
             case .SearchResults: self = .LocationDidSelectSearchResult
-            case .CurrentLocation: self = .LocationDidSelectCurrentLocation
-        
+            case .CurrentLocation: self = .LocationDidSelectCurrentLocation        
             default: return nil
         }
     }

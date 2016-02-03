@@ -15,6 +15,13 @@ class MMTMeteorogramUrlSession: NSObject, NSURLSessionTaskDelegate
     private var urlSession: NSURLSession!
     private var redirectionBaseUrl: NSURL?
     
+    #if DEBUG
+    static var simulateOfflineMode = false
+    static var simulatedError: NSError? {
+        return simulateOfflineMode ? NSError(domain: "MMTSimulatedError", code: 0, userInfo: nil) : nil
+    }
+    #endif
+    
     // MARK: Initializers
     
     override init()
@@ -34,7 +41,11 @@ class MMTMeteorogramUrlSession: NSObject, NSURLSessionTaskDelegate
     func fetchImageFromUrl(url: NSURL, completion: MMTFetchMeteorogramCompletion)
     {
         let task = urlSession.dataTaskWithURL(url) {
-            (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+            (data: NSData?, response: NSURLResponse?, var error: NSError?) -> Void in
+            
+            #if DEBUG
+            error = MMTMeteorogramUrlSession.simulatedError ?? error
+            #endif
             
             dispatch_async(dispatch_get_main_queue(), {
                 completion(data: data, error: error != nil ? .MeteorogramFetchFailure : nil)
@@ -47,7 +58,11 @@ class MMTMeteorogramUrlSession: NSObject, NSURLSessionTaskDelegate
     func fetchMeteorogramImageForUrl(searchUrl: NSURL, completion: MMTFetchMeteorogramCompletion)
     {
         let task = urlSession.dataTaskWithURL(searchUrl) {
-            (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+            (data: NSData?, response: NSURLResponse?, var error: NSError?) -> Void in
+            
+            #if DEBUG
+            error = MMTMeteorogramUrlSession.simulatedError ?? error
+            #endif
             
             let redirected =  searchUrl.absoluteString != response?.URL?.absoluteString
             
