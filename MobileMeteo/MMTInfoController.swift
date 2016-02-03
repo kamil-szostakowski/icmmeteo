@@ -11,18 +11,7 @@ import MessageUI
 import Foundation
 
 class MMTInfoController: UIViewController, MFMailComposeViewControllerDelegate
-{    
-    @IBOutlet var btnFeedback: UIButton!
-    
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-        
-        btnFeedback.layer.borderColor = MMTAppearance.textColor.CGColor
-        btnFeedback.layer.borderWidth = 1.5
-        btnFeedback.layer.cornerRadius = 5        
-    }
-    
+{        
     // MARK: Action methods
     
     @IBAction func feedbackBtnDidTap(sender: UIButton)

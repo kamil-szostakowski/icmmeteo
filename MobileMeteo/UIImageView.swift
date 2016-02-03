@@ -11,6 +11,11 @@ import Foundation
 
 extension UIImageView
 {
+    var imageRenderingMode: UIImageRenderingMode {
+        get { return image?.renderingMode ?? .Automatic }
+        set { image = image?.imageWithRenderingMode(newValue) }
+    }
+    
     func updateSizeConstraints(size: CGSize)
     {
         for constraint in self.constraints 
