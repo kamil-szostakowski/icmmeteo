@@ -151,6 +151,22 @@ class MMTCitiesListTests: XCTestCase
         XCTCheckHeader("Miasta wojewódzkie", index: 2)
     }
     
+    func test08_SearchBarCancelation()
+    {
+        let expectedCount = app.tables.cells.count
+        
+        let
+        searchField = app.tables.searchFields["szukaj miasta"]
+        searchField.tap()
+        searchField.typeText("aaa")
+        
+        sleep(1)
+        
+        XCTAssertEqual(1, app.tables.cells.count)
+        app.tables.buttons["Anuluj"].tap()        
+        XCTAssertEqual(expectedCount, app.tables.cells.count)
+    }
+    
     // Helper methods
     
     func addToFavourites(elementName: String)

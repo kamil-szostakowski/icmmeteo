@@ -11,6 +11,9 @@ import Foundation
 import CoreData
 import CoreSpotlight
 
+public let MMTDebugActionCleanupDb = "CLEANUP_DB"
+public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
+
 @UIApplicationMain class MMTAppDelegate: UIResponder, UIApplicationDelegate
 {
     var window: UIWindow?
@@ -27,11 +30,16 @@ import CoreSpotlight
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         
         #if DEBUG
-        if NSProcessInfo.processInfo().arguments.contains("CLEANUP_DB")
+        if NSProcessInfo.processInfo().arguments.contains(MMTDebugActionCleanupDb)
         {
             MMTDatabase.instance.flushDatabase()
             NSUserDefaults.standardUserDefaults().removePersistentDomainForName(NSBundle.mainBundle().bundleIdentifier!)
             NSUserDefaults.standardUserDefaults().synchronize()            
+        }
+            
+        if NSProcessInfo.processInfo().arguments.contains(MMTDebugActionSimulatedOfflineMode)
+        {
+            MMTMeteorogramUrlSession.simulateOfflineMode = true
         }
         #endif
         

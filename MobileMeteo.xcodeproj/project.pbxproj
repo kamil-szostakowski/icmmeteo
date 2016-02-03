@@ -15,6 +15,8 @@
 		EEE3408EE6A4D8E2A80B531B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C947F0E2AB8E7B71A57502 /* libPods.a */; };
 		F9060B3F1C059FE70025EE8D /* MMTCategoryUIScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9060B3E1C059FE70025EE8D /* MMTCategoryUIScrollViewTests.swift */; };
 		F906CF0E1C58F04D009BBEB9 /* MMTCitiesIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F906CF0D1C58F04D009BBEB9 /* MMTCitiesIndex.swift */; };
+		F907075E1C61F465001D72A0 /* MMTCityMapPickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F907075D1C61F465001D72A0 /* MMTCityMapPickerTests.swift */; };
+		F90707601C61F719001D72A0 /* MMTInfoScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F907075F1C61F719001D72A0 /* MMTInfoScreenTests.swift */; };
 		F90F72A41C5A0FEF00130353 /* MMTCitiesIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90F72A31C5A0FEF00130353 /* MMTCitiesIndexTests.swift */; };
 		F90F72A71C5A3DA600130353 /* NSUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90F72A61C5A3DA600130353 /* NSUserDefaults.swift */; };
 		F910AACF1C52358400A35170 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F910AACE1C52358400A35170 /* GoogleService-Info.plist */; };
@@ -51,6 +53,7 @@
 		F9BB149F1B5670FD00C81B3F /* MMTDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BB149E1B5670FD00C81B3F /* MMTDatabase.swift */; };
 		F9BB14A41B56765700C81B3F /* MMTCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9BB14A31B56765700C81B3F /* MMTCity.swift */; };
 		F9BB14A61B5697EE00C81B3F /* Cities.json in Resources */ = {isa = PBXBuildFile; fileRef = F9BB14A51B5697EE00C81B3F /* Cities.json */; };
+		F9C0AF2D1C60D67B009860F8 /* MMTOfflineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C0AF2C1C60D67B009860F8 /* MMTOfflineTests.swift */; };
 		F9C23A981B621DE400A94A4B /* MMTCollectionViewWamLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C23A971B621DE400A94A4B /* MMTCollectionViewWamLayout.swift */; };
 		F9C5B5B01B81D1FC00CFB503 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C5B5AF1B81D1FC00CFB503 /* UIScrollView.swift */; };
 		F9C934851C07017800830B2B /* MMTWamSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C934841C07017800830B2B /* MMTWamSettingsTests.swift */; };
@@ -105,6 +108,8 @@
 		D607651CF653DFC4CF018B4A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F9060B3E1C059FE70025EE8D /* MMTCategoryUIScrollViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCategoryUIScrollViewTests.swift; sourceTree = "<group>"; };
 		F906CF0D1C58F04D009BBEB9 /* MMTCitiesIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesIndex.swift; sourceTree = "<group>"; };
+		F907075D1C61F465001D72A0 /* MMTCityMapPickerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCityMapPickerTests.swift; sourceTree = "<group>"; };
+		F907075F1C61F719001D72A0 /* MMTInfoScreenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTInfoScreenTests.swift; sourceTree = "<group>"; };
 		F90F72A31C5A0FEF00130353 /* MMTCitiesIndexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesIndexTests.swift; sourceTree = "<group>"; };
 		F90F72A61C5A3DA600130353 /* NSUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaults.swift; sourceTree = "<group>"; };
 		F910AACD1C521DB600A35170 /* MobileMeteo-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileMeteo-BridgingHeader.h"; sourceTree = "<group>"; };
@@ -146,6 +151,7 @@
 		F9BB149E1B5670FD00C81B3F /* MMTDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTDatabase.swift; sourceTree = "<group>"; };
 		F9BB14A31B56765700C81B3F /* MMTCity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MMTCity.swift; path = ../MMTCity.swift; sourceTree = "<group>"; };
 		F9BB14A51B5697EE00C81B3F /* Cities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Cities.json; sourceTree = "<group>"; };
+		F9C0AF2C1C60D67B009860F8 /* MMTOfflineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTOfflineTests.swift; sourceTree = "<group>"; };
 		F9C23A971B621DE400A94A4B /* MMTCollectionViewWamLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCollectionViewWamLayout.swift; sourceTree = "<group>"; };
 		F9C5B5AF1B81D1FC00CFB503 /* UIScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
 		F9C934841C07017800830B2B /* MMTWamSettingsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamSettingsTests.swift; sourceTree = "<group>"; };
@@ -264,6 +270,9 @@
 				F9C934841C07017800830B2B /* MMTWamSettingsTests.swift */,
 				F970BDE51C05B7C800910ECC /* MMTWamCategoryPreviewTests.swift */,
 				F912E4791C05EAD7003EF7A2 /* MMTMeteorogramWamTests.swift */,
+				F907075D1C61F465001D72A0 /* MMTCityMapPickerTests.swift */,
+				F9C0AF2C1C60D67B009860F8 /* MMTOfflineTests.swift */,
+				F907075F1C61F719001D72A0 /* MMTInfoScreenTests.swift */,
 			);
 			path = MeteoUITests;
 			sourceTree = "<group>";
@@ -276,7 +285,6 @@
 				F9DAEA9F1B85D2DE00D4CD34 /* MMTUmModelStore.swift */,
 				F9DAEA9B1B85D2DE00D4CD34 /* MMTCoampsModelStore.swift */,
 				F9DAEAA11B85D2DE00D4CD34 /* MMTWamModelStore.swift */,
-				F9F8753A1C47D3C0005E669E /* MMTMeteorogramUrlSession.swift */,
 			);
 			name = Stores;
 			sourceTree = "<group>";
@@ -453,6 +461,7 @@
 				F99A8A351B849A540098E170 /* Stores */,
 				8EC56D6D1BA0B528003A5020 /* MMTError.swift */,
 				F9E5D02E1B68EFA3006429BA /* MMTWamSettings.swift */,
+				F9F8753A1C47D3C0005E669E /* MMTMeteorogramUrlSession.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -732,8 +741,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F90707601C61F719001D72A0 /* MMTInfoScreenTests.swift in Sources */,
 				F9C934851C07017800830B2B /* MMTWamSettingsTests.swift in Sources */,
+				F907075E1C61F465001D72A0 /* MMTCityMapPickerTests.swift in Sources */,
 				F9941A6F1BECE34C00700313 /* MMTCitiesListTests.swift in Sources */,
+				F9C0AF2D1C60D67B009860F8 /* MMTOfflineTests.swift in Sources */,
 				8EE580B01C0118A0000B36BB /* MMTMeteorogramPreview.swift in Sources */,
 				F970BDE61C05B7C800910ECC /* MMTWamCategoryPreviewTests.swift in Sources */,
 				F912E47A1C05EAD7003EF7A2 /* MMTMeteorogramWamTests.swift in Sources */,
