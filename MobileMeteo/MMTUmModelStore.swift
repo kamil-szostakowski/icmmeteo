@@ -14,9 +14,9 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
 {
     // MARK: Properties
     
-    private let waitingTime: NSTimeInterval = 18000
+    private let waitingTime = NSTimeInterval(hours: 5)
     private var urlSession: MMTMeteorogramUrlSession!
-    private var startDate: NSDate!    
+    private var startDate: NSDate!
     
     var forecastLength: Int {
         return 60
@@ -52,13 +52,25 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
     
     func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion)
     {
-        let searchUrl = NSURL.mmt_modelUmSearchUrl(location, tZero: forecastStartDate)
-        urlSession.fetchMeteorogramImageForUrl(searchUrl, completion: completion)
+        urlSession.fetchMeteorogramImageForUrl(NSURL.mmt_modelUmSearchUrl(location), completion: completion)
     }
     
     func getMeteorogramLegend(completion: MMTFetchMeteorogramCompletion)
     {        
         urlSession.fetchImageFromUrl(NSURL.mmt_modelUmLegendUrl(), completion: completion)
+    }
+    
+    func getForecastStartDate(completion: MMTFetchForecastStartDateCompletion)
+    {
+        urlSession.fetchForecastStartDateFromUrl(NSURL.mmt_modelUmForecastStartUrl()) {
+            (date: NSDate?, error: MMTError?) in
+            
+            if error == nil && date != nil {
+                self.startDate = date
+            }
+            
+            completion(date: date, error: error)
+        }
     }
     
     // MARK: Helper methods    

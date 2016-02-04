@@ -27,6 +27,7 @@ class MMTMeteorogramWamTests: XCTestCase
         app.launchArguments = ["CLEANUP_DB"]
         app.launch()
         
+        sleep(1)
         app.tabBars.buttons["Model WAM"].tap()
     }
     

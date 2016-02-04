@@ -15,8 +15,9 @@ enum MMTError: Int
     case LocationUnsupported = 2
     case LocationNotFound = 3
     case MailNotAvailable = 4
+    case ForecastStartDateNotFound = 5
     
-    var description: String
+    var description: String?
     {
         switch self
         {
@@ -25,6 +26,8 @@ enum MMTError: Int
             case .LocationUnsupported: return "Wybrana lokacja nie jest obsługiwana."
             case .LocationNotFound: return "Nie udało się odnaleźć szczegółów lokalizacji. Wybierz inną lokalizację lub spróbuj ponownie później."
             case .MailNotAvailable: return "Zanim będziesz mógł przesłać nam swoją opinię, powinieneś skonfigurować swoją skrzynkę pocztową."
+            
+            default: return nil
         }
     }
 }

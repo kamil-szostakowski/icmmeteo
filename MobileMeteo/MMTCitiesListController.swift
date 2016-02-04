@@ -30,6 +30,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     var meteorogramStore: MMTGridClimateModelStore!
     var selectedCity: MMTCityProt?
     
+    private var lastUpdate: NSDate?
     private var locationManager: CLLocationManager!
     private var searchInput: MMTSearchInput!
     private var citiesIndex: [MMTCitiesGroup]!
@@ -50,7 +51,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         
         setupLocationManager()
-        setupHeader()
+        setupInfoBar()
     }
     
     override func viewWillAppear(animated: Bool)
@@ -58,6 +59,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         super.viewWillAppear(animated)
         
         resetSearchBar()
+        updateForecastStartDate()
         updateIndexWithAllCities() {
         
             self.setupNotificationHandler()
@@ -106,9 +108,9 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         locationManager.requestWhenInUseAuthorization()
     }
     
-    private func setupHeader()
+    private func setupInfoBar()
     {
-        lblForecastStart.text = "Start prognozy t0: \(NSDateFormatter.shortStyleUtcDatetime(meteorogramStore.forecastStartDate))"
+        lblForecastStart.text = "Start prognozy t0: \(NSDateFormatter.utcFormatter.stringFromDate(meteorogramStore.forecastStartDate))"
         lblForecastLenght.text = "Długość prognozy: \(meteorogramStore.forecastLength)h, siatka \(meteorogramStore.gridNodeSize)km"        
     }
     
@@ -158,6 +160,8 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     func handleApplicationDidBecomeActiveNotification(notification: NSNotification)
     {
+        updateForecastStartDate()
+        
         if !searchInput.isValid {
             updateIndexWithAllCities() { self.tableView.reloadData() }
         }
@@ -341,7 +345,23 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
             
             completion()
         }
-    }    
+    }
+    
+    private func updateForecastStartDate()
+    {
+        if lastUpdate != nil && NSDate().timeIntervalSinceDate(lastUpdate!) < NSTimeInterval(minutes: 5) {
+            return
+        }
+        
+        lastUpdate = NSDate()
+        meteorogramStore.getForecastStartDate(){ (date: NSDate?, error: MMTError?) in
+            
+            guard error == nil else { return }
+            guard date != nil else { return }
+            
+            self.setupInfoBar()
+        }
+    }
     
     // MARK: Helper methods
     

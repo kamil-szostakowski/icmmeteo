@@ -25,6 +25,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     private var categoryPreviewSettings: MMTWamSettings!
     private var wamStore: MMTWamModelStore!
     private var presented = false
+    private var shouldUpdateForecastStartDate = true
     private var failureCount = 0
     private var failureWatch: NSTimer!
 
@@ -63,6 +64,10 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         failureWatch = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "failureCheck", userInfo: nil, repeats: true)
         collectionView.reloadData()
         analytics?.sendScreenEntryReport("Model WAM")
+        
+        if shouldUpdateForecastStartDate {
+            updateForecastStartDate()
+        }
     }
     
     override func viewWillDisappear(animated: Bool)
@@ -70,6 +75,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         super.viewWillDisappear(animated)
         
         presented = false
+        shouldUpdateForecastStartDate = true
         failureWatch.invalidate()
         failureWatch = nil
     }
@@ -78,11 +84,13 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     {
         if segue.identifier == MMTSegue.DisplayWamSettings {
             segue.destinationViewController.setValue(wamSettings, forKey: "wamSettings")
+            segue.destinationViewController.setValue(wamStore, forKey: "wamStore")
         }
         
         if segue.identifier == MMTSegue.DisplayWamCategoryPreview {
             segue.destinationViewController.setValue(categoryPreviewSettings, forKey: "wamSettings")
-        }
+            segue.destinationViewController.setValue(wamStore, forKey: "wamStore")
+        }        
     }
     
     // MARK: Setup methods
@@ -107,7 +115,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     private func setupInfoBar()
     {
-        forecastStart.text = "Start prognozy t0: \(NSDateFormatter.shortStyleUtcDatetime(wamStore.forecastStartDate))"
+        forecastStart.text = "Start prognozy t0: \(NSDateFormatter.utcFormatter.stringFromDate(wamStore.forecastStartDate))"
         forecastLength.text = "Długość prognozy: \(wamStore.forecastLength)h"
     }
     
@@ -115,12 +123,14 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     @IBAction func unwindToWamModel(unwindSegue: UIStoryboardSegue)
     {
+        shouldUpdateForecastStartDate = false
     }
     
     @IBAction func unwindToWamModelAndUpdateSettings(unwindSegue: UIStoryboardSegue)
     {
         if let controller = unwindSegue.sourceViewController as? MMTModelWamSettingsController {
             wamSettings = controller.wamSettings
+            shouldUpdateForecastStartDate = false
         }
     }
     
@@ -148,21 +158,23 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
+        let sorecastStartDate = wamStore.forecastStartDate
         let date = wamSettings.forecastSelectedMoments[indexPath.row].date
         let tZeroPlus = wamStore.getHoursFromForecastStartDate(forDate: date)
         let category = categories[indexPath.section]
         
         let
         cell = collectionView.dequeueReusableCellWithReuseIdentifier("WamMomentItem", forIndexPath: indexPath) as! MMTWamCategoryItem
-        cell.headerLabel.text = NSDateFormatter.shortStyleUtcDatetime(date)
+        cell.headerLabel.text = NSDateFormatter.utcFormatter.stringFromDate(date)
         cell.footerLabel.text = String(NSString(format: MMTFormat.TZeroPlus, tZeroPlus))
         cell.accessibilityIdentifier = "\(category) +\(tZeroPlus)"        
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
-        
+
         getThumbnailWithQuery(MMTWamModelMeteorogramQuery(category, date)) {
             (data: NSData?, error: MMTError?) in
             
+            guard sorecastStartDate == self.wamStore.forecastStartDate else { return }
             guard error == nil && data != nil else {
                 self.failureCount++
                 return
@@ -222,6 +234,19 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
             }
             
             completion(data: data, error: error)
+        }
+    }
+    
+    private func updateForecastStartDate()
+    {
+        wamStore.getForecastStartDate(){ (date: NSDate?, error: MMTError?) in
+
+            guard error == nil else { return }
+            guard date != nil else { return }
+            
+            self.setupInfoBar()            
+            self.setupSettings()
+            self.collectionView.reloadData()
         }
     }
 }

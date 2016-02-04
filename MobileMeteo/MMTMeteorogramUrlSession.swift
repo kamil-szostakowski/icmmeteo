@@ -40,29 +40,17 @@ class MMTMeteorogramUrlSession: NSObject, NSURLSessionTaskDelegate
     
     func fetchImageFromUrl(url: NSURL, completion: MMTFetchMeteorogramCompletion)
     {
-        let task = urlSession.dataTaskWithURL(url) {
-            (data: NSData?, response: NSURLResponse?, var error: NSError?) -> Void in
+        runTaskWithUrl(url) {
+            (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
-            #if DEBUG
-            error = MMTMeteorogramUrlSession.simulatedError ?? error
-            #endif
-            
-            dispatch_async(dispatch_get_main_queue(), {
-                completion(data: data, error: error != nil ? .MeteorogramFetchFailure : nil)
-            })
+            completion(data: data, error: error != nil ? .MeteorogramFetchFailure : nil)
         }
-        
-        task.resume()
     }
     
     func fetchMeteorogramImageForUrl(searchUrl: NSURL, completion: MMTFetchMeteorogramCompletion)
     {
-        let task = urlSession.dataTaskWithURL(searchUrl) {
-            (data: NSData?, response: NSURLResponse?, var error: NSError?) -> Void in
-            
-            #if DEBUG
-            error = MMTMeteorogramUrlSession.simulatedError ?? error
-            #endif
+        runTaskWithUrl(searchUrl) {
+            (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
             let redirected =  searchUrl.absoluteString != response?.URL?.absoluteString
             
@@ -71,12 +59,25 @@ class MMTMeteorogramUrlSession: NSObject, NSURLSessionTaskDelegate
             err = !redirected ? .MeteorogramNotFound : nil
             err = error != nil ? .MeteorogramFetchFailure : err
             
-            dispatch_async(dispatch_get_main_queue(), {
-                completion(data: data, error: err)
-            })
+            completion(data: data, error: err)
         }
-        
-        task.resume()
+    }
+    
+    func fetchForecastStartDateFromUrl(infoUrl: NSURL, completion: MMTFetchForecastStartDateCompletion)
+    {
+        runTaskWithUrl(infoUrl) {
+            (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+            
+            var forecastStartDate: NSDate?
+            var err: MMTError?
+            
+            if let htmlString = self.htmlStringFromResponseData(data) {
+                forecastStartDate = self.forecastStartDateFromHtmlResponse(htmlString)
+            }
+            
+            err = forecastStartDate != nil ? nil : .ForecastStartDateNotFound
+            completion(date: forecastStartDate, error: err)
+        }
     }
     
     // MARK: NSURLSessionTaskDelegate delegate methods
@@ -103,5 +104,46 @@ class MMTMeteorogramUrlSession: NSObject, NSURLSessionTaskDelegate
         }
         
         return NSURL(string: "?\(queryString)", relativeToURL: baseUrl)
+    }
+    
+    // MARK: Helper methods
+    
+    private func runTaskWithUrl(url: NSURL, completion: (NSData?, NSURLResponse?, NSError?) -> Void)
+    {
+        let task = urlSession.dataTaskWithURL(url) {
+            (data: NSData?, response: NSURLResponse?, var error: NSError?) -> Void in
+            
+            #if DEBUG
+            error = MMTMeteorogramUrlSession.simulatedError ?? error
+            #endif
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                completion(data, response, error)
+            })
+        }
+        
+        task.resume()
+    }
+    
+    func htmlStringFromResponseData(data: NSData?) -> String?
+    {
+        guard let htmlData = data else { return nil }
+        guard let htmlString = String(data: htmlData, encoding: NSWindowsCP1250StringEncoding) else { return nil }
+        
+        return htmlString
+    }
+    
+    func forecastStartDateFromHtmlResponse(html: String) -> NSDate?
+    {
+        let pattern = "[0-9]{4}\\.[0-9]{2}\\.[0-9]{2} [0-9]{2}:[0-9]{2} UTC"
+        let range = NSMakeRange(0, html.lengthOfBytesUsingEncoding(NSWindowsCP1250StringEncoding))
+        
+        guard let regexp = try? NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions()) else { return nil }        
+        let hits = regexp.matchesInString(html, options: NSMatchingOptions(), range: range)
+        
+        guard let match = hits.first else { return nil }
+        let dateString = (html as NSString).substringWithRange(match.range)
+        
+        return NSDateFormatter.utcFormatter.dateFromString(dateString)
     }
 }

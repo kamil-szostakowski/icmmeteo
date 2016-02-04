@@ -18,13 +18,12 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     @IBOutlet var momentLabel: UILabel!
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet var scrollView: UIScrollView!
-    
     @NSCopying var wamSettings: MMTWamSettings!
     
     private var cache: NSCache = NSCache()
-    private var wamStore = MMTWamModelStore(date: NSDate())
     private var currentMoment: Int = 0
 
+    var wamStore: MMTWamModelStore!
     
     private var isFirstMoment: Bool {
         return currentMoment == 0
@@ -85,7 +84,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         let tZeroPlus = wamStore.getHoursFromForecastStartDate(forDate: date)
         
         let tZeroPlusString = String(NSString(format: MMTFormat.TZeroPlus, tZeroPlus))
-        let momentString = NSDateFormatter.shortStyleUtcDatetime(date)
+        let momentString = NSDateFormatter.utcFormatter.stringFromDate(date)
         
         momentLabel.text = "start \(tZeroPlusString) = \(momentString)"
     }
