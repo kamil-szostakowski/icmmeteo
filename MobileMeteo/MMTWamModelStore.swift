@@ -23,7 +23,7 @@ class MMTWamModelStore: NSObject, MMTClimateModelStore
 {
     // MARK: Properties
     
-    private let waitingTime: NSTimeInterval = 25200
+    private let waitingTime = NSTimeInterval(hours: 7)
     private var urlSession: MMTMeteorogramUrlSession!
     private let momentLength = 3
     private var startDate: NSDate!
@@ -87,6 +87,19 @@ class MMTWamModelStore: NSObject, MMTClimateModelStore
         urlSession.fetchImageFromUrl(downloadUrl, completion: completion)
     }
     
+    func getForecastStartDate(completion: MMTFetchForecastStartDateCompletion)
+    {
+        urlSession.fetchForecastStartDateFromUrl(NSURL.mmt_modelWamForecastStartUrl()) {
+            (date: NSDate?, error: MMTError?) in
+            
+            if error == nil && date != nil {
+                self.startDate = date
+            }
+            
+            completion(date: date, error: error)
+        }
+    }
+    
     func getForecastMoments() -> [MMTWamMoment]
     {
         let momentsCount = forecastLength/momentLength
@@ -94,7 +107,7 @@ class MMTWamModelStore: NSObject, MMTClimateModelStore
         
         for index in 1...momentsCount
         {
-            let momentOffset = NSTimeInterval(index*momentLength*3600)
+            let momentOffset = NSTimeInterval(hours: index*momentLength)
             let moment = startDate.dateByAddingTimeInterval(momentOffset)
             
             forecastMoments.append((date: moment, selected: false))

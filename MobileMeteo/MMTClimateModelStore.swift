@@ -12,6 +12,7 @@ import CoreLocation
 import CoreGraphics
 
 typealias MMTFetchMeteorogramCompletion = (data: NSData?, error: MMTError?) -> Void
+typealias MMTFetchForecastStartDateCompletion = (date: NSDate?, error: MMTError?) -> Void
 
 protocol MMTClimateModelStore
 {    
@@ -20,6 +21,8 @@ protocol MMTClimateModelStore
     var forecastLength: Int { get }
     
     var forecastStartDate: NSDate { get }
+    
+    func getForecastStartDate(completion: MMTFetchForecastStartDateCompletion)
 }
 
 protocol MMTGridClimateModelStore: MMTClimateModelStore

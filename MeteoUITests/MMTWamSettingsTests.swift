@@ -28,6 +28,7 @@ class MMTWamSettingsTests: XCTestCase
         app.launch()
         
         app.tabBars.buttons["Model WAM"].tap()
+        sleep(1)
         app.navigationBars.buttons["Utwórz"].tap()
     }
     

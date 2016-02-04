@@ -20,13 +20,12 @@ extension NSURL
     
     // MARK: Model UM related methods
     
-    static func mmt_modelUmSearchUrl(location: CLLocation, tZero: NSDate) -> NSURL
+    static func mmt_modelUmSearchUrl(location: CLLocation) -> NSURL
     {
         let lat = location.coordinate.latitude
         let lng = location.coordinate.longitude
-        let tZero = tZeroStringForDate(tZero)
         
-        return NSURL(string: "/um/php/mgram_search.php?NALL=\(lat)&EALL=\(lng)&lang=pl&fdate=\(tZero)", relativeToURL: mmt_baseUrl())!
+        return NSURL(string: "/um/php/mgram_search.php?NALL=\(lat)&EALL=\(lng)&lang=pl", relativeToURL: mmt_baseUrl())!
     }
     
     static func mmt_modelUmDownloadBaseUrl() -> NSURL
@@ -37,17 +36,21 @@ extension NSURL
     static func mmt_modelUmLegendUrl() -> NSURL
     {
         return NSURL(string: "/um/metco/leg_um_pl_cbase_256.png", relativeToURL: mmt_baseUrl())!
-    }    
+    }
+    
+    static func mmt_modelUmForecastStartUrl() -> NSURL
+    {
+        return NSURL(string: "info_um.php", relativeToURL: mmt_baseUrl())!
+    }
     
     // MARK: Model COAMPS related methods
     
-    static func mmt_modelCoampsSearchUrl(location: CLLocation, tZero: NSDate) -> NSURL
+    static func mmt_modelCoampsSearchUrl(location: CLLocation) -> NSURL
     {
         let lat = location.coordinate.latitude
         let lng = location.coordinate.longitude
-        let tZero = tZeroStringForDate(tZero)
         
-        return NSURL(string: "/php/mgram_search.php?NALL=\(lat)&EALL=\(lng)&lang=pl&fdate=\(tZero)", relativeToURL: mmt_baseUrl())!
+        return NSURL(string: "/php/mgram_search.php?NALL=\(lat)&EALL=\(lng)&lang=pl", relativeToURL: mmt_baseUrl())!
     }
     
     static func mmt_modelCoampsDownloadBaseUrl() -> NSURL
@@ -58,6 +61,11 @@ extension NSURL
     static func mmt_modelCoampsLegendUrl() -> NSURL
     {
         return NSURL(string: "/metco/leg4_pl.png", relativeToURL: mmt_baseUrl())!
+    }
+    
+    static func mmt_modelCoampsForecastStartUrl() -> NSURL
+    {
+        return NSURL(string: "info_coamps.php", relativeToURL: mmt_baseUrl())!
     }
     
     // MARK: Model WAM related methods
@@ -90,6 +98,11 @@ extension NSURL
     static func mmt_modelWamSpectrumPeakPeriodDownloadUrl(tZero: NSDate, plus: Int) -> NSURL
     {
         return mmt_modelWamDownloadUrl("p_period", tZero: tZero, plus: plus)
+    }
+    
+    static func mmt_modelWamForecastStartUrl() -> NSURL
+    {
+        return NSURL(string: "info_wamcoamps.php", relativeToURL: mmt_baseUrl())!
     }
     
     // MARK: Helper methods

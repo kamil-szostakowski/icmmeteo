@@ -45,7 +45,7 @@ class MMTCityMapPickerTests: XCTestCase
         XCTAssertTrue(app.navigationBars["Wybierz lokalizację"].exists)
         
         app.navigationBars["Wybierz lokalizację"].buttons["Zatrzymaj"].tap()
-        
+        sleep(1)
         XCTAssertFalse(app.navigationBars["Wybierz lokalizację"].exists)
     }
     

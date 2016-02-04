@@ -10,33 +10,23 @@ import Foundation
 
 extension NSDateFormatter
 {
-    static var shortStyle: NSDateFormatter
+    static var shortDateOnlyStyle: NSDateFormatter
     {
         let
         formatter = NSDateFormatter()
         formatter.timeZone = NSTimeZone(name: "UTC")
-        formatter.dateStyle = .ShortStyle
-        formatter.timeStyle = .NoStyle
+        formatter.dateFormat = "YYYY.MM.dd"
 
         return formatter
-    }
+    }    
     
-    static var shortTimeStyle: NSDateFormatter
+    static var utcFormatter: NSDateFormatter
     {
         let
         formatter = NSDateFormatter()
         formatter.timeZone = NSTimeZone(name: "UTC")
-        formatter.dateStyle = .NoStyle
-        formatter.timeStyle = .ShortStyle
+        formatter.dateFormat = "YYYY.MM.dd HH:mm 'UTC'"
         
         return formatter
-    }
-    
-    static func shortStyleUtcDatetime(date: NSDate) -> String
-    {
-        let datePart = shortStyle.stringFromDate(date)
-        let timePart = shortTimeStyle.stringFromDate(date)
-        
-        return "\(datePart) \(timePart) UTC"
     }
 }
