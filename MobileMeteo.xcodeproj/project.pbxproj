@@ -580,6 +580,7 @@
 					};
 					F9E696631AFCC06600273DA3 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = GMU6W6K8X6;
 					};
 					F9E6967F1AFCC06600273DA3 = {
 						CreatedOnToolsVersion = 6.3.1;
