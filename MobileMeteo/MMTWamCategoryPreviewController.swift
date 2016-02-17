@@ -165,8 +165,13 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
             
             self.activityIndicator.hidden = true
             
-            guard error == nil else {
-                self.presentViewController(UIAlertController.alertForMMTError(error!), animated: true, completion: nil)
+            guard error == nil else
+            {
+                let alert = UIAlertController.alertForMMTError(error!){ (UIAlertAction) -> Void in
+                    self.performSegueWithIdentifier(MMTSegue.UnwindToWamModel, sender: self)
+                }
+                
+                self.presentViewController(alert, animated: true, completion: nil)
                 return
             }
             

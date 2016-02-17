@@ -13,11 +13,13 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
 {
     // MARK: Properties
     
+    private let minMomentsCount = 3
     private let categoryTag = 100
     private var currentDate = NSDate()
     private var selectedIndexes = [NSIndexPath]()
     
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var btnShow: UIBarButtonItem!
     @NSCopying var wamSettings: MMTWamSettings!
     
     var wamStore: MMTWamModelStore!
@@ -27,6 +29,8 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
     override func viewWillAppear(animated: Bool)
     {
         super.viewWillAppear(animated)
+        
+        btnShow.enabled = wamSettings.forecastSelectedMoments.count>=minMomentsCount
         analytics?.sendScreenEntryReport("Model WAM settings")
     }
     
@@ -43,6 +47,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         let moments = wamSettings.forecastMomentsGrouppedByDay[section].map(){ $0.date }
         
         wamSettings.setMomentsSelection(moments, selected: category.selected)
+        btnShow.enabled = wamSettings.forecastSelectedMoments.count>=minMomentsCount
         tableView.reloadData()
     }
     
@@ -98,6 +103,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         let selected = tableView.cellForRowAtIndexPath(indexPath)!.accessoryType == .None
         
         wamSettings.setMomentSelection(moment.date, selected: selected)
+        btnShow.enabled = wamSettings.forecastSelectedMoments.count>=minMomentsCount
         tableView.reloadData()
     }
     

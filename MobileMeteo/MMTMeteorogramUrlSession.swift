@@ -84,26 +84,22 @@ class MMTMeteorogramUrlSession: NSObject, NSURLSessionTaskDelegate
     
     func URLSession(session: NSURLSession, task: NSURLSessionTask, willPerformHTTPRedirection response: NSHTTPURLResponse, newRequest request: NSURLRequest, completionHandler: (NSURLRequest?) -> Void)
     {
-        guard let destinationUrl = meteorogramDownloadFromRedirectionUrl(request.URL!) else {
-            task.cancel()
-            completionHandler(nil)
-            return
-        }
+        var req: NSURLRequest?
+        
+        defer { completionHandler(req) }
+        guard let requestUrl = request.URL else { task.cancel(); return }
+        guard let destinationUrl = meteorogramDownloadFromRedirectionUrl(requestUrl) else { task.cancel(); return }
     
-        completionHandler(NSURLRequest(URL: destinationUrl))
+        req = NSURLRequest(URL: destinationUrl)
     }
     
     private func meteorogramDownloadFromRedirectionUrl(redirectionUrl: NSURL) -> NSURL?
-    {
-        guard let baseUrl = redirectionBaseUrl else {
-            return nil
-        }
-        
+    {        
         guard let queryString = redirectionUrl.absoluteString.componentsSeparatedByString("?").last else {
             return nil
         }
         
-        return NSURL(string: "?\(queryString)", relativeToURL: baseUrl)
+        return NSURL(string: "?\(queryString)", relativeToURL: redirectionBaseUrl)
     }
     
     // MARK: Helper methods

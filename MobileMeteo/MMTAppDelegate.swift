@@ -73,7 +73,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
                 return
             }
             
-            let report = MMTAnalyticsReport(category: .Locations, action: .LocationDidSelectOnSpotlight, actionLabel: city!.name)            
+            let report = MMTAnalyticsReport(category: .Locations, action: .LocationDidSelectOnSpotlight, actionLabel: city!.name)
             
             self.rootViewController.presentMeteorogramUmForCity(city!)
             self.rootViewController.analytics?.sendUserActionReport(report)

@@ -45,49 +45,51 @@ class MMTCitiesIndexTests: XCTestCase
     
     func testIndexForCitiesWithCurrentCity()
     {
-        let index = MMTCitiesIndex.indexForCities(cities, currentCity: currentCity)
+        let index = MMTCitiesIndex(cities, currentCity: currentCity)
         
-        XCTAssertEqual(3, index.count)
+        XCTAssertEqual(3, index.sectionCount)
         
         XCTAssertEqual(1, index[0].cities.count)
         XCTAssertEqual(2, index[1].cities.count)
         XCTAssertEqual(3, index[2].cities.count)
         
-        XCTAssertEqual(MMTCityGroup.CurrentLocation, index[0].type)
-        XCTAssertEqual(MMTCityGroup.Favourites, index[1].type)
-        XCTAssertEqual(MMTCityGroup.Capitals, index[2].type)
+        XCTAssertEqual(MMTCitiesIndexSectionType.CurrentLocation, index[0].type)
+        XCTAssertEqual(MMTCitiesIndexSectionType.Favourites, index[1].type)
+        XCTAssertEqual(MMTCitiesIndexSectionType.Capitals, index[2].type)
     }
     
     func testIndexForCitiesWithoutCurrentCity()
     {
-        let index = MMTCitiesIndex.indexForCities(cities)
+        let index = MMTCitiesIndex(cities, currentCity: nil)
         
-        XCTAssertEqual(2, index.count)
+        XCTAssertEqual(2, index.sectionCount)
         XCTAssertEqual(2, index[0].cities.count)
         XCTAssertEqual(3, index[1].cities.count)
         
-        XCTAssertEqual(MMTCityGroup.Favourites, index[0].type)
-        XCTAssertEqual(MMTCityGroup.Capitals, index[1].type)
+        XCTAssertEqual(MMTCitiesIndexSectionType.Favourites, index[0].type)
+        XCTAssertEqual(MMTCitiesIndexSectionType.Capitals, index[1].type)
     }
     
     func testIndexForSearchResults()
     {
-        let index = MMTCitiesIndex.indexForSearchResult(cities)
+        let index = MMTCitiesIndex(searchResult: cities)
         
-        XCTAssertEqual(2, index.count)
+        XCTAssertEqual(2, index.sectionCount)
         XCTAssertEqual(5, index[0].cities.count)
         XCTAssertEqual(0, index[1].cities.count)
         
-        XCTAssertEqual(MMTCityGroup.SearchResults, index[0].type)
-        XCTAssertEqual(MMTCityGroup.NotFound, index[1].type)
+        XCTAssertEqual(MMTCitiesIndexSectionType.SearchResults, index[0].type)
+        XCTAssertEqual(MMTCitiesIndexSectionType.NotFound, index[1].type)
     }
     
-    func testRetrivingAllCitiesFromIndex()
+    func testRetrivingCitiesFromIndex()
     {
-        let index = MMTCitiesIndex.indexForCities(cities, currentCity: currentCity)
-     
-        XCTAssertEqual(6, index.allCities.count)
-    }
+        let index = MMTCitiesIndex(cities, currentCity: currentCity)
+        
+        XCTAssertEqual(2, index[[.Favourites]].count)
+        XCTAssertEqual(3, index[[.Capitals]].count)
+        XCTAssertEqual(5, index[[.Capitals, .Favourites]].count)
+    }    
 }
 
 // MARK: Mock City class

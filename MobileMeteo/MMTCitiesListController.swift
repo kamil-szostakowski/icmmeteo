@@ -33,7 +33,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     private var lastUpdate: NSDate?
     private var locationManager: CLLocationManager!
     private var searchInput: MMTSearchInput!
-    private var citiesIndex: [MMTCitiesGroup]!
+    private var citiesIndex: MMTCitiesIndex!
     private var citiesStore: MMTCitiesStore!
     private var cityOfCurrentLocation: MMTCityProt?
     private var shouldDisplayMeteorogram = false
@@ -61,9 +61,14 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         resetSearchBar()
         updateForecastStartDate()
         updateIndexWithAllCities() {
-        
-            self.setupNotificationHandler()
-            self.tableView.reloadData()
+            
+            self.tableView.reloadData()            
+            self.updateIndexWithCityOfCurrentLocation{
+            
+                self.setupNotificationHandler()
+                guard !self.searchInput.isValid else { return }
+                self.tableView.reloadData()
+            }
         }
         
         analytics?.sendScreenEntryReport(MMTAnalyticsCategory.Locations.rawValue)
@@ -134,18 +139,20 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         if !authorized {
+            cityOfCurrentLocation = nil
             locationManager.stopMonitoringSignificantLocationChanges()
+            updateIndexWithAllCities() { self.tableView.reloadData() }
         }
-
-        updateIndexWithAllCities() { self.tableView.reloadData() }
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
-        if !searchInput.isValid {
-            updateIndexWithCityOfCurrentLocation() { self.tableView.reloadData() }
+        updateIndexWithCityOfCurrentLocation() {
+            
+            guard !self.searchInput.isValid else { return }
+            self.tableView.reloadData()
         }
-    }
+    }    
     
     // MARK: Actions
     
@@ -161,9 +168,10 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     func handleApplicationDidBecomeActiveNotification(notification: NSNotification)
     {
         updateForecastStartDate()
+        updateIndexWithCityOfCurrentLocation() {
         
-        if !searchInput.isValid {
-            updateIndexWithAllCities() { self.tableView.reloadData() }
+            guard !self.searchInput.isValid else { return }
+            self.tableView.reloadData()
         }
     }
     
@@ -171,7 +179,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        return citiesIndex.count
+        return citiesIndex.sectionCount
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -316,16 +324,16 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     {
         citiesStore.getAllCities()
         {
-            self.citiesIndex =  MMTCitiesIndex.indexForCities($0, currentCity: self.cityOfCurrentLocation)
+            self.citiesIndex =  MMTCitiesIndex($0, currentCity: self.cityOfCurrentLocation)
             completion()
         }
-    }
+    }    
     
     private func updateIndexWithCitiesMatchingCriteria(criteria: String, completion: MMTCompletion)
     {
         citiesStore.findCitiesMatchingCriteria(criteria)
         {
-            self.citiesIndex = MMTCitiesIndex.indexForSearchResult($0)
+            self.citiesIndex = MMTCitiesIndex(searchResult: $0)
             completion()
         }
     }
@@ -338,12 +346,14 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         
         citiesStore.findCityForLocation(location) { (city: MMTCityProt?, error: MMTError?) in
             
+            guard error == nil else { return }
             guard let currentCity = city else { return }
-
-            self.cityOfCurrentLocation = currentCity
-            self.citiesIndex =  MMTCitiesIndex.indexForCities(self.citiesIndex.allCities, currentCity: currentCity)
             
-            completion()
+            self.cityOfCurrentLocation = currentCity            
+            self.citiesStore.getAllCities() {
+                self.citiesIndex = MMTCitiesIndex($0, currentCity: currentCity)
+                completion()
+            }
         }
     }
     
@@ -355,9 +365,6 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         
         lastUpdate = NSDate()
         meteorogramStore.getForecastStartDate(){ (date: NSDate?, error: MMTError?) in
-            
-            guard error == nil else { return }
-            guard date != nil else { return }
             
             self.setupInfoBar()
         }

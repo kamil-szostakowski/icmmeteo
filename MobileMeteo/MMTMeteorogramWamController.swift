@@ -19,15 +19,15 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     @IBOutlet var forecastStart: UILabel!
     @IBOutlet var collectionView: UICollectionView!
     
-    private var categories: [MMTWamCategory] = [.TideHeight, .AvgTidePeriod, .SpectrumPeakPeriod]
+    private var categories: [MMTWamCategory]!
     private var cache: NSCache = NSCache()
     private var wamSettings: MMTWamSettings!
     private var categoryPreviewSettings: MMTWamSettings!
     private var wamStore: MMTWamModelStore!
-    private var presented = false
-    private var shouldUpdateForecastStartDate = true
     private var failureCount = 0
     private var failureWatch: NSTimer!
+    private var presented: Bool = false
+    private var lastUpdate: NSDate?
 
     // MARK: Properties
 
@@ -49,7 +49,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     {
         super.viewDidLoad()
         
-        wamStore = MMTWamModelStore(date: NSDate())        
+        wamStore = MMTWamModelStore(date: NSDate())
         
         setupInfoBar()
         setupSettings()
@@ -62,12 +62,11 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         
         presented = true
         failureWatch = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "failureCheck", userInfo: nil, repeats: true)
-        collectionView.reloadData()
-        analytics?.sendScreenEntryReport("Model WAM")
         
-        if shouldUpdateForecastStartDate {
-            updateForecastStartDate()
-        }
+        setupNotificationHandler()
+        updateMeteorogramIfNeeded()
+        
+        analytics?.sendScreenEntryReport("Model WAM")
     }
     
     override func viewWillDisappear(animated: Bool)
@@ -75,9 +74,10 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         super.viewWillDisappear(animated)
         
         presented = false
-        shouldUpdateForecastStartDate = true
         failureWatch.invalidate()
         failureWatch = nil
+        
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
@@ -97,6 +97,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     private func setupSettings()
     {
+        categories = [.TideHeight, .AvgTidePeriod, .SpectrumPeakPeriod]
         wamSettings = MMTWamSettings(wamStore.getForecastMoments())
         categoryPreviewSettings = MMTWamSettings(wamStore.getForecastMoments())
         
@@ -119,29 +120,38 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         forecastLength.text = "Długość prognozy: \(wamStore.forecastLength)h"
     }
     
+    private func setupNotificationHandler()
+    {
+        let handler = Selector("handleApplicationDidBecomeActiveNotification:")
+        let notification = UIApplicationDidBecomeActiveNotification
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: handler, name: notification, object: nil)
+    }
+    
     // MARK: Actions
     
     @IBAction func unwindToWamModel(unwindSegue: UIStoryboardSegue)
     {
-        shouldUpdateForecastStartDate = false
     }
     
     @IBAction func unwindToWamModelAndUpdateSettings(unwindSegue: UIStoryboardSegue)
     {
         if let controller = unwindSegue.sourceViewController as? MMTModelWamSettingsController {
             wamSettings = controller.wamSettings
-            shouldUpdateForecastStartDate = false
         }
     }
     
     @objc func failureCheck()
     {
-        guard failureCount>0 else {
-            return
-        }
+        guard failureCount>0 else { return }
         
         failureCount=0
-        collectionView.reloadData()
+        updateMeteorogramIfNeeded()
+    }
+    
+    func handleApplicationDidBecomeActiveNotification(notification: NSNotification)
+    {
+        updateMeteorogramIfNeeded()
     }
     
     // MARK: UICollectionViewDataSource methods
@@ -158,7 +168,6 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     {
-        let sorecastStartDate = wamStore.forecastStartDate
         let date = wamSettings.forecastSelectedMoments[indexPath.row].date
         let tZeroPlus = wamStore.getHoursFromForecastStartDate(forDate: date)
         let category = categories[indexPath.section]
@@ -170,17 +179,16 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         cell.accessibilityIdentifier = "\(category) +\(tZeroPlus)"        
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
-
+        
         getThumbnailWithQuery(MMTWamModelMeteorogramQuery(category, date)) {
-            (data: NSData?, error: MMTError?) in
+            (image: UIImage?, error: MMTError?) in
             
-            guard sorecastStartDate == self.wamStore.forecastStartDate else { return }
-            guard error == nil && data != nil else {
+            guard error == nil else {
                 self.failureCount++
                 return
             }
-            
-            cell.map.image = UIImage(data: data!)
+
+            cell.map.image = image
         }
         
         return cell
@@ -216,37 +224,57 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     // MARK: Helper methods    
     
-    private func getThumbnailWithQuery(query: MMTWamModelMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
+    private func updateMeteorogramIfNeeded()
+    {
+        guard lastUpdate == nil || NSDate().timeIntervalSinceDate(lastUpdate!) >= NSTimeInterval(minutes: 5) else
+        {
+            collectionView.reloadData()
+            return
+        }
+        
+        let forecastStartDate = wamStore.forecastStartDate
+        let handleFailure = {
+            self.lastUpdate = nil
+            self.failureCount++
+        }
+        
+        lastUpdate = NSDate()
+        wamStore.getForecastStartDate(){ (date: NSDate?, error: MMTError?) in
+            
+            defer
+            {
+                self.setupInfoBar()
+                self.setupSettings()
+                self.collectionView.reloadData()
+            }
+            
+            guard error == nil else { handleFailure(); return }
+            guard date != nil else { handleFailure(); return }
+            guard forecastStartDate != date! else { return }
+        }
+    }
+    
+    private func getThumbnailWithQuery(query: MMTWamModelMeteorogramQuery, completion: (image: UIImage?, error: MMTError?) -> Void)
     {
         let key = "\(query.category.rawValue)\(query.moment)"
         
-        if let data = cache.objectForKey(key) as? NSData
+        if let image = cache.objectForKey(key) as? UIImage
         {
-            completion(data: data, error: nil)
+            completion(image: image, error: nil)
             return
         }
 
         wamStore.getMeteorogramMomentThumbnailWithQuery(query) {
             (data: NSData?, error: MMTError?) in
             
-            if let image = data {
-                self.cache.setObject(image, forKey: key)
-            }
+            var thumbImg: UIImage?
             
-            completion(data: data, error: error)
-        }
-    }
-    
-    private func updateForecastStartDate()
-    {
-        wamStore.getForecastStartDate(){ (date: NSDate?, error: MMTError?) in
-
-            guard error == nil else { return }
-            guard date != nil else { return }
+            defer { completion(image: thumbImg, error: error) }
+            guard let imageData = data else { return }
+            guard let image = UIImage(data: imageData) else { return }
             
-            self.setupInfoBar()            
-            self.setupSettings()
-            self.collectionView.reloadData()
+            thumbImg = image
+            self.cache.setObject(image, forKey: key)
         }
     }
 }

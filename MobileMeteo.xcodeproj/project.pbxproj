@@ -24,6 +24,7 @@
 		F913A27A1C637623004BD786 /* MMTMeteorogramUrlSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F913A2791C637623004BD786 /* MMTMeteorogramUrlSessionTests.swift */; };
 		F913A27C1C638B13004BD786 /* NSTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = F913A27B1C638B13004BD786 /* NSTimeInterval.swift */; };
 		F91A63481C467F3900747AC3 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91A63471C467F3900747AC3 /* UIAlertController.swift */; };
+		F931BF7E1C7469FB00386815 /* MMTCityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F931BF7D1C7469FB00386815 /* MMTCityTests.swift */; };
 		F9326D2D1C5F83180033E11B /* MMTInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9326D2C1C5F83180033E11B /* MMTInfoController.swift */; };
 		F94051691C57B5CA00D52B1C /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F94051681C57B5CA00D52B1C /* CoreSpotlight.framework */; };
 		F940516C1C57B62800D52B1C /* CSSearchableIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F940516B1C57B62800D52B1C /* CSSearchableIndex.swift */; };
@@ -120,6 +121,7 @@
 		F913A2791C637623004BD786 /* MMTMeteorogramUrlSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramUrlSessionTests.swift; sourceTree = "<group>"; };
 		F913A27B1C638B13004BD786 /* NSTimeInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimeInterval.swift; sourceTree = "<group>"; };
 		F91A63471C467F3900747AC3 /* UIAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
+		F931BF7D1C7469FB00386815 /* MMTCityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCityTests.swift; sourceTree = "<group>"; };
 		F9326D2C1C5F83180033E11B /* MMTInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTInfoController.swift; sourceTree = "<group>"; };
 		F94051681C57B5CA00D52B1C /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		F940516B1C57B62800D52B1C /* CSSearchableIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSearchableIndex.swift; sourceTree = "<group>"; };
@@ -178,6 +180,9 @@
 		F9E696851AFCC06600273DA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9E6969D1AFCD04500273DA3 /* MobileMeteo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileMeteo-Prefix.pch"; sourceTree = "<group>"; };
 		F9E696A31AFCE70700273DA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		F9EE114C1C6DBB9C003AF8BD /* Toruń.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Toruń.gpx"; sourceTree = "<group>"; };
+		F9EE114D1C6DBBF7003AF8BD /* Iława.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Iława.gpx"; sourceTree = "<group>"; };
+		F9EE114E1C6DBC0B003AF8BD /* Bydgoszcz.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Bydgoszcz.gpx; sourceTree = "<group>"; };
 		F9F240BC1C5237D00030E440 /* MMTAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTAnalytics.swift; sourceTree = "<group>"; };
 		F9F8753A1C47D3C0005E669E /* MMTMeteorogramUrlSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramUrlSession.swift; sourceTree = "<group>"; };
 		F9F9D60F1C52643000A49ACA /* MMTGoogleAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTGoogleAnalytics.swift; sourceTree = "<group>"; };
@@ -297,6 +302,7 @@
 		F99A8A361B849A760098E170 /* StoresTests */ = {
 			isa = PBXGroup;
 			children = (
+				F931BF7D1C7469FB00386815 /* MMTCityTests.swift */,
 				F9DAEAB21B85D39A00D4CD34 /* MMTWamModelStoreTests.swift */,
 				F9DAEAB01B85D39A00D4CD34 /* MMTUmModelStoreTests.swift */,
 				F9DAEAAD1B85D39A00D4CD34 /* MMTCoampsModelStoreTests.swift */,
@@ -417,6 +423,7 @@
 		F9E696671AFCC06600273DA3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F9EE114F1C6DBC1F003AF8BD /* SimulaterdLocations */,
 				F9BB14A51B5697EE00C81B3F /* Cities.json */,
 				F9E696681AFCC06600273DA3 /* Info.plist */,
 				F910AACE1C52358400A35170 /* GoogleService-Info.plist */,
@@ -470,6 +477,16 @@
 				F9F8753A1C47D3C0005E669E /* MMTMeteorogramUrlSession.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		F9EE114F1C6DBC1F003AF8BD /* SimulaterdLocations */ = {
+			isa = PBXGroup;
+			children = (
+				F9EE114C1C6DBB9C003AF8BD /* Toruń.gpx */,
+				F9EE114D1C6DBBF7003AF8BD /* Iława.gpx */,
+				F9EE114E1C6DBC0B003AF8BD /* Bydgoszcz.gpx */,
+			);
+			name = SimulaterdLocations;
 			sourceTree = "<group>";
 		};
 		F9F9D60E1C52641800A49ACA /* Analytics */ = {
@@ -817,6 +834,7 @@
 				F9DAEAB61B85D39A00D4CD34 /* MMTUmModelStoreTests.swift in Sources */,
 				F90F72A41C5A0FEF00130353 /* MMTCitiesIndexTests.swift in Sources */,
 				F977E3401BA013EB00608270 /* MMTSearchInputFilterTests.swift in Sources */,
+				F931BF7E1C7469FB00386815 /* MMTCityTests.swift in Sources */,
 				F9DAEAB31B85D39A00D4CD34 /* MMTCoampsModelStoreTests.swift in Sources */,
 				F99F24661B6B585000622E1E /* MMTCategoryNSDateFormatterTests.swift in Sources */,
 				F9DAEAB81B85D39A00D4CD34 /* MMTWamModelStoreTests.swift in Sources */,

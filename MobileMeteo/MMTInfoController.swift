@@ -10,6 +10,14 @@ import UIKit
 import MessageUI
 import Foundation
 
+class MMTMFMailComposeViewController: MFMailComposeViewController
+{
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    {
+        return .Portrait
+    }
+}
+
 class MMTInfoController: UIViewController, MFMailComposeViewControllerDelegate
 {        
     // MARK: Action methods
@@ -23,7 +31,7 @@ class MMTInfoController: UIViewController, MFMailComposeViewControllerDelegate
         }
         
         let
-        mailer = MFMailComposeViewController()
+        mailer = MMTMFMailComposeViewController()
         mailer.view.tintColor = MMTAppearance.textColor        
         mailer.setToRecipients(["meteo.contact1@gmail.com"])
         mailer.setSubject("ICM Meteo, Feedback")

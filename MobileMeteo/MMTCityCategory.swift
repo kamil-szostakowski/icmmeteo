@@ -10,8 +10,7 @@ import Foundation
 import CoreLocation
 import CoreData
 
-@objc(MMTCityProt)
-protocol MMTCityProt
+@objc protocol MMTCityProt
 {
     var name: String { get set }
     var region: String { get set }
@@ -19,6 +18,17 @@ protocol MMTCityProt
     var isFavourite: Bool { get set }
     var isCapital: Bool { get set }
 }
+
+protocol MMTPlacemark
+{
+    var name: String? { get }
+    var locality: String? { get }
+    var ocean: String? { get }
+    var location: CLLocation? { get }
+    var administrativeArea: String? { get }
+}
+
+extension CLPlacemark: MMTPlacemark {}
 
 extension MMTCity: MMTCityProt
 {
@@ -57,12 +67,14 @@ extension MMTCity: MMTCityProt
         self.isFavourite = false
     }    
     
-    convenience init(placemark: CLPlacemark)
+    convenience init?(placemark: MMTPlacemark)
     {
-        let name = placemark.locality ?? placemark.name!
-        let region = placemark.administrativeArea ?? ""
+        guard let name = placemark.locality ?? placemark.name else { return nil }
+        guard let region = placemark.administrativeArea else { return nil }
+        guard let location = placemark.location else { return nil }
+        guard placemark.ocean == nil else { return nil }        
         
-        self.init(name: name, region: region, location: placemark.location!)
+        self.init(name: name, region: region, location: location)
     }
     
     // MARK: Helper methods

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum MMTCityGroup: String
+enum MMTCitiesIndexSectionType: String
 {
     case NotFound
     case Capitals
@@ -27,52 +27,65 @@ enum MMTCityGroup: String
     }
 }
 
-typealias MMTCitiesGroup = (type: MMTCityGroup, cities: [MMTCityProt])
-typealias MMTCitiesIndex = [MMTCitiesGroup]
+typealias MMTCitiesIndexSection = (type: MMTCitiesIndexSectionType, cities: [MMTCityProt])
 
-extension CollectionType where Generator.Element == MMTCitiesGroup
+struct MMTCitiesIndex
 {
-    // MARK: Init methods
+    private var content: [MMTCitiesIndexSection]
     
-    static func indexForCities(cities: [MMTCityProt]) -> MMTCitiesIndex
-    {
-        return indexForCities(cities, currentCity: nil)
+    var sectionCount: Int {
+        return content.count
     }
     
-    static func indexForCities(cities: [MMTCityProt], currentCity: MMTCityProt?) -> MMTCitiesIndex
+    // MARK: Initializers
+    
+    init()
     {
-        var index = MMTCitiesIndex()
-        
+        content = []
+    }
+    
+    init(_ cities: [MMTCityProt], currentCity: MMTCityProt?)
+    {
+        content = []
+
         let favourites = cities.filter(){ $0.isFavourite }
         let capitals = cities.filter(){ $0.isCapital && !$0.isFavourite }
         
         if favourites.count > 0 {
-            index.append(MMTCitiesGroup(type: .Favourites, cities: favourites))
+            content.append(MMTCitiesIndexSection(type: .Favourites, cities: favourites))
         }
         
         if capitals.count > 0 {
-            index.append(MMTCitiesGroup(type: .Capitals, cities: capitals))
+            content.append(MMTCitiesIndexSection(type: .Capitals, cities: capitals))
         }
         
         if currentCity != nil {
-            index.insert(MMTCitiesGroup(type: .CurrentLocation, cities: [currentCity!]), atIndex: 0)
+            content.insert(MMTCitiesIndexSection(type: .CurrentLocation, cities: [currentCity!]), atIndex: 0)
         }
-        
-        return index
     }
     
-    static func indexForSearchResult(cities: [MMTCityProt]) -> MMTCitiesIndex
+    init(searchResult: [MMTCityProt])
     {
-        return [
-            MMTCitiesGroup(type: .SearchResults, cities: cities),
-            MMTCitiesGroup(type: .NotFound, cities: []),
+        content = [
+            MMTCitiesIndexSection(type: .SearchResults, cities: searchResult),
+            MMTCitiesIndexSection(type: .NotFound, cities: []),
         ]
     }
     
-    // MARK: Properties
+    // MARK: Subscripts
     
-    var allCities: [MMTCityProt]
+    subscript(index: Int) -> MMTCitiesIndexSection
     {
-        return self.flatMap { $0.cities }
+        get { return content[index] }
     }
+    
+    subscript(section: MMTCitiesIndexSectionType) -> [MMTCityProt]
+    {
+        get { return content.filter(){ section == $0.type }.flatMap() { $0.cities } }
+    }
+    
+    subscript(sections: [MMTCitiesIndexSectionType]) -> [MMTCityProt]
+    {
+        get { return content.filter(){ sections.indexOf($0.type) != nil }.flatMap() { $0.cities } }
+    }    
 }

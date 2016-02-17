@@ -65,6 +65,8 @@ class MMTOfflineTests: XCTestCase
     {
         app.searchFields["szukaj miasta"].tap()
         app.searchFields["szukaj miasta"].typeText("aaa")
+        
+        sleep(5)
         app.tables.staticTexts["Wskaż lokalizację na mapie"].tap()
         
         let

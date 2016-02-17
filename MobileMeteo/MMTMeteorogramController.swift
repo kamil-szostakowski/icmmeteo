@@ -21,6 +21,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     @IBOutlet var activityIndicator: UIView!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var scrollViewContainer: UIView!
+    @IBOutlet var btnFavourite: UIBarButtonItem!
     
     // MARK: Properties
     
@@ -41,6 +42,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
 
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         navigationBar.topItem!.title = city.name
+        btnFavourite.enabled = false
 
         setupStarButton()
     }
@@ -54,6 +56,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
         setupMeteorogramLegend()
         
         updateCityStateInSpotlightIndex(city)
+        analytics?.sendScreenEntryReport("Meteorogram: \(meteorogramType)")
         analytics?.sendUserActionReport(.Meteorogram, action: .MeteorogramDidDisplay, actionLabel: meteorogramType)
     }
     
@@ -102,6 +105,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
             
             self.meteorogramImage.image = UIImage(data: data!)
             self.activityIndicator.hidden = true
+            self.btnFavourite.enabled = true
         }
     }
     
@@ -191,6 +195,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
             self.performSegueWithIdentifier(MMTSegue.UnwindToListOfCities, sender: self)
         }
         
+        activityIndicator.hidden = true
         presentViewController(alert, animated: true, completion: nil)
     }
     

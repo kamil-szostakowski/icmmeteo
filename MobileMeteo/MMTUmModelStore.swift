@@ -63,12 +63,9 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
     func getForecastStartDate(completion: MMTFetchForecastStartDateCompletion)
     {
         urlSession.fetchForecastStartDateFromUrl(NSURL.mmt_modelUmForecastStartUrl()) {
-            (date: NSDate?, error: MMTError?) in
+            (date: NSDate?, error: MMTError?) in            
             
-            if error == nil && date != nil {
-                self.startDate = date
-            }
-            
+            self.startDate = date ?? NSCalendar.utcCalendar.dateFromComponents(self.tZeroComponentsForDate(NSDate()))!
             completion(date: date, error: error)
         }
     }

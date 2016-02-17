@@ -28,7 +28,7 @@ enum MMTAnalyticsAction: String
     case LocationDidSelectOnMap
     case LocationDidSelectOnSpotlight
     
-    init?(group: MMTCityGroup)
+    init?(group: MMTCitiesIndexSectionType)
     {
         switch group
         {
