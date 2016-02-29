@@ -11,13 +11,13 @@ import CoreLocation
 import AddressBook
 import CoreData
 
-typealias MMTCityQueryCompletion = (MMTCity?, NSError?) -> Void
-typealias MMTCitiesQueryCompletion = ([MMTCity]) -> Void
+typealias MMTCityQueryCompletion = (MMTCityProt?, MMTError?) -> Void
+typealias MMTCitiesQueryCompletion = ([MMTCityProt]) -> Void
 
 class MMTCitiesStore: NSObject
 {
     private typealias MMTCitiesArray = [[String: AnyObject]]
-    private typealias MMTCurrentCityQueryCompletion = (MMTCity?) -> Void
+    private typealias MMTCurrentCityQueryCompletion = (MMTCityProt?) -> Void
     
     private let database: MMTDatabase
     private let geocoder: CLGeocoder
@@ -39,40 +39,39 @@ class MMTCitiesStore: NSObject
     
     func findCityForLocation(location: CLLocation, completion: MMTCityQueryCompletion)
     {
-        geocoder.reverseGeocodeLocation(location) {
-            (placemarks, translationError) in
-            
-            var city: MMTCity? = nil
-            var error: NSError? = nil
-            
-            if translationError != nil {
-                error = NSError(code: .LocationNotFound)
-            }
-            
-            else if placemarks != nil && placemarks!.count>0
-            {
-                city = self.getCityForPlacemark(placemarks!.first!)
-                
-                if city == nil {
-                    error = NSError(code: .LocationUnsupported)
-                }
-            }
-            
-            completion(city, error)
+        if let city = getCityWithLocation(location) {
+            completion(city, nil)
+            return
         }
-    }
-    
-    func getCitiesMatchingCriteria(criteria: String, completion: MMTCitiesQueryCompletion)
-    {
-        let predicate = NSPredicate(format: "SELF.name CONTAINS[cd] %@", criteria)
-        let cities = getAllCities().filter(){ predicate.evaluateWithObject($0) }
         
-        completion(cities)
+        geocoder.reverseGeocodeLocation(location) { (placemarks, var translationError) in
+            
+            #if DEBUG
+            translationError = MMTMeteorogramUrlSession.simulatedError ?? translationError
+            #endif
+            
+            var city: MMTCityProt? = nil
+            var error: MMTError? = nil
+            
+            defer { completion(city, error) }
+            guard translationError == nil else { error = .LocationNotFound; return }
+            guard let placemark = placemarks?.first else { error = .LocationNotFound; return }
+            
+            city = self.getCityForPlacemark(placemark)
+            
+            if city == nil {
+                error = .LocationUnsupported
+            }
+        }
     }
     
     func findCitiesMatchingCriteria(criteria: String, completion: MMTCitiesQueryCompletion)
     {
-        var cities = [MMTCity]()
+        var cities = getCitiesMatchingCriteria(criteria)
+        
+        if cities.count>0 { completion(cities)
+            return
+        }
         
         let address: [NSObject:NSObject] =
         [
@@ -82,60 +81,62 @@ class MMTCitiesStore: NSObject
         ]
         
         geocoder.cancelGeocode()
-        
-        geocoder.geocodeAddressDictionary(address){
-            (placemarks: [CLPlacemark]?, error: NSError?) in
+        geocoder.geocodeAddressDictionary(address){ (placemarks, error) in
             
-            if error != nil {
-                completion(cities)
-            }
+            defer { completion(cities) }
             
-            else if let markers = placemarks
-            {
-                for placemark: CLPlacemark in markers {
-                    if let city = self.getCityForPlacemark(placemark) {
-                        cities.append(city)
-                    }
-                }
-                completion(cities);
+            guard error == nil else { return }
+            guard let markers = placemarks else { return }
+            
+            let foundCities = markers
+                .map(){ self.getCityForPlacemark($0) }
+                .filter(){ $0 != nil }
+                .map{ $0! }
+
+            if foundCities.count > 0 {
+                cities.appendContentsOf(foundCities)
             }
         }
     }
     
-    func markCity(city: MMTCity, asFavourite favourite: Bool)
+    func markCity(city: MMTCityProt, asFavourite favourite: Bool)
     {
-        city.favourite = favourite
+        guard let aCity = city as? MMTCity else {
+            return
+        }
         
-        if favourite && city.managedObjectContext == nil {
-            database.context.insertObject(city)
+        city.isFavourite = favourite
+
+        if favourite && aCity.managedObjectContext == nil {
+            database.context.insertObject(aCity)
         }
         
         if !favourite && !city.isCapital {
-            database.context.deleteObject(city)
+            database.context.deleteObject(aCity)
         }
         
         MMTDatabase.instance.saveContext()
     }
     
-    func getPredefinedCitiesFromFile(file: String) -> [MMTCity]
+    func getPredefinedCitiesFromFile(file: String) -> [MMTCityProt]
     {
-        var result = [MMTCity]()
-        
-        if let citiesList = getPredefinedCitiesFromJsonFile(file)
+        guard let citiesList = getPredefinedCitiesFromJsonFile(file) else {
+            return []
+        }
+     
+        var result = [MMTCityProt]()
+        for city in citiesList
         {
-            for city in citiesList
-            {
-                let name = city["name"] as! String
-                let lat = city["latitude"] as! Double
-                let lng = city["longitude"] as! Double
-                let region = city["region"] as! String
+            let name = city["name"] as! String
+            let lat = city["latitude"] as! Double
+            let lng = city["longitude"] as! Double
+            let region = city["region"] as! String
                 
-                let
-                city = MMTCity(name: name, region: region, location: CLLocation(latitude: lat, longitude: lng))
-                city.capital = true
+            let
+            city = MMTCity(name: name, region: region, location: CLLocation(latitude: lat, longitude: lng))
+            city.capital = true
                 
-                result.append(city)
-            }
+            result.append(city)
         }
 
         return result
@@ -143,40 +144,51 @@ class MMTCitiesStore: NSObject
     
     // MARK: Helper methods
     
-    private func getAllCities() -> [MMTCity]
+    private func getAllCities() -> [MMTCityProt]
     {
         let
         request = database.model.fetchRequestFromTemplateWithName(MMTFetch.AllCities, substitutionVariables: [String: AnyObject]())!
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
-        let cities = try? database.context.executeFetchRequest(request)
+        guard let objects = try? database.context.executeFetchRequest(request) else { return [] }
+        guard let cities = objects as? [MMTCity] else { return [] }
+
+        return cities
+    }
+    
+    private func getCitiesMatchingCriteria(criteria: String) -> [MMTCityProt]
+    {
+        let predicate = NSPredicate(format: "SELF.name CONTAINS[cd] %@", criteria)
+        let cities = getAllCities().filter(){ predicate.evaluateWithObject($0) }
         
-        return cities as! [MMTCity]
+        return cities
     }
     
     private func getPredefinedCitiesFromJsonFile(path: String) -> MMTCitiesArray?
     {
-        if let data = NSData(contentsOfFile: path)
-        {
-            if let json: AnyObject = try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)
-            {
-                return json as? MMTCitiesArray
-            }
-        }
-        
-        return nil
-    }
-    
-    private func getCityForPlacemark(placemark: CLPlacemark) -> MMTCity?
-    {
-        if placemark.ocean != nil {
+        guard let data = NSData(contentsOfFile: path) else { return nil }
+        guard let json = try? NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) else {
             return nil
         }
         
-        let name = placemark.locality ?? placemark.name!
-        let fetchRequest = database.model.fetchRequestFromTemplateWithName(MMTFetch.CityWithName, substitutionVariables: ["NAME": name])!        
-        let city = (try? database.context.executeFetchRequest(fetchRequest))?.first as? MMTCity
+        return json as? MMTCitiesArray
+    }
+    
+    private func getCityForPlacemark(placemark: MMTPlacemark) -> MMTCityProt?
+    {
+        guard let city = MMTCity(placemark: placemark) else { return nil }
         
-        return city != nil ? city! : MMTCity(placemark: placemark)
+        let fetchRequest = database.model.fetchRequestFromTemplateWithName(MMTFetch.CityWithName, substitutionVariables: ["NAME": city.name])!
+        let fetchedCity = (try? database.context.executeFetchRequest(fetchRequest))?.first as? MMTCity
+        
+        return fetchedCity ?? city
+    }
+    
+    private func getCityWithLocation(location: CLLocation) -> MMTCityProt?
+    {
+        let parameters = ["LAT": location.coordinate.latitude, "LNG": location.coordinate.longitude]
+        let fetchRequest = database.model.fetchRequestFromTemplateWithName(MMTFetch.CityWithLocation, substitutionVariables: parameters)!
+        
+        return (try? database.context.executeFetchRequest(fetchRequest))?.first as? MMTCity
     }
 }

@@ -8,32 +8,30 @@
 
 import UIKit
 import Foundation
+import CoreLocation
 import CoreGraphics
 
-public enum MMTClimateModel: String
-{
-    case UM = "model-um"
-    case COAMPS = "model-coamps"
-    case WAM = "model-wam"
-    
-    public var description: String
-    {
-        switch self
-        {
-            case .UM: return "Model UM"
-            case .COAMPS: return "Model COAMPS"
-            case .WAM: return "Model WAM"
-        }
-    }
-}
+typealias MMTFetchMeteorogramCompletion = (data: NSData?, error: MMTError?) -> Void
+typealias MMTFetchForecastStartDateCompletion = (date: NSDate?, error: MMTError?) -> Void
 
-protocol MMTClimateModelStore: NSObjectProtocol
-{
-    var meteorogramId: MMTClimateModel { get }
-    
+protocol MMTClimateModelStore
+{    
     var meteorogramSize: CGSize { get }
     
     var forecastLength: Int { get }
     
     var forecastStartDate: NSDate { get }
+    
+    func getForecastStartDate(completion: MMTFetchForecastStartDateCompletion)
+}
+
+protocol MMTGridClimateModelStore: MMTClimateModelStore
+{
+    var gridNodeSize: Int { get }
+    
+    var legendSize: CGSize { get }
+    
+    func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion)
+    
+    func getMeteorogramLegend(completion: MMTFetchMeteorogramCompletion)
 }

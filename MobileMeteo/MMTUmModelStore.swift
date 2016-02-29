@@ -14,12 +14,9 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
 {
     // MARK: Properties
     
-    private let waitingTime: NSTimeInterval = 18000
+    private let waitingTime = NSTimeInterval(hours: 5)
+    private var urlSession: MMTMeteorogramUrlSession!
     private var startDate: NSDate!
-    
-    var meteorogramId: MMTClimateModel {
-        return .UM
-    }
     
     var forecastLength: Int {
         return 60
@@ -46,6 +43,8 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
     init(date: NSDate)
     {
         super.init()
+        
+        urlSession = MMTMeteorogramUrlSession(redirectionBaseUrl: NSURL.mmt_modelUmDownloadBaseUrl())
         startDate = NSCalendar.utcCalendar.dateFromComponents(tZeroComponentsForDate(date))!
     }
     
@@ -53,16 +52,22 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
     
     func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion)
     {
-        let searchUrl = NSURL.mmt_modelUmSearchUrl(location, tZero: forecastStartDate)
-        let delegate = MMTMeteorogramRedirectionFetchDelegate(url: NSURL.mmt_modelUmDownloadBaseUrl(), completion: completion)
-        
-        NSURLConnection(request: NSURLRequest(URL: searchUrl), delegate: delegate)?.start()
+        urlSession.fetchMeteorogramImageForUrl(NSURL.mmt_modelUmSearchUrl(location), completion: completion)
     }
     
     func getMeteorogramLegend(completion: MMTFetchMeteorogramCompletion)
+    {        
+        urlSession.fetchImageFromUrl(NSURL.mmt_modelUmLegendUrl(), completion: completion)
+    }
+    
+    func getForecastStartDate(completion: MMTFetchForecastStartDateCompletion)
     {
-        let legendUrl = NSURL.mmt_modelUmLegendUrl()
-        NSURLConnection(request: NSURLRequest(URL: legendUrl), delegate: MMTMeteorogramFetchDelegate(completion: completion))?.start()
+        urlSession.fetchForecastStartDateFromUrl(NSURL.mmt_modelUmForecastStartUrl()) {
+            (date: NSDate?, error: MMTError?) in            
+            
+            self.startDate = date ?? NSCalendar.utcCalendar.dateFromComponents(self.tZeroComponentsForDate(NSDate()))!
+            completion(date: date, error: error)
+        }
     }
     
     // MARK: Helper methods    
@@ -76,5 +81,5 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
         components.hour = Int(components.hour/6)*6
 
         return components
-    }
+    }    
 }

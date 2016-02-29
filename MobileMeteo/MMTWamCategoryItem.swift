@@ -46,9 +46,13 @@ class MMTWamCategoryItem: UICollectionViewCell
     private func enableActivityIndicator(enabled: Bool)
     {
         activityIndicator.hidden = !enabled
-        
-        if enabled { activityIndicator.startAnimating() }
-        else {
+
+        if enabled
+        {
+            activityIndicator.startAnimating()
+        }
+        else
+        {
             activityIndicator.stopAnimating()
         }
     }

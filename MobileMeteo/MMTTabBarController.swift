@@ -9,14 +9,16 @@
 import UIKit
 import Foundation
 
-class MMTTabBarController: UITabBarController
+class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
 {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+
+        delegate = self
         
-        initItemAtIndex(0, withStore: MMTUmModelStore(date: NSDate()))
-        initItemAtIndex(1, withStore: MMTCoampsModelStore(date: NSDate()))
+        initItemAtIndex(0, name: "Model UM", store: MMTUmModelStore(date: NSDate()))
+        initItemAtIndex(1, name: "Model COAMPS", store: MMTCoampsModelStore(date: NSDate()))
 
         let attributes = [NSFontAttributeName: MMTAppearance.fontWithSize(10)]
 
@@ -25,17 +27,64 @@ class MMTTabBarController: UITabBarController
         UITabBar.appearance().tintColor = MMTAppearance.textColor
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    {        
+        return .Portrait
+    }
+    
+    // MARK: Interface methods
+    
+    func presentMeteorogramUmForCity(city: MMTCityProt)
+    {
+        guard let umController = viewControllers?.first as? MMTCitiesListController else {
+            return
+        }
+        
+        if presentedViewController != nil {
+            dismissViewControllerAnimated(false, completion: nil)
+        }
+        
+        umController.selectedCity = city
+        
+        if selectedIndex == 0 {
+            umController.performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
+        }
+        
+        selectedIndex = 0
+    }
+    
+    // MARK: UITabBarControllerDelegate methods
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController)
+    {
+        guard let index =  tabBarController.viewControllers?.indexOf(viewController) else {
+            return
+        }
+
+        let tabBarItems = tabBar.layer.sublayers!
+            .filter(){ $0.frame.size.width < tabBar.frame.size.width }
+            .sort(){ $0.frame.origin.x < $1.frame.origin.x }
+            .map() {
+                $0.sublayers!.maxElement(){ $0.frame.size.height < $1.frame.size.height }!
+        }
+            
+        tabBarItems[index].addAnimation(CAAnimation.defaultScaleAnimation(), forKey: "basic")
+    }
+    
     // MARK: Helper methods
     
-    private func initItemAtIndex(index: Int, withStore store: MMTGridClimateModelStore)
+    private func initItemAtIndex(index: Int, name: String, store: MMTGridClimateModelStore)
     {
-        let item = tabBar.items![index]
-        let controller = viewControllers?[index] as! MMTCitiesListController
-        let icon = UIImage(named: store.meteorogramId.rawValue)
+        let iconName = name.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "-")
+        let icon = UIImage(named: iconName)
         
+        let
+        controller = viewControllers?[index] as! MMTCitiesListController
         controller.meteorogramStore = store
         
-        item.title = store.meteorogramId.description
+        let
+        item = tabBar.items![index]
+        item.title = name
         item.image = icon
         item.selectedImage = icon
     }

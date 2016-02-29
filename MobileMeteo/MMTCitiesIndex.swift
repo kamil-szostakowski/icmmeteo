@@ -2,13 +2,13 @@
 //  MMTCitiesIndex.swift
 //  MobileMeteo
 //
-//  Created by Kamil Szostakowski on 01.09.2015.
-//  Copyright (c) 2015 Kamil Szostakowski. All rights reserved.
+//  Created by Kamil Szostakowski on 27.01.2016.
+//  Copyright © 2016 Kamil Szostakowski. All rights reserved.
 //
 
 import Foundation
 
-enum MMTCityGroup
+enum MMTCitiesIndexSectionType: String
 {
     case NotFound
     case Capitals
@@ -27,69 +27,65 @@ enum MMTCityGroup
     }
 }
 
-typealias MMTCompletion = () -> Void
-typealias MMTCitiesGroup = (type: MMTCityGroup, cities: [MMTCity])
+typealias MMTCitiesIndexSection = (type: MMTCitiesIndexSectionType, cities: [MMTCityProt])
 
-//class MMTCitiesIndex: NSObject
-//{        
-//    private let index: [MMTCitiesGroup]
-//    
-//    // MARK: Initializers
-//    
-//    init(cities: [MMTCity])
-//    {
-//        var groups = [MMTCitiesGroup]()
-//        
-//        let favourites = cities.filter(){ $0.isFavourite }
-//        let capitals = cities.filter(){ $0.isCapital && !$0.isFavourite }
-//        let searchResults = cities.filter(){ !$0.isCapital && !$0.isFavourite }
-//        
-//        if searchResults.count>0 {
-//            groups.append(MMTCitiesGroup(type: .SearchResults, cities:searchResults))
-//        }
-//        
-//        if favourites.count>0 {
-//            groups.append(MMTCitiesGroup(type: .Favourites, cities:favourites))
-//        }
-//        
-//        if capitals.count>0 {
-//            groups.append(MMTCitiesGroup(type: .Capitals, cities:capitals))
-//        }
-//        
-//        index = groups
-//        
-//        super.init()
-//    }
-//    
-//    convenience override init()
-//    {
-//        self.init(cities: [])
-//    }
-//    
-//    // MARK: Methods
-//    
-//    func getAllGroups() -> [MMTCityGroup]
-//    {
-//        return index.map() { $0.type }
-//    }
-//    
-//    func labelForGroupAtIndex(section: Int) -> String
-//    {
-//        return index[section].type.description
-//    }
-//    
-//    func citiesForGroupAtIndex(section: Int) -> [MMTCity]
-//    {
-//        return index[section].cities
-//    }
-//    
-//    func typeForGroupAtIndex(section: Int) -> MMTCityGroup
-//    {
-//        return index[section].type
-//    }
-//    
-//    func cityAtIndexPath(indexPath: NSIndexPath) -> MMTCity
-//    {
-//        return index[indexPath.section].cities[indexPath.row]
-//    }
-//}
+struct MMTCitiesIndex
+{
+    private var content: [MMTCitiesIndexSection]
+    
+    var sectionCount: Int {
+        return content.count
+    }
+    
+    // MARK: Initializers
+    
+    init()
+    {
+        content = []
+    }
+    
+    init(_ cities: [MMTCityProt], currentCity: MMTCityProt?)
+    {
+        content = []
+
+        let favourites = cities.filter(){ $0.isFavourite }
+        let capitals = cities.filter(){ $0.isCapital && !$0.isFavourite }
+        
+        if favourites.count > 0 {
+            content.append(MMTCitiesIndexSection(type: .Favourites, cities: favourites))
+        }
+        
+        if capitals.count > 0 {
+            content.append(MMTCitiesIndexSection(type: .Capitals, cities: capitals))
+        }
+        
+        if currentCity != nil {
+            content.insert(MMTCitiesIndexSection(type: .CurrentLocation, cities: [currentCity!]), atIndex: 0)
+        }
+    }
+    
+    init(searchResult: [MMTCityProt])
+    {
+        content = [
+            MMTCitiesIndexSection(type: .SearchResults, cities: searchResult),
+            MMTCitiesIndexSection(type: .NotFound, cities: []),
+        ]
+    }
+    
+    // MARK: Subscripts
+    
+    subscript(index: Int) -> MMTCitiesIndexSection
+    {
+        get { return content[index] }
+    }
+    
+    subscript(section: MMTCitiesIndexSectionType) -> [MMTCityProt]
+    {
+        get { return content.filter(){ section == $0.type }.flatMap() { $0.cities } }
+    }
+    
+    subscript(sections: [MMTCitiesIndexSectionType]) -> [MMTCityProt]
+    {
+        get { return content.filter(){ sections.indexOf($0.type) != nil }.flatMap() { $0.cities } }
+    }    
+}

@@ -10,51 +10,71 @@ import Foundation
 import CoreLocation
 import CoreData
 
-public extension MMTCity
+@objc protocol MMTCityProt
 {
-    public var location: CLLocation {
-        return CLLocation(latitude: lat.doubleValue, longitude: lng.doubleValue)
-    }
-    
-    public var isFavourite: Bool {
-        return favourite.boolValue
-    }
-    
-    public var isCapital: Bool {
-        return capital.boolValue
-    }
-    
-    private static var currentCityPriv: MMTCity?
-    
-    public static var currentCity: MMTCity
+    var name: String { get set }
+    var region: String { get set }
+    var location: CLLocation { get set }
+    var isFavourite: Bool { get set }
+    var isCapital: Bool { get set }
+}
+
+protocol MMTPlacemark
+{
+    var name: String? { get }
+    var locality: String? { get }
+    var ocean: String? { get }
+    var location: CLLocation? { get }
+    var administrativeArea: String? { get }
+}
+
+extension CLPlacemark: MMTPlacemark {}
+
+extension MMTCity: MMTCityProt
+{
+    var location: CLLocation
     {
-        if currentCityPriv == nil {
-            currentCityPriv = MMTCity(name: "Obecna lokalizacja", region: "", location: CLLocation())
+        get { return CLLocation(latitude: lat.doubleValue, longitude: lng.doubleValue) }
+        set
+        {
+            lat = newValue.coordinate.latitude
+            lng = newValue.coordinate.longitude
         }
-        
-        return currentCityPriv!
+    }
+    
+    var isFavourite: Bool
+    {
+        get { return favourite.boolValue }
+        set { favourite = newValue }
+    }
+    
+    var isCapital: Bool
+    {
+        get { return capital.boolValue }
+        set { capital = newValue }
     }
     
     // MARK: Initializers
     
-    public convenience init(name: String, region: String, location: CLLocation)
+    convenience init(name: String, region: String, location: CLLocation)
     {
         self.init(entity: MMTCity.entityDescription, insertIntoManagedObjectContext: nil)
         
         self.name = name
         self.region = region
-        self.lat = location.coordinate.latitude
-        self.lng = location.coordinate.longitude
-        self.capital = false
-        self.favourite = false
+        self.location = location
+        self.isCapital = false
+        self.isFavourite = false
     }    
     
-    public convenience init(placemark: CLPlacemark)
+    convenience init?(placemark: MMTPlacemark)
     {
-        let name = placemark.locality ?? placemark.name!
-        let region = placemark.administrativeArea ?? ""
+        guard let name = placemark.locality ?? placemark.name else { return nil }
+        guard let region = placemark.administrativeArea else { return nil }
+        guard let location = placemark.location else { return nil }
+        guard placemark.ocean == nil else { return nil }        
         
-        self.init(name: name, region: region, location: placemark.location!)
+        self.init(name: name, region: region, location: location)
     }
     
     // MARK: Helper methods

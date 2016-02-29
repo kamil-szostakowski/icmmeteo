@@ -8,7 +8,7 @@
 
 import XCTest
 import Foundation
-import MobileMeteo
+@testable import MobileMeteo
 
 class MMTCategoryNSDateFormatterTests: XCTestCase
 {
@@ -18,18 +18,23 @@ class MMTCategoryNSDateFormatterTests: XCTestCase
     func testShortStyleFormatter()
     {
         let date = TT.getDate(2015, 7, 30, 23)
-        XCTAssertEqual("30.07.2015", NSDateFormatter.shortStyle.stringFromDate(date))
+        XCTAssertEqual("2015.07.30", NSDateFormatter.shortDateOnlyStyle.stringFromDate(date))
+    }    
+    
+    func testUtcFormatterDateFromString()
+    {
+        let formatter = NSDateFormatter.utcFormatter
+        let expectedDate = TT.getDate(2015, 7, 30, 23)
+        
+        XCTAssertEqual(expectedDate, formatter.dateFromString("2015.07.30 23:00 UTC"))
+        
     }
     
-    func testShortStyleTimeFormatter()
+    func testUtcFormatterStringFromDate()
     {
-        let date = TT.getDate(2015, 7, 30, 23)
-        XCTAssertEqual("23:00", NSDateFormatter.shortTimeStyle.stringFromDate(date))
-    }
-
-    func testShortStyleUtcDatetimeString()
-    {
-        let date = TT.getDate(2015, 7, 30, 23)
-        XCTAssertEqual("30.07.2015 23:00 UTC", NSDateFormatter.shortStyleUtcDatetime(date))
+        let formatter = NSDateFormatter.utcFormatter
+        let expectedDateString = "2015.07.30 23:00 UTC"
+        
+        XCTAssertEqual(expectedDateString, formatter.stringFromDate(TT.getDate(2015, 7, 30, 23)))
     }
 }

@@ -26,6 +26,9 @@ class MMTCitiesListTests: XCTestCase
         super.setUp()
         
         continueAfterFailure = false
+        
+        XCUIDevice.sharedDevice().orientation = .Portrait
+        
         app = XCUIApplication()
 
         dispatch_once(&MMTCitiesListTests.onceToken){
@@ -78,6 +81,7 @@ class MMTCitiesListTests: XCTestCase
         searchField.tap()
         searchField.typeText("Iława")
         
+        sleep(3)
         addToFavourites(ilawa)
         
         /* --- Assertions -- */
@@ -106,6 +110,7 @@ class MMTCitiesListTests: XCTestCase
         searchField.tap()
         searchField.typeText("aaa")
         
+        sleep(3)
         app.tables.cells["Wskaż lokalizację na mapie"].tap()
         
         let
@@ -115,15 +120,20 @@ class MMTCitiesListTests: XCTestCase
         
         app.navigationBars["Wybierz lokalizację"].buttons["Pokaż"].tap()
         
-        let
-        navBar = app.navigationBars.elementBoundByIndex(0)
-        navBar.buttons["star outline"].tap()
-        navBar.buttons["Zatrzymaj"].tap()
-
-        /* --- Assertions -- */
+        let navBar = app.navigationBars.elementBoundByIndex(0)
         
-        XCTCheckHeader("Ulubione", index: 0)
-        XCTCheckHeader("Miasta wojewódzkie", index: 3)
+        expectationForPredicate(NSPredicate(format: "enabled == true"), evaluatedWithObject: navBar.buttons["star outline"]) {
+            
+            navBar.buttons["star outline"].tap()
+            navBar.buttons["Zatrzymaj"].tap()
+            
+            self.XCTCheckHeader("Ulubione", index: 0)
+            self.XCTCheckHeader("Miasta wojewódzkie", index: 3)
+            
+            return true
+        }
+        
+        waitForExpectationsWithTimeout(10, handler: nil)
     }
     
     func test06_removingCityPointedOnMapFromFavourites()
@@ -148,26 +158,54 @@ class MMTCitiesListTests: XCTestCase
         XCTCheckHeader("Miasta wojewódzkie", index: 2)
     }
     
+    func test08_SearchBarCancelation()
+    {
+        let expectedCount = app.tables.cells.count
+        
+        let
+        searchField = app.tables.searchFields["szukaj miasta"]
+        searchField.tap()
+        searchField.typeText("aaa")
+        
+        sleep(3)
+        
+        XCTAssertEqual(1, app.tables.cells.count)
+        app.tables.buttons["Anuluj"].tap()        
+        XCTAssertEqual(expectedCount, app.tables.cells.count)
+    }
+    
     // Helper methods
     
     func addToFavourites(elementName: String)
     {
         app.tables.cells[elementName].tap()
         
-        let
-        navBar = self.app.navigationBars.elementBoundByIndex(0)
-        navBar.buttons["star outline"].tap()
-        navBar.buttons["Zatrzymaj"].tap()
+        let navBar = self.app.navigationBars.elementBoundByIndex(0)
+        
+        expectationForPredicate(NSPredicate(format: "enabled == true"), evaluatedWithObject: navBar.buttons["star outline"]) {
+
+            navBar.buttons["star outline"].tap()
+            navBar.buttons["Zatrzymaj"].tap()
+            return true
+        }
+        
+        waitForExpectationsWithTimeout(10, handler: nil)
     }
     
     func removeFromFavourites(elementName: String)
     {
         app.tables.cells[elementName].tap()
         
-        let
-        navBar = self.app.navigationBars.elementBoundByIndex(0)
-        navBar.buttons["star"].tap()
-        navBar.buttons["Zatrzymaj"].tap()
+        let navBar = self.app.navigationBars.elementBoundByIndex(0)
+        
+        expectationForPredicate(NSPredicate(format: "enabled == true"), evaluatedWithObject: navBar.buttons["star"]) {
+            
+            navBar.buttons["star"].tap()
+            navBar.buttons["Zatrzymaj"].tap()
+            return true
+        }
+        
+        waitForExpectationsWithTimeout(10, handler: nil)
     }
     
     func XCTCheckHeader(label: String, index: UInt)

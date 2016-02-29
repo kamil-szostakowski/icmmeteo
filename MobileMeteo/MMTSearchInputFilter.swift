@@ -8,29 +8,28 @@
 
 import Foundation
 
-public class MMTSearchInput: NSObject
+class MMTSearchInput: NSObject
 {
     // MARK: Properties
     private var rawInput: String!
     
-    public var stringValue: String {
+    var stringValue: String {
         return rawInput
     }
     
-    public var isValid: Bool {
+    var isValid: Bool {
         return stringWithRemovedDuplicatedWhitespaces(rawInput).characters.count>2
     }
     
     // MARK: Initializers
     
-    public init(_ input: String)
+    init(_ input: String)
     {
         super.init()
         
         rawInput = stringWithRemovedDuplicatedWhitespaces(input)
         
-        if rawInput.characters.count > 0 && Array(input.characters).last == Character(" ")
-        {
+        if rawInput.characters.count > 0 && Array(input.characters).last == Character(" ") {
             rawInput.append(Character(" "))
         }
     }

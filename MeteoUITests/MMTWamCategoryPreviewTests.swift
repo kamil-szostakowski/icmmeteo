@@ -20,7 +20,10 @@ class MMTWamCategoryPreviewTests: XCTestCase
     {
         super.setUp()
         
-        continueAfterFailure = false        
+        continueAfterFailure = false
+        
+        XCUIDevice.sharedDevice().orientation = .Portrait        
+        
         app = XCUIApplication()
 
         dispatch_once(&MMTWamCategoryPreviewTests.onceToken){
@@ -62,7 +65,7 @@ class MMTWamCategoryPreviewTests: XCTestCase
             return true
         }
         
-        waitForExpectationsWithTimeout(5, handler: nil)
+        waitForExpectationsWithTimeout(7, handler: nil)
     }
     
     func test03_DisplayingNextMeteorograms()
@@ -75,11 +78,11 @@ class MMTWamCategoryPreviewTests: XCTestCase
         
         expectationForPredicate(NSPredicate(format: "enabled == true"), evaluatedWithObject: nextBtn){
             
-            XCTAssertTrue(self.app.staticTexts.elementBoundByIndex(1).label.containsString("+009h"))
+            XCTAssertTrue(self.app.staticTexts["MomentDetails"].label.containsString("+009h"))
             return true
         }
         
-        waitForExpectationsWithTimeout(5, handler: nil)
+        waitForExpectationsWithTimeout(7, handler: nil)
     }
     
     func test04_DisplayPreviousMeteorogram()
@@ -93,11 +96,19 @@ class MMTWamCategoryPreviewTests: XCTestCase
         
         expectationForPredicate(NSPredicate(format: "enabled == true"), evaluatedWithObject: prevBtn){
             
-            XCTAssertTrue(self.app.staticTexts.elementBoundByIndex(1).label.containsString("+006h"))
+            XCTAssertTrue(self.app.staticTexts["MomentDetails"].label.containsString("+006h"))
             return true
         }
         
-        waitForExpectationsWithTimeout(5, handler: nil)
+        waitForExpectationsWithTimeout(7, handler: nil)
+    }
+    
+    func test05_RestoreDefaultZoom()
+    {
+        app.tabBars.buttons["Model WAM"].tap()
+        app.cells["TideHeight +3"].tap()
+        app.images["TideHeight"].swipeLeft()
+        app.images["TideHeight"].doubleTap()
     }
 
     // TODO: Add test which verifies displaying of the last meteorogram.

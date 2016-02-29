@@ -9,7 +9,7 @@
 import XCTest
 import UIKit
 import Foundation
-import MobileMeteo
+@testable import MobileMeteo
 
 class MMTCategoryUIScrollViewTests: XCTestCase
 {

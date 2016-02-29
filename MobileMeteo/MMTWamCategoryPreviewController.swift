@@ -18,13 +18,12 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     @IBOutlet var momentLabel: UILabel!
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet var scrollView: UIScrollView!
-    
     @NSCopying var wamSettings: MMTWamSettings!
     
     private var cache: NSCache = NSCache()
-    private var wamStore = MMTWamModelStore(date: NSDate())
     private var currentMoment: Int = 0
 
+    var wamStore: MMTWamModelStore!
     
     private var isFirstMoment: Bool {
         return currentMoment == 0
@@ -40,7 +39,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     {
         super.viewDidLoad()
         
-        navigationBar.topItem?.title = wamSettings.selectedCategory?.description                
+        navigationBar.topItem?.title = wamSettings.selectedCategory?.rawValue
         meteorogramImage.accessibilityIdentifier = "\(wamSettings.selectedCategory!)"
         
         setupNavigationButtons()
@@ -53,6 +52,12 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         
         setupScrollView()
         displayCurrentMoment()
+        analytics?.sendScreenEntryReport("Model WAM category preview")
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    {
+        return UIInterfaceOrientationMask.Portrait
     }
     
     // MARK: Setup methods
@@ -79,7 +84,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         let tZeroPlus = wamStore.getHoursFromForecastStartDate(forDate: date)
         
         let tZeroPlusString = String(NSString(format: MMTFormat.TZeroPlus, tZeroPlus))
-        let momentString = NSDateFormatter.shortStyleUtcDatetime(date)
+        let momentString = NSDateFormatter.utcFormatter.stringFromDate(date)
         
         momentLabel.text = "start \(tZeroPlusString) = \(momentString)"
     }
@@ -135,7 +140,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         
         getMeteorogramWithQuery(MMTWamModelMeteorogramQuery(category: category, moment: moment)){
             
-            (data: NSData?, error: NSError?) in
+            (data: NSData?, error: MMTError?) in
             
             self.meteorogramImage.image = UIImage(data: data!)            
             self.prevMomentButton.enabled = !self.isFirstMoment
@@ -156,21 +161,22 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         activityIndicator.hidden = false
         
         wamStore.getMeteorogramMomentWithQuery(query){
-            (data: NSData?, error: NSError?) in
+            (data: NSData?, error: MMTError?) in
             
             self.activityIndicator.hidden = true
             
-            if let image = data
+            guard error == nil else
             {
-                self.cache.setObject(image, forKey: key)
-                completion(data: data, error: error)
-            }
+                let alert = UIAlertController.alertForMMTError(error!){ (UIAlertAction) -> Void in
+                    self.performSegueWithIdentifier(MMTSegue.UnwindToWamModel, sender: self)
+                }
                 
-            else if error?.domain == MMTErrorDomain
-            {
-                let message = MMTError(rawValue: error!.code)!.description
-                UIAlertView(title: "", message: message, delegate: nil, cancelButtonTitle: "zamknij").show()
+                self.presentViewController(alert, animated: true, completion: nil)
+                return
             }
+            
+            self.cache.setObject(data!, forKey: key)
+            completion(data: data, error: error)
         }
     }
 }

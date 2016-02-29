@@ -35,7 +35,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
     private var selectedLocation: CLLocation!
     
     var meteorogramStore: MMTGridClimateModelStore!    
-    var selectedCity: MMTCity!
+    var selectedCity: MMTCityProt?
  
     // MARK: Overrideds
     
@@ -47,17 +47,11 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
         btnShow.enabled = false
         
         setupMapView()
-    }
+    }    
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
     {
-        if (segue.identifier == MMTSegue.DisplayMeteorogram)
-        {
-            let
-            controller = segue.destinationViewController as! MMTMeteorogramController
-            controller.meteorogramStore = meteorogramStore
-            controller.city = selectedCity
-        }
+        return UIInterfaceOrientationMask.Portrait
     }
     
     // MARK: Setup methods
@@ -88,24 +82,31 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
         }
     }
     
+    @IBAction func didClickCancelButton(sender: UIBarButtonItem)
+    {
+        selectedCity = nil
+    }
+    
     @IBAction func didClickShowButton(sender: UIBarButtonItem)
     {
         setInteractionEnabled(false)
         
         citiesStore.findCityForLocation(selectedLocation) {
-            (city: MMTCity?, error: NSError?) in
-                
-            if city != nil
+            (city: MMTCityProt?, error: MMTError?) in
+            
+            guard error == nil else
             {
-                self.selectedCity = city!
-                self.performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
+                self.presentViewController(UIAlertController.alertForMMTError(error!), animated: true, completion: nil)
+                self.setInteractionEnabled(true)
+                return
             }
             
-            else if error != nil
-            {
-                self.displayAlertForError(error!)
-                self.setInteractionEnabled(true)
+            guard let aCity = city else {
+                return
             }
+            
+            self.selectedCity = aCity
+            self.performSegueWithIdentifier(MMTSegue.UnwindToListOfCities, sender: self)
         }
     }
     
@@ -116,12 +117,5 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
         btnClose.enabled = enabled
         btnShow.enabled = enabled
         mapView.userInteractionEnabled = enabled
-    }
-    
-    private func displayAlertForError(error: NSError)
-    {
-        if error.domain == MMTErrorDomain {
-            UIAlertView(title: "", message: MMTError(rawValue: error.code)?.description, delegate: nil, cancelButtonTitle: "zamknij").show()
-        }
     }
 }

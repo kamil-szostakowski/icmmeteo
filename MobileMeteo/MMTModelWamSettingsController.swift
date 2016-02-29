@@ -13,21 +13,30 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
 {
     // MARK: Properties
     
+    private let minMomentsCount = 3
     private let categoryTag = 100
     private var currentDate = NSDate()
     private var selectedIndexes = [NSIndexPath]()
-    private var wamStore: MMTWamModelStore!
     
     @IBOutlet var tableView: UITableView!
-    
+    @IBOutlet var btnShow: UIBarButtonItem!
     @NSCopying var wamSettings: MMTWamSettings!
     
-    // MARK: Overrides
+    var wamStore: MMTWamModelStore!
     
-    override func viewDidLoad()
+    // MARK: Overrides    
+    
+    override func viewWillAppear(animated: Bool)
     {
-        super.viewDidLoad()
-        wamStore = MMTWamModelStore(date: NSDate())  
+        super.viewWillAppear(animated)
+        
+        btnShow.enabled = wamSettings.forecastSelectedMoments.count>=minMomentsCount
+        analytics?.sendScreenEntryReport("Model WAM settings")
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    {
+        return UIInterfaceOrientationMask.Portrait
     }
     
     // MARK: Actions
@@ -38,6 +47,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         let moments = wamSettings.forecastMomentsGrouppedByDay[section].map(){ $0.date }
         
         wamSettings.setMomentsSelection(moments, selected: category.selected)
+        btnShow.enabled = wamSettings.forecastSelectedMoments.count>=minMomentsCount
         tableView.reloadData()
     }
     
@@ -61,8 +71,8 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         
         let
         cell = tableView.dequeueReusableCellWithIdentifier("WamSettingsTimeItem", forIndexPath: indexPath) 
-        cell.textLabel?.text = String(NSString(format: MMTFormat.TZeroPlus, tZeroPlus))
-        cell.detailTextLabel?.text = NSDateFormatter.shortStyleUtcDatetime(date)
+        cell.textLabel?.text = String(format: MMTFormat.TZeroPlus, tZeroPlus)
+        cell.detailTextLabel?.text = NSDateFormatter.utcFormatter.stringFromDate(date)
         cell.accessoryType =  moment.selected ? .Checkmark : .None
         cell.accessibilityIdentifier = "WamSettingsMoment: t0 +\(tZeroPlus)h"
         
@@ -80,7 +90,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         
         let
         cell = tableView.dequeueReusableCellWithIdentifier("WamSettingsHeader")!
-        cell.textLabel?.text = NSDateFormatter.shortStyle.stringFromDate(date)
+        cell.textLabel?.text = NSDateFormatter.shortDateOnlyStyle.stringFromDate(date)
         cell.selected = isSectionSelected(section)
         cell.tag = tagForSection(section)
         
@@ -93,6 +103,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         let selected = tableView.cellForRowAtIndexPath(indexPath)!.accessoryType == .None
         
         wamSettings.setMomentSelection(moment.date, selected: selected)
+        btnShow.enabled = wamSettings.forecastSelectedMoments.count>=minMomentsCount
         tableView.reloadData()
     }
     
