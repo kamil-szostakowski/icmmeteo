@@ -116,8 +116,11 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     private func setupInfoBar()
     {
-        forecastStart.text = "Start prognozy t0: \(NSDateFormatter.utcFormatter.stringFromDate(wamStore.forecastStartDate))"
-        forecastLength.text = "Długość prognozy: \(wamStore.forecastLength)h"
+        let s = wamStore
+        let formatter = NSDateFormatter.utcFormatter
+        
+        forecastStart.text = MMTLocalizedStringWithFormat("forecast.start: %@", formatter.stringFromDate(s.forecastStartDate))
+        forecastLength.text = MMTLocalizedStringWithFormat("forecast.length: %dh", s.forecastLength)
     }
     
     private func setupNotificationHandler()
@@ -203,9 +206,11 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath)
         -> UICollectionReusableView
     {
+        let category = categories[indexPath.section]
+        
         let
         headerView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: kind, forIndexPath: indexPath) as! MMTWamHeaderView
-        headerView.categoryTitle = categories[indexPath.section].rawValue
+        headerView.categoryTitle = MMTTranslationWamCategory[category]!
 
         return headerView
     }

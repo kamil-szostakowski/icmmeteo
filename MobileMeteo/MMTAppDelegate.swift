@@ -26,7 +26,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     // MARK: Delegate methods
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool
-    {
+    {        
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         
         #if DEBUG

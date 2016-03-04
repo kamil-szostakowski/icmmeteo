@@ -115,8 +115,11 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     private func setupInfoBar()
     {
-        lblForecastStart.text = "Start prognozy t0: \(NSDateFormatter.utcFormatter.stringFromDate(meteorogramStore.forecastStartDate))"
-        lblForecastLenght.text = "Długość prognozy: \(meteorogramStore.forecastLength)h, siatka \(meteorogramStore.gridNodeSize)km"        
+        let ms = meteorogramStore
+        let formatter = NSDateFormatter.utcFormatter
+        
+        lblForecastStart.text = MMTLocalizedStringWithFormat("forecast.start: %@", formatter.stringFromDate(ms.forecastStartDate))
+        lblForecastLenght.text = MMTLocalizedStringWithFormat("forecast.length: %dh, forecast.grid: %dkm", ms.forecastLength, ms.gridNodeSize)
     }
     
     private func setupNotificationHandler()
@@ -195,11 +198,12 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
             return tableView.dequeueReusableCellWithIdentifier("SpecialListCell", forIndexPath: indexPath) 
         }
         
+        let isCurrentLocation = sectionType == .CurrentLocation
         let city = citiesIndex[indexPath.section].cities[indexPath.row]
       
         let
         cell = tableView.dequeueReusableCellWithIdentifier("CitiesListCell", forIndexPath: indexPath)
-        cell.detailTextLabel?.text = sectionType != .CurrentLocation ? city.region : "Obecna lokalizacja"
+        cell.detailTextLabel?.text = isCurrentLocation ? MMTTranslationCityCategory[sectionType] : city.region
         cell.textLabel!.text = city.name
             
         return cell
@@ -207,12 +211,15 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
-        return citiesIndex[section].type.description != nil ? 30 : 0
+        let sectionType = citiesIndex[section].type
+        let shouldDisplayHeader = sectionType == .Favourites || sectionType == .Capitals
+        
+        return shouldDisplayHeader ? 30 : 0
     }
 
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
-        guard let headerTitle = citiesIndex[section].type.description else {
+        guard let headerTitle = MMTTranslationCityCategory[citiesIndex[section].type] else {
             return nil
         }
         

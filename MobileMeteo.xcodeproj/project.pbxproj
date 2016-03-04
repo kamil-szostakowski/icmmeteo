@@ -24,6 +24,7 @@
 		F913A27A1C637623004BD786 /* MMTMeteorogramUrlSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F913A2791C637623004BD786 /* MMTMeteorogramUrlSessionTests.swift */; };
 		F913A27C1C638B13004BD786 /* NSTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = F913A27B1C638B13004BD786 /* NSTimeInterval.swift */; };
 		F91A63481C467F3900747AC3 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91A63471C467F3900747AC3 /* UIAlertController.swift */; };
+		F91A6F541C86F6F200BDDE28 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F91A6F561C86F6F200BDDE28 /* Localizable.strings */; };
 		F931BF7E1C7469FB00386815 /* MMTCityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F931BF7D1C7469FB00386815 /* MMTCityTests.swift */; };
 		F9326D2D1C5F83180033E11B /* MMTInfoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9326D2C1C5F83180033E11B /* MMTInfoController.swift */; };
 		F94051691C57B5CA00D52B1C /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F94051681C57B5CA00D52B1C /* CoreSpotlight.framework */; };
@@ -121,6 +122,12 @@
 		F913A2791C637623004BD786 /* MMTMeteorogramUrlSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramUrlSessionTests.swift; sourceTree = "<group>"; };
 		F913A27B1C638B13004BD786 /* NSTimeInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimeInterval.swift; sourceTree = "<group>"; };
 		F91A63471C467F3900747AC3 /* UIAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
+		F91A6F4B1C86E0F300BDDE28 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		F91A6F4D1C86E11E00BDDE28 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		F91A6F4F1C86E2B700BDDE28 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
+		F91A6F511C86E34000BDDE28 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		F91A6F581C86F6F700BDDE28 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F91A6F591C86F73600BDDE28 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F931BF7D1C7469FB00386815 /* MMTCityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCityTests.swift; sourceTree = "<group>"; };
 		F9326D2C1C5F83180033E11B /* MMTInfoController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTInfoController.swift; sourceTree = "<group>"; };
 		F94051681C57B5CA00D52B1C /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
@@ -139,8 +146,6 @@
 		F9941A5A1BECE15800700313 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9941A641BECE32300700313 /* MeteoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeteoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9941A6E1BECE34C00700313 /* MMTCitiesListTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesListTests.swift; sourceTree = "<group>"; };
-		F99894FB1BA2C4C700FC924E /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
-		F99894FC1BA2C4C700FC924E /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		F99A8A2B1B8463FE0098E170 /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
 		F99A8A2D1B8464E50098E170 /* MMTCategoryNSURLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCategoryNSURLTests.swift; sourceTree = "<group>"; };
 		F99A8A2F1B846A4B0098E170 /* NSCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCalendar.swift; sourceTree = "<group>"; };
@@ -416,6 +421,7 @@
 				F9E696771AFCC06600273DA3 /* Images.xcassets */,
 				F9E6966E1AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld */,
 				F9E696671AFCC06600273DA3 /* Supporting Files */,
+				F91A6F561C86F6F200BDDE28 /* Localizable.strings */,
 			);
 			path = MobileMeteo;
 			sourceTree = "<group>";
@@ -580,7 +586,6 @@
 					};
 					F9E696631AFCC06600273DA3 = {
 						CreatedOnToolsVersion = 6.3.1;
-						DevelopmentTeam = GMU6W6K8X6;
 					};
 					F9E6967F1AFCC06600273DA3 = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -595,6 +600,7 @@
 			knownRegions = (
 				en,
 				Base,
+				pl,
 			);
 			mainGroup = F9E6965B1AFCC06600273DA3;
 			productRefGroup = F9E696651AFCC06600273DA3 /* Products */;
@@ -621,6 +627,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9BB14A61B5697EE00C81B3F /* Cities.json in Resources */,
+				F91A6F541C86F6F200BDDE28 /* Localizable.strings in Resources */,
 				F9E696761AFCC06600273DA3 /* Main.storyboard in Resources */,
 				F910AACF1C52358400A35170 /* GoogleService-Info.plist in Resources */,
 				F9E6967B1AFCC06600273DA3 /* LaunchScreen.xib in Resources */,
@@ -859,11 +866,21 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		F91A6F561C86F6F200BDDE28 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F91A6F581C86F6F700BDDE28 /* pl */,
+				F91A6F591C86F73600BDDE28 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		F9E696741AFCC06600273DA3 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				F9E696751AFCC06600273DA3 /* Base */,
-				F99894FB1BA2C4C700FC924E /* pl */,
+				F91A6F4B1C86E0F300BDDE28 /* en */,
+				F91A6F4F1C86E2B700BDDE28 /* pl */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -872,7 +889,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				F9E6967A1AFCC06600273DA3 /* Base */,
-				F99894FC1BA2C4C700FC924E /* pl */,
+				F91A6F4D1C86E11E00BDDE28 /* en */,
+				F91A6F511C86E34000BDDE28 /* pl */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";

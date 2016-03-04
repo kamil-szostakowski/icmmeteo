@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  MobileMeteo
+
+  Created by Kamil Szostakowski on 02.03.2016.
+  Copyright © 2016 Kamil Szostakowski. All rights reserved.
+*/
+
+"forecast.start: %@" = "Start prognozy t0: %@";
+"forecast.length: %dh, forecast.grid: %dkm" = "Długość prognozy: %dh, Siatka: %dkm";
+"forecast.length: %dh" = "Długość prognozy: %dh";
+
+"locations.district-capitals" = "Miasta wojewódzkie";
+"locations.favourites" = "Ulubione";
+"locations.current" = "Obecna lokalizacja";
+
+"model.wam.tide-height" = "Wysokość fali znacznej i średni kierunek fali";
+"model.wam.avg-tide-period" = "Średni okres fali";
+"model.wam.spectrum-peak-period" = "Okres piku widma";

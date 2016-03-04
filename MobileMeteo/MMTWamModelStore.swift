@@ -11,9 +11,9 @@ import CoreGraphics
 
 enum MMTWamCategory: String
 {
-    case TideHeight = "Wysokość fali znacznej i średni kierunek fali"
-    case AvgTidePeriod = "Średni okres fali"
-    case SpectrumPeakPeriod = "Okres piku widma"    
+    case TideHeight
+    case AvgTidePeriod
+    case SpectrumPeakPeriod
 }
 
 typealias MMTWamModelMeteorogramQuery = (category: MMTWamCategory, moment: NSDate)
