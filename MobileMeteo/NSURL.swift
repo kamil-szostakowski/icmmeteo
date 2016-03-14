@@ -25,7 +25,7 @@ extension NSURL
         let lat = location.coordinate.latitude
         let lng = location.coordinate.longitude
         
-        return NSURL(string: "/um/php/mgram_search.php?NALL=\(lat)&EALL=\(lng)&lang=pl", relativeToURL: mmt_baseUrl())!
+        return NSURL(string: "/um/php/mgram_search.php?NALL=\(lat)&EALL=\(lng)&lang=\(mmt_modelLang())", relativeToURL: mmt_baseUrl())!
     }
     
     static func mmt_modelUmDownloadBaseUrl() -> NSURL
@@ -35,7 +35,7 @@ extension NSURL
     
     static func mmt_modelUmLegendUrl() -> NSURL
     {
-        return NSURL(string: "/um/metco/leg_um_pl_cbase_256.png", relativeToURL: mmt_baseUrl())!
+        return NSURL(string: "/um/metco/leg_um_\(mmt_modelLang())_cbase_256.png", relativeToURL: mmt_baseUrl())!
     }
     
     static func mmt_modelUmForecastStartUrl() -> NSURL
@@ -60,7 +60,7 @@ extension NSURL
     
     static func mmt_modelCoampsLegendUrl() -> NSURL
     {
-        return NSURL(string: "/metco/leg4_pl.png", relativeToURL: mmt_baseUrl())!
+        return NSURL(string: "/metco/leg4_\(mmt_modelLang()).png", relativeToURL: mmt_baseUrl())!
     }
     
     static func mmt_modelCoampsForecastStartUrl() -> NSURL
@@ -128,5 +128,10 @@ extension NSURL
         let components = NSCalendar.utcCalendar.components([.Year, .Month, .Day, .Hour], fromDate: date)
         
         return String(format: MMTFormat.TZero, components.year, components.month, components.day, components.hour)
+    }
+    
+    private static func mmt_modelLang() -> String
+    {
+        return NSBundle.mainBundle().preferredLocalizations.first ?? "en"
     }
 }

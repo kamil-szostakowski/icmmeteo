@@ -32,3 +32,27 @@ struct MMTFetch
 }
 
 let MMTActivityTypeDisplayModelUm = "com.szostakowski.meteo.um"
+
+let MMTTranslationCityCategory:[MMTCitiesIndexSectionType: String] =
+[
+    .CurrentLocation: MMTLocalizedString("locations.current"),
+    .Favourites: MMTLocalizedString("locations.favourites"),
+    .Capitals: MMTLocalizedString("locations.district-capitals"),
+]
+
+let  MMTTranslationWamCategory: [MMTWamCategory: String] =
+[
+    .TideHeight: MMTLocalizedString("model.wam.tide-height"),
+    .AvgTidePeriod: MMTLocalizedString("model.wam.avg-tide-period"),
+    .SpectrumPeakPeriod: MMTLocalizedString("model.wam.spectrum-peak-period"),
+]
+
+func MMTLocalizedString(string: String) -> String
+{
+    return NSLocalizedString(string, comment: "")
+}
+
+func MMTLocalizedStringWithFormat(format: String, _ arguments: CVarArgType...) -> String
+{
+    return String(format: NSLocalizedString(format, comment: ""), arguments: arguments)
+}

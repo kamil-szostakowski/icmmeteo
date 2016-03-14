@@ -37,9 +37,9 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     
     override func viewDidLoad()
     {
-        super.viewDidLoad()
+        super.viewDidLoad()        
         
-        navigationBar.topItem?.title = wamSettings.selectedCategory?.rawValue
+        navigationBar.topItem?.title = MMTTranslationWamCategory[wamSettings.selectedCategory!]
         meteorogramImage.accessibilityIdentifier = "\(wamSettings.selectedCategory!)"
         
         setupNavigationButtons()

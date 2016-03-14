@@ -15,16 +15,21 @@ enum MMTCitiesIndexSectionType: String
     case Favourites
     case SearchResults
     case CurrentLocation
-    
-    var description: String?
-    {
-        switch self
-        {
-            case .Capitals: return "Miasta wojewódzkie"
-            case .Favourites: return "Ulubione"
-            default: return nil
-        }
-    }
+//    
+//    var localizedDescription: String?
+//    {
+//        var key: String?
+//        
+//        switch self
+//        {
+//            case .Capitals: key = "locations.district-capitals"
+//            case .Favourites: key = "locations.favourites"
+//            default: key = nil
+//        }
+//        
+//        guard let translationKey = key else { return nil }
+//        return NSLocalizedString(translationKey, comment: "")
+//    }
 }
 
 typealias MMTCitiesIndexSection = (type: MMTCitiesIndexSectionType, cities: [MMTCityProt])

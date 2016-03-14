@@ -1,0 +1,19 @@
+/* 
+  Localizable.strings
+  MobileMeteo
+
+  Created by Kamil Szostakowski on 02.03.2016.
+  Copyright © 2016 Kamil Szostakowski. All rights reserved.
+*/
+
+"forecast.start: %@" = "Forecast start t0: %@";
+"forecast.length: %dh, forecast.grid: %dkm" = "Forecast length: %dh, Grid: %dkm";
+"forecast.length: %dh" = "Forecast length: %dh";
+
+"locations.district-capitals" = "District capitals";
+"locations.favourites" = "Favourites";
+"locations.current" = "Current localization";
+
+"model.wam.tide-height" = "Significant wave height and mean wave direction";
+"model.wam.avg-tide-period" = "Mean wave period";
+"model.wam.spectrum-peak-period" = "Peak period of 1-d spectra";
