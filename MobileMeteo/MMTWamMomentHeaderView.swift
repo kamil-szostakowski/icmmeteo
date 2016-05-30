@@ -37,7 +37,7 @@ class MMTWamMomentHeaderView: UITableViewCell
     {
         selected = !selected
         
-        let action = Selector("didSelectCategory:")
+        let action = #selector(MMTModelWamSettingsController.didSelectCategory(_:))
         let target = targetForAction(action, withSender: self) as? NSObject
         
         UIApplication.sharedApplication().sendAction(action, to: target, from: self, forEvent: nil)

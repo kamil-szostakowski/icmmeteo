@@ -124,7 +124,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     private func setupNotificationHandler()
     {
-        let handler = Selector("handleApplicationDidBecomeActiveNotification:")
+        let handler = #selector(handleApplicationDidBecomeActiveNotification(_:))
         let notification = UIApplicationDidBecomeActiveNotification
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: handler, name: notification, object: nil)

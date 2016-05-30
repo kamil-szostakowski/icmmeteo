@@ -107,7 +107,9 @@ class MMTMeteorogramUrlSession: NSObject, NSURLSessionTaskDelegate
     private func runTaskWithUrl(url: NSURL, completion: (NSData?, NSURLResponse?, NSError?) -> Void)
     {
         let task = urlSession.dataTaskWithURL(url) {
-            (data: NSData?, response: NSURLResponse?, var error: NSError?) -> Void in
+            (data: NSData?, response: NSURLResponse?, err: NSError?) -> Void in
+            
+            var error = err
             
             #if DEBUG
             error = MMTMeteorogramUrlSession.simulatedError ?? error
