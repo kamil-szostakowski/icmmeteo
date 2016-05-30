@@ -44,7 +44,9 @@ class MMTCitiesStore: NSObject
             return
         }
         
-        geocoder.reverseGeocodeLocation(location) { (placemarks, var translationError) in
+        geocoder.reverseGeocodeLocation(location) { (placemarks, geocodeError) in
+            
+            var translationError = geocodeError
             
             #if DEBUG
             translationError = MMTMeteorogramUrlSession.simulatedError ?? translationError

@@ -102,13 +102,13 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     
     @IBAction func didClickNextMomentBtn(sender: UIBarButtonItem)
     {
-        currentMoment++
+        currentMoment += 1
         displayCurrentMoment()
     }
 
     @IBAction func didClickPreviousMomentBtn(sender: UIBarButtonItem)
     {
-        currentMoment--
+        currentMoment -= 1
         displayCurrentMoment()
     }
     

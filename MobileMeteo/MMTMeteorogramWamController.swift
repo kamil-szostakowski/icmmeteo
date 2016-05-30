@@ -61,7 +61,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         super.viewDidAppear(animated)
         
         presented = true
-        failureWatch = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "failureCheck", userInfo: nil, repeats: true)
+        failureWatch = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(failureCheck), userInfo: nil, repeats: true)
         
         setupNotificationHandler()
         updateMeteorogramIfNeeded()
@@ -125,7 +125,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     private func setupNotificationHandler()
     {
-        let handler = Selector("handleApplicationDidBecomeActiveNotification:")
+        let handler = #selector(handleApplicationDidBecomeActiveNotification(_:))
         let notification = UIApplicationDidBecomeActiveNotification
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: handler, name: notification, object: nil)
@@ -187,7 +187,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
             (image: UIImage?, error: MMTError?) in
             
             guard error == nil else {
-                self.failureCount++
+                self.failureCount += 1
                 return
             }
 
@@ -240,7 +240,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         let forecastStartDate = wamStore.forecastStartDate
         let handleFailure = {
             self.lastUpdate = nil
-            self.failureCount++
+            self.failureCount += 1
         }
         
         lastUpdate = NSDate()

@@ -43,7 +43,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
     
     func didSelectCategory(category: UITableViewCell)
     {
-        let section = sectionForRag(category.tag)
+        let section = sectionForTag(category.tag)
         let moments = wamSettings.forecastMomentsGrouppedByDay[section].map(){ $0.date }
         
         wamSettings.setMomentsSelection(moments, selected: category.selected)
@@ -124,7 +124,7 @@ class MMTModelWamSettingsController: UIViewController, UITableViewDelegate, UITa
         return categoryTag+section
     }
     
-    private func sectionForRag(tag: Int) -> Int
+    private func sectionForTag(tag: Int) -> Int
     {
         return tag-categoryTag
     }
