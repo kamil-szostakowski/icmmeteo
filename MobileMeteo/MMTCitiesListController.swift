@@ -187,7 +187,8 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return citiesIndex[section].type != .NotFound ? citiesIndex[section].cities.count : 1
+        let isSpecialItem = citiesIndex[section].type == .NotFound || citiesIndex[section].type == .DetailedMaps
+        return !isSpecialItem ? citiesIndex[section].cities.count : 1
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
@@ -195,7 +196,11 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         let sectionType = citiesIndex[indexPath.section].type
         
         guard sectionType != .NotFound else {
-            return tableView.dequeueReusableCellWithIdentifier("SpecialListCell", forIndexPath: indexPath) 
+            return tableView.dequeueReusableCellWithIdentifier("FindLocationCell", forIndexPath: indexPath)
+        }
+        
+        guard sectionType != .DetailedMaps else {
+            return tableView.dequeueReusableCellWithIdentifier("DetailedMapsCell", forIndexPath: indexPath)
         }
         
         let isCurrentLocation = sectionType == .CurrentLocation
@@ -234,6 +239,10 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     {
         guard citiesIndex[indexPath.section].type != .NotFound else {
             performSegueWithIdentifier(MMTSegue.DisplayMapScreen, sender: self)
+            return
+        }
+        
+        guard citiesIndex[indexPath.section].type != .DetailedMaps else {            
             return
         }
         

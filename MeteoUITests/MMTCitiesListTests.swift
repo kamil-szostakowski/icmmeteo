@@ -15,6 +15,11 @@ class MMTCitiesListTests: XCTestCase
     let bydgoszcz = "Bydgoszcz, Kujawsko-Pomorskie"
     let krakow = "Kraków, Małopolskie"
     let ilawa = "Iława, Warmińsko-Mazurskie"
+    let detailedMaps = "Mapy szczegółowe"
+    let locationNotFound = "Wskaż lokalizację na mapie"
+    
+    let headerFavourites = "Ulubione"
+    let headerCapitals = "Miasta wojewódzkie"
     
     var app: XCUIApplication!
     static var onceToken: dispatch_once_t = 0
@@ -55,11 +60,12 @@ class MMTCitiesListTests: XCTestCase
         
         /* --- Assertions -- */
         
-        XCTCheckHeader("Ulubione", index: 0)
-        XCTAssertEqual(bydgoszcz, app.tables.cells.elementBoundByIndex(1).label)
-        XCTAssertEqual(krakow, app.tables.cells.elementBoundByIndex(2).label)
-        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(3).label)
-        XCTCheckHeader("Miasta wojewódzkie", index: 4)
+        XCTAssertEqual(detailedMaps, app.tables.cells.elementBoundByIndex(0).label)
+        XCTCheckHeader(headerFavourites, index: 1)
+        XCTAssertEqual(bydgoszcz, app.tables.cells.elementBoundByIndex(2).label)
+        XCTAssertEqual(krakow, app.tables.cells.elementBoundByIndex(3).label)
+        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(4).label)
+        XCTCheckHeader("Miasta wojewódzkie", index: 5)
     }
     
     func test02_RemovingPedefinedCitiesFromFavourites()
@@ -69,9 +75,10 @@ class MMTCitiesListTests: XCTestCase
         
         /* --- Assertions -- */
         
-        XCTCheckHeader("Ulubione", index: 0)
-        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(1).label)
-        XCTCheckHeader("Miasta wojewódzkie", index: 2)
+        XCTAssertEqual(detailedMaps, app.tables.cells.elementBoundByIndex(0).label)
+        XCTCheckHeader(headerFavourites, index: 1)
+        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(2).label)
+        XCTCheckHeader(headerCapitals, index: 3)
     }
     
     func test03_AddingFoundCityToFavourites()
@@ -82,14 +89,19 @@ class MMTCitiesListTests: XCTestCase
         searchField.typeText("Iława")
         
         sleep(3)
+        
+        XCTAssertEqual(ilawa, app.tables.cells.elementBoundByIndex(0).label)
+        XCTAssertEqual(locationNotFound, app.tables.cells.elementBoundByIndex(1).label)
+        
         addToFavourites(ilawa)
         
         /* --- Assertions -- */
         
-        XCTCheckHeader("Ulubione", index: 0)
-        XCTAssertEqual(ilawa, app.tables.cells.elementBoundByIndex(1).label)
-        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(2).label)
-        XCTCheckHeader("Miasta wojewódzkie", index: 3)
+        XCTAssertEqual(detailedMaps, app.tables.cells.elementBoundByIndex(0).label)
+        XCTCheckHeader(headerFavourites, index: 1)
+        XCTAssertEqual(ilawa, app.tables.cells.elementBoundByIndex(2).label)
+        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(3).label)
+        XCTCheckHeader(headerCapitals, index: 4)
     }
     
     func test04_RemovingFoundCityFromFavourites()
@@ -98,9 +110,10 @@ class MMTCitiesListTests: XCTestCase
         
         /* --- Assertions -- */
         
-        XCTCheckHeader("Ulubione", index: 0)
-        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(1).label)        
-        XCTCheckHeader("Miasta wojewódzkie", index: 2)
+        XCTAssertEqual(detailedMaps, app.tables.cells.elementBoundByIndex(0).label)
+        XCTCheckHeader(headerFavourites, index: 1)
+        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(2).label)
+        XCTCheckHeader(headerCapitals, index: 3)
     }
     
     func test05_AddingCityPointedOnMapToFavourites()
@@ -111,7 +124,7 @@ class MMTCitiesListTests: XCTestCase
         searchField.typeText("aaa")
         
         sleep(3)
-        app.tables.cells["Wskaż lokalizację na mapie"].tap()
+        app.tables.cells[locationNotFound].tap()
         
         let
         map = app.maps.elementBoundByIndex(0)
@@ -127,8 +140,9 @@ class MMTCitiesListTests: XCTestCase
             navBar.buttons["star outline"].tap()
             navBar.buttons["Zatrzymaj"].tap()
             
-            self.XCTCheckHeader("Ulubione", index: 0)
-            self.XCTCheckHeader("Miasta wojewódzkie", index: 3)
+            XCTAssertEqual(self.detailedMaps, self.app.tables.cells.elementBoundByIndex(0).label)
+            self.XCTCheckHeader(self.headerFavourites, index: 1)
+            self.XCTCheckHeader(self.headerCapitals, index: 4)
             
             return true
         }
@@ -136,15 +150,16 @@ class MMTCitiesListTests: XCTestCase
         waitForExpectationsWithTimeout(10, handler: nil)
     }
     
-    func test06_removingCityPointedOnMapFromFavourites()
+    func test06_RemovingCityPointedOnMapFromFavourites()
     {
-        removeFromFavourites(app.tables.cells.elementBoundByIndex(1).label)
+        removeFromFavourites(app.tables.cells.elementBoundByIndex(2).label)
         
         /* --- Assertions -- */
         
-        XCTCheckHeader("Ulubione", index: 0)
-        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(1).label)
-        XCTCheckHeader("Miasta wojewódzkie", index: 2)
+        XCTAssertEqual(detailedMaps, app.tables.cells.elementBoundByIndex(0).label)
+        XCTCheckHeader(headerFavourites, index: 1)
+        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(2).label)
+        XCTCheckHeader(headerCapitals, index: 3)
     }
     
     func test07_FavouritesListOnCoampsTab()
@@ -153,9 +168,10 @@ class MMTCitiesListTests: XCTestCase
         
         /* --- Assertions -- */
         
-        XCTCheckHeader("Ulubione", index: 0)
-        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(1).label)
-        XCTCheckHeader("Miasta wojewódzkie", index: 2)
+        XCTAssertEqual(detailedMaps, app.tables.cells.elementBoundByIndex(0).label)
+        XCTCheckHeader(headerFavourites, index: 1)
+        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(2).label)
+        XCTCheckHeader(headerCapitals, index: 3)
     }
     
     func test08_SearchBarCancelation()
