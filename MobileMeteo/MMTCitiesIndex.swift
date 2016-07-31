@@ -15,21 +15,7 @@ enum MMTCitiesIndexSectionType: String
     case Favourites
     case SearchResults
     case CurrentLocation
-//    
-//    var localizedDescription: String?
-//    {
-//        var key: String?
-//        
-//        switch self
-//        {
-//            case .Capitals: key = "locations.district-capitals"
-//            case .Favourites: key = "locations.favourites"
-//            default: key = nil
-//        }
-//        
-//        guard let translationKey = key else { return nil }
-//        return NSLocalizedString(translationKey, comment: "")
-//    }
+    case DetailedMaps
 }
 
 typealias MMTCitiesIndexSection = (type: MMTCitiesIndexSectionType, cities: [MMTCityProt])
@@ -67,6 +53,8 @@ struct MMTCitiesIndex
         if currentCity != nil {
             content.insert(MMTCitiesIndexSection(type: .CurrentLocation, cities: [currentCity!]), atIndex: 0)
         }
+        
+        content.insert(MMTCitiesIndexSection(type: .DetailedMaps, cities: []), atIndex: 0)
     }
     
     init(searchResult: [MMTCityProt])
