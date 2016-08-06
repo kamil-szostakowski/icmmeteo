@@ -65,4 +65,10 @@ class MMTCoampsModelStoreTests: XCTestCase
         let store = MMTCoampsModelStore(date: NSDate())
         XCTAssertEqual(CGSize(width: 280, height: 570), store.legendSize)
     }
+    
+    func testDetailedMapsForUmModel()
+    {
+        let store = MMTCoampsModelStore(date: NSDate())
+        XCTAssertEqual(11, store.detailedMaps.count)
+    }
 }

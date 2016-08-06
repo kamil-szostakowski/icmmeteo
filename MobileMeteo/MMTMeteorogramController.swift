@@ -11,7 +11,7 @@ import Foundation
 import CoreLocation
 import CoreSpotlight
 
-class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserActivityDelegate
+class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserActivityDelegate, MMTGridClimateModelController
 {
     // MARK: Outlets
     

@@ -38,6 +38,13 @@ class MMTCoampsModelStore: NSObject, MMTGridClimateModelStore
         return CGSize(width: 280, height: 570)
     }
     
+    var detailedMaps: [MMTDetailedMap] {
+        return [
+            .MeanSeaLevelPressure, .TemperatureAndStreamLine, .TemperatureOfSurface, .Precipitation, .Wind, .Visibility,
+            .RelativeHumidity, .LowClouds, .MediumClouds, .HighClouds, .TotalCloudiness
+        ]
+    }
+    
     // MARK: Initializers
     
     init(date: NSDate)

@@ -17,3 +17,21 @@
 "model.wam.tide-height" = "Wysokość fali znacznej i średni kierunek fali";
 "model.wam.avg-tide-period" = "Średni okres fali";
 "model.wam.spectrum-peak-period" = "Okres piku widma";
+
+"detailed-maps.MeanSeaLevelPressure" = "Ciśnienie na poziomie morza";
+"detailed-maps.TemperatureAndStreamLine" = "Temperatura + linie prądu";
+"detailed-maps.TemperatureOfSurface" = "Temperatura powierzchni";
+"detailed-maps.Precipitation" = "Opad";
+"detailed-maps.Storm" = "Burze: liczba wyładowań";
+"detailed-maps.Wind" = "Wiatr przyziemny";
+"detailed-maps.MaximumGust" = "Maksymalne porywy wiatru";
+"detailed-maps.Visibility" = "Widzialność";
+"detailed-maps.Fog" = "Mgła";
+"detailed-maps.RelativeHumidity" = "Wigotność względna";
+"detailed-maps.RelativeHumidityAboveIce" = "Wilgotność względna nad lodem";
+"detailed-maps.RelativeHumidityAboveWater" = "Wilgotność względna nad wodą";
+"detailed-maps.VeryLowClouds" = "Chmury bardzo niskie";
+"detailed-maps.LowClouds" = "Chmury niskie";
+"detailed-maps.MediumClouds" = "Chmury średnie";
+"detailed-maps.HighClouds" = "Chmury wysokie";
+"detailed-maps.TotalCloudiness" = "Zachmurzenie ogólne";

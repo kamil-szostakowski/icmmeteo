@@ -204,6 +204,7 @@
                         <outlet property="topSpacing" destination="yZz-Je-1E1" id="QZe-Bs-YIE"/>
                         <segue destination="lDT-Dp-3bJ" kind="presentation" identifier="DisplayMeteorogram" id="dj6-QC-1jS"/>
                         <segue destination="i3E-TH-02Z" kind="presentation" identifier="DisplayMapScreen" id="enP-3D-Gaj"/>
+                        <segue destination="RFn-A9-FDD" kind="presentation" identifier="DisplayDetailedMapsList" id="IFV-6I-dqJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ewx-d7-4a5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -706,6 +707,14 @@
                 </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="421" y="-284"/>
+        </scene>
+        <!--DetailedMaps-->
+        <scene sceneID="sR9-J5-DC5">
+            <objects>
+                <viewControllerPlaceholder storyboardName="DetailedMaps" id="RFn-A9-FDD" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tfn-te-fDN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="178.5" y="157"/>
         </scene>
         <!--Model Wam Settings Controller-->
         <scene sceneID="Ztk-YB-ZmQ">
