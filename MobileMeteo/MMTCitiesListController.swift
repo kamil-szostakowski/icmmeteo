@@ -13,7 +13,7 @@ import CoreSpotlight
 
 typealias MMTCompletion = () -> Void
 
-class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CLLocationManagerDelegate
+class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CLLocationManagerDelegate, MMTGridClimateModelController
 {        
     // MARK: Outlets
 
@@ -86,21 +86,18 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
+        if var controller = segue.destinationViewController as? MMTGridClimateModelController
+        {
+            controller.meteorogramStore = meteorogramStore
+        }
+        
         if segue.identifier == MMTSegue.DisplayMeteorogram
         {
             let
             controller = segue.destinationViewController as! MMTMeteorogramController
-            controller.meteorogramStore = meteorogramStore
             controller.city = selectedCity
             
             selectedCity = nil
-        }
-        
-        if segue.identifier == MMTSegue.DisplayMapScreen
-        {
-            let
-            controller = segue.destinationViewController as! MMTCityMapPickerController
-            controller.meteorogramStore = meteorogramStore
         }
     }
     
@@ -242,7 +239,8 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
             return
         }
         
-        guard citiesIndex[indexPath.section].type != .DetailedMaps else {            
+        guard citiesIndex[indexPath.section].type != .DetailedMaps else {
+            performSegueWithIdentifier(MMTSegue.DisplayDetailedMapsList, sender: self)
             return
         }
         

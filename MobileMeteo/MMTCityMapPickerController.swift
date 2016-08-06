@@ -21,7 +21,7 @@ class MMTCityAnnotation: NSObject, MKAnnotation
     }
 }
 
-class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
+class MMTCityMapPickerController: UIViewController, MKMapViewDelegate, MMTGridClimateModelController
 {
     // MARK: Outlets
     

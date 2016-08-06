@@ -16,6 +16,8 @@ struct MMTSegue
     static let DisplayWamSettings = "DisplayWamSettings"
     static let DisplayWamCategoryPreview = "DisplayWamCategoryPreview"
     static let DisplayMapScreen = "DisplayMapScreen"
+    static let DisplayDetailedMapsList = "DisplayDetailedMapsList"
+    static let DisplayDetailedMap = "DisplayDetailedMap"
 }
 
 struct MMTFormat
@@ -29,6 +31,11 @@ struct MMTFetch
     static let AllCities = "FetchAllCities"
     static let CityWithName = "FetchCityWithName"
     static let CityWithLocation = "FetchCityWithLocation"
+}
+
+protocol MMTGridClimateModelController
+{
+    var meteorogramStore: MMTGridClimateModelStore! { get set }
 }
 
 let MMTActivityTypeDisplayModelUm = "com.szostakowski.meteo.um"
