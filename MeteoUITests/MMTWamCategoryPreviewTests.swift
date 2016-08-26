@@ -12,8 +12,8 @@ import Foundation
 class MMTWamCategoryPreviewTests: XCTestCase
 {
     var app: XCUIApplication!
-    static var onceToken: dispatch_once_t = 0
-    
+    static var onceToken: Int = 0
+
     // MARK: Setup methods
     
     override func setUp()
@@ -22,13 +22,10 @@ class MMTWamCategoryPreviewTests: XCTestCase
         
         continueAfterFailure = false
         
-        XCUIDevice.sharedDevice().orientation = .Portrait        
+        XCUIDevice.shared().orientation = .portrait        
         
         app = XCUIApplication()
-
-        dispatch_once(&MMTWamCategoryPreviewTests.onceToken){
-            self.app.launchArguments = ["CLEANUP_DB"]
-        }
+        app.launchArguments = ["CLEANUP_DB"]
         
         app.launch()
         goToWamModel()
@@ -54,18 +51,18 @@ class MMTWamCategoryPreviewTests: XCTestCase
     {
         app.collectionViews.cells["TideHeight +6"].tap()
         
-        let nextBtn = app.toolbars.buttons.matchingIdentifier("NextButton").element
-        let prevBtn = app.toolbars.buttons.matchingIdentifier("PrevButton").element
+        let nextBtn = app.toolbars.buttons.matching(identifier: "NextButton").element
+        let prevBtn = app.toolbars.buttons.matching(identifier: "PrevButton").element
         
         prevBtn.tap()
-        expectationForPredicate(NSPredicate(format: "enabled == true"), evaluatedWithObject: nextBtn){
+        expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: nextBtn){
             
-            XCTAssertTrue(nextBtn.enabled)
-            XCTAssertFalse(prevBtn.enabled)
+            XCTAssertTrue(nextBtn.isEnabled)
+            XCTAssertFalse(prevBtn.isEnabled)
             return true
         }
         
-        waitForExpectationsWithTimeout(7, handler: nil)
+        waitForExpectations(timeout: 7, handler: nil)
     }
     
     func test03_DisplayingNextMeteorograms()
@@ -73,16 +70,16 @@ class MMTWamCategoryPreviewTests: XCTestCase
         app.collectionViews.cells["TideHeight +6"].tap()
         
         let
-        nextBtn = app.toolbars.buttons.matchingIdentifier("NextButton").element
+        nextBtn = app.toolbars.buttons.matching(identifier: "NextButton").element
         nextBtn.tap()
         
-        expectationForPredicate(NSPredicate(format: "enabled == true"), evaluatedWithObject: nextBtn){
+        expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: nextBtn){
             
-            XCTAssertTrue(self.app.staticTexts["MomentDetails"].label.containsString("+009h"))
+            XCTAssertTrue(self.app.staticTexts["MomentDetails"].label.contains("+009h"))
             return true
         }
         
-        waitForExpectationsWithTimeout(7, handler: nil)
+        waitForExpectations(timeout: 7, handler: nil)
     }
     
     func test04_DisplayPreviousMeteorogram()
@@ -91,16 +88,16 @@ class MMTWamCategoryPreviewTests: XCTestCase
         app.collectionViews.cells["TideHeight +9"].tap()
         
         let
-        prevBtn = app.toolbars.buttons.matchingIdentifier("PrevButton").element
+        prevBtn = app.toolbars.buttons.matching(identifier: "PrevButton").element
         prevBtn.tap()
         
-        expectationForPredicate(NSPredicate(format: "enabled == true"), evaluatedWithObject: prevBtn){
+        expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: prevBtn){
             
-            XCTAssertTrue(self.app.staticTexts["MomentDetails"].label.containsString("+006h"))
+            XCTAssertTrue(self.app.staticTexts["MomentDetails"].label.contains("+006h"))
             return true
         }
         
-        waitForExpectationsWithTimeout(7, handler: nil)
+        waitForExpectations(timeout: 7, handler: nil)
     }
     
     func test05_RestoreDefaultZoom()
@@ -115,16 +112,16 @@ class MMTWamCategoryPreviewTests: XCTestCase
     
     // MARK: Helper methods
     
-    private func goToWamModel()
+    fileprivate func goToWamModel()
     {
         app.tabBars.buttons["Model WAM"].tap()
     }
     
-    private func setupSettingsForTest()
+    fileprivate func setupSettingsForTest()
     {
         app.navigationBars.buttons["Utwórz"].tap()
         
-        app.tables.childrenMatchingType(.Other).matchingIdentifier("WamSettingsHeader").elementBoundByIndex(0).buttons.element.tap()
+        app.tables.children(matching: .other).matching(identifier: "WamSettingsHeader").element(boundBy: 0).buttons.element.tap()
         app.tables.cells["WamSettingsMoment: t0 +3h"].tap()
         app.tables.cells["WamSettingsMoment: t0 +6h"].tap()
         app.tables.cells["WamSettingsMoment: t0 +9h"].tap()

@@ -12,34 +12,35 @@ typealias TT = MMTTestTools
 
 class MMTTestTools
 {
-    static func getDate(year: Int, _ month: Int, _ day: Int, _ hour: Int) -> NSDate
+    static func getDate(_ year: Int, _ month: Int, _ day: Int, _ hour: Int) -> Date
     {
-        let components = NSDateComponents()
-        components.timeZone = NSTimeZone(name: "UTC")
+        var
+        components = DateComponents()
+        components.timeZone = TimeZone(identifier: "UTC")
         components.year = year
         components.month = month
         components.day = day
         components.hour = hour
         
-        return NSCalendar.currentCalendar().dateFromComponents(components)!
+        return Calendar.current.date(from: components)!
     }
     
-    static var localFormatter: NSDateFormatter
+    static var localFormatter: DateFormatter
     {
         let
-        localFormatter = NSDateFormatter()
+        localFormatter = DateFormatter()
         localFormatter.dateFormat = "YYYY-MM-dd'T'HH:mm"
-        localFormatter.timeZone = NSTimeZone(forSecondsFromGMT:7200)
+        localFormatter.timeZone = TimeZone(secondsFromGMT:7200)
         
         return localFormatter
     }
     
-    static var utcFormatter: NSDateFormatter
+    static var utcFormatter: DateFormatter
     {
         let
-        utcFormatter = NSDateFormatter()
+        utcFormatter = DateFormatter()
         utcFormatter.dateFormat = "YYYY-MM-dd'T'HH:mm"
-        utcFormatter.timeZone = NSTimeZone(name: "UTC")
+        utcFormatter.timeZone = TimeZone(identifier: "UTC")
             
         return utcFormatter
     }

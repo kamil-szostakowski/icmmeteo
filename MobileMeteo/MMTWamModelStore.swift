@@ -16,17 +16,17 @@ enum MMTWamCategory: String
     case SpectrumPeakPeriod
 }
 
-typealias MMTWamModelMeteorogramQuery = (category: MMTWamCategory, moment: NSDate)
-typealias MMTWamMoment = (date: NSDate, selected: Bool)
+typealias MMTWamModelMeteorogramQuery = (category: MMTWamCategory, moment: Date)
+typealias MMTWamMoment = (date: Date, selected: Bool)
 
 class MMTWamModelStore: NSObject, MMTClimateModelStore
 {
     // MARK: Properties
     
-    private let waitingTime = NSTimeInterval(hours: 7)
-    private var urlSession: MMTMeteorogramUrlSession!
-    private let momentLength = 3
-    private var startDate: NSDate!
+    fileprivate let momentLength = 3
+    fileprivate let waitingTime = TimeInterval(hours: 7)
+    fileprivate var urlSession: MMTMeteorogramUrlSession!
+    fileprivate var startDate: Date!
     
     var meteorogramSize: CGSize {
         return CGSize(width: 720, height: 702)
@@ -36,64 +36,64 @@ class MMTWamModelStore: NSObject, MMTClimateModelStore
         return 84
     }
     
-    var forecastStartDate: NSDate {
+    var forecastStartDate: Date {
         return startDate
     }
     
     // MARK: Initializers
     
-    init(date: NSDate)
+    init(date: Date)
     {
         super.init()
         
         urlSession = MMTMeteorogramUrlSession()
-        startDate = NSCalendar.utcCalendar.dateFromComponents(tZeroComponentsForDate(date))!
+        startDate = Calendar.utcCalendar.date(from: tZeroComponentsForDate(date))!
     }
     
     // MARK: Methods
     
-    func getHoursFromForecastStartDate(forDate endDate: NSDate) -> Int
+    func getHoursFromForecastStartDate(forDate endDate: Date) -> Int
     {
-        return Int(endDate.timeIntervalSinceDate(startDate)/3600)
+        return Int(endDate.timeIntervalSince(startDate)/3600)
     }
     
-    func getMeteorogramMomentThumbnailWithQuery(query: MMTWamModelMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
+    func getMeteorogramMomentThumbnailWithQuery(_ query: MMTWamModelMeteorogramQuery, completion: @escaping MMTFetchMeteorogramCompletion)
     {
-        var downloadUrl: NSURL!
+        var downloadUrl: URL!
         let tZeroPlus = getHoursFromForecastStartDate(forDate: query.moment)
         
         switch query.category
         {
-            case .TideHeight: downloadUrl = NSURL.mmt_modelWamTideHeightThumbnailUrl(startDate, plus: tZeroPlus)
-            case .AvgTidePeriod: downloadUrl = NSURL.mmt_modelWamAvgTidePeriodThumbnailUrl(startDate, plus: tZeroPlus)
-            case .SpectrumPeakPeriod: downloadUrl = NSURL.mmt_modelWamSpectrumPeakPeriodThumbnailUrl(startDate, plus: tZeroPlus)
+            case .TideHeight: downloadUrl = URL.mmt_modelWamTideHeightThumbnailUrl(startDate, plus: tZeroPlus)
+            case .AvgTidePeriod: downloadUrl = URL.mmt_modelWamAvgTidePeriodThumbnailUrl(startDate, plus: tZeroPlus)
+            case .SpectrumPeakPeriod: downloadUrl = URL.mmt_modelWamSpectrumPeakPeriodThumbnailUrl(startDate, plus: tZeroPlus)
         }
         
         urlSession.fetchImageFromUrl(downloadUrl, completion: completion)
     }
     
-    func getMeteorogramMomentWithQuery(query: MMTWamModelMeteorogramQuery, completion: MMTFetchMeteorogramCompletion)
+    func getMeteorogramMomentWithQuery(_ query: MMTWamModelMeteorogramQuery, completion: @escaping MMTFetchMeteorogramCompletion)
     {
-        var downloadUrl: NSURL!
+        var downloadUrl: URL!
         let tZeroPlus = getHoursFromForecastStartDate(forDate: query.moment)
         
         switch query.category
         {
-            case .TideHeight: downloadUrl = NSURL.mmt_modelWamTideHeightDownloadUrl(startDate, plus: tZeroPlus)
-            case .AvgTidePeriod: downloadUrl = NSURL.mmt_modelWamAvgTidePeriodDownloadUrl(startDate, plus: tZeroPlus)
-            case .SpectrumPeakPeriod: downloadUrl = NSURL.mmt_modelWamSpectrumPeakPeriodDownloadUrl(startDate, plus: tZeroPlus)
+            case .TideHeight: downloadUrl = URL.mmt_modelWamTideHeightDownloadUrl(startDate, plus: tZeroPlus)
+            case .AvgTidePeriod: downloadUrl = URL.mmt_modelWamAvgTidePeriodDownloadUrl(startDate, plus: tZeroPlus)
+            case .SpectrumPeakPeriod: downloadUrl = URL.mmt_modelWamSpectrumPeakPeriodDownloadUrl(startDate, plus: tZeroPlus)
         }
 
         urlSession.fetchImageFromUrl(downloadUrl, completion: completion)
     }
     
-    func getForecastStartDate(completion: MMTFetchForecastStartDateCompletion)
+    func getForecastStartDate(_ completion: @escaping MMTFetchForecastStartDateCompletion)
     {
-        urlSession.fetchForecastStartDateFromUrl(NSURL.mmt_modelWamForecastStartUrl()) {
-            (date: NSDate?, error: MMTError?) in
+        urlSession.fetchForecastStartDateFromUrl(URL.mmt_modelWamForecastStartUrl()) {
+            (date: Date?, error: MMTError?) in
             
-            self.startDate = date ?? NSCalendar.utcCalendar.dateFromComponents(self.tZeroComponentsForDate(NSDate()))!
-            completion(date: date, error: error)
+            self.startDate = date ?? Calendar.utcCalendar.date(from: self.tZeroComponentsForDate(Date()))!
+            completion(date, error)
         }
     }
     
@@ -104,8 +104,8 @@ class MMTWamModelStore: NSObject, MMTClimateModelStore
         
         for index in 1...momentsCount
         {
-            let momentOffset = NSTimeInterval(hours: index*momentLength)
-            let moment = startDate.dateByAddingTimeInterval(momentOffset)
+            let momentOffset = TimeInterval(hours: index*momentLength)
+            let moment = startDate.addingTimeInterval(momentOffset)
             
             forecastMoments.append((date: moment, selected: false))
         }
@@ -115,13 +115,13 @@ class MMTWamModelStore: NSObject, MMTClimateModelStore
     
     // MARK: Helper methods
     
-    private func tZeroComponentsForDate(date: NSDate) -> NSDateComponents
+    fileprivate func tZeroComponentsForDate(_ date: Date) -> DateComponents
     {
-        let dateWithOffset = date.dateByAddingTimeInterval(-waitingTime)
+        let dateWithOffset = date.addingTimeInterval(-waitingTime)
         
-        let
-        components = NSCalendar.utcCalendar.components([.Year, .Month, .Day, .Hour], fromDate: dateWithOffset)
-        components.hour = components.hour < 12 ? 0 : 12
+        var
+        components = Calendar.utcCalendar.dateComponents([.year, .month, .day, .hour], from: dateWithOffset)
+        components.hour = components.hour! < 12 ? 0 : 12
         
         return components
     }

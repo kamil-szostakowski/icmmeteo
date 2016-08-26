@@ -17,51 +17,51 @@ class MMTWamModelStoreTests: XCTestCase
     
     func testForecastLenght()
     {
-        let store = MMTWamModelStore(date: NSDate())
+        let store = MMTWamModelStore(date: Date())
         XCTAssertEqual(84, store.forecastLength)
     }
 
     func testStartForecastDate12am()
     {
-        let expectedDate = TT.utcFormatter.dateFromString("2015-09-02T12:00")!
-        let store = MMTWamModelStore(date: TT.localFormatter.dateFromString("2015-09-03T08:30")!)
+        let expectedDate = TT.utcFormatter.date(from: "2015-09-02T12:00")!
+        let store = MMTWamModelStore(date: TT.localFormatter.date(from: "2015-09-03T08:30")!)
         
         XCTAssertEqual(expectedDate, store.forecastStartDate)
     }
     
     func testStartForecastDateMidnight()
     {
-        let expectedDate = TT.utcFormatter.dateFromString("2015-03-11T00:00")!
-        let store = MMTWamModelStore(date: TT.localFormatter.dateFromString("2015-03-11T010:34")!)
+        let expectedDate = TT.utcFormatter.date(from: "2015-03-11T00:00")!
+        let store = MMTWamModelStore(date: TT.localFormatter.date(from: "2015-03-11T010:34")!)
         
         XCTAssertEqual(expectedDate, store.forecastStartDate)
     }
     
     func testHoursFromForecastStartAt12am()
     {
-        let date = TT.utcFormatter.dateFromString("2015-03-12T15:31")!
-        let store = MMTWamModelStore(date: TT.localFormatter.dateFromString("2015-03-12T01:34")!)
+        let date = TT.utcFormatter.date(from: "2015-03-12T15:31")!
+        let store = MMTWamModelStore(date: TT.localFormatter.date(from: "2015-03-12T01:34")!)
         
         XCTAssertEqual(27, store.getHoursFromForecastStartDate(forDate: date))
     }
     
     func testHoursFromForecastStartAtMidnight()
     {
-        let date = TT.utcFormatter.dateFromString("2015-03-12T15:31")!
-        let store = MMTWamModelStore(date: TT.localFormatter.dateFromString("2015-03-12T09:34")!)
+        let date = TT.utcFormatter.date(from: "2015-03-12T15:31")!
+        let store = MMTWamModelStore(date: TT.localFormatter.date(from: "2015-03-12T09:34")!)
         
         XCTAssertEqual(15, store.getHoursFromForecastStartDate(forDate: date))
     }
     
     func testForecastMomentsCount()
     {
-        let store = MMTWamModelStore(date: TT.utcFormatter.dateFromString("2015-07-30T00:00")!)
+        let store = MMTWamModelStore(date: TT.utcFormatter.date(from: "2015-07-30T00:00")!)
         XCTAssertEqual(28, store.getForecastMoments().count)
     }
     
     func testForecastMomentsOnTurnOfTheMonthForForecastStartAt12am()
     {
-        let store = MMTWamModelStore(date: TT.utcFormatter.dateFromString("2015-07-30T00:00")!)
+        let store = MMTWamModelStore(date: TT.utcFormatter.date(from: "2015-07-30T00:00")!)
         let moments = store.getForecastMoments()
         
         XCTAssertEqual(TT.getDate(2015, 7, 29, 15), moments[0].date)
@@ -72,7 +72,7 @@ class MMTWamModelStoreTests: XCTestCase
     
     func testForecastMomentsOnTurnOfTheMonthForForecastStartAtMidnight()
     {
-        let store = MMTWamModelStore(date: TT.utcFormatter.dateFromString("2015-07-30T07:00")!)
+        let store = MMTWamModelStore(date: TT.utcFormatter.date(from: "2015-07-30T07:00")!)
         let moments = store.getForecastMoments()
         
         XCTAssertEqual(TT.getDate(2015, 7, 30, 3), moments[0].date)
@@ -83,7 +83,7 @@ class MMTWamModelStoreTests: XCTestCase
     
     func testForecastMomentsForForecastStartAtMidnight()
     {
-        let store = MMTWamModelStore(date: TT.utcFormatter.dateFromString("2015-07-08T07:00")!)
+        let store = MMTWamModelStore(date: TT.utcFormatter.date(from: "2015-07-08T07:00")!)
         let moments = store.getForecastMoments()
         
         XCTAssertEqual(TT.getDate(2015, 7, 8, 3), moments[0].date)
@@ -94,7 +94,7 @@ class MMTWamModelStoreTests: XCTestCase
     
     func testMeteorogramSize()
     {
-        let store = MMTWamModelStore(date: NSDate())
+        let store = MMTWamModelStore(date: Date())
         XCTAssertEqual(CGSize(width: 720, height: 702), store.meteorogramSize)
     }
 }

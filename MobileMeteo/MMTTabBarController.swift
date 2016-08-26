@@ -17,37 +17,37 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
 
         delegate = self
         
-        initItemAtIndex(0, name: "Model UM", store: MMTUmModelStore(date: NSDate()))
-        initItemAtIndex(1, name: "Model COAMPS", store: MMTCoampsModelStore(date: NSDate()))
+        initItemAtIndex(0, name: "Model UM", store: MMTUmModelStore(date: Date()))
+        initItemAtIndex(1, name: "Model COAMPS", store: MMTCoampsModelStore(date: Date()))
 
         let attributes = [NSFontAttributeName: MMTAppearance.fontWithSize(10)]
 
-        UITabBarItem.appearance().setTitleTextAttributes(attributes, forState: UIControlState.Normal)
-        UITabBarItem.appearance().setTitleTextAttributes(attributes, forState: UIControlState.Selected)
+        UITabBarItem.appearance().setTitleTextAttributes(attributes, for: UIControlState())
+        UITabBarItem.appearance().setTitleTextAttributes(attributes, for: UIControlState.selected)
         UITabBar.appearance().tintColor = MMTAppearance.textColor
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask
     {        
-        return .Portrait
+        return .portrait
     }
     
     // MARK: Interface methods
     
-    func presentMeteorogramUmForCity(city: MMTCityProt)
+    func presentMeteorogramUmForCity(_ city: MMTCityProt)
     {
         guard let umController = viewControllers?.first as? MMTCitiesListController else {
             return
         }
         
         if presentedViewController != nil {
-            dismissViewControllerAnimated(false, completion: nil)
+            dismiss(animated: false, completion: nil)
         }
         
         umController.selectedCity = city
         
         if selectedIndex == 0 {
-            umController.performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
+            umController.performSegue(withIdentifier: MMTSegue.DisplayMeteorogram, sender: self)
         }
         
         selectedIndex = 0
@@ -55,27 +55,27 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
     
     // MARK: UITabBarControllerDelegate methods
     
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController)
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController)
     {
-        guard let index =  tabBarController.viewControllers?.indexOf(viewController) else {
+        guard let index =  tabBarController.viewControllers?.index(of: viewController) else {
             return
         }
 
         let tabBarItems = tabBar.layer.sublayers!
             .filter(){ $0.frame.size.width < tabBar.frame.size.width }
-            .sort(){ $0.frame.origin.x < $1.frame.origin.x }
+            .sorted(){ $0.frame.origin.x < $1.frame.origin.x }
             .map() {
-                $0.sublayers!.maxElement(){ $0.frame.size.height < $1.frame.size.height }!
+                $0.sublayers!.max(){ $0.frame.size.height < $1.frame.size.height }!
         }
             
-        tabBarItems[index].addAnimation(CAAnimation.defaultScaleAnimation(), forKey: "basic")
+        tabBarItems[index].add(CAAnimation.defaultScaleAnimation(), forKey: "basic")
     }
     
     // MARK: Helper methods
     
-    private func initItemAtIndex(index: Int, name: String, store: MMTGridClimateModelStore)
+    fileprivate func initItemAtIndex(_ index: Int, name: String, store: MMTGridClimateModelStore)
     {
-        let iconName = name.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "-")
+        let iconName = name.lowercased().replacingOccurrences(of: " ", with: "-")
         let icon = UIImage(named: iconName)
         
         let

@@ -12,9 +12,9 @@ import Foundation
 
 class MMTMFMailComposeViewController: MFMailComposeViewController
 {
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask
     {
-        return .Portrait
+        return .portrait
     }
 }
 
@@ -22,11 +22,11 @@ class MMTInfoController: UIViewController, MFMailComposeViewControllerDelegate
 {        
     // MARK: Action methods
     
-    @IBAction func feedbackBtnDidTap(sender: UIButton)
+    @IBAction func feedbackBtnDidTap(_ sender: UIButton)
     {
         guard MFMailComposeViewController.canSendMail() else {
             
-            presentViewController(UIAlertController.alertForMMTError(.MailNotAvailable), animated: true, completion: nil)
+            present(UIAlertController.alertForMMTError(.mailNotAvailable), animated: true, completion: nil)
             return
         }
         
@@ -37,13 +37,13 @@ class MMTInfoController: UIViewController, MFMailComposeViewControllerDelegate
         mailer.setSubject("ICM Meteo, Feedback")
         mailer.mailComposeDelegate = self
         
-        presentViewController(mailer, animated: true, completion: nil)
+        present(mailer, animated: true, completion: nil)
     }
     
     // MARK: MFMailComposeViewControllerDelegate methods
     
-    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?)
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?)
     {
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }

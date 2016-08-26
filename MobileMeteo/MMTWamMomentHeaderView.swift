@@ -15,16 +15,16 @@ class MMTWamMomentHeaderView: UITableViewCell
     @IBOutlet var btnSelect: UIButton!
     
     override var textLabel: UILabel? { return lblTitle }
-    override var selected: Bool
+    override var isSelected: Bool
     {
-        didSet { btnSelect.selected = selected }
+        didSet { btnSelect.isSelected = isSelected }
     }
     
     override func prepareForReuse()
     {
         super.prepareForReuse()
 
-        selected = false
+        isSelected = false
     }
     
     override func awakeFromNib()
@@ -33,14 +33,14 @@ class MMTWamMomentHeaderView: UITableViewCell
         accessibilityElements = [lblTitle, btnSelect]
     }
     
-    @IBAction func didTapSelectButton(sender: UIButton)
+    @IBAction func didTapSelectButton(_ sender: UIButton)
     {
-        selected = !selected
+        isSelected = !isSelected
         
         let action = #selector(MMTModelWamSettingsController.didSelectCategory(_:))
-        let target = targetForAction(action, withSender: self) as? NSObject
+        let target = self.target(forAction: action, withSender: self) as? NSObject
         
-        UIApplication.sharedApplication().sendAction(action, to: target, from: self, forEvent: nil)
+        UIApplication.shared.sendAction(action, to: target, from: self, for: nil)
 
     }
 }

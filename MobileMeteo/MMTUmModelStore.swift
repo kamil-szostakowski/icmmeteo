@@ -14,9 +14,9 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
 {
     // MARK: Properties
     
-    private let waitingTime = NSTimeInterval(hours: 5)
-    private var urlSession: MMTMeteorogramUrlSession!
-    private var startDate: NSDate!
+    fileprivate let waitingTime = TimeInterval(hours: 5)
+    fileprivate var urlSession: MMTMeteorogramUrlSession!
+    fileprivate var startDate: Date!
     
     var forecastLength: Int {
         return 60
@@ -26,7 +26,7 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
         return 4
     }
     
-    var forecastStartDate: NSDate {
+    var forecastStartDate: Date {
         return startDate
     }
     
@@ -47,45 +47,81 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
     
     // MARK: Initializers
     
-    init(date: NSDate)
+    init(date: Date)
     {
         super.init()
         
-        urlSession = MMTMeteorogramUrlSession(redirectionBaseUrl: NSURL.mmt_modelUmDownloadBaseUrl())
-        startDate = NSCalendar.utcCalendar.dateFromComponents(tZeroComponentsForDate(date))!
+        urlSession = MMTMeteorogramUrlSession(redirectionBaseUrl: URL.mmt_modelUmDownloadBaseUrl())
+        startDate = Calendar.utcCalendar.date(from: tZeroComponentsForDate(date))!
     }
     
     // MARK: Methods
     
-    func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion)
+    func getMeteorogramForLocation(_ location: CLLocation, completion: @escaping MMTFetchMeteorogramCompletion)
     {
-        urlSession.fetchMeteorogramImageForUrl(NSURL.mmt_modelUmSearchUrl(location), completion: completion)
+        urlSession.fetchMeteorogramImageForUrl(URL.mmt_modelUmSearchUrl(location), completion: completion)
     }
     
-    func getMeteorogramLegend(completion: MMTFetchMeteorogramCompletion)
+    func getMeteorogramLegend(_ completion: @escaping MMTFetchMeteorogramCompletion)
     {        
-        urlSession.fetchImageFromUrl(NSURL.mmt_modelUmLegendUrl(), completion: completion)
+        urlSession.fetchImageFromUrl(URL.mmt_modelUmLegendUrl(), completion: completion)
     }
     
-    func getForecastStartDate(completion: MMTFetchForecastStartDateCompletion)
+    func getForecastStartDate(_ completion: @escaping MMTFetchForecastStartDateCompletion)
     {
-        urlSession.fetchForecastStartDateFromUrl(NSURL.mmt_modelUmForecastStartUrl()) {
-            (date: NSDate?, error: MMTError?) in            
+        urlSession.fetchForecastStartDateFromUrl(URL.mmt_modelUmForecastStartUrl()) {
+            (date: Date?, error: MMTError?) in            
             
-            self.startDate = date ?? NSCalendar.utcCalendar.dateFromComponents(self.tZeroComponentsForDate(NSDate()))!
-            completion(date: date, error: error)
+            self.startDate = date ?? Calendar.utcCalendar.date(from: self.tZeroComponentsForDate(Date()))!
+            completion(date, error)
         }
+    }
+    
+    func getForecastMomentsForMap(_ map: MMTDetailedMap) -> [MMTWamMoment]
+    {
+        // TODO: Add +1 hour for standard maps
+        var moments = [MMTWamMoment]()
+        let start = [.Precipitation, .Storm, .MaximumGust].contains(map) ? 1 : 0
+        
+        for index in start...20 {
+            
+            let momentOffset = TimeInterval(hours: max(index*3, 1))
+            let momentDate = startDate.addingTimeInterval(momentOffset)
+            
+            moments.append((date: momentDate, selected: false))
+        }
+        
+        return moments
+    }
+    
+    func getMeteorogramForMap(_ map: MMTDetailedMap, moment: Date, completion: @escaping MMTFetchMeteorogramCompletion)
+    {
+        let tZeroPlus = getHoursFromForecastStartDate(forDate: moment)
+        
+        guard let downloadUrl = URL.mmt_modelUmDownloadUrlForMap(map, tZero: startDate, plus: tZeroPlus) else {
+            
+            completion(nil, .detailedMapNotSupported)
+            return
+        }
+        //http://www.meteo.pl/um/pict/2016120212/SLPH_0000.0_0U_2016120212_001-00.png
+        //http://www.meteo.pl/um/pict/2016120212/SLPH_0000.0_0U_2016120212_000-00.png
+        urlSession.fetchImageFromUrl(downloadUrl, completion: completion)
     }
     
     // MARK: Helper methods    
     
-    private func tZeroComponentsForDate(date: NSDate) -> NSDateComponents
+    fileprivate func getHoursFromForecastStartDate(forDate endDate: Date) -> Int
     {
-        let dateWithOffset = date.dateByAddingTimeInterval(-waitingTime)
+        return Int(endDate.timeIntervalSince(startDate)/3600)
+    }
+    
+    fileprivate func tZeroComponentsForDate(_ date: Date) -> DateComponents
+    {
+        let dateWithOffset = date.addingTimeInterval(-waitingTime)
         
-        let
-        components = NSCalendar.utcCalendar.components([.Year, .Month, .Day, .Hour], fromDate: dateWithOffset)
-        components.hour = Int(components.hour/6)*6
+        var
+        components = Calendar.utcCalendar.dateComponents([.year, .month, .day, .hour], from: dateWithOffset)
+        components.hour = Int(components.hour!/6)*6
 
         return components
     }    

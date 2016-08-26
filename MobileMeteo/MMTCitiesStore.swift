@@ -16,11 +16,11 @@ typealias MMTCitiesQueryCompletion = ([MMTCityProt]) -> Void
 
 class MMTCitiesStore: NSObject
 {
-    private typealias MMTCitiesArray = [[String: AnyObject]]
-    private typealias MMTCurrentCityQueryCompletion = (MMTCityProt?) -> Void
+    fileprivate typealias MMTCitiesArray = [[String: AnyObject]]
+    fileprivate typealias MMTCurrentCityQueryCompletion = (MMTCityProt?) -> Void
     
-    private let database: MMTDatabase
-    private let geocoder: CLGeocoder
+    fileprivate let database: MMTDatabase
+    fileprivate let geocoder: CLGeocoder
     
     init(db: MMTDatabase)
     {
@@ -32,12 +32,12 @@ class MMTCitiesStore: NSObject
     
     // MARK: Methods    
     
-    func getAllCities(completion: MMTCitiesQueryCompletion)
+    func getAllCities(_ completion: MMTCitiesQueryCompletion)
     {
         completion(getAllCities())
     }
     
-    func findCityForLocation(location: CLLocation, completion: MMTCityQueryCompletion)
+    func findCityForLocation(_ location: CLLocation, completion: @escaping MMTCityQueryCompletion)
     {
         if let city = getCityWithLocation(location) {
             completion(city, nil)
@@ -56,18 +56,18 @@ class MMTCitiesStore: NSObject
             var error: MMTError? = nil
             
             defer { completion(city, error) }
-            guard translationError == nil else { error = .LocationNotFound; return }
-            guard let placemark = placemarks?.first else { error = .LocationNotFound; return }
+            guard translationError == nil else { error = .locationNotFound; return }
+            guard let placemark = placemarks?.first else { error = .locationNotFound; return }
             
             city = self.getCityForPlacemark(placemark)
             
             if city == nil {
-                error = .LocationUnsupported
+                error = .locationUnsupported
             }
         }
     }
     
-    func findCitiesMatchingCriteria(criteria: String, completion: MMTCitiesQueryCompletion)
+    func findCitiesMatchingCriteria(_ criteria: String, completion: @escaping MMTCitiesQueryCompletion)
     {
         var cities = getCitiesMatchingCriteria(criteria)
         
@@ -77,18 +77,16 @@ class MMTCitiesStore: NSObject
         
         let address: [NSObject:NSObject] =
         [
-            kABPersonAddressCityKey: criteria,
-            kABPersonAddressCountryKey: "Poland",
-            kABPersonAddressCountryCodeKey: "PL",
+            kABPersonAddressCityKey: criteria as NSObject,
+            kABPersonAddressCountryKey: "Poland" as NSObject,
+            kABPersonAddressCountryCodeKey: "PL" as NSObject,
         ]
         
         geocoder.cancelGeocode()
         geocoder.geocodeAddressDictionary(address){ (placemarks, error) in
             
             defer { completion(cities) }
-            
-            guard error == nil else { return }
-            guard let markers = placemarks else { return }
+            guard let markers = placemarks, error == nil else { return }
             
             let foundCities = markers
                 .map(){ self.getCityForPlacemark($0) }
@@ -96,12 +94,12 @@ class MMTCitiesStore: NSObject
                 .map{ $0! }
 
             if foundCities.count > 0 {
-                cities.appendContentsOf(foundCities)
+                cities.append(contentsOf: foundCities)
             }
         }
     }
     
-    func markCity(city: MMTCityProt, asFavourite favourite: Bool)
+    func markCity(_ city: MMTCityProt, asFavourite favourite: Bool)
     {
         guard let aCity = city as? MMTCity else {
             return
@@ -110,17 +108,17 @@ class MMTCitiesStore: NSObject
         city.isFavourite = favourite
 
         if favourite && aCity.managedObjectContext == nil {
-            database.context.insertObject(aCity)
+            database.context.insert(aCity)
         }
         
         if !favourite && !city.isCapital {
-            database.context.deleteObject(aCity)
+            database.context.delete(aCity)
         }
         
         MMTDatabase.instance.saveContext()
     }
     
-    func getPredefinedCitiesFromFile(file: String) -> [MMTCityProt]
+    func getPredefinedCitiesFromFile(_ file: String) -> [MMTCityProt]
     {
         guard let citiesList = getPredefinedCitiesFromJsonFile(file) else {
             return []
@@ -146,51 +144,51 @@ class MMTCitiesStore: NSObject
     
     // MARK: Helper methods
     
-    private func getAllCities() -> [MMTCityProt]
+    fileprivate func getAllCities() -> [MMTCityProt]
     {
         let
-        request = database.model.fetchRequestFromTemplateWithName(MMTFetch.AllCities, substitutionVariables: [String: AnyObject]())!
+        request = database.model.fetchRequestFromTemplate(withName: MMTFetch.AllCities, substitutionVariables: [String: AnyObject]())!
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
-        guard let objects = try? database.context.executeFetchRequest(request) else { return [] }
+        guard let objects = try? database.context.fetch(request) else { return [] }
         guard let cities = objects as? [MMTCity] else { return [] }
 
         return cities
     }
     
-    private func getCitiesMatchingCriteria(criteria: String) -> [MMTCityProt]
+    fileprivate func getCitiesMatchingCriteria(_ criteria: String) -> [MMTCityProt]
     {
         let predicate = NSPredicate(format: "SELF.name CONTAINS[cd] %@", criteria)
-        let cities = getAllCities().filter(){ predicate.evaluateWithObject($0) }
+        let cities = getAllCities().filter(){ predicate.evaluate(with: $0) }
         
         return cities
     }
     
-    private func getPredefinedCitiesFromJsonFile(path: String) -> MMTCitiesArray?
+    fileprivate func getPredefinedCitiesFromJsonFile(_ path: String) -> MMTCitiesArray?
     {
-        guard let data = NSData(contentsOfFile: path) else { return nil }
-        guard let json = try? NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) else {
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else { return nil }
+        guard let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) else {
             return nil
         }
         
         return json as? MMTCitiesArray
     }
     
-    private func getCityForPlacemark(placemark: MMTPlacemark) -> MMTCityProt?
+    fileprivate func getCityForPlacemark(_ placemark: MMTPlacemark) -> MMTCityProt?
     {
         guard let city = MMTCity(placemark: placemark) else { return nil }
         
-        let fetchRequest = database.model.fetchRequestFromTemplateWithName(MMTFetch.CityWithName, substitutionVariables: ["NAME": city.name])!
-        let fetchedCity = (try? database.context.executeFetchRequest(fetchRequest))?.first as? MMTCity
+        let fetchRequest = database.model.fetchRequestFromTemplate(withName: MMTFetch.CityWithName, substitutionVariables: ["NAME": city.name])!
+        let fetchedCity = (try? database.context.fetch(fetchRequest))?.first as? MMTCity
         
         return fetchedCity ?? city
     }
     
-    private func getCityWithLocation(location: CLLocation) -> MMTCityProt?
+    fileprivate func getCityWithLocation(_ location: CLLocation) -> MMTCityProt?
     {
         let parameters = ["LAT": location.coordinate.latitude, "LNG": location.coordinate.longitude]
-        let fetchRequest = database.model.fetchRequestFromTemplateWithName(MMTFetch.CityWithLocation, substitutionVariables: parameters)!
+        let fetchRequest = database.model.fetchRequestFromTemplate(withName: MMTFetch.CityWithLocation, substitutionVariables: parameters)!
         
-        return (try? database.context.executeFetchRequest(fetchRequest))?.first as? MMTCity
+        return (try? database.context.fetch(fetchRequest))?.first as? MMTCity
     }
 }

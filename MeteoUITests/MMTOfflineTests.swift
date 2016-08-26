@@ -23,7 +23,7 @@ class MMTOfflineTests: XCTestCase
         
         continueAfterFailure = false
         
-        XCUIDevice.sharedDevice().orientation = .Portrait
+        XCUIDevice.shared().orientation = .portrait
         
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB", "SIMULATED_OFFLINE_MODE"]
@@ -42,7 +42,7 @@ class MMTOfflineTests: XCTestCase
     {
         app.tables.cells["Białystok, Podlaskie"].tap()
 
-        verifyFailureAlert(app.alerts.elementBoundByIndex(0), meteorogramFetchError)
+        verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
     }
     
     func test02_displayCoampsMeteorogram()
@@ -50,7 +50,7 @@ class MMTOfflineTests: XCTestCase
         app.tabBars.buttons["Model COAMPS"].tap()
         app.tables.cells["Białystok, Podlaskie"].tap()
         
-        verifyFailureAlert(app.alerts.elementBoundByIndex(0), meteorogramFetchError)
+        verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
     }
     
     func test03_displayWamMomentPreview()
@@ -58,7 +58,7 @@ class MMTOfflineTests: XCTestCase
         app.tabBars.buttons["Model WAM"].tap()
         app.collectionViews.cells["TideHeight +3"].tap()
         
-        verifyFailureAlert(app.alerts.elementBoundByIndex(0), meteorogramFetchError)
+        verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
     }
     
     func test04_selectLocationOnMap()
@@ -70,20 +70,20 @@ class MMTOfflineTests: XCTestCase
         app.tables.staticTexts["Wskaż lokalizację na mapie"].tap()
         
         let
-        map = app.maps.elementBoundByIndex(0)
-        map.pinchWithScale(4, velocity: 4)
-        map.pressForDuration(1.3)
+        map = app.maps.element(boundBy: 0)
+        map.pinch(withScale: 4, velocity: 4)
+        map.press(forDuration: 1.3)
         
         app.navigationBars["Wybierz lokalizację"].buttons["Pokaż"].tap()
 
-        verifyFailureAlert(app.alerts.elementBoundByIndex(0), locationResolveError)
+        verifyFailureAlert(app.alerts.element(boundBy: 0), locationResolveError)
     }
     
     // MARK: Helper methods
     
-    private func verifyFailureAlert(alert: XCUIElement, _ message: String)
+    fileprivate func verifyFailureAlert(_ alert: XCUIElement, _ message: String)
     {
-        let errorMsg = alert.staticTexts.elementBoundByIndex(2).label
+        let errorMsg = alert.staticTexts.element(boundBy: 2).label
         
         alert.buttons["zamknij"].tap()
         

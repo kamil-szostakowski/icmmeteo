@@ -37,28 +37,28 @@ extension MMTCity: MMTCityProt
         get { return CLLocation(latitude: lat.doubleValue, longitude: lng.doubleValue) }
         set
         {
-            lat = newValue.coordinate.latitude
-            lng = newValue.coordinate.longitude
+            lat = NSNumber(floatLiteral: newValue.coordinate.latitude)
+            lng = NSNumber(floatLiteral: newValue.coordinate.longitude)
         }
     }
     
     var isFavourite: Bool
     {
         get { return favourite.boolValue }
-        set { favourite = newValue }
+        set { favourite = newValue as NSNumber }
     }
     
     var isCapital: Bool
     {
         get { return capital.boolValue }
-        set { capital = newValue }
+        set { capital = newValue as NSNumber }
     }
     
     // MARK: Initializers
     
     convenience init(name: String, region: String, location: CLLocation)
     {
-        self.init(entity: MMTCity.entityDescription, insertIntoManagedObjectContext: nil)
+        self.init(entity: MMTCity.entityDescription, insertInto: nil)
         
         self.name = name
         self.region = region
@@ -79,8 +79,8 @@ extension MMTCity: MMTCityProt
     
     // MARK: Helper methods
     
-    private class var entityDescription: NSEntityDescription
+    fileprivate class var entityDescription: NSEntityDescription
     {
-        return NSEntityDescription.entityForName("MMTCity", inManagedObjectContext: MMTDatabase.instance.context)!
+        return NSEntityDescription.entity(forEntityName: "MMTCity", in: MMTDatabase.instance.context)!
     }
 }

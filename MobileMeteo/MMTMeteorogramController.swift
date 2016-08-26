@@ -28,9 +28,9 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     var city: MMTCityProt!
     var meteorogramStore: MMTGridClimateModelStore!    
     
-    private var citiesStore: MMTCitiesStore!
+    fileprivate var citiesStore: MMTCitiesStore!
     
-    private var meteorogramType: String {
+    fileprivate var meteorogramType: String {
         return meteorogramStore is MMTUmModelStore ? "UM" : "COAMPS"
     }
 
@@ -42,12 +42,12 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
 
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
         navigationBar.topItem!.title = city.name
-        btnFavourite.enabled = false
+        btnFavourite.isEnabled = false
 
         setupStarButton()
     }
     
-    override func viewDidAppear(animated: Bool)
+    override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
                 
@@ -60,20 +60,20 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
         analytics?.sendUserActionReport(.Meteorogram, action: .MeteorogramDidDisplay, actionLabel: meteorogramType)
     }
     
-    override func willTransitionToTraitCollection(newCollection: UITraitCollection, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator)
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator)
     {
-        coordinator.animateAlongsideTransition(nil) { (UIViewControllerTransitionCoordinatorContext) -> Void in                
+        coordinator.animate(alongsideTransition: nil) { (UIViewControllerTransitionCoordinatorContext) -> Void in                
             self.adjustZoomScale()
         }
         
-        if newCollection.verticalSizeClass == .Compact {
+        if newCollection.verticalSizeClass == .compact {
             analytics?.sendUserActionReport(.Meteorogram, action: .MeteorogramDidDisplayInLandscape, actionLabel: meteorogramType)
         }
     }
     
     // MARK: Setup methods
     
-    private func setupScrollView()
+    fileprivate func setupScrollView()
     {
         let contentSize = visibleContentSize()
         let zoomScale = zoomScaleForVisibleContentSize(contentSize)
@@ -86,16 +86,16 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
         scrollView.zoomScale = zoomScale
     }
     
-    private func setupStarButton()
+    fileprivate func setupStarButton()
     {
         let imageName = city.isFavourite ? "star" : "star-outline"
         navigationBar.topItem?.rightBarButtonItem?.image = UIImage(named: imageName)
     }
     
-    private func setupMeteorogram()
+    fileprivate func setupMeteorogram()
     {
         meteorogramStore.getMeteorogramForLocation(city.location){
-            (data: NSData?, error: MMTError?) in
+            (data: Data?, error: MMTError?) in
             
             guard error == nil else
             {
@@ -104,14 +104,14 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
             }
             
             self.meteorogramImage.image = UIImage(data: data!)
-            self.activityIndicator.hidden = true
-            self.btnFavourite.enabled = true
+            self.activityIndicator.isHidden = true
+            self.btnFavourite.isEnabled = true
         }
     }
     
-    private func setupMeteorogramLegend()
+    fileprivate func setupMeteorogramLegend()
     {
-        meteorogramStore.getMeteorogramLegend(){ (data: NSData?, error: MMTError?) in
+        meteorogramStore.getMeteorogramLegend(){ (data: Data?, error: MMTError?) in
             
             guard error == nil else
             {
@@ -129,21 +129,21 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
 
     // MARK: Actions
 
-    @IBAction func onCloseBtnTouchAction(sender: UIBarButtonItem)
+    @IBAction func onCloseBtnTouchAction(_ sender: UIBarButtonItem)
     {
         citiesStore.markCity(city, asFavourite: city.isFavourite)
-        performSegueWithIdentifier(MMTSegue.UnwindToListOfCities, sender: self)
+        performSegue(withIdentifier: MMTSegue.UnwindToListOfCities, sender: self)
     }
     
-    @IBAction func onScrollViewDoubleTapAction(sender: UITapGestureRecognizer)
+    @IBAction func onScrollViewDoubleTapAction(_ sender: UITapGestureRecognizer)
     {
         adjustZoomScale()
     }
     
-    @IBAction func onStartBtnTouchAction(sender: UIBarButtonItem)
+    @IBAction func onStartBtnTouchAction(_ sender: UIBarButtonItem)
     {
-        if let button = (navigationBar.layer.sublayers!.maxElement(){ $0.position.x < $1.position.x }) {
-            button.addAnimation(CAAnimation.defaultScaleAnimation(), forKey: "scale")
+        if let button = (navigationBar.layer.sublayers!.max(){ $0.position.x < $1.position.x }) {
+            button.add(CAAnimation.defaultScaleAnimation(), forKey: "scale")
         }                
         
         city.isFavourite = !city.isFavourite
@@ -159,57 +159,57 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
 
     // MARK: UIScrollViewDelegate methods
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView?
+    func viewForZooming(in scrollView: UIScrollView) -> UIView?
     {
         return scrollViewContainer
     }
     
     // MARK: Helper methods
     
-    private func adjustZoomScale()
+    fileprivate func adjustZoomScale()
     {
         scrollView.animatedZoomToScale(zoomScaleForVisibleContentSize(visibleContentSize()))
     }
     
-    private func visibleContentSize() -> CGSize
+    fileprivate func visibleContentSize() -> CGSize
     {
         var contentSize = meteorogramStore.meteorogramSize
         
-        if traitCollection.verticalSizeClass == .Compact {
+        if traitCollection.verticalSizeClass == .compact {
             contentSize.width += meteorogramStore.legendSize.width
         }
         
         return contentSize
     }
     
-    private func zoomScaleForVisibleContentSize(size: CGSize) -> CGFloat
+    fileprivate func zoomScaleForVisibleContentSize(_ size: CGSize) -> CGFloat
     {
-        let isLandscape = traitCollection.verticalSizeClass == .Compact
+        let isLandscape = traitCollection.verticalSizeClass == .compact
         
         return isLandscape ? scrollView.minZoomScaleForSize(size) : scrollView.defaultZoomScale(size)
     }
     
-    private func displayErrorAlert(error: MMTError)
+    fileprivate func displayErrorAlert(_ error: MMTError)
     {
         let alert = UIAlertController.alertForMMTError(error){ (UIAlertAction) -> Void in
-            self.performSegueWithIdentifier(MMTSegue.UnwindToListOfCities, sender: self)
+            self.performSegue(withIdentifier: MMTSegue.UnwindToListOfCities, sender: self)
         }
         
-        activityIndicator.hidden = true
-        presentViewController(alert, animated: true, completion: nil)
+        activityIndicator.isHidden = true
+        present(alert, animated: true, completion: nil)
     }
     
-    private func updateCityStateInSpotlightIndex(city: MMTCityProt)
+    fileprivate func updateCityStateInSpotlightIndex(_ city: MMTCityProt)
     {
         guard #available(iOS 9.0, *) else { return }        
         guard CSSearchableIndex.isIndexingAvailable() else { return }
         
         if city.isFavourite {
-            CSSearchableIndex.defaultSearchableIndex().indexSearchableCity(city, completion: nil)
+            CSSearchableIndex.default().indexSearchableCity(city, completion: nil)
         }
         
         if !city.isFavourite {
-            CSSearchableIndex.defaultSearchableIndex().deleteSearchableCity(city, completion: nil)
+            CSSearchableIndex.default().deleteSearchableCity(city, completion: nil)
         }
     }
 }

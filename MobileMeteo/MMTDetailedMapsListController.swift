@@ -19,7 +19,7 @@ class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UI
     
     var meteorogramStore: MMTGridClimateModelStore!
     
-    private var meteorogramType: String {
+    fileprivate var meteorogramType: String {
         return meteorogramStore is MMTUmModelStore ? "UM" : "COAMPS"
     }
     
@@ -32,22 +32,22 @@ class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UI
         analytics?.sendScreenEntryReport("Detailed maps: \(meteorogramType)")
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return meteorogramStore.detailedMaps.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let
-        cell = tableView.dequeueReusableCellWithIdentifier("DetailedMapCell", forIndexPath: indexPath)
+        cell = tableView.dequeueReusableCell(withIdentifier: "DetailedMapCell", for: indexPath)
         cell.textLabel?.text = MMTLocalizedStringWithFormat("detailed-maps.\(meteorogramStore.detailedMaps[indexPath.row].rawValue)")
         
         return cell
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask
     {
-        return .Portrait
+        return .portrait
     }
 }

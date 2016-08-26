@@ -21,7 +21,7 @@ class MMTDetailedMapsTests: XCTestCase
         
         continueAfterFailure = false
 
-        XCUIDevice.sharedDevice().orientation = .Portrait
+        XCUIDevice.shared().orientation = .portrait
         
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB"]
@@ -50,7 +50,7 @@ class MMTDetailedMapsTests: XCTestCase
         displayDetailedMapsListForModel("UM")
         
         XCTAssertTrue(app.navigationBars["Mapy szczegółowe"].exists)
-        XCTAssertEqual(app.tables.elementBoundByIndex(0).cells.count, 16);
+        XCTAssertEqual(app.tables.element(boundBy: 0).cells.count, 16);
     }
     
     func test03_detailedMapsCountForCoampsModel()
@@ -58,12 +58,12 @@ class MMTDetailedMapsTests: XCTestCase
         displayDetailedMapsListForModel("COAMPS")
         
         XCTAssertTrue(app.navigationBars["Mapy szczegółowe"].exists)
-        XCTAssertEqual(app.tables.elementBoundByIndex(0).cells.count, 11);
+        XCTAssertEqual(app.tables.element(boundBy: 0).cells.count, 11);
     }
     
     // MARK: Helper methods
     
-    private func displayDetailedMapsListForModel(model: String)
+    fileprivate func displayDetailedMapsListForModel(_ model: String)
     {
         app.tabBars.buttons["Model \(model)"].tap()
         app.tables.cells["Mapy szczegółowe"].tap()

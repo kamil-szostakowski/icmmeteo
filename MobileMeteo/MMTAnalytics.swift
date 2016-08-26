@@ -50,7 +50,7 @@ struct MMTAnalyticsReport
 
 protocol MMTAnalytics
 {    
-    func sendScreenEntryReport(screen: String)
-    func sendUserActionReport(action: MMTAnalyticsReport)
-    func sendUserActionReport(category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel: String)
+    func sendScreenEntryReport(_ screen: String)
+    func sendUserActionReport(_ action: MMTAnalyticsReport)
+    func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel: String)
 }

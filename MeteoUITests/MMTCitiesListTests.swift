@@ -22,7 +22,7 @@ class MMTCitiesListTests: XCTestCase
     let headerCapitals = "Miasta wojewódzkie"
     
     var app: XCUIApplication!
-    static var onceToken: dispatch_once_t = 0
+    static var onceToken: Int = 0
     
     // MARK: Setup methods
     
@@ -32,14 +32,9 @@ class MMTCitiesListTests: XCTestCase
         
         continueAfterFailure = false
         
-        XCUIDevice.sharedDevice().orientation = .Portrait
+        XCUIDevice.shared().orientation = .portrait
         
         app = XCUIApplication()
-
-        dispatch_once(&MMTCitiesListTests.onceToken){
-            self.app.launchArguments = ["CLEANUP_DB"]
-        }
-        
         app.launch()
     }
     
@@ -57,15 +52,16 @@ class MMTCitiesListTests: XCTestCase
         addToFavourites(krakow)
         app.tables.element.swipeUp()
         addToFavourites(torun)
+        app.tables.element.swipeDown()
         
         /* --- Assertions -- */
         
-        XCTAssertEqual(detailedMaps, app.tables.cells.elementBoundByIndex(0).label)
+        XCTAssertEqual(detailedMaps, app.tables.cells.element(boundBy: 0).label)
         XCTCheckHeader(headerFavourites, index: 1)
-        XCTAssertEqual(bydgoszcz, app.tables.cells.elementBoundByIndex(2).label)
-        XCTAssertEqual(krakow, app.tables.cells.elementBoundByIndex(3).label)
-        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(4).label)
-        XCTCheckHeader("Miasta wojewódzkie", index: 5)
+        XCTAssertEqual(bydgoszcz, app.tables.cells.element(boundBy: 2).label)
+        XCTAssertEqual(krakow, app.tables.cells.element(boundBy: 3).label)
+        XCTAssertEqual(torun, app.tables.cells.element(boundBy: 4).label)
+        XCTCheckHeader(headerCapitals, index: 5)
     }
     
     func test02_RemovingPedefinedCitiesFromFavourites()
@@ -75,9 +71,9 @@ class MMTCitiesListTests: XCTestCase
         
         /* --- Assertions -- */
         
-        XCTAssertEqual(detailedMaps, app.tables.cells.elementBoundByIndex(0).label)
+        XCTAssertEqual(detailedMaps, app.tables.cells.element(boundBy: 0).label)
         XCTCheckHeader(headerFavourites, index: 1)
-        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(2).label)
+        XCTAssertEqual(torun, app.tables.cells.element(boundBy: 2).label)
         XCTCheckHeader(headerCapitals, index: 3)
     }
     
@@ -90,17 +86,17 @@ class MMTCitiesListTests: XCTestCase
         
         sleep(3)
         
-        XCTAssertEqual(ilawa, app.tables.cells.elementBoundByIndex(0).label)
-        XCTAssertEqual(locationNotFound, app.tables.cells.elementBoundByIndex(1).label)
+        XCTAssertEqual(ilawa, app.tables.cells.element(boundBy: 0).label)
+        XCTAssertEqual(locationNotFound, app.tables.cells.element(boundBy: 1).label)
         
         addToFavourites(ilawa)
         
         /* --- Assertions -- */
         
-        XCTAssertEqual(detailedMaps, app.tables.cells.elementBoundByIndex(0).label)
+        XCTAssertEqual(detailedMaps, app.tables.cells.element(boundBy: 0).label)
         XCTCheckHeader(headerFavourites, index: 1)
-        XCTAssertEqual(ilawa, app.tables.cells.elementBoundByIndex(2).label)
-        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(3).label)
+        XCTAssertEqual(ilawa, app.tables.cells.element(boundBy: 2).label)
+        XCTAssertEqual(torun, app.tables.cells.element(boundBy: 3).label)
         XCTCheckHeader(headerCapitals, index: 4)
     }
     
@@ -110,9 +106,9 @@ class MMTCitiesListTests: XCTestCase
         
         /* --- Assertions -- */
         
-        XCTAssertEqual(detailedMaps, app.tables.cells.elementBoundByIndex(0).label)
+        XCTAssertEqual(detailedMaps, app.tables.cells.element(boundBy: 0).label)
         XCTCheckHeader(headerFavourites, index: 1)
-        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(2).label)
+        XCTAssertEqual(torun, app.tables.cells.element(boundBy: 2).label)
         XCTCheckHeader(headerCapitals, index: 3)
     }
     
@@ -127,38 +123,38 @@ class MMTCitiesListTests: XCTestCase
         app.tables.cells[locationNotFound].tap()
         
         let
-        map = app.maps.elementBoundByIndex(0)
-        map.pinchWithScale(4, velocity: 4)
-        map.pressForDuration(1.3)
+        map = app.maps.element(boundBy: 0)
+        map.pinch(withScale: 4, velocity: 4)
+        map.press(forDuration: 1.3)
         
         app.navigationBars["Wybierz lokalizację"].buttons["Pokaż"].tap()
         
-        let navBar = app.navigationBars.elementBoundByIndex(0)
+        let navBar = app.navigationBars.element(boundBy: 0)
         
-        expectationForPredicate(NSPredicate(format: "enabled == true"), evaluatedWithObject: navBar.buttons["star outline"]) {
+        expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: navBar.buttons["star outline"]) {
             
             navBar.buttons["star outline"].tap()
             navBar.buttons["Zatrzymaj"].tap()
             
-            XCTAssertEqual(self.detailedMaps, self.app.tables.cells.elementBoundByIndex(0).label)
+            XCTAssertEqual(self.detailedMaps, self.app.tables.cells.element(boundBy: 0).label)
             self.XCTCheckHeader(self.headerFavourites, index: 1)
             self.XCTCheckHeader(self.headerCapitals, index: 4)
             
             return true
         }
         
-        waitForExpectationsWithTimeout(10, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
     }
     
     func test06_RemovingCityPointedOnMapFromFavourites()
     {
-        removeFromFavourites(app.tables.cells.elementBoundByIndex(2).label)
+        removeFromFavourites(app.tables.cells.element(boundBy: 2).label)
         
         /* --- Assertions -- */
         
-        XCTAssertEqual(detailedMaps, app.tables.cells.elementBoundByIndex(0).label)
+        XCTAssertEqual(detailedMaps, app.tables.cells.element(boundBy: 0).label)
         XCTCheckHeader(headerFavourites, index: 1)
-        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(2).label)
+        XCTAssertEqual(torun, app.tables.cells.element(boundBy: 2).label)
         XCTCheckHeader(headerCapitals, index: 3)
     }
     
@@ -168,14 +164,14 @@ class MMTCitiesListTests: XCTestCase
         
         /* --- Assertions -- */
         
-        XCTAssertEqual(detailedMaps, app.tables.cells.elementBoundByIndex(0).label)
+        XCTAssertEqual(detailedMaps, app.tables.cells.element(boundBy: 0).label)
         XCTCheckHeader(headerFavourites, index: 1)
-        XCTAssertEqual(torun, app.tables.cells.elementBoundByIndex(2).label)
+        XCTAssertEqual(torun, app.tables.cells.element(boundBy: 2).label)
         XCTCheckHeader(headerCapitals, index: 3)
     }
     
     func test08_SearchBarCancelation()
-    {
+    {        
         let expectedCount = app.tables.cells.count
         
         let
@@ -192,41 +188,42 @@ class MMTCitiesListTests: XCTestCase
     
     // Helper methods
     
-    func addToFavourites(elementName: String)
+    func addToFavourites(_ elementName: String)
     {
         app.tables.cells[elementName].tap()
         
-        let navBar = self.app.navigationBars.elementBoundByIndex(0)
+        let navBar = self.app.navigationBars.element(boundBy: 0)
         
-        expectationForPredicate(NSPredicate(format: "enabled == true"), evaluatedWithObject: navBar.buttons["star outline"]) {
+        expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: navBar.buttons["star outline"]) {
 
             navBar.buttons["star outline"].tap()
             navBar.buttons["Zatrzymaj"].tap()
             return true
         }
         
-        waitForExpectationsWithTimeout(10, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
     }
     
-    func removeFromFavourites(elementName: String)
+    func removeFromFavourites(_ elementName: String)
     {
         app.tables.cells[elementName].tap()
         
-        let navBar = self.app.navigationBars.elementBoundByIndex(0)
+        let navBar = self.app.navigationBars.element(boundBy: 0)
         
-        expectationForPredicate(NSPredicate(format: "enabled == true"), evaluatedWithObject: navBar.buttons["star"]) {
+        expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: navBar.buttons["star"]) {
             
             navBar.buttons["star"].tap()
             navBar.buttons["Zatrzymaj"].tap()
             return true
         }
         
-        waitForExpectationsWithTimeout(10, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
     }
     
-    func XCTCheckHeader(label: String, index: UInt)
+    func XCTCheckHeader(_ label: String, index: UInt)
     {
-        XCTAssertEqual("CitiesListHeader", app.tables.cells.elementBoundByIndex(index).identifier)
-        XCTAssertEqual(label, app.tables.cells.elementBoundByIndex(index).label)
+        
+        XCTAssertEqual("CitiesListHeader", app.tables.cells.element(boundBy: index).identifier)
+        XCTAssertEqual(label, app.tables.cells.element(boundBy: index).label)
     }
 }

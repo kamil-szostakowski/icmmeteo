@@ -8,9 +8,9 @@
 
 import Foundation
 
-extension NSUserDefaults
+extension UserDefaults
 {
-    private struct MMTUserDefaultsKey
+    fileprivate struct MMTUserDefaultsKey
     {
         static let Initialized = "Initialized"
     }
@@ -19,7 +19,7 @@ extension NSUserDefaults
     
     var isAppInitialized: Bool
     {
-        get { return valueForKey(MMTUserDefaultsKey.Initialized)?.boolValue ?? false }
+        get { return (value(forKey: MMTUserDefaultsKey.Initialized) as AnyObject).boolValue ?? false }
         set
         {
             setValue(newValue, forKey: MMTUserDefaultsKey.Initialized)

@@ -19,7 +19,7 @@ class MMTWamCategoryItem: UICollectionViewCell
     override func awakeFromNib()
     {
         super.awakeFromNib()
-        map.addObserver(self, forKeyPath: "image", options: .New, context: nil)
+        map.addObserver(self, forKeyPath: "image", options: .new, context: nil)
     }
     
     override func prepareForReuse()
@@ -29,10 +29,10 @@ class MMTWamCategoryItem: UICollectionViewCell
         footerLabel.text = ""
     }
     
-    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>)
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?)
     {
         if keyPath == "image" && change != nil {
-            enableActivityIndicator(change!["new"] is NSNull)
+            enableActivityIndicator(change![.oldKey] is NSNull)
         }
     }
     
@@ -43,9 +43,9 @@ class MMTWamCategoryItem: UICollectionViewCell
     
     // MARK: Helper methods
     
-    private func enableActivityIndicator(enabled: Bool)
+    fileprivate func enableActivityIndicator(_ enabled: Bool)
     {
-        activityIndicator.hidden = !enabled
+        activityIndicator.isHidden = !enabled
 
         if enabled
         {

@@ -21,7 +21,7 @@ class MMTCityMapPickerTests: XCTestCase
         
         continueAfterFailure = false
         
-        XCUIDevice.sharedDevice().orientation = .Portrait
+        XCUIDevice.shared().orientation = .portrait
         
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB"]
@@ -52,16 +52,16 @@ class MMTCityMapPickerTests: XCTestCase
     func test02_selectUnsupportedLocation()
     {
         let
-        map = app.maps.elementBoundByIndex(0)
-        map.pinchWithScale(0.09, velocity: -0.02)
+        map = app.maps.element(boundBy: 0)
+        map.pinch(withScale: 0.09, velocity: -0.02)
         map.swipeDown()
         map.swipeDown()
-        map.pressForDuration(1.3)
+        map.press(forDuration: 1.3)
         
         app.navigationBars["Wybierz lokalizację"].buttons["Pokaż"].tap()
         
-        let alert = app.alerts.elementBoundByIndex(0)
-        let errorMsg = alert.staticTexts.elementBoundByIndex(2).label
+        let alert = app.alerts.element(boundBy: 0)
+        let errorMsg = alert.staticTexts.element(boundBy: 2).label
         
         alert.buttons["zamknij"].tap()
         

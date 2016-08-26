@@ -43,22 +43,22 @@ class MMTWamSettings: NSObject, NSCopying
     
     // MARK: Methods
     
-    func momentForDate(date: NSDate) -> MMTWamMoment?
+    func momentForDate(_ date: Date) -> MMTWamMoment?
     {
-        if let index = (forecastMoments.map(){ $0.date }).indexOf(date) {
+        if let index = (forecastMoments.map(){ $0.date }).index(of: date) {
             return forecastMoments[index]
         }
         return nil
     }
     
-    func setMomentSelection(date: NSDate, selected: Bool)
+    func setMomentSelection(_ date: Date, selected: Bool)
     {
-        if let index = (forecastMoments.map(){ $0.date }).indexOf(date) {
+        if let index = (forecastMoments.map(){ $0.date }).index(of: date) {
             forecastMoments[index].selected = selected
         }
     }
     
-    func setMomentsSelection(dates: [NSDate], selected: Bool)
+    func setMomentsSelection(_ dates: [Date], selected: Bool)
     {
         for date in dates {
             setMomentSelection(date, selected: selected)
@@ -67,9 +67,9 @@ class MMTWamSettings: NSObject, NSCopying
     
     // MARK: Helper methods    
     
-    private func getOrderedArrayOfGroups(groupedMoments: MMTWamMomentGroups) -> [[MMTWamMoment]]
+    fileprivate func getOrderedArrayOfGroups(_ groupedMoments: MMTWamMomentGroups) -> [[MMTWamMoment]]
     {
-        let sortedLabels = groupedMoments.keys.sort { $0 < $1 }
+        let sortedLabels = groupedMoments.keys.sorted { $0 < $1 }
         var groups = [[MMTWamMoment]]()
         
         for label in sortedLabels {
@@ -79,13 +79,13 @@ class MMTWamSettings: NSObject, NSCopying
         return groups
     }
     
-    private func getGroupedMoments(moments: [MMTWamMoment]) -> MMTWamMomentGroups
+    fileprivate func getGroupedMoments(_ moments: [MMTWamMoment]) -> MMTWamMomentGroups
     {
         var groups = MMTWamMomentGroups()
         
         for (moment, selected) in moments
         {
-            let groupKey = keyForDate(moment)
+            let groupKey = keyForDate(moment as Date)
             
             if groups[groupKey] == nil {
                 groups[groupKey] = [MMTWamMoment]()
@@ -97,13 +97,13 @@ class MMTWamSettings: NSObject, NSCopying
         return groups
     }
     
-    private func keyForDate(date: NSDate) -> Int
+    fileprivate func keyForDate(_ date: Date) -> Int
     {
-        let components = NSCalendar.currentCalendar().components([.Year, .Month, .Day], fromDate: date)
-        return Int(NSCalendar.currentCalendar().dateFromComponents(components)!.timeIntervalSince1970)
+        let components = (Calendar.current as NSCalendar).components([.year, .month, .day], from: date)
+        return Int(Calendar.current.date(from: components)!.timeIntervalSince1970)
     }
     
-    func copyWithZone(zone: NSZone) -> AnyObject
+    func copy(with zone: NSZone?) -> Any
     {
         let
         settings = MMTWamSettings([])

@@ -21,7 +21,7 @@ class MMTWamSettingsTests: XCTestCase
         
         continueAfterFailure = false
         
-        XCUIDevice.sharedDevice().orientation = .Portrait        
+        XCUIDevice.shared().orientation = .portrait        
         
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB"]
@@ -48,7 +48,7 @@ class MMTWamSettingsTests: XCTestCase
         XCTAssertEqual("usuń zaznaczenie", header.buttons.element.label)
         
         for index in 0..<subitems.count {
-            XCTAssertTrue(subitems.elementBoundByIndex(index).selected)
+            XCTAssertTrue(subitems.element(boundBy: index).isSelected)
         }
         
         header.buttons.element.tap()
@@ -56,7 +56,7 @@ class MMTWamSettingsTests: XCTestCase
         XCTAssertEqual("wybierz", header.buttons.element.label)
         
         for index in 0..<subitems.count {
-            XCTAssertFalse(subitems.elementBoundByIndex(index).selected)
+            XCTAssertFalse(subitems.element(boundBy: index).isSelected)
         }
     }
     
@@ -66,7 +66,7 @@ class MMTWamSettingsTests: XCTestCase
         
         XCTAssertEqual("usuń zaznaczenie", headerButton.label)
         
-        app.tables.cells.elementBoundByIndex(0).tap()
+        app.tables.cells.element(boundBy: 0).tap()
         
         XCTAssertEqual("wybierz", headerButton.label)
     }
@@ -83,7 +83,7 @@ class MMTWamSettingsTests: XCTestCase
         XCTAssertEqual("wybierz", header.buttons.element.label)
         
         for index in 0..<subitems.count {
-            subitems.elementBoundByIndex(index).tap()
+            subitems.element(boundBy: index).tap()
         }
         
         XCTAssertEqual("usuń zaznaczenie", header.buttons.element.label)
@@ -97,7 +97,7 @@ class MMTWamSettingsTests: XCTestCase
         XCTAssertEqual("wybierz", header.buttons.element.label)
         
         for index in 0..<subitems.count {
-            XCTAssertFalse(subitems.elementBoundByIndex(index).selected)
+            XCTAssertFalse(subitems.element(boundBy: index).isSelected)
         }
         
         header.buttons.element.tap()
@@ -105,7 +105,7 @@ class MMTWamSettingsTests: XCTestCase
         XCTAssertEqual("usuń zaznaczenie", header.buttons.element.label)
         
         for index in 0..<subitems.count {
-            XCTAssertTrue(subitems.elementBoundByIndex(index).selected)
+            XCTAssertTrue(subitems.element(boundBy: index).isSelected)
         }
     }
     
@@ -116,25 +116,25 @@ class MMTWamSettingsTests: XCTestCase
         let showButton = app.navigationBars["Ustawienia WAM"].buttons["Pokaż"]
         
         header.buttons.element.tap()
-        XCTAssertFalse(showButton.enabled)
+        XCTAssertFalse(showButton.isEnabled)
         
-        subitems.elementBoundByIndex(0).tap()
-        subitems.elementBoundByIndex(1).tap()
-        XCTAssertFalse(showButton.enabled)
+        subitems.element(boundBy: 0).tap()
+        subitems.element(boundBy: 1).tap()
+        XCTAssertFalse(showButton.isEnabled)
         
-        subitems.elementBoundByIndex(2).tap()
-        XCTAssertTrue(showButton.enabled)
+        subitems.element(boundBy: 2).tap()
+        XCTAssertTrue(showButton.isEnabled)
     }
     
     // MARK: Helper methods
     
-    private func headerAtIndex(index: UInt) -> XCUIElement
+    fileprivate func headerAtIndex(_ index: UInt) -> XCUIElement
     {
-        return app.tables.childrenMatchingType(.Other).matchingIdentifier("WamSettingsHeader").elementBoundByIndex(index)
+        return app.tables.children(matching: .other).matching(identifier: "WamSettingsHeader").element(boundBy: index)
     }
     
-    private func subitemsForHeader(header: XCUIElement) -> XCUIElementQuery
+    fileprivate func subitemsForHeader(_ header: XCUIElement) -> XCUIElementQuery
     {
-        return app.tables.cells.matchingPredicate(NSPredicate(format: "label CONTAINS[cd] %@", header.staticTexts.element.label))
+        return app.tables.cells.matching(NSPredicate(format: "label CONTAINS[cd] %@", header.staticTexts.element.label))
     }
 }

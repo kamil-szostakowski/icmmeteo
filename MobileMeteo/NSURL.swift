@@ -9,129 +9,188 @@
 import Foundation
 import CoreLocation
 
-extension NSURL
+extension URL
 {
     // MARK: Public methods
     
-    static func mmt_baseUrl() -> NSURL
+    static func mmt_baseUrl() -> URL
     {
-        return NSURL(string: "http://www.meteo.pl")!
+        return URL(string: "http://www.meteo.pl")!
     }
     
     // MARK: Model UM related methods
     
-    static func mmt_modelUmSearchUrl(location: CLLocation) -> NSURL
+
+    
+    static func mmt_modelUmSearchUrl(_ location: CLLocation) -> URL
     {
         let lat = location.coordinate.latitude
         let lng = location.coordinate.longitude
         
-        return NSURL(string: "/um/php/mgram_search.php?NALL=\(lat)&EALL=\(lng)&lang=\(mmt_modelLang())", relativeToURL: mmt_baseUrl())!
+        return URL(string: "/um/php/mgram_search.php?NALL=\(lat)&EALL=\(lng)&lang=\(mmt_modelLang())", relativeTo: mmt_baseUrl())!
     }
     
-    static func mmt_modelUmDownloadBaseUrl() -> NSURL
+    static func mmt_modelUmDownloadBaseUrl() -> URL
     {
-        return NSURL(string: "/um/metco/mgram_pict.php", relativeToURL: mmt_baseUrl())!
+        return URL(string: "/um/metco/mgram_pict.php", relativeTo: mmt_baseUrl())!
     }
     
-    static func mmt_modelUmLegendUrl() -> NSURL
+    static func mmt_modelUmLegendUrl() -> URL
     {
-        return NSURL(string: "/um/metco/leg_um_\(mmt_modelLang())_cbase_256.png", relativeToURL: mmt_baseUrl())!
+        return URL(string: "/um/metco/leg_um_\(mmt_modelLang())_cbase_256.png", relativeTo: mmt_baseUrl())!
     }
     
-    static func mmt_modelUmForecastStartUrl() -> NSURL
+    static func mmt_modelUmForecastStartUrl() -> URL
     {
-        return NSURL(string: "info_um.php", relativeToURL: mmt_baseUrl())!
+        return URL(string: "info_um.php", relativeTo: mmt_baseUrl())!
+    }
+    
+    static func mmt_modelUmDownloadUrlForMap(_ map: MMTDetailedMap, tZero: Date, plus: Int) -> URL?
+    {
+        let tZeroString = tZeroStringForDate(tZero)
+        let tZeroPlus = NSString(format: "%03ld", plus)
+        
+        let prefixes: [MMTDetailedMap: String] = [
+            .MeanSeaLevelPressure: "SLPH",
+            .TemperatureAndStreamLine: "T+WH",
+            .TemperatureOfSurface: "GT_H",
+            .Precipitation: "RS_H",
+            .Storm: "FLSH",
+            .Wind: "W__H",
+            .MaximumGust: "WGSH",
+            .Visibility: "VISH",
+            .Fog: "F__H",
+            .RelativeHumidityAboveIce: "RHiH",
+            .RelativeHumidityAboveWater: "RHwH",
+            .VeryLowClouds: "CV_H",
+            .LowClouds: "CL_H",
+            .MediumClouds: "CM_H",
+            .HighClouds: "CH_H",
+            .TotalCloudiness: "CT_H"
+        ]
+        
+        guard let prefix = prefixes[map] else {
+            return nil
+        }
+        
+        return URL(string: "um/pict/\(tZeroString)/\(prefix)_0000.0_0U_\(tZeroString)_\(tZeroPlus)-00.png", relativeTo: mmt_baseUrl())!
     }
     
     // MARK: Model COAMPS related methods
     
-    static func mmt_modelCoampsSearchUrl(location: CLLocation) -> NSURL
+    static func mmt_modelCoampsSearchUrl(_ location: CLLocation) -> URL
     {
         let lat = location.coordinate.latitude
         let lng = location.coordinate.longitude
         
-        return NSURL(string: "/php/mgram_search.php?NALL=\(lat)&EALL=\(lng)&lang=pl", relativeToURL: mmt_baseUrl())!
+        return URL(string: "/php/mgram_search.php?NALL=\(lat)&EALL=\(lng)&lang=pl", relativeTo: mmt_baseUrl())!
     }
     
-    static func mmt_modelCoampsDownloadBaseUrl() -> NSURL
+    static func mmt_modelCoampsDownloadBaseUrl() -> URL
     {
-        return NSURL(string: "/metco/mgram_pict.php", relativeToURL: mmt_baseUrl())!
+        return URL(string: "/metco/mgram_pict.php", relativeTo: mmt_baseUrl())!
     }
     
-    static func mmt_modelCoampsLegendUrl() -> NSURL
+    static func mmt_modelCoampsLegendUrl() -> URL
     {
-        return NSURL(string: "/metco/leg4_\(mmt_modelLang()).png", relativeToURL: mmt_baseUrl())!
+        return URL(string: "/metco/leg4_\(mmt_modelLang()).png", relativeTo: mmt_baseUrl())!
     }
     
-    static func mmt_modelCoampsForecastStartUrl() -> NSURL
+    static func mmt_modelCoampsForecastStartUrl() -> URL
     {
-        return NSURL(string: "info_coamps.php", relativeToURL: mmt_baseUrl())!
+        return URL(string: "info_coamps.php", relativeTo: mmt_baseUrl())!
+    }
+    
+    static func mmt_modelCoampsDownloadUrlForMap(_ map: MMTDetailedMap, tZero: Date, plus: Int) -> URL?
+    {
+        let tZeroString = tZeroStringForDate(tZero)
+        let tZeroPlus = NSString(format: "%03ld", plus)
+        
+        let prefixes: [MMTDetailedMap: String] = [
+            .MeanSeaLevelPressure: "SLPH_0000.0",
+            .TemperatureAndStreamLine: "T+WH_0010.0",
+            .TemperatureOfSurface: "GT_H_0000.0",
+            .Precipitation: "TRSH_0000.0",
+            .Wind: "W__H_0010.0",
+            .Visibility: "VISH_0000.0",
+            .RelativeHumidity: "RH_H_0002.0",
+            .LowClouds: "CLCS_L",
+            .MediumClouds: "CLCS_M",
+            .HighClouds: "CLCS_H",
+            .TotalCloudiness: "CLCS_T"
+        ]
+        
+        guard let prefix = prefixes[map] else {
+            return nil
+        }
+        
+        return URL(string: "/pict/\(tZeroString)/\(prefix)_2X_\(tZeroString)_\(tZeroPlus)-00.png", relativeTo: mmt_baseUrl())
     }
     
     // MARK: Model WAM related methods
     
-    static func mmt_modelWamTideHeightThumbnailUrl(tZero: NSDate, plus: Int) -> NSURL
+    static func mmt_modelWamTideHeightThumbnailUrl(_ tZero: Date, plus: Int) -> URL
     {
         return mmt_modelWamThumbnailUrl("wavehgt", tZero: tZero, plus: plus)
     }
     
-    static func mmt_modelWamAvgTidePeriodThumbnailUrl(tZero: NSDate, plus: Int) -> NSURL
+    static func mmt_modelWamAvgTidePeriodThumbnailUrl(_ tZero: Date, plus: Int) -> URL
     {
         return mmt_modelWamThumbnailUrl("m_period", tZero: tZero, plus: plus)
     }
     
-    static func mmt_modelWamSpectrumPeakPeriodThumbnailUrl(tZero: NSDate, plus: Int) -> NSURL
+    static func mmt_modelWamSpectrumPeakPeriodThumbnailUrl(_ tZero: Date, plus: Int) -> URL
     {
         return mmt_modelWamThumbnailUrl("p_period", tZero: tZero, plus: plus)
     }
     
-    static func mmt_modelWamTideHeightDownloadUrl(tZero: NSDate, plus: Int) -> NSURL
+    static func mmt_modelWamTideHeightDownloadUrl(_ tZero: Date, plus: Int) -> URL
     {
         return mmt_modelWamDownloadUrl("wavehgt", tZero: tZero, plus: plus)
     }
     
-    static func mmt_modelWamAvgTidePeriodDownloadUrl(tZero: NSDate, plus: Int) -> NSURL
+    static func mmt_modelWamAvgTidePeriodDownloadUrl(_ tZero: Date, plus: Int) -> URL
     {
         return mmt_modelWamDownloadUrl("m_period", tZero: tZero, plus: plus)
     }
     
-    static func mmt_modelWamSpectrumPeakPeriodDownloadUrl(tZero: NSDate, plus: Int) -> NSURL
+    static func mmt_modelWamSpectrumPeakPeriodDownloadUrl(_ tZero: Date, plus: Int) -> URL
     {
         return mmt_modelWamDownloadUrl("p_period", tZero: tZero, plus: plus)
     }
     
-    static func mmt_modelWamForecastStartUrl() -> NSURL
+    static func mmt_modelWamForecastStartUrl() -> URL
     {
-        return NSURL(string: "info_wamcoamps.php", relativeToURL: mmt_baseUrl())!
+        return URL(string: "info_wamcoamps.php", relativeTo: mmt_baseUrl())!
     }
     
     // MARK: Helper methods
     
-    private static func mmt_modelWamDownloadUrl(infix: String, tZero: NSDate, plus: Int) -> NSURL
+    fileprivate static func mmt_modelWamDownloadUrl(_ infix: String, tZero: Date, plus: Int) -> URL
     {
         let tZeroString = tZeroStringForDate(tZero)
         let tZeroPlus = NSString(format: "%03ld", plus)
         
-        return NSURL(string: "/wamcoamps/pict/\(tZeroString)/\(infix)_0W_\(tZeroString)_\(tZeroPlus)-00.png", relativeToURL: mmt_baseUrl())!
+        return URL(string: "/wamcoamps/pict/\(tZeroString)/\(infix)_0W_\(tZeroString)_\(tZeroPlus)-00.png", relativeTo: mmt_baseUrl())!
     }
     
-    private static func mmt_modelWamThumbnailUrl(infix: String, tZero: NSDate, plus: Int) -> NSURL
+    fileprivate static func mmt_modelWamThumbnailUrl(_ infix: String, tZero: Date, plus: Int) -> URL
     {
         let tZeroString = tZeroStringForDate(tZero)
         let tZeroPlus = NSString(format: "%03ld", plus)
         
-        return NSURL(string: "/wamcoamps/pict/\(tZeroString)/small-crop-\(infix)_0W_\(tZeroString)_\(tZeroPlus)-00.gif", relativeToURL: mmt_baseUrl())!
+        return URL(string: "/wamcoamps/pict/\(tZeroString)/small-crop-\(infix)_0W_\(tZeroString)_\(tZeroPlus)-00.gif", relativeTo: mmt_baseUrl())!
     }
     
-    private static func tZeroStringForDate(date: NSDate) -> String
+    fileprivate static func tZeroStringForDate(_ date: Date) -> String
     {
-        let components = NSCalendar.utcCalendar.components([.Year, .Month, .Day, .Hour], fromDate: date)
+        let components = (Calendar.utcCalendar as NSCalendar).components([.year, .month, .day, .hour], from: date)
         
-        return String(format: MMTFormat.TZero, components.year, components.month, components.day, components.hour)
+        return String(format: MMTFormat.TZero, components.year!, components.month!, components.day!, components.hour!)
     }
     
-    private static func mmt_modelLang() -> String
+    fileprivate static func mmt_modelLang() -> String
     {
-        return NSBundle.mainBundle().preferredLocalizations.first ?? "en"
+        return Bundle.main.preferredLocalizations.first ?? "en"
     }
 }

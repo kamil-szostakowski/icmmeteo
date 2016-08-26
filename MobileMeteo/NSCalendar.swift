@@ -8,13 +8,13 @@
 
 import Foundation
 
-extension NSCalendar
+extension Calendar
 {
-    static var utcCalendar: NSCalendar
+    static var utcCalendar: Calendar
     {
-        let
-        calendar = NSCalendar.currentCalendar().copy() as! NSCalendar
-        calendar.timeZone = NSTimeZone(name: "UTC")!
+        var
+        calendar = (Calendar.current as NSCalendar).copy() as! Calendar
+        calendar.timeZone = TimeZone(identifier: "UTC")!
         
         return calendar
     }

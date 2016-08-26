@@ -13,7 +13,7 @@ import CoreLocation
 @available(iOS 9.0, *)
 extension CSSearchableIndex
 {    
-    func indexSearchableCity(city: MMTCityProt, completion:((NSError?) -> Void)?)
+    func indexSearchableCity(_ city: MMTCityProt, completion:((NSError?) -> Void)?)
     {
         let domainId = MMTActivityTypeDisplayModelUm
         let uniqueId = CSSearchableIndex.uniqueIdForSearchableCity(city)
@@ -26,26 +26,26 @@ extension CSSearchableIndex
         
         let
         searchableItem = CSSearchableItem(uniqueIdentifier: uniqueId, domainIdentifier: domainId, attributeSet: attributes)
-        searchableItem.expirationDate = NSDate(timeIntervalSinceNow: 2592000.0)
+        searchableItem.expirationDate = Date(timeIntervalSinceNow: 2592000.0)
         
-        indexSearchableItems([searchableItem], completionHandler: completion)
+        indexSearchableItems([searchableItem], completionHandler: completion as! ((Error?) -> Void)?)
     }
     
-    func deleteSearchableCity(city: MMTCityProt, completion:((NSError?) -> Void)?)
+    func deleteSearchableCity(_ city: MMTCityProt, completion:((NSError?) -> Void)?)
     {
         let uniqueId = CSSearchableIndex.uniqueIdForSearchableCity(city)
-        deleteSearchableItemsWithIdentifiers([uniqueId], completionHandler: completion)
+        deleteSearchableItems(withIdentifiers: [uniqueId], completionHandler: completion as! ((Error?) -> Void)?)
     }
     
-    static func uniqueIdForSearchableCity(city: MMTCityProt) -> String
+    static func uniqueIdForSearchableCity(_ city: MMTCityProt) -> String
     {        
         return "\(MMTActivityTypeDisplayModelUm).\(city.location.coordinate.latitude):\(city.location.coordinate.longitude)"
     }    
     
-    static func locationForSearchableCityUniqueId(uniqueId: String) -> CLLocation?
+    static func locationForSearchableCityUniqueId(_ uniqueId: String) -> CLLocation?
     {
-        let uid = uniqueId.stringByReplacingOccurrencesOfString("\(MMTActivityTypeDisplayModelUm).", withString: "")
-        let components = uid.componentsSeparatedByString(":")
+        let uid = uniqueId.replacingOccurrences(of: "\(MMTActivityTypeDisplayModelUm).", with: "")
+        let components = uid.components(separatedBy: ":")
         
         guard components.count == 2 else { return nil }        
         guard let lat = CLLocationDegrees(components.first!) else { return nil }

@@ -8,23 +8,23 @@
 
 import Foundation
 
-extension NSDateFormatter
+extension DateFormatter
 {
-    static var shortDateOnlyStyle: NSDateFormatter
+    static var shortDateOnlyStyle: DateFormatter
     {
         let
-        formatter = NSDateFormatter()
-        formatter.timeZone = NSTimeZone(name: "UTC")
+        formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "UTC")
         formatter.dateFormat = "YYYY.MM.dd"
 
         return formatter
     }    
     
-    static var utcFormatter: NSDateFormatter
+    static var utcFormatter: DateFormatter
     {
         let
-        formatter = NSDateFormatter()
-        formatter.timeZone = NSTimeZone(name: "UTC")
+        formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "UTC")
         formatter.dateFormat = "YYYY.MM.dd HH:mm 'UTC'"
         
         return formatter

@@ -10,7 +10,7 @@ import Foundation
 import CoreData
 
 @objc(MMTCity)
-public class MMTCity: NSManagedObject
+open class MMTCity: NSManagedObject
 {
     @NSManaged var lat: NSNumber
     @NSManaged var lng: NSNumber
