@@ -21,7 +21,7 @@ class MMTMeteorogramPreview: XCTestCase
         
         continueAfterFailure = false
         
-        XCUIDevice.sharedDevice().orientation = .Portrait
+        XCUIDevice.shared().orientation = .portrait
         
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB"]
@@ -48,7 +48,7 @@ class MMTMeteorogramPreview: XCTestCase
     func test02_ZoomingToDefaultScale()
     {
         let
-        element = app.scrollViews.elementBoundByIndex(0)
+        element = app.scrollViews.element(boundBy: 0)
         element.swipeLeft()
         element.doubleTap()
         
@@ -57,7 +57,7 @@ class MMTMeteorogramPreview: XCTestCase
     
     func test03_ContentVisibilityInLandscape()
     {
-        XCUIDevice.sharedDevice().orientation = .LandscapeLeft
+        XCUIDevice.shared().orientation = .landscapeLeft
         sleep(1)
         
         XCTAssertTrue(isElementVisible(app.images["meteorogram"]))
@@ -66,9 +66,9 @@ class MMTMeteorogramPreview: XCTestCase
     
     // MARK: Helper methods
     
-    private func isElementVisible(element: XCUIElement) -> Bool
+    fileprivate func isElementVisible(_ element: XCUIElement) -> Bool
     {
-        let window = app.windows.elementBoundByIndex(0)
-        return CGRectIntersectsRect(window.frame, element.frame)
+        let window = app.windows.element(boundBy: 0)
+        return window.frame.intersects(element.frame)
     }
 }

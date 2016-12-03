@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		130EFA76561E9F2B0D1C192A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C947F0E2AB8E7B71A57502 /* libPods.a */; };
+		7F3F1D6A559A3DAE61F8431A /* libPods-MobileMeteoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8D23B87D7A42D9A142AF2B4 /* libPods-MobileMeteoTests.a */; };
 		8E79D5281D4E7E0D00BE1A0E /* MMTDetailedMapsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E79D5261D4E7D2100BE1A0E /* MMTDetailedMapsTests.swift */; };
 		8E79D52B1D4E806E00BE1A0E /* MMTDetailedMapsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E79D52A1D4E806E00BE1A0E /* MMTDetailedMapsListController.swift */; };
 		8E85F84C1D5543A000D127E3 /* DetailedMaps.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8E85F84E1D5543A000D127E3 /* DetailedMaps.storyboard */; };
+		8E880AC01DF220D1004D8A9E /* MMTDetailedMapPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E880ABF1DF220D1004D8A9E /* MMTDetailedMapPreviewController.swift */; };
 		8E8CC6161B62EF4A00579C46 /* MMTWamHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E8CC6151B62EF4A00579C46 /* MMTWamHeaderView.swift */; };
 		8EC56D6E1BA0B528003A5020 /* MMTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EC56D6D1BA0B528003A5020 /* MMTError.swift */; };
 		8EE580B01C0118A0000B36BB /* MMTMeteorogramPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE580AF1C0118A0000B36BB /* MMTMeteorogramPreview.swift */; };
-		B45E3F4DD8EAAB1F23FFE1F7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C947F0E2AB8E7B71A57502 /* libPods.a */; };
-		EEE3408EE6A4D8E2A80B531B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 80C947F0E2AB8E7B71A57502 /* libPods.a */; };
+		A8736ED2857D736E552A5A9A /* libPods-MobileMeteo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5DA4C9BB5FED94C3F36386 /* libPods-MobileMeteo.a */; };
+		BE37FF3BC88F74390EB45A09 /* libPods-MeteoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3CE4A773356028F6D9B3B1 /* libPods-MeteoUITests.a */; };
 		F9060B3F1C059FE70025EE8D /* MMTCategoryUIScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9060B3E1C059FE70025EE8D /* MMTCategoryUIScrollViewTests.swift */; };
 		F906CF0E1C58F04D009BBEB9 /* MMTCitiesIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F906CF0D1C58F04D009BBEB9 /* MMTCitiesIndex.swift */; };
 		F907075E1C61F465001D72A0 /* MMTCityMapPickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F907075D1C61F465001D72A0 /* MMTCityMapPickerTests.swift */; };
@@ -103,21 +104,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04AE35C0443F7462483E0937 /* Pods-MobileMeteoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileMeteoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests.release.xcconfig"; sourceTree = "<group>"; };
-		24EADB24B5CE073E7C94F7A4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		59DAFA5A45295B2517C31E1E /* Pods-MobileMeteoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileMeteoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests.debug.xcconfig"; sourceTree = "<group>"; };
-		80C947F0E2AB8E7B71A57502 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D9CD1C488B1993E4BBB4129 /* Pods-MobileMeteo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileMeteo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobileMeteo/Pods-MobileMeteo.release.xcconfig"; sourceTree = "<group>"; };
+		31C0DFD0A15637264CB4BDB1 /* Pods-MobileMeteoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileMeteoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests.release.xcconfig"; sourceTree = "<group>"; };
+		32E38FF08C15F447B5728A61 /* Pods-MeteoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeteoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MeteoUITests/Pods-MeteoUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		5EBF929405009C8D381192DB /* Pods-MobileMeteoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileMeteoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6D12D4C2EE76ADD9F3237B3B /* Pods-MeteoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeteoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MeteoUITests/Pods-MeteoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		6E3CE4A773356028F6D9B3B1 /* libPods-MeteoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MeteoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E79D5261D4E7D2100BE1A0E /* MMTDetailedMapsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapsTests.swift; sourceTree = "<group>"; };
 		8E79D52A1D4E806E00BE1A0E /* MMTDetailedMapsListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapsListController.swift; sourceTree = "<group>"; };
 		8E85F84D1D5543A000D127E3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DetailedMaps.storyboard; sourceTree = "<group>"; };
 		8E85F8501D5543A400D127E3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DetailedMaps.strings; sourceTree = "<group>"; };
 		8E85F8521D5543A600D127E3 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/DetailedMaps.strings; sourceTree = "<group>"; };
+		8E880ABF1DF220D1004D8A9E /* MMTDetailedMapPreviewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapPreviewController.swift; sourceTree = "<group>"; };
 		8E8CC6151B62EF4A00579C46 /* MMTWamHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTWamHeaderView.swift; sourceTree = "<group>"; };
 		8E975CCF1B64248C00566C8B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		8EC56D6D1BA0B528003A5020 /* MMTError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTError.swift; sourceTree = "<group>"; };
 		8EE580AF1C0118A0000B36BB /* MMTMeteorogramPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramPreview.swift; sourceTree = "<group>"; };
-		CC1FC1906742E93B61199BA9 /* libPods-MobileMeteoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileMeteoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D607651CF653DFC4CF018B4A /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		9F5BBE364BAE38B788DC5412 /* Pods-MobileMeteo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileMeteo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobileMeteo/Pods-MobileMeteo.debug.xcconfig"; sourceTree = "<group>"; };
+		BC5DA4C9BB5FED94C3F36386 /* libPods-MobileMeteo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileMeteo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C8D23B87D7A42D9A142AF2B4 /* libPods-MobileMeteoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileMeteoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9060B3E1C059FE70025EE8D /* MMTCategoryUIScrollViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCategoryUIScrollViewTests.swift; sourceTree = "<group>"; };
 		F906CF0D1C58F04D009BBEB9 /* MMTCitiesIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesIndex.swift; sourceTree = "<group>"; };
 		F907075D1C61F465001D72A0 /* MMTCityMapPickerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCityMapPickerTests.swift; sourceTree = "<group>"; };
@@ -206,7 +211,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B45E3F4DD8EAAB1F23FFE1F7 /* libPods.a in Frameworks */,
+				BE37FF3BC88F74390EB45A09 /* libPods-MeteoUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,7 +222,7 @@
 				F989C52F1B9D6B1A002A1903 /* MapKit.framework in Frameworks */,
 				F9E696A41AFCE70700273DA3 /* CoreLocation.framework in Frameworks */,
 				F94051691C57B5CA00D52B1C /* CoreSpotlight.framework in Frameworks */,
-				EEE3408EE6A4D8E2A80B531B /* libPods.a in Frameworks */,
+				A8736ED2857D736E552A5A9A /* libPods-MobileMeteo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +230,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				130EFA76561E9F2B0D1C192A /* libPods.a in Frameworks */,
+				7F3F1D6A559A3DAE61F8431A /* libPods-MobileMeteoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,19 +244,22 @@
 				F9E696A31AFCE70700273DA3 /* CoreLocation.framework */,
 				F94051681C57B5CA00D52B1C /* CoreSpotlight.framework */,
 				8E975CCF1B64248C00566C8B /* CoreGraphics.framework */,
-				CC1FC1906742E93B61199BA9 /* libPods-MobileMeteoTests.a */,
-				80C947F0E2AB8E7B71A57502 /* libPods.a */,
+				6E3CE4A773356028F6D9B3B1 /* libPods-MeteoUITests.a */,
+				BC5DA4C9BB5FED94C3F36386 /* libPods-MobileMeteo.a */,
+				C8D23B87D7A42D9A142AF2B4 /* libPods-MobileMeteoTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		30633BBDDD04849C6D04A982 /* Pods */ = {
+		79433CAFD73501A7E8002C26 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				59DAFA5A45295B2517C31E1E /* Pods-MobileMeteoTests.debug.xcconfig */,
-				04AE35C0443F7462483E0937 /* Pods-MobileMeteoTests.release.xcconfig */,
-				24EADB24B5CE073E7C94F7A4 /* Pods.debug.xcconfig */,
-				D607651CF653DFC4CF018B4A /* Pods.release.xcconfig */,
+				32E38FF08C15F447B5728A61 /* Pods-MeteoUITests.debug.xcconfig */,
+				6D12D4C2EE76ADD9F3237B3B /* Pods-MeteoUITests.release.xcconfig */,
+				9F5BBE364BAE38B788DC5412 /* Pods-MobileMeteo.debug.xcconfig */,
+				1D9CD1C488B1993E4BBB4129 /* Pods-MobileMeteo.release.xcconfig */,
+				5EBF929405009C8D381192DB /* Pods-MobileMeteoTests.debug.xcconfig */,
+				31C0DFD0A15637264CB4BDB1 /* Pods-MobileMeteoTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -260,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				8E79D52A1D4E806E00BE1A0E /* MMTDetailedMapsListController.swift */,
+				8E880ABF1DF220D1004D8A9E /* MMTDetailedMapPreviewController.swift */,
 			);
 			name = DetailedMaps;
 			sourceTree = "<group>";
@@ -273,7 +282,7 @@
 			name = Cities;
 			sourceTree = "<group>";
 		};
-		F9900EB91B282B86006880A1 /* Categories */ = {
+		F9900EB91B282B86006880A1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				F91A63471C467F3900747AC3 /* UIAlertController.swift */,
@@ -287,7 +296,7 @@
 				F940516B1C57B62800D52B1C /* CSSearchableIndex.swift */,
 				F913A27B1C638B13004BD786 /* NSTimeInterval.swift */,
 			);
-			name = Categories;
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		F9941A571BECE15800700313 /* MobileMeteoUITests */ = {
@@ -406,8 +415,8 @@
 				F9E696831AFCC06600273DA3 /* MobileMeteoTests */,
 				F9941A571BECE15800700313 /* MobileMeteoUITests */,
 				F9E696651AFCC06600273DA3 /* Products */,
-				30633BBDDD04849C6D04A982 /* Pods */,
 				1E0B96656B6BD26F0DC667D3 /* Frameworks */,
+				79433CAFD73501A7E8002C26 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -427,7 +436,7 @@
 				F9F9D60E1C52641800A49ACA /* Analytics */,
 				F9E6969F1AFCDEA200273DA3 /* Model */,
 				F9E696901AFCC41D00273DA3 /* Controllers */,
-				F9900EB91B282B86006880A1 /* Categories */,
+				F9900EB91B282B86006880A1 /* Extensions */,
 				F9E696741AFCC06600273DA3 /* Main.storyboard */,
 				8E85F84E1D5543A000D127E3 /* DetailedMaps.storyboard */,
 				F9E696791AFCC06600273DA3 /* LaunchScreen.xib */,
@@ -529,11 +538,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F9941A6B1BECE32400700313 /* Build configuration list for PBXNativeTarget "MeteoUITests" */;
 			buildPhases = (
-				EF5BA643453E37031201B8D0 /* Check Pods Manifest.lock */,
+				8D27295BA426CB2554108ADA /* [CP] Check Pods Manifest.lock */,
 				F9941A601BECE32300700313 /* Sources */,
 				F9941A611BECE32300700313 /* Frameworks */,
 				F9941A621BECE32300700313 /* Resources */,
-				4A9CFA391EF956C20AE4396B /* Copy Pods Resources */,
+				68E6B1A4925081699E8669B2 /* [CP] Copy Pods Resources */,
+				26D0C4B0F065CBC7DE27FDAD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -549,12 +559,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F9E6968A1AFCC06600273DA3 /* Build configuration list for PBXNativeTarget "MobileMeteo" */;
 			buildPhases = (
-				0C2429AFAF0C60657549F03D /* Check Pods Manifest.lock */,
+				3D2D95754509F00DEC5C65E3 /* [CP] Check Pods Manifest.lock */,
 				F9E696601AFCC06600273DA3 /* Sources */,
 				F9E696611AFCC06600273DA3 /* Frameworks */,
 				F9E696621AFCC06600273DA3 /* Resources */,
-				C1F3BAB39BB0E7DA26CB598E /* Embed Pods Frameworks */,
-				9EF324A41361A48574478ACA /* Copy Pods Resources */,
+				449E201CF54EA48B2B48BBA4 /* [CP] Embed Pods Frameworks */,
+				44E11C3BDEAA093020E7E7D9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -569,12 +579,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F9E6968D1AFCC06600273DA3 /* Build configuration list for PBXNativeTarget "MobileMeteoTests" */;
 			buildPhases = (
-				809CBBE9E3CD1FE6EA5470D6 /* Check Pods Manifest.lock */,
+				F2E807150C692FAA8B652D02 /* [CP] Check Pods Manifest.lock */,
 				F9E6967C1AFCC06600273DA3 /* Sources */,
 				F9E6967D1AFCC06600273DA3 /* Frameworks */,
 				F9E6967E1AFCC06600273DA3 /* Resources */,
-				53FA5EC3769FBB6191A3F11E /* Embed Pods Frameworks */,
-				6587DEB5AC045B18BDC55510 /* Copy Pods Resources */,
+				678FA38F65ABD4F8F48D1192 /* [CP] Embed Pods Frameworks */,
+				7644D0B249D1424C915D6AAE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -595,18 +605,22 @@
 				CLASSPREFIX = MMT;
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Kamil Szostakowski";
 				TargetAttributes = {
 					F9941A631BECE32300700313 = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0810;
 						TestTargetID = F9E696631AFCC06600273DA3;
 					};
 					F9E696631AFCC06600273DA3 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = GMU6W6K8X6;
+						LastSwiftMigration = 0810;
 					};
 					F9E6967F1AFCC06600273DA3 = {
 						CreatedOnToolsVersion = 6.3.1;
+						LastSwiftMigration = 0810;
 						TestTargetID = F9E696631AFCC06600273DA3;
 					};
 				};
@@ -664,124 +678,139 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0C2429AFAF0C60657549F03D /* Check Pods Manifest.lock */ = {
+		26D0C4B0F065CBC7DE27FDAD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MeteoUITests/Pods-MeteoUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4A9CFA391EF956C20AE4396B /* Copy Pods Resources */ = {
+		3D2D95754509F00DEC5C65E3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		53FA5EC3769FBB6191A3F11E /* Embed Pods Frameworks */ = {
+		449E201CF54EA48B2B48BBA4 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileMeteo/Pods-MobileMeteo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6587DEB5AC045B18BDC55510 /* Copy Pods Resources */ = {
+		44E11C3BDEAA093020E7E7D9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileMeteo/Pods-MobileMeteo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		809CBBE9E3CD1FE6EA5470D6 /* Check Pods Manifest.lock */ = {
+		678FA38F65ABD4F8F48D1192 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9EF324A41361A48574478ACA /* Copy Pods Resources */ = {
+		68E6B1A4925081699E8669B2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MeteoUITests/Pods-MeteoUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C1F3BAB39BB0E7DA26CB598E /* Embed Pods Frameworks */ = {
+		7644D0B249D1424C915D6AAE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EF5BA643453E37031201B8D0 /* Check Pods Manifest.lock */ = {
+		8D27295BA426CB2554108ADA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F2E807150C692FAA8B652D02 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -816,6 +845,7 @@
 				F9E5D02F1B68EFA3006429BA /* MMTWamSettings.swift in Sources */,
 				F9E696701AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld in Sources */,
 				F9FFEE471B8DCEF900C30EDD /* UIImageView.swift in Sources */,
+				8E880AC01DF220D1004D8A9E /* MMTDetailedMapPreviewController.swift in Sources */,
 				F9BB14A41B56765700C81B3F /* MMTCity.swift in Sources */,
 				8E8CC6161B62EF4A00579C46 /* MMTWamHeaderView.swift in Sources */,
 				8E79D52B1D4E806E00BE1A0E /* MMTDetailedMapsListController.swift in Sources */,
@@ -929,7 +959,7 @@
 /* Begin XCBuildConfiguration section */
 		F9941A6C1BECE32400700313 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24EADB24B5CE073E7C94F7A4 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 32E38FF08C15F447B5728A61 /* Pods-MeteoUITests.debug.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = MeteoUITests/Info.plist;
@@ -939,6 +969,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = MobileMeteo;
 				USES_XCTRUNNER = YES;
 			};
@@ -946,7 +977,7 @@
 		};
 		F9941A6D1BECE32400700313 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D607651CF653DFC4CF018B4A /* Pods.release.xcconfig */;
+			baseConfigurationReference = 6D12D4C2EE76ADD9F3237B3B /* Pods-MeteoUITests.release.xcconfig */;
 			buildSettings = {
 				INFOPLIST_FILE = MeteoUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -954,6 +985,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.MeteoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-BridgingHeader.h";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = MobileMeteo;
 				USES_XCTRUNNER = YES;
 			};
@@ -963,6 +995,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -972,8 +1005,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1007,6 +1042,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1016,8 +1052,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1036,20 +1074,22 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		F9E6968B1AFCC06600273DA3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24EADB24B5CE073E7C94F7A4 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 9F5BBE364BAE38B788DC5412 /* Pods-MobileMeteo.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				DEVELOPMENT_TEAM = GMU6W6K8X6;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/MobileMeteo-Prefix.pch";
 				INFOPLIST_FILE = MobileMeteo/Info.plist;
@@ -1061,19 +1101,21 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		F9E6968C1AFCC06600273DA3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D607651CF653DFC4CF018B4A /* Pods.release.xcconfig */;
+			baseConfigurationReference = 1D9CD1C488B1993E4BBB4129 /* Pods-MobileMeteo.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
+				DEVELOPMENT_TEAM = GMU6W6K8X6;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/MobileMeteo-Prefix.pch";
 				INFOPLIST_FILE = MobileMeteo/Info.plist;
@@ -1084,17 +1126,18 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		F9E6968E1AFCC06600273DA3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 24EADB24B5CE073E7C94F7A4 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 5EBF929405009C8D381192DB /* Pods-MobileMeteoTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1110,18 +1153,19 @@
 				PRODUCT_NAME = MobileMeteoTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileMeteo.app/MobileMeteo";
 			};
 			name = Debug;
 		};
 		F9E6968F1AFCC06600273DA3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D607651CF653DFC4CF018B4A /* Pods.release.xcconfig */;
+			baseConfigurationReference = 31C0DFD0A15637264CB4BDB1 /* Pods-MobileMeteoTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -1132,6 +1176,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.szostakowski.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = MobileMeteoTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-BridgingHeader.h";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MobileMeteo.app/MobileMeteo";
 			};
 			name = Release;

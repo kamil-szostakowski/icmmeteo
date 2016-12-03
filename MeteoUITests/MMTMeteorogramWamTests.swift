@@ -21,7 +21,7 @@ class MMTMeteorogramWamTests: XCTestCase
         
         continueAfterFailure = false
         
-        XCUIDevice.sharedDevice().orientation = .Portrait
+        XCUIDevice.shared().orientation = .portrait
         
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB"]
@@ -69,7 +69,7 @@ class MMTMeteorogramWamTests: XCTestCase
     func test04_NumberOfDisplayedMoments()
     {
         app.navigationBars.buttons["Utwórz"].tap()
-        app.tables.childrenMatchingType(.Other).matchingIdentifier("WamSettingsHeader").elementBoundByIndex(0).buttons.element.tap()
+        app.tables.children(matching: .other).matching(identifier: "WamSettingsHeader").element(boundBy: 0).buttons.element.tap()
         
         app.tables.cells["WamSettingsMoment: t0 +3h"].tap()
         app.tables.cells["WamSettingsMoment: t0 +9h"].tap()
@@ -80,7 +80,7 @@ class MMTMeteorogramWamTests: XCTestCase
         app.collectionViews.element.swipeLeft()
         
         let momentAtIndex = {(index: UInt) in
-            return self.app.collectionViews.cells.elementBoundByIndex(index).staticTexts.elementBoundByIndex(1).label
+            return self.app.collectionViews.cells.element(boundBy: index).staticTexts.element(boundBy: 1).label
         }
         
         /* --- Assertions -- */
@@ -94,12 +94,12 @@ class MMTMeteorogramWamTests: XCTestCase
     
     func test05_CategoriesHeadersExistence()
     {
-        let headers = app.collectionViews.childrenMatchingType(.Other).matchingIdentifier("MMTWamHeaderView")
+        let headers = app.collectionViews.children(matching: .other).matching(identifier: "MMTWamHeaderView")
         
         /* --- Assertions -- */
         
-        XCTAssertEqual("Wysokość fali znacznej i średni kierunek fali", headers.elementBoundByIndex(0).label)
-        XCTAssertEqual("Średni okres fali", headers.elementBoundByIndex(1).label)
-        XCTAssertEqual("Okres piku widma", headers.elementBoundByIndex(2).label)
+        XCTAssertEqual("Wysokość fali znacznej i średni kierunek fali", headers.element(boundBy: 0).label)
+        XCTAssertEqual("Średni okres fali", headers.element(boundBy: 1).label)
+        XCTAssertEqual("Okres piku widma", headers.element(boundBy: 2).label)
     }
 }

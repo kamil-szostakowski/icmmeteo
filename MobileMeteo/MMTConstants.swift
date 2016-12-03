@@ -54,12 +54,12 @@ let  MMTTranslationWamCategory: [MMTWamCategory: String] =
     .SpectrumPeakPeriod: MMTLocalizedString("model.wam.spectrum-peak-period"),
 ]
 
-func MMTLocalizedString(string: String) -> String
+func MMTLocalizedString(_ string: String) -> String
 {
     return NSLocalizedString(string, comment: "")
 }
 
-func MMTLocalizedStringWithFormat(format: String, _ arguments: CVarArgType...) -> String
+func MMTLocalizedStringWithFormat(_ format: String, _ arguments: CVarArg...) -> String
 {
     return String(format: NSLocalizedString(format, comment: ""), arguments: arguments)
 }

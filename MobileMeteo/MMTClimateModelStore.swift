@@ -11,8 +11,8 @@ import Foundation
 import CoreLocation
 import CoreGraphics
 
-typealias MMTFetchMeteorogramCompletion = (data: NSData?, error: MMTError?) -> Void
-typealias MMTFetchForecastStartDateCompletion = (date: NSDate?, error: MMTError?) -> Void
+typealias MMTFetchMeteorogramCompletion = (_ data: Data?, _ error: MMTError?) -> Void
+typealias MMTFetchForecastStartDateCompletion = (_ date: Date?, _ error: MMTError?) -> Void
 
 enum MMTDetailedMap: String
 {
@@ -41,9 +41,9 @@ protocol MMTClimateModelStore
     
     var forecastLength: Int { get }
     
-    var forecastStartDate: NSDate { get }
+    var forecastStartDate: Date { get }
     
-    func getForecastStartDate(completion: MMTFetchForecastStartDateCompletion)
+    func getForecastStartDate(_ completion: @escaping MMTFetchForecastStartDateCompletion)
 }
 
 protocol MMTGridClimateModelStore: MMTClimateModelStore
@@ -54,7 +54,11 @@ protocol MMTGridClimateModelStore: MMTClimateModelStore
     
     var detailedMaps: [MMTDetailedMap] { get }
     
-    func getMeteorogramForLocation(location: CLLocation, completion: MMTFetchMeteorogramCompletion)
+    func getMeteorogramForLocation(_ location: CLLocation, completion: @escaping MMTFetchMeteorogramCompletion)
     
-    func getMeteorogramLegend(completion: MMTFetchMeteorogramCompletion)
+    func getMeteorogramLegend(_ completion: @escaping MMTFetchMeteorogramCompletion)
+    
+    func getForecastMomentsForMap(_ map: MMTDetailedMap) -> [MMTWamMoment]
+    
+    func getMeteorogramForMap(_ map: MMTDetailedMap, moment: Date, completion: @escaping MMTFetchMeteorogramCompletion)
 }

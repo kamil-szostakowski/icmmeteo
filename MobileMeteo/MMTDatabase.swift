@@ -11,23 +11,23 @@ import CoreData
 
 class MMTDatabase: NSObject
 {
-    static private(set) var instance = MMTDatabase()
+    static fileprivate(set) var instance = MMTDatabase()
     
     // MARK: CoreData stack
     
     lazy var model: NSManagedObjectModel =
     {
-        let modelURL = NSBundle.mainBundle().URLForResource("Mobile_Meteo", withExtension: "momd")
-        return NSManagedObjectModel(contentsOfURL: modelURL!)!
+        let modelURL = Bundle.main.url(forResource: "Mobile_Meteo", withExtension: "momd")
+        return NSManagedObjectModel(contentsOf: modelURL!)!
     }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator =
     {
         let type = NSSQLiteStoreType
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.model)
-        let storeURL = self.applicationDocumentsDirectory.URLByAppendingPathComponent("Mobile_Meteo.sqlite")
+        let storeURL = self.applicationDocumentsDirectory.appendingPathComponent("Mobile_Meteo.sqlite")
         
-        do { try coordinator.addPersistentStoreWithType(type, configuration: nil, URL: storeURL, options: nil) }
+        do { try coordinator.addPersistentStore(ofType: type, configurationName: nil, at: storeURL, options: nil) }
         
         catch let error as NSError {
             self.reportFatalError(error)
@@ -39,7 +39,7 @@ class MMTDatabase: NSObject
     lazy var context: NSManagedObjectContext =
     {
         let
-        context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.persistentStoreCoordinator = self.persistentStoreCoordinator
 
         return context
@@ -61,12 +61,12 @@ class MMTDatabase: NSObject
     
     func flushDatabase()
     {
-        self.context.performBlockAndWait()
+        self.context.performAndWait()
         {
             for store in self.persistentStoreCoordinator.persistentStores
             {
-                _ = try? self.persistentStoreCoordinator.removePersistentStore(store)
-                _ = try? NSFileManager.defaultManager().removeItemAtPath(store.URL!.path!)
+                _ = try? self.persistentStoreCoordinator.remove(store)
+                _ = try? FileManager.default.removeItem(atPath: store.url!.path)
             }
             
             MMTDatabase.instance = MMTDatabase()
@@ -75,15 +75,15 @@ class MMTDatabase: NSObject
     
     // MARK: Helper methods    
     
-    private lazy var applicationDocumentsDirectory: NSURL =
+    fileprivate lazy var applicationDocumentsDirectory: URL =
     {
-        let path = NSSearchPathDirectory.DocumentDirectory
-        let domain = NSSearchPathDomainMask.UserDomainMask
+        let path = FileManager.SearchPathDirectory.documentDirectory
+        let domain = FileManager.SearchPathDomainMask.userDomainMask
         
-        return NSFileManager.defaultManager().URLsForDirectory(path, inDomains: domain).last!
+        return FileManager.default.urls(for: path, in: domain).last!
     }()
     
-    private func reportFatalError(error: NSError?)
+    fileprivate func reportFatalError(_ error: NSError?)
     {
         NSLog("CoreData fatal error: \(error)")
         abort()

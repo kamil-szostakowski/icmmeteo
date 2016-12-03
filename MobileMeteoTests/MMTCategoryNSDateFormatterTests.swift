@@ -18,23 +18,23 @@ class MMTCategoryNSDateFormatterTests: XCTestCase
     func testShortStyleFormatter()
     {
         let date = TT.getDate(2015, 7, 30, 23)
-        XCTAssertEqual("2015.07.30", NSDateFormatter.shortDateOnlyStyle.stringFromDate(date))
+        XCTAssertEqual("2015.07.30", DateFormatter.shortDateOnlyStyle.string(from: date))
     }    
     
     func testUtcFormatterDateFromString()
     {
-        let formatter = NSDateFormatter.utcFormatter
+        let formatter = DateFormatter.utcFormatter
         let expectedDate = TT.getDate(2015, 7, 30, 23)
         
-        XCTAssertEqual(expectedDate, formatter.dateFromString("2015.07.30 23:00 UTC"))
+        XCTAssertEqual(expectedDate, formatter.date(from: "2015.07.30 23:00 UTC"))
         
     }
     
     func testUtcFormatterStringFromDate()
     {
-        let formatter = NSDateFormatter.utcFormatter
+        let formatter = DateFormatter.utcFormatter
         let expectedDateString = "2015.07.30 23:00 UTC"
         
-        XCTAssertEqual(expectedDateString, formatter.stringFromDate(TT.getDate(2015, 7, 30, 23)))
+        XCTAssertEqual(expectedDateString, formatter.string(from: TT.getDate(2015, 7, 30, 23)))
     }
 }

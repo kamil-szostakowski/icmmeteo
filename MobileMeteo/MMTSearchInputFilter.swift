@@ -11,7 +11,7 @@ import Foundation
 class MMTSearchInput: NSObject
 {
     // MARK: Properties
-    private var rawInput: String!
+    fileprivate var rawInput: String!
     
     var stringValue: String {
         return rawInput
@@ -36,11 +36,11 @@ class MMTSearchInput: NSObject
     
     // MARK: Helper methods
     
-    private func stringWithRemovedDuplicatedWhitespaces(input: String) -> String
+    fileprivate func stringWithRemovedDuplicatedWhitespaces(_ input: String) -> String
     {
-        let characterSet = NSCharacterSet.whitespaceCharacterSet()
-        let components = input.componentsSeparatedByCharactersInSet(characterSet).filter(){ $0.characters.count > 0 }
+        let characterSet = CharacterSet.whitespaces
+        let components = input.components(separatedBy: characterSet).filter(){ $0.characters.count > 0 }
         
-        return components.joinWithSeparator(" ")
+        return components.joined(separator: " ")
     }
 }

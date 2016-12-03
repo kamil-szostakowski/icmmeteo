@@ -21,12 +21,12 @@ struct MMTAppearance
         return UIColor(white: 0.95, alpha: 1)
     }
     
-    static func fontWithSize(size: CGFloat) -> UIFont
+    static func fontWithSize(_ size: CGFloat) -> UIFont
     {
         return UIFont(name: "HelveticaNeue-Light", size: size)!
     }
     
-    static func boldFontWithSize(size: CGFloat) -> UIFont
+    static func boldFontWithSize(_ size: CGFloat) -> UIFont
     {
         return UIFont(name: "HelveticaNeue-CondensedBold", size: size)!        
     }    

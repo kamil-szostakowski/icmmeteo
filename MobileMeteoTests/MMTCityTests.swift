@@ -89,7 +89,7 @@ class MMTCityTests: XCTestCase
     
     // MARK: Helpers
     
-    private func MMTVerifyCity(city: MMTCity)
+    fileprivate func MMTVerifyCity(_ city: MMTCity)
     {
         XCTAssertEqual("City Name", city.name)
         XCTAssertEqual("Some District", city.region)
@@ -99,7 +99,7 @@ class MMTCityTests: XCTestCase
         XCTAssertFalse(city.isCapital)
     }
     
-    private struct MMTTestPlacemark: MMTPlacemark
+    fileprivate struct MMTTestPlacemark: MMTPlacemark
     {
         var name: String?
         var locality: String?

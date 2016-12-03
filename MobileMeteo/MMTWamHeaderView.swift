@@ -30,7 +30,7 @@ class MMTWamHeaderView: UICollectionReusableView
     
     // MARK: Setup
     
-    private func setupView()
+    fileprivate func setupView()
     {
         backgroundColor = MMTAppearance.lightGrayBackgroundColor
         isAccessibilityElement = true
@@ -46,38 +46,38 @@ class MMTWamHeaderView: UICollectionReusableView
         setNeedsDisplay()
     }
     
-    override func drawRect(rect: CGRect)
+    override func draw(_ rect: CGRect)
     {
         accessibilityLabel = String(categoryTitle)
         
         let
-        style = NSParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
-        style.lineBreakMode = .ByWordWrapping
-        style.alignment = .Center
+        style = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
+        style.lineBreakMode = .byWordWrapping
+        style.alignment = .center
         
         let textAttributes = [
             NSFontAttributeName: MMTAppearance.fontWithSize(12),
             NSParagraphStyleAttributeName: style
         ]
         
-        let textSize = categoryTitle.sizeWithAttributes(textAttributes)        
+        let textSize = categoryTitle.size(attributes: textAttributes)        
         let drawingArea = calculateDrawingAreaInRect(rect, textSize: textSize)
         let context = UIGraphicsGetCurrentContext()
 
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, 0, bounds.height)
-        CGContextRotateCTM(context, CGFloat(-M_PI_2));
+        context?.saveGState()
+        context?.translateBy(x: 0, y: bounds.height)
+        context?.rotate(by: CGFloat(-M_PI_2));
         
-        categoryTitle.drawInRect(drawingArea, withAttributes: textAttributes)
+        categoryTitle.draw(in: drawingArea, withAttributes: textAttributes)
 
-        CGContextRestoreGState(context)
+        context?.restoreGState()
     }
     
-    private func calculateDrawingAreaInRect(rect: CGRect, textSize: CGSize) -> CGRect
+    fileprivate func calculateDrawingAreaInRect(_ rect: CGRect, textSize: CGSize) -> CGRect
     {
         let numberOfLines = ceil(textSize.width/(rect.size.height-10))
         let xOffset = abs(bounds.width-textSize.height*numberOfLines)/2
         
-        return CGRectMake(5, xOffset, bounds.height-10, bounds.width)
+        return CGRect(x: 5, y: xOffset, width: bounds.height-10, height: bounds.width)
     }
 }

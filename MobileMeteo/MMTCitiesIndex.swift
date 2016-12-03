@@ -22,7 +22,7 @@ typealias MMTCitiesIndexSection = (type: MMTCitiesIndexSectionType, cities: [MMT
 
 struct MMTCitiesIndex
 {
-    private var content: [MMTCitiesIndexSection]
+    fileprivate var content: [MMTCitiesIndexSection]
     
     var sectionCount: Int {
         return content.count
@@ -51,10 +51,10 @@ struct MMTCitiesIndex
         }
         
         if currentCity != nil {
-            content.insert(MMTCitiesIndexSection(type: .CurrentLocation, cities: [currentCity!]), atIndex: 0)
+            content.insert(MMTCitiesIndexSection(type: .CurrentLocation, cities: [currentCity!]), at: 0)
         }
         
-        content.insert(MMTCitiesIndexSection(type: .DetailedMaps, cities: []), atIndex: 0)
+        content.insert(MMTCitiesIndexSection(type: .DetailedMaps, cities: []), at: 0)
     }
     
     init(searchResult: [MMTCityProt])
@@ -79,6 +79,6 @@ struct MMTCitiesIndex
     
     subscript(sections: [MMTCitiesIndexSectionType]) -> [MMTCityProt]
     {
-        get { return content.filter(){ sections.indexOf($0.type) != nil }.flatMap() { $0.cities } }
+        get { return content.filter(){ sections.index(of: $0.type) != nil }.flatMap() { $0.cities } }
     }    
 }

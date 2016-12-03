@@ -30,15 +30,15 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     var meteorogramStore: MMTGridClimateModelStore!
     var selectedCity: MMTCityProt?
     
-    private var lastUpdate: NSDate?
-    private var locationManager: CLLocationManager!
-    private var searchInput: MMTSearchInput!
-    private var citiesIndex: MMTCitiesIndex!
-    private var citiesStore: MMTCitiesStore!
-    private var cityOfCurrentLocation: MMTCityProt?
-    private var shouldDisplayMeteorogram = false
+    fileprivate var lastUpdate: Date?
+    fileprivate var locationManager: CLLocationManager!
+    fileprivate var searchInput: MMTSearchInput!
+    fileprivate var citiesIndex: MMTCitiesIndex!
+    fileprivate var citiesStore: MMTCitiesStore!
+    fileprivate var cityOfCurrentLocation: MMTCityProt?
+    fileprivate var shouldDisplayMeteorogram = false
     
-    private let kCurrentLocationKey = "location"
+    fileprivate let kCurrentLocationKey = "location"
     
     // MARK: Controller methods
     
@@ -54,7 +54,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         setupInfoBar()
     }
     
-    override func viewWillAppear(animated: Bool)
+    override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
         
@@ -74,19 +74,19 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         analytics?.sendScreenEntryReport(MMTAnalyticsCategory.Locations.rawValue)
         
         if selectedCity != nil {
-            performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
+            performSegue(withIdentifier: MMTSegue.DisplayMeteorogram, sender: self)
         }        
     }
     
-    override func viewWillDisappear(animated: Bool)
+    override func viewWillDisappear(_ animated: Bool)
     {
         super.viewWillDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if var controller = segue.destinationViewController as? MMTGridClimateModelController
+        if var controller = segue.destination as? MMTGridClimateModelController
         {
             controller.meteorogramStore = meteorogramStore
         }
@@ -94,7 +94,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         if segue.identifier == MMTSegue.DisplayMeteorogram
         {
             let
-            controller = segue.destinationViewController as! MMTMeteorogramController
+            controller = segue.destination as! MMTMeteorogramController
             controller.city = selectedCity
             
             selectedCity = nil
@@ -103,35 +103,34 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: Setup methods
     
-    private func setupLocationManager()
+    fileprivate func setupLocationManager()
     {
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
     }
     
-    private func setupInfoBar()
-    {
-        let ms = meteorogramStore
-        let formatter = NSDateFormatter.utcFormatter
+    fileprivate func setupInfoBar()
+    {        
+        let formatter = DateFormatter.utcFormatter
         
-        lblForecastStart.text = MMTLocalizedStringWithFormat("forecast.start: %@", formatter.stringFromDate(ms.forecastStartDate))
-        lblForecastLenght.text = MMTLocalizedStringWithFormat("forecast.length: %dh, forecast.grid: %dkm", ms.forecastLength, ms.gridNodeSize)
+        lblForecastStart.text = MMTLocalizedStringWithFormat("forecast.start: %@", formatter.string(from: meteorogramStore.forecastStartDate))
+        lblForecastLenght.text = MMTLocalizedStringWithFormat("forecast.length: %dh, forecast.grid: %dkm", meteorogramStore.forecastLength, meteorogramStore.gridNodeSize)
     }
     
-    private func setupNotificationHandler()
+    fileprivate func setupNotificationHandler()
     {
         let handler = #selector(handleApplicationDidBecomeActiveNotification(_:))
-        let notification = UIApplicationDidBecomeActiveNotification
+        let notification = NSNotification.Name.UIApplicationDidBecomeActive
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: handler, name: notification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: handler, name: notification, object: nil)
     }
     
     // MARK: CLLocationManagerDelegate
     
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
     {
-        let authorized = status == .AuthorizedWhenInUse
+        let authorized = status == .authorizedWhenInUse
     
         if authorized {
             locationManager.startMonitoringSignificantLocationChanges()
@@ -145,7 +144,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
         updateIndexWithCityOfCurrentLocation() {
             
@@ -156,16 +155,16 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: Actions
     
-    @IBAction func unwindToListOfCities(unwindSegue: UIStoryboardSegue)
+    @IBAction func unwindToListOfCities(_ unwindSegue: UIStoryboardSegue)
     {
-        guard let mapController = unwindSegue.sourceViewController as? MMTCityMapPickerController else { return }
+        guard let mapController = unwindSegue.source as? MMTCityMapPickerController else { return }
         guard let city = mapController.selectedCity else { return }
         
         selectedCity = city
         analytics?.sendUserActionReport(.Locations, action: .LocationDidSelectOnMap, actionLabel: city.name)
     }
     
-    func handleApplicationDidBecomeActiveNotification(notification: NSNotification)
+    func handleApplicationDidBecomeActiveNotification(_ notification: Notification)
     {
         updateForecastStartDate()
         updateIndexWithCityOfCurrentLocation() {
@@ -177,41 +176,41 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: UITableViewDelegate methods
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    func numberOfSections(in tableView: UITableView) -> Int
     {
         return citiesIndex.sectionCount
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         let isSpecialItem = citiesIndex[section].type == .NotFound || citiesIndex[section].type == .DetailedMaps
         return !isSpecialItem ? citiesIndex[section].cities.count : 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let sectionType = citiesIndex[indexPath.section].type
         
         guard sectionType != .NotFound else {
-            return tableView.dequeueReusableCellWithIdentifier("FindLocationCell", forIndexPath: indexPath)
+            return tableView.dequeueReusableCell(withIdentifier: "FindLocationCell", for: indexPath)
         }
         
         guard sectionType != .DetailedMaps else {
-            return tableView.dequeueReusableCellWithIdentifier("DetailedMapsCell", forIndexPath: indexPath)
+            return tableView.dequeueReusableCell(withIdentifier: "DetailedMapsCell", for: indexPath)
         }
         
         let isCurrentLocation = sectionType == .CurrentLocation
         let city = citiesIndex[indexPath.section].cities[indexPath.row]
       
         let
-        cell = tableView.dequeueReusableCellWithIdentifier("CitiesListCell", forIndexPath: indexPath)
+        cell = tableView.dequeueReusableCell(withIdentifier: "CitiesListCell", for: indexPath)
         cell.detailTextLabel?.text = isCurrentLocation ? MMTTranslationCityCategory[sectionType] : city.region
         cell.textLabel!.text = city.name
             
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
         let sectionType = citiesIndex[section].type
         let shouldDisplayHeader = sectionType == .Favourites || sectionType == .Capitals
@@ -219,35 +218,36 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         return shouldDisplayHeader ? 30 : 0
     }
 
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         guard let headerTitle = MMTTranslationCityCategory[citiesIndex[section].type] else {
             return nil
         }
         
         let
-        header = tableView.dequeueReusableCellWithIdentifier("CitiesListHeader")!
+        header = tableView.dequeueReusableCell(withIdentifier: "CitiesListHeader")!
         header.textLabel?.text = headerTitle
+        header.accessibilityTraits = UIAccessibilityTraitHeader
         
         return header
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         guard citiesIndex[indexPath.section].type != .NotFound else {
-            performSegueWithIdentifier(MMTSegue.DisplayMapScreen, sender: self)
+            performSegue(withIdentifier: MMTSegue.DisplayMapScreen, sender: self)
             return
         }
         
         guard citiesIndex[indexPath.section].type != .DetailedMaps else {
-            performSegueWithIdentifier(MMTSegue.DisplayDetailedMapsList, sender: self)
+            performSegue(withIdentifier: MMTSegue.DisplayDetailedMapsList, sender: self)
             return
         }
         
         let city = citiesIndex[indexPath.section].cities[indexPath.row]
         
         selectedCity = city
-        performSegueWithIdentifier(MMTSegue.DisplayMeteorogram, sender: self)
+        performSegue(withIdentifier: MMTSegue.DisplayMeteorogram, sender: self)
         
         guard let action = MMTAnalyticsAction(group: citiesIndex[indexPath.section].type) else { return }
 
@@ -256,7 +256,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: UIScrollViewDelegate methods
     
-    func scrollViewDidScroll(scrollView: UIScrollView)
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
     {
         guard scrollView.contentSize.height > scrollView.bounds.height else {
             return
@@ -268,7 +268,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         animateInfoBarScrollWithOffset(offset)
     }
     
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool)
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
     {
         guard scrollView.contentSize.height > scrollView.bounds.height else {
             return
@@ -282,7 +282,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    private func animateInfoBarScrollWithOffset(offset: CGFloat)
+    fileprivate func animateInfoBarScrollWithOffset(_ offset: CGFloat)
     {
         let alpha: CGFloat = offset < 0 ? 0 : 1
         
@@ -296,17 +296,17 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
             self.view.layoutIfNeeded()
         }
             
-        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: [], animations: animations, completion: nil)
+        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 5, options: [], animations: animations, completion: nil)
     }    
     
     // MARK: UISearchBarDelegate methods
     
-    func searchBarTextDidBeginEditing(searchBar: UISearchBar)
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
     {
         searchBar.setShowsCancelButton(true, animated: true)
     }
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String)
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     {
         searchInput = MMTSearchInput(searchBar.text!)
         searchBar.text = searchInput.stringValue
@@ -321,20 +321,20 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar)
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
     {
         resetSearchBar()
         updateIndexWithAllCities() { self.tableView.reloadData() }
     }
     
-    func searchBarTextDidEndEditing(searchBar: UISearchBar)
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar)
     {
         updateIndexWithAllCities() { self.tableView.reloadData() }
     }
     
     // MARK: Data update methods
     
-    private func updateIndexWithAllCities(completion: MMTCompletion)
+    fileprivate func updateIndexWithAllCities(_ completion: MMTCompletion)
     {
         citiesStore.getAllCities()
         {
@@ -343,7 +343,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         }
     }    
     
-    private func updateIndexWithCitiesMatchingCriteria(criteria: String, completion: MMTCompletion)
+    fileprivate func updateIndexWithCitiesMatchingCriteria(_ criteria: String, completion: @escaping MMTCompletion)
     {
         citiesStore.findCitiesMatchingCriteria(criteria)
         {
@@ -352,7 +352,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    private func updateIndexWithCityOfCurrentLocation(completion: MMTCompletion)
+    fileprivate func updateIndexWithCityOfCurrentLocation(_ completion: @escaping MMTCompletion)
     {
         guard let location = self.locationManager.location else {
             return
@@ -360,8 +360,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         
         citiesStore.findCityForLocation(location) { (city: MMTCityProt?, error: MMTError?) in
             
-            guard error == nil else { return }
-            guard let currentCity = city else { return }
+            guard let currentCity = city, error == nil else { return }
             
             self.cityOfCurrentLocation = currentCity            
             self.citiesStore.getAllCities() {
@@ -371,14 +370,14 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    private func updateForecastStartDate()
+    fileprivate func updateForecastStartDate()
     {
-        if lastUpdate != nil && NSDate().timeIntervalSinceDate(lastUpdate!) < NSTimeInterval(minutes: 5) {
+        if lastUpdate != nil && Date().timeIntervalSince(lastUpdate!) < TimeInterval(minutes: 5) {
             return
         }
         
-        lastUpdate = NSDate()
-        meteorogramStore.getForecastStartDate(){ (date: NSDate?, error: MMTError?) in
+        lastUpdate = Date()
+        meteorogramStore.getForecastStartDate(){ (date: Date?, error: MMTError?) in
             
             self.setupInfoBar()
         }
@@ -386,7 +385,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     // MARK: Helper methods
     
-    private func resetSearchBar()
+    fileprivate func resetSearchBar()
     {
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
