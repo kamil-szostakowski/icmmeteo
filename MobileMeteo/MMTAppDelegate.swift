@@ -32,6 +32,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         #if DEBUG
         if ProcessInfo.processInfo.arguments.contains(MMTDebugActionCleanupDb)
         {
+            URLCache.shared.removeAllCachedResponses()
             MMTDatabase.instance.flushDatabase()
             UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
             UserDefaults.standard.synchronize()

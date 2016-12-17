@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UITableViewDelegate, MMTGridClimateModelController
+class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UITableViewDelegate
 {
     // MARK: Outlets
     
@@ -17,9 +17,11 @@ class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UI
     
     // MARK: Properties
     
-    var meteorogramStore: MMTGridClimateModelStore!
-    
-    fileprivate var meteorogramType: String {
+    var meteorogramStore: MMTDetailedMapsStore!
+
+    private var selectedDetailedMap: MMTDetailedMap!
+
+    private var meteorogramType: String {
         return meteorogramStore is MMTUmModelStore ? "UM" : "COAMPS"
     }
     
@@ -28,10 +30,21 @@ class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
         analytics?.sendScreenEntryReport("Detailed maps: \(meteorogramType)")
     }
-    
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        guard let previewController = segue.destination as? MMTDetailedMapPreviewController else {
+            return
+        }
+
+        previewController.meteorogramStore = meteorogramStore
+        previewController.detailedMap = selectedDetailedMap
+    }
+
+    // MARK: Table view methods
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return meteorogramStore.detailedMaps.count
@@ -46,8 +59,15 @@ class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UI
         return cell
     }
     
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-        return .portrait
+        selectedDetailedMap = meteorogramStore.detailedMaps[indexPath.row]
+        performSegue(withIdentifier: MMTSegue.DisplayDetailedMap, sender: self)
+    }
+
+    // MARK: Actions
+
+    @IBAction func unwindToListOfDetailedMaps(_ unwindSegue: UIStoryboardSegue)
+    {        
     }
 }

@@ -40,7 +40,7 @@ class MMTCityMapPickerTests: XCTestCase
     
     // MARK: Test methods
     
-    func test01_dismissMapPicker()
+    func test_dismissMapPicker()
     {
         XCTAssertTrue(app.navigationBars["Wybierz lokalizację"].exists)
         
@@ -49,7 +49,7 @@ class MMTCityMapPickerTests: XCTestCase
         XCTAssertFalse(app.navigationBars["Wybierz lokalizację"].exists)
     }
     
-    func test02_selectUnsupportedLocation()
+    func test_selectUnsupportedLocation()
     {
         let
         map = app.maps.element(boundBy: 0)
@@ -59,13 +59,16 @@ class MMTCityMapPickerTests: XCTestCase
         map.press(forDuration: 1.3)
         
         app.navigationBars["Wybierz lokalizację"].buttons["Pokaż"].tap()
+
+        sleep(3)
         
         let alert = app.alerts.element(boundBy: 0)
-        let errorMsg = alert.staticTexts.element(boundBy: 2).label
-        
-        alert.buttons["zamknij"].tap()
-        
+        XCTAssertTrue(alert.exists)
+
+        let errorMsg = alert.staticTexts.element(boundBy: 0).label
         XCTAssertEqual("Wybrana lokacja nie jest obsługiwana.", errorMsg)
+        
+        alert.buttons["zamknij"].tap()        
         XCTAssertFalse(alert.exists)
     }
 }

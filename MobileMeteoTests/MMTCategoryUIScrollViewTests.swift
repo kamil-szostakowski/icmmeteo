@@ -33,19 +33,19 @@ class MMTCategoryUIScrollViewTests: XCTestCase
     
     // MARK: Test methods
     
-    func testMinimumZoomScale()
+    func testZoomScaleFittingWidth()
     {
         var
-        scale = scrollView.minZoomScaleForSize(CGSize(width: 540, height: 660))
+        scale = scrollView.zoomScaleFittingWidth(for: CGSize(width: 540, height: 660))
         scale = round(scale*1000)/1000
         
         XCTAssertEqual(0.593, scale)
     }
     
-    func testdefaultZoomScale()
+    func testZoomScaleFittingHeight()
     {
         var
-        scale = scrollView.defaultZoomScale(CGSize(width: 540, height: 660))
+        scale = scrollView.zoomScaleFittingHeight(for: CGSize(width: 540, height: 660))
         scale = round(scale*1000)/1000
     
         XCTAssertEqual(0.727, scale)

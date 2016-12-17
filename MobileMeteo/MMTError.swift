@@ -16,13 +16,13 @@ enum MMTError: Int
     case locationNotFound = 3
     case mailNotAvailable = 4
     case forecastStartDateNotFound = 5
-    case detailedMapNotSupported = 6
+    case detailedMapNotSupported = 6    
     
     var description: String?
     {
         switch self
         {
-            case .meteorogramNotFound: return "Nie udało się udnaleźć meteorogramu. Najprawdopodobniej nie został jeszcze przygotowany. Spróbuj ponownie później."
+            case .meteorogramNotFound: return "Nie udało się odnaleźć meteorogramu. Najprawdopodobniej nie został jeszcze przygotowany. Spróbuj ponownie później."
             case .meteorogramFetchFailure: return "Nie udało się pobrać meteorogramu. Spróbuj ponownie później."
             case .locationUnsupported: return "Wybrana lokacja nie jest obsługiwana."
             case .locationNotFound: return "Nie udało się odnaleźć szczegółów lokalizacji. Wybierz inną lokalizację lub spróbuj ponownie później."

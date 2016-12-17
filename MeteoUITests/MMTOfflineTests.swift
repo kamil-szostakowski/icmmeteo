@@ -38,14 +38,14 @@ class MMTOfflineTests: XCTestCase
     
     // MARK: Test methods
     
-    func test01_displayUmMeteorogram()
+    func test_displayUmMeteorogram()
     {
         app.tables.cells["Białystok, Podlaskie"].tap()
 
         verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
     }
     
-    func test02_displayCoampsMeteorogram()
+    func test_displayCoampsMeteorogram()
     {
         app.tabBars.buttons["Model COAMPS"].tap()
         app.tables.cells["Białystok, Podlaskie"].tap()
@@ -53,7 +53,7 @@ class MMTOfflineTests: XCTestCase
         verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
     }
     
-    func test03_displayWamMomentPreview()
+    func test_displayWamMomentPreview()
     {
         app.tabBars.buttons["Model WAM"].tap()
         app.collectionViews.cells["TideHeight +3"].tap()
@@ -61,7 +61,7 @@ class MMTOfflineTests: XCTestCase
         verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
     }
     
-    func test04_selectLocationOnMap()
+    func test_selectLocationOnMap()
     {
         app.searchFields["szukaj miasta"].tap()
         app.searchFields["szukaj miasta"].typeText("aaa")
@@ -78,12 +78,23 @@ class MMTOfflineTests: XCTestCase
 
         verifyFailureAlert(app.alerts.element(boundBy: 0), locationResolveError)
     }
+
+    func test_displayDetailedMapPreview()
+    {
+        app.tabBars.buttons["Model UM"].tap()
+        app.tables.cells.staticTexts["Mapy szczegółowe"].tap()
+        app.tables.cells.staticTexts["Opad"].tap()
+
+        sleep(5)
+
+        verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
+    }
     
     // MARK: Helper methods
     
-    fileprivate func verifyFailureAlert(_ alert: XCUIElement, _ message: String)
+    private func verifyFailureAlert(_ alert: XCUIElement, _ message: String)
     {
-        let errorMsg = alert.staticTexts.element(boundBy: 2).label
+        let errorMsg = alert.staticTexts.element(boundBy: 0).label
         
         alert.buttons["zamknij"].tap()
         

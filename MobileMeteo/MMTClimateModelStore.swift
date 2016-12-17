@@ -11,8 +11,9 @@ import Foundation
 import CoreLocation
 import CoreGraphics
 
-typealias MMTFetchMeteorogramCompletion = (_ data: Data?, _ error: MMTError?) -> Void
+typealias MMTFetchMeteorogramCompletion = (_ image: UIImage?, _ error: MMTError?) -> Void
 typealias MMTFetchForecastStartDateCompletion = (_ date: Date?, _ error: MMTError?) -> Void
+typealias MMTFetchMeteorogramsCompletion = (_ image: UIImage?, _ date: Date?, _ error: MMTError?, _ finish: Bool) -> Void
 
 enum MMTDetailedMap: String
 {
@@ -52,13 +53,47 @@ protocol MMTGridClimateModelStore: MMTClimateModelStore
     
     var legendSize: CGSize { get }
     
-    var detailedMaps: [MMTDetailedMap] { get }
-    
     func getMeteorogramForLocation(_ location: CLLocation, completion: @escaping MMTFetchMeteorogramCompletion)
     
     func getMeteorogramLegend(_ completion: @escaping MMTFetchMeteorogramCompletion)
-    
+}
+
+protocol MMTDetailedMapsStore
+{
+    var detailedMaps: [MMTDetailedMap] { get }
+
+    var detailedMapMeteorogramLegendSize: CGSize { get }
+
+    var detailedMapMeteorogramSize: CGSize { get }
+
     func getForecastMomentsForMap(_ map: MMTDetailedMap) -> [MMTWamMoment]
-    
+
     func getMeteorogramForMap(_ map: MMTDetailedMap, moment: Date, completion: @escaping MMTFetchMeteorogramCompletion)
+}
+
+extension MMTDetailedMapsStore
+{
+    func getMeteorograms(for moments: [MMTWamMoment], map: MMTDetailedMap, completion: @escaping MMTFetchMeteorogramsCompletion)
+    {
+        let queue = DispatchQueue.global()
+        let group = DispatchGroup()        
+
+        for (date, _) in moments
+        {
+            queue.async(group: group) {
+                group.enter()
+
+                self.getMeteorogramForMap(map, moment: date) {
+                    (image: UIImage?, error: MMTError?) in
+                    NSLog("XXX: date: \(date) image: \(image) error: \(error)")
+                    DispatchQueue.main.async { completion(image, date, error, false) }
+                    group.leave()
+                }
+            }
+        }
+
+        group.notify(queue: queue) {
+            DispatchQueue.main.async { completion(nil, nil, nil, true) }
+        }
+    }
 }

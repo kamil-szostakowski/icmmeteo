@@ -6,14 +6,15 @@
 //  Copyright © 2016 Kamil Szostakowski. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
 {
     // MARK: Properties
     
-    fileprivate var urlSession: URLSession!
-    fileprivate var redirectionBaseUrl: URL?
+    private var urlSession: URLSession!
+    private var redirectionBaseUrl: URL?
     
     #if DEBUG
     static var simulateOfflineMode = false
@@ -23,17 +24,23 @@ class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
     #endif
     
     // MARK: Initializers
-    
-    override init()
+
+    init(redirectionBaseUrl url: URL?, timeout: TimeInterval)
     {
         super.init()
-        urlSession = URLSession(configuration: URLSessionConfiguration.default, delegate:self, delegateQueue:nil)
+
+        let
+        config = URLSessionConfiguration.default
+        config.timeoutIntervalForRequest = timeout
+        config.timeoutIntervalForResource = timeout
+
+        urlSession = URLSession(configuration: config, delegate:self, delegateQueue:nil)
+        redirectionBaseUrl = url
     }
-    
+
     convenience init(redirectionBaseUrl url: URL?)
     {
-        self.init()
-        redirectionBaseUrl = url
+        self.init(redirectionBaseUrl: url, timeout: 30)
     }
     
     // MARK: Interface methods
@@ -42,8 +49,18 @@ class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
     {
         runTaskWithUrl(url) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            
-            completion(data, error != nil ? .meteorogramFetchFailure : nil)
+
+            guard error == nil else {
+                completion(nil, .meteorogramFetchFailure)
+                return
+            }
+
+            guard let image = UIImage(data) else {
+                completion(nil, .meteorogramFetchFailure)
+                return
+            }
+
+            completion(image, nil)
         }
     }
     
@@ -51,15 +68,23 @@ class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
     {
         runTaskWithUrl(searchUrl) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
+
+            guard error == nil else {
+                completion(nil, .meteorogramFetchFailure)
+                return
+            }
+
+            guard searchUrl.absoluteString != response?.url?.absoluteString else {
+                completion(nil, .meteorogramFetchFailure)
+                return
+            }
+
+            guard let image = UIImage(data) else {
+                completion(nil, .meteorogramFetchFailure)
+                return
+            }
             
-            let redirected =  searchUrl.absoluteString != response?.url?.absoluteString
-            
-            var
-            err: MMTError? = nil
-            err = !redirected ? .meteorogramNotFound : err
-            err = error != nil ? .meteorogramFetchFailure : err
-            
-            completion(data, err)
+            completion(image, nil)
         }
     }
     
@@ -93,7 +118,7 @@ class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
         req = URLRequest(url: destinationUrl)
     }
     
-    fileprivate func meteorogramDownloadFromRedirectionUrl(_ redirectionUrl: URL) -> URL?
+    private func meteorogramDownloadFromRedirectionUrl(_ redirectionUrl: URL) -> URL?
     {        
         guard let queryString = redirectionUrl.absoluteString.components(separatedBy: "?").last else {
             return nil
@@ -104,7 +129,7 @@ class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
     
     // MARK: Helper methods
     
-    fileprivate func runTaskWithUrl(_ url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
+    private func runTaskWithUrl(_ url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
     {
         let task = urlSession.dataTask(with: url){
             (data: Data?, response: URLResponse?, err: Error?) -> Swift.Void in
@@ -121,7 +146,7 @@ class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
         }
         
         task.resume()
-    }
+    }    
     
     func htmlStringFromResponseData(_ data: Data?) -> String?
     {

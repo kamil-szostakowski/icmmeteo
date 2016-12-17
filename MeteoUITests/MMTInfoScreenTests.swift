@@ -36,7 +36,7 @@ class MMTInfoScreenTests: XCTestCase
     
     // MARK: Test methods
     
-    func test01_displayMailComposeScreen()
+    func test_displayMailComposeScreen()
     {
         app.tabBars.buttons["Źródło"].tap()
         app.buttons["napisz do nas"].tap()

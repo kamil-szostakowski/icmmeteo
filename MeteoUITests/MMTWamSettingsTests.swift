@@ -40,7 +40,7 @@ class MMTWamSettingsTests: XCTestCase
     
     // MARK: Test methods
     
-    func test01_DeselectingGroupOfMoments()
+    func test_DeselectingGroupOfMoments()
     {
         let header = headerAtIndex(0)
         let subitems = subitemsForHeader(header)
@@ -60,7 +60,7 @@ class MMTWamSettingsTests: XCTestCase
         }
     }
     
-    func test02_DeselectingHeaderByDeselectingItem()
+    func test_DeselectingHeaderByDeselectingItem()
     {
         let headerButton = headerAtIndex(0).buttons.element
         
@@ -71,7 +71,7 @@ class MMTWamSettingsTests: XCTestCase
         XCTAssertEqual("wybierz", headerButton.label)
     }
     
-    func test03_SelectingHeaderBySelectingAllOfSubitems()
+    func test_SelectingHeaderBySelectingAllOfSubitems()
     {
         let header = headerAtIndex(0)
         let subitems = subitemsForHeader(header)
@@ -89,7 +89,7 @@ class MMTWamSettingsTests: XCTestCase
         XCTAssertEqual("usuń zaznaczenie", header.buttons.element.label)
     }
     
-    func test04_SelectingGroupOfMoments()
+    func test_SelectingGroupOfMoments()
     {
         let header = headerAtIndex(1)
         let subitems = subitemsForHeader(header)
@@ -109,7 +109,7 @@ class MMTWamSettingsTests: XCTestCase
         }
     }
     
-    func test05_TestShowButtonAppearance()
+    func test_TestShowButtonAppearance()
     {
         let header = headerAtIndex(0)
         let subitems = subitemsForHeader(header)
@@ -128,12 +128,12 @@ class MMTWamSettingsTests: XCTestCase
     
     // MARK: Helper methods
     
-    fileprivate func headerAtIndex(_ index: UInt) -> XCUIElement
+    private func headerAtIndex(_ index: UInt) -> XCUIElement
     {
         return app.tables.children(matching: .other).matching(identifier: "WamSettingsHeader").element(boundBy: index)
     }
     
-    fileprivate func subitemsForHeader(_ header: XCUIElement) -> XCUIElementQuery
+    private func subitemsForHeader(_ header: XCUIElement) -> XCUIElementQuery
     {
         return app.tables.cells.matching(NSPredicate(format: "label CONTAINS[cd] %@", header.staticTexts.element.label))
     }

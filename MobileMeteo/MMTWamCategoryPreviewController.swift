@@ -20,7 +20,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     @IBOutlet var scrollView: UIScrollView!
     @NSCopying var wamSettings: MMTWamSettings!
     
-    fileprivate var cache = NSCache<NSString, NSData>()
+    fileprivate var cache = NSCache<NSString, UIImage>()
     fileprivate var currentMoment: Int = 0
 
     var wamStore: MMTWamModelStore!
@@ -93,8 +93,8 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         meteorogramImage.updateSizeConstraints(wamStore.meteorogramSize)
         
         scrollView.maximumZoomScale = 1
-        scrollView.minimumZoomScale = scrollView.minZoomScaleForSize(wamStore.meteorogramSize)
-        scrollView.zoomScale = scrollView.defaultZoomScale(wamStore.meteorogramSize)        
+        scrollView.minimumZoomScale = scrollView.zoomScaleFittingWidth(for: wamStore.meteorogramSize)
+        scrollView.zoomScale = scrollView.zoomScaleFittingHeight(for: wamStore.meteorogramSize)
     }
     
     // MARK: Action methods    
@@ -113,9 +113,9 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     
     @IBAction func didRecognizedDoubleTapGesture(_ sender: UITapGestureRecognizer)
     {
-        let defaultZoomScale = scrollView.defaultZoomScale(wamStore.meteorogramSize)
+        let defaultZoomScale = scrollView.zoomScaleFittingHeight(for: wamStore.meteorogramSize)
         
-        scrollView.animatedZoomToScale(defaultZoomScale)
+        scrollView.animateZoom(scale: defaultZoomScale)
     }
 
     // MARK: UIScrollViewDelegate methods
@@ -138,10 +138,9 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         nextMomentBtn.isEnabled = false
         
         getMeteorogramWithQuery(MMTWamModelMeteorogramQuery(category: category, moment: moment)){
+            (image: UIImage?, error: MMTError?) in
             
-            (data: Data?, error: MMTError?) in
-            
-            self.meteorogramImage.image = UIImage(data: data!)            
+            self.meteorogramImage.image = image
             self.prevMomentButton.isEnabled = !self.isFirstMoment
             self.nextMomentBtn.isEnabled = !self.isLastMoment
         }
@@ -151,20 +150,20 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     {
         let key = "\(query.moment)" as NSString
         
-        if let data = cache.object(forKey: key) as? Data
+        if let image = cache.object(forKey: key)
         {
-            completion(data, nil)
+            completion(image, nil)
             return
         }
         
         activityIndicator.isHidden = false
         
         wamStore.getMeteorogramMomentWithQuery(query){
-            (data: Data?, error: MMTError?) in
+            (img: UIImage?, error: MMTError?) in
             
             self.activityIndicator.isHidden = true
             
-            guard let imageData = data, error == nil else
+            guard let image = img, error == nil else
             {
                 let alert = UIAlertController.alertForMMTError(error!){ (UIAlertAction) -> Void in
                     self.performSegue(withIdentifier: MMTSegue.UnwindToWamModel, sender: self)
@@ -174,8 +173,8 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
                 return
             }
             
-            self.cache.setObject(imageData as NSData, forKey: key)
-            completion(data, error)
+            self.cache.setObject(image, forKey: key)
+            completion(image, error)
         }
     }
 }

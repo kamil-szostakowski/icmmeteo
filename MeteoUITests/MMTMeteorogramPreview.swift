@@ -28,7 +28,8 @@ class MMTMeteorogramPreview: XCTestCase
         app.launch()
         
         app.tabBars.buttons["Model COAMPS"].tap()
-        app.tables.cells["Białystok, Podlaskie"].tap()
+        sleep(1)
+        app.tables.cells["Białystok, Podlaskie"].tap()        
     }
     
     override func tearDown()
@@ -39,13 +40,13 @@ class MMTMeteorogramPreview: XCTestCase
     
     // MARK: Test methods
     
-    func test01_ContentVisibilityInPortrait()
+    func test_ContentVisibilityInPortrait()
     {
         XCTAssertTrue(isElementVisible(app.images["meteorogram"]))
         XCTAssertFalse(isElementVisible(app.images["legend"]))
     }
     
-    func test02_ZoomingToDefaultScale()
+    func test_ZoomingToDefaultScale()
     {
         let
         element = app.scrollViews.element(boundBy: 0)
@@ -55,7 +56,7 @@ class MMTMeteorogramPreview: XCTestCase
         app.navigationBars["Białystok"].buttons["Zatrzymaj"].tap()
     }
     
-    func test03_ContentVisibilityInLandscape()
+    func test_ContentVisibilityInLandscape()
     {
         XCUIDevice.shared().orientation = .landscapeLeft
         sleep(1)

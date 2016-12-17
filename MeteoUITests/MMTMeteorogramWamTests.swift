@@ -39,7 +39,7 @@ class MMTMeteorogramWamTests: XCTestCase
     
     // MARK: Test methods
     
-    func test01_DisplayTideHeightMomentPreview()
+    func test_DisplayTideHeightMomentPreview()
     {
         app.collectionViews.cells["TideHeight +3"].tap()
         
@@ -48,7 +48,7 @@ class MMTMeteorogramWamTests: XCTestCase
         XCTAssertTrue(app.images["TideHeight"].exists)
     }
     
-    func test02_DisplayAvgTidePeriodMomentPreview()
+    func test_DisplayAvgTidePeriodMomentPreview()
     {
         app.collectionViews.cells["AvgTidePeriod +3"].tap()
         
@@ -57,7 +57,7 @@ class MMTMeteorogramWamTests: XCTestCase
         XCTAssertTrue(app.images["AvgTidePeriod"].exists)
     }
 
-    func test03_DisplaySpectrumPeakPeriodMomentPreview()
+    func test_DisplaySpectrumPeakPeriodMomentPreview()
     {
         app.collectionViews.cells["SpectrumPeakPeriod +3"].tap()
         
@@ -66,7 +66,7 @@ class MMTMeteorogramWamTests: XCTestCase
         XCTAssertTrue(app.images["SpectrumPeakPeriod"].exists)
     }
     
-    func test04_NumberOfDisplayedMoments()
+    func test_NumberOfDisplayedMoments()
     {
         app.navigationBars.buttons["Utwórz"].tap()
         app.tables.children(matching: .other).matching(identifier: "WamSettingsHeader").element(boundBy: 0).buttons.element.tap()
@@ -92,7 +92,7 @@ class MMTMeteorogramWamTests: XCTestCase
         XCTAssertEqual("t0 +021h", momentAtIndex(7))
     }
     
-    func test05_CategoriesHeadersExistence()
+    func test_CategoriesHeadersExistence()
     {
         let headers = app.collectionViews.children(matching: .other).matching(identifier: "MMTWamHeaderView")
         

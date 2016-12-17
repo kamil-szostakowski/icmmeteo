@@ -27,7 +27,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
     override func setUp()
     {
         super.setUp()
-        session = MMTMeteorogramUrlSession()
+        session = MMTMeteorogramUrlSession(redirectionBaseUrl: nil)
     }
     
     override func tearDown()

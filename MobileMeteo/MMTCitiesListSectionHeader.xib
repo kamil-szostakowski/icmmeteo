@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MMTCitiesListSectionHeader" customModule="MobileMeteo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rO4-uC-Huq">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                    <subviews>
+                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Header Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q93-xc-KKk">
+                            <rect key="frame" x="15" y="0.0" width="345" height="30"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" notEnabled="YES"/>
+                                <bool key="isElement" value="NO"/>
+                            </accessibility>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="16"/>
+                            <color key="textColor" red="0.06238824129" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" notEnabled="YES"/>
+                        <bool key="isElement" value="NO"/>
+                    </accessibility>
+                    <constraints>
+                        <constraint firstItem="Q93-xc-KKk" firstAttribute="leading" secondItem="rO4-uC-Huq" secondAttribute="leading" constant="15" id="19l-Id-VUW"/>
+                        <constraint firstAttribute="bottom" secondItem="Q93-xc-KKk" secondAttribute="bottom" id="SjU-vj-WE6"/>
+                        <constraint firstAttribute="trailing" secondItem="Q93-xc-KKk" secondAttribute="trailing" constant="15" id="tIb-ng-ucF"/>
+                        <constraint firstItem="Q93-xc-KKk" firstAttribute="top" secondItem="rO4-uC-Huq" secondAttribute="top" id="zHB-J7-uOV"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <accessibility key="accessibilityConfiguration" identifier="CitiesListHeader">
+                <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                <bool key="isElement" value="YES"/>
+            </accessibility>
+            <constraints>
+                <constraint firstItem="rO4-uC-Huq" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="0lt-RI-ypQ"/>
+                <constraint firstItem="rO4-uC-Huq" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="1Al-bg-mla"/>
+                <constraint firstAttribute="bottom" secondItem="rO4-uC-Huq" secondAttribute="bottom" id="9ph-4j-2os"/>
+                <constraint firstAttribute="trailing" secondItem="rO4-uC-Huq" secondAttribute="trailing" id="cu0-9L-oFs"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="headerTitle" destination="Q93-xc-KKk" id="gQe-wD-Y0V"/>
+            </connections>
+        </view>
+    </objects>
+</document>

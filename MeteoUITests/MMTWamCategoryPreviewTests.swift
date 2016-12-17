@@ -40,14 +40,14 @@ class MMTWamCategoryPreviewTests: XCTestCase
     
     // MARK: Test methods
     
-    func test01_OpenAndCloseOfPreview()
+    func test_OpenAndCloseOfPreview()
     {
         app.tabBars.buttons["Model WAM"].tap()
         app.cells["AvgTidePeriod +3"].tap()
         app.toolbars.buttons["Zatrzymaj"].tap()        
     }
     
-    func test02_DisplayingFirstMeteorogram()
+    func test_DisplayingFirstMeteorogram()
     {
         app.collectionViews.cells["TideHeight +6"].tap()
         
@@ -65,7 +65,7 @@ class MMTWamCategoryPreviewTests: XCTestCase
         waitForExpectations(timeout: 7, handler: nil)
     }
     
-    func test03_DisplayingNextMeteorograms()
+    func test_DisplayingNextMeteorograms()
     {
         app.collectionViews.cells["TideHeight +6"].tap()
         
@@ -82,7 +82,7 @@ class MMTWamCategoryPreviewTests: XCTestCase
         waitForExpectations(timeout: 7, handler: nil)
     }
     
-    func test04_DisplayPreviousMeteorogram()
+    func test_DisplayPreviousMeteorogram()
     {
         app.collectionViews.element.swipeLeft()        
         app.collectionViews.cells["TideHeight +9"].tap()
@@ -100,7 +100,7 @@ class MMTWamCategoryPreviewTests: XCTestCase
         waitForExpectations(timeout: 7, handler: nil)
     }
     
-    func test05_RestoreDefaultZoom()
+    func test_RestoreDefaultZoom()
     {
         app.tabBars.buttons["Model WAM"].tap()
         app.cells["TideHeight +3"].tap()

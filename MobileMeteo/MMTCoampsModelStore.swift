@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 import CoreGraphics
 
-class MMTCoampsModelStore: NSObject, MMTGridClimateModelStore
+class MMTCoampsModelStore: NSObject, MMTGridClimateModelStore, MMTDetailedMapsStore
 {
     // MARK: Properties
     
@@ -36,6 +36,14 @@ class MMTCoampsModelStore: NSObject, MMTGridClimateModelStore
     
     var legendSize: CGSize {
         return CGSize(width: 280, height: 570)
+    }
+
+    var detailedMapMeteorogramSize: CGSize {
+        return CGSize(width: 590, height: 604)
+    }
+
+    var detailedMapMeteorogramLegendSize: CGSize {
+        return CGSize(width: 128, height: 604)
     }
     
     var detailedMaps: [MMTDetailedMap] {
@@ -107,12 +115,12 @@ class MMTCoampsModelStore: NSObject, MMTGridClimateModelStore
     
     // MARK: Helper methods
     
-    fileprivate func getHoursFromForecastStartDate(forDate endDate: Date) -> Int
+    private func getHoursFromForecastStartDate(forDate endDate: Date) -> Int
     {
         return Int(endDate.timeIntervalSince(startDate)/3600)
     }
     
-    fileprivate func tZeroComponentsForDate(_ date: Date) -> DateComponents
+    private func tZeroComponentsForDate(_ date: Date) -> DateComponents
     {
         let dateWithOffset = date.addingTimeInterval(-waitingTime)        
 

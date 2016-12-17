@@ -10,13 +10,13 @@ import Foundation
 import CoreLocation
 import CoreGraphics
 
-class MMTUmModelStore: NSObject, MMTGridClimateModelStore
+class MMTUmModelStore: NSObject, MMTGridClimateModelStore, MMTDetailedMapsStore
 {
     // MARK: Properties
     
-    fileprivate let waitingTime = TimeInterval(hours: 5)
-    fileprivate var urlSession: MMTMeteorogramUrlSession!
-    fileprivate var startDate: Date!
+    private let waitingTime = TimeInterval(hours: 5)
+    private var urlSession: MMTMeteorogramUrlSession!
+    private var startDate: Date!
     
     var forecastLength: Int {
         return 60
@@ -37,6 +37,14 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
     var legendSize: CGSize {
         return CGSize(width: 280, height: 660)
     }
+
+    var detailedMapMeteorogramSize: CGSize {
+        return CGSize(width: 669, height: 740)
+    }
+
+    var detailedMapMeteorogramLegendSize: CGSize {
+        return CGSize(width: 128, height: 740)
+    }
     
     var detailedMaps: [MMTDetailedMap] {
         return [
@@ -51,7 +59,7 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
     {
         super.init()
         
-        urlSession = MMTMeteorogramUrlSession(redirectionBaseUrl: URL.mmt_modelUmDownloadBaseUrl())
+        urlSession = MMTMeteorogramUrlSession(redirectionBaseUrl: URL.mmt_modelUmDownloadBaseUrl(), timeout: 60)
         startDate = Calendar.utcCalendar.date(from: tZeroComponentsForDate(date))!
     }
     
@@ -103,19 +111,18 @@ class MMTUmModelStore: NSObject, MMTGridClimateModelStore
             completion(nil, .detailedMapNotSupported)
             return
         }
-        //http://www.meteo.pl/um/pict/2016120212/SLPH_0000.0_0U_2016120212_001-00.png
-        //http://www.meteo.pl/um/pict/2016120212/SLPH_0000.0_0U_2016120212_000-00.png
+
         urlSession.fetchImageFromUrl(downloadUrl, completion: completion)
     }
     
     // MARK: Helper methods    
     
-    fileprivate func getHoursFromForecastStartDate(forDate endDate: Date) -> Int
+    private func getHoursFromForecastStartDate(forDate endDate: Date) -> Int
     {
         return Int(endDate.timeIntervalSince(startDate)/3600)
     }
     
-    fileprivate func tZeroComponentsForDate(_ date: Date) -> DateComponents
+    private func tZeroComponentsForDate(_ date: Date) -> DateComponents
     {
         let dateWithOffset = date.addingTimeInterval(-waitingTime)
         
