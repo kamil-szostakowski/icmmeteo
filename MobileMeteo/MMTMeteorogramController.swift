@@ -82,7 +82,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
         legendImage.updateSizeConstraints(meteorogramStore.legendSize)
 
         scrollView.maximumZoomScale = 1
-        scrollView.minimumZoomScale = scrollView.minZoomScaleForSize(contentSize)
+        scrollView.minimumZoomScale = scrollView.zoomScaleFittingWidth(for: contentSize)
         scrollView.zoomScale = zoomScale
     }
     
@@ -95,15 +95,16 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     fileprivate func setupMeteorogram()
     {
         meteorogramStore.getMeteorogramForLocation(city.location){
-            (data: Data?, error: MMTError?) in
+            (image: UIImage?, error: MMTError?) in
             
             guard error == nil else
             {
+                self.activityIndicator.isHidden = true
                 self.displayErrorAlert(error!)
                 return
             }
             
-            self.meteorogramImage.image = UIImage(data: data!)
+            self.meteorogramImage.image = image!
             self.activityIndicator.isHidden = true
             self.btnFavourite.isEnabled = true
         }
@@ -111,7 +112,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     
     fileprivate func setupMeteorogramLegend()
     {
-        meteorogramStore.getMeteorogramLegend(){ (data: Data?, error: MMTError?) in
+        meteorogramStore.getMeteorogramLegend(){ (image: UIImage?, error: MMTError?) in
             
             guard error == nil else
             {
@@ -123,7 +124,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
                 return
             }
             
-            self.legendImage.image = UIImage(data: data!)
+            self.legendImage.image = image!
         }
     }
 
@@ -168,7 +169,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     
     fileprivate func adjustZoomScale()
     {
-        scrollView.animatedZoomToScale(zoomScaleForVisibleContentSize(visibleContentSize()))
+        scrollView.animateZoom(scale: zoomScaleForVisibleContentSize(visibleContentSize()))
     }
     
     fileprivate func visibleContentSize() -> CGSize
@@ -186,7 +187,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     {
         let isLandscape = traitCollection.verticalSizeClass == .compact
         
-        return isLandscape ? scrollView.minZoomScaleForSize(size) : scrollView.defaultZoomScale(size)
+        return isLandscape ? scrollView.zoomScaleFittingWidth(for: size) : scrollView.zoomScaleFittingHeight(for: size)
     }
     
     fileprivate func displayErrorAlert(_ error: MMTError)
@@ -194,8 +195,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
         let alert = UIAlertController.alertForMMTError(error){ (UIAlertAction) -> Void in
             self.performSegue(withIdentifier: MMTSegue.UnwindToListOfCities, sender: self)
         }
-        
-        activityIndicator.isHidden = true
+
         present(alert, animated: true, completion: nil)
     }
     

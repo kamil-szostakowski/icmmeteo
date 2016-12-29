@@ -11,7 +11,11 @@ import CoreData
 
 class MMTDatabase: NSObject
 {
+    // MARK: Properties
+
     static fileprivate(set) var instance = MMTDatabase()
+
+    var detailedMapsCache = NSCache<NSString, UIImage>()
     
     // MARK: CoreData stack
     
@@ -63,6 +67,8 @@ class MMTDatabase: NSObject
     {
         self.context.performAndWait()
         {
+            self.detailedMapsCache.removeAllObjects()
+
             for store in self.persistentStoreCoordinator.persistentStores
             {
                 _ = try? self.persistentStoreCoordinator.remove(store)

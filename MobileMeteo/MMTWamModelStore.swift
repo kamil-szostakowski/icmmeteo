@@ -46,7 +46,7 @@ class MMTWamModelStore: NSObject, MMTClimateModelStore
     {
         super.init()
         
-        urlSession = MMTMeteorogramUrlSession()
+        urlSession = MMTMeteorogramUrlSession(redirectionBaseUrl: nil)
         startDate = Calendar.utcCalendar.date(from: tZeroComponentsForDate(date))!
     }
     

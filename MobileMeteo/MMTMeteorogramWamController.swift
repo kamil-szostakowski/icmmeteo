@@ -228,7 +228,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     // MARK: Helper methods    
     
-    fileprivate func updateMeteorogramIfNeeded()
+    private func updateMeteorogramIfNeeded()
     {
         guard lastUpdate == nil || Date().timeIntervalSince(lastUpdate!) >= TimeInterval(minutes: 5) else
         {
@@ -258,7 +258,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         }
     }
     
-    fileprivate func getThumbnailWithQuery(_ query: MMTWamModelMeteorogramQuery, completion: @escaping (_ image: UIImage?, _ error: MMTError?) -> Void)
+    private func getThumbnailWithQuery(_ query: MMTWamModelMeteorogramQuery, completion: @escaping (_ image: UIImage?, _ error: MMTError?) -> Void)
     {
         let key = "\(query.category.rawValue)\(query.moment)" as NSString
         
@@ -269,16 +269,15 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         }
 
         wamStore.getMeteorogramMomentThumbnailWithQuery(query) {
-            (data: Data?, error: MMTError?) in
-            
-            var thumbImg: UIImage?
-            
-            defer { completion(thumbImg, error) }
-            guard let imageData = data else { return }
-            guard let image = UIImage(data: imageData) else { return }
-            
-            thumbImg = image
+            (img: UIImage?, error: MMTError?) in
+
+            guard let image = img else {
+                completion(nil, error)
+                return
+            }
+
             self.cache.setObject(image, forKey: key)
+            completion(image, nil)
         }
     }
 }
