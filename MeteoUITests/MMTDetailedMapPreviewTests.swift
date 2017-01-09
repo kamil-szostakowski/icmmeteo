@@ -124,8 +124,8 @@ class MMTDetailedMapPreviewTests: XCTestCase
 
     private func displayPreview(for map: String, model: String)
     {
-        app.tabBars.buttons["Model \(model)"].tap()
-        app.tables.cells.staticTexts["Mapy szczegółowe"].tap()
+        app.tabBars.buttons["Mapy"].tap()
+        app.buttons[model].tap()
         app.tables.cells.staticTexts[map].tap()
     }
     

@@ -21,7 +21,7 @@ class MMTCityAnnotation: NSObject, MKAnnotation
     }
 }
 
-class MMTCityMapPickerController: UIViewController, MKMapViewDelegate, MMTGridClimateModelController
+class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
 {
     // MARK: Outlets
     
@@ -31,10 +31,11 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate, MMTGridCl
     
     // MARK: Properties
     
-    fileprivate var citiesStore: MMTCitiesStore!
-    fileprivate var selectedLocation: CLLocation!
-    
-    var meteorogramStore: MMTGridClimateModelStore!    
+    private var citiesStore: MMTCitiesStore!
+    private var selectedLocation: CLLocation!
+
+    var climateModel: MMTClimateModel!
+    var meteorogramStore: MMTMeteorogramStore!
     var selectedCity: MMTCityProt?
  
     // MARK: Overrideds
@@ -44,6 +45,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate, MMTGridCl
         super.viewDidLoad()
         
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
+        meteorogramStore = MMTMeteorogramStore(model: climateModel, date: Date())
         btnShow.isEnabled = false
         
         setupMapView()

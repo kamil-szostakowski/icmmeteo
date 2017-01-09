@@ -27,10 +27,9 @@ class MMTCitiesListSearchTests: MMTCitiesListTestCase
         addToFavourites(ilawa)
 
         /* --- Assertions -- */
-
-        XCTAssertEqual(detailedMaps, app.tables.cells.element(boundBy: 0).label)
+        
         XCTCheckHeader(headerFavourites)
-        XCTAssertEqual(ilawa, app.tables.cells.element(boundBy: 2).label)
+        XCTAssertEqual(ilawa, app.tables.cells.element(boundBy: 0).label)
         XCTCheckHeader(headerCapitals)
 
         /* --- Removing cities from favourites -- */
@@ -38,9 +37,8 @@ class MMTCitiesListSearchTests: MMTCitiesListTestCase
         removeFromFavourites(ilawa)
 
         /* --- Assertions -- */
-
-        XCTAssertEqual(detailedMaps, app.tables.cells.element(boundBy: 0).label)
-        XCTAssertNotEqual(ilawa, app.tables.cells.element(boundBy: 2).label)
+        
+        XCTAssertNotEqual(ilawa, app.tables.cells.element(boundBy: 0).label)
         XCTCheckHeader(headerCapitals)
     }
 

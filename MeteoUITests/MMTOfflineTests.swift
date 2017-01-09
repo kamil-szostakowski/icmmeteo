@@ -81,8 +81,7 @@ class MMTOfflineTests: XCTestCase
 
     func test_displayDetailedMapPreview()
     {
-        app.tabBars.buttons["Model UM"].tap()
-        app.tables.cells.staticTexts["Mapy szczegółowe"].tap()
+        app.tabBars.buttons["Mapy"].tap()
         app.tables.cells.staticTexts["Opad"].tap()
 
         sleep(5)

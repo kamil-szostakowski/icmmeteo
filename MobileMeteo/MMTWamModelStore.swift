@@ -19,18 +19,14 @@ enum MMTWamCategory: String
 typealias MMTWamModelMeteorogramQuery = (category: MMTWamCategory, moment: Date)
 typealias MMTWamMoment = (date: Date, selected: Bool)
 
-class MMTWamModelStore: NSObject, MMTClimateModelStore
+class MMTWamModelStore: NSObject
 {
     // MARK: Properties
     
-    fileprivate let momentLength = 3
-    fileprivate let waitingTime = TimeInterval(hours: 7)
-    fileprivate var urlSession: MMTMeteorogramUrlSession!
-    fileprivate var startDate: Date!
-    
-    var meteorogramSize: CGSize {
-        return CGSize(width: 720, height: 702)
-    }
+    private let momentLength = 3
+    private let waitingTime = TimeInterval(hours: 7)
+    private var urlSession: MMTMeteorogramUrlSession!
+    private var startDate: Date!
 
     var forecastLength: Int {
         return 84
@@ -113,9 +109,9 @@ class MMTWamModelStore: NSObject, MMTClimateModelStore
         return forecastMoments
     }
     
-    // MARK: Helper methods
+    // TODO: Write test for this methods
     
-    fileprivate func tZeroComponentsForDate(_ date: Date) -> DateComponents
+    func tZeroComponentsForDate(_ date: Date) -> DateComponents
     {
         let dateWithOffset = date.addingTimeInterval(-waitingTime)
         

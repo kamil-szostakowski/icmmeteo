@@ -90,11 +90,5 @@ class MMTWamModelStoreTests: XCTestCase
         XCTAssertEqual(TT.getDate(2015, 7, 9, 9), moments[10].date)
         XCTAssertEqual(TT.getDate(2015, 7, 10, 6), moments[17].date)
         XCTAssertEqual(TT.getDate(2015, 7, 11, 12), moments[27].date)
-    }
-    
-    func testMeteorogramSize()
-    {
-        let store = MMTWamModelStore(date: Date())
-        XCTAssertEqual(CGSize(width: 720, height: 702), store.meteorogramSize)
-    }
+    }    
 }

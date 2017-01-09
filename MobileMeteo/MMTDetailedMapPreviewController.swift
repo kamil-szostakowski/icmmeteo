@@ -6,7 +6,6 @@
 //  Copyright © 2016 Kamil Szostakowski. All rights reserved.
 //
 // TODO: Check how application handles dates from the future
-// TODO: How often the start date of forecast is being refreshed
 
 import UIKit
 import Foundation
@@ -23,32 +22,26 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     @IBOutlet weak var momentLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    var meteorogramStore: MMTDetailedMapsStore!
     var detailedMap: MMTDetailedMap!
-    
+    var climateModel: MMTClimateModel!
+
+    private var meteorogramSize: CGSize!
+    private var meteorogramLegendSize: CGSize!
     private var fetchSequenceStarted = false
     private var fetchSequenceRetryCount = 0
     private var moments: [MMTWamMoment]!
+    private var meteorogramStore: MMTDetailedMapsStore!
 
     private var cache: NSCache<NSString, UIImage> {
         return MMTDatabase.instance.detailedMapsCache
     }
 
-    private var notFetchedMoments: [MMTWamMoment]
-    {
+    private var notFetchedMoments: [MMTWamMoment] {
         return moments.filter(){ cache.object(forKey: key(for: $0.date)) == nil }
     }
 
     private var detailedMapSize: CGSize {
-
-        let contantSize = meteorogramStore.detailedMapMeteorogramSize
-        let legendSize = meteorogramStore.detailedMapMeteorogramLegendSize
-
-        return CGSize(width: contantSize.width-legendSize.width, height: contantSize.height)
-    }
-
-    private var meteorogramType: String {
-        return meteorogramStore is MMTUmModelStore ? "UM" : "COAMPS"
+        return CGSize(width: meteorogramSize.width-meteorogramLegendSize.width, height: meteorogramSize.height)
     }
 
     // MARK: Overrides
@@ -57,7 +50,8 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     {
         super.viewDidLoad()
 
-        moments = meteorogramStore.getForecastMomentsForMap(detailedMap)
+        meteorogramStore = MMTDetailedMapsStore(model: climateModel, date: Date())
+        moments = meteorogramStore.getForecastMoments(for: detailedMap)
 
         if moments == nil
         {
@@ -68,7 +62,8 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
 
         setupHeader()
         setupSlider()
-        fetchMeteorogramSequence()
+        setupMeteorogramSize()        
+        fetchMeteorogramSequenceIfRequired()
     }
 
     override func viewWillAppear(_ animated: Bool)
@@ -87,20 +82,24 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
         slider.value = 0
     }
 
+    private func setupMeteorogramSize()
+    {
+        meteorogramSize = CGSize(forDetailedMapOfModel: meteorogramStore.climateModel.type)
+        meteorogramLegendSize = CGSize(forDetailedMapLegendOfModel: meteorogramStore.climateModel.type)
+    }
+
     private func setupScrollView()
     {
-        let contentSize = meteorogramStore.detailedMapMeteorogramSize
-
         scrollView.maximumZoomScale = 1
-        scrollView.minimumZoomScale = scrollView.zoomScaleFittingWidth(for: contentSize)
+        scrollView.minimumZoomScale = scrollView.zoomScaleFittingWidth(for: meteorogramSize)
         scrollView.zoomScale = scrollView.zoomScaleFittingWidth(for: detailedMapSize)
 
-        detailedMapImage.updateSizeConstraints(contentSize)
+        detailedMapImage.updateSizeConstraints(meteorogramSize)
     }
 
     private func setupHeader()
     {
-        mapTitle.text = MMTLocalizedStringWithFormat("detailed-maps.\(detailedMap.rawValue)")
+        mapTitle.text = MMTLocalizedStringWithFormat("detailed-maps.\(detailedMap.type.rawValue)")
         momentLabel.text = DateFormatter.utcFormatter.string(from: moments.first!.date)
     }
 
@@ -109,16 +108,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     @IBAction func onSliderPositionChangeAction(_ sender: UISlider)
     {        
         let index = Int(round(sender.value))
-        let moment = moments[index]
-
-        guard let image = cache.object(forKey: key(for: moment.date)) else {
-
-            retryMeteorogramFetchSequenceIfNotStarted()
-            return
-        }
-
-        momentLabel.text = DateFormatter.utcFormatter.string(from: moment.date)
-        detailedMapImage.image = image
+        configureScreenWithMoment(at: index)
     }
 
     @IBAction func onScrollViewDoubleTapAction(_ sender: UITapGestureRecognizer)
@@ -135,21 +125,22 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
 
     // MARK: Data update methods
 
-    private func retryMeteorogramFetchSequenceIfNotStarted()
+    private func fetchMeteorogramSequenceIfRequired()
     {
-        if fetchSequenceStarted == false
+        if notFetchedMoments.count == 0
         {
-            fetchSequenceRetryCount += 1
-            fetchMeteorogramSequence()
+            configureScreenWithMoment(at: 0)
+            handleSequenceFetchFinish(errorCount: 0)
+            return;
         }
+
+        fetchMeteorogramSequence()
     }
 
     private func fetchMeteorogramSequence()
     {
         fetchSequenceStarted = true
         var errorCount = 0
-
-        NSLog("XXX: NotFetchedMoments: \(notFetchedMoments.count)")
 
         meteorogramStore.getMeteorograms(for: notFetchedMoments, map: detailedMap) {
             (image: UIImage?, date: Date?, error: MMTError?, finish: Bool) in
@@ -171,10 +162,20 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
 
             if date == self.moments.first?.date
             {
-                self.detailedMapImage.image = image
+                self.configureScreenWithMoment(at: 0)
             }
         }
     }
+
+    private func retryMeteorogramFetchSequenceIfNotStarted()
+    {
+        if fetchSequenceStarted == false
+        {
+            fetchSequenceRetryCount += 1
+            fetchMeteorogramSequence()
+        }
+    }
+
 
     // MARK: Helper methods
 
@@ -206,6 +207,20 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
         present(alert, animated: true, completion: nil)
     }
 
+    private func configureScreenWithMoment(at index: Int)
+    {
+        let moment = moments[index]
+
+        guard let image = cache.object(forKey: key(for: moment.date)) else {
+
+            retryMeteorogramFetchSequenceIfNotStarted()
+            return
+        }
+
+        momentLabel.text = DateFormatter.utcFormatter.string(from: moment.date)
+        detailedMapImage.image = image
+    }
+
     private func handleSequenceFetchFinish(errorCount: Int)
     {
         guard fetchSequenceRetryCount < 2 else {
@@ -232,6 +247,6 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
 
     private func key(for moment: Date) -> NSString
     {
-        return "\(meteorogramType)-\(detailedMap.rawValue)-\(moment)" as NSString
+        return "\(climateModel.type.rawValue)-\(detailedMap.type.rawValue)-\(moment)" as NSString
     }
 }

@@ -20,16 +20,18 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     @IBOutlet var scrollView: UIScrollView!
     @NSCopying var wamSettings: MMTWamSettings!
     
-    fileprivate var cache = NSCache<NSString, UIImage>()
-    fileprivate var currentMoment: Int = 0
+    private var cache = NSCache<NSString, UIImage>()
+    private var currentMoment: Int = 0
+    private var meteorogramSize: CGSize!
+    private var meteorogramLegendSize: CGSize!
 
     var wamStore: MMTWamModelStore!
     
-    fileprivate var isFirstMoment: Bool {
+    private var isFirstMoment: Bool {
         return currentMoment == 0
     }
     
-    fileprivate var isLastMoment: Bool {        
+    private var isLastMoment: Bool {
         return currentMoment == wamSettings.forecastMoments.count-1
     }
     
@@ -41,7 +43,8 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         
         navigationBar.topItem?.title = MMTTranslationWamCategory[wamSettings.selectedCategory!]
         meteorogramImage.accessibilityIdentifier = "\(wamSettings.selectedCategory!)"
-        
+
+        setupMeteorogramSize()        
         setupNavigationButtons()
         setupCurrentMomentIndex()
     }
@@ -62,7 +65,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     
     // MARK: Setup methods
     
-    fileprivate func setupNavigationButtons()
+    private func setupNavigationButtons()
     {
         prevMomentButton.isEnabled = false
         prevMomentButton.accessibilityIdentifier = "PrevButton"
@@ -71,7 +74,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         nextMomentBtn.accessibilityIdentifier = "NextButton"
     }
     
-    fileprivate func setupCurrentMomentIndex()
+    private func setupCurrentMomentIndex()
     {
         let moments = wamSettings.forecastMoments.map(){ $0.date }
         let selectedMoment = wamSettings.forecastSelectedMoments.first!.date
@@ -79,7 +82,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         currentMoment = moments.index(of: selectedMoment)!
     }
     
-    fileprivate func setupMomentLabelForDate(_ date: Date)
+    private func setupMomentLabelForDate(_ date: Date)
     {
         let tZeroPlus = wamStore.getHoursFromForecastStartDate(forDate: date)
         let tZeroPlusString = String(format: MMTFormat.TZeroPlus, tZeroPlus)
@@ -87,14 +90,20 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         
         momentLabel.text = "start \(tZeroPlusString) = \(momentString)"
     }
-    
-    fileprivate func setupScrollView()
+
+    private func setupMeteorogramSize()
     {
-        meteorogramImage.updateSizeConstraints(wamStore.meteorogramSize)
+        meteorogramSize = CGSize(forDetailedMapOfModel: .WAM)
+        meteorogramLegendSize = CGSize(forDetailedMapLegendOfModel: .WAM)
+    }
+    
+    private func setupScrollView()
+    {
+        meteorogramImage.updateSizeConstraints(meteorogramSize)
         
         scrollView.maximumZoomScale = 1
-        scrollView.minimumZoomScale = scrollView.zoomScaleFittingWidth(for: wamStore.meteorogramSize)
-        scrollView.zoomScale = scrollView.zoomScaleFittingHeight(for: wamStore.meteorogramSize)
+        scrollView.minimumZoomScale = scrollView.zoomScaleFittingWidth(for: meteorogramSize)
+        scrollView.zoomScale = scrollView.zoomScaleFittingHeight(for: meteorogramSize)
     }
     
     // MARK: Action methods    
@@ -113,7 +122,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     
     @IBAction func didRecognizedDoubleTapGesture(_ sender: UITapGestureRecognizer)
     {
-        let defaultZoomScale = scrollView.zoomScaleFittingHeight(for: wamStore.meteorogramSize)
+        let defaultZoomScale = scrollView.zoomScaleFittingHeight(for: meteorogramSize)
         
         scrollView.animateZoom(scale: defaultZoomScale)
     }
@@ -127,7 +136,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     
     // MARK: Helper methods
     
-    fileprivate func displayCurrentMoment()
+    private func displayCurrentMoment()
     {
         let moment = wamSettings.forecastMoments[currentMoment].date
         let category = wamSettings.selectedCategory!
@@ -146,7 +155,7 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         }
     }
     
-    fileprivate func getMeteorogramWithQuery(_ query: MMTWamModelMeteorogramQuery, completion: @escaping MMTFetchMeteorogramCompletion)
+    private func getMeteorogramWithQuery(_ query: MMTWamModelMeteorogramQuery, completion: @escaping MMTFetchMeteorogramCompletion)
     {
         let key = "\(query.moment)" as NSString
         

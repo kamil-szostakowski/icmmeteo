@@ -36,15 +36,6 @@ class MMTDetailedMapsTests: XCTestCase
     
     // MARK: Test methods
     
-    func test_displayDetiledMapsList()
-    {
-        displayDetailedMapsListForModel("UM")
-        XCTAssertTrue(app.navigationBars["Mapy szczegółowe"].exists)
-        
-        app.navigationBars["Mapy szczegółowe"].buttons["Zatrzymaj"].tap()
-        XCTAssertFalse(app.navigationBars["Mapy szczegółowe"].exists)
-    }
-    
     func test_detailedMapsCountForUmModel()
     {
         displayDetailedMapsListForModel("UM")
@@ -65,9 +56,8 @@ class MMTDetailedMapsTests: XCTestCase
     
     private func displayDetailedMapsListForModel(_ model: String)
     {
-        app.tabBars.buttons["Model \(model)"].tap()
-        sleep(1)
-        app.tables.cells["Mapy szczegółowe"].tap()
+        app.tabBars.buttons["Mapy"].tap()
+        app.buttons[model].tap()
     }
     
 }

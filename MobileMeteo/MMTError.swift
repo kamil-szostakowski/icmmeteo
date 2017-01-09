@@ -8,15 +8,16 @@
 
 import Foundation
 
-enum MMTError: Int
+enum MMTError: Error
 {
-    case meteorogramNotFound = 0
-    case meteorogramFetchFailure = 1
-    case locationUnsupported = 2
-    case locationNotFound = 3
-    case mailNotAvailable = 4
-    case forecastStartDateNotFound = 5
-    case detailedMapNotSupported = 6    
+    case meteorogramNotFound
+    case meteorogramFetchFailure
+    case locationUnsupported
+    case locationNotFound
+    case mailNotAvailable
+    case forecastStartDateNotFound
+    case detailedMapNotSupported
+    case urlNotAvailable
     
     var description: String?
     {

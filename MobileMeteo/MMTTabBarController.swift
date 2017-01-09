@@ -17,8 +17,8 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
 
         delegate = self
         
-        initItemAtIndex(0, name: "Model UM", store: MMTUmModelStore(date: Date()))
-        initItemAtIndex(1, name: "Model COAMPS", store: MMTCoampsModelStore(date: Date()))
+        initItemAtIndex(0, name: "Model UM", model: MMTUmClimateModel())
+        initItemAtIndex(1, name: "Model COAMPS", model: MMTCoampsClimateModel())
 
         let attributes = [NSFontAttributeName: MMTAppearance.fontWithSize(10)]
 
@@ -73,14 +73,14 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
     
     // MARK: Helper methods
     
-    fileprivate func initItemAtIndex(_ index: Int, name: String, store: MMTGridClimateModelStore)
+    private func initItemAtIndex(_ index: Int, name: String, model: MMTClimateModel)
     {
         let iconName = name.lowercased().replacingOccurrences(of: " ", with: "-")
         let icon = UIImage(named: iconName)
         
         let
         controller = viewControllers?[index] as! MMTCitiesListController
-        controller.meteorogramStore = store
+        controller.climateModel = model
         
         let
         item = tabBar.items![index]

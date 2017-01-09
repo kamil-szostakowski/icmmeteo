@@ -15,7 +15,6 @@ enum MMTCitiesIndexSectionType: String
     case Favourites
     case SearchResults
     case CurrentLocation
-    case DetailedMaps
 }
 
 typealias MMTCitiesIndexSection = (type: MMTCitiesIndexSectionType, cities: [MMTCityProt])
@@ -52,9 +51,7 @@ struct MMTCitiesIndex
         
         if currentCity != nil {
             content.insert(MMTCitiesIndexSection(type: .CurrentLocation, cities: [currentCity!]), at: 0)
-        }
-        
-        content.insert(MMTCitiesIndexSection(type: .DetailedMaps, cities: []), at: 0)
+        }                
     }
     
     init(searchResult: [MMTCityProt])

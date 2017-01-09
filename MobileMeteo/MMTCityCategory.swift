@@ -79,7 +79,7 @@ extension MMTCity: MMTCityProt
     
     // MARK: Helper methods
     
-    fileprivate class var entityDescription: NSEntityDescription
+    private class var entityDescription: NSEntityDescription
     {
         return NSEntityDescription.entity(forEntityName: "MMTCity", in: MMTDatabase.instance.context)!
     }
