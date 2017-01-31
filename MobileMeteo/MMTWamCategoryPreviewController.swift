@@ -18,21 +18,22 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     @IBOutlet var momentLabel: UILabel!
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet var scrollView: UIScrollView!
-    @NSCopying var wamSettings: MMTWamSettings!
     
     private var cache = NSCache<NSString, UIImage>()
-    private var currentMoment: Int = 0
     private var meteorogramSize: CGSize!
     private var meteorogramLegendSize: CGSize!
+    private var wamMoments: [MMTWamMoment]!
 
     var wamStore: MMTWamModelStore!
+    var selectedCategory: MMTWamCategory!
+    var selectedMoment: Int = 0
     
     private var isFirstMoment: Bool {
-        return currentMoment == 0
+        return selectedMoment == 0
     }
     
     private var isLastMoment: Bool {
-        return currentMoment == wamSettings.forecastMoments.count-1
+        return selectedMoment == wamMoments.count-1
     }
     
     // MARK: Overrides
@@ -41,12 +42,12 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     {
         super.viewDidLoad()        
         
-        navigationBar.topItem?.title = MMTTranslationWamCategory[wamSettings.selectedCategory!]
-        meteorogramImage.accessibilityIdentifier = "\(wamSettings.selectedCategory!)"
+        navigationBar.topItem?.title = MMTTranslationWamCategory[selectedCategory]
+        meteorogramImage.accessibilityIdentifier = "\(selectedCategory)"
+        wamMoments = wamStore.getForecastMoments()
 
         setupMeteorogramSize()        
-        setupNavigationButtons()
-        setupCurrentMomentIndex()
+        setupNavigationButtons()        
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -72,14 +73,6 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
         
         nextMomentBtn.isEnabled = false
         nextMomentBtn.accessibilityIdentifier = "NextButton"
-    }
-    
-    private func setupCurrentMomentIndex()
-    {
-        let moments = wamSettings.forecastMoments.map(){ $0.date }
-        let selectedMoment = wamSettings.forecastSelectedMoments.first!.date
-        
-        currentMoment = moments.index(of: selectedMoment)!
     }
     
     private func setupMomentLabelForDate(_ date: Date)
@@ -110,13 +103,13 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     
     @IBAction func didClickNextMomentBtn(_ sender: UIBarButtonItem)
     {
-        currentMoment += 1
+        selectedMoment += 1
         displayCurrentMoment()
     }
 
     @IBAction func didClickPreviousMomentBtn(_ sender: UIBarButtonItem)
     {
-        currentMoment -= 1
+        selectedMoment -= 1
         displayCurrentMoment()
     }
     
@@ -138,15 +131,14 @@ class MMTWamCategoryPreviewController: UIViewController, UIScrollViewDelegate
     
     private func displayCurrentMoment()
     {
-        let moment = wamSettings.forecastMoments[currentMoment].date
-        let category = wamSettings.selectedCategory!
+        let moment = wamMoments[selectedMoment].date
         
         setupMomentLabelForDate(moment as Date)
         
         prevMomentButton.isEnabled = false
         nextMomentBtn.isEnabled = false
         
-        getMeteorogramWithQuery(MMTWamModelMeteorogramQuery(category: category, moment: moment)){
+        getMeteorogramWithQuery(MMTWamModelMeteorogramQuery(category: selectedCategory, moment: moment)){
             (image: UIImage?, error: MMTError?) in
             
             self.meteorogramImage.image = image

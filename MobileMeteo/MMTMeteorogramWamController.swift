@@ -9,8 +9,6 @@
 import UIKit
 import Foundation
 
-typealias MMTWamMeteorogramsCache = [Date: Data]
-
 class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource, MMTCollectionViewDelegateWamLayout
 {
     // MARK: Outlets
@@ -19,19 +17,21 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     @IBOutlet var forecastStart: UILabel!
     @IBOutlet var collectionView: UICollectionView!
     
-    fileprivate var categories: [MMTWamCategory]!
-    fileprivate var cache = NSCache<NSString, UIImage>()
-    fileprivate var wamSettings: MMTWamSettings!
-    fileprivate var categoryPreviewSettings: MMTWamSettings!
-    fileprivate var wamStore: MMTWamModelStore!
-    fileprivate var failureCount = 0
-    fileprivate var failureWatch: Timer!
-    fileprivate var presented: Bool = false
-    fileprivate var lastUpdate: Date?
+    private var categories: [MMTWamCategory]!
+    private var wamMoments: [MMTWamMoment]!
+    private var cache = NSCache<NSString, UIImage>()
+    private var wamStore: MMTWamModelStore!
+    private var failureCount = 0
+    private var failureWatch: Timer!
+    private var presented: Bool = false
+    private var lastUpdate: Date?
+
+    private var selectedMoment: Int!
+    private var selectedCategory: MMTWamCategory!
 
     // MARK: Properties
 
-    fileprivate var itemHeight: CGFloat
+    private var itemHeight: CGFloat
     {
         let spacesCount = max(categories.count-1, 0)
         let spacing = CGFloat(spacesCount*layout.sectionSpacing.intValue)
@@ -39,7 +39,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         return (collectionView.frame.size.height-spacing)/CGFloat(categories.count)
     }
     
-    fileprivate var layout: MMTCollectionViewWamLayout {
+    private var layout: MMTCollectionViewWamLayout {
         return collectionView.collectionViewLayout as! MMTCollectionViewWamLayout
     }
     
@@ -82,31 +82,23 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if segue.identifier == MMTSegue.DisplayWamSettings {
-            segue.destination.setValue(wamSettings, forKey: "wamSettings")
-            segue.destination.setValue(wamStore, forKey: "wamStore")
-        }
-        
-        if segue.identifier == MMTSegue.DisplayWamCategoryPreview {
-            segue.destination.setValue(categoryPreviewSettings, forKey: "wamSettings")
-            segue.destination.setValue(wamStore, forKey: "wamStore")
+        if let destination = segue.destination as? MMTWamCategoryPreviewController
+        {
+            destination.selectedMoment = selectedMoment
+            destination.selectedCategory = selectedCategory
+            destination.wamStore = wamStore
         }        
     }
     
     // MARK: Setup methods
     
-    fileprivate func setupSettings()
+    private func setupSettings()
     {
         categories = [.TideHeight, .AvgTidePeriod, .SpectrumPeakPeriod]
-        wamSettings = MMTWamSettings(wamStore.getForecastMoments())
-        categoryPreviewSettings = MMTWamSettings(wamStore.getForecastMoments())
-        
-        for moment in wamSettings.forecastMomentsGrouppedByDay.first! {
-            wamSettings.setMomentSelection(moment.date, selected: true)
-        }
+        wamMoments = wamStore.getForecastMoments()
     }
     
-    fileprivate func setupCollectionView()
+    private func setupCollectionView()
     {
         let headerClass: AnyClass = MMTWamHeaderView.classForCoder()
         let identifier = MMTCollectionViewWamLayout.headerViewIdentifier
@@ -114,7 +106,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         collectionView.register(headerClass, forSupplementaryViewOfKind: identifier, withReuseIdentifier: identifier)
     }
     
-    fileprivate func setupInfoBar()
+    private func setupInfoBar()
     {        
         let formatter = DateFormatter.utcFormatter
         
@@ -122,7 +114,7 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
         forecastLength.text = MMTLocalizedStringWithFormat("forecast.length: %dh", wamStore.forecastLength)
     }
     
-    fileprivate func setupNotificationHandler()
+    private func setupNotificationHandler()
     {
         let handler = #selector(handleApplicationDidBecomeActiveNotification(_:))
         let notification = NSNotification.Name.UIApplicationDidBecomeActive
@@ -134,13 +126,6 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     @IBAction func unwindToWamModel(_ unwindSegue: UIStoryboardSegue)
     {
-    }
-    
-    @IBAction func unwindToWamModelAndUpdateSettings(_ unwindSegue: UIStoryboardSegue)
-    {
-        if let controller = unwindSegue.source as? MMTModelWamSettingsController {
-            wamSettings = controller.wamSettings
-        }
     }
     
     @objc func failureCheck()
@@ -165,12 +150,12 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        return wamSettings.forecastSelectedMoments.count
+        return wamMoments.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        let date = wamSettings.forecastSelectedMoments[indexPath.row].date
+        let date = wamMoments[indexPath.row].date
         let tZeroPlus = wamStore.getHoursFromForecastStartDate(forDate: date)
         let category = categories[indexPath.section]
         
@@ -216,12 +201,8 @@ class MMTMeteorogramWamController: UIViewController, UICollectionViewDataSource,
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        let startMoment = categoryPreviewSettings.forecastMoments[indexPath.row].date
-        let selectedMoments = categoryPreviewSettings.forecastSelectedMoments.map(){ $0.date }
-        
-        categoryPreviewSettings.selectedCategory = categories[indexPath.section]
-        categoryPreviewSettings.setMomentsSelection(selectedMoments, selected: false)
-        categoryPreviewSettings.setMomentSelection(startMoment, selected: true)
+        selectedCategory = categories[indexPath.section]
+        selectedMoment = indexPath.row
         
         performSegue(withIdentifier: MMTSegue.DisplayWamCategoryPreview, sender: self)
     }

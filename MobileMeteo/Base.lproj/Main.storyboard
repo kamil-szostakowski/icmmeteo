@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VAh-Ln-Mxc">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VAh-Ln-Mxc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -56,18 +56,18 @@
                                         <rect key="frame" x="0.0" y="74" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lmv-5P-aMf" id="d2J-8x-WBs">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L7a-vM-89s">
-                                                    <rect key="frame" x="15" y="4" width="31.5" height="19.5"/>
+                                                    <rect key="frame" x="15" y="3" width="32" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" red="0.062388241291046143" green="0.48353224992752075" blue="0.38298630714416504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ACu-82-Djp">
-                                                    <rect key="frame" x="15" y="23.5" width="45.5" height="17"/>
+                                                    <rect key="frame" x="15" y="23" width="46" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -83,11 +83,11 @@
                                         <rect key="frame" x="0.0" y="118" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cdG-DQ-GEg" id="p9r-6T-Dgt">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Wskaż lokalizację na mapie" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IZE-Jf-c7U">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" red="0.062388241291046143" green="0.48353224992752075" blue="0.38298630714416504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -668,142 +668,6 @@
             </objects>
             <point key="canvasLocation" x="404" y="-285"/>
         </scene>
-        <!--Model Wam Settings Controller-->
-        <scene sceneID="Ztk-YB-ZmQ">
-            <objects>
-                <viewController storyboardIdentifier="WamSettingsScreen" modalPresentationStyle="currentContext" id="R10-eJ-oix" customClass="MMTModelWamSettingsController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ohr-Hk-WKp"/>
-                        <viewControllerLayoutGuide type="bottom" id="jEc-WI-wfX"/>
-                    </layoutGuides>
-                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="jSc-Bm-qHG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="30" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fAR-ry-Yoa">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WamSettingsHeader" rowHeight="34" id="uA4-k1-9qx" customClass="MMTWamMomentHeaderView" customModule="MobileMeteo" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="30" width="375" height="34"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uA4-k1-9qx" id="uUa-Ob-0fO">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="33.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="25.06.2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oct-eZ-HWd">
-                                                    <rect key="frame" x="15" y="0.0" width="70" height="33"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="16"/>
-                                                    <color key="textColor" red="0.062388241291046143" green="0.48353224992752075" blue="0.38298630714416504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xOP-VD-VM0">
-                                                    <rect key="frame" x="314" y="0.0" width="53" height="33"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
-                                                    <state key="normal" title="wybierz">
-                                                        <color key="titleColor" red="0.062388241291046143" green="0.48353224992752075" blue="0.38298630714416504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <state key="selected" title="usuń zaznaczenie"/>
-                                                    <connections>
-                                                        <action selector="didTapSelectButton:" destination="uA4-k1-9qx" eventType="touchUpInside" id="oSs-ZR-IbL"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Oct-eZ-HWd" firstAttribute="top" secondItem="uUa-Ob-0fO" secondAttribute="top" id="ED4-xF-nbR"/>
-                                                <constraint firstItem="xOP-VD-VM0" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Oct-eZ-HWd" secondAttribute="trailing" priority="999" constant="8" id="OYe-nL-n5a"/>
-                                                <constraint firstItem="Oct-eZ-HWd" firstAttribute="leading" secondItem="uUa-Ob-0fO" secondAttribute="leading" constant="15" id="P7a-cE-1W0"/>
-                                                <constraint firstItem="xOP-VD-VM0" firstAttribute="top" secondItem="uUa-Ob-0fO" secondAttribute="top" id="VYo-rM-rpZ"/>
-                                                <constraint firstAttribute="trailing" secondItem="xOP-VD-VM0" secondAttribute="trailing" constant="8" id="f45-WL-3Qz"/>
-                                                <constraint firstAttribute="bottom" secondItem="Oct-eZ-HWd" secondAttribute="bottom" id="sE1-3f-kNj"/>
-                                                <constraint firstAttribute="bottom" secondItem="xOP-VD-VM0" secondAttribute="bottom" id="wGn-Ts-NdN"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.94999998807907104" green="0.94999998807907104" blue="0.94999998807907104" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <accessibility key="accessibilityConfiguration" identifier="WamSettingsHeader" label="">
-                                            <accessibilityTraits key="traits" header="YES"/>
-                                            <bool key="isElement" value="YES"/>
-                                        </accessibility>
-                                        <connections>
-                                            <outlet property="btnSelect" destination="xOP-VD-VM0" id="V4n-Dt-dvh"/>
-                                            <outlet property="lblTitle" destination="Oct-eZ-HWd" id="1l6-Sg-o0C"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WamSettingsTimeItem" textLabel="LfN-Mq-3ad" detailTextLabel="SZ2-Ri-DEf" style="IBUITableViewCellStyleSubtitle" id="arg-Lj-XOc">
-                                        <rect key="frame" x="0.0" y="64" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="arg-Lj-XOc" id="gK4-3X-n45">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="t0 +009h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LfN-Mq-3ad">
-                                                    <rect key="frame" x="15" y="5" width="64.5" height="19.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
-                                                    <color key="textColor" red="0.062388241291046143" green="0.48353224992752075" blue="0.38298630714416504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="25.03.2015 9:00 UTC" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SZ2-Ri-DEf">
-                                                    <rect key="frame" x="15" y="24.5" width="123" height="15.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <accessibility key="accessibilityConfiguration">
-                                            <bool key="isElement" value="YES"/>
-                                        </accessibility>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="R10-eJ-oix" id="Kb8-Tx-tVx"/>
-                                    <outlet property="delegate" destination="R10-eJ-oix" id="det-28-j13"/>
-                                </connections>
-                            </tableView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2jn-Ho-kBE">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                                <color key="backgroundColor" red="0.92000001668930054" green="0.92000001668930054" blue="0.92000001668930054" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="barTintColor" red="0.92000001668930054" green="0.92000001668930054" blue="0.92000001668930054" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <items>
-                                    <navigationItem title="Ustawienia WAM" id="qa6-qn-ubx">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="Wtw-gd-77B">
-                                            <connections>
-                                                <segue destination="bm5-ak-SW3" kind="unwind" unwindAction="unwindToWamModel:" id="iZj-is-KUc"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Pokaż" id="fvc-eg-Voa">
-                                            <connections>
-                                                <segue destination="bm5-ak-SW3" kind="unwind" unwindAction="unwindToWamModelAndUpdateSettings:" id="yFq-Nl-8iy"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
-                        <color key="backgroundColor" red="0.92000001668930054" green="0.92000001668930054" blue="0.92000001668930054" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="tintColor" red="0.062388241291046143" green="0.48353224992752075" blue="0.38298630714416504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="2jn-Ho-kBE" secondAttribute="trailing" id="3AM-ur-INC"/>
-                            <constraint firstItem="jEc-WI-wfX" firstAttribute="top" secondItem="fAR-ry-Yoa" secondAttribute="bottom" id="QtP-Ua-lv6"/>
-                            <constraint firstAttribute="trailing" secondItem="fAR-ry-Yoa" secondAttribute="trailing" id="SPs-2S-diu"/>
-                            <constraint firstItem="2jn-Ho-kBE" firstAttribute="top" secondItem="ohr-Hk-WKp" secondAttribute="bottom" id="Xpi-ie-OkJ"/>
-                            <constraint firstItem="fAR-ry-Yoa" firstAttribute="top" secondItem="2jn-Ho-kBE" secondAttribute="bottom" id="ddI-cc-WF8"/>
-                            <constraint firstItem="fAR-ry-Yoa" firstAttribute="leading" secondItem="jSc-Bm-qHG" secondAttribute="leading" id="exr-wg-nca"/>
-                            <constraint firstItem="2jn-Ho-kBE" firstAttribute="leading" secondItem="jSc-Bm-qHG" secondAttribute="leading" id="kzu-XP-EWb"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="btnShow" destination="fvc-eg-Voa" id="1Kz-c3-0CW"/>
-                        <outlet property="tableView" destination="fAR-ry-Yoa" id="hYB-dY-KHt"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qWl-wn-PQR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="bm5-ak-SW3" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="1097" y="443"/>
-        </scene>
         <!--Wam Category Preview Controller-->
         <scene sceneID="rkB-rg-EDy">
             <objects>
@@ -1103,13 +967,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <color key="barTintColor" red="0.92150187492370605" green="0.92147433757781982" blue="0.92148995399475098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <items>
-                                            <navigationItem id="53d-BO-YMj">
-                                                <barButtonItem key="rightBarButtonItem" style="done" systemItem="compose" id="hAC-Sd-DBv">
-                                                    <connections>
-                                                        <segue destination="R10-eJ-oix" kind="presentation" identifier="DisplayWamSettings" id="GbL-GK-VTQ"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                            </navigationItem>
+                                            <navigationItem id="53d-BO-YMj"/>
                                         </items>
                                     </navigationBar>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Długość prognozy: 84h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ge9-ht-NJA">
