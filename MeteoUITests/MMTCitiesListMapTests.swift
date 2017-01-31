@@ -33,8 +33,7 @@ class MMTCitiesListMapTests: MMTCitiesListTestCase
 
             navBar.buttons["star outline"].tap()
             navBar.buttons["Zatrzymaj"].tap()
-
-            XCTAssertEqual(self.detailedMaps, self.app.tables.cells.element(boundBy: 0).label)
+            
             self.XCTCheckHeader(self.headerFavourites)
             self.XCTCheckHeader(self.headerCapitals)
 
@@ -43,12 +42,11 @@ class MMTCitiesListMapTests: MMTCitiesListTestCase
 
         waitForExpectations(timeout: 10){ _ in
 
-            self.removeFromFavourites(self.app.tables.cells.element(boundBy: 2).label)
+            self.removeFromFavourites(self.app.tables.cells.element(boundBy: 0).label)
 
             /* --- Assertions -- */
-
-            XCTAssertEqual(self.detailedMaps, self.app.tables.cells.element(boundBy: 0).label)
-            XCTAssertEqual(self.bialystok, self.app.tables.cells.element(boundBy: 2).label)
+            
+            XCTAssertEqual(self.bialystok, self.app.tables.cells.element(boundBy: 0).label)
             self.XCTCheckHeader(self.headerCapitals)
         }
     }

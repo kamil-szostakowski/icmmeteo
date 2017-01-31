@@ -13,7 +13,7 @@ import CoreSpotlight
 
 typealias MMTCompletion = () -> Void
 
-class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CLLocationManagerDelegate, MMTGridClimateModelController
+class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, CLLocationManagerDelegate
 {        
     // MARK: Outlets
 
@@ -26,8 +26,8 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet var lblForecastStart: UILabel!
         
     // MARK: Properties
-    
-    var meteorogramStore: MMTGridClimateModelStore!
+
+    var climateModel: MMTClimateModel!
     var selectedCity: MMTCityProt?
     
     private var lastUpdate: Date?
@@ -37,8 +37,8 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     private var citiesStore: MMTCitiesStore!
     private var cityOfCurrentLocation: MMTCityProt?
     private var shouldDisplayMeteorogram = false
+    private var meteorogramStore: MMTMeteorogramStore!
     
-    private let kCurrentLocationKey = "location"
     private let sectionHeaderIdentifier = "CitiesListHeader"
     
     // MARK: Controller methods
@@ -50,6 +50,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         searchInput = MMTSearchInput("")
         citiesIndex = MMTCitiesIndex()
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
+        meteorogramStore = MMTMeteorogramStore(model: climateModel, date: Date())
 
         setupTableView()
         setupLocationManager()
@@ -88,9 +89,14 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {        
-        if var controller = segue.destination as? MMTGridClimateModelController
+        if let controller = segue.destination as? MMTCityMapPickerController
         {
-            controller.meteorogramStore = meteorogramStore
+            controller.climateModel = climateModel
+        }
+        
+        if let controller = segue.destination as? MMTMeteorogramController
+        {
+            controller.climateModel = climateModel
         }
         
         if segue.identifier == MMTSegue.DisplayMeteorogram
@@ -100,20 +106,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
             controller.city = selectedCity
             
             selectedCity = nil
-        }
-        
-        if segue.identifier == MMTSegue.DisplayDetailedMapsList
-        {
-            guard let targetNaviagtionController = segue.destination as? UINavigationController else {
-                return
-            }
-            
-            guard let targetController = targetNaviagtionController.viewControllers.first as? MMTDetailedMapsListController else {
-                return
-            }
-            
-            targetController.meteorogramStore = meteorogramStore as! MMTDetailedMapsStore
-        }
+        }        
     }
 
     // MARK: Setup methods
@@ -134,9 +127,10 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     private func setupInfoBar()
     {        
         let formatter = DateFormatter.utcFormatter
+        let climateModel = meteorogramStore.climateModel
         
         lblForecastStart.text = MMTLocalizedStringWithFormat("forecast.start: %@", formatter.string(from: meteorogramStore.forecastStartDate))
-        lblForecastLenght.text = MMTLocalizedStringWithFormat("forecast.length: %dh, forecast.grid: %dkm", meteorogramStore.forecastLength, meteorogramStore.gridNodeSize)
+        lblForecastLenght.text = MMTLocalizedStringWithFormat("forecast.length: %dh, forecast.grid: %dkm", climateModel.forecastLength, climateModel.gridNodeSize)
     }
     
     private func setupNotificationHandler()
@@ -204,7 +198,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        let isSpecialItem = citiesIndex[section].type == .NotFound || citiesIndex[section].type == .DetailedMaps
+        let isSpecialItem = citiesIndex[section].type == .NotFound
         return !isSpecialItem ? citiesIndex[section].cities.count : 1
     }
     
@@ -214,10 +208,6 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         
         guard sectionType != .NotFound else {
             return tableView.dequeueReusableCell(withIdentifier: "FindLocationCell", for: indexPath)
-        }
-        
-        guard sectionType != .DetailedMaps else {
-            return tableView.dequeueReusableCell(withIdentifier: "DetailedMapsCell", for: indexPath)
         }
         
         let isCurrentLocation = sectionType == .CurrentLocation
@@ -258,12 +248,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         guard citiesIndex[indexPath.section].type != .NotFound else {
             performSegue(withIdentifier: MMTSegue.DisplayMapScreen, sender: self)
             return
-        }
-        
-        guard citiesIndex[indexPath.section].type != .DetailedMaps else {
-            performSegue(withIdentifier: MMTSegue.DisplayDetailedMapsList, sender: self)
-            return
-        }
+        }        
         
         let city = citiesIndex[indexPath.section].cities[indexPath.row]
         

@@ -34,11 +34,6 @@ struct MMTFetch
     static let CityWithLocation = "FetchCityWithLocation"
 }
 
-protocol MMTGridClimateModelController
-{
-    var meteorogramStore: MMTGridClimateModelStore! { get set }
-}
-
 let MMTActivityTypeDisplayModelUm = "com.szostakowski.meteo.um"
 
 let MMTTranslationCityCategory:[MMTCitiesIndexSectionType: String] =

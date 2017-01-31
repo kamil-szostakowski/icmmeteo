@@ -22,12 +22,11 @@ class MMTCitiesListFavouritesTests: MMTCitiesListTestCase
         app.tables.element.swipeDown()
 
         /* --- Assertions -- */
-
-        XCTAssertEqual(detailedMaps, app.tables.cells.element(boundBy: 0).label)
+        
         XCTCheckHeader(headerFavourites)
-        XCTAssertEqual(bydgoszcz, app.tables.cells.element(boundBy: 2).label)
-        XCTAssertEqual(krakow, app.tables.cells.element(boundBy: 3).label)
-        XCTAssertEqual(torun, app.tables.cells.element(boundBy: 4).label)
+        XCTAssertEqual(bydgoszcz, app.tables.cells.element(boundBy: 0).label)
+        XCTAssertEqual(krakow, app.tables.cells.element(boundBy: 1).label)
+        XCTAssertEqual(torun, app.tables.cells.element(boundBy: 2).label)
         XCTCheckHeader(headerCapitals)
 
         /* --- Removing cities from favourites -- */
@@ -36,10 +35,9 @@ class MMTCitiesListFavouritesTests: MMTCitiesListTestCase
         removeFromFavourites(bydgoszcz)
 
         /* --- Assertions -- */
-
-        XCTAssertEqual(detailedMaps, app.tables.cells.element(boundBy: 0).label)
+        
         XCTCheckHeader(headerFavourites)
-        XCTAssertEqual(torun, app.tables.cells.element(boundBy: 2).label)
+        XCTAssertEqual(torun, app.tables.cells.element(boundBy: 0).label)
         XCTCheckHeader(headerCapitals)
     }
 
@@ -48,9 +46,8 @@ class MMTCitiesListFavouritesTests: MMTCitiesListTestCase
         app.tabBars.buttons["Model COAMPS"].tap()
 
         /* --- Assertions -- */
-
-        XCTAssertEqual(detailedMaps, app.tables.cells.element(boundBy: 0).label)
-        XCTAssertEqual(bialystok, app.tables.cells.element(boundBy: 1).label)
+        
+        XCTAssertEqual(bialystok, app.tables.cells.element(boundBy: 0).label)
         XCTCheckHeader(headerCapitals)
     }
 }

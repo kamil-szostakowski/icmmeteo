@@ -22,36 +22,49 @@ class MMTCategoryNSURLTests: XCTestCase
     
     // MARK: Model um related tests
     
-    func testModelUmDownloadBaseUrl()
+    func testDownloadBaseUrl()
     {
-        XCTAssertEqual("http://www.meteo.pl/um/metco/mgram_pict.php", URL.mmt_modelUmDownloadBaseUrl().absoluteString);
+        XCTAssertEqual("http://www.meteo.pl/um/metco/mgram_pict.php", try! URL.mmt_meteorogramDownloadBaseUrl(for: .UM).absoluteString);
+        XCTAssertEqual("http://www.meteo.pl/metco/mgram_pict.php", try! URL.mmt_meteorogramDownloadBaseUrl(for: .COAMPS).absoluteString);
+        XCTAssertThrowsError(try URL.mmt_meteorogramDownloadBaseUrl(for: .WAM))
     }
     
-    func testModelUmSearchUrl()
+    func testMeteorogramSearchUrl()
     {
-        let expectedUrl = "http://www.meteo.pl/um/php/mgram_search.php?NALL=53.585869&EALL=19.570815&lang=pl"
+        let expectedUrl_COAMPS = "http://www.meteo.pl/php/mgram_search.php?NALL=53.585869&EALL=19.570815&lang=pl"
+        let expectedUrl_UM = "http://www.meteo.pl/um/php/mgram_search.php?NALL=53.585869&EALL=19.570815&lang=pl"
         let location = CLLocation(latitude: 53.585869, longitude: 19.570815)
         
-        XCTAssertEqual(expectedUrl, URL.mmt_modelUmSearchUrl(location).absoluteString);
+        XCTAssertEqual(expectedUrl_UM, try! URL.mmt_meteorogramSearchUrl(for: .UM, location: location).absoluteString);
+        XCTAssertEqual(expectedUrl_COAMPS, try! URL.mmt_meteorogramSearchUrl(for: .COAMPS, location: location).absoluteString);
+        XCTAssertThrowsError(try URL.mmt_meteorogramSearchUrl(for: .WAM, location: location))
     }
     
-    func testModelUmLegendUrl()
+    func testMoeteorogramLegendUrl()
     {
-        let expectedUrl = "http://www.meteo.pl/um/metco/leg_um_pl_cbase_256.png"
-        XCTAssertEqual(expectedUrl, URL.mmt_modelUmLegendUrl().absoluteString);
+        let expectedUrl_UM = "http://www.meteo.pl/um/metco/leg_um_pl_cbase_256.png"
+        let expectedUrl_COAMPS = "http://www.meteo.pl/metco/leg4_pl.png"
+        
+        XCTAssertEqual(expectedUrl_UM, try! URL.mmt_meteorogramLegendUrl(for: .UM).absoluteString)
+        XCTAssertEqual(expectedUrl_COAMPS, try! URL.mmt_meteorogramLegendUrl(for: .COAMPS).absoluteString)
+        XCTAssertThrowsError(try URL.mmt_meteorogramLegendUrl(for: .WAM))
     }
     
-    func testModelUmForecastStartUrl()
+    func testForecastStartUrl()
     {
-        let expectedUrl = "http://www.meteo.pl/info_um.php"
-        XCTAssertEqual(expectedUrl, URL.mmt_modelUmForecastStartUrl().absoluteString);
+        let expectedUrl_UM = "http://www.meteo.pl/info_um.php"
+        let expectedUrl_COAMPS = "http://www.meteo.pl/info_coamps.php"
+        
+        XCTAssertEqual(expectedUrl_UM, try! URL.mmt_forecastStartUrl(for: .UM).absoluteString);
+        XCTAssertEqual(expectedUrl_COAMPS, try! URL.mmt_forecastStartUrl(for: .COAMPS).absoluteString);
+        XCTAssertThrowsError(try URL.mmt_forecastStartUrl(for: .WAM))
     }
     
     func testModelUmDetailedMapUrl()
     {
         let date = TT.utcFormatter.date(from: "2016-08-22T12:00")!
-        let url = {(map: MMTDetailedMap, plus: Int) in
-            URL.mmt_modelUmDownloadUrlForMap(map, tZero:date, plus:plus)!.absoluteString
+        let url = {(map: MMTDetailedMapType, plus: Int) in
+            try? URL.mmt_detailedMapDownloadUrl(for: .UM, map: map, tZero:date, plus:plus).absoluteString
         }
         
         XCTAssertEqual("http://www.meteo.pl/um/pict/2016082212/SLPH_0000.0_0U_2016082212_003-00.png", url(.MeanSeaLevelPressure, 3))
@@ -74,46 +87,12 @@ class MMTCategoryNSURLTests: XCTestCase
         XCTAssertEqual("http://www.meteo.pl/um/pict/2016082212/CH_H_0000.0_0U_2016082212_005-00.png", url(.HighClouds, 5))
         XCTAssertEqual("http://www.meteo.pl/um/pict/2016082212/CT_H_0000.0_0U_2016082212_006-00.png", url(.TotalCloudiness, 6))
     }
-    
-    func testModelUmDetailedMapUrlForUnsupportedMap()
-    {
-        let date = TT.utcFormatter.date(from: "2016-08-22T12:00")!
-        
-        XCTAssertNil(URL.mmt_modelUmDownloadUrlForMap(.RelativeHumidity, tZero:date, plus:1))
-    }
-    
-    // MARK: Model coamps related tests
-    
-    func testModelCoampsDownloadBaseUrl()
-    {        
-        XCTAssertEqual("http://www.meteo.pl/metco/mgram_pict.php", URL.mmt_modelCoampsDownloadBaseUrl().absoluteString);
-    }
-    
-    func testModelCoampsSearchUrl()
-    {
-        let expectedUrl = "http://www.meteo.pl/php/mgram_search.php?NALL=53.585869&EALL=19.570815&lang=pl"
-        let location = CLLocation(latitude: 53.585869, longitude: 19.570815)
-        
-        XCTAssertEqual(expectedUrl, URL.mmt_modelCoampsSearchUrl(location).absoluteString);
-    }
-    
-    func testModelCoampsLegendUrl()
-    {
-        let expectedUrl = "http://www.meteo.pl/metco/leg4_pl.png"
-        XCTAssertEqual(expectedUrl, URL.mmt_modelCoampsLegendUrl().absoluteString);
-    }
-    
-    func testModelCoampsForecastStartUrl()
-    {
-        let expectedUrl = "http://www.meteo.pl/info_coamps.php"
-        XCTAssertEqual(expectedUrl, URL.mmt_modelCoampsForecastStartUrl().absoluteString);
-    }
-    
+   
     func testModelCoampsDetailedMapUrl()
     {
         let date = TT.utcFormatter.date(from: "2016-09-02T12:00")!
-        let url = {(map: MMTDetailedMap, plus: Int) in
-            URL.mmt_modelCoampsDownloadUrlForMap(map, tZero:date, plus:plus)!.absoluteString
+        let url = {(map: MMTDetailedMapType, plus: Int) in
+            try? URL.mmt_detailedMapDownloadUrl(for: .COAMPS, map: map, tZero:date, plus:plus).absoluteString
         }
         
         XCTAssertEqual("http://www.meteo.pl/pict/2016090212/SLPH_0000.0_2X_2016090212_003-00.png", url(.MeanSeaLevelPressure, 3))
@@ -129,15 +108,24 @@ class MMTCategoryNSURLTests: XCTestCase
         XCTAssertEqual("http://www.meteo.pl/pict/2016090212/CLCS_T_2X_2016090212_003-00.png", url(.TotalCloudiness, 3))
     }
     
-    func testModelCoampsDetailedMapUrlForUnsupportedMap()
+    func testDetailedMapUrlForUnsupportedMap()
     {
         let date = TT.utcFormatter.date(from: "2016-08-22T12:00")!
         
-        XCTAssertNil(URL.mmt_modelCoampsDownloadUrlForMap(.VeryLowClouds, tZero:date, plus:1))
+        XCTAssertThrowsError(try URL.mmt_detailedMapDownloadUrl(for: .UM, map: .RelativeHumidity, tZero:date, plus:1))
+        XCTAssertThrowsError(try URL.mmt_detailedMapDownloadUrl(for: .COAMPS, map: .VeryLowClouds, tZero:date, plus:1))
+        XCTAssertThrowsError(try URL.mmt_detailedMapDownloadUrl(for: .WAM, map: .VeryLowClouds, tZero:date, plus:1))
     }
     
     // MARK: Model wam related tests
-    
+
+    func testModelWamSearchUrl()
+    {
+        let location = CLLocation(latitude: 53.585869, longitude: 19.570815)
+
+        XCTAssertThrowsError(try URL.mmt_meteorogramSearchUrl(for: .WAM, location: location))
+    }
+
     func testModelWamTideHeightThumbnailUrl()
     {
         let expectedUrl = "http://www.meteo.pl/wamcoamps/pict/2015081900/small-crop-wavehgt_0W_2015081900_006-00.gif"

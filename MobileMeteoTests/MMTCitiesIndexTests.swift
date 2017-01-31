@@ -47,31 +47,28 @@ class MMTCitiesIndexTests: XCTestCase
     {
         let index = MMTCitiesIndex(cities, currentCity: currentCity)
         
-        XCTAssertEqual(4, index.sectionCount)
+        XCTAssertEqual(3, index.sectionCount)
         
-        XCTAssertEqual(0, index[0].cities.count)
-        XCTAssertEqual(1, index[1].cities.count)
-        XCTAssertEqual(2, index[2].cities.count)
-        XCTAssertEqual(3, index[3].cities.count)
-        
-        XCTAssertEqual(MMTCitiesIndexSectionType.DetailedMaps, index[0].type)
-        XCTAssertEqual(MMTCitiesIndexSectionType.CurrentLocation, index[1].type)
-        XCTAssertEqual(MMTCitiesIndexSectionType.Favourites, index[2].type)
-        XCTAssertEqual(MMTCitiesIndexSectionType.Capitals, index[3].type)
+        XCTAssertEqual(1, index[0].cities.count)
+        XCTAssertEqual(2, index[1].cities.count)
+        XCTAssertEqual(3, index[2].cities.count)
+
+        XCTAssertEqual(MMTCitiesIndexSectionType.CurrentLocation, index[0].type)
+        XCTAssertEqual(MMTCitiesIndexSectionType.Favourites, index[1].type)
+        XCTAssertEqual(MMTCitiesIndexSectionType.Capitals, index[2].type)
     }
     
     func testIndexForCitiesWithoutCurrentCity()
     {
         let index = MMTCitiesIndex(cities, currentCity: nil)
         
-        XCTAssertEqual(3, index.sectionCount)
-        XCTAssertEqual(0, index[0].cities.count)
-        XCTAssertEqual(2, index[1].cities.count)
-        XCTAssertEqual(3, index[2].cities.count)
-        
-        XCTAssertEqual(MMTCitiesIndexSectionType.DetailedMaps, index[0].type)
-        XCTAssertEqual(MMTCitiesIndexSectionType.Favourites, index[1].type)
-        XCTAssertEqual(MMTCitiesIndexSectionType.Capitals, index[2].type)
+        XCTAssertEqual(2, index.sectionCount)
+
+        XCTAssertEqual(2, index[0].cities.count)
+        XCTAssertEqual(3, index[1].cities.count)
+                
+        XCTAssertEqual(MMTCitiesIndexSectionType.Favourites, index[0].type)
+        XCTAssertEqual(MMTCitiesIndexSectionType.Capitals, index[1].type)
     }
     
     func testIndexForSearchResults()

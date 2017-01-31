@@ -14,8 +14,12 @@
 /* Class = "UITabBarItem"; title = "Źródło"; ObjectID = "Quj-BL-oec"; */
 "Quj-BL-oec.title" = "Source";
 
+"mdg-cq-Zyh.title" = "Maps";
+
 /* Class = "UILabel"; text = "ładowanie meteorogramu"; ObjectID = "R9a-Bf-BXg"; */
 "R9a-Bf-BXg.text" = "meteorogram loading";
+
+"2cn-bO-NDh.text" = "meteorogram loading";
 
 /* Class = "UIBarButtonItem"; title = "Pokaż"; ObjectID = "SxL-e7-iV7"; */
 "SxL-e7-iV7.title" = "Show";
@@ -53,4 +57,6 @@
 /* Class = "UIButton"; selectedTitle = "usuń zaznaczenie"; ObjectID = "xOP-VD-VM0"; */
 "xOP-VD-VM0.selectedTitle" = "remove selection";
 
-"zVq-9Q-yhD.text" = "Detailed maps";
+"p0N-cN-cSS.title" = "Detailed maps";
+
+"P8U-V6-ky4.title" = "Detailed maps";
