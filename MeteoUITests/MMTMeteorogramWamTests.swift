@@ -41,7 +41,7 @@ class MMTMeteorogramWamTests: XCTestCase
     
     func test_DisplayTideHeightMomentPreview()
     {
-        app.collectionViews.cells["TideHeight +3"].tap()
+        app.collectionViews.cells["TideHeight +3"].tap()        
         
         /* --- Assertions -- */
         
@@ -64,32 +64,6 @@ class MMTMeteorogramWamTests: XCTestCase
         /* --- Assertions -- */
         
         XCTAssertTrue(app.images["SpectrumPeakPeriod"].exists)
-    }
-    
-    func test_NumberOfDisplayedMoments()
-    {
-        app.navigationBars.buttons["Utwórz"].tap()
-        app.tables.children(matching: .other).matching(identifier: "WamSettingsHeader").element(boundBy: 0).buttons.element.tap()
-        
-        app.tables.cells["WamSettingsMoment: t0 +3h"].tap()
-        app.tables.cells["WamSettingsMoment: t0 +9h"].tap()
-        app.tables.cells["WamSettingsMoment: t0 +15h"].tap()
-        app.tables.cells["WamSettingsMoment: t0 +21h"].tap()
-        
-        app.navigationBars["Ustawienia WAM"].buttons["Pokaż"].tap()
-        app.collectionViews.element.swipeLeft()
-        
-        let momentAtIndex = {(index: UInt) in
-            return self.app.collectionViews.cells.element(boundBy: index).staticTexts.element(boundBy: 1).label
-        }
-        
-        /* --- Assertions -- */
-        
-        XCTAssertEqual(4, app.collectionViews.cells.count/3)
-        XCTAssertEqual("t0 +003h", momentAtIndex(0))
-        XCTAssertEqual("t0 +009h", momentAtIndex(5))
-        XCTAssertEqual("t0 +015h", momentAtIndex(10))
-        XCTAssertEqual("t0 +021h", momentAtIndex(7))
     }
     
     func test_CategoriesHeadersExistence()
