@@ -77,7 +77,7 @@ extension URL
             return URL(string: "info_coamps.php", relativeTo: mmt_baseUrl())!
             
             default:
-            throw MMTError.urlNotAvailable
+            return URL(string: "info_wamcoamps.php", relativeTo: mmt_baseUrl())!
         }
     }
     
@@ -92,7 +92,7 @@ extension URL
             return try mmt_coampsDetailedMapDownloadUrl(for: map, tZero: tZero, plus: plus)
             
             default:
-            throw MMTError.urlNotAvailable
+            return try mmt_wamDetailedMapDownloadUrl(for: map, tZero: tZero, plus: plus)
         }
     }
     
@@ -156,70 +156,36 @@ extension URL
         
         return URL(string: "/pict/\(tZeroString)/\(prefix!)_2X_\(tZeroString)_\(tZeroPlus)-00.png", relativeTo: mmt_baseUrl())!
     }
-    
-    // MARK: Model WAM related methods
-    
-    static func mmt_modelWamTideHeightThumbnailUrl(_ tZero: Date, plus: Int) -> URL
+
+    private static func mmt_wamDetailedMapDownloadUrl(for map: MMTDetailedMapType, tZero: Date, plus: Int) throws -> URL
     {
-        return mmt_modelWamThumbnailUrl("wavehgt", tZero: tZero, plus: plus)
-    }
-    
-    static func mmt_modelWamAvgTidePeriodThumbnailUrl(_ tZero: Date, plus: Int) -> URL
-    {
-        return mmt_modelWamThumbnailUrl("m_period", tZero: tZero, plus: plus)
-    }
-    
-    static func mmt_modelWamSpectrumPeakPeriodThumbnailUrl(_ tZero: Date, plus: Int) -> URL
-    {
-        return mmt_modelWamThumbnailUrl("p_period", tZero: tZero, plus: plus)
-    }
-    
-    static func mmt_modelWamTideHeightDownloadUrl(_ tZero: Date, plus: Int) -> URL
-    {
-        return mmt_modelWamDownloadUrl("wavehgt", tZero: tZero, plus: plus)
-    }
-    
-    static func mmt_modelWamAvgTidePeriodDownloadUrl(_ tZero: Date, plus: Int) -> URL
-    {
-        return mmt_modelWamDownloadUrl("m_period", tZero: tZero, plus: plus)
-    }
-    
-    static func mmt_modelWamSpectrumPeakPeriodDownloadUrl(_ tZero: Date, plus: Int) -> URL
-    {
-        return mmt_modelWamDownloadUrl("p_period", tZero: tZero, plus: plus)
-    }
-    
-    static func mmt_modelWamForecastStartUrl() -> URL
-    {
-        return URL(string: "info_wamcoamps.php", relativeTo: mmt_baseUrl())!
+        let tZeroString = tZeroStringForDate(tZero)
+        let tZeroPlus = NSString(format: "%03ld", plus)
+        var prefix: String?
+
+        switch map
+        {
+            case .TideHeight: prefix = "wavehgt"
+            case .AverageTidePeriod: prefix = "m_period"
+            case .SpectrumPeakPeriod: prefix = "p_period"
+
+            default:
+            throw MMTError.urlNotAvailable
+        }
+
+        return URL(string: "/wamcoamps/pict/\(tZeroString)/\(prefix!)_0W_\(tZeroString)_\(tZeroPlus)-00.png", relativeTo: mmt_baseUrl())!
     }
     
     // MARK: Helper methods
     
-    fileprivate static func mmt_modelWamDownloadUrl(_ infix: String, tZero: Date, plus: Int) -> URL
-    {
-        let tZeroString = tZeroStringForDate(tZero)
-        let tZeroPlus = NSString(format: "%03ld", plus)
-        
-        return URL(string: "/wamcoamps/pict/\(tZeroString)/\(infix)_0W_\(tZeroString)_\(tZeroPlus)-00.png", relativeTo: mmt_baseUrl())!
-    }
-    
-    fileprivate static func mmt_modelWamThumbnailUrl(_ infix: String, tZero: Date, plus: Int) -> URL
-    {
-        let tZeroString = tZeroStringForDate(tZero)
-        let tZeroPlus = NSString(format: "%03ld", plus)
-        
-        return URL(string: "/wamcoamps/pict/\(tZeroString)/small-crop-\(infix)_0W_\(tZeroString)_\(tZeroPlus)-00.gif", relativeTo: mmt_baseUrl())!
-    }
-    
-    fileprivate static func tZeroStringForDate(_ date: Date) -> String
+    private static func tZeroStringForDate(_ date: Date) -> String
     {
         let components = (Calendar.utcCalendar as NSCalendar).components([.year, .month, .day, .hour], from: date)
         
         return String(format: MMTFormat.TZero, components.year!, components.month!, components.day!, components.hour!)
     }
     
-    fileprivate static func mmt_modelLang() -> String
+    private static func mmt_modelLang() -> String
     {
         return Bundle.main.preferredLocalizations.first ?? "en"
     }

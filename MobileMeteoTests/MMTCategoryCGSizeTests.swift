@@ -29,13 +29,13 @@ class MMTCategoryCGSizeTests: XCTestCase
     {
         XCTAssertEqual(CGSize(width: 669, height: 740), CGSize(forDetailedMapOfModel: .UM))
         XCTAssertEqual(CGSize(width: 590, height: 604), CGSize(forDetailedMapOfModel: .COAMPS))
-        XCTAssertEqual(CGSize(width: 720, height: 702), CGSize(forDetailedMapOfModel: .WAM))
+        XCTAssertEqual(CGSize(width: 645, height: 702), CGSize(forDetailedMapOfModel: .WAM))
     }
 
     func testDetailedMapMeteorogramLegendSize()
     {
         XCTAssertEqual(CGSize(width: 128, height: 740), CGSize(forDetailedMapLegendOfModel: .UM))
         XCTAssertEqual(CGSize(width: 128, height: 604), CGSize(forDetailedMapLegendOfModel: .COAMPS))
-        XCTAssertEqual(CGSize(width: 0, height: 702), CGSize(forDetailedMapLegendOfModel: .WAM))
+        XCTAssertEqual(CGSize(width: 75, height: 702), CGSize(forDetailedMapLegendOfModel: .WAM))
     }
 }

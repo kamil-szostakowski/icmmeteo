@@ -10,7 +10,20 @@ import XCTest
 @testable import MobileMeteo
 
 class MMTCoampsClimateModelTests: XCTestCase
-{    
+{
+    func testDefaultInitializationForModelCoamps()
+    {
+        let model = MMTCoampsClimateModel()
+
+        XCTAssertEqual(model.forecastLength, 84)
+        XCTAssertEqual(model.gridNodeSize, 13)
+        XCTAssertEqual(model.detailedMapMomentsCount, 28)
+        XCTAssertEqual(model.availabilityDelay, TimeInterval(hours: 6))
+        XCTAssertEqual(model.detailedMapStartDelay, TimeInterval(hours: 0))
+        XCTAssertEqual(model.type, .COAMPS)
+        XCTAssertEqual(model.detailedMaps.count, 11)
+    }
+
     func test_forecastStartDatePreviousDay()
     {
         let date = TT.localFormatter.date(from: "2015-06-08T04:00")!

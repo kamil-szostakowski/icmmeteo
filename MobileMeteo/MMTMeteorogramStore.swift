@@ -11,19 +11,7 @@ import CoreLocation
 import CoreGraphics
 
 class MMTMeteorogramStore: MMTForecastStore
-{
-    // MARK: Properties
-    
-    private var urlSession: MMTMeteorogramUrlSession
-    
-    // MARK: Initializers
-    
-    override init(model: MMTClimateModel, date: Date)
-    {
-        urlSession = MMTMeteorogramUrlSession(redirectionBaseUrl: try! URL.mmt_meteorogramDownloadBaseUrl(for: model.type), timeout: 60)        
-        super.init(model: model, date: date)
-    }
-    
+{    
     // MARK: Methods
     
     func getMeteorogramForLocation(_ location: CLLocation, completion: @escaping MMTFetchMeteorogramCompletion)

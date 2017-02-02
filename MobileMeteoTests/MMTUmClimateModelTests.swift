@@ -11,6 +11,19 @@ import XCTest
 
 class MMTUmClimateModelTests: XCTestCase
 {
+    func testDefaultInitializationForModelUm()
+    {
+        let model = MMTUmClimateModel()
+
+        XCTAssertEqual(model.forecastLength, 60)
+        XCTAssertEqual(model.gridNodeSize, 4)
+        XCTAssertEqual(model.detailedMapMomentsCount, 20)
+        XCTAssertEqual(model.availabilityDelay, TimeInterval(hours: 5))
+        XCTAssertEqual(model.detailedMapStartDelay, TimeInterval(hours: 1))
+        XCTAssertEqual(model.type, .UM)
+        XCTAssertEqual(model.detailedMaps.count, 16)
+    }
+
     func test_forecastStartDateMidnight()
     {
         let date = TT.localFormatter.date(from: "2015-06-08T08:00")!

@@ -43,13 +43,6 @@ let MMTTranslationCityCategory:[MMTCitiesIndexSectionType: String] =
     .Capitals: MMTLocalizedString("locations.district-capitals"),
 ]
 
-let  MMTTranslationWamCategory: [MMTWamCategory: String] =
-[
-    .TideHeight: MMTLocalizedString("model.wam.tide-height"),
-    .AvgTidePeriod: MMTLocalizedString("model.wam.avg-tide-period"),
-    .SpectrumPeakPeriod: MMTLocalizedString("model.wam.spectrum-peak-period"),
-]
-
 func MMTLocalizedString(_ string: String) -> String
 {
     return NSLocalizedString(string, comment: "")
