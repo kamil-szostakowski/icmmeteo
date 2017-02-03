@@ -27,6 +27,9 @@ enum MMTDetailedMapType: String
     case MediumClouds
     case HighClouds
     case TotalCloudiness
+    case TideHeight
+    case AverageTidePeriod
+    case SpectrumPeakPeriod
 }
 
 typealias MMTDetailedMap = (type: MMTDetailedMapType, momentsOffset: Int)

@@ -31,13 +31,13 @@ protocol MMTClimateModel
 
 class MMTUmClimateModel: MMTClimateModel
 {
-    var type: MMTClimateModelType { return .UM }
-    var forecastLength: Int { return 60 }
-    var gridNodeSize: Int { return 4 }
-    var availabilityDelay: TimeInterval { return TimeInterval(hours: 5) }
+    let type = MMTClimateModelType.UM
+    let forecastLength = 60
+    let gridNodeSize = 4
+    let availabilityDelay = TimeInterval(hours: 5)
     
-    var detailedMapStartDelay: TimeInterval { return TimeInterval(hours: 1) }
-    var detailedMapMomentsCount: Int { return 20 }
+    let detailedMapStartDelay = TimeInterval(hours: 1)
+    let detailedMapMomentsCount = 20
     
     var detailedMaps: [MMTDetailedMap] { return [
         (.MeanSeaLevelPressure, 0), (.TemperatureAndStreamLine, 0), (.TemperatureOfSurface, 0), (.Precipitation, 1),
@@ -60,13 +60,13 @@ class MMTUmClimateModel: MMTClimateModel
 
 class MMTCoampsClimateModel: MMTClimateModel
 {
-    var type: MMTClimateModelType { return .COAMPS }
-    var forecastLength: Int { return 84 }
-    var gridNodeSize: Int { return 13 }
-    var availabilityDelay: TimeInterval { return TimeInterval(hours: 6) }
+    let type = MMTClimateModelType.COAMPS
+    let forecastLength = 84
+    let gridNodeSize = 13
+    let availabilityDelay = TimeInterval(hours: 6)
     
-    var detailedMapStartDelay: TimeInterval { return TimeInterval(hours: 0) }
-    var detailedMapMomentsCount: Int { return 28 }
+    let detailedMapStartDelay = TimeInterval(hours: 0)
+    let detailedMapMomentsCount = 28
     
     var detailedMaps: [MMTDetailedMap] { return [
         (.MeanSeaLevelPressure, 0), (.TemperatureAndStreamLine, 0), (.TemperatureOfSurface, 0), (.Precipitation, 1), (.Wind, 0),
@@ -85,3 +85,28 @@ class MMTCoampsClimateModel: MMTClimateModel
     }
 }
 
+class MMTWamClimateModel: MMTClimateModel
+{
+    let type = MMTClimateModelType.WAM
+    let forecastLength = 84
+    let availabilityDelay = TimeInterval(hours: 7)
+    let gridNodeSize = 0
+
+    let detailedMapStartDelay = TimeInterval(hours: 0)
+    let detailedMapMomentsCount = 28
+
+    var detailedMaps: [MMTDetailedMap] { return [
+        (.TideHeight, 1), (.AverageTidePeriod, 1), (.SpectrumPeakPeriod, 1)
+    ]}
+
+    func startDate(for date: Date) -> Date
+    {
+        let dateWithOffset = date.addingTimeInterval(-availabilityDelay)
+
+        var
+        components = Calendar.utcCalendar.dateComponents([.year, .month, .day, .hour], from: dateWithOffset)
+        components.hour = components.hour! < 12 ? 0 : 12
+
+        return Calendar.utcCalendar.date(from: components)!
+    }
+}

@@ -16,7 +16,7 @@ class MMTForecastStore
 {
     // MARK: Properties
     
-    private var urlSession: MMTMeteorogramUrlSession
+    private(set) var urlSession: MMTMeteorogramUrlSession
     private(set) var forecastStartDate: Date
     private(set) var climateModel: MMTClimateModel
     
@@ -26,7 +26,7 @@ class MMTForecastStore
     {
         climateModel = model
         forecastStartDate = model.startDate(for: date)
-        urlSession = MMTMeteorogramUrlSession(redirectionBaseUrl: try! URL.mmt_meteorogramDownloadBaseUrl(for: climateModel.type), timeout: 60)                
+        urlSession = MMTMeteorogramUrlSession(redirectionBaseUrl: try? URL.mmt_meteorogramDownloadBaseUrl(for: climateModel.type), timeout: 60)
     }
     
     // MARK: Methods

@@ -51,7 +51,7 @@ extension CGSize
             self = CGSize(width: 590, height: 604)
 
         case .WAM:
-            self = CGSize(width: 720, height: 702)
+            self = CGSize(width: 645, height: 702)
         }
     }
 
@@ -66,7 +66,7 @@ extension CGSize
                 self = CGSize(width: 128, height: 604)
 
             case .WAM:
-                self = CGSize(width: 0, height: 702)
+                self = CGSize(width: 75, height: 702)
         }
     }
 }

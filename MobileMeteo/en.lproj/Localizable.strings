@@ -14,10 +14,6 @@
 "locations.favourites" = "Favourites";
 "locations.current" = "Current localization";
 
-"model.wam.tide-height" = "Significant wave height and mean wave direction";
-"model.wam.avg-tide-period" = "Mean wave period";
-"model.wam.spectrum-peak-period" = "Peak period of 1-d spectra";
-
 "detailed-maps.MeanSeaLevelPressure" = "Mean sea level pressure";
 "detailed-maps.TemperatureAndStreamLine" = "Temperature + stream lines";
 "detailed-maps.TemperatureOfSurface" = "Surface temperature";
@@ -35,3 +31,6 @@
 "detailed-maps.MediumClouds" = "Medium clouds";
 "detailed-maps.HighClouds" = "High clouds";
 "detailed-maps.TotalCloudiness" = "Total cloudiness";
+"detailed-maps.TideHeight" = "Significant wave height and mean wave direction";
+"detailed-maps.AverageTidePeriod" = "Mean wave period";
+"detailed-maps.SpectrumPeakPeriod" = "Peak period of 1-d spectra";

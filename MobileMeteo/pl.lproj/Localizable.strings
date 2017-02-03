@@ -14,10 +14,6 @@
 "locations.favourites" = "Ulubione";
 "locations.current" = "Obecna lokalizacja";
 
-"model.wam.tide-height" = "Wysokość fali znacznej i średni kierunek fali";
-"model.wam.avg-tide-period" = "Średni okres fali";
-"model.wam.spectrum-peak-period" = "Okres piku widma";
-
 "detailed-maps.MeanSeaLevelPressure" = "Ciśnienie na poziomie morza";
 "detailed-maps.TemperatureAndStreamLine" = "Temperatura + linie prądu";
 "detailed-maps.TemperatureOfSurface" = "Temperatura powierzchni";
@@ -35,3 +31,6 @@
 "detailed-maps.MediumClouds" = "Chmury średnie";
 "detailed-maps.HighClouds" = "Chmury wysokie";
 "detailed-maps.TotalCloudiness" = "Zachmurzenie ogólne";
+"detailed-maps.TideHeight" = "Wysokość fali znacznej i średni kierunek fali";
+"detailed-maps.AverageTidePeriod" = "Średni okres fali";
+"detailed-maps.SpectrumPeakPeriod" = "Okres piku widma";

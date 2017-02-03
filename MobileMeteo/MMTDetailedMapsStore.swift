@@ -10,30 +10,18 @@ import Foundation
 
 class MMTDetailedMapsStore: MMTForecastStore
 {
-    // MARK: Properties
-
-    private var urlSession: MMTMeteorogramUrlSession
-
-    // MARK: Initializers
-
-    override init(model: MMTClimateModel, date: Date)
-    {
-        urlSession = MMTMeteorogramUrlSession(redirectionBaseUrl: try! URL.mmt_meteorogramDownloadBaseUrl(for: model.type), timeout: 60)
-        super.init(model: model, date: date)
-    }
-
     // MARK: Methods
     
-    func getForecastMoments(for map: MMTDetailedMap) -> [MMTWamMoment]
+    func getForecastMoments(for map: MMTDetailedMap) -> [Date]
     {
-        var moments = [MMTWamMoment]()
+        var moments = [Date]()
         
         for index in 0...climateModel.detailedMapMomentsCount {
 
             let momentOffset = index == 0 ? climateModel.detailedMapStartDelay : TimeInterval(hours: index*3)
             let momentDate = forecastStartDate.addingTimeInterval(momentOffset)
 
-            moments.append((date: momentDate, selected: false))
+            moments.append(momentDate)
         }
 
         return Array(moments[map.momentsOffset..<moments.count])
@@ -53,12 +41,12 @@ class MMTDetailedMapsStore: MMTForecastStore
         urlSession.fetchImageFromUrl(downloadUrl, completion: completion)
     }
 
-    func getMeteorograms(for moments: [MMTWamMoment], map: MMTDetailedMap, completion: @escaping MMTFetchMeteorogramsCompletion)
+    func getMeteorograms(for moments: [Date], map: MMTDetailedMap, completion: @escaping MMTFetchMeteorogramsCompletion)
     {
         let queue = DispatchQueue.global()
         let group = DispatchGroup()
 
-        for (date, _) in moments
+        for date in moments
         {
             queue.async(group: group) {
                 group.enter()

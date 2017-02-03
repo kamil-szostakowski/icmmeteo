@@ -51,15 +51,7 @@ class MMTOfflineTests: XCTestCase
         app.tables.cells["Białystok, Podlaskie"].tap()
         
         verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
-    }
-    
-    func test_displayWamMomentPreview()
-    {
-        app.tabBars.buttons["Model WAM"].tap()
-        app.collectionViews.cells["TideHeight +3"].tap()
-        
-        verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
-    }
+    }    
     
     func test_selectLocationOnMap()
     {

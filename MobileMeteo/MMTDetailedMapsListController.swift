@@ -80,15 +80,21 @@ class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UI
         }
 
         analytics?.sendUserActionReport(.DetailedMaps, action: .DetailedMapDidSelectModel, actionLabel: selectedSegmentTitle)
+        var climateModel: MMTClimateModel?
 
         if selectedSegmentTitle == MMTClimateModelType.UM.rawValue {
-            meteorogramStore = MMTDetailedMapsStore(model: MMTUmClimateModel(), date: Date())
+            climateModel = MMTUmClimateModel()
         }
 
         if selectedSegmentTitle == MMTClimateModelType.COAMPS.rawValue {
-            meteorogramStore = MMTDetailedMapsStore(model: MMTCoampsClimateModel(), date: Date())
+            climateModel = MMTCoampsClimateModel()
         }
 
+        if selectedSegmentTitle == MMTClimateModelType.WAM.rawValue {
+            climateModel = MMTWamClimateModel()
+        }
+
+        meteorogramStore = MMTDetailedMapsStore(model: climateModel!, date: Date())
         tableView.reloadData()
     }
     
