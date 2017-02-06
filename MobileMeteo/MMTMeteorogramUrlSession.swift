@@ -119,17 +119,19 @@ class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
     }
     
     private func meteorogramDownloadFromRedirectionUrl(_ redirectionUrl: URL) -> URL?
-    {        
-        guard let queryString = redirectionUrl.absoluteString.components(separatedBy: "?").last else {
+    {
+        let urlComponents = redirectionUrl.absoluteString.components(separatedBy: "?")
+
+        guard urlComponents.count == 2 else {
             return nil
         }
         
-        return URL(string: "?\(queryString)", relativeTo: redirectionBaseUrl)
+        return URL(string: "?\(urlComponents.last!)", relativeTo: redirectionBaseUrl)
     }
     
     // MARK: Helper methods
     
-    private func runTaskWithUrl(_ url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
+    func runTaskWithUrl(_ url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
     {
         let task = urlSession.dataTask(with: url){
             (data: Data?, response: URLResponse?, err: Error?) -> Swift.Void in
@@ -148,7 +150,7 @@ class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
         task.resume()
     }    
     
-    func htmlStringFromResponseData(_ data: Data?) -> String?
+    private func htmlStringFromResponseData(_ data: Data?) -> String?
     {
         guard let htmlData = data else { return nil }
         guard let htmlString = String(data: htmlData, encoding: String.Encoding.windowsCP1250) else { return nil }
@@ -156,12 +158,12 @@ class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
         return htmlString
     }
     
-    func forecastStartDateFromHtmlResponse(_ html: String) -> Date?
+    private func forecastStartDateFromHtmlResponse(_ html: String) -> Date?
     {
         let pattern = "[0-9]{4}\\.[0-9]{2}\\.[0-9]{2} [0-9]{2}:[0-9]{2} UTC"
         let range = NSMakeRange(0, html.lengthOfBytes(using: String.Encoding.windowsCP1250))
         
-        guard let regexp = try? NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options()) else { return nil }        
+        let regexp = try! NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options())
         let hits = regexp.matches(in: html, options: NSRegularExpression.MatchingOptions(), range: range)
         
         guard let match = hits.first else { return nil }

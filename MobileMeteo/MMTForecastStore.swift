@@ -21,12 +21,20 @@ class MMTForecastStore
     private(set) var climateModel: MMTClimateModel
     
     // MARK: Initializers
-    
-    init(model: MMTClimateModel, date: Date)
+
+    init(model: MMTClimateModel, date: Date, session: MMTMeteorogramUrlSession)
     {
         climateModel = model
         forecastStartDate = model.startDate(for: date)
-        urlSession = MMTMeteorogramUrlSession(redirectionBaseUrl: try? URL.mmt_meteorogramDownloadBaseUrl(for: climateModel.type), timeout: 60)
+        urlSession = session
+    }
+
+    convenience init(model: MMTClimateModel, date: Date)
+    {
+        let url = try? URL.mmt_meteorogramDownloadBaseUrl(for: model.type)
+        let session = MMTMeteorogramUrlSession(redirectionBaseUrl: url, timeout: 60)
+
+        self.init(model: model, date: date, session: session)
     }
     
     // MARK: Methods

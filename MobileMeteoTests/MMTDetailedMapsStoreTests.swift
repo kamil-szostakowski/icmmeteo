@@ -9,8 +9,72 @@
 import XCTest
 @testable import MobileMeteo
 
-class MMTDetailedMapsStoreTests: XCTestCase {
-    
+class MMTDetailedMapsStoreTests: XCTestCase
+{
+    // MARK: Fetching detailed maps meteorograms tests
+
+    func testFetchOfSupportedDetailedMapMeteorogram()
+    {
+        let session = MMTMockMeteorogramUrlSession(UIImage(), nil)
+        let store = MMTDetailedMapsStore(model: MMTUmClimateModel(), date: Date(), session: session)
+
+        store.getMeteorogram(for: .Fog, moment: Date()){
+            (image: UIImage?, error: MMTError?) -> Void in
+
+            XCTAssertNotNil(image)
+            XCTAssertNil(error)
+        }
+    }
+
+    func testFetchOfUnsupportedDetailedMapMeteorogram()
+    {
+        let session = MMTMockMeteorogramUrlSession(UIImage(), nil)
+        let store = MMTDetailedMapsStore(model: MMTWamClimateModel(), date: Date(), session: session)
+
+        store.getMeteorogram(for: .Fog, moment: Date()){
+            (image: UIImage?, error: MMTError?) -> Void in
+
+            XCTAssertEqual(error, .detailedMapNotSupported)
+            XCTAssertNil(image)
+        }
+    }
+
+    func testBulkFetchOfSupportedDetailedMapMeteorogram()
+    {
+        let now = Date()
+        let session = MMTMockMeteorogramUrlSession(UIImage(), nil)
+        let store = MMTDetailedMapsStore(model: MMTUmClimateModel(), date: now, session: session)
+
+        let finishExpectation = self.expectation(description: "Fetch finish expectation")
+        
+        let moments = [Date(timeInterval: 3*3600, since: now),
+                       Date(timeInterval: 6*3600, since: now),
+                       Date(timeInterval: 9*3600, since: now)]
+
+        var fetchCount = 0
+        store.getMeteorograms(for: moments, map: .Fog) {
+            (image: UIImage?, date: Date?, error: MMTError?, finish: Bool) -> Void in
+
+            if finish
+            {
+                finishExpectation.fulfill()
+                XCTAssertEqual(fetchCount, moments.count)
+            }
+            else
+            {
+                XCTAssertNotNil(image)
+                XCTAssertNotNil(date)
+                XCTAssertNil(error)
+
+                fetchCount += 1
+            }
+        }
+
+        self.waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    // MARK: Calculation forecast moments tests
+
     func testMomentsForStandardMapsForUmModel()
     {
         let date = TT.localFormatter.date(from: "2015-06-08T20:00")!
@@ -102,8 +166,6 @@ class MMTDetailedMapsStoreTests: XCTestCase {
         }
     }
 
-    /////
-
     func testForecastMomentsOnTurnOfTheMonthForForecastStartAt12am()
     {
         let date = TT.utcFormatter.date(from: "2015-07-30T00:00")!
@@ -152,6 +214,27 @@ class MMTDetailedMapsStoreTests: XCTestCase {
             XCTAssertEqual(TT.getDate(2015, 7, 9, 9), moments[10])
             XCTAssertEqual(TT.getDate(2015, 7, 10, 6), moments[17])
             XCTAssertEqual(TT.getDate(2015, 7, 11, 12), moments[27])
+        }
+    }
+
+    // MARK: Helpers
+
+    class MMTMockMeteorogramUrlSession: MMTMeteorogramUrlSession
+    {
+        let image: UIImage?
+        let error: MMTError?
+
+        init(_ img: UIImage?, _ err: MMTError?)
+        {
+            image = img
+            error = err
+
+            super.init(redirectionBaseUrl: nil, timeout: 0)
+        }
+
+        override func fetchImageFromUrl(_ url: URL, completion: @escaping MMTFetchMeteorogramCompletion)
+        {
+            completion(image, error)
         }
     }
 }

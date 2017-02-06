@@ -142,7 +142,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
         fetchSequenceStarted = true
         var errorCount = 0
 
-        meteorogramStore.getMeteorograms(for: notFetchedMoments, map: detailedMap) {
+        meteorogramStore.getMeteorograms(for: notFetchedMoments, map: detailedMap.type) {
             (image: UIImage?, date: Date?, error: MMTError?, finish: Bool) in
 
             guard error == nil else
