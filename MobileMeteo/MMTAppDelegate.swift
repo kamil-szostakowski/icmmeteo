@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import CoreData
+import CoreLocation
 import CoreSpotlight
 
 public let MMTDebugActionCleanupDb = "CLEANUP_DB"
@@ -27,7 +28,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {        
-        citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
+        citiesStore = MMTCitiesStore(db: MMTDatabase.instance, geocoder: MMTCityGeocoder(generalGeocoder: CLGeocoder()))
         
         #if DEBUG
         if ProcessInfo.processInfo.arguments.contains(MMTDebugActionCleanupDb)
@@ -85,7 +86,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     
     // MARK: Setup methods
     
-    fileprivate func setupAppearance()
+    private func setupAppearance()
     {
         let attributes = [
             NSFontAttributeName: MMTAppearance.boldFontWithSize(16),
@@ -103,7 +104,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         UIBarButtonItem.appearance().setTitleTextAttributes(disabledAttributes, for: UIControlState.disabled)
     }
     
-    fileprivate func setupAnalytics()
+    private func setupAnalytics()
     {
         var error: NSError?
         GGLContext.sharedInstance().configureWithError(&error)
@@ -111,10 +112,10 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     
     // MARK: Helper methods
     
-    fileprivate func initDatabase()
+    private func initDatabase()
     {
-        let filePath = Bundle.main.path(forResource: "Cities", ofType: "json")
-        let cities = MMTCitiesStore(db: MMTDatabase.instance).getPredefinedCitiesFromFile(filePath!)
+        let filePath = Bundle.main.path(forResource: "Cities", ofType: "json")                        
+        let cities = MMTPredefinedCitiesFileStore().getPredefinedCitiesFromFile(filePath!)
             
         for city in cities
         {

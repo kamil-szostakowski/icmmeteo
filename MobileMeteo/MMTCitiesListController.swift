@@ -49,7 +49,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         
         searchInput = MMTSearchInput("")
         citiesIndex = MMTCitiesIndex()
-        citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
+        citiesStore = MMTCitiesStore(db: MMTDatabase.instance, geocoder: MMTCityGeocoder(generalGeocoder: CLGeocoder()))
         meteorogramStore = MMTMeteorogramStore(model: climateModel, date: Date())
 
         setupTableView()
