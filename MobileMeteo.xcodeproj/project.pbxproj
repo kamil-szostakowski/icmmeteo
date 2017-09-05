@@ -37,7 +37,6 @@
 		F90A5DDE1E19B1DB00058B57 /* MMTUmClimateModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A5DDD1E19B1DB00058B57 /* MMTUmClimateModelTests.swift */; };
 		F90F72A41C5A0FEF00130353 /* MMTCitiesIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90F72A31C5A0FEF00130353 /* MMTCitiesIndexTests.swift */; };
 		F90F72A71C5A3DA600130353 /* NSUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90F72A61C5A3DA600130353 /* NSUserDefaults.swift */; };
-		F910AACF1C52358400A35170 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F910AACE1C52358400A35170 /* GoogleService-Info.plist */; };
 		F913A27A1C637623004BD786 /* MMTMeteorogramUrlSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F913A2791C637623004BD786 /* MMTMeteorogramUrlSessionTests.swift */; };
 		F913A27C1C638B13004BD786 /* NSTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = F913A27B1C638B13004BD786 /* NSTimeInterval.swift */; };
 		F91A63481C467F3900747AC3 /* UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F91A63471C467F3900747AC3 /* UIAlertController.swift */; };
@@ -147,7 +146,6 @@
 		F90F72A31C5A0FEF00130353 /* MMTCitiesIndexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesIndexTests.swift; sourceTree = "<group>"; };
 		F90F72A61C5A3DA600130353 /* NSUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSUserDefaults.swift; sourceTree = "<group>"; };
 		F910AACD1C521DB600A35170 /* MobileMeteo-BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileMeteo-BridgingHeader.h"; sourceTree = "<group>"; };
-		F910AACE1C52358400A35170 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		F913A2791C637623004BD786 /* MMTMeteorogramUrlSessionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramUrlSessionTests.swift; sourceTree = "<group>"; };
 		F913A27B1C638B13004BD786 /* NSTimeInterval.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimeInterval.swift; sourceTree = "<group>"; };
 		F91A63471C467F3900747AC3 /* UIAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertController.swift; sourceTree = "<group>"; };
@@ -483,7 +481,6 @@
 				F9EE114F1C6DBC1F003AF8BD /* SimulaterdLocations */,
 				F9BB14A51B5697EE00C81B3F /* Cities.json */,
 				F9E696681AFCC06600273DA3 /* Info.plist */,
-				F910AACE1C52358400A35170 /* GoogleService-Info.plist */,
 				F9E6969D1AFCD04500273DA3 /* MobileMeteo-Prefix.pch */,
 				F910AACD1C521DB600A35170 /* MobileMeteo-BridgingHeader.h */,
 			);
@@ -627,7 +624,7 @@
 				CLASSPREFIX = MMT;
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Kamil Szostakowski";
 				TargetAttributes = {
 					F9941A631BECE32300700313 = {
@@ -683,7 +680,6 @@
 				F9BB14A61B5697EE00C81B3F /* Cities.json in Resources */,
 				F91A6F541C86F6F200BDDE28 /* Localizable.strings in Resources */,
 				F9E696761AFCC06600273DA3 /* Main.storyboard in Resources */,
-				F910AACF1C52358400A35170 /* GoogleService-Info.plist in Resources */,
 				8E880AC11DF362CC004D8A9E /* Toruń.gpx in Resources */,
 				F9E6967B1AFCC06600273DA3 /* LaunchScreen.xib in Resources */,
 				F930044F1E11D41D00A5CE10 /* MMTCitiesListSectionHeader.xib in Resources */,
@@ -984,6 +980,7 @@
 				INFOPLIST_FILE = MeteoUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.MeteoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-BridgingHeader.h";
@@ -1002,6 +999,7 @@
 				INFOPLIST_FILE = MeteoUITests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.MeteoUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-BridgingHeader.h";
@@ -1020,14 +1018,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1051,10 +1055,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1067,14 +1073,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1091,10 +1103,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_SWIFT_FLAGS = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1112,16 +1126,22 @@
 				DEVELOPMENT_TEAM = GMU6W6K8X6;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/MobileMeteo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleAnalytics\"",
+				);
 				INFOPLIST_FILE = MobileMeteo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-D DEBUG";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.meteo;
 				PRODUCT_NAME = MobileMeteo;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
@@ -1138,6 +1158,11 @@
 				DEVELOPMENT_TEAM = GMU6W6K8X6;
 				ENABLE_BITCODE = NO;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/MobileMeteo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleAnalytics\"",
+				);
 				INFOPLIST_FILE = MobileMeteo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1147,6 +1172,7 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
@@ -1162,13 +1188,11 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = MobileMeteoTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.szostakowski.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = MobileMeteoTests;
 				SWIFT_OBJC_BRIDGING_HEADER = "MobileMeteo/MobileMeteo-BridgingHeader.h";

@@ -22,7 +22,7 @@ class MMTDatabase: NSObject
     lazy var model: NSManagedObjectModel =
     {
         let modelURL = Bundle.main.url(forResource: "Mobile_Meteo", withExtension: "momd")
-        return NSManagedObjectModel(contentsOf: modelURL!)!
+        return NSManagedObjectModel(contentsOf: modelURL!)
     }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator =
@@ -91,7 +91,7 @@ class MMTDatabase: NSObject
     
     fileprivate func reportFatalError(_ error: NSError?)
     {
-        NSLog("CoreData fatal error: \(error)")
+        NSLog("CoreData fatal error: \(String(describing: error))")
         abort()
     }
 }

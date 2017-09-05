@@ -105,9 +105,13 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     }
     
     private func setupAnalytics()
-    {
-        var error: NSError?
-        GGLContext.sharedInstance().configureWithError(&error)
+    {        
+        guard let gai = GAI.sharedInstance() else {
+            assert(false, "Google Analytics not configured correctly")
+        }
+        
+        gai.tracker(withTrackingId: "UA-71334623-2")
+        gai.trackUncaughtExceptions = false
     }
     
     // MARK: Helper methods
