@@ -22,7 +22,7 @@ class MMTDatabase: NSObject
     lazy var model: NSManagedObjectModel =
     {
         let modelURL = Bundle.main.url(forResource: "Mobile_Meteo", withExtension: "momd")
-        return NSManagedObjectModel(contentsOf: modelURL!)
+        return NSManagedObjectModel(contentsOf: modelURL!)!
     }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator =
