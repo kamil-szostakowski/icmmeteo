@@ -44,7 +44,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
     {
         super.viewDidLoad()
         
-        citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
+        citiesStore = MMTCitiesStore(db: MMTDatabase.instance, geocoder: MMTCityGeocoder(generalGeocoder: CLGeocoder()))
         meteorogramStore = MMTMeteorogramStore(model: climateModel, date: Date())
         btnShow.isEnabled = false
         

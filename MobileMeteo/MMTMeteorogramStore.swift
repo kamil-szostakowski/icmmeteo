@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreLocation
-import CoreGraphics
 
 class MMTMeteorogramStore: MMTForecastStore
 {    

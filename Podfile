@@ -1,6 +1,7 @@
 # Uncomment this line to define a global platform for your project
-# platform :ios, '6.0'
 # link_with 'MobileMeteo', 'MobileMeteoTests', 'MeteoUITests'
+
+platform :ios, '8.0'
 
 def common
 	pod 'Google/Analytics'

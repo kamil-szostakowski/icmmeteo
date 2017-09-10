@@ -19,17 +19,6 @@ import CoreData
     var isCapital: Bool { get set }
 }
 
-protocol MMTPlacemark
-{
-    var name: String? { get }
-    var locality: String? { get }
-    var ocean: String? { get }
-    var location: CLLocation? { get }
-    var administrativeArea: String? { get }
-}
-
-extension CLPlacemark: MMTPlacemark {}
-
 extension MMTCity: MMTCityProt
 {
     var location: CLLocation

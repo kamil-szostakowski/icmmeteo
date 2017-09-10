@@ -27,12 +27,12 @@ class MMTDetailedMapsStore: MMTForecastStore
         return Array(moments[map.momentsOffset..<moments.count])
     }
 
-    func getMeteorogram(for map: MMTDetailedMap, moment: Date, completion: @escaping MMTFetchMeteorogramCompletion)
+    func getMeteorogram(for map: MMTDetailedMapType, moment: Date, completion: @escaping MMTFetchMeteorogramCompletion)
     {
         let tZeroPlus = getHoursFromForecastStartDate(forDate: moment)
         let startDate = forecastStartDate
 
-        guard let downloadUrl = try? URL.mmt_detailedMapDownloadUrl(for: climateModel.type, map: map.type, tZero: startDate, plus: tZeroPlus) else {
+        guard let downloadUrl = try? URL.mmt_detailedMapDownloadUrl(for: climateModel.type, map: map, tZero: startDate, plus: tZeroPlus) else {
 
             completion(nil, .detailedMapNotSupported)
             return
@@ -41,7 +41,7 @@ class MMTDetailedMapsStore: MMTForecastStore
         urlSession.fetchImageFromUrl(downloadUrl, completion: completion)
     }
 
-    func getMeteorograms(for moments: [Date], map: MMTDetailedMap, completion: @escaping MMTFetchMeteorogramsCompletion)
+    func getMeteorograms(for moments: [Date], map: MMTDetailedMapType, completion: @escaping MMTFetchMeteorogramsCompletion)
     {
         let queue = DispatchQueue.global()
         let group = DispatchGroup()
