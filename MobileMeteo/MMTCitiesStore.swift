@@ -38,12 +38,17 @@ class MMTCitiesStore: NSObject
     
     func findCityForLocation(_ location: CLLocation, completion: @escaping MMTCityQueryCompletion)
     {
-        if let city = getCityWithLocation(location) {
-            completion(city, nil)
-            return
+        geocoder.city(for: location) {
+            (geocodedCity: MMTCityProt?, error: MMTError?) in
+            
+            var city = geocodedCity;
+            defer { completion(city, error) }
+            
+            guard error == nil else { return }
+            guard let localCity = self.getCity(with: city!.name) else { return; }
+            
+            city = localCity
         }
-        
-        geocoder.city(for: location, completion: completion)
     }
     
     func findCitiesMatchingCriteria(_ criteria: String, completion: @escaping MMTCitiesQueryCompletion)
@@ -96,13 +101,15 @@ class MMTCitiesStore: NSObject
         let cities = getAllCities().filter(){ predicate.evaluate(with: $0) }
         
         return cities
-    }    
-
-    private func getCityWithLocation(_ location: CLLocation) -> MMTCityProt?
+    }
+    
+    private func getCity(with name: String) -> MMTCityProt?
     {
-        let parameters = ["LAT": location.coordinate.latitude, "LNG": location.coordinate.longitude]
-        let fetchRequest = database.model.fetchRequestFromTemplate(withName: MMTFetch.CityWithLocation, substitutionVariables: parameters)!
+        let
+        fetchRequest = NSFetchRequest<MMTCity>(entityName: "MMTCity")
+        fetchRequest.predicate = NSPredicate(format: "SELF.name LIKE[cd] %@", name)
+        fetchRequest.fetchLimit = 1
         
-        return (try? database.context.fetch(fetchRequest))?.first as? MMTCity
+        return (try? database.context.fetch(fetchRequest))?.first
     }
 }

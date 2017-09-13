@@ -96,7 +96,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
         btnFavourite.setImage(unselectedImage, for: .normal)
         btnFavourite.addTarget(self, action: #selector(self.onStarBtnTouchAction(_:)), for: .touchUpInside)
         btnFavourite.isSelected = city.isFavourite
-        btnFavourite.isEnabled = false
+        btnFavourite.isUserInteractionEnabled = false
         
         navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(customView: btnFavourite)
     }
@@ -121,7 +121,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
             
             self.meteorogramImage.image = image!
             self.activityIndicator.isHidden = true
-            self.btnFavourite.isEnabled = true
+            self.btnFavourite.isUserInteractionEnabled = true
         }
     }
     
