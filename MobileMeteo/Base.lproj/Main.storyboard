@@ -314,6 +314,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="Nb7-mW-Fnc"/>
+                                    <constraint firstAttribute="height" constant="44" id="O13-Uy-2ap"/>
                                 </constraints>
                                 <color key="barTintColor" red="0.92000001668930054" green="0.92000001668930054" blue="0.92000001668930054" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
@@ -321,11 +322,6 @@
                                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="MLC-j3-gFA">
                                             <connections>
                                                 <action selector="onCloseBtnTouchAction:" destination="lDT-Dp-3bJ" id="7FR-PX-N1n"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" image="star-outline" id="Iqr-si-d4i" userLabel="Favourite">
-                                            <connections>
-                                                <action selector="onStartBtnTouchAction:" destination="lDT-Dp-3bJ" id="gbY-6R-rbh"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -366,7 +362,6 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="Cb5-Jv-ATc" id="73Z-Hi-H37"/>
-                        <outlet property="btnFavourite" destination="Iqr-si-d4i" id="p4C-Yz-ZI5"/>
                         <outlet property="legendImage" destination="e9l-Lv-tF2" id="AV4-BI-mrA"/>
                         <outlet property="meteorogramImage" destination="zo9-bc-FiZ" id="AoA-w2-YjM"/>
                         <outlet property="navigationBar" destination="tNU-2w-XXV" id="9Ll-kq-ZPX"/>
@@ -1028,7 +1023,6 @@
         <image name="info-university" width="36" height="36"/>
         <image name="logo" width="341" height="218"/>
         <image name="model-um" width="32" height="32"/>
-        <image name="star-outline" width="21" height="21"/>
         <image name="vibrant-bg" width="750" height="1334"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -9,7 +9,7 @@
 import XCTest
 @testable import MobileMeteo
 
-class MMTCategoryCGSizeTests: XCTestCase
+class MMTCGSizeTests: XCTestCase
 {
     func testMeteorogramSize()
     {        

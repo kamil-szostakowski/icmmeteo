@@ -10,7 +10,7 @@ import XCTest
 import Foundation
 @testable import MobileMeteo
 
-class MMTCategoryNSDateFormatterTests: XCTestCase
+class MMTNSDateFormatterTests: XCTestCase
 {
     // MARK: Test methods
     // TODO: Check behaviour of tests on different locales

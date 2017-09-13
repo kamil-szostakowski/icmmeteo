@@ -21,7 +21,6 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     @IBOutlet var activityIndicator: UIView!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var scrollViewContainer: UIView!
-    @IBOutlet var btnFavourite: UIBarButtonItem!
     
     // MARK: Properties
     
@@ -32,6 +31,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     private var meteorogramStore: MMTMeteorogramStore!
     private var meteorogramSize: CGSize!
     private var meteorogramLegendSize: CGSize!
+    private var btnFavourite: UIButton!
 
     // MARK: Controller methods
     
@@ -42,7 +42,6 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance, geocoder: MMTCityGeocoder(generalGeocoder: CLGeocoder()))
         meteorogramStore = MMTMeteorogramStore(model: climateModel, date: Date())
         navigationBar.topItem!.title = city.name
-        btnFavourite.isEnabled = false
 
         setupStarButton()
         setupMeteorogramSize()
@@ -89,8 +88,17 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     
     private func setupStarButton()
     {
-        let imageName = city.isFavourite ? "star" : "star-outline"
-        navigationBar.topItem?.rightBarButtonItem?.image = UIImage(named: imageName)
+        let selectedImage = UIImage(named: "star")?.withRenderingMode(.alwaysTemplate)
+        let unselectedImage = UIImage(named: "star-outline")?.withRenderingMode(.alwaysTemplate)
+        
+        btnFavourite = UIButton(type: .custom)
+        btnFavourite.setImage(selectedImage, for: .selected)
+        btnFavourite.setImage(unselectedImage, for: .normal)
+        btnFavourite.addTarget(self, action: #selector(self.onStarBtnTouchAction(_:)), for: .touchUpInside)
+        btnFavourite.isSelected = city.isFavourite
+        btnFavourite.isEnabled = false
+        
+        navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(customView: btnFavourite)
     }
 
     private func setupMeteorogramSize()
@@ -148,14 +156,11 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
         adjustZoomScale()
     }
     
-    @IBAction func onStartBtnTouchAction(_ sender: UIBarButtonItem)
+    @IBAction func onStarBtnTouchAction(_ sender: UIButton)
     {
-        if let button = (navigationBar.layer.sublayers!.max(){ $0.position.x < $1.position.x }) {
-            button.add(CAAnimation.defaultScaleAnimation(), forKey: "scale")
-        }                
-        
         city.isFavourite = !city.isFavourite
-        setupStarButton()
+        sender.isSelected = city.isFavourite
+        sender.imageView?.layer.add(CAAnimation.defaultScaleAnimation(), forKey: "scale")
         updateCityStateInSpotlightIndex(city)
         
         let action: MMTAnalyticsAction = city.isFavourite ?
@@ -208,7 +213,6 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     
     private func updateCityStateInSpotlightIndex(_ city: MMTCityProt)
     {
-        guard #available(iOS 9.0, *) else { return }        
         guard CSSearchableIndex.isIndexingAvailable() else { return }
         
         if city.isFavourite {
