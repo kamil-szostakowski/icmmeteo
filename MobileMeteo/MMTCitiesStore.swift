@@ -74,7 +74,7 @@ class MMTCitiesStore: NSObject
             database.context.insert(aCity)
         }
         
-        if !favourite && !city.isCapital {
+        if favourite == false && city.isCapital == false {
             database.context.delete(aCity)
         }
         
@@ -85,31 +85,32 @@ class MMTCitiesStore: NSObject
     
     private func getAllCities() -> [MMTCityProt]
     {
-        let
-        request = database.model.fetchRequestFromTemplate(withName: MMTFetch.AllCities, substitutionVariables: [String: AnyObject]())!
-        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-        
-        guard let objects = try? database.context.fetch(request) else { return [] }
-        guard let cities = objects as? [MMTCity] else { return [] }
-
-        return cities
+        let fetchRequest = citiesFetchRequest(predicate: nil)
+        return (try? database.context.fetch(fetchRequest)) ?? []
     }
     
     private func getCitiesMatchingCriteria(_ criteria: String) -> [MMTCityProt]
     {
-        let predicate = NSPredicate(format: "SELF.name CONTAINS[cd] %@", criteria)
-        let cities = getAllCities().filter(){ predicate.evaluate(with: $0) }
-        
-        return cities
+        let fetchRequest = citiesFetchRequest(predicate: NSPredicate(format: "SELF.name CONTAINS[cd] %@", criteria))
+        return (try? database.context.fetch(fetchRequest)) ?? []
     }
     
     private func getCity(with name: String) -> MMTCityProt?
     {
         let
-        fetchRequest = NSFetchRequest<MMTCity>(entityName: "MMTCity")
-        fetchRequest.predicate = NSPredicate(format: "SELF.name LIKE[cd] %@", name)
+        fetchRequest = citiesFetchRequest(predicate: NSPredicate(format: "SELF.name LIKE[cd] %@", name))
         fetchRequest.fetchLimit = 1
         
         return (try? database.context.fetch(fetchRequest))?.first
+    }
+    
+    private func citiesFetchRequest(predicate: NSPredicate?) -> NSFetchRequest<MMTCity>
+    {
+        let
+        fetchRequest = NSFetchRequest<MMTCity>(entityName: "MMTCity")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        fetchRequest.predicate = predicate
+        
+        return fetchRequest
     }
 }
