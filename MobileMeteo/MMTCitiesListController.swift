@@ -69,7 +69,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
             self.updateIndexWithCityOfCurrentLocation{
             
                 self.setupNotificationHandler()
-                guard !self.searchInput.isValid else { return }
+                guard self.searchInput.isValid == false else { return }
                 self.tableView.reloadData()
             }
         }
@@ -163,7 +163,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     {
         updateIndexWithCityOfCurrentLocation() {
             
-            guard !self.searchInput.isValid else { return }
+            guard self.searchInput.isValid == false else { return }
             self.tableView.reloadData()
         }
     }    
@@ -184,7 +184,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         updateForecastStartDate()
         updateIndexWithCityOfCurrentLocation() {
         
-            guard !self.searchInput.isValid else { return }
+            guard self.searchInput.isValid == false else { return }
             self.tableView.reloadData()
         }
     }
@@ -344,6 +344,10 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     {
         citiesStore.getAllCities()
         {
+            if self.cityOfCurrentLocation?.name.characters.count == 0 {
+                self.cityOfCurrentLocation = nil
+            }
+            
             self.citiesIndex =  MMTCitiesIndex($0, currentCity: self.cityOfCurrentLocation)
             completion()
         }
@@ -396,5 +400,7 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         searchBar.resignFirstResponder()
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.text = ""
+        
+        searchInput = MMTSearchInput("")
     }
 }

@@ -21,7 +21,7 @@ typealias MMTCitiesIndexSection = (type: MMTCitiesIndexSectionType, cities: [MMT
 
 struct MMTCitiesIndex
 {
-    fileprivate var content: [MMTCitiesIndexSection]
+    private var content: [MMTCitiesIndexSection]
     
     var sectionCount: Int {
         return content.count

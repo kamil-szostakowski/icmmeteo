@@ -27,13 +27,6 @@ struct MMTFormat
     static let TZero = "%04ld%02ld%02ld%02ld"
 }
 
-struct MMTFetch
-{
-    static let AllCities = "FetchAllCities"
-    static let CityWithName = "FetchCityWithName"
-    static let CityWithLocation = "FetchCityWithLocation"
-}
-
 let MMTActivityTypeDisplayModelUm = "com.szostakowski.meteo.um"
 
 let MMTTranslationCityCategory:[MMTCitiesIndexSectionType: String] =
