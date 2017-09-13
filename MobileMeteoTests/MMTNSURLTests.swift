@@ -11,7 +11,7 @@ import Foundation
 import CoreLocation
 @testable import MobileMeteo
 
-class MMTCategoryNSURLTests: XCTestCase
+class MMTNSURLTests: XCTestCase
 {
     // MARK: Test methods
     

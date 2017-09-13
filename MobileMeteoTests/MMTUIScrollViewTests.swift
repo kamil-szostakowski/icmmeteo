@@ -11,7 +11,7 @@ import UIKit
 import Foundation
 @testable import MobileMeteo
 
-class MMTCategoryUIScrollViewTests: XCTestCase
+class MMTUIScrollViewTests: XCTestCase
 {
     var scrollView: UIScrollView!
     

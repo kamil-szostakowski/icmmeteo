@@ -26,13 +26,13 @@
 		8EE580B01C0118A0000B36BB /* MMTMeteorogramPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE580AF1C0118A0000B36BB /* MMTMeteorogramPreview.swift */; };
 		A8736ED2857D736E552A5A9A /* libPods-MobileMeteo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5DA4C9BB5FED94C3F36386 /* libPods-MobileMeteo.a */; };
 		BE37FF3BC88F74390EB45A09 /* libPods-MeteoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3CE4A773356028F6D9B3B1 /* libPods-MeteoUITests.a */; };
-		F9060B3F1C059FE70025EE8D /* MMTCategoryUIScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9060B3E1C059FE70025EE8D /* MMTCategoryUIScrollViewTests.swift */; };
+		F9060B3F1C059FE70025EE8D /* MMTUIScrollViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9060B3E1C059FE70025EE8D /* MMTUIScrollViewTests.swift */; };
 		F906CF0E1C58F04D009BBEB9 /* MMTCitiesIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F906CF0D1C58F04D009BBEB9 /* MMTCitiesIndex.swift */; };
 		F907075E1C61F465001D72A0 /* MMTCityMapPickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F907075D1C61F465001D72A0 /* MMTCityMapPickerTests.swift */; };
 		F90707601C61F719001D72A0 /* MMTInfoScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F907075F1C61F719001D72A0 /* MMTInfoScreenTests.swift */; };
 		F90A5DD61E15C35200058B57 /* MMTDetailedMapsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A5DD51E15C35200058B57 /* MMTDetailedMapsStore.swift */; };
 		F90A5DD81E1711D300058B57 /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A5DD71E1711D300058B57 /* CGSize.swift */; };
-		F90A5DDA1E17161800058B57 /* MMTCategoryCGSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A5DD91E17161800058B57 /* MMTCategoryCGSizeTests.swift */; };
+		F90A5DDA1E17161800058B57 /* MMTCGSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A5DD91E17161800058B57 /* MMTCGSizeTests.swift */; };
 		F90A5DDC1E19B0CE00058B57 /* MMTClimateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A5DDB1E19B0CE00058B57 /* MMTClimateModel.swift */; };
 		F90A5DDE1E19B1DB00058B57 /* MMTUmClimateModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A5DDD1E19B1DB00058B57 /* MMTUmClimateModelTests.swift */; };
 		F90F72A41C5A0FEF00130353 /* MMTCitiesIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90F72A31C5A0FEF00130353 /* MMTCitiesIndexTests.swift */; };
@@ -62,11 +62,11 @@
 		F989C52F1B9D6B1A002A1903 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F989C52E1B9D6B1A002A1903 /* MapKit.framework */; };
 		F989C5311B9D6BDA002A1903 /* MMTCityMapPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F989C5301B9D6BDA002A1903 /* MMTCityMapPickerController.swift */; };
 		F99A8A2C1B8463FE0098E170 /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99A8A2B1B8463FE0098E170 /* NSURL.swift */; };
-		F99A8A2E1B8464E50098E170 /* MMTCategoryNSURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99A8A2D1B8464E50098E170 /* MMTCategoryNSURLTests.swift */; };
+		F99A8A2E1B8464E50098E170 /* MMTNSURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99A8A2D1B8464E50098E170 /* MMTNSURLTests.swift */; };
 		F99A8A301B846A4B0098E170 /* NSCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99A8A2F1B846A4B0098E170 /* NSCalendar.swift */; };
 		F99F24611B6B572300622E1E /* NSDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99F24601B6B572300622E1E /* NSDateFormatter.swift */; };
 		F99F24641B6B574900622E1E /* MMTTestTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99F24631B6B574900622E1E /* MMTTestTools.swift */; };
-		F99F24661B6B585000622E1E /* MMTCategoryNSDateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99F24651B6B585000622E1E /* MMTCategoryNSDateFormatterTests.swift */; };
+		F99F24661B6B585000622E1E /* MMTNSDateFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99F24651B6B585000622E1E /* MMTNSDateFormatterTests.swift */; };
 		F9AEF6891B8F29130096E936 /* MMTCityCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AEF6881B8F29130096E936 /* MMTCityCategory.swift */; };
 		F9B2BA411B4BFD0F0081AC29 /* MMTCitiesStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B2BA401B4BFD0F0081AC29 /* MMTCitiesStore.swift */; };
 		F9B686451B58DDD300E838BD /* MMTTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B686441B58DDD300E838BD /* MMTTabBarController.swift */; };
@@ -134,13 +134,13 @@
 		9F5BBE364BAE38B788DC5412 /* Pods-MobileMeteo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileMeteo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobileMeteo/Pods-MobileMeteo.debug.xcconfig"; sourceTree = "<group>"; };
 		BC5DA4C9BB5FED94C3F36386 /* libPods-MobileMeteo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileMeteo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8D23B87D7A42D9A142AF2B4 /* libPods-MobileMeteoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileMeteoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F9060B3E1C059FE70025EE8D /* MMTCategoryUIScrollViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCategoryUIScrollViewTests.swift; sourceTree = "<group>"; };
+		F9060B3E1C059FE70025EE8D /* MMTUIScrollViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTUIScrollViewTests.swift; sourceTree = "<group>"; };
 		F906CF0D1C58F04D009BBEB9 /* MMTCitiesIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesIndex.swift; sourceTree = "<group>"; };
 		F907075D1C61F465001D72A0 /* MMTCityMapPickerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCityMapPickerTests.swift; sourceTree = "<group>"; };
 		F907075F1C61F719001D72A0 /* MMTInfoScreenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTInfoScreenTests.swift; sourceTree = "<group>"; };
 		F90A5DD51E15C35200058B57 /* MMTDetailedMapsStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapsStore.swift; sourceTree = "<group>"; };
 		F90A5DD71E1711D300058B57 /* CGSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
-		F90A5DD91E17161800058B57 /* MMTCategoryCGSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCategoryCGSizeTests.swift; sourceTree = "<group>"; };
+		F90A5DD91E17161800058B57 /* MMTCGSizeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCGSizeTests.swift; sourceTree = "<group>"; };
 		F90A5DDB1E19B0CE00058B57 /* MMTClimateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTClimateModel.swift; sourceTree = "<group>"; };
 		F90A5DDD1E19B1DB00058B57 /* MMTUmClimateModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTUmClimateModelTests.swift; sourceTree = "<group>"; };
 		F90F72A31C5A0FEF00130353 /* MMTCitiesIndexTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesIndexTests.swift; sourceTree = "<group>"; };
@@ -176,11 +176,11 @@
 		F9941A5A1BECE15800700313 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9941A641BECE32300700313 /* MeteoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeteoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F99A8A2B1B8463FE0098E170 /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
-		F99A8A2D1B8464E50098E170 /* MMTCategoryNSURLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCategoryNSURLTests.swift; sourceTree = "<group>"; };
+		F99A8A2D1B8464E50098E170 /* MMTNSURLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTNSURLTests.swift; sourceTree = "<group>"; };
 		F99A8A2F1B846A4B0098E170 /* NSCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCalendar.swift; sourceTree = "<group>"; };
 		F99F24601B6B572300622E1E /* NSDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateFormatter.swift; sourceTree = "<group>"; };
 		F99F24631B6B574900622E1E /* MMTTestTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTTestTools.swift; sourceTree = "<group>"; };
-		F99F24651B6B585000622E1E /* MMTCategoryNSDateFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCategoryNSDateFormatterTests.swift; sourceTree = "<group>"; };
+		F99F24651B6B585000622E1E /* MMTNSDateFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTNSDateFormatterTests.swift; sourceTree = "<group>"; };
 		F9AEF6881B8F29130096E936 /* MMTCityCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCityCategory.swift; sourceTree = "<group>"; };
 		F9B2BA401B4BFD0F0081AC29 /* MMTCitiesStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesStore.swift; sourceTree = "<group>"; };
 		F9B686441B58DDD300E838BD /* MMTTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTTabBarController.swift; sourceTree = "<group>"; };
@@ -244,6 +244,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1BF148711F686F27002D9FB0 /* ViewExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				F9FFEE461B8DCEF900C30EDD /* UIImageView.swift */,
+				F9ED9FF91E07527B00190F59 /* UIView.swift */,
+				F9C5B5AF1B81D1FC00CFB503 /* UIScrollView.swift */,
+			);
+			name = ViewExtensions;
+			sourceTree = "<group>";
+		};
 		1E0B96656B6BD26F0DC667D3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,10 +340,9 @@
 		F9900EB91B282B86006880A1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1BF148711F686F27002D9FB0 /* ViewExtensions */,
 				F91A63471C467F3900747AC3 /* UIAlertController.swift */,
-				F9C5B5AF1B81D1FC00CFB503 /* UIScrollView.swift */,
 				F9ED9FFB1E0845AB00190F59 /* UIImage.swift */,
-				F9FFEE461B8DCEF900C30EDD /* UIImageView.swift */,
 				F99A8A2B1B8463FE0098E170 /* NSURL.swift */,
 				F99F24601B6B572300622E1E /* NSDateFormatter.swift */,
 				F90F72A61C5A3DA600130353 /* NSUserDefaults.swift */,
@@ -341,7 +350,6 @@
 				F9829D701C3FB09D00314438 /* CAAnimation.swift */,
 				F940516B1C57B62800D52B1C /* CSSearchableIndex.swift */,
 				F913A27B1C638B13004BD786 /* NSTimeInterval.swift */,
-				F9ED9FF91E07527B00190F59 /* UIView.swift */,
 				F90A5DD71E1711D300058B57 /* CGSize.swift */,
 			);
 			name = Extensions;
@@ -391,15 +399,15 @@
 			name = StoresTests;
 			sourceTree = "<group>";
 		};
-		F99A8A371B849A850098E170 /* CategoriesTests */ = {
+		F99A8A371B849A850098E170 /* ExtensionsTests */ = {
 			isa = PBXGroup;
 			children = (
-				F99A8A2D1B8464E50098E170 /* MMTCategoryNSURLTests.swift */,
-				F9060B3E1C059FE70025EE8D /* MMTCategoryUIScrollViewTests.swift */,
-				F99F24651B6B585000622E1E /* MMTCategoryNSDateFormatterTests.swift */,
-				F90A5DD91E17161800058B57 /* MMTCategoryCGSizeTests.swift */,
+				F99A8A2D1B8464E50098E170 /* MMTNSURLTests.swift */,
+				F9060B3E1C059FE70025EE8D /* MMTUIScrollViewTests.swift */,
+				F99F24651B6B585000622E1E /* MMTNSDateFormatterTests.swift */,
+				F90A5DD91E17161800058B57 /* MMTCGSizeTests.swift */,
 			);
-			name = CategoriesTests;
+			name = ExtensionsTests;
 			sourceTree = "<group>";
 		};
 		F99F24621B6B573500622E1E /* Tools */ = {
@@ -490,7 +498,7 @@
 		F9E696831AFCC06600273DA3 /* MobileMeteoTests */ = {
 			isa = PBXGroup;
 			children = (
-				F99A8A371B849A850098E170 /* CategoriesTests */,
+				F99A8A371B849A850098E170 /* ExtensionsTests */,
 				F99A8A361B849A760098E170 /* StoresTests */,
 				F99F24621B6B573500622E1E /* Tools */,
 				F977E33F1BA013EB00608270 /* MMTSearchInputFilterTests.swift */,
@@ -911,15 +919,15 @@
 				8EB46C781E58FDFE00AEB741 /* MMTGeocoderTests.swift in Sources */,
 				8E1505491E29778000F2D224 /* MMTCoampsClimateModelTests.swift in Sources */,
 				8E2908A11E36B0C300D97253 /* MMTForecastStoreTests.swift in Sources */,
-				F9060B3F1C059FE70025EE8D /* MMTCategoryUIScrollViewTests.swift in Sources */,
-				F99A8A2E1B8464E50098E170 /* MMTCategoryNSURLTests.swift in Sources */,
+				F9060B3F1C059FE70025EE8D /* MMTUIScrollViewTests.swift in Sources */,
+				F99A8A2E1B8464E50098E170 /* MMTNSURLTests.swift in Sources */,
 				F913A27A1C637623004BD786 /* MMTMeteorogramUrlSessionTests.swift in Sources */,
 				F90F72A41C5A0FEF00130353 /* MMTCitiesIndexTests.swift in Sources */,
-				F90A5DDA1E17161800058B57 /* MMTCategoryCGSizeTests.swift in Sources */,
+				F90A5DDA1E17161800058B57 /* MMTCGSizeTests.swift in Sources */,
 				F977E3401BA013EB00608270 /* MMTSearchInputFilterTests.swift in Sources */,
 				F931BF7E1C7469FB00386815 /* MMTCityTests.swift in Sources */,
 				F90A5DDE1E19B1DB00058B57 /* MMTUmClimateModelTests.swift in Sources */,
-				F99F24661B6B585000622E1E /* MMTCategoryNSDateFormatterTests.swift in Sources */,
+				F99F24661B6B585000622E1E /* MMTNSDateFormatterTests.swift in Sources */,
 				8E29089F1E36AF4900D97253 /* MMTDetailedMapsStoreTests.swift in Sources */,
 				F9DAEAB81B85D39A00D4CD34 /* MMTWamClimateModelTests.swift in Sources */,
 			);
@@ -978,7 +986,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				INFOPLIST_FILE = MeteoUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.MeteoUITests;
@@ -997,7 +1005,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				INFOPLIST_FILE = MeteoUITests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.MeteoUITests;
@@ -1190,7 +1198,7 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = MobileMeteoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.szostakowski.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1215,7 +1223,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = MobileMeteoTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.szostakowski.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = MobileMeteoTests;
