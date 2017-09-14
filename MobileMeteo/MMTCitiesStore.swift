@@ -78,7 +78,7 @@ class MMTCitiesStore: NSObject
             database.context.delete(aCity)
         }
         
-        MMTDatabase.instance.saveContext()
+        database.saveContext()
     }        
     
     // MARK: Helper methods

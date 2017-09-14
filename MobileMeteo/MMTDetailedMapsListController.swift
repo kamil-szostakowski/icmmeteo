@@ -67,6 +67,7 @@ class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UI
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
+        tableView.deselectRow(at: indexPath, animated: true)
         selectedDetailedMap = meteorogramStore.climateModel.detailedMaps[indexPath.row]
         performSegue(withIdentifier: MMTSegue.DisplayDetailedMap, sender: self)
     }

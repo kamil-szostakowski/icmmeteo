@@ -226,6 +226,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
         guard fetchSequenceRetryCount < 2 else {
             
             displayErrorAlert(.meteorogramFetchFailure)
+            lockUserInterface(false)
             return
         }
 
@@ -239,8 +240,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
 
         let errorRatioExceded = errorCount > moments.count/2
 
-        if errorRatioExceded
-        {
+        if errorRatioExceded {
             displayErrorAlert(.meteorogramFetchFailure)
         }
     }
