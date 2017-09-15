@@ -88,8 +88,8 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     
     private func setupStarButton()
     {
-        let selectedImage = UIImage(named: "star")?.withRenderingMode(.alwaysTemplate)
-        let unselectedImage = UIImage(named: "star-outline")?.withRenderingMode(.alwaysTemplate)
+        let selectedImage = UIImage(named: "star")!.withRenderingMode(.alwaysTemplate)
+        let unselectedImage = UIImage(named: "star-outline")!.withRenderingMode(.alwaysTemplate)
         
         btnFavourite = UIButton(type: .custom)
         btnFavourite.setImage(selectedImage, for: .selected)
@@ -97,6 +97,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
         btnFavourite.addTarget(self, action: #selector(self.onStarBtnTouchAction(_:)), for: .touchUpInside)
         btnFavourite.isSelected = city.isFavourite
         btnFavourite.isUserInteractionEnabled = false
+        btnFavourite.frame = CGRect(origin: .zero, size: selectedImage.size)
         
         navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(customView: btnFavourite)
     }
