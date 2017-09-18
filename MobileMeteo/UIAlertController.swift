@@ -18,10 +18,10 @@ extension UIAlertController
     
     class func alertForMMTError(_ error: MMTError, completion: ((UIAlertAction) -> Void)?) -> UIAlertController
     {
-        let closeAction = UIAlertAction(title: "zamknij", style: .cancel, handler: completion)
+        let closeAction = UIAlertAction(title: MMTLocalizedString("label.close"), style: .cancel, handler: completion)
         
         let
-        alert = UIAlertController(title: "", message: error.description, preferredStyle: .alert)
+        alert = UIAlertController(title: "", message: MMTLocalizedString("error.\(error.rawValue)"), preferredStyle: .alert)
         alert.addAction(closeAction)
         
         return alert

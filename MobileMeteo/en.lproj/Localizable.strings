@@ -34,3 +34,28 @@
 "detailed-maps.TideHeight" = "Significant wave height and mean wave direction";
 "detailed-maps.AverageTidePeriod" = "Mean wave period";
 "detailed-maps.SpectrumPeakPeriod" = "Peak period of 1-d spectra";
+
+"error.meteorogramNotFound" = "Meteorogram could not be found. Maybe it's not ready yet. Please try again later.";
+"error.meteorogramFetchFailure" = "Meteorogram download failure. Please try again later.";
+"error.locationUnsupported" = "Selected location is unsupported.";
+"error.locationNotFound" = "Could not find the details of the location. Please choose a different location or try again later.";
+"error.mailNotAvailable" = "If you wish to share your opinion with us, you have to configure your mailbox first.";
+
+"label.close" = "close";
+
+"Dolnośląskie" = "Lower Silesia";
+"Kujawsko-Pomorskie" = "Kuyavian-Pomeranian";
+"Lubelskie" = "Lublin";
+"Lubuskie" = "Lubusz";
+"Łódzkie" = "Lodz";
+"Małopolskie" = "Lesser Poland";
+"Mazowieckie" = "Masovian";
+"Opolskie" = "Opole";
+"Podkarpackie" = "Subcarpathian";
+"Podlaskie" = "Podlachia";
+"Pomorskie" = "Pomeranian";
+"Śląskie" = "Silesian";
+"Świętokrzyskie" = "Holy Cross";
+"Warmińsko-Mazurskie" = "Warmian-Masurian";
+"Wielkopolskie" = "Greater Poland";
+"Zachodniopomorskie" = "West Pomeranian";

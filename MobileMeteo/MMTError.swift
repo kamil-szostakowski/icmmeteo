@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum MMTError: Error
+enum MMTError: String, Error
 {
     case meteorogramNotFound
     case meteorogramFetchFailure
@@ -17,19 +17,5 @@ enum MMTError: Error
     case mailNotAvailable
     case forecastStartDateNotFound
     case detailedMapNotSupported
-    case urlNotAvailable
-    
-    var description: String?
-    {
-        switch self
-        {
-            case .meteorogramNotFound: return "Nie udało się odnaleźć meteorogramu. Najprawdopodobniej nie został jeszcze przygotowany. Spróbuj ponownie później."
-            case .meteorogramFetchFailure: return "Nie udało się pobrać meteorogramu. Spróbuj ponownie później."
-            case .locationUnsupported: return "Wybrana lokacja nie jest obsługiwana."
-            case .locationNotFound: return "Nie udało się odnaleźć szczegółów lokalizacji. Wybierz inną lokalizację lub spróbuj ponownie później."
-            case .mailNotAvailable: return "Zanim będziesz mógł przesłać nam swoją opinię, powinieneś skonfigurować swoją skrzynkę pocztową."
-            
-            default: return nil
-        }
-    }
+    case urlNotAvailable    
 }

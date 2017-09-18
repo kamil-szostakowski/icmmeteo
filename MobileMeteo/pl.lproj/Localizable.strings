@@ -34,3 +34,28 @@
 "detailed-maps.TideHeight" = "Wysokość fali znacznej i średni kierunek fali";
 "detailed-maps.AverageTidePeriod" = "Średni okres fali";
 "detailed-maps.SpectrumPeakPeriod" = "Okres piku widma";
+
+"error.meteorogramNotFound" = "Nie udało się odnaleźć meteorogramu. Najprawdopodobniej nie został jeszcze przygotowany. Spróbuj ponownie później.";
+"error.meteorogramFetchFailure" = "Nie udało się pobrać meteorogramu. Spróbuj ponownie później.";
+"error.locationUnsupported" = "Wybrana lokacja nie jest obsługiwana.";
+"error.locationNotFound" = "Nie udało się odnaleźć szczegółów lokalizacji. Wybierz inną lokalizację lub spróbuj ponownie później.";
+"error.mailNotAvailable" = "Zanim będziesz mógł przesłać nam swoją opinię, powinieneś skonfigurować swoją skrzynkę pocztową.";
+
+"label.close" = "zamknij";
+
+"Lower Silesia" = "Dolnośląskie";
+"Kuyavian-Pomeranian" = "Kujawsko-Pomorskie";
+"Lublin" = "Lubelskie";
+"Lubusz" = "Lubuskie";
+"Lodz" = "Łódzkie";
+"Lesser Poland" = "Małopolskie";
+"Masovian" = "Mazowieckie";
+"Opole" = "Opolskie";
+"Subcarpathian" = "Podkarpackie";
+"Podlachia" = "Podlaskie";
+"Pomeranian" = "Pomorskie";
+"Silesian" = "Śląskie";
+"Holy Cross" = "Świętokrzyskie";
+"Warmian-Masurian" = "Warmińsko-Mazurskie";
+"Greater Poland" = "Wielkopolskie";
+"West Pomeranian" = "Zachodniopomorskie";

@@ -212,10 +212,11 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         
         let isCurrentLocation = sectionType == .CurrentLocation
         let city = citiesIndex[indexPath.section].cities[indexPath.row]
+        let regionName = isCurrentLocation ? MMTTranslationCityCategory[sectionType] : MMTLocalizedString(city.region)
       
         let
         cell = tableView.dequeueReusableCell(withIdentifier: "CitiesListCell", for: indexPath)
-        cell.detailTextLabel?.text = isCurrentLocation ? MMTTranslationCityCategory[sectionType] : city.region
+        cell.detailTextLabel?.text = regionName
         cell.textLabel!.text = city.name
 
         return cell
