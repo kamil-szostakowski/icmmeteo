@@ -76,9 +76,7 @@ class MMTCitiesStore: NSObject
         
         if favourite == false && city.isCapital == false {
             database.context.delete(aCity)
-        }
-        
-        database.saveContext()
+        }                
     }        
     
     // MARK: Helper methods
