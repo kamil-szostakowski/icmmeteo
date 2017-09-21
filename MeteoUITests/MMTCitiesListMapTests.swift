@@ -13,26 +13,24 @@ class MMTCitiesListMapTests: MMTCitiesListTestCase
     func test_AddingAndRemovingCityPointedOnMapFromFavourites()
     {
         let
-        searchField = app.tables.searchFields["szukaj miasta"]
+        searchField = app.tables.otherElements["cities-search"]
         searchField.tap()
         searchField.typeText("aaa")
 
         sleep(3)
-        app.tables.cells[locationNotFound].tap()
+        app.tables.cells["find-city-on-map"].tap()
 
         let
         map = app.maps.element(boundBy: 0)
-        map.pinch(withScale: 4, velocity: 4)
-        map.press(forDuration: 1.3)
+        map.press(forDuration: 1.5)
 
-        app.navigationBars["Wybierz lokalizację"].buttons["Pokaż"].tap()
+        app.navigationBars["select-location-screen"].buttons["show"].tap()
+        let navBar = app.navigationBars["meteorogram-screen"]
+        
+        expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: navBar.buttons["toggle-favourite"]) {
 
-        let navBar = app.navigationBars.element(boundBy: 0)
-
-        expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: navBar.buttons["star outline"]) {
-
-            navBar.buttons["star outline"].tap()
-            navBar.buttons["Zatrzymaj"].tap()
+            navBar.buttons["toggle-favourite"].tap()
+            navBar.buttons["close"].tap()
             
             self.XCTCheckHeader(self.headerFavourites)
             self.XCTCheckHeader(self.headerCapitals)
@@ -42,12 +40,26 @@ class MMTCitiesListMapTests: MMTCitiesListTestCase
 
         waitForExpectations(timeout: 10){ _ in
 
-            self.removeFromFavourites(self.app.tables.cells.element(boundBy: 0).label)
+            self.removeFromFavourites(self.app.tables.cells.element(boundBy: 0 + self.tableOffset).label)
 
             /* --- Assertions -- */
             
-            XCTAssertEqual(self.bialystok, self.app.tables.cells.element(boundBy: 0).label)
+            XCTAssertEqual(self.bialystok, self.app.tables.cells.element(boundBy: 0 + self.tableOffset).label)
             self.XCTCheckHeader(self.headerCapitals)
         }
+    }
+    
+    func test_dismissMapPicker()
+    {
+        app.tables.otherElements["cities-search"].tap()
+        app.tables.otherElements["cities-search"].typeText("aaa")
+        app.tables.cells["find-city-on-map"].tap()
+        
+        let navBar = app.navigationBars["select-location-screen"]
+        
+        XCTAssertTrue(navBar.exists)
+        navBar.buttons["close"].tap()
+        sleep(1)
+        XCTAssertFalse(navBar.exists)
     }
 }

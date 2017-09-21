@@ -50,6 +50,11 @@
                BlueprintName = "MeteoUITests"
                ReferencedContainer = "container:MobileMeteo.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "MMTCityMapPickerTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

@@ -40,7 +40,7 @@ class MMTDetailedMapsTests: XCTestCase
     {
         displayDetailedMapsListForModel("UM")
         
-        XCTAssertTrue(app.navigationBars["Mapy szczegółowe"].exists)
+        XCTAssertTrue(app.navigationBars["detailed-maps-list-screen"].exists)
         XCTAssertEqual(app.tables.element(boundBy: 0).cells.count, 16);
     }
     
@@ -48,7 +48,7 @@ class MMTDetailedMapsTests: XCTestCase
     {
         displayDetailedMapsListForModel("COAMPS")
         
-        XCTAssertTrue(app.navigationBars["Mapy szczegółowe"].exists)
+        XCTAssertTrue(app.navigationBars["detailed-maps-list-screen"].exists)
         XCTAssertEqual(app.tables.element(boundBy: 0).cells.count, 11);
     }
     

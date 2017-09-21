@@ -38,10 +38,11 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
+        navigationBar.accessibilityIdentifier = "meteorogram-screen"
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance, geocoder: MMTCityGeocoder(generalGeocoder: CLGeocoder()))
         meteorogramStore = MMTMeteorogramStore(model: climateModel, date: Date())
         navigationBar.topItem!.title = city.name
+        navigationBar.topItem!.leftBarButtonItem?.accessibilityIdentifier = "close"
 
         setupStarButton()
         setupMeteorogramSize()
@@ -96,8 +97,9 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
         btnFavourite.setImage(unselectedImage, for: .normal)
         btnFavourite.addTarget(self, action: #selector(self.onStarBtnTouchAction(_:)), for: .touchUpInside)
         btnFavourite.isSelected = city.isFavourite
-        btnFavourite.isUserInteractionEnabled = false
+        btnFavourite.isEnabled = false
         btnFavourite.frame = CGRect(origin: .zero, size: selectedImage.size)
+        btnFavourite.accessibilityIdentifier = "toggle-favourite"
         
         navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(customView: btnFavourite)
     }
@@ -122,7 +124,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
             
             self.meteorogramImage.image = image!
             self.activityIndicator.isHidden = true
-            self.btnFavourite.isUserInteractionEnabled = true
+            self.btnFavourite.isEnabled = true
         }
     }
     

@@ -55,18 +55,17 @@ class MMTOfflineTests: XCTestCase
     
     func test_selectLocationOnMap()
     {
-        app.searchFields["szukaj miasta"].tap()
-        app.searchFields["szukaj miasta"].typeText("aaa")
+        app.otherElements["cities-search"].tap()
+        app.otherElements["cities-search"].typeText("aaa")
         
         sleep(5)
-        app.tables.staticTexts["Wskaż lokalizację na mapie"].tap()
+        app.tables.cells["find-city-on-map"].tap()
         
         let
-        map = app.maps.element(boundBy: 0)
-        map.pinch(withScale: 4, velocity: 4)
+        map = app.maps.element(boundBy: 0)        
         map.press(forDuration: 1.3)
         
-        app.navigationBars["Wybierz lokalizację"].buttons["Pokaż"].tap()
+        app.navigationBars["select-location-screen"].buttons["show"].tap()
 
         verifyFailureAlert(app.alerts.element(boundBy: 0), locationResolveError)
     }

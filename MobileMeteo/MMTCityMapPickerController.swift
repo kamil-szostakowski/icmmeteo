@@ -28,6 +28,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var btnClose: UIBarButtonItem!
     @IBOutlet var btnShow: UIBarButtonItem!
+    @IBOutlet var navigationBar: UINavigationBar!
     
     // MARK: Properties
     
@@ -43,6 +44,10 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        
+        btnClose.accessibilityIdentifier = "close"
+        btnShow.accessibilityIdentifier = "show"
+        navigationBar.accessibilityIdentifier = "select-location-screen"
         
         citiesStore = MMTCitiesStore(db: MMTDatabase.instance, geocoder: MMTCityGeocoder(generalGeocoder: CLGeocoder()))
         meteorogramStore = MMTMeteorogramStore(model: climateModel, date: Date())
