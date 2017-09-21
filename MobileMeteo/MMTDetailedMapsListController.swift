@@ -13,6 +13,7 @@ class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UI
 {
     // MARK: Outlets
     
+    @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
@@ -27,6 +28,7 @@ class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UI
     {
         super.viewDidLoad()
 
+        navigationBar.accessibilityIdentifier = "detailed-maps-list-screen"
         setupModelStore()
         analytics?.sendScreenEntryReport("Detailed maps")
     }

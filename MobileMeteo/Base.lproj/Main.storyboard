@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VAh-Ln-Mxc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VAh-Ln-Mxc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -53,7 +53,8 @@
                                     </subviews>
                                     <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <accessibility key="accessibilityConfiguration">
-                                        <bool key="isElement" value="YES"/>
+                                        <accessibilityTraits key="traits" notEnabled="YES"/>
+                                        <bool key="isElement" value="NO"/>
                                     </accessibility>
                                     <constraints>
                                         <constraint firstItem="duU-CU-zjU" firstAttribute="leading" secondItem="cMF-AY-pik" secondAttribute="leading" id="0zI-fV-YRz"/>
@@ -669,6 +670,7 @@
                         <outlet property="btnClose" destination="IXb-Zd-1SH" id="K07-nT-1GQ"/>
                         <outlet property="btnShow" destination="SxL-e7-iV7" id="fcP-Py-b2D"/>
                         <outlet property="mapView" destination="b3x-5F-DcE" id="hzz-bB-kH5"/>
+                        <outlet property="navigationBar" destination="Oj7-vk-Ve9" id="4SZ-In-zp4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="itG-WL-yjR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -784,6 +786,7 @@
                     <tabBarItem key="tabBarItem" title="Mapy" image="detailed-maps" id="mdg-cq-Zyh"/>
                     <navigationItem key="navigationItem" id="x78-j3-tT4"/>
                     <connections>
+                        <outlet property="navigationBar" destination="fkW-yY-Xe8" id="stY-ez-aMD"/>
                         <outlet property="segmentControl" destination="Y5m-Lt-Km3" id="FfJ-T0-ZnZ"/>
                         <outlet property="tableView" destination="tQf-Ha-W9r" id="QtV-hu-C6U"/>
                         <segue destination="PxB-id-yZw" kind="show" identifier="DisplayDetailedMap" id="FHs-6N-fme">
@@ -862,6 +865,9 @@
                                         <subviews>
                                             <imageView contentMode="scaleToFill" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="fe7-r6-aDL">
                                                 <rect key="frame" x="0.0" y="0.0" width="669" height="740"/>
+                                                <accessibility key="accessibilityConfiguration">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
                                                 <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="740" id="sHY-6y-wJq"/>

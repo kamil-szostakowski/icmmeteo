@@ -60,8 +60,8 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-        
-        resetSearchBar()
+
+        setupSearchBar()
         updateForecastStartDate()
         updateIndexWithAllCities() {
             
@@ -110,6 +110,12 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
     }
 
     // MARK: Setup methods
+    
+    private func setupSearchBar()
+    {
+        searchBar.accessibilityIdentifier = "cities-search"                
+        resetSearchBar()
+    }
 
     private func setupTableView()
     {
@@ -207,7 +213,12 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
         let sectionType = citiesIndex[indexPath.section].type
         
         guard sectionType != .NotFound else {
-            return tableView.dequeueReusableCell(withIdentifier: "FindLocationCell", for: indexPath)
+            
+            let
+            cell = tableView.dequeueReusableCell(withIdentifier: "FindLocationCell", for: indexPath)
+            cell.accessibilityIdentifier = "find-city-on-map"
+            
+            return cell
         }
         
         let isCurrentLocation = sectionType == .CurrentLocation
@@ -232,14 +243,17 @@ class MMTCitiesListController: UIViewController, UITableViewDelegate, UITableVie
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
-        guard let headerTitle = MMTTranslationCityCategory[citiesIndex[section].type] else {
+        let translationKey = citiesIndex[section].type
+        
+        guard let headerTitle = MMTTranslationCityCategory[translationKey] else {
             return nil
         }
 
         let
         header = tableView.dequeueReusableHeaderFooterView(withIdentifier: sectionHeaderIdentifier)!
-        header.textLabel?.text = headerTitle
+        header.accessibilityIdentifier = translationKey.rawValue
         header.accessibilityLabel = headerTitle
+        header.textLabel?.text = headerTitle
         
         return header
     }

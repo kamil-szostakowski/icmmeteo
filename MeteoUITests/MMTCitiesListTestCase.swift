@@ -20,9 +20,13 @@ class MMTCitiesListTestCase: XCTestCase
     let bialystok = "Białystok, Podlaskie"
 
     let detailedMaps = "Mapy szczegółowe"
-    let headerFavourites = "Ulubione"
-    let headerCapitals = "Miasta wojewódzkie"
+    let headerFavourites = "Favourites"
+    let headerCapitals = "Capitals"
     let locationNotFound = "Wskaż lokalizację na mapie"
+    
+    var tableOffset: UInt {
+        return UInt(app.tables.cells.element(boundBy: 0).label.contains("Obecna lokalizacja") ? 1 : 0)
+    }
 
     var app: XCUIApplication!
 
@@ -55,12 +59,12 @@ class MMTCitiesListTestCase: XCTestCase
     {
         app.tables.cells[elementName].tap()
 
-        let navBar = self.app.navigationBars.element(boundBy: 0)
+        let navBar = self.app.navigationBars["meteorogram-screen"]
 
-        expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: navBar.buttons["star outline"]) {
+        expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: navBar.buttons["toggle-favourite"]) {
 
-            navBar.buttons["star outline"].tap()
-            navBar.buttons["Zatrzymaj"].tap()
+            navBar.buttons["toggle-favourite"].tap()
+            navBar.buttons["close"].tap()
             return true
         }
 
@@ -71,21 +75,20 @@ class MMTCitiesListTestCase: XCTestCase
     {
         app.tables.cells[elementName].tap()
 
-        let navBar = self.app.navigationBars.element(boundBy: 0)
+        let navBar = self.app.navigationBars["meteorogram-screen"]
 
-        expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: navBar.buttons["star"]) {
+        expectation(for: NSPredicate(format: "enabled == true"), evaluatedWith: navBar.buttons["toggle-favourite"]) {
 
-            navBar.buttons["star"].tap()
-            navBar.buttons["Zatrzymaj"].tap()
+            navBar.buttons["toggle-favourite"].tap()
+            navBar.buttons["close"].tap()
             return true
         }
 
         waitForExpectations(timeout: 10, handler: nil)
     }
 
-    func XCTCheckHeader(_ label: String)
+    func XCTCheckHeader(_ identifier: String)
     {
-        let header = app.tables.children(matching: .staticText)[label]
-        XCTAssertEqual(header.label, label)
+        XCTAssertTrue(app.tables.otherElements[identifier].exists)        
     }
 }

@@ -53,7 +53,7 @@ class MMTMeteorogramPreview: XCTestCase
         element.swipeLeft()
         element.doubleTap()
         
-        app.navigationBars["Białystok"].buttons["Zatrzymaj"].tap()
+        app.navigationBars["meteorogram-screen"].buttons["close"].tap()
     }
     
     func test_ContentVisibilityInLandscape()
@@ -67,7 +67,7 @@ class MMTMeteorogramPreview: XCTestCase
     
     // MARK: Helper methods
     
-    fileprivate func isElementVisible(_ element: XCUIElement) -> Bool
+    private func isElementVisible(_ element: XCUIElement) -> Bool
     {
         let window = app.windows.element(boundBy: 0)
         return window.frame.intersects(element.frame)
