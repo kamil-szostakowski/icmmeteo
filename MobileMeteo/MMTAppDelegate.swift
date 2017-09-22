@@ -60,16 +60,6 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         MMTDatabase.instance.saveContext()
     }
     
-    func applicationDidEnterBackground(_ application: UIApplication)
-    {
-        MMTDatabase.instance.saveContext()
-    }
-    
-    func applicationWillResignActive(_ application: UIApplication)
-    {
-        MMTDatabase.instance.saveContext()
-    }
-    
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool
     {
         guard #available(iOS 9.0, *) else { return false }
