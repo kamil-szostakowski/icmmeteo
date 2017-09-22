@@ -150,7 +150,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
 
     @IBAction func onCloseBtnTouchAction(_ sender: UIBarButtonItem)
     {
-        MMTDatabase.instance.saveContext()
+        citiesStore.markCity(city, asFavourite: city.isFavourite)
         performSegue(withIdentifier: MMTSegue.UnwindToListOfCities, sender: self)
     }
     
@@ -162,8 +162,6 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     @IBAction func onStarBtnTouchAction(_ sender: UIButton)
     {
         city.isFavourite = !city.isFavourite
-        citiesStore.markCity(city, asFavourite: city.isFavourite)
-        
         sender.isSelected = city.isFavourite
         sender.imageView?.layer.add(CAAnimation.defaultScaleAnimation(), forKey: "scale")
         updateCityStateInSpotlightIndex(city)
