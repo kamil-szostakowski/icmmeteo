@@ -8,15 +8,15 @@
 
 import Foundation
 
-extension NSTimeInterval
+extension TimeInterval
 {
     init(minutes: Int)
     {
-        self = NSTimeInterval(60*minutes)
+        self = TimeInterval(60*minutes)
     }
     
     init(hours: Int)
     {
-        self = NSTimeInterval(3600*hours)
+        self = TimeInterval(3600*hours)
     }
 }

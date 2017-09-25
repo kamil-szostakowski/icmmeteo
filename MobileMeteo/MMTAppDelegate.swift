@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import CoreData
+import CoreLocation
 import CoreSpotlight
 
 public let MMTDebugActionCleanupDb = "CLEANUP_DB"
@@ -25,25 +26,26 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         
     // MARK: Delegate methods
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool
-    {
-        citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
+    {        
+        citiesStore = MMTCitiesStore(db: MMTDatabase.instance, geocoder: MMTCityGeocoder(generalGeocoder: CLGeocoder()))
         
         #if DEBUG
-        if NSProcessInfo.processInfo().arguments.contains(MMTDebugActionCleanupDb)
+        if ProcessInfo.processInfo.arguments.contains(MMTDebugActionCleanupDb)
         {
+            URLCache.shared.removeAllCachedResponses()
             MMTDatabase.instance.flushDatabase()
-            NSUserDefaults.standardUserDefaults().removePersistentDomainForName(NSBundle.mainBundle().bundleIdentifier!)
-            NSUserDefaults.standardUserDefaults().synchronize()            
+            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+            UserDefaults.standard.synchronize()
         }
             
-        if NSProcessInfo.processInfo().arguments.contains(MMTDebugActionSimulatedOfflineMode)
+        if ProcessInfo.processInfo.arguments.contains(MMTDebugActionSimulatedOfflineMode)
         {
             MMTMeteorogramUrlSession.simulateOfflineMode = true
         }
         #endif
         
-        if !NSUserDefaults.standardUserDefaults().isAppInitialized {
+        if !UserDefaults.standard.isAppInitialized {
             initDatabase()
         }
         
@@ -53,12 +55,12 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         return true
     }
     
-    func applicationWillTerminate(application: UIApplication)
+    func applicationWillTerminate(_ application: UIApplication)
     {
         MMTDatabase.instance.saveContext()
     }
     
-    func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool
     {
         guard #available(iOS 9.0, *) else { return false }
         guard let activityId = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String else { return false }        
@@ -66,16 +68,16 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         
         citiesStore.findCityForLocation(location) { (city: MMTCityProt?, error: MMTError?) in
             
-            guard error == nil && city != nil else
+            guard let selectedCity = city, error == nil else
             {
                 let alert = UIAlertController.alertForMMTError(error!)
-                self.rootViewController.presentViewController(alert, animated: true, completion: nil)
+                self.rootViewController.present(alert, animated: true, completion: nil)
                 return
             }
             
             let report = MMTAnalyticsReport(category: .Locations, action: .LocationDidSelectOnSpotlight, actionLabel: city!.name)
             
-            self.rootViewController.presentMeteorogramUmForCity(city!)
+            self.rootViewController.presentMeteorogramUmForCity(selectedCity)
             self.rootViewController.analytics?.sendUserActionReport(report)
         }        
         
@@ -92,28 +94,33 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         ]
         
         UINavigationBar.appearance().titleTextAttributes = attributes
-        UIBarButtonItem.appearance().setTitleTextAttributes(attributes, forState: UIControlState.Normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: UIControlState())
         
         let disabledAttributes = [
             NSFontAttributeName: MMTAppearance.boldFontWithSize(16),
-            NSForegroundColorAttributeName: UIColor.lightGrayColor()
+            NSForegroundColorAttributeName: UIColor.lightGray
         ]
         
-        UIBarButtonItem.appearance().setTitleTextAttributes(disabledAttributes, forState: UIControlState.Disabled)
+        UIBarButtonItem.appearance().setTitleTextAttributes(disabledAttributes, for: UIControlState.disabled)
     }
     
     private func setupAnalytics()
-    {
-        var error: NSError?
-        GGLContext.sharedInstance().configureWithError(&error)
+    {        
+        guard let gai = GAI.sharedInstance() else {
+            assert(false, "Google Analytics not configured correctly")
+            return
+        }
+        
+        gai.tracker(withTrackingId: "UA-71334623-2")
+        gai.trackUncaughtExceptions = false
     }
     
     // MARK: Helper methods
     
     private func initDatabase()
     {
-        let filePath = NSBundle.mainBundle().pathForResource("Cities", ofType: "json")
-        let cities = MMTCitiesStore(db: MMTDatabase.instance).getPredefinedCitiesFromFile(filePath!)
+        let filePath = Bundle.main.path(forResource: "Cities", ofType: "json")                        
+        let cities = MMTPredefinedCitiesFileStore().getPredefinedCitiesFromFile(filePath!)
             
         for city in cities
         {
@@ -121,10 +128,10 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
                 continue
             }
                 
-            MMTDatabase.instance.context.insertObject(cityObject)
+            MMTDatabase.instance.context.insert(cityObject)
         }
             
         MMTDatabase.instance.saveContext()
-        NSUserDefaults.standardUserDefaults().isAppInitialized = true
+        UserDefaults.standard.isAppInitialized = true
     }    
 }

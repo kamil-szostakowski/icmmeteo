@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="v1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15B42" minimumToolsVersion="Automatic">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13233.4" systemVersion="16G29" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="v2">
     <entity name="MMTCity" representedClassName="MMTCity" versionHashModifier="v1.0" syncable="YES">
-        <attribute name="capital" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="favourite" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="lat" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
-        <attribute name="lng" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="capital" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="favourite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lat" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lng" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <fetchRequest name="FetchAllCities" entity="MMTCity"/>
-    <fetchRequest name="FetchCityWithLocation" entity="MMTCity" predicateString="lat == $LAT AND lng == $LNG"/>
-    <fetchRequest name="FetchCityWithName" entity="MMTCity" predicateString="name == $NAME" fetchLimit="1"/>
     <elements>
         <element name="MMTCity" positionX="-63" positionY="-18" width="128" height="135"/>
     </elements>

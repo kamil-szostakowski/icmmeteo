@@ -12,19 +12,19 @@ import Foundation
 extension UIImageView
 {
     var imageRenderingMode: UIImageRenderingMode {
-        get { return image?.renderingMode ?? .Automatic }
-        set { image = image?.imageWithRenderingMode(newValue) }
+        get { return image?.renderingMode ?? .automatic }
+        set { image = image?.withRenderingMode(newValue) }
     }
     
-    func updateSizeConstraints(size: CGSize)
+    func updateSizeConstraints(_ size: CGSize)
     {
         for constraint in self.constraints 
         {
-            if constraint.firstAttribute == NSLayoutAttribute.Width {
+            if constraint.firstAttribute == NSLayoutAttribute.width {
                 constraint.constant = size.width
             }
             
-            if constraint.firstAttribute == NSLayoutAttribute.Height {
+            if constraint.firstAttribute == NSLayoutAttribute.height {
                 constraint.constant = size.height
             }
         }

@@ -23,7 +23,7 @@ class MMTOfflineTests: XCTestCase
         
         continueAfterFailure = false
         
-        XCUIDevice.sharedDevice().orientation = .Portrait
+        XCUIDevice.shared().orientation = .portrait
         
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB", "SIMULATED_OFFLINE_MODE"]
@@ -38,52 +38,53 @@ class MMTOfflineTests: XCTestCase
     
     // MARK: Test methods
     
-    func test01_displayUmMeteorogram()
+    func test_displayUmMeteorogram()
     {
         app.tables.cells["Białystok, Podlaskie"].tap()
 
-        verifyFailureAlert(app.alerts.elementBoundByIndex(0), meteorogramFetchError)
+        verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
     }
     
-    func test02_displayCoampsMeteorogram()
+    func test_displayCoampsMeteorogram()
     {
         app.tabBars.buttons["Model COAMPS"].tap()
         app.tables.cells["Białystok, Podlaskie"].tap()
         
-        verifyFailureAlert(app.alerts.elementBoundByIndex(0), meteorogramFetchError)
-    }
+        verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
+    }    
     
-    func test03_displayWamMomentPreview()
+    func test_selectLocationOnMap()
     {
-        app.tabBars.buttons["Model WAM"].tap()
-        app.collectionViews.cells["TideHeight +3"].tap()
-        
-        verifyFailureAlert(app.alerts.elementBoundByIndex(0), meteorogramFetchError)
-    }
-    
-    func test04_selectLocationOnMap()
-    {
-        app.searchFields["szukaj miasta"].tap()
-        app.searchFields["szukaj miasta"].typeText("aaa")
+        app.otherElements["cities-search"].tap()
+        app.otherElements["cities-search"].typeText("aaa")
         
         sleep(5)
-        app.tables.staticTexts["Wskaż lokalizację na mapie"].tap()
+        app.tables.cells["find-city-on-map"].tap()
         
         let
-        map = app.maps.elementBoundByIndex(0)
-        map.pinchWithScale(4, velocity: 4)
-        map.pressForDuration(1.3)
+        map = app.maps.element(boundBy: 0)        
+        map.press(forDuration: 1.3)
         
-        app.navigationBars["Wybierz lokalizację"].buttons["Pokaż"].tap()
+        app.navigationBars["select-location-screen"].buttons["show"].tap()
 
-        verifyFailureAlert(app.alerts.elementBoundByIndex(0), locationResolveError)
+        verifyFailureAlert(app.alerts.element(boundBy: 0), locationResolveError)
+    }
+
+    func test_displayDetailedMapPreview()
+    {
+        app.tabBars.buttons["Mapy"].tap()
+        app.tables.cells.staticTexts["Opad"].tap()
+
+        sleep(5)
+
+        verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
     }
     
     // MARK: Helper methods
     
-    private func verifyFailureAlert(alert: XCUIElement, _ message: String)
+    private func verifyFailureAlert(_ alert: XCUIElement, _ message: String)
     {
-        let errorMsg = alert.staticTexts.elementBoundByIndex(2).label
+        let errorMsg = alert.staticTexts.element(boundBy: 0).label
         
         alert.buttons["zamknij"].tap()
         

@@ -11,17 +11,17 @@ import Foundation
 
 extension UIAlertController
 {
-    class func alertForMMTError(error: MMTError) -> UIAlertController
+    class func alertForMMTError(_ error: MMTError) -> UIAlertController
     {
         return self.alertForMMTError(error, completion: nil)
     }
     
-    class func alertForMMTError(error: MMTError, completion: ((UIAlertAction) -> Void)?) -> UIAlertController
+    class func alertForMMTError(_ error: MMTError, completion: ((UIAlertAction) -> Void)?) -> UIAlertController
     {
-        let closeAction = UIAlertAction(title: "zamknij", style: .Cancel, handler: completion)
+        let closeAction = UIAlertAction(title: MMTLocalizedString("label.close"), style: .cancel, handler: completion)
         
         let
-        alert = UIAlertController(title: "", message: error.description, preferredStyle: .Alert)
+        alert = UIAlertController(title: "", message: MMTLocalizedString("error.\(error.rawValue)"), preferredStyle: .alert)
         alert.addAction(closeAction)
         
         return alert

@@ -15,16 +15,6 @@ enum MMTCitiesIndexSectionType: String
     case Favourites
     case SearchResults
     case CurrentLocation
-    
-    var description: String?
-    {
-        switch self
-        {
-            case .Capitals: return "Miasta wojewódzkie"
-            case .Favourites: return "Ulubione"
-            default: return nil
-        }
-    }
 }
 
 typealias MMTCitiesIndexSection = (type: MMTCitiesIndexSectionType, cities: [MMTCityProt])
@@ -60,8 +50,8 @@ struct MMTCitiesIndex
         }
         
         if currentCity != nil {
-            content.insert(MMTCitiesIndexSection(type: .CurrentLocation, cities: [currentCity!]), atIndex: 0)
-        }
+            content.insert(MMTCitiesIndexSection(type: .CurrentLocation, cities: [currentCity!]), at: 0)
+        }                
     }
     
     init(searchResult: [MMTCityProt])
@@ -86,6 +76,6 @@ struct MMTCitiesIndex
     
     subscript(sections: [MMTCitiesIndexSectionType]) -> [MMTCityProt]
     {
-        get { return content.filter(){ sections.indexOf($0.type) != nil }.flatMap() { $0.cities } }
+        get { return content.filter(){ sections.index(of: $0.type) != nil }.flatMap() { $0.cities } }
     }    
 }

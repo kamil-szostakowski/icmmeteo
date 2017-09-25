@@ -28,13 +28,15 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
     @IBOutlet var mapView: MKMapView!
     @IBOutlet var btnClose: UIBarButtonItem!
     @IBOutlet var btnShow: UIBarButtonItem!
+    @IBOutlet var navigationBar: UINavigationBar!
     
     // MARK: Properties
     
     private var citiesStore: MMTCitiesStore!
     private var selectedLocation: CLLocation!
-    
-    var meteorogramStore: MMTGridClimateModelStore!    
+
+    var climateModel: MMTClimateModel!
+    var meteorogramStore: MMTMeteorogramStore!
     var selectedCity: MMTCityProt?
  
     // MARK: Overrideds
@@ -43,20 +45,25 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
     {
         super.viewDidLoad()
         
-        citiesStore = MMTCitiesStore(db: MMTDatabase.instance)
-        btnShow.enabled = false
+        btnClose.accessibilityIdentifier = "close"
+        btnShow.accessibilityIdentifier = "show"
+        navigationBar.accessibilityIdentifier = "select-location-screen"
+        
+        citiesStore = MMTCitiesStore(db: MMTDatabase.instance, geocoder: MMTCityGeocoder(generalGeocoder: CLGeocoder()))
+        meteorogramStore = MMTMeteorogramStore(model: climateModel, date: Date())
+        btnShow.isEnabled = false
         
         setupMapView()
     }    
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask
     {
-        return UIInterfaceOrientationMask.Portrait
+        return UIInterfaceOrientationMask.portrait
     }
     
     // MARK: Setup methods
     
-    private func setupMapView()
+    fileprivate func setupMapView()
     {
         let spanInMeters: CLLocationDistance = 230000
         let centerOfPoland = CLLocationCoordinate2D(latitude: 52.249, longitude: 19.20)
@@ -67,55 +74,51 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
     
     // MARK: Action methods
     
-    @IBAction func longPressDidRecognized(sender: UILongPressGestureRecognizer)
+    @IBAction func longPressDidRecognized(_ sender: UILongPressGestureRecognizer)
     {
-        if sender.state == .Ended
+        if sender.state == .ended
         {
-            let pressedPoint = sender.locationInView(mapView)
-            let pressedCoordinates = mapView.convertPoint(pressedPoint, toCoordinateFromView: mapView)
+            let pressedPoint = sender.location(in: mapView)
+            let pressedCoordinates = mapView.convert(pressedPoint, toCoordinateFrom: mapView)
             
             selectedLocation = CLLocation(latitude: pressedCoordinates.latitude, longitude: pressedCoordinates.longitude)
-            btnShow.enabled = true
+            btnShow.isEnabled = true
 
             mapView.removeAnnotations(mapView.annotations)
             mapView.addAnnotation(MMTCityAnnotation(coordinate: pressedCoordinates))
         }
     }
     
-    @IBAction func didClickCancelButton(sender: UIBarButtonItem)
+    @IBAction func didClickCancelButton(_ sender: UIBarButtonItem)
     {
         selectedCity = nil
     }
     
-    @IBAction func didClickShowButton(sender: UIBarButtonItem)
+    @IBAction func didClickShowButton(_ sender: UIBarButtonItem)
     {
         setInteractionEnabled(false)
         
         citiesStore.findCityForLocation(selectedLocation) {
             (city: MMTCityProt?, error: MMTError?) in
             
-            guard error == nil else
+            guard let aCity = city, error == nil else
             {
-                self.presentViewController(UIAlertController.alertForMMTError(error!), animated: true, completion: nil)
+                self.present(UIAlertController.alertForMMTError(error!), animated: true, completion: nil)
                 self.setInteractionEnabled(true)
                 return
             }
             
-            guard let aCity = city else {
-                return
-            }
-            
             self.selectedCity = aCity
-            self.performSegueWithIdentifier(MMTSegue.UnwindToListOfCities, sender: self)
+            self.performSegue(withIdentifier: MMTSegue.UnwindToListOfCities, sender: self)
         }
     }
     
     // MARK: Helper methods
     
-    private func setInteractionEnabled(enabled: Bool)
+    fileprivate func setInteractionEnabled(_ enabled: Bool)
     {
-        btnClose.enabled = enabled
-        btnShow.enabled = enabled
-        mapView.userInteractionEnabled = enabled
+        btnClose.isEnabled = enabled
+        btnShow.isEnabled = enabled
+        mapView.isUserInteractionEnabled = enabled
     }
 }

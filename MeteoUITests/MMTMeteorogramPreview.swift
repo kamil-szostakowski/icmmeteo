@@ -21,14 +21,15 @@ class MMTMeteorogramPreview: XCTestCase
         
         continueAfterFailure = false
         
-        XCUIDevice.sharedDevice().orientation = .Portrait
+        XCUIDevice.shared().orientation = .portrait
         
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB"]
         app.launch()
         
         app.tabBars.buttons["Model COAMPS"].tap()
-        app.tables.cells["Białystok, Podlaskie"].tap()
+        sleep(1)
+        app.tables.cells["Białystok, Podlaskie"].tap()        
     }
     
     override func tearDown()
@@ -39,25 +40,25 @@ class MMTMeteorogramPreview: XCTestCase
     
     // MARK: Test methods
     
-    func test01_ContentVisibilityInPortrait()
+    func test_ContentVisibilityInPortrait()
     {
         XCTAssertTrue(isElementVisible(app.images["meteorogram"]))
         XCTAssertFalse(isElementVisible(app.images["legend"]))
     }
     
-    func test02_ZoomingToDefaultScale()
+    func test_ZoomingToDefaultScale()
     {
         let
-        element = app.scrollViews.elementBoundByIndex(0)
+        element = app.scrollViews.element(boundBy: 0)
         element.swipeLeft()
         element.doubleTap()
         
-        app.navigationBars["Białystok"].buttons["Zatrzymaj"].tap()
+        app.navigationBars["meteorogram-screen"].buttons["close"].tap()
     }
     
-    func test03_ContentVisibilityInLandscape()
+    func test_ContentVisibilityInLandscape()
     {
-        XCUIDevice.sharedDevice().orientation = .LandscapeLeft
+        XCUIDevice.shared().orientation = .landscapeLeft
         sleep(1)
         
         XCTAssertTrue(isElementVisible(app.images["meteorogram"]))
@@ -66,9 +67,9 @@ class MMTMeteorogramPreview: XCTestCase
     
     // MARK: Helper methods
     
-    private func isElementVisible(element: XCUIElement) -> Bool
+    private func isElementVisible(_ element: XCUIElement) -> Bool
     {
-        let window = app.windows.elementBoundByIndex(0)
-        return CGRectIntersectsRect(window.frame, element.frame)
+        let window = app.windows.element(boundBy: 0)
+        return window.frame.intersects(element.frame)
     }
 }

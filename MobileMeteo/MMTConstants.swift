@@ -11,11 +11,14 @@ import Foundation
 struct MMTSegue
 {
     static let UnwindToListOfCities = "UnwindToListOfCities"
+    static let UnwindToListOfDetailedMaps = "UnwindToListOfDetailedMaps"
     static let UnwindToWamModel = "UnwindToWamModel"
     static let DisplayMeteorogram = "DisplayMeteorogram"
     static let DisplayWamSettings = "DisplayWamSettings"
     static let DisplayWamCategoryPreview = "DisplayWamCategoryPreview"
     static let DisplayMapScreen = "DisplayMapScreen"
+    static let DisplayDetailedMapsList = "DisplayDetailedMapsList"
+    static let DisplayDetailedMap = "DisplayDetailedMap"
 }
 
 struct MMTFormat
@@ -24,11 +27,21 @@ struct MMTFormat
     static let TZero = "%04ld%02ld%02ld%02ld"
 }
 
-struct MMTFetch
+let MMTActivityTypeDisplayModelUm = "com.szostakowski.meteo.um"
+
+let MMTTranslationCityCategory:[MMTCitiesIndexSectionType: String] =
+[
+    .CurrentLocation: MMTLocalizedString("locations.current"),
+    .Favourites: MMTLocalizedString("locations.favourites"),
+    .Capitals: MMTLocalizedString("locations.district-capitals"),
+]
+
+func MMTLocalizedString(_ string: String) -> String
 {
-    static let AllCities = "FetchAllCities"
-    static let CityWithName = "FetchCityWithName"
-    static let CityWithLocation = "FetchCityWithLocation"
+    return NSLocalizedString(string, comment: "")
 }
 
-let MMTActivityTypeDisplayModelUm = "com.szostakowski.meteo.um"
+func MMTLocalizedStringWithFormat(_ format: String, _ arguments: CVarArg...) -> String
+{
+    return String(format: NSLocalizedString(format, comment: ""), arguments: arguments)
+}

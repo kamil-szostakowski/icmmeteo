@@ -21,7 +21,7 @@ class MMTInfoScreenTests: XCTestCase
         
         continueAfterFailure = false
         
-        XCUIDevice.sharedDevice().orientation = .Portrait
+        XCUIDevice.shared().orientation = .portrait
         
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB"]
@@ -36,7 +36,7 @@ class MMTInfoScreenTests: XCTestCase
     
     // MARK: Test methods
     
-    func test01_displayMailComposeScreen()
+    func test_displayMailComposeScreen()
     {
         app.tabBars.buttons["Źródło"].tap()
         app.buttons["napisz do nas"].tap()

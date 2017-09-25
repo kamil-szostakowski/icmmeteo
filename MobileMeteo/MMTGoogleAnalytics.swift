@@ -10,25 +10,25 @@ import Foundation
 
 extension GAI: MMTAnalytics
 {    
-    func sendScreenEntryReport(screen: String)
+    func sendScreenEntryReport(_ screen: String)
     {
-        let analyticsReport = GAIDictionaryBuilder.createScreenView().build()
+        let analyticsReport = GAIDictionaryBuilder.createScreenView().build() as NSDictionary
         
         defaultTracker.set(kGAIScreenName, value: screen)
-        defaultTracker.send(analyticsReport as [NSObject : AnyObject])
+        defaultTracker.send(analyticsReport as! [AnyHashable: Any])
     }
     
-    func sendUserActionReport(report: MMTAnalyticsReport)
+    func sendUserActionReport(_ report: MMTAnalyticsReport)
     {
         let category = report.category.rawValue
         let action = report.action.rawValue
-        let analyticsReport = GAIDictionaryBuilder.createEventWithCategory(category, action: action, label: report.actionLabel, value: 1).build()
+        let analyticsReport = GAIDictionaryBuilder.createEvent(withCategory: category, action: action, label: report.actionLabel, value: 1).build() as NSDictionary
         
         defaultTracker.set(kGAIScreenName, value: category)
-        defaultTracker.send(analyticsReport as [NSObject : AnyObject])
+        defaultTracker.send(analyticsReport as! [AnyHashable: Any])
     }
     
-    func sendUserActionReport(category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel label: String)
+    func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel label: String)
     {
         sendUserActionReport(MMTAnalyticsReport(category: category, action: action, actionLabel: label))
     }
@@ -42,11 +42,11 @@ extension UIViewController
             return nil
         }
         
-        GAI.sharedInstance().logger.logLevel = .None
+        GAI.sharedInstance().logger.logLevel = .none
         
         #if DEBUG
         GAI.sharedInstance().dryRun = true
-        GAI.sharedInstance().logger.logLevel = .Warning
+        GAI.sharedInstance().logger.logLevel = .warning
         #endif
 
         return GAI.sharedInstance()
