@@ -72,6 +72,11 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
 
         setupScrollView()
     }
+    
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask
+    {
+        return .portrait
+    }
 
     // MARK: Setup methods
 
