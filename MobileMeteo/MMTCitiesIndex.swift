@@ -21,7 +21,7 @@ typealias MMTCitiesIndexSection = (type: MMTCitiesIndexSectionType, cities: [MMT
 
 struct MMTCitiesIndex
 {
-    private var content: [MMTCitiesIndexSection]
+    private var content: [MMTCitiesIndexSection] = []
     
     var sectionCount: Int {
         return content.count
@@ -29,10 +29,7 @@ struct MMTCitiesIndex
     
     // MARK: Initializers
     
-    init()
-    {
-        content = []
-    }
+    init() {}
     
     init(_ cities: [MMTCityProt], currentCity: MMTCityProt?)
     {

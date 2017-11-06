@@ -8,19 +8,6 @@
 
 import Foundation
 
-struct MMTSegue
-{
-    static let UnwindToListOfCities = "UnwindToListOfCities"
-    static let UnwindToListOfDetailedMaps = "UnwindToListOfDetailedMaps"
-    static let UnwindToWamModel = "UnwindToWamModel"
-    static let DisplayMeteorogram = "DisplayMeteorogram"
-    static let DisplayWamSettings = "DisplayWamSettings"
-    static let DisplayWamCategoryPreview = "DisplayWamCategoryPreview"
-    static let DisplayMapScreen = "DisplayMapScreen"
-    static let DisplayDetailedMapsList = "DisplayDetailedMapsList"
-    static let DisplayDetailedMap = "DisplayDetailedMap"
-}
-
 struct MMTFormat
 {
     static let TZeroPlus = "t0 +%03ldh"
