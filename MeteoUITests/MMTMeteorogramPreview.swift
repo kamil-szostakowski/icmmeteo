@@ -21,7 +21,7 @@ class MMTMeteorogramPreview: XCTestCase
         
         continueAfterFailure = false
         
-        XCUIDevice.shared().orientation = .portrait
+        XCUIDevice.shared.orientation = .portrait
         
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB"]
@@ -58,7 +58,7 @@ class MMTMeteorogramPreview: XCTestCase
     
     func test_ContentVisibilityInLandscape()
     {
-        XCUIDevice.shared().orientation = .landscapeLeft
+        XCUIDevice.shared.orientation = .landscapeLeft
         sleep(1)
         
         XCTAssertTrue(isElementVisible(app.images["meteorogram"]))

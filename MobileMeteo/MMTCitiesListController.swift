@@ -108,7 +108,7 @@ extension MMTCitiesListController
         NotificationCenter.default.removeObserver(self)
     }
     
-    func handleApplicationDidBecomeActiveNotification(_ notification: Notification)
+    @objc func handleApplicationDidBecomeActiveNotification(_ notification: Notification)
     {
         updateForecastStartDate()
         updateIndexWithCurrentLocation(next: updateCurrentLocationRow)

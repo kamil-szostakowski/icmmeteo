@@ -40,11 +40,11 @@ class MMTCitiesListMapTests: MMTCitiesListTestCase
 
         waitForExpectations(timeout: 10){ _ in
 
-            self.removeFromFavourites(self.app.tables.cells.element(boundBy: 0 + self.tableOffset).label)
+            self.removeFromFavourites(self.app.tables.cells.element(boundBy: Int(0 + self.tableOffset)).label)
 
             /* --- Assertions -- */
             
-            XCTAssertEqual(self.bialystok, self.app.tables.cells.element(boundBy: 0 + self.tableOffset).label)
+            XCTAssertEqual(self.bialystok, self.app.tables.cells.element(boundBy: Int(0 + self.tableOffset)).label)
             self.XCTCheckHeader(self.headerCapitals)
         }
     }

@@ -88,17 +88,17 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     
     private func setupAppearance()
     {
-        let attributes = [
-            NSFontAttributeName: MMTAppearance.boldFontWithSize(16),
-            NSForegroundColorAttributeName: MMTAppearance.textColor
+        let attributes: [NSAttributedStringKey: Any] = [
+            .font: MMTAppearance.boldFontWithSize(16),
+            .foregroundColor: MMTAppearance.textColor
         ]
         
         UINavigationBar.appearance().titleTextAttributes = attributes
         UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: UIControlState())
         
-        let disabledAttributes = [
-            NSFontAttributeName: MMTAppearance.boldFontWithSize(16),
-            NSForegroundColorAttributeName: UIColor.lightGray
+        let disabledAttributes: [NSAttributedStringKey: Any] = [
+            .font: MMTAppearance.boldFontWithSize(16),
+            .foregroundColor: UIColor.lightGray
         ]
         
         UIBarButtonItem.appearance().setTitleTextAttributes(disabledAttributes, for: UIControlState.disabled)

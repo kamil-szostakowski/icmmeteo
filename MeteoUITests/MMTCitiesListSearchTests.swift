@@ -21,15 +21,15 @@ class MMTCitiesListSearchTests: MMTCitiesListTestCase
 
         sleep(3)
 
-        XCTAssertEqual(ilawa, app.tables.cells.element(boundBy: 0 + tableOffset).label)
-        XCTAssertEqual(locationNotFound, app.tables.cells.element(boundBy: 1 + tableOffset).label)
+        XCTAssertEqual(ilawa, app.tables.cells.element(boundBy: Int(0 + tableOffset)).label)
+        XCTAssertEqual(locationNotFound, app.tables.cells.element(boundBy: Int(1 + tableOffset)).label)
 
         addToFavourites(ilawa)
 
         /* --- Assertions -- */
         
         XCTCheckHeader(headerFavourites)
-        XCTAssertEqual(ilawa, app.tables.cells.element(boundBy: 0 + tableOffset).label)
+        XCTAssertEqual(ilawa, app.tables.cells.element(boundBy: Int(0 + tableOffset)).label)
         XCTCheckHeader(headerCapitals)
 
         /* --- Removing cities from favourites -- */

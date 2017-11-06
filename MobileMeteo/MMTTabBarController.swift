@@ -20,7 +20,7 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
         initItemAtIndex(0, name: "Model UM", model: MMTUmClimateModel())
         initItemAtIndex(1, name: "Model COAMPS", model: MMTCoampsClimateModel())
 
-        let attributes = [NSFontAttributeName: MMTAppearance.fontWithSize(10)]
+        let attributes = [NSAttributedStringKey.font: MMTAppearance.fontWithSize(10)]
 
         UITabBarItem.appearance().setTitleTextAttributes(attributes, for: UIControlState())
         UITabBarItem.appearance().setTitleTextAttributes(attributes, for: UIControlState.selected)
