@@ -174,8 +174,6 @@
                         <outlet property="lblForecastStart" destination="csI-Kb-QLu" id="Hu1-ed-ufN"/>
                         <outlet property="searchBar" destination="duU-CU-zjU" id="Jf3-0R-vFi"/>
                         <outlet property="tableView" destination="c9a-Dj-a8h" id="2gF-yA-cqw"/>
-                        <outlet property="tableViewHeader" destination="cMF-AY-pik" id="QOV-9H-SEe"/>
-                        <outlet property="topSpacing" destination="yZz-Je-1E1" id="QZe-Bs-YIE"/>
                         <segue destination="lDT-Dp-3bJ" kind="presentation" identifier="DisplayMeteorogram" id="dj6-QC-1jS"/>
                         <segue destination="i3E-TH-02Z" kind="presentation" identifier="DisplayMapScreen" id="enP-3D-Gaj"/>
                     </connections>

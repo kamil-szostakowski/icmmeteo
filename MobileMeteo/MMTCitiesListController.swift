@@ -16,9 +16,7 @@ typealias MMTCompletion = () -> Void
 class MMTCitiesListController: UIViewController
 {        
     // MARK: Outlets
-
-    @IBOutlet var tableViewHeader: UIView!
-    @IBOutlet var topSpacing: NSLayoutConstraint!    
+    
     @IBOutlet var infoBar: UIView!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet var tableView: UITableView!
@@ -35,9 +33,8 @@ class MMTCitiesListController: UIViewController
     fileprivate var searchInput: MMTSearchInput!
     fileprivate var citiesIndex: MMTCitiesIndex!
     fileprivate var citiesStore: MMTCitiesStore!
-    fileprivate var cityOfCurrentLocation: MMTCityProt?
-    fileprivate var shouldDisplayMeteorogram = false
     fileprivate var meteorogramStore: MMTMeteorogramStore!
+    fileprivate var currentLocation: MMTCityProt?
     fileprivate let sectionHeaderIdentifier = "CitiesListHeader"
     
     // MARK: Actions
@@ -53,13 +50,11 @@ class MMTCitiesListController: UIViewController
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if let controller = segue.destination as? MMTCityMapPickerController
-        {
+        if let controller = segue.destination as? MMTCityMapPickerController {
             controller.climateModel = climateModel
         }
         
-        if let controller = segue.destination as? MMTMeteorogramController
-        {
+        if let controller = segue.destination as? MMTMeteorogramController {
             controller.climateModel = climateModel
         }
         
@@ -99,14 +94,11 @@ extension MMTCitiesListController
         
         setupSearchBar()
         updateForecastStartDate()
-        updateIndexWithAllCities() {
-            
+        updateIndex {
             self.tableView.reloadData()
-            self.updateIndexWithCityOfCurrentLocation{
-                
+            self.updateIndexWithCurrentLocation {
+                self.updateCurrentLocationRow()
                 self.setupNotificationHandler()
-                guard self.searchInput.isValid == false else { return }
-                self.tableView.reloadData()
             }
         }
         
@@ -126,11 +118,7 @@ extension MMTCitiesListController
     func handleApplicationDidBecomeActiveNotification(_ notification: Notification)
     {
         updateForecastStartDate()
-        updateIndexWithCityOfCurrentLocation() {
-            
-            guard self.searchInput.isValid == false else { return }
-            self.tableView.reloadData()
-        }
+        updateIndexWithCurrentLocation(next: updateCurrentLocationRow)
     }
 }
 
@@ -170,9 +158,7 @@ extension MMTCitiesListController
     fileprivate func setupNotificationHandler()
     {
         let handler = #selector(handleApplicationDidBecomeActiveNotification(_:))
-        let notification = NSNotification.Name.UIApplicationDidBecomeActive
-        
-        NotificationCenter.default.addObserver(self, selector: handler, name: notification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: handler, name: .UIApplicationDidBecomeActive, object: nil)
     }
 }
 
@@ -181,29 +167,23 @@ extension MMTCitiesListController
 {
     // MARK: Data update methods
     
-    fileprivate func updateIndexWithAllCities(_ completion: MMTCompletion)
+    fileprivate func updateIndex(completion: MMTCompletion)
     {
-        citiesStore.getAllCities()
-            {
-                if self.cityOfCurrentLocation?.name.characters.count == 0 {
-                    self.cityOfCurrentLocation = nil
-                }
-                
-                self.citiesIndex =  MMTCitiesIndex($0, currentCity: self.cityOfCurrentLocation)
-                completion()
+        citiesStore.getAllCities {
+            self.citiesIndex =  MMTCitiesIndex($0, currentCity: self.currentLocation)
+            completion()
         }
     }
     
-    fileprivate func updateIndexWithCitiesMatchingCriteria(_ criteria: String, completion: @escaping MMTCompletion)
+    fileprivate func updateIndex(criteria: String, completion: @escaping MMTCompletion)
     {
-        citiesStore.findCitiesMatchingCriteria(criteria)
-        {
+        citiesStore.findCitiesMatchingCriteria(criteria) {
             self.citiesIndex = MMTCitiesIndex(searchResult: $0)
             completion()
         }
     }
     
-    fileprivate func updateIndexWithCityOfCurrentLocation(_ completion: @escaping MMTCompletion)
+    fileprivate func updateIndexWithCurrentLocation(next completion: @escaping MMTCompletion)
     {
         guard let location = self.locationManager.location else {
             return
@@ -211,13 +191,15 @@ extension MMTCitiesListController
         
         citiesStore.findCityForLocation(location) { (city: MMTCityProt?, error: MMTError?) in
             
+            // Maybe we should update the current location if failed
             guard let currentCity = city, error == nil else { return }
+            guard currentCity.name.characters.count > 0 else { return }
             
-            self.cityOfCurrentLocation = currentCity
-            self.citiesStore.getAllCities() {
-                self.citiesIndex = MMTCitiesIndex($0, currentCity: currentCity)
-                completion()
-            }
+            let allCities = self.citiesIndex[[.Favourites, .Capitals]]
+            self.currentLocation = currentCity
+            self.citiesIndex = MMTCitiesIndex(allCities, currentCity: currentCity)
+            
+            completion()
         }
     }
     
@@ -228,7 +210,7 @@ extension MMTCitiesListController
         }
         
         lastUpdate = Date()
-        meteorogramStore.getForecastStartDate(){ (date: Date?, error: MMTError?) in
+        meteorogramStore.getForecastStartDate { _,_ in
             self.setupInfoBar()
         }
     }
@@ -246,28 +228,26 @@ extension MMTCitiesListController: UISearchBarDelegate
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     {
-        searchInput = MMTSearchInput(searchBar.text!)
+        searchInput = MMTSearchInput(searchText)
         searchBar.text = searchInput.stringValue
         
-        if searchInput.isValid
-        {
-            updateIndexWithCitiesMatchingCriteria(searchText) { self.tableView.reloadData() }
+        if searchInput.isValid {
+            updateIndex(criteria: searchText) { self.tableView.reloadData() }
         }
-        else
-        {
-            updateIndexWithAllCities() { self.tableView.reloadData() }
+        else {
+            updateIndex() { self.tableView.reloadData() }
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
     {
         resetSearchBar()
-        updateIndexWithAllCities() { self.tableView.reloadData() }
+        updateIndex() { self.tableView.reloadData() }
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar)
     {
-        updateIndexWithAllCities() { self.tableView.reloadData() }
+        updateIndex() { self.tableView.reloadData() }
     }
     
     // MARK: Search bar helper methods
@@ -360,9 +340,19 @@ extension MMTCitiesListController: UITableViewDelegate, UITableViewDataSource
         selectedCity = city
         performSegue(withIdentifier: MMTSegue.DisplayMeteorogram, sender: self)
         
-        guard let action = MMTAnalyticsAction(group: citiesIndex[indexPath.section].type) else { return }
+        guard let action = MMTAnalyticsAction(group: citiesIndex[indexPath.section].type) else {
+            return
+        }
         
         analytics?.sendUserActionReport(.Locations, action: action, actionLabel: city.name)
+    }
+    
+    // MARK: Table view helper methods
+    
+    fileprivate func updateCurrentLocationRow()
+    {
+        guard searchInput.isValid == false else { return }
+        tableView.reloadData()
     }
 }
 
@@ -373,26 +363,18 @@ extension MMTCitiesListController: CLLocationManagerDelegate
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
     {
-        let authorized = status == .authorizedWhenInUse
-        
-        if authorized {
+        if status == .authorizedWhenInUse {
             locationManager.startMonitoringSignificantLocationChanges()
-            updateIndexWithCityOfCurrentLocation() { self.tableView.reloadData() }
-        }
-        
-        if !authorized {
-            cityOfCurrentLocation = nil
+            updateIndexWithCurrentLocation(next: updateCurrentLocationRow)
+        } else {
+            currentLocation = nil
             locationManager.stopMonitoringSignificantLocationChanges()
-            updateIndexWithAllCities() { self.tableView.reloadData() }
+            updateIndex() { self.tableView.reloadData() }
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
-        updateIndexWithCityOfCurrentLocation() {
-            
-            guard self.searchInput.isValid == false else { return }
-            self.tableView.reloadData()
-        }
+        updateIndexWithCurrentLocation(next: updateCurrentLocationRow)
     }
 }
