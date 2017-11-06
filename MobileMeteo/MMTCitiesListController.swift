@@ -56,16 +56,9 @@ class MMTCitiesListController: UIViewController
         
         if let controller = segue.destination as? MMTMeteorogramController {
             controller.climateModel = climateModel
-        }
-        
-        if segue.identifier == MMTSegue.DisplayMeteorogram
-        {
-            let
-            controller = segue.destination as! MMTMeteorogramController
             controller.city = selectedCity
-            
             selectedCity = nil
-        }
+        }        
     }
 }
 
@@ -105,7 +98,7 @@ extension MMTCitiesListController
         analytics?.sendScreenEntryReport(MMTAnalyticsCategory.Locations.rawValue)
         
         if selectedCity != nil {
-            performSegue(withIdentifier: MMTSegue.DisplayMeteorogram, sender: self)
+            perform(segue: .DisplayMeteorogram, sender: self)
         }
     }
     
@@ -331,14 +324,14 @@ extension MMTCitiesListController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         guard citiesIndex[indexPath.section].type != .NotFound else {
-            performSegue(withIdentifier: MMTSegue.DisplayMapScreen, sender: self)
+            perform(segue: .DisplayMapScreen, sender: self)
             return
         }
         
         let city = citiesIndex[indexPath.section].cities[indexPath.row]
         
         selectedCity = city
-        performSegue(withIdentifier: MMTSegue.DisplayMeteorogram, sender: self)
+        perform(segue: .DisplayMeteorogram, sender: self)
         
         guard let action = MMTAnalyticsAction(group: citiesIndex[indexPath.section].type) else {
             return

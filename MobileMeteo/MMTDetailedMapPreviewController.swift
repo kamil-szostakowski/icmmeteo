@@ -200,8 +200,8 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
 
     private func displayErrorAlert(_ error: MMTError)
     {
-        let alert = UIAlertController.alertForMMTError(error){ (UIAlertAction) -> Void in
-            self.performSegue(withIdentifier: MMTSegue.UnwindToListOfDetailedMaps, sender: self)
+        let alert = UIAlertController.alertForMMTError(error){ _ in
+            self.perform(segue: .UnwindToListOfDetailedMaps, sender: self)
         }
 
         present(alert, animated: true, completion: nil)

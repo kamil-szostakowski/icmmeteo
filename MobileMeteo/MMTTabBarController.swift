@@ -47,7 +47,7 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
         umController.selectedCity = city
         
         if selectedIndex == 0 {
-            umController.performSegue(withIdentifier: MMTSegue.DisplayMeteorogram, sender: self)
+            umController.perform(segue: .DisplayMeteorogram, sender: self)
         }
         
         selectedIndex = 0

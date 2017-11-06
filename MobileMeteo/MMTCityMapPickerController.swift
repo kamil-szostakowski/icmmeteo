@@ -109,7 +109,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
             }
             
             self.selectedCity = aCity
-            self.performSegue(withIdentifier: MMTSegue.UnwindToListOfCities, sender: self)
+            self.perform(segue: .UnwindToListOfCities, sender: self)
         }
     }
     

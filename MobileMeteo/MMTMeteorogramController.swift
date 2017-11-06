@@ -151,7 +151,7 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     @IBAction func onCloseBtnTouchAction(_ sender: UIBarButtonItem)
     {
         citiesStore.markCity(city, asFavourite: city.isFavourite)
-        performSegue(withIdentifier: MMTSegue.UnwindToListOfCities, sender: self)
+        perform(segue: .UnwindToListOfCities, sender: self)
     }
     
     @IBAction func onScrollViewDoubleTapAction(_ sender: UITapGestureRecognizer)
@@ -207,8 +207,8 @@ class MMTMeteorogramController: UIViewController, UIScrollViewDelegate, NSUserAc
     
     private func displayErrorAlert(_ error: MMTError)
     {
-        let alert = UIAlertController.alertForMMTError(error){ (UIAlertAction) -> Void in
-            self.performSegue(withIdentifier: MMTSegue.UnwindToListOfCities, sender: self)
+        let alert = UIAlertController.alertForMMTError(error){ _ in
+            self.perform(segue: .UnwindToListOfCities, sender: self)
         }
 
         present(alert, animated: true, completion: nil)
