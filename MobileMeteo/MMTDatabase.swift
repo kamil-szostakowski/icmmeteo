@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class MMTDatabase: NSObject
+class MMTDatabase
 {
     // MARK: Properties
 

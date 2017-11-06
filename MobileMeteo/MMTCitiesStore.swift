@@ -14,7 +14,7 @@ import CoreData
 typealias MMTCityQueryCompletion = (MMTCityProt?, MMTError?) -> Void
 typealias MMTCitiesQueryCompletion = ([MMTCityProt]) -> Void
 
-class MMTCitiesStore: NSObject
+class MMTCitiesStore
 {
     private typealias MMTCurrentCityQueryCompletion = (MMTCityProt?) -> Void
     
@@ -24,9 +24,7 @@ class MMTCitiesStore: NSObject
     init(db: MMTDatabase, geocoder gcoder: MMTCityGeocoder)
     {
         geocoder = gcoder
-        database = db
-        
-        super.init()
+        database = db                
     }
     
     // MARK: Methods    
