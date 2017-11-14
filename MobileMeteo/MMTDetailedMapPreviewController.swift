@@ -89,8 +89,8 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
 
     private func setupMeteorogramSize()
     {
-        meteorogramSize = CGSize(forDetailedMapOfModel: meteorogramStore.climateModel.type)
-        meteorogramLegendSize = CGSize(forDetailedMapLegendOfModel: meteorogramStore.climateModel.type)
+        meteorogramSize = CGSize(map: meteorogramStore.climateModel.type)
+        meteorogramLegendSize = CGSize(mapLegend: meteorogramStore.climateModel.type)
     }
 
     private func setupScrollView()

@@ -429,7 +429,7 @@
 			name = Entities;
 			sourceTree = "<group>";
 		};
-		F9C23A951B621D7200A94A4B /* GridModels */ = {
+		F9C23A951B621D7200A94A4B /* Weather */ = {
 			isa = PBXGroup;
 			children = (
 				F93004501E11D49B00A5CE10 /* Views */,
@@ -437,7 +437,7 @@
 				F989C5301B9D6BDA002A1903 /* MMTCityMapPickerController.swift */,
 				F95754481B4CFF0A00C4E672 /* MMTMeteorogramController.swift */,
 			);
-			name = GridModels;
+			name = Weather;
 			sourceTree = "<group>";
 		};
 		F9E6965B1AFCC06600273DA3 = {
@@ -520,7 +520,7 @@
 			isa = PBXGroup;
 			children = (
 				8E79D5291D4E804400BE1A0E /* DetailedMaps */,
-				F9C23A951B621D7200A94A4B /* GridModels */,
+				F9C23A951B621D7200A94A4B /* Weather */,
 				F9B686441B58DDD300E838BD /* MMTTabBarController.swift */,
 				F9326D2C1C5F83180033E11B /* MMTInfoController.swift */,
 			);

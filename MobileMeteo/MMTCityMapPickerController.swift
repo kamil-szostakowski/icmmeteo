@@ -49,7 +49,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
         btnShow.accessibilityIdentifier = "show"
         navigationBar.accessibilityIdentifier = "select-location-screen"
         
-        citiesStore = MMTCitiesStore(db: MMTDatabase.instance, geocoder: MMTCityGeocoder(generalGeocoder: CLGeocoder()))
+        citiesStore = MMTCitiesStore(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))
         meteorogramStore = MMTMeteorogramStore(model: climateModel, date: Date())
         btnShow.isEnabled = false
         
