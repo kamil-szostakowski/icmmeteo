@@ -5,9 +5,6 @@
 /* Class = "UILabel"; text = "Prognoza została udostępniona nieodpłatnie przez serwis meteo.pl prowadzony przez ICM, Uniwersytet Warszawski. "; ObjectID = "2Vd-h5-NfU"; */
 "2Vd-h5-NfU.text" = "Forecast provided for free by meteo.pl created by ICM, Warsaw University. ";
 
-/* Class = "UITabBarItem"; title = "Model WAM"; ObjectID = "9fY-hx-D3Q"; */
-"9fY-hx-D3Q.title" = "Model WAM";
-
 /* Class = "UILabel"; text = "Wskaż lokalizację na mapie"; ObjectID = "IZE-Jf-c7U"; */
 "IZE-Jf-c7U.text" = "Find location on map";
 
@@ -15,6 +12,8 @@
 "Quj-BL-oec.title" = "Source";
 
 "mdg-cq-Zyh.title" = "Maps";
+
+"7Vu-Dc-7ts.title" = "Weather";
 
 /* Class = "UILabel"; text = "ładowanie meteorogramu"; ObjectID = "R9a-Bf-BXg"; */
 "R9a-Bf-BXg.text" = "meteorogram loading";
@@ -48,14 +47,8 @@
 /* Class = "UINavigationItem"; title = "Miasto"; ObjectID = "pkw-kA-ZXA"; */
 "pkw-kA-ZXA.title" = "City";
 
-/* Class = "UINavigationItem"; title = "Ustawienia WAM"; ObjectID = "qa6-qn-ubx"; */
-"qa6-qn-ubx.title" = "WAM settings";
-
 /* Class = "UIButton"; normalTitle = "wybierz"; ObjectID = "xOP-VD-VM0"; */
 "xOP-VD-VM0.normalTitle" = "select";
-
-/* Class = "UIButton"; selectedTitle = "usuń zaznaczenie"; ObjectID = "xOP-VD-VM0"; */
-"xOP-VD-VM0.selectedTitle" = "remove selection";
 
 "p0N-cN-cSS.title" = "Detailed maps";
 

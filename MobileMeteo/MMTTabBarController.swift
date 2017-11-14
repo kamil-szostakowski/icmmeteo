@@ -17,9 +17,6 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
 
         delegate = self
         
-        initItemAtIndex(0, name: "Model UM", model: MMTUmClimateModel())
-        initItemAtIndex(1, name: "Model COAMPS", model: MMTCoampsClimateModel())
-
         let attributes = [NSAttributedStringKey.font: MMTAppearance.fontWithSize(10)]
 
         UITabBarItem.appearance().setTitleTextAttributes(attributes, for: UIControlState())
@@ -68,24 +65,6 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
                 $0.sublayers!.max(){ $0.frame.size.height < $1.frame.size.height }!
         }
             
-        tabBarItems[index].add(CAAnimation.defaultScaleAnimation(), forKey: "basic")
-    }
-    
-    // MARK: Helper methods
-    
-    private func initItemAtIndex(_ index: Int, name: String, model: MMTClimateModel)
-    {
-        let iconName = name.lowercased().replacingOccurrences(of: " ", with: "-")
-        let icon = UIImage(named: iconName)
-        
-        let
-        controller = viewControllers?[index] as! MMTCitiesListController
-        controller.climateModel = model
-        
-        let
-        item = tabBar.items![index]
-        item.title = name
-        item.image = icon
-        item.selectedImage = icon
-    }
+        tabBarItems[index].add(.defaultScaleAnimation(), forKey: "basic")
+    }    
 }

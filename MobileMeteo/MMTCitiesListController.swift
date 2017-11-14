@@ -17,15 +17,10 @@ class MMTCitiesListController: UIViewController
 {        
     // MARK: Outlets
     
-    @IBOutlet var infoBar: UIView!
     @IBOutlet var searchBar: UISearchBar!
-    @IBOutlet var tableView: UITableView!
-    @IBOutlet var lblForecastLenght: UILabel!
-    @IBOutlet var lblForecastStart: UILabel!
+    @IBOutlet var tableView: UITableView!    
         
     // MARK: Properties
-
-    var climateModel: MMTClimateModel!
     var selectedCity: MMTCityProt?
     
     fileprivate var lastUpdate: Date?
@@ -33,12 +28,10 @@ class MMTCitiesListController: UIViewController
     fileprivate var searchInput: MMTSearchInput!
     fileprivate var citiesIndex: MMTCitiesIndex!
     fileprivate var citiesStore: MMTCitiesStore!
-    fileprivate var meteorogramStore: MMTMeteorogramStore!
     fileprivate var currentLocation: MMTCityProt?
     fileprivate let sectionHeaderIdentifier = "CitiesListHeader"
     
     // MARK: Actions
-    
     @IBAction func unwindToListOfCities(_ unwindSegue: UIStoryboardSegue)
     {
         guard let mapController = unwindSegue.source as? MMTCityMapPickerController else { return }
@@ -49,13 +42,8 @@ class MMTCitiesListController: UIViewController
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let controller = segue.destination as? MMTCityMapPickerController {
-            controller.climateModel = climateModel
-        }
-        
-        if let controller = segue.destination as? MMTMeteorogramController {
-            controller.climateModel = climateModel
+    {        
+        if let controller = segue.destination as? MMTMeteorogramController {            
             controller.city = selectedCity
             selectedCity = nil
         }        
@@ -66,19 +54,16 @@ class MMTCitiesListController: UIViewController
 extension MMTCitiesListController
 {
     // Mark: Lifecycle methods
-    
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
         searchInput = MMTSearchInput("")
         citiesIndex = MMTCitiesIndex()
-        citiesStore = MMTCitiesStore(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))
-        meteorogramStore = MMTMeteorogramStore(model: climateModel, date: Date())
+        citiesStore = MMTCitiesStore(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))        
         
         setupTableView()
-        setupLocationManager()
-        setupInfoBar()
+        setupLocationManager()        
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -86,7 +71,6 @@ extension MMTCitiesListController
         super.viewWillAppear(animated)
         
         setupSearchBar()
-        updateForecastStartDate()
         updateIndex {
             self.tableView.reloadData()
             self.updateIndexWithCurrentLocation {
@@ -109,8 +93,7 @@ extension MMTCitiesListController
     }
     
     @objc func handleApplicationDidBecomeActiveNotification(_ notification: Notification)
-    {
-        updateForecastStartDate()
+    {        
         updateIndexWithCurrentLocation(next: updateCurrentLocationRow)
     }
 }
@@ -119,7 +102,6 @@ extension MMTCitiesListController
 extension MMTCitiesListController
 {
     // MARK: Setup methods
-    
     fileprivate func setupSearchBar()
     {
         searchBar.accessibilityIdentifier = "cities-search"
@@ -137,16 +119,7 @@ extension MMTCitiesListController
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-    }
-    
-    fileprivate func setupInfoBar()
-    {
-        let formatter = DateFormatter.utcFormatter
-        let climateModel = meteorogramStore.climateModel
-        
-        lblForecastStart.text = MMTLocalizedStringWithFormat("forecast.start: %@", formatter.string(from: meteorogramStore.forecastStartDate))
-        lblForecastLenght.text = MMTLocalizedStringWithFormat("forecast.length: %dh, forecast.grid: %dkm", climateModel.forecastLength, climateModel.gridNodeSize)
-    }
+    }    
     
     fileprivate func setupNotificationHandler()
     {
@@ -159,7 +132,6 @@ extension MMTCitiesListController
 extension MMTCitiesListController
 {
     // MARK: Data update methods
-    
     fileprivate func updateIndex(completion: MMTCompletion)
     {
         citiesStore.getAllCities {
@@ -195,25 +167,12 @@ extension MMTCitiesListController
             completion()
         }
     }
-    
-    fileprivate func updateForecastStartDate()
-    {
-        if lastUpdate != nil && Date().timeIntervalSince(lastUpdate!) < TimeInterval(minutes: 5) {
-            return
-        }
-        
-        lastUpdate = Date()
-        meteorogramStore.getForecastStartDate { _,_ in
-            self.setupInfoBar()
-        }
-    }
 }
 
 // Search bar extension
 extension MMTCitiesListController: UISearchBarDelegate
 {
     // MARK: UISearchBarDelegate methods
-    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
     {
         searchBar.setShowsCancelButton(true, animated: true)
@@ -244,7 +203,6 @@ extension MMTCitiesListController: UISearchBarDelegate
     }
     
     // MARK: Search bar helper methods
-    
     fileprivate func resetSearchBar()
     {
         searchBar.resignFirstResponder()
@@ -259,7 +217,6 @@ extension MMTCitiesListController: UISearchBarDelegate
 extension MMTCitiesListController: UITableViewDelegate, UITableViewDataSource
 {
     // MARK: UITableViewDelegate methods
-    
     func numberOfSections(in tableView: UITableView) -> Int
     {
         return citiesIndex.sectionCount
@@ -341,7 +298,6 @@ extension MMTCitiesListController: UITableViewDelegate, UITableViewDataSource
     }
     
     // MARK: Table view helper methods
-    
     fileprivate func updateCurrentLocationRow()
     {
         guard searchInput.isValid == false else { return }
@@ -352,8 +308,7 @@ extension MMTCitiesListController: UITableViewDelegate, UITableViewDataSource
 // Location manager extension
 extension MMTCitiesListController: CLLocationManagerDelegate
 {
-    // MARK: CLLocationManagerDelegate
-    
+    // MARK: CLLocationManagerDelegate    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
     {
         if status == .authorizedWhenInUse {
