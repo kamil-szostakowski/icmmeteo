@@ -694,7 +694,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="50"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Y5m-Lt-Km3">
-                                        <rect key="frame" x="81.5" y="11" width="212" height="29"/>
+                                        <rect key="frame" x="8" y="11" width="359" height="29"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <segments>
                                             <segment title="UM"/>
@@ -715,8 +715,9 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="Y5m-Lt-Km3" firstAttribute="centerX" secondItem="eTY-oc-5iV" secondAttribute="centerX" id="20z-T8-jgi"/>
+                                    <constraint firstAttribute="trailing" secondItem="Y5m-Lt-Km3" secondAttribute="trailing" constant="8" id="6pO-o1-2XU"/>
                                     <constraint firstAttribute="bottom" secondItem="Y5m-Lt-Km3" secondAttribute="bottom" constant="11" id="It2-5i-vcc"/>
+                                    <constraint firstItem="Y5m-Lt-Km3" firstAttribute="leading" secondItem="eTY-oc-5iV" secondAttribute="leading" constant="8" id="Pjv-ID-ZeT"/>
                                     <constraint firstAttribute="bottom" secondItem="Thw-PG-84t" secondAttribute="bottom" id="Q0O-b1-iud"/>
                                     <constraint firstItem="Y5m-Lt-Km3" firstAttribute="top" secondItem="eTY-oc-5iV" secondAttribute="top" constant="11" id="k2D-oi-wPj"/>
                                     <constraint firstItem="Thw-PG-84t" firstAttribute="leading" secondItem="eTY-oc-5iV" secondAttribute="leading" id="lYC-Lw-gaM"/>

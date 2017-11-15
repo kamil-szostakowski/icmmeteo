@@ -26,7 +26,7 @@ class MMTMeteorogramController: UIViewController, NSUserActivityDelegate
     var city: MMTCityProt!
     
     fileprivate var meteorogramStore: MMTMeteorogramStore!
-    fileprivate var btnFavourite: UIButton!
+    fileprivate var btnFavourite: UIButton!    
 }
 
 // Lifecycle extension
@@ -44,7 +44,7 @@ extension MMTMeteorogramController
         setupStarButton()
         setupScrollView()
         
-        updateStartDateAndMeteorogram()
+        updateMeteorogram()
         updateSpotlightIndex(for: city)
         analytics?.sendScreenEntryReport("Meteorogram: \(meteorogramStore.climateModel.type.rawValue)")
     }
@@ -176,7 +176,7 @@ extension MMTMeteorogramController
             MMTCoampsClimateModel()
         
         meteorogramStore = MMTMeteorogramStore(model: climateModel, date: Date())
-        updateStartDateAndMeteorogram()
+        updateMeteorogram()
     }
     
     // Mark: Navigation helper methods
@@ -194,14 +194,6 @@ extension MMTMeteorogramController
 extension MMTMeteorogramController
 {
     // MARK: Data update methods
-    fileprivate func updateStartDateAndMeteorogram()
-    {
-        meteorogramStore.getForecastStartDate { _,_ in
-            self.activityIndicator.isHidden = false
-            self.updateMeteorogram()
-        }
-    }
-    
     fileprivate func updateMeteorogram()
     {
         setupMeteorogram(image: nil)
@@ -211,12 +203,16 @@ extension MMTMeteorogramController
         scrollView.contentOffset = .zero
         activityIndicator.isHidden = false
         
-        meteorogramStore.getMeteorogramLegend {
+        meteorogramStore.getForecastStartDate { _,_ in
+            self.setupInfoBar()
+        }
+        
+        meteorogramStore.getLegend {
             (image: UIImage?, error: MMTError?) in
             self.setupMeteorogramLegend(image: image)
         }
         
-        meteorogramStore.getMeteorogramForLocation(city.location){
+        meteorogramStore.getMeteorogram(for: city) {
             (image: UIImage?, error: MMTError?) in
             
             self.activityIndicator.isHidden = true

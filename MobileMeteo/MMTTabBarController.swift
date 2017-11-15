@@ -31,23 +31,20 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
     
     // MARK: Interface methods
     
-    func presentMeteorogramUmForCity(_ city: MMTCityProt)
+    func presentMeteorogram(for city: MMTCityProt)
     {
-        guard let umController = viewControllers?.first as? MMTCitiesListController else {
+        guard let citiesListController = viewControllers?.first as? MMTCitiesListController else {
             return
         }
+        
+        selectedIndex = 0
         
         if presentedViewController != nil {
             dismiss(animated: false, completion: nil)
         }
         
-        umController.selectedCity = city
-        
-        if selectedIndex == 0 {
-            umController.perform(segue: .DisplayMeteorogram, sender: self)
-        }
-        
-        selectedIndex = 0
+        citiesListController.selectedCity = city
+        citiesListController.perform(segue: .DisplayMeteorogram, sender: self)
     }
     
     // MARK: UITabBarControllerDelegate methods
@@ -61,8 +58,7 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
         let tabBarItems = tabBar.layer.sublayers!
             .filter(){ $0.frame.size.width < tabBar.frame.size.width }
             .sorted(){ $0.frame.origin.x < $1.frame.origin.x }
-            .map() {
-                $0.sublayers!.max(){ $0.frame.size.height < $1.frame.size.height }!
+            .map() { $0.sublayers!.max(){ $0.frame.size.height < $1.frame.size.height }!
         }
             
         tabBarItems[index].add(.defaultScaleAnimation(), forKey: "basic")

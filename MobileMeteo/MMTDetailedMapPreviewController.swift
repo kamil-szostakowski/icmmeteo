@@ -33,7 +33,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     private var meteorogramStore: MMTDetailedMapsStore!
 
     private var cache: NSCache<NSString, UIImage> {
-        return MMTDatabase.instance.detailedMapsCache
+        return MMTDatabase.instance.meteorogramsCache
     }
 
     private var notFetchedMoments: [Date] {
