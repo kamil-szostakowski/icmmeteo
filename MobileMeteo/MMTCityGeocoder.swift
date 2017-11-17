@@ -13,9 +13,9 @@ class MMTCityGeocoder
 {
     private let geocoder: MMTGeocoder
     
-    init(generalGeocoder: MMTGeocoder)
+    init(general: MMTGeocoder)
     {
-        geocoder = generalGeocoder
+        geocoder = general
     }
     
     // MARK: Interface methods

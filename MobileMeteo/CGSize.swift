@@ -10,7 +10,7 @@ import Foundation
 
 extension CGSize
 {
-    init?(forMeteorogramOfModel model: MMTClimateModelType)
+    init?(meteorogram model: MMTClimateModelType)
     {
         switch model {
             case .UM: self = CGSize(width: 540, height: 660)
@@ -19,7 +19,7 @@ extension CGSize
         }
     }
 
-    init?(forMeteorogramLegendOfModel model: MMTClimateModelType)
+    init?(meteorogramLegend model: MMTClimateModelType)
     {
         switch model {
             case .UM: self = CGSize(width: 280, height: 660)
@@ -28,7 +28,7 @@ extension CGSize
         }
     }
 
-    init(forDetailedMapOfModel model: MMTClimateModelType)
+    init(map model: MMTClimateModelType)
     {
         switch model {
             case .UM: self = CGSize(width: 669, height: 740)
@@ -37,7 +37,7 @@ extension CGSize
         }
     }
 
-    init(forDetailedMapLegendOfModel model: MMTClimateModelType)
+    init(mapLegend model: MMTClimateModelType)
     {
         switch model {
             case .UM: self = CGSize(width: 128, height: 740)

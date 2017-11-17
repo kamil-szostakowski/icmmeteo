@@ -15,7 +15,7 @@ class MMTCitiesListSearchTests: MMTCitiesListTestCase
         /* --- Adding cities to favourites -- */
 
         let
-        searchField = app.tables.otherElements["cities-search"]
+        searchField = app.otherElements["cities-search"]
         searchField.tap()
         searchField.typeText("Iława")
 
@@ -47,14 +47,14 @@ class MMTCitiesListSearchTests: MMTCitiesListTestCase
         let expectedCount = app.tables.cells.count
 
         let
-        searchField = app.tables.otherElements["cities-search"]
+        searchField = app.otherElements["cities-search"]
         searchField.tap()
         searchField.typeText("aaa")
 
-        sleep(3)
+        sleep(1)
 
         XCTAssertEqual(1, app.tables.cells.count)
-        app.tables.buttons["Anuluj"].tap()        
+        app.buttons["Anuluj"].tap()
         XCTAssertEqual(expectedCount, app.tables.cells.count)
     }
 }

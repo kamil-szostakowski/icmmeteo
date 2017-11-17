@@ -38,20 +38,11 @@ class MMTOfflineTests: XCTestCase
     
     // MARK: Test methods
     
-    func test_displayUmMeteorogram()
+    func test_displayMeteorogram()
     {
         app.tables.cells["Białystok, Podlaskie"].tap()
-
         verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
-    }
-    
-    func test_displayCoampsMeteorogram()
-    {
-        app.tabBars.buttons["Model COAMPS"].tap()
-        app.tables.cells["Białystok, Podlaskie"].tap()
-        
-        verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
-    }    
+    }        
     
     func test_selectLocationOnMap()
     {

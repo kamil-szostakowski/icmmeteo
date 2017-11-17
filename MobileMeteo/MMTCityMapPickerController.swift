@@ -35,8 +35,6 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
     private var citiesStore: MMTCitiesStore!
     private var selectedLocation: CLLocation!
 
-    var climateModel: MMTClimateModel!
-    var meteorogramStore: MMTMeteorogramStore!
     var selectedCity: MMTCityProt?
  
     // MARK: Overrideds
@@ -49,8 +47,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
         btnShow.accessibilityIdentifier = "show"
         navigationBar.accessibilityIdentifier = "select-location-screen"
         
-        citiesStore = MMTCitiesStore(db: MMTDatabase.instance, geocoder: MMTCityGeocoder(generalGeocoder: CLGeocoder()))
-        meteorogramStore = MMTMeteorogramStore(model: climateModel, date: Date())
+        citiesStore = MMTCitiesStore(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))
         btnShow.isEnabled = false
         
         setupMapView()

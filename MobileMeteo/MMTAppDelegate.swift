@@ -28,7 +28,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {        
-        citiesStore = MMTCitiesStore(db: MMTDatabase.instance, geocoder: MMTCityGeocoder(generalGeocoder: CLGeocoder()))
+        citiesStore = MMTCitiesStore(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))
         
         #if DEBUG
         if ProcessInfo.processInfo.arguments.contains(MMTDebugActionCleanupDb)
@@ -61,8 +61,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     }
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool
-    {
-        guard #available(iOS 9.0, *) else { return false }
+    {        
         guard let activityId = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String else { return false }        
         guard let location = CSSearchableIndex.locationForSearchableCityUniqueId(activityId) else { return false }
         
@@ -77,7 +76,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
             
             let report = MMTAnalyticsReport(category: .Locations, action: .LocationDidSelectOnSpotlight, actionLabel: city!.name)
             
-            self.rootViewController.presentMeteorogramUmForCity(selectedCity)
+            self.rootViewController.presentMeteorogram(for: selectedCity)
             self.rootViewController.analytics?.sendUserActionReport(report)
         }        
         
