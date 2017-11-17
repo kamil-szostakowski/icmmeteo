@@ -18,7 +18,9 @@ class MMTCitiesListFavouritesTests: MMTCitiesListTestCase
         addToFavourites(bydgoszcz)
         addToFavourites(krakow)
         app.tables.element.swipeUp()
+        app.tables.element.swipeUp()
         addToFavourites(torun)
+        app.tables.element.swipeDown()
         app.tables.element.swipeDown()
 
         /* --- Assertions -- */
@@ -38,17 +40,6 @@ class MMTCitiesListFavouritesTests: MMTCitiesListTestCase
         
         XCTCheckHeader(headerFavourites)
         XCTAssertEqual(torun, app.tables.cells.element(boundBy: Int(0 + tableOffset)).label)
-        XCTCheckHeader(headerCapitals)
-    }
-
-    func test_FavouritesListOnCoampsTab()
-    {
-        app.tabBars.buttons["Model COAMPS"].tap()
-        sleep(1)
-
-        /* --- Assertions -- */
-        
-        XCTAssertEqual(bialystok, app.tables.cells.element(boundBy: Int(0 + tableOffset)).label)
         XCTCheckHeader(headerCapitals)
     }
 }

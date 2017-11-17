@@ -14,6 +14,7 @@ import CoreSpotlight
 class MMTMeteorogramController: UIViewController, NSUserActivityDelegate
 {
     // MARK: Outlets
+    @IBOutlet weak var modelSegmentedControl: UISegmentedControl!
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet var meteorogramImage: UIImageView!
     @IBOutlet var legendImage: UIImageView!
@@ -113,6 +114,7 @@ extension MMTMeteorogramController
     fileprivate func setupMeteorogram(image: UIImage?)
     {
         meteorogramImage.image = image
+        meteorogramImage.accessibilityIdentifier = image == nil ? "meteorogram" : "meteorogram-loaded"
         btnFavourite.isEnabled = image != nil
         meteorogramImage.updateSizeConstraints(CGSize(meteorogram: meteorogramStore.climateModel.type)!)
     }
@@ -126,6 +128,7 @@ extension MMTMeteorogramController
         }
         
         legendImage.image = image
+        legendImage.accessibilityIdentifier = image == nil ? "legend" : "legend-loaded"
         legendImage.updateSizeConstraints(size)
     }
     
@@ -202,6 +205,7 @@ extension MMTMeteorogramController
         
         scrollView.contentOffset = .zero
         activityIndicator.isHidden = false
+        modelSegmentedControl.isEnabled = false
         
         meteorogramStore.getForecastStartDate { _,_ in
             self.setupInfoBar()
@@ -216,6 +220,7 @@ extension MMTMeteorogramController
             (image: UIImage?, error: MMTError?) in
             
             self.activityIndicator.isHidden = true
+            self.modelSegmentedControl.isEnabled = true
             
             guard error == nil else {
                 self.displayErrorAlert(error!)
