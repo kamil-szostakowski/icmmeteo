@@ -49,27 +49,19 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        meteorogramStore = MMTDetailedMapsStore(model: climateModel, date: Date())
-        moments = meteorogramStore.getForecastMoments(for: detailedMap)
-
-        if moments == nil
-        {
-            displayErrorAlert(.meteorogramFetchFailure)
-        }
-
+        
+        setupMeteorogramStore(for: Date())
         lockUserInterface(true)
 
         setupHeader()
         setupSlider()
-        setupMeteorogramSize()        
-        fetchMeteorogramSequenceIfRequired()
+        setupMeteorogramSize()
+        fetchForecastStartDate()
     }
 
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-
         setupScrollView()
     }
     
@@ -85,6 +77,16 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
         slider.minimumValue = 0
         slider.maximumValue = Float(moments.count-1)
         slider.value = 0
+    }
+    
+    private func setupMeteorogramStore(for date: Date)
+    {
+        meteorogramStore = MMTDetailedMapsStore(model: climateModel, date: climateModel.startDate(for: Date()))
+        moments = meteorogramStore.getForecastMoments(for: detailedMap)
+        
+        if moments == nil {
+            displayErrorAlert(.meteorogramFetchFailure)
+        }
     }
 
     private func setupMeteorogramSize()
@@ -129,6 +131,18 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     }
 
     // MARK: Data update methods
+    
+    private func fetchForecastStartDate()
+    {
+        meteorogramStore.getForecastStartDate {(_ date: Date?, _ error: MMTError?) in
+            guard let startDate = date else {
+                self.displayErrorAlert(.meteorogramFetchFailure)
+                return
+            }
+            self.setupMeteorogramStore(for: startDate)
+            self.fetchMeteorogramSequenceIfRequired()
+        }
+    }
 
     private func fetchMeteorogramSequenceIfRequired()
     {
@@ -229,14 +243,12 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     private func handleSequenceFetchFinish(errorCount: Int)
     {
         guard fetchSequenceRetryCount < 2 else {
-            
             displayErrorAlert(.meteorogramFetchFailure)
             lockUserInterface(false)
             return
         }
 
         guard cache.object(forKey: key(for: moments[0])) != nil else {
-
             retryMeteorogramFetchSequenceIfNotStarted()
             return
         }

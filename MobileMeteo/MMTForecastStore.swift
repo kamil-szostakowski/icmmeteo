@@ -25,7 +25,7 @@ class MMTForecastStore
     init(model: MMTClimateModel, date: Date, session: MMTMeteorogramUrlSession)
     {
         climateModel = model
-        forecastStartDate = model.startDate(for: date)
+        forecastStartDate = date
         urlSession = session
     }
 

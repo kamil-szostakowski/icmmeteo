@@ -30,9 +30,8 @@ class MMTDetailedMapsStore: MMTForecastStore
     func getMeteorogram(for map: MMTDetailedMapType, moment: Date, completion: @escaping MMTFetchMeteorogramCompletion)
     {
         let tZeroPlus = getHoursFromForecastStartDate(forDate: moment)
-        let startDate = forecastStartDate
-
-        guard let downloadUrl = try? URL.mmt_detailedMapDownloadUrl(for: climateModel.type, map: map, tZero: startDate, plus: tZeroPlus) else {
+        
+        guard let downloadUrl = try? URL.mmt_detailedMapDownloadUrl(for: climateModel.type, map: map, tZero: forecastStartDate, plus: tZeroPlus) else {
 
             completion(nil, .detailedMapNotSupported)
             return

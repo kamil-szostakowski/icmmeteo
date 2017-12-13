@@ -38,8 +38,7 @@ extension MMTMeteorogramController
     {
         super.viewDidLoad()
         
-        meteorogramStore = MMTMeteorogramStore(model: MMTUmClimateModel(), date: Date())
-        
+        setupMeteorogramStore(model: MMTUmClimateModel())
         setupNavigationBar()
         setupInfoBar()
         setupStarButton()
@@ -60,24 +59,17 @@ extension MMTMeteorogramController
             analytics?.sendUserActionReport(.Meteorogram, action: .MeteorogramDidDisplayInLandscape, actionLabel: meteorogramStore.climateModel.type.rawValue)
         }
     }
-    
-    @objc func handleApplicationDidBecomeActiveNotification(_ notification: Notification)
-    {
-        let oldDate = meteorogramStore.forecastStartDate
-        meteorogramStore.getForecastStartDate { (date: Date?, error: MMTError?) in
-            guard let newDate = date else { return }
-            
-            if oldDate < newDate {
-                self.updateMeteorogram()
-            }
-        }
-    }
 }
 
 // Setup extension
 extension MMTMeteorogramController
 {
     // MARK: Setup methods
+    fileprivate func setupMeteorogramStore(model: MMTClimateModel)
+    {
+        meteorogramStore = MMTMeteorogramStore(model: model, date: model.startDate(for: Date()))
+    }
+    
     fileprivate func setupNavigationBar()
     {
         navigationBar.accessibilityIdentifier = "meteorogram-screen"
@@ -132,12 +124,6 @@ extension MMTMeteorogramController
         legendImage.updateSizeConstraints(size)
     }
     
-    fileprivate func setupNotificationHandler()
-    {
-        let handler = #selector(handleApplicationDidBecomeActiveNotification(_:))
-        NotificationCenter.default.addObserver(self, selector: handler, name: .UIApplicationDidBecomeActive, object: nil)
-    }
-    
     fileprivate func setupInfoBar()
     {
         forecastStartLabel.text = MMTLocalizedStringWithFormat("forecast.start: %@", DateFormatter.utcFormatter.string(from: meteorogramStore.forecastStartDate))
@@ -153,8 +139,6 @@ extension MMTMeteorogramController
         let
         citiesStore = MMTCitiesStore(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))
         citiesStore.markCity(city, asFavourite: city.isFavourite)
-        
-        NotificationCenter.default.removeObserver(self)
         perform(segue: .UnwindToListOfCities, sender: self)
     }
     
@@ -178,7 +162,7 @@ extension MMTMeteorogramController
             MMTUmClimateModel() :
             MMTCoampsClimateModel()
         
-        meteorogramStore = MMTMeteorogramStore(model: climateModel, date: Date())
+        setupMeteorogramStore(model: climateModel)
         updateMeteorogram()
     }
     
@@ -201,15 +185,14 @@ extension MMTMeteorogramController
     {
         setupMeteorogram(image: nil)
         setupMeteorogramLegend(image: nil)
-        setupInfoBar()
+        
+        meteorogramStore.getForecastStartDate {_,_ in
+            self.setupInfoBar()
+        }
         
         scrollView.contentOffset = .zero
         activityIndicator.isHidden = false
-        modelSegmentedControl.isEnabled = false
-        
-        meteorogramStore.getForecastStartDate { _,_ in
-            self.setupInfoBar()
-        }
+        modelSegmentedControl.isEnabled = false                
         
         meteorogramStore.getLegend {
             (image: UIImage?, error: MMTError?) in

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1B8B5E601FB116D4002D2381 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B5E5F1FB116D4002D2381 /* UIViewController.swift */; };
+		1BBD84EE1FDF2F3600627B06 /* MMTLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBD84ED1FDF2F3600627B06 /* MMTLocationService.swift */; };
+		1BBD84F61FDF440F00627B06 /* MMTServiceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBD84F51FDF440F00627B06 /* MMTServiceProvider.swift */; };
 		7F3F1D6A559A3DAE61F8431A /* libPods-MobileMeteoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C8D23B87D7A42D9A142AF2B4 /* libPods-MobileMeteoTests.a */; };
 		8E1505491E29778000F2D224 /* MMTCoampsClimateModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1505481E29778000F2D224 /* MMTCoampsClimateModelTests.swift */; };
 		8E29089D1E36ABAA00D97253 /* MMTForecastStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E29089C1E36ABAA00D97253 /* MMTForecastStore.swift */; };
@@ -110,6 +112,8 @@
 
 /* Begin PBXFileReference section */
 		1B8B5E5F1FB116D4002D2381 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
+		1BBD84ED1FDF2F3600627B06 /* MMTLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTLocationService.swift; sourceTree = "<group>"; };
+		1BBD84F51FDF440F00627B06 /* MMTServiceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTServiceProvider.swift; sourceTree = "<group>"; };
 		1D9CD1C488B1993E4BBB4129 /* Pods-MobileMeteo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileMeteo.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobileMeteo/Pods-MobileMeteo.release.xcconfig"; sourceTree = "<group>"; };
 		31C0DFD0A15637264CB4BDB1 /* Pods-MobileMeteoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileMeteoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests.release.xcconfig"; sourceTree = "<group>"; };
 		32E38FF08C15F447B5728A61 /* Pods-MeteoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeteoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MeteoUITests/Pods-MeteoUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -244,6 +248,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1BBD84EC1FDF2F0900627B06 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1BBD84F51FDF440F00627B06 /* MMTServiceProvider.swift */,
+				1BBD84ED1FDF2F3600627B06 /* MMTLocationService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		1BF148711F686F27002D9FB0 /* ViewExtensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -313,6 +326,7 @@
 			children = (
 				F977E33D1BA007C200608270 /* MMTSearchInputFilter.swift */,
 				F906CF0D1C58F04D009BBEB9 /* MMTCitiesIndex.swift */,
+				8EB46C751E58FA3F00AEB741 /* MMTCityGeocoder.swift */,
 			);
 			name = Cities;
 			sourceTree = "<group>";
@@ -374,7 +388,6 @@
 		F99A8A351B849A540098E170 /* Stores */ = {
 			isa = PBXGroup;
 			children = (
-				8EB46C751E58FA3F00AEB741 /* MMTCityGeocoder.swift */,
 				F9B2BA401B4BFD0F0081AC29 /* MMTCitiesStore.swift */,
 				8E29089C1E36ABAA00D97253 /* MMTForecastStore.swift */,
 				F9DAEA9F1B85D2DE00D4CD34 /* MMTMeteorogramStore.swift */,
@@ -530,6 +543,7 @@
 		F9E6969F1AFCDEA200273DA3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1BBD84EC1FDF2F0900627B06 /* Services */,
 				F90F72A51C5A1B8B00130353 /* Cities */,
 				F9BB14A01B56749E00C81B3F /* Entities */,
 				F99A8A351B849A540098E170 /* Stores */,
@@ -872,6 +886,7 @@
 				F9FFEE471B8DCEF900C30EDD /* UIImageView.swift in Sources */,
 				8E880AC01DF220D1004D8A9E /* MMTDetailedMapPreviewController.swift in Sources */,
 				F9BB14A41B56765700C81B3F /* MMTCity.swift in Sources */,
+				1BBD84EE1FDF2F3600627B06 /* MMTLocationService.swift in Sources */,
 				8E79D52B1D4E806E00BE1A0E /* MMTDetailedMapsListController.swift in Sources */,
 				F9F240BD1C5237D00030E440 /* MMTAnalytics.swift in Sources */,
 				8EC540F71E6E2CFE0052BCD9 /* MMTPredefinedCitiesFileStore.swift in Sources */,
@@ -884,6 +899,7 @@
 				F957544F1B4D068400C4E672 /* MMTCitiesListController.swift in Sources */,
 				F93004521E11D4AC00A5CE10 /* MMTCitiesListSectionHeader.swift in Sources */,
 				F9B2BA411B4BFD0F0081AC29 /* MMTCitiesStore.swift in Sources */,
+				1BBD84F61FDF440F00627B06 /* MMTServiceProvider.swift in Sources */,
 				F9C5B5B01B81D1FC00CFB503 /* UIScrollView.swift in Sources */,
 				F9F8753B1C47D3C0005E669E /* MMTMeteorogramUrlSession.swift in Sources */,
 				F957544D1B4D050C00C4E672 /* MMTConstants.swift in Sources */,

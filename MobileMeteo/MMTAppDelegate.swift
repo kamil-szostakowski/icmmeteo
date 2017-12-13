@@ -27,7 +27,8 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     // MARK: Delegate methods
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
-    {        
+    {
+        MMTServiceProvider.locationService.start()        
         citiesStore = MMTCitiesStore(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))
         
         #if DEBUG
@@ -53,7 +54,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         setupAnalytics()
         
         return true
-    }
+    }    
     
     func applicationWillTerminate(_ application: UIApplication)
     {
@@ -121,12 +122,10 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         let filePath = Bundle.main.path(forResource: "Cities", ofType: "json")                        
         let cities = MMTPredefinedCitiesFileStore().getPredefinedCitiesFromFile(filePath!)
             
-        for city in cities
-        {
+        for city in cities {
             guard let cityObject = city as? NSManagedObject else {
                 continue
-            }
-                
+            }                
             MMTDatabase.instance.context.insert(cityObject)
         }
             
