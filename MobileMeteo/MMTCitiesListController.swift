@@ -24,12 +24,14 @@ class MMTCitiesListController: UIViewController
     var selectedCity: MMTCityProt?
     
     fileprivate var lastUpdate: Date?
-    fileprivate var locationManager: CLLocationManager!
     fileprivate var searchInput: MMTSearchInput!
     fileprivate var citiesIndex: MMTCitiesIndex!
     fileprivate var citiesStore: MMTCitiesStore!
     fileprivate var currentLocation: MMTCityProt?
     fileprivate let sectionHeaderIdentifier = "CitiesListHeader"
+    
+    fileprivate var service: MMTLocationService!
+    fileprivate var observation: NSKeyValueObservation!
     
     // MARK: Actions
     @IBAction func unwindToListOfCities(_ unwindSegue: UIStoryboardSegue)
@@ -63,7 +65,6 @@ extension MMTCitiesListController
         citiesStore = MMTCitiesStore(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))        
         
         setupTableView()
-        setupLocationManager()        
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -71,6 +72,8 @@ extension MMTCitiesListController
         super.viewWillAppear(animated)
         
         setupSearchBar()
+        setupLocationService()
+        
         updateIndex {
             self.tableView.reloadData()
             self.updateIndexWithCurrentLocation {
@@ -90,6 +93,7 @@ extension MMTCitiesListController
     {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+        observation = nil
     }
     
     @objc func handleApplicationDidBecomeActiveNotification(_ notification: Notification)
@@ -114,17 +118,23 @@ extension MMTCitiesListController
         tableView.register(headerNib, forHeaderFooterViewReuseIdentifier: sectionHeaderIdentifier)
     }
     
-    fileprivate func setupLocationManager()
-    {
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
-    }    
-    
     fileprivate func setupNotificationHandler()
     {
         let handler = #selector(handleApplicationDidBecomeActiveNotification(_:))
         NotificationCenter.default.addObserver(self, selector: handler, name: .UIApplicationDidBecomeActive, object: nil)
+    }
+    
+    fileprivate func setupLocationService()
+    {
+        service = MMTServiceProvider.locationService
+        observation = service.observe(\.currentLocation) {(locationService, _) in
+            if locationService.currentLocation != nil {
+                self.updateIndexWithCurrentLocation(next: self.updateCurrentLocationRow)
+            } else {
+                self.currentLocation = nil
+                self.updateIndex() { self.tableView.reloadData() }
+            }
+        }
     }
 }
 
@@ -150,7 +160,7 @@ extension MMTCitiesListController
     
     fileprivate func updateIndexWithCurrentLocation(next completion: @escaping MMTCompletion)
     {
-        guard let location = self.locationManager.location else {
+        guard let location = MMTServiceProvider.locationService.currentLocation else {
             return
         }
         
@@ -158,7 +168,7 @@ extension MMTCitiesListController
             
             // Maybe we should update the current location if failed
             guard let currentCity = city, error == nil else { return }
-            guard currentCity.name.characters.count > 0 else { return }
+            guard currentCity.name.count > 0 else { return }
             
             let allCities = self.citiesIndex[[.Favourites, .Capitals]]
             self.currentLocation = currentCity
@@ -302,27 +312,5 @@ extension MMTCitiesListController: UITableViewDelegate, UITableViewDataSource
     {
         guard searchInput.isValid == false else { return }
         tableView.reloadData()
-    }
-}
-
-// Location manager extension
-extension MMTCitiesListController: CLLocationManagerDelegate
-{
-    // MARK: CLLocationManagerDelegate    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
-    {
-        if status == .authorizedWhenInUse {
-            locationManager.startMonitoringSignificantLocationChanges()
-            updateIndexWithCurrentLocation(next: updateCurrentLocationRow)
-        } else {
-            currentLocation = nil
-            locationManager.stopMonitoringSignificantLocationChanges()
-            updateIndex() { self.tableView.reloadData() }
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-    {
-        updateIndexWithCurrentLocation(next: updateCurrentLocationRow)
     }
 }

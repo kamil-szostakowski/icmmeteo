@@ -29,7 +29,9 @@ class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UI
         super.viewDidLoad()
 
         navigationBar.accessibilityIdentifier = "detailed-maps-list-screen"
-        setupModelStore()
+        setupModelStore(model: MMTUmClimateModel())
+        
+        segmentControl.selectedSegmentIndex = 0
         analytics?.sendScreenEntryReport("Detailed maps")
     }
 
@@ -45,12 +47,11 @@ class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UI
 
     // MARK: Setup methods
 
-    private func setupModelStore()
-    {
-        meteorogramStore = MMTDetailedMapsStore(model: MMTUmClimateModel(), date: Date())
-        segmentControl.selectedSegmentIndex = 0
+    private func setupModelStore(model: MMTClimateModel)
+    {        
+        meteorogramStore = MMTDetailedMapsStore(model: model, date: model.startDate(for: Date()))
     }
-
+    
     // MARK: Table view methods
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -96,8 +97,8 @@ class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UI
         if selectedSegmentTitle == MMTClimateModelType.WAM.rawValue {
             climateModel = MMTWamClimateModel()
         }
-
-        meteorogramStore = MMTDetailedMapsStore(model: climateModel!, date: Date())
+        
+        setupModelStore(model: climateModel!)
         tableView.reloadData()
     }
     

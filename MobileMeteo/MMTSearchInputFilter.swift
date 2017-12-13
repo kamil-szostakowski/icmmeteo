@@ -18,7 +18,7 @@ class MMTSearchInput
     }
     
     var isValid: Bool {
-        return rawInput.removed(doubled: .whitespaces).characters.count > 2
+        return rawInput.removed(doubled: .whitespaces).count > 2
     }
     
     // MARK: Initializers
@@ -28,7 +28,7 @@ class MMTSearchInput
         rawInput = input.removed(doubled: .whitespaces)
         
         // Supports multi word city names eg. Kędzierzyn Koźle
-        if rawInput.characters.count > 0 && input.last == " " {
+        if rawInput.count > 0 && input.last == " " {
             rawInput.append(" ")
         }
     }
@@ -39,7 +39,7 @@ extension String
     func removed(doubled characterSet: CharacterSet) -> String
     {
         return components(separatedBy: characterSet)
-            .filter(){ $0.characters.count > 0 }
+            .filter(){ $0.count > 0 }
             .joined(separator: " ")
     }
 }
