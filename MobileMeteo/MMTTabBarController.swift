@@ -11,6 +11,7 @@ import Foundation
 
 class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
 {
+    // MARK: Lifecycle methods
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -29,26 +30,7 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
         return .portrait
     }
     
-    // MARK: Interface methods
-    
-    func presentMeteorogram(for city: MMTCityProt)
-    {
-        guard let citiesListController = viewControllers?.first as? MMTCitiesListController else {
-            return
-        }
-        
-        selectedIndex = 0
-        
-        if presentedViewController != nil {
-            dismiss(animated: false, completion: nil)
-        }
-        
-        citiesListController.selectedCity = city
-        citiesListController.perform(segue: .DisplayMeteorogram, sender: self)
-    }
-    
     // MARK: UITabBarControllerDelegate methods
-    
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController)
     {
         guard let index =  tabBarController.viewControllers?.index(of: viewController) else {

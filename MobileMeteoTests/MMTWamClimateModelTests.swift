@@ -42,5 +42,13 @@ class MMTWamClimateModelTests: XCTestCase
         let date = TT.localFormatter.date(from: "2015-03-11T010:34")!
         
         XCTAssertEqual(expectedDate, MMTWamClimateModel().startDate(for: date))
-    }           
+    }
+    
+    func testGetDetailedMapTupleForDetiledMapType()
+    {
+        let model = MMTWamClimateModel()
+        
+        XCTAssertEqual(model.detailedMap(ofType: .LowClouds)?.type, nil)
+        XCTAssertEqual(model.detailedMap(ofType: .TideHeight)?.type, .TideHeight)
+    }
 }

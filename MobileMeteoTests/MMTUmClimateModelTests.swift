@@ -24,7 +24,7 @@ class MMTUmClimateModelTests: XCTestCase
         XCTAssertEqual(model.detailedMaps.count, 16)
     }
 
-    func test_forecastStartDateMidnight()
+    func testForecastStartDateMidnight()
     {
         let date = TT.localFormatter.date(from: "2015-06-08T08:00")!
         let expectedDate = TT.utcFormatter.date(from: "2015-06-08T00:00")!
@@ -32,7 +32,7 @@ class MMTUmClimateModelTests: XCTestCase
         XCTAssertEqual(expectedDate, MMTUmClimateModel().startDate(for: date))
     }
 
-    func test_forecastStartDate6am()
+    func testForecastStartDate6am()
     {
         let date = TT.localFormatter.date(from: "2015-06-08T15:00")!
         let expectedDate = TT.utcFormatter.date(from: "2015-06-08T06:00")!
@@ -40,7 +40,7 @@ class MMTUmClimateModelTests: XCTestCase
         XCTAssertEqual(expectedDate, MMTUmClimateModel().startDate(for: date))
     }
 
-    func test_forecastStartDate12am()
+    func testForecastStartDate12am()
     {
         let date = TT.localFormatter.date(from: "2015-06-08T20:00")!
         let expectedDate = TT.utcFormatter.date(from: "2015-06-08T12:00")!
@@ -48,7 +48,7 @@ class MMTUmClimateModelTests: XCTestCase
         XCTAssertEqual(expectedDate, MMTUmClimateModel().startDate(for: date))
     }
 
-    func test_forecastStartDate6pm()
+    func testForecastStartDate6pm()
     {
         let date = TT.localFormatter.date(from: "2015-06-09T01:00")!
         let expectedDate = TT.utcFormatter.date(from: "2015-06-08T18:00")!
@@ -56,11 +56,19 @@ class MMTUmClimateModelTests: XCTestCase
         XCTAssertEqual(expectedDate, MMTUmClimateModel().startDate(for: date))
     }
 
-    func test_forecastStartDatePreviousDay()
+    func testForecastStartDatePreviousDay()
     {
         let date = TT.localFormatter.date(from: "2015-06-08T04:00")!
         let expectedDate = TT.utcFormatter.date(from: "2015-06-07T18:00")!
 
         XCTAssertEqual(expectedDate, MMTUmClimateModel().startDate(for: date))
-    }    
+    }
+    
+    func testGetDetailedMapTupleForDetiledMapType()
+    {
+        let model = MMTUmClimateModel()
+        
+        XCTAssertEqual(model.detailedMap(ofType: .LowClouds)?.type, .LowClouds)
+        XCTAssertEqual(model.detailedMap(ofType: .TideHeight)?.type, nil)        
+    }
 }

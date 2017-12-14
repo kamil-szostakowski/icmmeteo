@@ -46,7 +46,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         }
         #endif
         
-        if !UserDefaults.standard.isAppInitialized {
+        if UserDefaults.standard.isAppInitialized == false {
             initDatabase()
         }
         
@@ -77,11 +77,16 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
             
             let report = MMTAnalyticsReport(category: .Locations, action: .LocationDidSelectOnSpotlight, actionLabel: city!.name)
             
-            self.rootViewController.presentMeteorogram(for: selectedCity)
+            MMTPresentCommand<MMTCitiesListController>(tabbar: self.rootViewController).present(city: selectedCity)
             self.rootViewController.analytics?.sendUserActionReport(report)
         }        
         
         return true
+    }
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void)
+    {
+        print("aaa")
     }
     
     // MARK: Setup methods
