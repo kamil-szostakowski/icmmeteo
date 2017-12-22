@@ -265,12 +265,14 @@ extension MMTMeteorogramController
     fileprivate func updateSpotlightIndex(for city: MMTCityProt)
     {
         guard CSSearchableIndex.isIndexingAvailable() else { return }
-        
+        let shortcut = MMTMeteorogramPreviewShortcut(model: MMTUmClimateModel(), city: city)
+                
         if city.isFavourite {
-            CSSearchableIndex.default().indexSearchableCity(city, completion: nil)
-        }
-        else {
-            CSSearchableIndex.default().deleteSearchableCity(city, completion: nil)
+            CSSearchableIndex.default().register(shortcut)
+            UIApplication.shared.register(shortcut)
+        } else {
+            CSSearchableIndex.default().unregister(shortcut)
+            UIApplication.shared.unregister(shortcut)
         }
     }
 }

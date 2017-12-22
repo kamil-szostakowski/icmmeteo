@@ -17,37 +17,27 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
 
 @UIApplicationMain class MMTAppDelegate: UIResponder, UIApplicationDelegate
 {
+    // MARK: Properties
     var window: UIWindow?
-    var citiesStore: MMTCitiesStore!
+    var observation: NSKeyValueObservation?
     
     var rootViewController: MMTTabBarController {
         return self.window!.rootViewController as! MMTTabBarController
     }
         
-    // MARK: Delegate methods
-    
+    // MARK: Lifecycle methods
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {
-        MMTServiceProvider.locationService.start()        
-        citiesStore = MMTCitiesStore(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))
+        setupQuickActions()
+        MMTServiceProvider.locationService.start()                
+        //CSSearchableIndex.default().deleteAllSearchableItems(completionHandler: nil)
         
         #if DEBUG
-        if ProcessInfo.processInfo.arguments.contains(MMTDebugActionCleanupDb)
-        {
-            URLCache.shared.removeAllCachedResponses()
-            MMTDatabase.instance.flushDatabase()
-            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-            UserDefaults.standard.synchronize()
-        }
-            
-        if ProcessInfo.processInfo.arguments.contains(MMTDebugActionSimulatedOfflineMode)
-        {
-            MMTMeteorogramUrlSession.simulateOfflineMode = true
-        }
+        setupDebugEnvironment()
         #endif
         
         if UserDefaults.standard.isAppInitialized == false {
-            initDatabase()
+            setupDatabase()
         }
         
         setupAppearance()
@@ -61,35 +51,46 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         MMTDatabase.instance.saveContext()
     }
     
+    // MARK: External actions related methods
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool
-    {        
-        guard let activityId = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String else { return false }        
-        guard let location = CSSearchableIndex.locationForSearchableCityUniqueId(activityId) else { return false }
+    {
+        let
+        shortcut = CSSearchableIndex.default().convert(from: userActivity)
+        shortcut?.execute(using: rootViewController, completion: nil)
         
-        citiesStore.findCityForLocation(location) { (city: MMTCityProt?, error: MMTError?) in
-            
-            guard let selectedCity = city, error == nil else
-            {
-                let alert = UIAlertController.alertForMMTError(error!)
-                self.rootViewController.present(alert, animated: true, completion: nil)
-                return
-            }
-            
-            let report = MMTAnalyticsReport(category: .Locations, action: .LocationDidSelectOnSpotlight, actionLabel: city!.name)
-            
-            MMTPresentCommand<MMTCitiesListController>(tabbar: self.rootViewController).present(city: selectedCity)
-            self.rootViewController.analytics?.sendUserActionReport(report)
-        }        
+        //let report = MMTAnalyticsReport(category: .Locations, action: .LocationDidSelectOnSpotlight, actionLabel: city!.name)
+        //targetVC.analytics?.sendUserActionReport(report)
         
         return true
     }
     
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void)
-    {
-        print("aaa")
-    }
-    
+    {        
+        let
+        shortcut = UIApplication.shared.convert(from: shortcutItem)
+        shortcut?.execute(using: rootViewController) { completionHandler(true) }
+    }    
+}
+
+// Setup extension
+extension MMTAppDelegate
+{
     // MARK: Setup methods
+    private func setupDatabase()
+    {
+        let filePath = Bundle.main.path(forResource: "Cities", ofType: "json")
+        let cities = MMTPredefinedCitiesFileStore().getPredefinedCitiesFromFile(filePath!)
+        
+        for city in cities {
+            guard let cityObject = city as? NSManagedObject else {
+                continue
+            }
+            MMTDatabase.instance.context.insert(cityObject)
+        }
+        
+        MMTDatabase.instance.saveContext()
+        UserDefaults.standard.isAppInitialized = true
+    }
     
     private func setupAppearance()
     {
@@ -110,7 +111,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     }
     
     private func setupAnalytics()
-    {        
+    {
         guard let gai = GAI.sharedInstance() else {
             assert(false, "Google Analytics not configured correctly")
             return
@@ -120,21 +121,37 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         gai.trackUncaughtExceptions = false
     }
     
-    // MARK: Helper methods
-    
-    private func initDatabase()
+    private func setupQuickActions()
     {
-        let filePath = Bundle.main.path(forResource: "Cities", ofType: "json")                        
-        let cities = MMTPredefinedCitiesFileStore().getPredefinedCitiesFromFile(filePath!)
+        let shortcut = MMTDetailedMapPreviewShortcut(model: MMTUmClimateModel(), map: .Precipitation)
+        UIApplication.shared.register(shortcut)
+        
+        let service = MMTServiceProvider.locationService
+        observation = service.observe(\.currentLocation) {(locationService, _) in
             
-        for city in cities {
-            guard let cityObject = city as? NSManagedObject else {
-                continue
-            }                
-            MMTDatabase.instance.context.insert(cityObject)
+            let shortcut = MMTCurrentLocationMeteorogramPreviewShortcut(model: MMTUmClimateModel())
+            
+            if locationService.currentLocation != nil {
+                UIApplication.shared.register(shortcut)
+            } else {
+                UIApplication.shared.unregister(shortcut)
+            }
         }
-            
-        MMTDatabase.instance.saveContext()
-        UserDefaults.standard.isAppInitialized = true
-    }    
+    }
+    
+    #if DEBUG
+    private func setupDebugEnvironment()
+    {
+        if ProcessInfo.processInfo.arguments.contains(MMTDebugActionCleanupDb) {
+            URLCache.shared.removeAllCachedResponses()
+            MMTDatabase.instance.flushDatabase()
+            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+            UserDefaults.standard.synchronize()
+        }
+        
+        if ProcessInfo.processInfo.arguments.contains(MMTDebugActionSimulatedOfflineMode) {
+            MMTMeteorogramUrlSession.simulateOfflineMode = true
+        }
+    }
+    #endif
 }
