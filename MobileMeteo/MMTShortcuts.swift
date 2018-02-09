@@ -29,7 +29,7 @@ protocol MMTShortcutDispatcher
 
 extension MMTShortcut
 {
-    func prepare(tabbar: MMTTabBarController, target: UIViewController, completion: @escaping (() -> Void))
+    func prepare(tabbar: MMTTabBarController, target: UIViewController, completion: @escaping MMTCompletion)
     {
         guard let index = tabbar.viewControllers?.index(of: target) else {
             completion()

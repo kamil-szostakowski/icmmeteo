@@ -31,7 +31,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         setupQuickActions()
         MMTServiceProvider.locationService.start()                
         //CSSearchableIndex.default().deleteAllSearchableItems(completionHandler: nil)
-        
+        // TODO: Implement migration of spotlight and QuickActions
         #if DEBUG
         setupDebugEnvironment()
         #endif

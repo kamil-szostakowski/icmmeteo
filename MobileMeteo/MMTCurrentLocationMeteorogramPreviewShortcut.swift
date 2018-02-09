@@ -10,6 +10,9 @@ import CoreLocation
 
 class MMTCurrentLocationMeteorogramPreviewShortcut: MMTMeteorogramPreviewShortcut
 {
+    private var retryCount: Int = 0
+    private let RETRY_MAX_COUNT = 5
+    
     override var identifier: String {
         return "current-location"
     }
@@ -30,12 +33,26 @@ class MMTCurrentLocationMeteorogramPreviewShortcut: MMTMeteorogramPreviewShortcu
     
     override func execute(using tabbar: MMTTabBarController, completion: MMTCompletion?)
     {
-        guard MMTServiceProvider.locationService.currentLocation != nil, location != .zero else {
+        guard retryCount < RETRY_MAX_COUNT else {
             completion?()
             return
         }
         
+        guard MMTServiceProvider.locationService.currentLocation != nil, location != .zero else {
+            retry(after: 1, using: tabbar, completion: completion)
+            return
+        }
+        
         super.execute(using: tabbar, completion: completion)
+    }
+    
+    private func retry(after seconds: UInt64, using tabbar: MMTTabBarController, completion: MMTCompletion?)
+    {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: seconds * 1000)) {
+            self.retryCount += 1
+            self.location = MMTServiceProvider.locationService.currentLocation ?? .zero
+            self.execute(using: tabbar, completion: completion)
+        }
     }
 }
 
