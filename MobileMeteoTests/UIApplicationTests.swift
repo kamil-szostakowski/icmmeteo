@@ -25,7 +25,7 @@ class UIApplicationTests : XCTestCase
         
         let city = MMTCity(name: "Lorem", region: "Ipsum", location: CLLocation(latitude: 2, longitude: 2))
         meteorogramShortcut = MMTMeteorogramPreviewShortcut(model: MMTUmClimateModel(), city: city)
-        currentLocationShortcut = MMTCurrentLocationMeteorogramPreviewShortcut(model: MMTUmClimateModel())
+        currentLocationShortcut = MMTCurrentLocationMeteorogramPreviewShortcut(model: MMTUmClimateModel(), locationService: MMTStubLocationService())
     }
     
     override func tearDown()
@@ -52,7 +52,7 @@ class UIApplicationTests : XCTestCase
     
     func testConversionOfCurrentLocationMeteorogramPreviewShortcutToApplicationShortcutItem()
     {
-        let shortcut = MMTCurrentLocationMeteorogramPreviewShortcut(model: MMTUmClimateModel())
+        let shortcut = MMTCurrentLocationMeteorogramPreviewShortcut(model: MMTUmClimateModel(), locationService: MMTStubLocationService())
         let item = UIApplication.shared.convert(from: shortcut)!
         
         XCTAssertEqual(item.type, "current-location")
@@ -141,11 +141,4 @@ class UIApplicationTests : XCTestCase
         XCTAssertEqual(UIApplication.shared.shortcutItems?.count, 1)
 
     }
-}
-
-fileprivate class MMTUnsupportedShortcut: MMTShortcut
-{
-    var identifier: String = ""
-    
-    func execute(using tabbar: MMTTabBarController, completion: MMTCompletion?) { }
 }

@@ -12,22 +12,19 @@ class MMTCurrentLocationMeteorogramPreviewShortcut: MMTMeteorogramPreviewShortcu
 {
     private var retryCount: Int = 0
     private let RETRY_MAX_COUNT = 5
+    private let locationService: MMTLocationService
     
     override var identifier: String {
         return "current-location"
     }
     
-    convenience init(model: MMTClimateModel)
+    init(model: MMTClimateModel, locationService service: MMTLocationService)
     {
         let name = MMTLocalizedString("forecast.here")
-        let location = MMTServiceProvider.locationService.currentLocation ?? .zero
+        let location = service.currentLocation ?? .zero
         let city = MMTCity(name: name, region: "", location: location)
         
-        self.init(model: model, city: city)
-    }
-    
-    override init(model: MMTClimateModel, city: MMTCityProt)
-    {
+        locationService = service
         super.init(model: model, city: city)
     }
     
@@ -38,7 +35,7 @@ class MMTCurrentLocationMeteorogramPreviewShortcut: MMTMeteorogramPreviewShortcu
             return
         }
         
-        guard MMTServiceProvider.locationService.currentLocation != nil, location != .zero else {
+        guard locationService.currentLocation != nil, location != .zero else {
             retry(after: 1, using: tabbar, completion: completion)
             return
         }
@@ -50,7 +47,7 @@ class MMTCurrentLocationMeteorogramPreviewShortcut: MMTMeteorogramPreviewShortcu
     {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: seconds * 1000)) {
             self.retryCount += 1
-            self.location = MMTServiceProvider.locationService.currentLocation ?? .zero
+            self.location = self.locationService.currentLocation ?? .zero
             self.execute(using: tabbar, completion: completion)
         }
     }

@@ -33,10 +33,48 @@ extension MMTMeteorogramPreviewShortcut
 {
     convenience init?(shortcut: UIApplicationShortcutItem)
     {
+        guard let model = type(of: self).model(from: shortcut) else {
+            return nil
+        }
+
+        guard let city = type(of: self).city(from: shortcut) else {
+            return nil
+        }
+        
+        self.init(model: model, city: city)
+    }
+}
+
+extension MMTCurrentLocationMeteorogramPreviewShortcut
+{
+    convenience init?(shortcut: UIApplicationShortcutItem, locationService: MMTLocationService)
+    {
+        guard let model = type(of: self).model(from: shortcut) else {
+            return nil
+        }        
+        
+        self.init(model: model, locationService: locationService)
+    }
+}
+
+// Helper extension
+extension MMTMeteorogramPreviewShortcut
+{
+    fileprivate static func model(from shortcut: UIApplicationShortcutItem) -> MMTClimateModel?
+    {
+        guard let cmTypeString = shortcut.userInfo?["climate-model"] as? String else {
+            return nil
+        }
+        
+        return MMTClimateModelType(rawValue: cmTypeString)?.model
+    }
+    
+    fileprivate static func city(from shortcut: UIApplicationShortcutItem) -> MMTCityProt?
+    {
         guard
             let latitude = shortcut.userInfo?["latitude"] as? CLLocationDegrees,
             let longitude = shortcut.userInfo?["longitude"] as? CLLocationDegrees else {
-            return nil
+                return nil
         }
         
         guard let name = shortcut.userInfo?["city-name"] as? String else {
@@ -47,15 +85,9 @@ extension MMTMeteorogramPreviewShortcut
             return nil
         }
         
-        guard
-            let cmTypeString = shortcut.userInfo?["climate-model"] as? String,
-            let model = MMTClimateModelType(rawValue: cmTypeString)?.model else {
-            return nil
-        }
-        
         let location = CLLocation(latitude: latitude, longitude: longitude)
-        let city = MMTCity(name: name, region: region, location: location)
         
-        self.init(model: model, city: city)
+        return MMTCity(name: name, region: region, location: location)
     }
+
 }

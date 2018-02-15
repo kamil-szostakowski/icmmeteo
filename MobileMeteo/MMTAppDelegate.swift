@@ -14,12 +14,13 @@ import CoreSpotlight
 
 public let MMTDebugActionCleanupDb = "CLEANUP_DB"
 public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
+public let MMTLocationChangedNotification = Notification.Name(rawValue: "MMTLocationChangedNotification")
 
 @UIApplicationMain class MMTAppDelegate: UIResponder, UIApplicationDelegate
 {
     // MARK: Properties
     var window: UIWindow?
-    var observation: NSKeyValueObservation?
+    var locationManager: CLLocationManager!
     
     var rootViewController: MMTTabBarController {
         return self.window!.rootViewController as! MMTTabBarController
@@ -28,10 +29,12 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     // MARK: Lifecycle methods
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {
+        setupLocationManager()
         setupQuickActions()
-        MMTServiceProvider.locationService.start()                
+        
         //CSSearchableIndex.default().deleteAllSearchableItems(completionHandler: nil)
         // TODO: Implement migration of spotlight and QuickActions
+        
         #if DEBUG
         setupDebugEnvironment()
         #endif
@@ -121,22 +124,20 @@ extension MMTAppDelegate
         gai.trackUncaughtExceptions = false
     }
     
+    private func setupLocationManager()
+    {
+        let handler = #selector(handleLocationDidChange(notification:))
+        NotificationCenter.default.addObserver(self, selector: handler, name: MMTLocationChangedNotification, object: nil)
+        
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+    }
+    
     private func setupQuickActions()
     {
         let shortcut = MMTDetailedMapPreviewShortcut(model: MMTUmClimateModel(), map: .Precipitation)
         UIApplication.shared.register(shortcut)
-        
-        let service = MMTServiceProvider.locationService
-        observation = service.observe(\.currentLocation) {(locationService, _) in
-            
-            let shortcut = MMTCurrentLocationMeteorogramPreviewShortcut(model: MMTUmClimateModel())
-            
-            if locationService.currentLocation != nil {
-                UIApplication.shared.register(shortcut)
-            } else {
-                UIApplication.shared.unregister(shortcut)
-            }
-        }
     }
     
     #if DEBUG
@@ -154,4 +155,44 @@ extension MMTAppDelegate
         }
     }
     #endif
+}
+
+// Location service extension
+extension MMTAppDelegate : MMTLocationService
+{
+    var currentLocation: CLLocation? {
+        return locationManager.location
+    }
+}
+
+extension MMTAppDelegate : CLLocationManagerDelegate
+{
+    // MARK: Location service methods
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
+    {
+        if status == .authorizedWhenInUse {
+            locationManager.startMonitoringSignificantLocationChanges()
+            locationManager(manager, didUpdateLocations: [])
+            
+        } else {
+            locationManager.stopMonitoringSignificantLocationChanges()
+            locationManager(manager, didUpdateLocations: [])
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+    {
+        NotificationCenter.default.post(name: MMTLocationChangedNotification, object: nil)
+    }
+    
+    @objc func handleLocationDidChange(notification: Notification)
+    {
+        let shortcut = MMTCurrentLocationMeteorogramPreviewShortcut(model: MMTUmClimateModel(), locationService: self)
+        
+        if locationManager.location != nil {
+            UIApplication.shared.register(shortcut)
+        } else {
+            UIApplication.shared.unregister(shortcut)
+        }
+    }
 }

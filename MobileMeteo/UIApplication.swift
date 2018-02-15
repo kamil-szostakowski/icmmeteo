@@ -65,7 +65,7 @@ extension UIApplication : MMTShortcutDispatcher
         }
         
         if shortcut.type.contains("current-location") {
-            return MMTCurrentLocationMeteorogramPreviewShortcut(shortcut: shortcut)
+            return MMTCurrentLocationMeteorogramPreviewShortcut(shortcut: shortcut, locationService: UIApplication.shared.locationService!)
         }
                 
         return nil
