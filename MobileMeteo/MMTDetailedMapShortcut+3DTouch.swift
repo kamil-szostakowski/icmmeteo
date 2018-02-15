@@ -9,7 +9,7 @@
 // 3D Touch, quick actions integration
 extension UIApplicationShortcutItem
 {
-    convenience init(shortcut: MMTDetailedMapPreviewShortcut)
+    convenience init(shortcut: MMTDetailedMapShortcut)
     {
         let icon = UIApplicationShortcutIcon(type: .cloud)
         let mapName = MMTLocalizedStringWithFormat("detailed-maps.\(shortcut.detailedMap.rawValue)")
@@ -24,7 +24,7 @@ extension UIApplicationShortcutItem
     }
 }
 
-extension MMTDetailedMapPreviewShortcut
+extension MMTDetailedMapShortcut
 {
     convenience init?(shortcut: UIApplicationShortcutItem)
     {

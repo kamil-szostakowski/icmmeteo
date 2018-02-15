@@ -12,7 +12,7 @@ import CoreSpotlight
 // Spotlight search index integration
 extension CSSearchableItem
 {    
-    convenience init(shortcut: MMTMeteorogramPreviewShortcut)
+    convenience init(shortcut: MMTMeteorogramShortcut)
     {
         let
         attributes = CSSearchableItemAttributeSet(itemContentType: MMTActivityTypeDisplayModelUm)
@@ -51,7 +51,7 @@ extension CSSearchableItem
     }
 }
 
-extension MMTMeteorogramPreviewShortcut
+extension MMTMeteorogramShortcut
 {
     convenience init?(userActivity activity: NSUserActivity)
     {

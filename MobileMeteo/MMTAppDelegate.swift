@@ -136,7 +136,7 @@ extension MMTAppDelegate
     
     private func setupQuickActions()
     {
-        let shortcut = MMTDetailedMapPreviewShortcut(model: MMTUmClimateModel(), map: .Precipitation)
+        let shortcut = MMTDetailedMapShortcut(model: MMTUmClimateModel(), map: .Precipitation)
         UIApplication.shared.register(shortcut)
     }
     
@@ -187,7 +187,7 @@ extension MMTAppDelegate : CLLocationManagerDelegate
     
     @objc func handleLocationDidChange(notification: Notification)
     {
-        let shortcut = MMTCurrentLocationMeteorogramPreviewShortcut(model: MMTUmClimateModel(), locationService: self)
+        let shortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel(), locationService: self)
         
         if locationManager.location != nil {
             UIApplication.shared.register(shortcut)

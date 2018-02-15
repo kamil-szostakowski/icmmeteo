@@ -16,7 +16,7 @@ class MMTCurrentLocationMeteorogramPreviewShortcutTests: XCTestCase
 {
     func testInitialization_ModelUM()
     {
-        let shortcut = MMTCurrentLocationMeteorogramPreviewShortcut(model: MMTUmClimateModel(), locationService: MMTStubLocationService())
+        let shortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel(), locationService: MMTStubLocationService())
         
         XCTAssertEqual(shortcut.identifier, "current-location")
         XCTAssertEqual(shortcut.name, MMTLocalizedString("forecast.here"))
@@ -28,7 +28,7 @@ class MMTCurrentLocationMeteorogramPreviewShortcutTests: XCTestCase
     
     func testInitialization_ModelCOAMPS()
     {
-        let shortcut = MMTCurrentLocationMeteorogramPreviewShortcut(model: MMTCoampsClimateModel(), locationService: MMTStubLocationService())
+        let shortcut = MMTMeteorogramHereShortcut(model: MMTCoampsClimateModel(), locationService: MMTStubLocationService())
         
         XCTAssertEqual(shortcut.identifier, "current-location")
         XCTAssertEqual(shortcut.name, MMTLocalizedString("forecast.here"))

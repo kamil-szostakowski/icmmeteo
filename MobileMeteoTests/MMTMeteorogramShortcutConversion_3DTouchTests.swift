@@ -12,13 +12,13 @@ import CoreLocation
 
 @testable import MobileMeteo
 
-extension MMTMeteorogramPreviewShortcut
+extension MMTMeteorogramShortcut
 {
-    static var testInstance: MMTMeteorogramPreviewShortcut {
+    static var testInstance: MMTMeteorogramShortcut {
         let location = CLLocation(latitude: 2.2, longitude: 3.3)
         let city = MMTCity(name: "fake-city", region: "fake-region", location: location)
         
-        return MMTMeteorogramPreviewShortcut(model: MMTUmClimateModel(), city: city)
+        return MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: city)
     }
 }
 
@@ -32,14 +32,14 @@ class MMTMeteorogramPreviewShortcutConversion_3DTouchTests: XCTestCase
         "climate-model": "UM"
     ]
     
-    var shortcut: MMTMeteorogramPreviewShortcut? {
-        return MMTMeteorogramPreviewShortcut(shortcut: UIApplicationShortcutItem(type: "", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: userInfo))
+    var shortcut: MMTMeteorogramShortcut? {
+        return MMTMeteorogramShortcut(shortcut: UIApplicationShortcutItem(type: "", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: userInfo))
     }
     
     // MARK: Test methods
     func testConversionToUIApplicationShortcutItem()
     {        
-        let item = UIApplicationShortcutItem(shortcut: MMTMeteorogramPreviewShortcut.testInstance)
+        let item = UIApplicationShortcutItem(shortcut: MMTMeteorogramShortcut.testInstance)
         
         XCTAssertEqual(item.type, "meteorogram-UM-2.2:3.3")
         XCTAssertEqual(item.localizedTitle, "Pogoda: fake-city")

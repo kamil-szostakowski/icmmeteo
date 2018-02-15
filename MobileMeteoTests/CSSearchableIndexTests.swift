@@ -19,7 +19,7 @@ class CSSearchableIndexTests: XCTestCase
     func testConversionOfMeteorogramPreviewShortcutToSearchableItem()
     {
         let city = MMTCity(name: "Lorem", region: "Ipsum", location: CLLocation(latitude: 2, longitude: 3))
-        let shortcut = MMTMeteorogramPreviewShortcut(model: MMTUmClimateModel(), city: city)
+        let shortcut = MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: city)
         let item = CSSearchableIndex.default().convert(from: shortcut)
         
         XCTAssertEqual(item?.uniqueIdentifier, "meteorogram-UM-2.0:3.0")
@@ -27,7 +27,7 @@ class CSSearchableIndexTests: XCTestCase
     
     func testConversionOfUnsupportedShortcutToSearchableItem()
     {
-        let shortcut = MMTDetailedMapPreviewShortcut(model: MMTUmClimateModel(), map: .Precipitation)
+        let shortcut = MMTDetailedMapShortcut(model: MMTUmClimateModel(), map: .Precipitation)
         XCTAssertNil(CSSearchableIndex.default().convert(from: shortcut))
     }
     
@@ -37,7 +37,7 @@ class CSSearchableIndexTests: XCTestCase
         activity = NSUserActivity(activityType: "com.apple.corespotlightitem")
         activity.userInfo = [CSSearchableItemActivityIdentifier: "meteorogram-UM-2.0:3.0"]
         
-        XCTAssertTrue(CSSearchableIndex.default().convert(from: activity) is MMTMeteorogramPreviewShortcut)
+        XCTAssertTrue(CSSearchableIndex.default().convert(from: activity) is MMTMeteorogramShortcut)
     }
     
     func testConversionOfInvalidUserActivityToShortcut()

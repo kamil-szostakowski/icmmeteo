@@ -11,7 +11,7 @@ import CoreLocation
 // 3D Touch, quick actions integration
 extension UIApplicationShortcutItem
 {
-    convenience init(shortcut: MMTMeteorogramPreviewShortcut)
+    convenience init(shortcut: MMTMeteorogramShortcut)
     {        
         let title = MMTLocalizedStringWithFormat("forecast: %@", shortcut.name)
         let subtitle = MMTLocalizedString(shortcut.region)
@@ -29,7 +29,7 @@ extension UIApplicationShortcutItem
     }
 }
 
-extension MMTMeteorogramPreviewShortcut
+extension MMTMeteorogramShortcut
 {
     convenience init?(shortcut: UIApplicationShortcutItem)
     {
@@ -45,7 +45,7 @@ extension MMTMeteorogramPreviewShortcut
     }
 }
 
-extension MMTCurrentLocationMeteorogramPreviewShortcut
+extension MMTMeteorogramHereShortcut
 {
     convenience init?(shortcut: UIApplicationShortcutItem, locationService: MMTLocationService)
     {
@@ -58,7 +58,7 @@ extension MMTCurrentLocationMeteorogramPreviewShortcut
 }
 
 // Helper extension
-extension MMTMeteorogramPreviewShortcut
+extension MMTMeteorogramShortcut
 {
     fileprivate static func model(from shortcut: UIApplicationShortcutItem) -> MMTClimateModel?
     {

@@ -26,7 +26,7 @@ extension CSSearchableIndex : MMTShortcutDispatcher
     
     func convert(from shortcut: MMTShortcut) -> CSSearchableItem?
     {
-        if let meteorogramShortcut = shortcut as? MMTMeteorogramPreviewShortcut {
+        if let meteorogramShortcut = shortcut as? MMTMeteorogramShortcut {
             return CSSearchableItem(shortcut: meteorogramShortcut)
         }
         
@@ -35,6 +35,6 @@ extension CSSearchableIndex : MMTShortcutDispatcher
     
     func convert(from activity: NSUserActivity) -> MMTShortcut?
     {
-        return MMTMeteorogramPreviewShortcut(userActivity: activity)
+        return MMTMeteorogramShortcut(userActivity: activity)
     }
 }

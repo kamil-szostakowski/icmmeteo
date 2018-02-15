@@ -28,7 +28,7 @@ class MMTDetailedMapPreviewShortcut_3DTouchTests : XCTestCase
     // MARK: Test methods
     func testConversionToUIApplicationShortcutItem()
     {
-        let shortcut = MMTDetailedMapPreviewShortcut(model: MMTUmClimateModel(), map: .Precipitation)
+        let shortcut = MMTDetailedMapShortcut(model: MMTUmClimateModel(), map: .Precipitation)
         let item = UIApplicationShortcutItem(shortcut: shortcut)
         
         XCTAssertEqual(item.type, type)
@@ -39,7 +39,7 @@ class MMTDetailedMapPreviewShortcut_3DTouchTests : XCTestCase
     
     func testConversionToDetailedMapPreviewShortcut()
     {
-        let shortcut = MMTDetailedMapPreviewShortcut(shortcut: shortcutItem)
+        let shortcut = MMTDetailedMapShortcut(shortcut: shortcutItem)
         
         XCTAssertTrue(shortcut?.climateModel is MMTUmClimateModel)
         XCTAssertEqual(shortcut?.detailedMap, .Precipitation)
@@ -48,18 +48,18 @@ class MMTDetailedMapPreviewShortcut_3DTouchTests : XCTestCase
     func testConversionToDetailedMapPreviewShortcut_NoClimateModel()
     {
         userInfo.removeValue(forKey: "climate-model")
-        XCTAssertNil(MMTDetailedMapPreviewShortcut(shortcut: shortcutItem))
+        XCTAssertNil(MMTDetailedMapShortcut(shortcut: shortcutItem))
         
         userInfo["climate-model"] = 10
-        XCTAssertNil(MMTDetailedMapPreviewShortcut(shortcut: shortcutItem))
+        XCTAssertNil(MMTDetailedMapShortcut(shortcut: shortcutItem))
     }
     
     func testConversionToDetailedMapPreviewShortcut_NoDetailedMap()
     {
         userInfo.removeValue(forKey: "detailed-map")
-        XCTAssertNil(MMTDetailedMapPreviewShortcut(shortcut: shortcutItem))
+        XCTAssertNil(MMTDetailedMapShortcut(shortcut: shortcutItem))
         
         userInfo["detailed-map"] = 10
-        XCTAssertNil(MMTDetailedMapPreviewShortcut(shortcut: shortcutItem))
+        XCTAssertNil(MMTDetailedMapShortcut(shortcut: shortcutItem))
     }
 }

@@ -18,7 +18,7 @@ extension UIApplication : MMTShortcutDispatcher
             return
         }
         
-        if shortcut is MMTCurrentLocationMeteorogramPreviewShortcut {
+        if shortcut is MMTMeteorogramHereShortcut {
             shortcutItems?.append(item)
         } else {
             shortcutItems?.insert(item, at: 0)
@@ -36,18 +36,18 @@ extension UIApplication : MMTShortcutDispatcher
 
     func convert(from shortcut: MMTShortcut) -> UIApplicationShortcutItem?
     {
-        if let currentLocationShortcut = shortcut as? MMTCurrentLocationMeteorogramPreviewShortcut {
+        if let currentLocationShortcut = shortcut as? MMTMeteorogramHereShortcut {
             let
             item = UIMutableApplicationShortcutItem(shortcut: currentLocationShortcut)
             item.icon = UIApplicationShortcutIcon(type: .location)
             return item
         }
         
-        if let meteorogramShortcut = shortcut as? MMTMeteorogramPreviewShortcut {
+        if let meteorogramShortcut = shortcut as? MMTMeteorogramShortcut {
             return UIApplicationShortcutItem(shortcut: meteorogramShortcut)
         }
         
-        if let mapShortcut = shortcut as? MMTDetailedMapPreviewShortcut {
+        if let mapShortcut = shortcut as? MMTDetailedMapShortcut {
             return UIApplicationShortcutItem(shortcut: mapShortcut)
         }
         
@@ -57,15 +57,15 @@ extension UIApplication : MMTShortcutDispatcher
     func convert(from shortcut: UIApplicationShortcutItem) -> MMTShortcut?
     {
         if shortcut.type.contains("map-") {
-            return MMTDetailedMapPreviewShortcut(shortcut: shortcut)
+            return MMTDetailedMapShortcut(shortcut: shortcut)
         }
         
         if shortcut.type.contains("meteorogram-") {
-            return MMTMeteorogramPreviewShortcut(shortcut: shortcut)
+            return MMTMeteorogramShortcut(shortcut: shortcut)
         }
         
         if shortcut.type.contains("current-location") {
-            return MMTCurrentLocationMeteorogramPreviewShortcut(shortcut: shortcut, locationService: UIApplication.shared.locationService!)
+            return MMTMeteorogramHereShortcut(shortcut: shortcut, locationService: UIApplication.shared.locationService!)
         }
                 
         return nil

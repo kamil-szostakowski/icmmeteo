@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-class MMTMeteorogramPreviewShortcut : MMTShortcut
+class MMTMeteorogramShortcut : MMTShortcut
 {        
     var location: CLLocation
     let name: String

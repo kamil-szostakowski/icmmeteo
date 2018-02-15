@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-class MMTCurrentLocationMeteorogramPreviewShortcut: MMTMeteorogramPreviewShortcut
+class MMTMeteorogramHereShortcut: MMTMeteorogramShortcut
 {
     private var retryCount: Int = 0
     private let RETRY_MAX_COUNT = 5

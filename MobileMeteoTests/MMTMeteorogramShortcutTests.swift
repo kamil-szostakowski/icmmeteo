@@ -18,7 +18,7 @@ class MMTMeteorogramPreviewShortcutTests : XCTestCase
     {
         let location = CLLocation(latitude: 2.2, longitude: 3.3)
         let city = MMTCity(name: "City", region: "Region", location: location)
-        let shortcut = MMTMeteorogramPreviewShortcut(model: MMTUmClimateModel(), city: city)
+        let shortcut = MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: city)
         
         XCTAssertEqual(shortcut.identifier, "meteorogram-UM-2.2:3.3")
         XCTAssertEqual(shortcut.name, "City")
@@ -32,7 +32,7 @@ class MMTMeteorogramPreviewShortcutTests : XCTestCase
     {
         let location = CLLocation(latitude: 1.2, longitude: 3.4)
         let city = MMTCity(name: "City", region: "Region", location: location)
-        let shortcut = MMTMeteorogramPreviewShortcut(model: MMTCoampsClimateModel(), city: city)
+        let shortcut = MMTMeteorogramShortcut(model: MMTCoampsClimateModel(), city: city)
         
         XCTAssertEqual(shortcut.identifier, "meteorogram-COAMPS-1.2:3.4")
         XCTAssertEqual(shortcut.name, "City")

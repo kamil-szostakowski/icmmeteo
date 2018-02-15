@@ -17,7 +17,7 @@ class MMTDetailedMapPreviewShortcutTests : XCTestCase
     func testInitialization_ModelUM()
     {
         let model = MMTUmClimateModel()
-        let shortcut = MMTDetailedMapPreviewShortcut(model: model, map: .AverageTidePeriod)
+        let shortcut = MMTDetailedMapShortcut(model: model, map: .AverageTidePeriod)
         
         XCTAssertEqual(shortcut.climateModel.type, .UM)
         XCTAssertEqual(shortcut.detailedMap, .AverageTidePeriod)
@@ -27,7 +27,7 @@ class MMTDetailedMapPreviewShortcutTests : XCTestCase
     func testInitialization_ModelCOAMPS()
     {
         let model = MMTCoampsClimateModel()
-        let shortcut = MMTDetailedMapPreviewShortcut(model: model, map: .VeryLowClouds)
+        let shortcut = MMTDetailedMapShortcut(model: model, map: .VeryLowClouds)
         
         XCTAssertEqual(shortcut.climateModel.type, .COAMPS)
         XCTAssertEqual(shortcut.detailedMap, .VeryLowClouds)

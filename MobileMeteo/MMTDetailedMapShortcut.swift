@@ -6,7 +6,7 @@
 //  Copyright © 2017 Kamil Szostakowski. All rights reserved.
 //
 
-class MMTDetailedMapPreviewShortcut : MMTShortcut
+class MMTDetailedMapShortcut : MMTShortcut
 {        
     let climateModel: MMTClimateModel
     let detailedMap: MMTDetailedMapType
