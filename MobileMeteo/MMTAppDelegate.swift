@@ -58,8 +58,7 @@ public let MMTLocationChangedNotification = Notification.Name(rawValue: "MMTLoca
         shortcut = CSSearchableIndex.default().convert(from: userActivity)
         shortcut?.execute(using: rootViewController, completion: nil)
         
-        //let report = MMTAnalyticsReport(category: .Locations, action: .LocationDidSelectOnSpotlight, actionLabel: city!.name)
-        //targetVC.analytics?.sendUserActionReport(report)
+        rootViewController.analytics?.sendUserActionReport(.Shortcut, action: .ShortcutSpotlightDidActivate, actionLabel: "")
         
         return true
     }
@@ -69,6 +68,8 @@ public let MMTLocationChangedNotification = Notification.Name(rawValue: "MMTLoca
         let
         shortcut = UIApplication.shared.convert(from: shortcutItem)
         shortcut?.execute(using: rootViewController) { completionHandler(true) }
+        
+        rootViewController.analytics?.sendUserActionReport(.Shortcut, action: .Shortcut3DTouchDidActivate, actionLabel: "")
     }    
 }
 

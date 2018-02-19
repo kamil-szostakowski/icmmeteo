@@ -13,6 +13,7 @@ enum MMTAnalyticsCategory: String
     case Locations
     case Meteorogram
     case DetailedMaps
+    case Shortcut
 }
 
 enum MMTAnalyticsAction: String
@@ -28,9 +29,9 @@ enum MMTAnalyticsAction: String
     case LocationDidSelectSearchResult
     case LocationDidSelectOnMap
     case LocationDidSelectOnSpotlight
-
     case DetailedMapDidSelectModel
-    case DetailedMapDidSelectMap
+    case ShortcutSpotlightDidActivate
+    case Shortcut3DTouchDidActivate
     
     init?(group: MMTCitiesIndexSectionType)
     {
