@@ -28,10 +28,8 @@ class MMTCitiesListController: UIViewController
     fileprivate var citiesIndex: MMTCitiesIndex!
     fileprivate var citiesStore: MMTCitiesStore!
     fileprivate var currentLocation: MMTCityProt?
-    fileprivate let sectionHeaderIdentifier = "CitiesListHeader"
-    
     fileprivate var service: MMTLocationService!
-    fileprivate var observation: NSKeyValueObservation!
+    fileprivate let sectionHeaderIdentifier = "CitiesListHeader"
     
     // MARK: Actions
     @IBAction func unwindToListOfCities(_ unwindSegue: UIStoryboardSegue)
@@ -62,7 +60,7 @@ extension MMTCitiesListController
         
         searchInput = MMTSearchInput("")
         citiesIndex = MMTCitiesIndex()
-        citiesStore = MMTCitiesStore(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))        
+        citiesStore = MMTCitiesStore()
         
         setupTableView()
     }
@@ -93,7 +91,6 @@ extension MMTCitiesListController
     {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
-        observation = nil
     }
     
     @objc func handleApplicationDidBecomeActiveNotification(_ notification: Notification)
@@ -126,15 +123,10 @@ extension MMTCitiesListController
     
     fileprivate func setupLocationService()
     {
-        service = MMTServiceProvider.locationService
-        observation = service.observe(\.currentLocation) {(locationService, _) in
-            if locationService.currentLocation != nil {
-                self.updateIndexWithCurrentLocation(next: self.updateCurrentLocationRow)
-            } else {
-                self.currentLocation = nil
-                self.updateIndex() { self.tableView.reloadData() }
-            }
-        }
+        service = UIApplication.shared.locationService
+        
+        let handler = #selector(handleLocationDidChange(notification:))
+        NotificationCenter.default.addObserver(self, selector: handler, name: MMTLocationChangedNotification, object: nil)
     }
 }
 
@@ -159,8 +151,8 @@ extension MMTCitiesListController
     }
     
     fileprivate func updateIndexWithCurrentLocation(next completion: @escaping MMTCompletion)
-    {
-        guard let location = MMTServiceProvider.locationService.currentLocation else {
+    {        
+        guard let location = service.currentLocation else {
             return
         }
         
@@ -312,5 +304,20 @@ extension MMTCitiesListController: UITableViewDelegate, UITableViewDataSource
     {
         guard searchInput.isValid == false else { return }
         tableView.reloadData()
+    }
+}
+
+// Location service extension
+extension MMTCitiesListController
+{
+    // MARK: Location service methods
+    @objc func handleLocationDidChange(notification: Notification)
+    {
+        if service.currentLocation != nil {
+            updateIndexWithCurrentLocation(next: self.updateCurrentLocationRow)
+        } else {
+            currentLocation = nil
+            updateIndex() { self.tableView.reloadData() }
+        }
     }
 }

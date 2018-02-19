@@ -6,6 +6,8 @@
   Copyright © 2016 Kamil Szostakowski. All rights reserved.
 */
 
+"forecast: %@" = "Weather: %@";
+"forecast.here" = "Weather: Here";
 "forecast.start: %@" = "Forecast start t0: %@";
 "forecast.length: %dh, forecast.grid: %dkm" = "Forecast length: %dh, Grid: %dkm";
 "forecast.length: %dh" = "Forecast length: %dh";
@@ -14,6 +16,7 @@
 "locations.favourites" = "Favourites";
 "locations.current" = "Current localization";
 
+"detailed-maps: %@" = "Map: %@";
 "detailed-maps.MeanSeaLevelPressure" = "Mean sea level pressure";
 "detailed-maps.TemperatureAndStreamLine" = "Temperature + stream lines";
 "detailed-maps.TemperatureOfSurface" = "Surface temperature";

@@ -9,55 +9,14 @@
 import Foundation
 import CoreLocation
 
-class MMTLocationService : NSObject, MMTService
+protocol MMTLocationService
 {
-    // MARK: Properties
-    private let locationManager: CLLocationManager
-    
-    @objc dynamic private(set) var currentLocation: CLLocation?
-    
-    // MARK: Initializers
-    init(manager: CLLocationManager)
-    {
-        locationManager = manager
-        super.init()
-        locationManager.delegate = self
-    }
-    
-    // MARK: Interface methods
-    func start()
-    {
-        locationManager.requestWhenInUseAuthorization()
-    }
-    
-    func stop()
-    {
-        locationManager.stopMonitoringSignificantLocationChanges()
-    }
-    
-    func update()
-    {
-        currentLocation = locationManager.location
-    }
+    var currentLocation: CLLocation? { get }
 }
 
-extension MMTLocationService: CLLocationManagerDelegate
+extension UIApplication
 {
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
-    {
-        if status == .authorizedWhenInUse {
-            locationManager.startMonitoringSignificantLocationChanges()
-            currentLocation = locationManager.location
-            
-        } else {
-            locationManager.stopMonitoringSignificantLocationChanges()
-            currentLocation = nil
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-    {
-        update()
+    var locationService: MMTLocationService? {
+        return delegate as? MMTLocationService
     }
 }
-

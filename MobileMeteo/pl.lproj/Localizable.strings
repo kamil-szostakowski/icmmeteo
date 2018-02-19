@@ -6,6 +6,8 @@
   Copyright © 2016 Kamil Szostakowski. All rights reserved.
 */
 
+"forecast: %@" = "Pogoda: %@";
+"forecast.here" = "Pogoda: Tutaj";
 "forecast.start: %@" = "Start prognozy t0: %@";
 "forecast.length: %dh, forecast.grid: %dkm" = "Długość prognozy: %dh, Siatka: %dkm";
 "forecast.length: %dh" = "Długość prognozy: %dh";
@@ -14,6 +16,7 @@
 "locations.favourites" = "Ulubione";
 "locations.current" = "Obecna lokalizacja";
 
+"detailed-maps: %@" = "Mapa: %@";
 "detailed-maps.MeanSeaLevelPressure" = "Ciśnienie na poziomie morza";
 "detailed-maps.TemperatureAndStreamLine" = "Temperatura + linie prądu";
 "detailed-maps.TemperatureOfSurface" = "Temperatura powierzchni";

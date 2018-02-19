@@ -46,5 +46,13 @@ class MMTCoampsClimateModelTests: XCTestCase
         let expectedDate = TT.utcFormatter.date(from: "2015-06-08T12:00")!
         
         XCTAssertEqual(expectedDate, MMTCoampsClimateModel().startDate(for: date))
-    }    
+    }
+    
+    func testGetDetailedMapTupleForDetiledMapType()
+    {
+        let model = MMTCoampsClimateModel()
+        
+        XCTAssertEqual(model.detailedMap(ofType: .TemperatureAndStreamLine)?.type, .TemperatureAndStreamLine)
+        XCTAssertEqual(model.detailedMap(ofType: .TideHeight)?.type, nil)
+    }
 }
