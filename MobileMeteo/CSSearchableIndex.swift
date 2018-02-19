@@ -8,7 +8,7 @@
 
 import CoreSpotlight
 
-extension CSSearchableIndex : MMTShortcutDispatcher
+extension CSSearchableIndex : MMTShortcutRegister
 {    
     func register(_ shortcut: MMTShortcut)
     {

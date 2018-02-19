@@ -137,7 +137,7 @@ extension MMTMeteorogramController
     @IBAction func onCloseBtnTouchAction(_ sender: UIBarButtonItem)
     {
         let
-        citiesStore = MMTCitiesStore(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))
+        citiesStore = MMTCitiesStore()
         citiesStore.markCity(city, asFavourite: city.isFavourite)
         perform(segue: .UnwindToListOfCities, sender: self)
     }

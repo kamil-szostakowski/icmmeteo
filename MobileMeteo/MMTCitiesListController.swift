@@ -60,7 +60,7 @@ extension MMTCitiesListController
         
         searchInput = MMTSearchInput("")
         citiesIndex = MMTCitiesIndex()
-        citiesStore = MMTCitiesStore(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))        
+        citiesStore = MMTCitiesStore()
         
         setupTableView()
     }

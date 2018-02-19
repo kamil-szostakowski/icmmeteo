@@ -13,15 +13,8 @@ protocol MMTShortcut
     func execute(using tabbar: MMTTabBarController, completion: MMTCompletion?)
 }
 
-protocol MMTShortcutDispatcher
+protocol MMTShortcutRegister
 {
-    associatedtype T
-    associatedtype V
-    
-    func convert(from: MMTShortcut) -> T?
-    
-    func convert(from: V) -> MMTShortcut?
-    
     func register(_ shortcut: MMTShortcut)
     
     func unregister(_ shortcut: MMTShortcut)        

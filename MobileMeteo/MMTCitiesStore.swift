@@ -21,6 +21,11 @@ class MMTCitiesStore
     private let database: MMTDatabase
     private let geocoder: MMTCityGeocoder
     
+    convenience init()
+    {
+        self.init(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))
+    }
+    
     init(db: MMTDatabase, geocoder gcoder: MMTCityGeocoder)
     {
         geocoder = gcoder

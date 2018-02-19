@@ -47,7 +47,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
         btnShow.accessibilityIdentifier = "show"
         navigationBar.accessibilityIdentifier = "select-location-screen"
         
-        citiesStore = MMTCitiesStore(db: .instance, geocoder: MMTCityGeocoder(general: CLGeocoder()))
+        citiesStore = MMTCitiesStore()
         btnShow.isEnabled = false
         
         setupMapView()

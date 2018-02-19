@@ -29,11 +29,8 @@ public let MMTLocationChangedNotification = Notification.Name(rawValue: "MMTLoca
     // MARK: Lifecycle methods
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {
-        setupLocationManager()
-        setupQuickActions()
-        
-        //CSSearchableIndex.default().deleteAllSearchableItems(completionHandler: nil)
-        // TODO: Implement migration of spotlight and QuickActions
+        setupLocationManager()        
+        performMigration()
         
         #if DEBUG
         setupDebugEnvironment()
@@ -134,10 +131,10 @@ extension MMTAppDelegate
         locationManager.requestWhenInUseAuthorization()
     }
     
-    private func setupQuickActions()
+    private func performMigration()
     {
-        let shortcut = MMTDetailedMapShortcut(model: MMTUmClimateModel(), map: .Precipitation)
-        UIApplication.shared.register(shortcut)
+        let migrator = try? MMTAppMigrator(migrators: [MMTShortcutsMigrator()])
+        try? migrator?.migrate(from: UserDefaults.standard.sequenceNumber)
     }
     
     #if DEBUG
@@ -146,8 +143,7 @@ extension MMTAppDelegate
         if ProcessInfo.processInfo.arguments.contains(MMTDebugActionCleanupDb) {
             URLCache.shared.removeAllCachedResponses()
             MMTDatabase.instance.flushDatabase()
-            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
-            UserDefaults.standard.synchronize()
+            UserDefaults.standard.cleanup()
         }
         
         if ProcessInfo.processInfo.arguments.contains(MMTDebugActionSimulatedOfflineMode) {

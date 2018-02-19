@@ -10,20 +10,44 @@ import Foundation
 
 extension UserDefaults
 {
-    fileprivate struct MMTUserDefaultsKey
+    private enum MMTUserDefaultsKey : String
     {
-        static let Initialized = "Initialized"
+        case Initialized
+        case SequenceNumber
     }
     
     // MARK: Properties
-    
     var isAppInitialized: Bool
     {
-        get { return (value(forKey: MMTUserDefaultsKey.Initialized) as AnyObject).boolValue ?? false }
-        set
-        {
-            setValue(newValue, forKey: MMTUserDefaultsKey.Initialized)
+        get { return value(forKey: .Initialized)?.boolValue ?? false }
+        set {
+            setValue(newValue, forKey: .Initialized)
             synchronize()
         }
+    }
+    
+    var sequenceNumber: UInt
+    {
+        get { return value(forKey: .SequenceNumber)?.uintValue ?? 0 }
+        set {
+            setValue(newValue, forKey: .SequenceNumber)
+            synchronize()
+        }
+    }
+    
+    // MARK: Methods
+    func cleanup()
+    {
+        removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        synchronize()
+    }
+    
+    // MARK: Helper methods
+    private func value(forKey key: MMTUserDefaultsKey) -> AnyObject? {
+        return value(forKey:key.rawValue) as AnyObject
+    }
+    
+    private func setValue(_ value: Any?, forKey key: MMTUserDefaultsKey) {
+        setValue(value, forKey: key.rawValue)
     }
 }

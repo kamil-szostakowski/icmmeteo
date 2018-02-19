@@ -6,7 +6,7 @@
 //  Copyright © 2017 Kamil Szostakowski. All rights reserved.
 //
 
-extension UIApplication : MMTShortcutDispatcher
+extension UIApplication : MMTShortcutRegister
 {
     func register(_ shortcut: MMTShortcut)
     {

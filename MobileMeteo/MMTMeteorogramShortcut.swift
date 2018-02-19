@@ -28,11 +28,8 @@ class MMTMeteorogramShortcut : MMTShortcut
     }
         
     func execute(using tabbar: MMTTabBarController, completion: MMTCompletion?)
-    {
-        let geocoder = MMTCityGeocoder(general: CLGeocoder())
-        let store = MMTCitiesStore(db: .instance, geocoder: geocoder)
-        
-        store.findCityForLocation(location) { (city: MMTCityProt?, error: MMTError?) in
+    {                
+        MMTCitiesStore().findCityForLocation(location) { (city: MMTCityProt?, error: MMTError?) in
             
             guard let selectedCity = city, error == nil else {
                 tabbar.present(UIAlertController.alertForMMTError(error!), animated: true, completion: nil)

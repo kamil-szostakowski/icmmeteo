@@ -23,3 +23,20 @@ class MMTUnsupportedShortcut: MMTShortcut
     
     func execute(using tabbar: MMTTabBarController, completion: MMTCompletion?) { }
 }
+
+class StubMigrator : MMTVersionMigrator
+{
+    private(set) var sequenceNumber: UInt
+    private(set) var migrated = false
+    
+    init(sequenceNumber: UInt)
+    {
+        self.sequenceNumber = sequenceNumber
+        self.migrated = false
+    }
+    
+    func migrate()
+    {
+        migrated = true
+    }
+}
