@@ -7,7 +7,7 @@
 */
 
 "forecast: %@" = "Pogoda: %@";
-"forecast.here" = "Tutaj";
+"forecast.here" = "Pogoda: Tutaj";
 "forecast.start: %@" = "Start prognozy t0: %@";
 "forecast.length: %dh, forecast.grid: %dkm" = "Długość prognozy: %dh, Siatka: %dkm";
 "forecast.length: %dh" = "Długość prognozy: %dh";

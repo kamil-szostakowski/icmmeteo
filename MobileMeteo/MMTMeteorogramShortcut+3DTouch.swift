@@ -12,8 +12,7 @@ import CoreLocation
 extension UIApplicationShortcutItem
 {
     convenience init(shortcut: MMTMeteorogramShortcut)
-    {        
-        let title = MMTLocalizedStringWithFormat("forecast: %@", shortcut.name)
+    {
         let subtitle = MMTLocalizedString(shortcut.region)
         let icon = UIApplicationShortcutIcon(type: .favorite)
         
@@ -25,7 +24,7 @@ extension UIApplicationShortcutItem
             "climate-model" : shortcut.climateModelType
         ]
         
-        self.init(type: shortcut.identifier, localizedTitle: title, localizedSubtitle: subtitle, icon: icon, userInfo: userInfo)
+        self.init(type: shortcut.identifier, localizedTitle: shortcut.name, localizedSubtitle: subtitle, icon: icon, userInfo: userInfo)
     }
 }
 

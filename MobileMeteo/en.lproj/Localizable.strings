@@ -7,7 +7,7 @@
 */
 
 "forecast: %@" = "Weather: %@";
-"forecast.here" = "Here";
+"forecast.here" = "Weather: Here";
 "forecast.start: %@" = "Forecast start t0: %@";
 "forecast.length: %dh, forecast.grid: %dkm" = "Forecast length: %dh, Grid: %dkm";
 "forecast.length: %dh" = "Forecast length: %dh";
