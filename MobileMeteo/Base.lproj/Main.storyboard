@@ -150,7 +150,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ewx-d7-4a5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-404" y="0.44977511244377816"/>
+            <point key="canvasLocation" x="956" y="-337"/>
         </scene>
         <!--Meteorogram Controller-->
         <scene sceneID="28n-8a-qI6">
@@ -388,7 +388,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1112.8" y="-215.76354679802955"/>
+            <point key="canvasLocation" x="1809" y="0.0"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Jf9-ix-tX7">
@@ -405,12 +405,13 @@
                     <connections>
                         <segue destination="WYV-gA-76P" kind="relationship" relationship="viewControllers" id="CQD-83-f01"/>
                         <segue destination="DF6-dW-Nzk" kind="relationship" relationship="viewControllers" id="s8y-dr-XE0"/>
+                        <segue destination="nRU-bg-HIN" kind="relationship" relationship="viewControllers" id="Vxy-tq-CDS"/>
                         <segue destination="sj4-kp-3OW" kind="relationship" relationship="viewControllers" id="sn4-HF-EfS"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gVD-sy-iWH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1306" y="170"/>
+            <point key="canvasLocation" x="-222" y="-151"/>
         </scene>
         <!--Źródło-->
         <scene sceneID="2lb-S5-Lie">
@@ -469,11 +470,6 @@
                                                     </label>
                                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="info-university" translatesAutoresizingMaskIntoConstraints="NO" id="biw-C5-3Xd" userLabel="Icon 1">
                                                         <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="imageRenderingMode">
-                                                                <integer key="value" value="2"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
                                                     </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -492,11 +488,6 @@
                                                 <subviews>
                                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="info-computer" translatesAutoresizingMaskIntoConstraints="NO" id="xAo-CG-xaa" userLabel="Icon 2">
                                                         <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="imageRenderingMode">
-                                                                <integer key="value" value="2"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Wyniki uzyskano przy użyciu oprogramowania Met Office." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqM-tk-ebb" userLabel="Msg 2">
                                                         <rect key="frame" x="48" y="0.0" width="287" height="36"/>
@@ -521,11 +512,6 @@
                                                 <subviews>
                                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="info-mail" translatesAutoresizingMaskIntoConstraints="NO" id="xQP-w5-8vU" userLabel="Icon 3">
                                                         <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="imageRenderingMode">
-                                                                <integer key="value" value="2"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="W przypadku pytań, problemów lub sugestii napisz do nas" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goB-rh-WOg" userLabel="Msg 3">
                                                         <rect key="frame" x="48" y="0.0" width="287" height="38"/>
@@ -596,7 +582,7 @@
                                 </items>
                             </navigationBar>
                         </subviews>
-                        <color key="backgroundColor" red="0.92000001668930054" green="0.92000001668930054" blue="0.92000001668930054" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="0.062388241291046143" green="0.48353224992752075" blue="0.38298630714416504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Nf-t6-Usz" firstAttribute="bottom" secondItem="oJa-Ym-ri5" secondAttribute="bottom" id="3cp-Du-5fB"/>
@@ -612,10 +598,15 @@
                     <tabBarItem key="tabBarItem" title="Źródło" image="info" id="Quj-BL-oec">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
+                    <connections>
+                        <outletCollection property="icons" destination="biw-C5-3Xd" collectionClass="NSMutableArray" id="9M9-KD-G5E"/>
+                        <outletCollection property="icons" destination="xAo-CG-xaa" collectionClass="NSMutableArray" id="fVY-pZ-6IF"/>
+                        <outletCollection property="icons" destination="xQP-w5-8vU" collectionClass="NSMutableArray" id="aKl-Xa-1sF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRB-zu-26c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-404" y="-690"/>
+            <point key="canvasLocation" x="-599" y="709"/>
         </scene>
         <!--City Map Picker Controller-->
         <scene sceneID="pFM-Pp-k6s">
@@ -683,7 +674,104 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="404" y="-215"/>
+            <point key="canvasLocation" x="1809" y="-672"/>
+        </scene>
+        <!--Komentarz-->
+        <scene sceneID="deh-c2-dn7">
+            <objects>
+                <viewController id="nRU-bg-HIN" customClass="MMTForecasterCommentController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oiT-Qd-xNm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wi0-7Z-ITu" userLabel="Container">
+                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuJ-i2-Dd3">
+                                        <rect key="frame" x="8" y="8" width="359" height="708"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <attributedString key="attributedText">
+                                            <fragment>
+                                                <string key="content">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                <attributes>
+                                                    <font key="NSFont" size="15" name="HelveticaNeue-Light"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="justified" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="wuJ-i2-Dd3" secondAttribute="trailing" constant="8" id="8Wa-CY-7c4"/>
+                                    <constraint firstItem="wuJ-i2-Dd3" firstAttribute="top" secondItem="Wi0-7Z-ITu" secondAttribute="top" constant="8" id="WSX-vv-l1N"/>
+                                    <constraint firstAttribute="bottom" secondItem="wuJ-i2-Dd3" secondAttribute="bottom" constant="8" id="cLC-Td-YQ1"/>
+                                    <constraint firstItem="wuJ-i2-Dd3" firstAttribute="leading" secondItem="Wi0-7Z-ITu" secondAttribute="leading" constant="8" id="r2G-dI-qBW"/>
+                                </constraints>
+                            </view>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BON-cV-xSx">
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <color key="barTintColor" red="0.92150187490000002" green="0.92147433759999997" blue="0.921489954" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <items>
+                                    <navigationItem title="Komentarz synoptyka" id="fdc-wP-Nso"/>
+                                </items>
+                            </navigationBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRv-JG-Nea" userLabel="Activity Indicator">
+                                <rect key="frame" x="139.66666666666666" y="352" width="95" height="69.333333333333314"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ładowanie komentarza" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rki-Sz-vgX">
+                                        <rect key="frame" x="5" y="50" width="85" height="14.333333333333329"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="atw-jD-EB8">
+                                        <rect key="frame" x="29.333333333333343" y="8" width="37" height="37"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                <accessibility key="accessibilityConfiguration" identifier="activity-indicator"/>
+                                <constraints>
+                                    <constraint firstItem="atw-jD-EB8" firstAttribute="top" secondItem="hRv-JG-Nea" secondAttribute="top" constant="8" id="II3-Dh-vjj"/>
+                                    <constraint firstAttribute="trailing" secondItem="rki-Sz-vgX" secondAttribute="trailing" constant="5" id="QZs-eF-Qoa"/>
+                                    <constraint firstAttribute="centerX" secondItem="atw-jD-EB8" secondAttribute="centerX" id="Rwa-7y-dbZ"/>
+                                    <constraint firstAttribute="width" constant="95" id="TAn-za-muk"/>
+                                    <constraint firstItem="rki-Sz-vgX" firstAttribute="top" secondItem="atw-jD-EB8" secondAttribute="bottom" constant="5" id="W3L-Pe-Fel"/>
+                                    <constraint firstAttribute="bottom" secondItem="rki-Sz-vgX" secondAttribute="bottom" constant="5" id="lSb-qV-D1r"/>
+                                    <constraint firstItem="rki-Sz-vgX" firstAttribute="leading" secondItem="hRv-JG-Nea" secondAttribute="leading" constant="5" id="nTv-cZ-4AT"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="BON-cV-xSx" firstAttribute="trailing" secondItem="x9H-cT-ZFB" secondAttribute="trailing" id="6mi-Z9-VAU"/>
+                            <constraint firstAttribute="bottom" secondItem="Wi0-7Z-ITu" secondAttribute="bottom" id="BQC-fn-bWe"/>
+                            <constraint firstItem="hRv-JG-Nea" firstAttribute="centerY" secondItem="x9H-cT-ZFB" secondAttribute="centerY" id="CeQ-B9-HlT"/>
+                            <constraint firstItem="BON-cV-xSx" firstAttribute="leading" secondItem="x9H-cT-ZFB" secondAttribute="leading" id="OkG-aO-yTd"/>
+                            <constraint firstItem="Wi0-7Z-ITu" firstAttribute="leading" secondItem="oiT-Qd-xNm" secondAttribute="leading" id="UMO-8D-647"/>
+                            <constraint firstItem="BON-cV-xSx" firstAttribute="top" secondItem="x9H-cT-ZFB" secondAttribute="top" id="YJ7-rY-Irj"/>
+                            <constraint firstItem="hRv-JG-Nea" firstAttribute="centerX" secondItem="x9H-cT-ZFB" secondAttribute="centerX" id="bHb-Ds-Woe"/>
+                            <constraint firstAttribute="trailing" secondItem="Wi0-7Z-ITu" secondAttribute="trailing" id="eE7-jg-RJw"/>
+                            <constraint firstItem="Wi0-7Z-ITu" firstAttribute="top" secondItem="BON-cV-xSx" secondAttribute="bottom" id="kA0-JY-EFC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="x9H-cT-ZFB"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Komentarz" image="forecaster-comment" id="br9-OC-Jd1"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="hRv-JG-Nea" id="TeI-5G-mFK"/>
+                        <outlet property="textView" destination="wuJ-i2-Dd3" id="KAv-wr-eLO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="20i-LV-3z6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="140" y="717.48768472906409"/>
         </scene>
         <!--Mapy-->
         <scene sceneID="9ji-hs-j96">
@@ -796,7 +884,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eda-JA-YWC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-404" y="709"/>
+            <point key="canvasLocation" x="956" y="709"/>
         </scene>
         <!--Detailed Map Preview Controller-->
         <scene sceneID="4RA-Us-f8E">
@@ -1030,11 +1118,12 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="404" y="709"/>
+            <point key="canvasLocation" x="1809" y="709"/>
         </scene>
     </scenes>
     <resources>
         <image name="detailed-maps" width="32" height="32"/>
+        <image name="forecaster-comment" width="24" height="24"/>
         <image name="info" width="32" height="32"/>
         <image name="info-computer" width="36" height="36"/>
         <image name="info-mail" width="36" height="36"/>

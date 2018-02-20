@@ -43,6 +43,7 @@
 "error.locationUnsupported" = "Selected location is unsupported.";
 "error.locationNotFound" = "Could not find the details of the location. Please choose a different location or try again later.";
 "error.mailNotAvailable" = "If you wish to share your opinion with us, you have to configure your mailbox first.";
+"error.commentFetchFailure" = "Comment download failure. Please try again later.";
 
 "label.close" = "close";
 
