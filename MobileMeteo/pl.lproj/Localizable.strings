@@ -43,8 +43,10 @@
 "error.locationUnsupported" = "Wybrana lokacja nie jest obsługiwana.";
 "error.locationNotFound" = "Nie udało się odnaleźć szczegółów lokalizacji. Wybierz inną lokalizację lub spróbuj ponownie później.";
 "error.mailNotAvailable" = "Zanim będziesz mógł przesłać nam swoją opinię, powinieneś skonfigurować swoją skrzynkę pocztową.";
+"error.commentFetchFailure" = "Nie udało się pobrać komentarza, spróbuj ponownie później";
 
 "label.close" = "zamknij";
+"label.try.coamps" = "Spróbuj COAMPS";
 
 "Lower Silesia" = "Dolnośląskie";
 "Kuyavian-Pomeranian" = "Kujawsko-Pomorskie";

@@ -20,4 +20,6 @@ enum MMTError: String, Error
     case urlNotAvailable
     case invalidMigrationChain
     case migrationFailure
+    case commentFetchFailure
+    case htmlFetchFailure
 }

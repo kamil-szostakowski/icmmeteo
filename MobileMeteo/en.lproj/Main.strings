@@ -2,6 +2,8 @@
 /* Class = "UINavigationItem"; title = "ICM Meteo"; ObjectID = "0gD-dT-mE5"; */
 "0gD-dT-mE5.title" = "ICM Meteo";
 
+"fdc-wP-Nso.title" = "Forecaster comment";
+
 /* Class = "UILabel"; text = "Prognoza została udostępniona nieodpłatnie przez serwis meteo.pl prowadzony przez ICM, Uniwersytet Warszawski. "; ObjectID = "2Vd-h5-NfU"; */
 "2Vd-h5-NfU.text" = "Forecast provided for free by meteo.pl created by ICM, Warsaw University. ";
 
@@ -11,6 +13,8 @@
 /* Class = "UITabBarItem"; title = "Źródło"; ObjectID = "Quj-BL-oec"; */
 "Quj-BL-oec.title" = "Source";
 
+"br9-OC-Jd1.title" = "Comment";
+
 "mdg-cq-Zyh.title" = "Maps";
 
 "7Vu-Dc-7ts.title" = "Weather";
@@ -19,6 +23,8 @@
 "R9a-Bf-BXg.text" = "meteorogram loading";
 
 "2cn-bO-NDh.text" = "meteorogram loading";
+
+"rki-Sz-vgX.text" = "comment loading";
 
 /* Class = "UIBarButtonItem"; title = "Pokaż"; ObjectID = "SxL-e7-iV7"; */
 "SxL-e7-iV7.title" = "Show";
