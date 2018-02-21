@@ -173,6 +173,15 @@ extension MMTMeteorogramController
             self.perform(segue: .UnwindToListOfCities, sender: self)
         }
         
+        if meteorogramStore.climateModel.type == .UM {
+            let actionTitle = MMTLocalizedString("label.try.coamps")
+            let tryCoampsAction = UIAlertAction(title: actionTitle, style: .default) { action in
+                self.modelSegmentedControl.selectedSegmentIndex = 1
+                self.modelTypeDidChange(self.modelSegmentedControl)
+            }
+            alert.addAction(tryCoampsAction)
+        }
+        
         present(alert, animated: true, completion: nil)
     }
 }

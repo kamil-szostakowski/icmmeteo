@@ -46,6 +46,7 @@
 "error.commentFetchFailure" = "Nie udało się pobrać komentarza, spróbuj ponownie później";
 
 "label.close" = "zamknij";
+"label.try.coamps" = "Spróbuj COAMPS";
 
 "Lower Silesia" = "Dolnośląskie";
 "Kuyavian-Pomeranian" = "Kujawsko-Pomorskie";
