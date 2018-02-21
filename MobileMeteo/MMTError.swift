@@ -21,4 +21,5 @@ enum MMTError: String, Error
     case invalidMigrationChain
     case migrationFailure
     case commentFetchFailure
+    case htmlFetchFailure
 }

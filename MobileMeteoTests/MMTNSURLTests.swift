@@ -14,14 +14,17 @@ import CoreLocation
 class MMTNSURLTests: XCTestCase
 {
     // MARK: Test methods
-    
     func testBaseUrl()
     {
         XCTAssertEqual("http://www.meteo.pl", URL.mmt_baseUrl().absoluteString)
     }
     
-    // MARK: Model um related tests
+    func testForecasterCommentUrl()
+    {
+        XCTAssertEqual("http://www.meteo.pl/komentarze/index1.php", URL.mmt_forecasterCommentUrl().absoluteString)
+    }
     
+    // MARK: Model um related tests
     func testDownloadBaseUrl()
     {
         XCTAssertEqual("http://www.meteo.pl/um/metco/mgram_pict.php", try! URL.mmt_meteorogramDownloadBaseUrl(for: .UM).absoluteString);
@@ -131,7 +134,6 @@ class MMTNSURLTests: XCTestCase
     }
     
     // MARK: Model wam related tests
-
     func testModelWamSearchUrl()
     {
         let location = CLLocation(latitude: 53.585869, longitude: 19.570815)

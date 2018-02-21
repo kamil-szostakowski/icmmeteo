@@ -13,6 +13,11 @@ extension URL
 {
     // MARK: Public methods
     
+    static func mmt_forecasterCommentUrl() -> URL
+    {        
+        return URL(string: "komentarze/index1.php", relativeTo: mmt_baseUrl())!
+    }
+    
     static func mmt_baseUrl() -> URL
     {
         return URL(string: "http://www.meteo.pl")!

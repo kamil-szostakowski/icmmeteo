@@ -42,7 +42,7 @@ class MMTMeteorogramPreviewShortcutConversion_3DTouchTests: XCTestCase
         let item = UIApplicationShortcutItem(shortcut: MMTMeteorogramShortcut.testInstance)
         
         XCTAssertEqual(item.type, "meteorogram-UM-2.2:3.3")
-        XCTAssertEqual(item.localizedTitle, "Pogoda: fake-city")
+        XCTAssertEqual(item.localizedTitle, "fake-city")
         XCTAssertEqual(item.localizedSubtitle, "fake-region")
         XCTAssertEqual(item.icon, UIApplicationShortcutIcon(type: .favorite))
             
