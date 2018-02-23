@@ -14,9 +14,9 @@ class MMTOfflineTests: XCTestCase
     var app: XCUIApplication!
     let meteorogramFetchError = "Nie udało się pobrać meteorogramu. Spróbuj ponownie później."
     let locationResolveError = "Nie udało się odnaleźć szczegółów lokalizacji. Wybierz inną lokalizację lub spróbuj ponownie później."
+    let commentFetchError = "Nie udało się pobrać komentarza, spróbuj ponownie później."
     
     // MARK: Setup methods
-    
     override func setUp()
     {
         super.setUp()
@@ -36,8 +36,7 @@ class MMTOfflineTests: XCTestCase
         super.tearDown()
     }
     
-    // MARK: Test methods
-    
+    // MARK: Test methods    
     func test_displayMeteorogram()
     {
         app.tables.cells["Białystok, Podlaskie"].tap()
@@ -67,12 +66,21 @@ class MMTOfflineTests: XCTestCase
         app.tables.cells.staticTexts["Opad"].tap()
 
         sleep(5)
-
         verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)
     }
     
-    // MARK: Helper methods
+    func test_forecasterCommentUnavailable()
+    {
+        app.tabBars.buttons["Komentarz"].tap()        
+        
+        sleep(5)
+        let content = app.textViews["comment-content"].value as? String
+        
+        verifyFailureAlert(app.alerts.element(boundBy: 0), commentFetchError)
+        XCTAssertEqual(content!.count, 0)
+    }
     
+    // MARK: Helper methods
     private func verifyFailureAlert(_ alert: XCUIElement, _ message: String)
     {
         let errorMsg = alert.staticTexts.element(boundBy: 0).label

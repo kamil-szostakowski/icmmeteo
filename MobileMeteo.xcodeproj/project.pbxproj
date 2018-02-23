@@ -16,6 +16,7 @@
 		1B1F8FA8201FC8CD004B1126 /* MMTDetailedMapShortcutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F8FA7201FC8CD004B1126 /* MMTDetailedMapShortcutTests.swift */; };
 		1B1F8FAA201FCCFE004B1126 /* MMTMeteorogramShortcutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F8FA9201FCCFE004B1126 /* MMTMeteorogramShortcutTests.swift */; };
 		1B1F8FAC201FD6A8004B1126 /* UIApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F8FAB201FD6A8004B1126 /* UIApplicationTests.swift */; };
+		1B4095CB2040C06900CDF5E4 /* MMTForecasterCommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */; };
 		1B4FD2E6203B506700B33C04 /* MMTShortcutsMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */; };
 		1B58237D2027B1C4003DF651 /* CSSearchableIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B58237C2027B1C4003DF651 /* CSSearchableIndexTests.swift */; };
 		1B65BA2D2035F8B30053173C /* MMTMeteorogramHereShortcutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B65BA2C2035F8B30053173C /* MMTMeteorogramHereShortcutTests.swift */; };
@@ -145,6 +146,7 @@
 		1B1F8FA7201FC8CD004B1126 /* MMTDetailedMapShortcutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapShortcutTests.swift; sourceTree = "<group>"; };
 		1B1F8FA9201FCCFE004B1126 /* MMTMeteorogramShortcutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramShortcutTests.swift; sourceTree = "<group>"; };
 		1B1F8FAB201FD6A8004B1126 /* UIApplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationTests.swift; sourceTree = "<group>"; };
+		1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecasterCommentTests.swift; sourceTree = "<group>"; };
 		1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTShortcutsMigratorTests.swift; sourceTree = "<group>"; };
 		1B58237C2027B1C4003DF651 /* CSSearchableIndexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSearchableIndexTests.swift; sourceTree = "<group>"; };
 		1B65BA2C2035F8B30053173C /* MMTMeteorogramHereShortcutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramHereShortcutTests.swift; sourceTree = "<group>"; };
@@ -478,6 +480,7 @@
 				F907075F1C61F719001D72A0 /* MMTInfoScreenTests.swift */,
 				8E79D5261D4E7D2100BE1A0E /* MMTDetailedMapsTests.swift */,
 				F973D7561E0C13B2000C108F /* MMTDetailedMapPreviewTests.swift */,
+				1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */,
 				F9941A5A1BECE15800700313 /* Info.plist */,
 			);
 			name = MobileMeteoUITests;
@@ -970,6 +973,7 @@
 			files = (
 				8E79D5281D4E7E0D00BE1A0E /* MMTDetailedMapsTests.swift in Sources */,
 				F90707601C61F719001D72A0 /* MMTInfoScreenTests.swift in Sources */,
+				1B4095CB2040C06900CDF5E4 /* MMTForecasterCommentTests.swift in Sources */,
 				F973D7571E0C13B2000C108F /* MMTDetailedMapPreviewTests.swift in Sources */,
 				F92169661E1320D80099DC5D /* MMTCitiesListTestCase.swift in Sources */,
 				F9C0AF2D1C60D67B009860F8 /* MMTOfflineTests.swift in Sources */,

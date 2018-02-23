@@ -90,11 +90,12 @@ class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
         runTaskWithUrl(url) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
             
-            if let htmlString = self.htmlStringFromResponseData(data, encoding: encoding) {
-                completion(htmlString, nil)
-            } else {
+            guard let htmlString = self.htmlStringFromResponseData(data, encoding: encoding), error == nil else {
                 completion(nil, .htmlFetchFailure)
+                return
             }
+            
+            completion(htmlString, nil)
         }
     }
     
