@@ -104,8 +104,8 @@ class UIApplicationTests : XCTestCase
         UIApplication.shared.register(meteorogramShortcut)
         
         XCTAssertEqual(UIApplication.shared.shortcutItems?.count, 2)
-        XCTAssertEqual(UIApplication.shared.shortcutItems?[0].type, "meteorogram-UM-2.0:2.0")
-        XCTAssertEqual(UIApplication.shared.shortcutItems?[1].type, "current-location")
+        XCTAssertEqual(UIApplication.shared.shortcutItems?[0].type, "current-location")
+        XCTAssertEqual(UIApplication.shared.shortcutItems?[1].type, "meteorogram-UM-2.0:2.0")
     }
     
     func testRegisterAlreadyRegisteredShortcut()
@@ -139,6 +139,5 @@ class UIApplicationTests : XCTestCase
         
         UIApplication.shared.unregister(currentLocationShortcut)
         XCTAssertEqual(UIApplication.shared.shortcutItems?.count, 1)
-
-    }
+    }    
 }

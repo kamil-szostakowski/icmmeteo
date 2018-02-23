@@ -8,6 +8,8 @@
 
 import Foundation
 
+let MMTMeteorogramShortcutsLimit = 2
+
 struct MMTFormat
 {
     static let TZeroPlus = "t0 +%03ldh"

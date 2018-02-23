@@ -30,7 +30,7 @@ class MMTMeteorogramController: UIViewController, NSUserActivityDelegate
     fileprivate var btnFavourite: UIButton!    
 }
 
-// Lifecycle extension
+// MARK: Lifecycle extension
 extension MMTMeteorogramController
 {
     // MARK: Lifecycle methods
@@ -61,7 +61,7 @@ extension MMTMeteorogramController
     }
 }
 
-// Setup extension
+// MARK: Setup extension
 extension MMTMeteorogramController
 {
     // MARK: Setup methods
@@ -130,15 +130,14 @@ extension MMTMeteorogramController
     }
 }
 
-// Navigation extension
+// MARK: Navigation extension
 extension MMTMeteorogramController
 {
     // MARK: Navigation methods
     @IBAction func onCloseBtnTouchAction(_ sender: UIBarButtonItem)
     {
-        let
-        citiesStore = MMTCitiesStore()
-        citiesStore.markCity(city, asFavourite: city.isFavourite)
+        MMTCitiesStore().markCity(city, asFavourite: city.isFavourite)
+        try? MMTShortcutsMigrator().migrate()
         perform(segue: .UnwindToListOfCities, sender: self)
     }
     
@@ -147,7 +146,6 @@ extension MMTMeteorogramController
         city.isFavourite = !city.isFavourite
         sender.isSelected = city.isFavourite
         sender.imageView?.layer.add(CAAnimation.defaultScaleAnimation(), forKey: "scale")
-        updateSpotlightIndex(for: city)
         
         let action: MMTAnalyticsAction = city.isFavourite ?
             MMTAnalyticsAction.LocationDidAddToFavourites :
@@ -186,7 +184,7 @@ extension MMTMeteorogramController
     }
 }
 
-// Data update extension
+// MARK: Data update extension
 extension MMTMeteorogramController
 {
     // MARK: Data update methods
@@ -226,7 +224,7 @@ extension MMTMeteorogramController
     }
 }
 
-// Meteorogram zooming extension
+// MARK: Meteorogram zooming extension
 extension MMTMeteorogramController : UIScrollViewDelegate
 {
     // Mark: Zooming actions
@@ -267,7 +265,7 @@ extension MMTMeteorogramController : UIScrollViewDelegate
     }
 }
 
-// Spotlight extension
+// MARK: Spotlight extension
 extension MMTMeteorogramController
 {
     // MARK: Spotlight methods
@@ -278,10 +276,8 @@ extension MMTMeteorogramController
                 
         if city.isFavourite {
             CSSearchableIndex.default().register(shortcut)
-            UIApplication.shared.register(shortcut)
         } else {
             CSSearchableIndex.default().unregister(shortcut)
-            UIApplication.shared.unregister(shortcut)
         }
     }
 }

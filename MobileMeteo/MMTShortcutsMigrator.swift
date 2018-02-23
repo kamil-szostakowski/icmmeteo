@@ -20,9 +20,7 @@ class MMTShortcutsMigrator: MMTVersionMigrator
     // MARK: Initializers
     convenience init ()
     {
-        self.init(store: MMTCitiesStore(),
-                  spotlight: CSSearchableIndex.default(),
-                  quickActions: UIApplication.shared)
+        self.init(store: MMTCitiesStore(), spotlight: CSSearchableIndex.default(), quickActions: UIApplication.shared)
     }
     
     init(store: MMTCitiesStore, spotlight: MMTShortcutRegister, quickActions: MMTShortcutRegister)
@@ -35,20 +33,21 @@ class MMTShortcutsMigrator: MMTVersionMigrator
     // MARK: Interface methods
     func migrate() throws
     {
-        CSSearchableIndex.default().deleteAllSearchableItems(completionHandler: nil)
+        spotlightRegister.unregisterAll()
         
         citiesStore.getAllCities {
-            let modelUm = MMTUmClimateModel()
+            quickActionsRegister.unregisterAll()
             
             $0.filter { $0.isFavourite == true }
-                .map { MMTMeteorogramShortcut(model: modelUm, city: $0) }
+                .map { MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: $0) }
                 .forEach { spotlightRegister.register($0) }
             
-            Array($0.filter { $0.isFavourite == true }.prefix(2))
-                .map { MMTMeteorogramShortcut(model: modelUm, city: $0) }
+            $0.filter { $0.isFavourite == true }
+                .prefix(MMTMeteorogramShortcutsLimit)
+                .map { MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: $0) }
                 .forEach { quickActionsRegister.register($0) }
             
-            quickActionsRegister.register(MMTDetailedMapShortcut(model: modelUm, map: .Precipitation))
+            quickActionsRegister.register(MMTDetailedMapShortcut(model: MMTUmClimateModel(), map: .Precipitation))
         }
     }
 }

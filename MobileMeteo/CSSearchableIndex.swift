@@ -24,6 +24,11 @@ extension CSSearchableIndex : MMTShortcutRegister
         deleteSearchableItems(withIdentifiers: [shortcut.identifier], completionHandler: nil)
     }
     
+    func unregisterAll()
+    {
+        deleteAllSearchableItems(completionHandler: nil)
+    }
+    
     func convert(from shortcut: MMTShortcut) -> CSSearchableItem?
     {
         if let meteorogramShortcut = shortcut as? MMTMeteorogramShortcut {

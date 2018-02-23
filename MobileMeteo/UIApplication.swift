@@ -6,8 +6,9 @@
 //  Copyright © 2017 Kamil Szostakowski. All rights reserved.
 //
 
+// MARK: Register extension
 extension UIApplication : MMTShortcutRegister
-{
+{    
     func register(_ shortcut: MMTShortcut)
     {
         guard (shortcutItems?.first { $0.type == shortcut.identifier }) == nil else {
@@ -18,11 +19,7 @@ extension UIApplication : MMTShortcutRegister
             return
         }
         
-        if shortcut is MMTMeteorogramHereShortcut {
-            shortcutItems?.append(item)
-        } else {
-            shortcutItems?.insert(item, at: 0)
-        }
+        shortcutItems?.append(item)
     }
     
     func unregister(_ shortcut: MMTShortcut)
@@ -32,6 +29,18 @@ extension UIApplication : MMTShortcutRegister
         }
         
         shortcutItems?.remove(at: index)
+    }
+    
+    func unregisterAll()
+    {
+        let currentLocation = shortcutItems?
+            .first { $0.type.contains("current-location") }
+        
+        shortcutItems?.removeAll()
+        
+        if currentLocation != nil {
+            shortcutItems?.append(currentLocation!)
+        }
     }
 
     func convert(from shortcut: MMTShortcut) -> UIApplicationShortcutItem?

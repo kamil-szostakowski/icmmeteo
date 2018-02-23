@@ -320,8 +320,8 @@
 				1B65BA2C2035F8B30053173C /* MMTMeteorogramHereShortcutTests.swift */,
 				1B1F8FA7201FC8CD004B1126 /* MMTDetailedMapShortcutTests.swift */,
 				1B1F8FA9201FCCFE004B1126 /* MMTMeteorogramShortcutTests.swift */,
-				1B1F8FAB201FD6A8004B1126 /* UIApplicationTests.swift */,
 				1B58237C2027B1C4003DF651 /* CSSearchableIndexTests.swift */,
+				1B1F8FAB201FD6A8004B1126 /* UIApplicationTests.swift */,
 			);
 			name = Shortcuts;
 			sourceTree = "<group>";

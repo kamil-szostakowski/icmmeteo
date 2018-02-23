@@ -12,49 +12,87 @@ import CoreLocation
 
 class MMTShortcutsMigratorTests: XCTestCase
 {
-    // MARK: Test methods
-    func testShortcutsMigration()
+    // MARK: Properties
+    fileprivate var quickActions: StubRegister!
+    fileprivate var spotlight: StubRegister!
+    fileprivate var shortcutsMigrator: MMTShortcutsMigrator!
+    
+    // MARK: Setup methods
+    override func setUp()
     {
-        class StubCitiesStore: MMTCitiesStore
-        {
-            let cities = [("Toruń",true), ("Bydgoszcz",true), ("Włocławek",true), ("Poznań",false), ("Konin",false)]
-                .map { MMTCity(name: $0.0, favourite: $0.1) }
-            
-            override func getAllCities(_ completion: ([MMTCityProt]) -> Void) {
-                completion(self.cities)
-            }
-        }
-        
-        let quickActions = StubRegister()
-        let spotlight = StubRegister()
-        
-        let shortcutsMigrator = MMTShortcutsMigrator(store: StubCitiesStore(), spotlight: spotlight, quickActions: quickActions)
+        super.setUp()
+        quickActions = StubRegister()
+        spotlight = StubRegister()
+        shortcutsMigrator = MMTShortcutsMigrator(store: StubCitiesStore(), spotlight: spotlight, quickActions: quickActions)
+    }
+
+    override func tearDown()
+    {
+        super.tearDown()
+        quickActions = nil
+        spotlight = nil
+        shortcutsMigrator = nil
+    }
+    
+    // MARK: Test methods
+    func testShortcutsMigration_NoCurrentLocation()
+    {
         try! shortcutsMigrator.migrate()
         
+        XCTAssertTrue(quickActions.cleaned)
         XCTAssertEqual(quickActions.registrations, ["Toruń", "Bydgoszcz", "Precipitation"])
+        
+        XCTAssertTrue(spotlight.cleaned)
+        XCTAssertEqual(spotlight.registrations, ["Toruń", "Bydgoszcz", "Włocławek"])
+    }
+    
+    func testShortcutsMigration_WithCurrentLocation()
+    {
+        let shortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel(), locationService: MMTStubLocationService())
+        
+        quickActions.register(shortcut)
+        try! shortcutsMigrator.migrate()
+        
+        XCTAssertTrue(quickActions.cleaned)
+        XCTAssertEqual(quickActions.registrations, ["current-location", "Toruń", "Bydgoszcz", "Precipitation"])
+        
+        XCTAssertTrue(spotlight.cleaned)
         XCTAssertEqual(spotlight.registrations, ["Toruń", "Bydgoszcz", "Włocławek"])
     }
 }
 
-// Helper extensions
+// MARK: Helper extensions
+fileprivate class StubCitiesStore: MMTCitiesStore
+{
+    let cities = [("Toruń",true), ("Bydgoszcz",true), ("Włocławek",true), ("Poznań",false), ("Konin",false)]
+        .map { MMTCity(name: $0.0, favourite: $0.1) }
+    
+    override func getAllCities(_ completion: ([MMTCityProt]) -> Void) {
+        completion(self.cities)
+    }
+}
+
 fileprivate class StubRegister: MMTShortcutRegister
 {
     var registrations: [String] = []
+    var cleaned: Bool = false
     
-    func register(_ shortcut: MMTShortcut) {
-        register(shortcut as? MMTMeteorogramShortcut)
-        register(shortcut as? MMTDetailedMapShortcut)
+    func register(_ shortcut: MMTShortcut)
+    {
+        if let short = shortcut as? MMTDetailedMapShortcut {
+            registrations.append(short.detailedMap.rawValue)
+        } else if let short = shortcut as? MMTMeteorogramHereShortcut {
+            registrations.append(short.identifier)
+        } else if let short = shortcut as? MMTMeteorogramShortcut {
+            registrations.append(short.name)
+        }
     }
-    
-    func register(_ shortcut: MMTMeteorogramShortcut?) {
-        if shortcut != nil { registrations.append(shortcut!.name) }
-    }
-    
-    func register(_ shortcut: MMTDetailedMapShortcut?) {
-        if shortcut != nil { registrations.append(shortcut!.detailedMap.rawValue) }
-    }
-    
+        
     func unregister(_ shortcut: MMTShortcut) {}
+    
+    func unregisterAll() {
+        cleaned = true
+    }
 }
 
 fileprivate extension MMTCity

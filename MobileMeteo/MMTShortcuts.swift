@@ -17,7 +17,9 @@ protocol MMTShortcutRegister
 {
     func register(_ shortcut: MMTShortcut)
     
-    func unregister(_ shortcut: MMTShortcut)        
+    func unregister(_ shortcut: MMTShortcut)
+    
+    func unregisterAll()
 }
 
 extension MMTShortcut
