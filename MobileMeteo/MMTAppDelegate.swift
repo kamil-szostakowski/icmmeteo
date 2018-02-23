@@ -183,13 +183,7 @@ extension MMTAppDelegate : CLLocationManagerDelegate
     }
     
     @objc func handleLocationDidChange(notification: Notification)
-    {
-        let shortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel(), locationService: self)
-        
-        if locationManager.location != nil {
-            UIApplication.shared.register(shortcut)
-        } else {
-            UIApplication.shared.unregister(shortcut)
-        }
+    {        
+        try? MMTShortcutsMigrator().migrate()
     }
 }

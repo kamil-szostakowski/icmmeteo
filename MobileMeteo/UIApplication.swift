@@ -32,15 +32,8 @@ extension UIApplication : MMTShortcutRegister
     }
     
     func unregisterAll()
-    {
-        let currentLocation = shortcutItems?
-            .first { $0.type.contains("current-location") }
-        
+    {        
         shortcutItems?.removeAll()
-        
-        if currentLocation != nil {
-            shortcutItems?.append(currentLocation!)
-        }
     }
 
     func convert(from shortcut: MMTShortcut) -> UIApplicationShortcutItem?

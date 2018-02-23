@@ -16,32 +16,40 @@ class MMTShortcutsMigrator: MMTVersionMigrator
     private var citiesStore: MMTCitiesStore
     private var spotlightRegister: MMTShortcutRegister
     private var quickActionsRegister: MMTShortcutRegister
+    private var locationService: MMTLocationService
     
     // MARK: Initializers
     convenience init ()
     {
-        self.init(store: MMTCitiesStore(), spotlight: CSSearchableIndex.default(), quickActions: UIApplication.shared)
+        self.init(store: MMTCitiesStore(), spotlight: CSSearchableIndex.default(), quickActions: UIApplication.shared, locationService: UIApplication.shared.locationService!)
     }
     
-    init(store: MMTCitiesStore, spotlight: MMTShortcutRegister, quickActions: MMTShortcutRegister)
+    init(store: MMTCitiesStore, spotlight: MMTShortcutRegister, quickActions: MMTShortcutRegister, locationService: MMTLocationService)
     {
-        spotlightRegister = spotlight
-        quickActionsRegister = quickActions
-        citiesStore = store
+        self.spotlightRegister = spotlight
+        self.quickActionsRegister = quickActions
+        self.citiesStore = store
+        self.locationService = locationService
     }
     
     // MARK: Interface methods
     func migrate() throws
     {
-        spotlightRegister.unregisterAll()
-        
         citiesStore.getAllCities {
+            spotlightRegister.unregisterAll()
             quickActionsRegister.unregisterAll()
             
+            // Spotlight index migration
             $0.filter { $0.isFavourite == true }
                 .map { MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: $0) }
                 .forEach { spotlightRegister.register($0) }
             
+            if self.locationService.currentLocation != nil {
+                let shortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel(), locationService: self.locationService)
+                quickActionsRegister.register(shortcut)
+            }
+            
+            // 3D Touch quic actions migration
             $0.filter { $0.isFavourite == true }
                 .prefix(MMTMeteorogramShortcutsLimit)
                 .map { MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: $0) }

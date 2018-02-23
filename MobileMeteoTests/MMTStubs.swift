@@ -10,11 +10,8 @@ import Foundation
 import CoreLocation
 @testable import MobileMeteo
 
-struct MMTStubLocationService : MMTLocationService
-{
-    var currentLocation: CLLocation? {
-        return nil
-    }
+class MMTStubLocationService : MMTLocationService {
+    var currentLocation: CLLocation?
 }
 
 class MMTUnsupportedShortcut: MMTShortcut

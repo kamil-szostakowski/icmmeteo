@@ -15,6 +15,7 @@ class MMTShortcutsMigratorTests: XCTestCase
     // MARK: Properties
     fileprivate var quickActions: StubRegister!
     fileprivate var spotlight: StubRegister!
+    fileprivate var locationService: MMTStubLocationService!
     fileprivate var shortcutsMigrator: MMTShortcutsMigrator!
     
     // MARK: Setup methods
@@ -23,7 +24,8 @@ class MMTShortcutsMigratorTests: XCTestCase
         super.setUp()
         quickActions = StubRegister()
         spotlight = StubRegister()
-        shortcutsMigrator = MMTShortcutsMigrator(store: StubCitiesStore(), spotlight: spotlight, quickActions: quickActions)
+        locationService = MMTStubLocationService()
+        shortcutsMigrator = MMTShortcutsMigrator(store: StubCitiesStore(), spotlight: spotlight, quickActions: quickActions, locationService: locationService)
     }
 
     override func tearDown()
@@ -48,9 +50,7 @@ class MMTShortcutsMigratorTests: XCTestCase
     
     func testShortcutsMigration_WithCurrentLocation()
     {
-        let shortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel(), locationService: MMTStubLocationService())
-        
-        quickActions.register(shortcut)
+        locationService.currentLocation = CLLocation(latitude: 1, longitude: 1)
         try! shortcutsMigrator.migrate()
         
         XCTAssertTrue(quickActions.cleaned)
