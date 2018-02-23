@@ -168,7 +168,7 @@ extension MMTMeteorogramController
     fileprivate func displayErrorAlert(_ error: MMTError)
     {
         let alert = UIAlertController.alertForMMTError(error){ _ in
-            self.perform(segue: .UnwindToListOfCities, sender: self)
+            self.onCloseBtnTouchAction(self.navigationBar.topItem!.leftBarButtonItem!)
         }
         
         if meteorogramStore.climateModel.type == .UM {

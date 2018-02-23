@@ -226,7 +226,7 @@
                                 </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cb5-Jv-ATc" userLabel="Activity Indicator">
-                                <rect key="frame" x="137.66666666666666" y="358" width="100" height="83.333333333333314"/>
+                                <rect key="frame" x="138" y="357.33333333333331" width="100" height="83.333333333333314"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ładowanie meteorogramu" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKu-oD-a6u">
                                         <rect key="frame" x="5" y="50.000000000000007" width="90" height="28.333333333333336"/>
@@ -300,15 +300,15 @@
                                             <constraint firstAttribute="bottom" secondItem="SqV-hs-h36" secondAttribute="bottom" constant="8" id="sqZ-n8-z5W"/>
                                             <constraint firstItem="SqV-hs-h36" firstAttribute="top" secondItem="bfe-IB-zr9" secondAttribute="bottom" constant="8" id="uFl-C4-UB0"/>
                                         </constraints>
-                                        <variation key="heightClass=compact-widthClass=compact" hidden="YES"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="2qQ-bN-M64" secondAttribute="trailing" id="HZx-6P-MWT"/>
                                     <constraint firstItem="2qQ-bN-M64" firstAttribute="top" secondItem="DMZ-dc-XIY" secondAttribute="top" id="RiL-CL-24a"/>
                                     <constraint firstItem="2qQ-bN-M64" firstAttribute="leading" secondItem="DMZ-dc-XIY" secondAttribute="leading" id="W9m-yb-4bg"/>
                                 </constraints>
+                                <variation key="heightClass=compact-widthClass=compact" hidden="YES"/>
                             </view>
                             <navigationBar contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="tNU-2w-XXV">
                                 <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -348,13 +348,16 @@
                             <constraint firstItem="tNU-2w-XXV" firstAttribute="leading" secondItem="f5N-rT-ojC" secondAttribute="leading" id="hyT-Xo-Qnd"/>
                             <constraint firstItem="WG3-jp-oXw" firstAttribute="centerX" secondItem="Cb5-Jv-ATc" secondAttribute="centerX" id="iEv-1n-GRf"/>
                             <constraint firstItem="sYb-4u-jBu" firstAttribute="leading" secondItem="f5N-rT-ojC" secondAttribute="leading" id="qBg-fO-kWE"/>
+                            <constraint firstItem="WG3-jp-oXw" firstAttribute="bottom" secondItem="3sI-9X-sH4" secondAttribute="bottom" id="s1A-yC-dGd"/>
                             <constraint firstItem="tNU-2w-XXV" firstAttribute="bottom" secondItem="f5N-rT-ojC" secondAttribute="top" id="y3b-j4-8yo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="f5N-rT-ojC"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="s1A-yC-dGd"/>
                                 <exclude reference="U1S-vG-VQu"/>
                                 <exclude reference="y3b-j4-8yo"/>
+                                <exclude reference="Cu6-Hr-TBx"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
@@ -364,7 +367,13 @@
                         </variation>
                         <variation key="heightClass=compact-widthClass=compact">
                             <mask key="constraints">
+                                <include reference="s1A-yC-dGd"/>
                                 <include reference="y3b-j4-8yo"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="Cu6-Hr-TBx"/>
                             </mask>
                         </variation>
                     </view>
@@ -719,7 +728,7 @@
                                 </items>
                             </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRv-JG-Nea" userLabel="Activity Indicator">
-                                <rect key="frame" x="139.66666666666666" y="352" width="95" height="69.333333333333314"/>
+                                <rect key="frame" x="140" y="352" width="95" height="69.333333333333314"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ładowanie komentarza" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rki-Sz-vgX">
                                         <rect key="frame" x="5" y="50" width="85" height="14.333333333333329"/>
@@ -1123,7 +1132,7 @@
     </scenes>
     <resources>
         <image name="detailed-maps" width="32" height="32"/>
-        <image name="forecaster-comment" width="24" height="24"/>
+        <image name="forecaster-comment" width="32" height="32"/>
         <image name="info" width="32" height="32"/>
         <image name="info-computer" width="36" height="36"/>
         <image name="info-mail" width="36" height="36"/>

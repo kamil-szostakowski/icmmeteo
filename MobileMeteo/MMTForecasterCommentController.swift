@@ -81,6 +81,7 @@ fileprivate extension MMTForecasterCommentController
             self.tabBarController?.selectedIndex = 0
         }
         
+        activityIndicator.isHidden = true
         present(alert, animated: true, completion: nil)
     }
     
