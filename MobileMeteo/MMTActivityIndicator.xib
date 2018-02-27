@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeueLights.ttc">
+            <string>HelveticaNeue-Light</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MMTActivityIndicator" customModule="MobileMeteo" customModuleProvider="target">
+            <connections>
+                <outlet property="messageLabel" destination="y6W-25-ljt" id="p5G-vy-WNL"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="110" height="100"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="PUC-fs-tw4">
+                    <rect key="frame" x="10" y="10" width="90" height="80"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Xr-rB-3bX">
+                            <rect key="frame" x="0.0" y="0.0" width="90" height="37.5"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="1e2-n9-N0V">
+                                    <rect key="frame" x="26.5" y="0.0" width="37" height="37"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="1e2-n9-N0V" secondAttribute="bottom" id="2Bs-cD-Bfg"/>
+                                <constraint firstItem="1e2-n9-N0V" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1Xr-rB-3bX" secondAttribute="leading" id="K7z-Ke-Yjo"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1e2-n9-N0V" secondAttribute="trailing" id="Qzo-RR-oeb"/>
+                                <constraint firstItem="1e2-n9-N0V" firstAttribute="top" secondItem="1Xr-rB-3bX" secondAttribute="top" id="RKY-0u-mcv"/>
+                                <constraint firstItem="1e2-n9-N0V" firstAttribute="centerX" secondItem="1Xr-rB-3bX" secondAttribute="centerX" id="V8e-O7-ZdH"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="ładowanie komentarza" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6W-25-ljt">
+                            <rect key="frame" x="0.0" y="42.5" width="90" height="37.5"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="100" id="GpG-hs-JvQ"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="PUC-fs-tw4" secondAttribute="bottom" constant="10" id="Gk7-8J-ZCN"/>
+                <constraint firstItem="PUC-fs-tw4" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="Q1C-Zn-VE8"/>
+                <constraint firstAttribute="trailing" secondItem="PUC-fs-tw4" secondAttribute="trailing" constant="10" id="Qfm-Qj-1Ts"/>
+                <constraint firstItem="PUC-fs-tw4" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="rsb-wK-lsE"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="45.5" y="101.5"/>
+        </view>
+    </objects>
+</document>

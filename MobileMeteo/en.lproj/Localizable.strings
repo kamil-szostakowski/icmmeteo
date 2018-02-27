@@ -6,6 +6,8 @@
   Copyright © 2016 Kamil Szostakowski. All rights reserved.
 */
 
+"forecast: %@" = "Weather: %@";
+"forecast.here" = "Weather: Here";
 "forecast.start: %@" = "Forecast start t0: %@";
 "forecast.length: %dh, forecast.grid: %dkm" = "Forecast length: %dh, Grid: %dkm";
 "forecast.length: %dh" = "Forecast length: %dh";
@@ -40,8 +42,12 @@
 "error.locationUnsupported" = "Selected location is unsupported.";
 "error.locationNotFound" = "Could not find the details of the location. Please choose a different location or try again later.";
 "error.mailNotAvailable" = "If you wish to share your opinion with us, you have to configure your mailbox first.";
+"error.commentFetchFailure" = "Comment download failure. Please try again later.";
 
 "label.close" = "close";
+"label.try.coamps" = "try COAMPS";
+"label.loading.meteorogram" = "meteorogram loading";
+"label.loading.comment" = "comment loading";
 
 "Dolnośląskie" = "Lower Silesia";
 "Kujawsko-Pomorskie" = "Kuyavian-Pomeranian";

@@ -15,6 +15,17 @@ enum MMTClimateModelType: String
     case WAM
 }
 
+extension MMTClimateModelType
+{
+    var model: MMTClimateModel {
+        switch self {
+        case .UM: return MMTUmClimateModel()
+        case .COAMPS: return MMTCoampsClimateModel()
+        case .WAM: return MMTWamClimateModel()
+        }
+    }
+}
+
 protocol MMTClimateModel
 {
     var type: MMTClimateModelType { get }
@@ -27,6 +38,15 @@ protocol MMTClimateModel
     var detailedMaps: [MMTDetailedMap] { get }
 
     func startDate(for date: Date) -> Date
+    func detailedMap(ofType: MMTDetailedMapType) -> MMTDetailedMap?
+}
+
+extension MMTClimateModel
+{    
+    func detailedMap(ofType type: MMTDetailedMapType) -> MMTDetailedMap?
+    {
+        return detailedMaps.first { $0.type == type }
+    }
 }
 
 class MMTUmClimateModel: MMTClimateModel

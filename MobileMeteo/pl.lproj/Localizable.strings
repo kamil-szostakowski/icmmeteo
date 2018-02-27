@@ -6,6 +6,8 @@
   Copyright © 2016 Kamil Szostakowski. All rights reserved.
 */
 
+"forecast: %@" = "Pogoda: %@";
+"forecast.here" = "Pogoda: Tutaj";
 "forecast.start: %@" = "Start prognozy t0: %@";
 "forecast.length: %dh, forecast.grid: %dkm" = "Długość prognozy: %dh, Siatka: %dkm";
 "forecast.length: %dh" = "Długość prognozy: %dh";
@@ -17,7 +19,7 @@
 "detailed-maps.MeanSeaLevelPressure" = "Ciśnienie na poziomie morza";
 "detailed-maps.TemperatureAndStreamLine" = "Temperatura + linie prądu";
 "detailed-maps.TemperatureOfSurface" = "Temperatura powierzchni";
-"detailed-maps.Precipitation" = "Opad";
+"detailed-maps.Precipitation" = "Opady atmosferyczne";
 "detailed-maps.Storm" = "Burze: liczba wyładowań";
 "detailed-maps.Wind" = "Wiatr przyziemny";
 "detailed-maps.MaximumGust" = "Maksymalne porywy wiatru";
@@ -40,8 +42,12 @@
 "error.locationUnsupported" = "Wybrana lokacja nie jest obsługiwana.";
 "error.locationNotFound" = "Nie udało się odnaleźć szczegółów lokalizacji. Wybierz inną lokalizację lub spróbuj ponownie później.";
 "error.mailNotAvailable" = "Zanim będziesz mógł przesłać nam swoją opinię, powinieneś skonfigurować swoją skrzynkę pocztową.";
+"error.commentFetchFailure" = "Nie udało się pobrać komentarza, spróbuj ponownie później.";
 
 "label.close" = "zamknij";
+"label.try.coamps" = "spróbuj COAMPS";
+"label.loading.meteorogram" = "ładowanie meteorogramu";
+"label.loading.comment" = "ładowanie komentarza";
 
 "Lower Silesia" = "Dolnośląskie";
 "Kuyavian-Pomeranian" = "Kujawsko-Pomorskie";

@@ -9,16 +9,14 @@
 import Foundation
 import CoreData
 
-class MMTDatabase: NSObject
+class MMTDatabase
 {
     // MARK: Properties
-
-    static fileprivate(set) var instance = MMTDatabase()
-
-    var detailedMapsCache = NSCache<NSString, UIImage>()
+    static private(set) var instance = MMTDatabase()
+    
+    var meteorogramsCache = NSCache<NSString, UIImage>()
     
     // MARK: CoreData stack
-    
     lazy var model: NSManagedObjectModel =
     {
         let modelURL = Bundle.main.url(forResource: "Mobile_Meteo", withExtension: "momd")
@@ -51,12 +49,12 @@ class MMTDatabase: NSObject
     
     func saveContext()
     {
-        if context.hasChanges
-        {
-            do { try context.save()
+        if context.hasChanges {
+            do
+            {
+                try context.save()
                 NSLog("Context saved")
             }
-                
             catch let error as NSError {
                 reportFatalError(error)
             }
@@ -65,12 +63,10 @@ class MMTDatabase: NSObject
     
     func flushDatabase()
     {
-        self.context.performAndWait()
-        {
-            self.detailedMapsCache.removeAllObjects()
+        self.context.performAndWait {
+            self.meteorogramsCache.removeAllObjects()
 
-            for store in self.persistentStoreCoordinator.persistentStores
-            {
+            for store in self.persistentStoreCoordinator.persistentStores {
                 _ = try? self.persistentStoreCoordinator.remove(store)
                 _ = try? FileManager.default.removeItem(atPath: store.url!.path)
             }
@@ -79,9 +75,8 @@ class MMTDatabase: NSObject
         }
     }
     
-    // MARK: Helper methods    
-    
-    fileprivate lazy var applicationDocumentsDirectory: URL =
+    // MARK: Helper methods
+    private lazy var applicationDocumentsDirectory: URL =
     {
         let path = FileManager.SearchPathDirectory.documentDirectory
         let domain = FileManager.SearchPathDomainMask.userDomainMask
@@ -89,7 +84,7 @@ class MMTDatabase: NSObject
         return FileManager.default.urls(for: path, in: domain).last!
     }()
     
-    fileprivate func reportFatalError(_ error: NSError?)
+    private func reportFatalError(_ error: NSError?)
     {
         NSLog("CoreData fatal error: \(String(describing: error))")
         abort()

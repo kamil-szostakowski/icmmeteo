@@ -11,9 +11,9 @@ import Foundation
 extension Calendar
 {
     static var utcCalendar: Calendar
-    {
+    {        
         var
-        calendar = (Calendar.current as NSCalendar).copy() as! Calendar
+        calendar = Calendar.current
         calendar.timeZone = TimeZone(identifier: "UTC")!
         
         return calendar

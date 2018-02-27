@@ -13,7 +13,7 @@ class MMTCitiesListMapTests: MMTCitiesListTestCase
     func test_AddingAndRemovingCityPointedOnMapFromFavourites()
     {
         let
-        searchField = app.tables.otherElements["cities-search"]
+        searchField = app.otherElements["cities-search"]
         searchField.tap()
         searchField.typeText("aaa")
 
@@ -40,19 +40,19 @@ class MMTCitiesListMapTests: MMTCitiesListTestCase
 
         waitForExpectations(timeout: 10){ _ in
 
-            self.removeFromFavourites(self.app.tables.cells.element(boundBy: 0 + self.tableOffset).label)
+            self.removeFromFavourites(self.app.tables.cells.element(boundBy: Int(0 + self.tableOffset)).label)
 
             /* --- Assertions -- */
             
-            XCTAssertEqual(self.bialystok, self.app.tables.cells.element(boundBy: 0 + self.tableOffset).label)
+            XCTAssertEqual(self.bialystok, self.app.tables.cells.element(boundBy: Int(0 + self.tableOffset)).label)
             self.XCTCheckHeader(self.headerCapitals)
         }
     }
     
     func test_dismissMapPicker()
     {
-        app.tables.otherElements["cities-search"].tap()
-        app.tables.otherElements["cities-search"].typeText("aaa")
+        app.otherElements["cities-search"].tap()
+        app.otherElements["cities-search"].typeText("aaa")
         app.tables.cells["find-city-on-map"].tap()
         
         let navBar = app.navigationBars["select-location-screen"]

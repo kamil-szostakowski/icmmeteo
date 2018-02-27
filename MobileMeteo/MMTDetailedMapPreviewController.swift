@@ -10,13 +10,12 @@
 import UIKit
 import Foundation
 
-class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
+class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate, MMTActivityIndicating
 {
     // MARK: Properties
     
     @IBOutlet weak var detailedMapImage: UIImageView!
     @IBOutlet weak var slider: UISlider!
-    @IBOutlet var activityIndicator: UIView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var mapTitle: UILabel!
     @IBOutlet weak var momentLabel: UILabel!
@@ -24,6 +23,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     
     var detailedMap: MMTDetailedMap!
     var climateModel: MMTClimateModel!
+    var activityIndicator: MMTActivityIndicator!
 
     private var meteorogramSize: CGSize!
     private var meteorogramLegendSize: CGSize!
@@ -33,7 +33,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     private var meteorogramStore: MMTDetailedMapsStore!
 
     private var cache: NSCache<NSString, UIImage> {
-        return MMTDatabase.instance.detailedMapsCache
+        return MMTDatabase.instance.meteorogramsCache
     }
 
     private var notFetchedMoments: [Date] {
@@ -49,28 +49,25 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        meteorogramStore = MMTDetailedMapsStore(model: climateModel, date: Date())
-        moments = meteorogramStore.getForecastMoments(for: detailedMap)
-
-        if moments == nil
-        {
-            displayErrorAlert(.meteorogramFetchFailure)
-        }
-
+        
+        setupMeteorogramStore(for: Date())
         lockUserInterface(true)
 
         setupHeader()
         setupSlider()
-        setupMeteorogramSize()        
-        fetchMeteorogramSequenceIfRequired()
+        setupMeteorogramSize()
+        fetchForecastStartDate()
     }
 
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
-
         setupScrollView()
+    }
+    
+    override var supportedInterfaceOrientations : UIInterfaceOrientationMask
+    {
+        return .portrait
     }
 
     // MARK: Setup methods
@@ -81,11 +78,21 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
         slider.maximumValue = Float(moments.count-1)
         slider.value = 0
     }
+    
+    private func setupMeteorogramStore(for date: Date)
+    {
+        meteorogramStore = MMTDetailedMapsStore(model: climateModel, date: climateModel.startDate(for: Date()))
+        moments = meteorogramStore.getForecastMoments(for: detailedMap)
+        
+        if moments == nil {
+            displayErrorAlert(.meteorogramFetchFailure)
+        }
+    }
 
     private func setupMeteorogramSize()
     {
-        meteorogramSize = CGSize(forDetailedMapOfModel: meteorogramStore.climateModel.type)
-        meteorogramLegendSize = CGSize(forDetailedMapLegendOfModel: meteorogramStore.climateModel.type)
+        meteorogramSize = CGSize(map: meteorogramStore.climateModel.type)
+        meteorogramLegendSize = CGSize(mapLegend: meteorogramStore.climateModel.type)
     }
 
     private func setupScrollView()
@@ -124,6 +131,18 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     }
 
     // MARK: Data update methods
+    
+    private func fetchForecastStartDate()
+    {
+        meteorogramStore.getForecastStartDate {(_ date: Date?, _ error: MMTError?) in
+            guard let startDate = date else {
+                self.displayErrorAlert(.meteorogramFetchFailure)
+                return
+            }
+            self.setupMeteorogramStore(for: startDate)
+            self.fetchMeteorogramSequenceIfRequired()
+        }
+    }
 
     private func fetchMeteorogramSequenceIfRequired()
     {
@@ -183,7 +202,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     {
         if lock == true
         {
-            view.addCenteredSubview(view: activityIndicator)
+            displayActivityIndicator(in: view, message: MMTLocalizedString("label.loading.meteorogram"))
             slider.isEnabled = false
             scrollView.isUserInteractionEnabled = false
             return
@@ -191,7 +210,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
 
         if lock == false
         {
-            activityIndicator.removeFromSuperview()
+            hideActivityIndicator()
             slider.isEnabled = true
             scrollView.isUserInteractionEnabled = true
             return
@@ -200,8 +219,8 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
 
     private func displayErrorAlert(_ error: MMTError)
     {
-        let alert = UIAlertController.alertForMMTError(error){ (UIAlertAction) -> Void in
-            self.performSegue(withIdentifier: MMTSegue.UnwindToListOfDetailedMaps, sender: self)
+        let alert = UIAlertController.alertForMMTError(error){ _ in
+            self.perform(segue: .UnwindToListOfDetailedMaps, sender: self)
         }
 
         present(alert, animated: true, completion: nil)
@@ -224,14 +243,12 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     private func handleSequenceFetchFinish(errorCount: Int)
     {
         guard fetchSequenceRetryCount < 2 else {
-            
             displayErrorAlert(.meteorogramFetchFailure)
             lockUserInterface(false)
             return
         }
 
         guard cache.object(forKey: key(for: moments[0])) != nil else {
-
             retryMeteorogramFetchSequenceIfNotStarted()
             return
         }

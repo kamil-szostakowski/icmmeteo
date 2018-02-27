@@ -19,9 +19,18 @@ class MMTMFMailComposeViewController: MFMailComposeViewController
 }
 
 class MMTInfoController: UIViewController, MFMailComposeViewControllerDelegate
-{        
-    // MARK: Action methods
+{
+    @IBOutlet var icons: [UIImageView]!
     
+    // MARK: Lifecycle methods
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        icons.forEach {
+            $0.imageRenderingMode = UIImageRenderingMode.alwaysTemplate
+        }
+    }
+    // MARK: Action methods
     @IBAction func feedbackBtnDidTap(_ sender: UIButton)
     {
         guard MFMailComposeViewController.canSendMail() else {
@@ -40,8 +49,7 @@ class MMTInfoController: UIViewController, MFMailComposeViewControllerDelegate
         present(mailer, animated: true, completion: nil)
     }
     
-    // MARK: MFMailComposeViewControllerDelegate methods
-    
+    // MARK: MFMailComposeViewControllerDelegate methods    
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?)
     {
         dismiss(animated: true, completion: nil)

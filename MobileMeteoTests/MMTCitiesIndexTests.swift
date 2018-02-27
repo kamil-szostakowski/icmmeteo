@@ -95,7 +95,7 @@ class MMTCitiesIndexTests: XCTestCase
 
 // MARK: Mock City class
 
-class MMTTestCity: NSObject, MMTCityProt
+class MMTTestCity: MMTCityProt
 {
     var name: String
     var region: String

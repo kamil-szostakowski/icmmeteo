@@ -17,5 +17,9 @@ enum MMTError: String, Error
     case mailNotAvailable
     case forecastStartDateNotFound
     case detailedMapNotSupported
-    case urlNotAvailable    
+    case urlNotAvailable
+    case invalidMigrationChain
+    case migrationFailure
+    case commentFetchFailure
+    case htmlFetchFailure
 }

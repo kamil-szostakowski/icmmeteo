@@ -9,50 +9,78 @@
 import UIKit
 import Foundation
 
-class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class MMTDetailedMapsListController: UIViewController
 {
     // MARK: Outlets
-    
     @IBOutlet weak var navigationBar: UINavigationBar!
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
     // MARK: Properties
-    
     private var meteorogramStore: MMTDetailedMapsStore!
-    private var selectedDetailedMap: MMTDetailedMap!
     
+    var selectedDetailedMap: MMTDetailedMap!
+    var selectedClimateModel: MMTClimateModel! {
+        didSet {
+            meteorogramStore = MMTDetailedMapsStore(model: selectedClimateModel, date: selectedClimateModel.startDate(for: Date()))
+            segmentControl.selectedModelType = selectedClimateModel.type
+            
+            if oldValue != nil {
+                tableView.reloadData()
+            }
+        }
+    }
+}
+
+// Lifecycle extension
+extension MMTDetailedMapsListController
+{
     // MARK: Controller methods
-    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
+        
         navigationBar.accessibilityIdentifier = "detailed-maps-list-screen"
-        setupModelStore()
+        selectedClimateModel = MMTUmClimateModel()
+        
+        segmentControl.selectedSegmentIndex = 0
         analytics?.sendScreenEntryReport("Detailed maps")
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         guard let previewController = segue.destination as? MMTDetailedMapPreviewController else {
             return
         }
-
+        
         previewController.climateModel = meteorogramStore.climateModel
         previewController.detailedMap = selectedDetailedMap
     }
+}
 
-    // MARK: Setup methods
-
-    private func setupModelStore()
+// Actions extension
+extension MMTDetailedMapsListController
+{
+    // MARK: Actions
+    @IBAction func selectedModelDidChange(_ sender: UISegmentedControl)
     {
-        meteorogramStore = MMTDetailedMapsStore(model: MMTUmClimateModel(), date: Date())
-        segmentControl.selectedSegmentIndex = 0
+        guard let selectedModel = sender.selectedModelType?.model else {
+            return
+        }
+        
+        analytics?.sendUserActionReport(.DetailedMaps, action: .DetailedMapDidSelectModel, actionLabel: selectedModel.type.rawValue)
+        selectedClimateModel = selectedModel
     }
+    
+    @IBAction func unwindToListOfDetailedMaps(_ unwindSegue: UIStoryboardSegue)
+    {
+    }
+}
 
+// UITableViewDelegate extension
+extension MMTDetailedMapsListController : UITableViewDataSource, UITableViewDelegate
+{
     // MARK: Table view methods
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         return meteorogramStore.climateModel.detailedMaps.count
@@ -71,37 +99,6 @@ class MMTDetailedMapsListController: UIViewController, UITableViewDataSource, UI
     {
         tableView.deselectRow(at: indexPath, animated: true)
         selectedDetailedMap = meteorogramStore.climateModel.detailedMaps[indexPath.row]
-        performSegue(withIdentifier: MMTSegue.DisplayDetailedMap, sender: self)
-    }
-
-    // MARK: Actions
-
-    @IBAction func selectedModelDidChange(_ sender: UISegmentedControl)
-    {
-        guard let selectedSegmentTitle = sender.titleForSegment(at: sender.selectedSegmentIndex) else {
-            return
-        }
-
-        analytics?.sendUserActionReport(.DetailedMaps, action: .DetailedMapDidSelectModel, actionLabel: selectedSegmentTitle)
-        var climateModel: MMTClimateModel?
-
-        if selectedSegmentTitle == MMTClimateModelType.UM.rawValue {
-            climateModel = MMTUmClimateModel()
-        }
-
-        if selectedSegmentTitle == MMTClimateModelType.COAMPS.rawValue {
-            climateModel = MMTCoampsClimateModel()
-        }
-
-        if selectedSegmentTitle == MMTClimateModelType.WAM.rawValue {
-            climateModel = MMTWamClimateModel()
-        }
-
-        meteorogramStore = MMTDetailedMapsStore(model: climateModel!, date: Date())
-        tableView.reloadData()
-    }
-    
-    @IBAction func unwindToListOfDetailedMaps(_ unwindSegue: UIStoryboardSegue)
-    {        
+        perform(segue: .DisplayDetailedMap, sender: self)
     }
 }

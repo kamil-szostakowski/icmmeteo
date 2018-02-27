@@ -41,9 +41,10 @@ class MMTDetailedMapsStoreTests: XCTestCase
 
     func testBulkFetchOfSupportedDetailedMapMeteorogram()
     {
+        let model = MMTUmClimateModel()
         let now = Date()
         let session = MMTMockMeteorogramUrlSession(UIImage(), nil)
-        let store = MMTDetailedMapsStore(model: MMTUmClimateModel(), date: now, session: session)
+        let store = MMTDetailedMapsStore(model: model, date: model.startDate(for: now), session: session)
 
         let finishExpectation = self.expectation(description: "Fetch finish expectation")
         
@@ -77,8 +78,9 @@ class MMTDetailedMapsStoreTests: XCTestCase
 
     func testMomentsForStandardMapsForUmModel()
     {
+        let model = MMTUmClimateModel()
         let date = TT.localFormatter.date(from: "2015-06-08T20:00")!
-        let store = MMTDetailedMapsStore(model: MMTUmClimateModel(), date: date)
+        let store = MMTDetailedMapsStore(model: model, date: model.startDate(for: date))
         var standardMapsCount = 0
         
         for map in MMTUmClimateModel().detailedMaps {
@@ -102,8 +104,9 @@ class MMTDetailedMapsStoreTests: XCTestCase
     
     func testMomentsCountForShorterMapsForUmModel()
     {
+        let model = MMTUmClimateModel()
         let date = TT.localFormatter.date(from: "2015-06-08T20:00")!
-        let store = MMTDetailedMapsStore(model: MMTUmClimateModel(), date: date)
+        let store = MMTDetailedMapsStore(model: model, date: model.startDate(for: date))
         var standardMapsCount = 0
         
         for map in MMTUmClimateModel().detailedMaps {
@@ -126,8 +129,9 @@ class MMTDetailedMapsStoreTests: XCTestCase
     
     func testMomentsForStandardMapsForCoampsModel()
     {
+        let model = MMTCoampsClimateModel()
         let date = TT.localFormatter.date(from: "2015-06-08T20:00")!
-        let store = MMTDetailedMapsStore(model: MMTCoampsClimateModel(), date: date)
+        let store = MMTDetailedMapsStore(model: model, date: model.startDate(for: date))
         
         for map in MMTCoampsClimateModel().detailedMaps {
             let moments = store.getForecastMoments(for: map)
@@ -147,8 +151,9 @@ class MMTDetailedMapsStoreTests: XCTestCase
     
     func testMomentsCountForShorterMapsForCoampsModel()
     {
+        let model = MMTCoampsClimateModel()
         let date = TT.localFormatter.date(from: "2015-06-08T20:00")!
-        let store = MMTDetailedMapsStore(model: MMTCoampsClimateModel(), date: date)
+        let store = MMTDetailedMapsStore(model: model, date: model.startDate(for: date))
         
         for map in MMTCoampsClimateModel().detailedMaps {
             let moments = store.getForecastMoments(for: map)
@@ -168,8 +173,9 @@ class MMTDetailedMapsStoreTests: XCTestCase
 
     func testForecastMomentsOnTurnOfTheMonthForForecastStartAt12am()
     {
+        let model = MMTWamClimateModel()
         let date = TT.utcFormatter.date(from: "2015-07-30T00:00")!
-        let store = MMTDetailedMapsStore(model: MMTWamClimateModel(), date: date)
+        let store = MMTDetailedMapsStore(model: model, date: model.startDate(for: date))
 
         for map in MMTWamClimateModel().detailedMaps {
             let moments = store.getForecastMoments(for: map)
@@ -185,8 +191,9 @@ class MMTDetailedMapsStoreTests: XCTestCase
 
     func testForecastMomentsOnTurnOfTheMonthForForecastStartAtMidnight()
     {
+        let model = MMTWamClimateModel()
         let date = TT.utcFormatter.date(from: "2015-07-30T07:00")!
-        let store = MMTDetailedMapsStore(model: MMTWamClimateModel(), date: date)
+        let store = MMTDetailedMapsStore(model: model, date: model.startDate(for: date))
 
         for map in MMTWamClimateModel().detailedMaps {
             let moments = store.getForecastMoments(for: map)
@@ -202,8 +209,9 @@ class MMTDetailedMapsStoreTests: XCTestCase
 
     func testForecastMomentsForForecastStartAtMidnight()
     {
+        let model = MMTWamClimateModel()
         let date = TT.utcFormatter.date(from: "2015-07-08T07:00")!
-        let store = MMTDetailedMapsStore(model: MMTWamClimateModel(), date: date)
+        let store = MMTDetailedMapsStore(model: model, date: model.startDate(for: date))
 
         for map in MMTWamClimateModel().detailedMaps {
             let moments = store.getForecastMoments(for: map)

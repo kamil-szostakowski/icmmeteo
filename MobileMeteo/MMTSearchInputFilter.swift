@@ -8,39 +8,38 @@
 
 import Foundation
 
-class MMTSearchInput: NSObject
+class MMTSearchInput
 {
     // MARK: Properties
-    fileprivate var rawInput: String!
+    private var rawInput: String!
     
     var stringValue: String {
         return rawInput
     }
     
     var isValid: Bool {
-        return stringWithRemovedDuplicatedWhitespaces(rawInput).characters.count>2
+        return rawInput.removed(doubled: .whitespaces).count > 2
     }
     
     // MARK: Initializers
     
     init(_ input: String)
     {
-        super.init()
+        rawInput = input.removed(doubled: .whitespaces)
         
-        rawInput = stringWithRemovedDuplicatedWhitespaces(input)
-        
-        if rawInput.characters.count > 0 && Array(input.characters).last == Character(" ") {
-            rawInput.append(Character(" "))
+        // Supports multi word city names eg. Kędzierzyn Koźle
+        if rawInput.count > 0 && input.last == " " {
+            rawInput.append(" ")
         }
     }
-    
-    // MARK: Helper methods
-    
-    fileprivate func stringWithRemovedDuplicatedWhitespaces(_ input: String) -> String
+}
+
+extension String
+{
+    func removed(doubled characterSet: CharacterSet) -> String
     {
-        let characterSet = CharacterSet.whitespaces
-        let components = input.components(separatedBy: characterSet).filter(){ $0.characters.count > 0 }
-        
-        return components.joined(separator: " ")
+        return components(separatedBy: characterSet)
+            .filter(){ $0.count > 0 }
+            .joined(separator: " ")
     }
 }

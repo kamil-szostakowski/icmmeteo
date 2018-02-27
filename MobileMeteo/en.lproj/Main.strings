@@ -2,11 +2,10 @@
 /* Class = "UINavigationItem"; title = "ICM Meteo"; ObjectID = "0gD-dT-mE5"; */
 "0gD-dT-mE5.title" = "ICM Meteo";
 
+"fdc-wP-Nso.title" = "Forecaster comment";
+
 /* Class = "UILabel"; text = "Prognoza została udostępniona nieodpłatnie przez serwis meteo.pl prowadzony przez ICM, Uniwersytet Warszawski. "; ObjectID = "2Vd-h5-NfU"; */
 "2Vd-h5-NfU.text" = "Forecast provided for free by meteo.pl created by ICM, Warsaw University. ";
-
-/* Class = "UITabBarItem"; title = "Model WAM"; ObjectID = "9fY-hx-D3Q"; */
-"9fY-hx-D3Q.title" = "Model WAM";
 
 /* Class = "UILabel"; text = "Wskaż lokalizację na mapie"; ObjectID = "IZE-Jf-c7U"; */
 "IZE-Jf-c7U.text" = "Find location on map";
@@ -14,12 +13,11 @@
 /* Class = "UITabBarItem"; title = "Źródło"; ObjectID = "Quj-BL-oec"; */
 "Quj-BL-oec.title" = "Source";
 
+"br9-OC-Jd1.title" = "Comment";
+
 "mdg-cq-Zyh.title" = "Maps";
 
-/* Class = "UILabel"; text = "ładowanie meteorogramu"; ObjectID = "R9a-Bf-BXg"; */
-"R9a-Bf-BXg.text" = "meteorogram loading";
-
-"2cn-bO-NDh.text" = "meteorogram loading";
+"7Vu-Dc-7ts.title" = "Weather";
 
 /* Class = "UIBarButtonItem"; title = "Pokaż"; ObjectID = "SxL-e7-iV7"; */
 "SxL-e7-iV7.title" = "Show";
@@ -29,9 +27,6 @@
 
 /* Class = "UINavigationItem"; title = "Wybierz lokalizację"; ObjectID = "aYU-fT-aKy"; */
 "aYU-fT-aKy.title" = "Choose a location";
-
-/* Class = "UILabel"; text = "ładowanie meteorogramu"; ObjectID = "cKu-oD-a6u"; */
-"cKu-oD-a6u.text" = "meteorogram loading";
 
 /* Class = "UISearchBar"; placeholder = "szukaj miasta"; ObjectID = "duU-CU-zjU"; */
 "duU-CU-zjU.placeholder" = "search for a city";
@@ -48,14 +43,8 @@
 /* Class = "UINavigationItem"; title = "Miasto"; ObjectID = "pkw-kA-ZXA"; */
 "pkw-kA-ZXA.title" = "City";
 
-/* Class = "UINavigationItem"; title = "Ustawienia WAM"; ObjectID = "qa6-qn-ubx"; */
-"qa6-qn-ubx.title" = "WAM settings";
-
 /* Class = "UIButton"; normalTitle = "wybierz"; ObjectID = "xOP-VD-VM0"; */
 "xOP-VD-VM0.normalTitle" = "select";
-
-/* Class = "UIButton"; selectedTitle = "usuń zaznaczenie"; ObjectID = "xOP-VD-VM0"; */
-"xOP-VD-VM0.selectedTitle" = "remove selection";
 
 "p0N-cN-cSS.title" = "Detailed maps";
 

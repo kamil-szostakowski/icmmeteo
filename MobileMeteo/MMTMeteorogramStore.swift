@@ -10,16 +10,52 @@ import Foundation
 import CoreLocation
 
 class MMTMeteorogramStore: MMTForecastStore
-{    
-    // MARK: Methods
-    
-    func getMeteorogramForLocation(_ location: CLLocation, completion: @escaping MMTFetchMeteorogramCompletion)
-    {
-        urlSession.fetchMeteorogramImageForUrl(try! URL.mmt_meteorogramSearchUrl(for: climateModel.type, location: location), completion: completion)
+{
+    // MARK: Properties
+    fileprivate var cache: NSCache<NSString, UIImage> {
+        return MMTDatabase.instance.meteorogramsCache
     }
     
-    func getMeteorogramLegend(_ completion: @escaping MMTFetchMeteorogramCompletion)
-    {        
-        urlSession.fetchImageFromUrl(try! URL.mmt_meteorogramLegendUrl(for: climateModel.type), completion: completion)
+    // MARK: Methods
+    func getMeteorogram(for city: MMTCityProt, completion: @escaping MMTFetchMeteorogramCompletion)
+    {
+        let url = try! URL.mmt_meteorogramSearchUrl(for: climateModel.type, location: city.location)
+        let cacheKey = "\(climateModel.type.rawValue)-\(city.name)-\(forecastStartDate)" as NSString
+        
+        if let cachedImage = cache.object(forKey: cacheKey) {
+            completion(cachedImage, nil)
+            return
+        }
+        
+        urlSession.fetchMeteorogramImageForUrl(url) {
+            (image: UIImage?, error: MMTError?) in
+            
+            if error == nil {
+                self.cache.setObject(image!, forKey: cacheKey)
+            }
+            
+            completion(image, error)
+        }
+    }
+    
+    func getLegend(_ completion: @escaping MMTFetchMeteorogramCompletion)
+    {
+        let url = try! URL.mmt_meteorogramLegendUrl(for: climateModel.type)
+        let cacheKey = "\(climateModel.type.rawValue)-legend" as NSString
+        
+        if let cachedImage = cache.object(forKey: cacheKey) {
+            completion(cachedImage, nil)
+            return
+        }
+        
+        urlSession.fetchImageFromUrl(url) {
+            (image: UIImage?, error: MMTError?) in
+            
+            if error == nil {
+                self.cache.setObject(image!, forKey: cacheKey)
+            }
+            
+            completion(image, error)
+        }
     }
 }

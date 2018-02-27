@@ -21,7 +21,7 @@ class MMTDetailedMapsTests: XCTestCase
         
         continueAfterFailure = false
 
-        XCUIDevice.shared().orientation = .portrait
+        XCUIDevice.shared.orientation = .portrait
         
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB"]
