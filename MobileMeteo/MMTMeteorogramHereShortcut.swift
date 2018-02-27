@@ -33,7 +33,8 @@ class MMTMeteorogramHereShortcut: MMTMeteorogramShortcut
         tabbar.displayActivityIndicator(in: tabbar.view, message: nil)
         
         guard retryCount < RETRY_MAX_COUNT else {
-            // TODO: Error message
+            tabbar.hideActivityIndicator()
+            tabbar.present(UIAlertController.alertForMMTError(.locationNotFound), animated: true, completion: nil)
             completion?()
             return
         }
