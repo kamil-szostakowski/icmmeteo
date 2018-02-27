@@ -225,36 +225,6 @@
                                     <outlet property="delegate" destination="lDT-Dp-3bJ" id="hIH-l6-nxH"/>
                                 </connections>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cb5-Jv-ATc" userLabel="Activity Indicator">
-                                <rect key="frame" x="138" y="357.33333333333331" width="100" height="83.333333333333314"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ładowanie meteorogramu" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKu-oD-a6u">
-                                        <rect key="frame" x="5" y="50.000000000000007" width="90" height="28.333333333333336"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="hlj-bp-AJN">
-                                        <rect key="frame" x="32" y="8" width="37" height="37"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.70000000000000007" colorSpace="custom" customColorSpace="sRGB"/>
-                                <accessibility key="accessibilityConfiguration" identifier="activity-indicator"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="cKu-oD-a6u" secondAttribute="trailing" constant="5" id="0dK-BS-9P6"/>
-                                    <constraint firstItem="cKu-oD-a6u" firstAttribute="top" secondItem="hlj-bp-AJN" secondAttribute="bottom" constant="5" id="5D9-Wx-E4x"/>
-                                    <constraint firstAttribute="bottom" secondItem="cKu-oD-a6u" secondAttribute="bottom" constant="5" id="5OX-zi-5qw"/>
-                                    <constraint firstItem="cKu-oD-a6u" firstAttribute="leading" secondItem="Cb5-Jv-ATc" secondAttribute="leading" constant="5" id="ZoS-1h-2Uf"/>
-                                    <constraint firstItem="hlj-bp-AJN" firstAttribute="top" secondItem="Cb5-Jv-ATc" secondAttribute="top" constant="8" id="alK-Kr-1Q4"/>
-                                    <constraint firstAttribute="width" constant="100" id="cEc-RV-1aO"/>
-                                    <constraint firstAttribute="centerX" secondItem="hlj-bp-AJN" secondAttribute="centerX" id="raJ-TR-Pu1"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMZ-dc-XIY" userLabel="Bottom Bar">
                                 <rect key="frame" x="0.0" y="709.66666666666663" width="375" height="102.33333333333337"/>
                                 <subviews>
@@ -342,11 +312,9 @@
                             <constraint firstItem="f5N-rT-ojC" firstAttribute="bottom" secondItem="sYb-4u-jBu" secondAttribute="bottom" id="Tj8-Lw-rjp"/>
                             <constraint firstItem="tNU-2w-XXV" firstAttribute="top" secondItem="f5N-rT-ojC" secondAttribute="top" id="U1S-vG-VQu"/>
                             <constraint firstItem="f5N-rT-ojC" firstAttribute="bottom" secondItem="XZr-Ul-alD" secondAttribute="bottom" id="YWJ-rs-5df"/>
-                            <constraint firstItem="WG3-jp-oXw" firstAttribute="centerY" secondItem="Cb5-Jv-ATc" secondAttribute="centerY" id="b0D-6K-6qE"/>
                             <constraint firstItem="XZr-Ul-alD" firstAttribute="top" secondItem="f5N-rT-ojC" secondAttribute="top" id="fkt-oz-ADM"/>
                             <constraint firstItem="f5N-rT-ojC" firstAttribute="trailing" secondItem="WG3-jp-oXw" secondAttribute="trailing" id="hcH-Yw-cBU"/>
                             <constraint firstItem="tNU-2w-XXV" firstAttribute="leading" secondItem="f5N-rT-ojC" secondAttribute="leading" id="hyT-Xo-Qnd"/>
-                            <constraint firstItem="WG3-jp-oXw" firstAttribute="centerX" secondItem="Cb5-Jv-ATc" secondAttribute="centerX" id="iEv-1n-GRf"/>
                             <constraint firstItem="sYb-4u-jBu" firstAttribute="leading" secondItem="f5N-rT-ojC" secondAttribute="leading" id="qBg-fO-kWE"/>
                             <constraint firstItem="WG3-jp-oXw" firstAttribute="bottom" secondItem="3sI-9X-sH4" secondAttribute="bottom" id="s1A-yC-dGd"/>
                             <constraint firstItem="tNU-2w-XXV" firstAttribute="bottom" secondItem="f5N-rT-ojC" secondAttribute="top" id="y3b-j4-8yo"/>
@@ -354,9 +322,9 @@
                         <viewLayoutGuide key="safeArea" id="f5N-rT-ojC"/>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="s1A-yC-dGd"/>
                                 <exclude reference="U1S-vG-VQu"/>
                                 <exclude reference="y3b-j4-8yo"/>
+                                <exclude reference="s1A-yC-dGd"/>
                                 <exclude reference="Cu6-Hr-TBx"/>
                             </mask>
                         </variation>
@@ -367,8 +335,8 @@
                         </variation>
                         <variation key="heightClass=compact-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="s1A-yC-dGd"/>
                                 <include reference="y3b-j4-8yo"/>
+                                <include reference="s1A-yC-dGd"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -378,7 +346,6 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="Cb5-Jv-ATc" id="73Z-Hi-H37"/>
                         <outlet property="forecastStartLabel" destination="bfe-IB-zr9" id="c25-yN-ubX"/>
                         <outlet property="legendImage" destination="e9l-Lv-tF2" id="AV4-BI-mrA"/>
                         <outlet property="meteorogramImage" destination="zo9-bc-FiZ" id="AoA-w2-YjM"/>
@@ -728,46 +695,14 @@
                                     <navigationItem title="Komentarz synoptyka" id="fdc-wP-Nso"/>
                                 </items>
                             </navigationBar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hRv-JG-Nea" userLabel="Activity Indicator">
-                                <rect key="frame" x="140" y="352" width="95" height="69.333333333333314"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ładowanie komentarza" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rki-Sz-vgX">
-                                        <rect key="frame" x="5" y="50" width="85" height="14.333333333333329"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
-                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="atw-jD-EB8">
-                                        <rect key="frame" x="29.333333333333343" y="8" width="37" height="37"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
-                                <accessibility key="accessibilityConfiguration" identifier="activity-indicator"/>
-                                <constraints>
-                                    <constraint firstItem="atw-jD-EB8" firstAttribute="top" secondItem="hRv-JG-Nea" secondAttribute="top" constant="8" id="II3-Dh-vjj"/>
-                                    <constraint firstAttribute="trailing" secondItem="rki-Sz-vgX" secondAttribute="trailing" constant="5" id="QZs-eF-Qoa"/>
-                                    <constraint firstAttribute="centerX" secondItem="atw-jD-EB8" secondAttribute="centerX" id="Rwa-7y-dbZ"/>
-                                    <constraint firstAttribute="width" constant="95" id="TAn-za-muk"/>
-                                    <constraint firstItem="rki-Sz-vgX" firstAttribute="top" secondItem="atw-jD-EB8" secondAttribute="bottom" constant="5" id="W3L-Pe-Fel"/>
-                                    <constraint firstAttribute="bottom" secondItem="rki-Sz-vgX" secondAttribute="bottom" constant="5" id="lSb-qV-D1r"/>
-                                    <constraint firstItem="rki-Sz-vgX" firstAttribute="leading" secondItem="hRv-JG-Nea" secondAttribute="leading" constant="5" id="nTv-cZ-4AT"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="10"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="BON-cV-xSx" firstAttribute="trailing" secondItem="x9H-cT-ZFB" secondAttribute="trailing" id="6mi-Z9-VAU"/>
                             <constraint firstAttribute="bottom" secondItem="Wi0-7Z-ITu" secondAttribute="bottom" id="BQC-fn-bWe"/>
-                            <constraint firstItem="hRv-JG-Nea" firstAttribute="centerY" secondItem="x9H-cT-ZFB" secondAttribute="centerY" id="CeQ-B9-HlT"/>
                             <constraint firstItem="BON-cV-xSx" firstAttribute="leading" secondItem="x9H-cT-ZFB" secondAttribute="leading" id="OkG-aO-yTd"/>
                             <constraint firstItem="Wi0-7Z-ITu" firstAttribute="leading" secondItem="oiT-Qd-xNm" secondAttribute="leading" id="UMO-8D-647"/>
                             <constraint firstItem="BON-cV-xSx" firstAttribute="top" secondItem="x9H-cT-ZFB" secondAttribute="top" id="YJ7-rY-Irj"/>
-                            <constraint firstItem="hRv-JG-Nea" firstAttribute="centerX" secondItem="x9H-cT-ZFB" secondAttribute="centerX" id="bHb-Ds-Woe"/>
                             <constraint firstAttribute="trailing" secondItem="Wi0-7Z-ITu" secondAttribute="trailing" id="eE7-jg-RJw"/>
                             <constraint firstItem="Wi0-7Z-ITu" firstAttribute="top" secondItem="BON-cV-xSx" secondAttribute="bottom" id="kA0-JY-EFC"/>
                         </constraints>
@@ -775,7 +710,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Komentarz" image="forecaster-comment" id="br9-OC-Jd1"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="hRv-JG-Nea" id="TeI-5G-mFK"/>
                         <outlet property="textView" destination="wuJ-i2-Dd3" id="KAv-wr-eLO"/>
                     </connections>
                 </viewController>
@@ -1080,7 +1014,6 @@
                         <viewLayoutGuide key="safeArea" id="09K-He-hio"/>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="EJY-Mc-Ng7" id="XqE-kV-yhn"/>
                         <outlet property="contentView" destination="52B-Qj-oTm" id="uoQ-qs-Efp"/>
                         <outlet property="detailedMapImage" destination="fe7-r6-aDL" id="p5O-yB-yTC"/>
                         <outlet property="mapTitle" destination="kcm-Ob-iGt" id="Lxb-Ud-rSy"/>
@@ -1090,37 +1023,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IPt-ll-4iU" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EJY-Mc-Ng7" userLabel="Activity Indicator">
-                    <rect key="frame" x="0.0" y="0.0" width="100" height="84"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ładowanie meteorogramu" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cn-bO-NDh">
-                            <rect key="frame" x="5" y="49.999999999999993" width="90" height="28.666666666666664"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="o15-wS-ycb">
-                            <rect key="frame" x="32" y="8" width="37" height="37"/>
-                        </activityIndicatorView>
-                    </subviews>
-                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
-                    <accessibility key="accessibilityConfiguration" identifier="activity-indicator"/>
-                    <constraints>
-                        <constraint firstAttribute="trailing" secondItem="2cn-bO-NDh" secondAttribute="trailing" constant="5" id="HQz-3P-e0c"/>
-                        <constraint firstAttribute="centerX" secondItem="o15-wS-ycb" secondAttribute="centerX" id="Jin-rg-wxw"/>
-                        <constraint firstItem="2cn-bO-NDh" firstAttribute="top" secondItem="o15-wS-ycb" secondAttribute="bottom" constant="5" id="Kwc-jt-x7I"/>
-                        <constraint firstAttribute="bottom" secondItem="2cn-bO-NDh" secondAttribute="bottom" constant="5" id="RzY-rQ-2Bz"/>
-                        <constraint firstItem="o15-wS-ycb" firstAttribute="top" secondItem="EJY-Mc-Ng7" secondAttribute="top" constant="8" id="UUb-of-n2e"/>
-                        <constraint firstItem="2cn-bO-NDh" firstAttribute="leading" secondItem="EJY-Mc-Ng7" secondAttribute="leading" constant="5" id="hZI-Jt-Ehe"/>
-                        <constraint firstAttribute="width" constant="100" id="iWo-n2-7Wk"/>
-                    </constraints>
-                    <viewLayoutGuide key="safeArea" id="fx5-9O-18b"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="10"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </view>
                 <exit id="s24-IY-sEP" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="Gcn-O5-cmq">
                     <connections>

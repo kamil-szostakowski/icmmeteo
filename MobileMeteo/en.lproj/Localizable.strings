@@ -16,7 +16,6 @@
 "locations.favourites" = "Favourites";
 "locations.current" = "Current localization";
 
-"detailed-maps: %@" = "Map: %@";
 "detailed-maps.MeanSeaLevelPressure" = "Mean sea level pressure";
 "detailed-maps.TemperatureAndStreamLine" = "Temperature + stream lines";
 "detailed-maps.TemperatureOfSurface" = "Surface temperature";
@@ -47,6 +46,8 @@
 
 "label.close" = "close";
 "label.try.coamps" = "try COAMPS";
+"label.loading.meteorogram" = "meteorogram loading";
+"label.loading.comment" = "comment loading";
 
 "Dolnośląskie" = "Lower Silesia";
 "Kujawsko-Pomorskie" = "Kuyavian-Pomeranian";

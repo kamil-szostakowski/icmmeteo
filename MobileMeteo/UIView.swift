@@ -21,4 +21,12 @@ extension UIView
         addConstraint(horizontal)
         addConstraint(vartical)
     }
+    
+    func loadFromNib() -> UIView
+    {
+        let nibName = String(describing: type(of: self))
+        let bundle = Bundle(for: type(of: self))
+        
+        return bundle.loadNibNamed(nibName, owner: self, options: nil)?.first as! UIView
+    }
 }
