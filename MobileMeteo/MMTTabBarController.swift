@@ -9,8 +9,11 @@
 import UIKit
 import Foundation
 
-class MMTTabBarController: UITabBarController, UITabBarControllerDelegate
+class MMTTabBarController: UITabBarController, UITabBarControllerDelegate, MMTActivityIndicating
 {
+    // MARK: Properties
+    var activityIndicator: MMTActivityIndicator!
+    
     // MARK: Lifecycle methods
     override func viewDidLoad()
     {

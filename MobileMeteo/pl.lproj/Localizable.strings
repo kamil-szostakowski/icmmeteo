@@ -16,11 +16,10 @@
 "locations.favourites" = "Ulubione";
 "locations.current" = "Obecna lokalizacja";
 
-"detailed-maps: %@" = "Mapa: %@";
 "detailed-maps.MeanSeaLevelPressure" = "Ciśnienie na poziomie morza";
 "detailed-maps.TemperatureAndStreamLine" = "Temperatura + linie prądu";
 "detailed-maps.TemperatureOfSurface" = "Temperatura powierzchni";
-"detailed-maps.Precipitation" = "Opad";
+"detailed-maps.Precipitation" = "Opady atmosferyczne";
 "detailed-maps.Storm" = "Burze: liczba wyładowań";
 "detailed-maps.Wind" = "Wiatr przyziemny";
 "detailed-maps.MaximumGust" = "Maksymalne porywy wiatru";

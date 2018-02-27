@@ -16,7 +16,6 @@
 "locations.favourites" = "Favourites";
 "locations.current" = "Current localization";
 
-"detailed-maps: %@" = "Map: %@";
 "detailed-maps.MeanSeaLevelPressure" = "Mean sea level pressure";
 "detailed-maps.TemperatureAndStreamLine" = "Temperature + stream lines";
 "detailed-maps.TemperatureOfSurface" = "Surface temperature";

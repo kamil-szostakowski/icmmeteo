@@ -30,7 +30,10 @@ class MMTMeteorogramHereShortcut: MMTMeteorogramShortcut
     
     override func execute(using tabbar: MMTTabBarController, completion: MMTCompletion?)
     {
+        tabbar.displayActivityIndicator(in: tabbar.view, message: nil)
+        
         guard retryCount < RETRY_MAX_COUNT else {
+            // TODO: Error message
             completion?()
             return
         }
@@ -40,7 +43,10 @@ class MMTMeteorogramHereShortcut: MMTMeteorogramShortcut
             return
         }
         
-        super.execute(using: tabbar, completion: completion)
+        super.execute(using: tabbar) {
+            tabbar.hideActivityIndicator()
+            completion?()
+        }
     }
     
     private func retry(after seconds: UInt64, using tabbar: MMTTabBarController, completion: MMTCompletion?)

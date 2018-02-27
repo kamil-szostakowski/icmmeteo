@@ -21,6 +21,10 @@ extension MMTActivityIndicating
 {
     func displayActivityIndicator(in view: UIView, message: String?)
     {
+        guard activityIndicator == nil else {
+            return
+        }
+        
         activityIndicator = MMTActivityIndicator(frame: .zero)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.message = message
@@ -30,6 +34,10 @@ extension MMTActivityIndicating
     
     func hideActivityIndicator()
     {
+        guard activityIndicator != nil else {
+            return
+        }
+        
         activityIndicator.removeFromSuperview()
         activityIndicator = nil
     }

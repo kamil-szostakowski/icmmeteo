@@ -28,8 +28,12 @@ class MMTMeteorogramShortcut : MMTShortcut
     }
         
     func execute(using tabbar: MMTTabBarController, completion: MMTCompletion?)
-    {                
-        MMTCitiesStore().findCityForLocation(location) { (city: MMTCityProt?, error: MMTError?) in
+    {
+        tabbar.displayActivityIndicator(in: tabbar.view, message: nil)
+        
+        MMTCitiesStore().findCityForLocation(location) { (city, error) in
+            
+            tabbar.hideActivityIndicator()
             
             guard let selectedCity = city, error == nil else {
                 tabbar.present(UIAlertController.alertForMMTError(error!), animated: true, completion: nil)
