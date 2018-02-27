@@ -11,20 +11,20 @@ import Foundation
 import CoreLocation
 import CoreSpotlight
 
-class MMTMeteorogramController: UIViewController, NSUserActivityDelegate
+class MMTMeteorogramController: UIViewController, NSUserActivityDelegate, MMTActivityIndicating
 {
     // MARK: Outlets
     @IBOutlet weak var modelSegmentedControl: UISegmentedControl!
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet var meteorogramImage: UIImageView!
     @IBOutlet var legendImage: UIImageView!
-    @IBOutlet var activityIndicator: UIView!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var scrollViewContainer: UIView!
     @IBOutlet weak var forecastStartLabel: UILabel!
     
     // MARK: Properties
     var city: MMTCityProt!
+    var activityIndicator: MMTActivityIndicator!
     
     fileprivate var meteorogramStore: MMTMeteorogramStore!
     fileprivate var btnFavourite: UIButton!    
@@ -198,8 +198,9 @@ extension MMTMeteorogramController
         }
         
         scrollView.contentOffset = .zero
-        activityIndicator.isHidden = false
-        modelSegmentedControl.isEnabled = false                
+        modelSegmentedControl.isEnabled = false
+        
+        displayActivityIndicator(in: view, message: MMTLocalizedString("label.loading.meteorogram"))
         
         meteorogramStore.getLegend {
             (image: UIImage?, error: MMTError?) in
@@ -209,7 +210,7 @@ extension MMTMeteorogramController
         meteorogramStore.getMeteorogram(for: city) {
             (image: UIImage?, error: MMTError?) in
             
-            self.activityIndicator.isHidden = true
+            self.hideActivityIndicator()
             self.modelSegmentedControl.isEnabled = true
             
             guard error == nil else {

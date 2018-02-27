@@ -10,11 +10,12 @@ import UIKit
 import CoreText
 
 // MARK: Lifecycle extension
-class MMTForecasterCommentController: UIViewController
+class MMTForecasterCommentController: UIViewController, MMTActivityIndicating
 {
     // MARK: Outlets
-    @IBOutlet weak var activityIndicator: UIView!
     @IBOutlet weak var textView: UITextView!
+    
+    var activityIndicator: MMTActivityIndicator!
     var lastUpdate: Date = Date.distantPast
     
     // MARK: Lifecycle methods
@@ -63,7 +64,12 @@ fileprivate extension MMTForecasterCommentController
         textView.attributedText = content
         textView.contentOffset = .zero
         textView.isUserInteractionEnabled = content != nil
-        activityIndicator.isHidden = content != nil
+        
+        if content != nil {
+            hideActivityIndicator()
+        } else {
+            displayActivityIndicator(in: view, message: MMTLocalizedString("label.loading.comment"))
+        }
     }
     
     func setupNotificationHandler()
@@ -81,7 +87,7 @@ fileprivate extension MMTForecasterCommentController
             self.tabBarController?.selectedIndex = 0
         }
         
-        activityIndicator.isHidden = true
+        hideActivityIndicator()
         present(alert, animated: true, completion: nil)
     }
     

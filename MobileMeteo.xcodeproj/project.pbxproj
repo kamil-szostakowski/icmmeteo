@@ -16,11 +16,14 @@
 		1B1F8FA8201FC8CD004B1126 /* MMTDetailedMapShortcutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F8FA7201FC8CD004B1126 /* MMTDetailedMapShortcutTests.swift */; };
 		1B1F8FAA201FCCFE004B1126 /* MMTMeteorogramShortcutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F8FA9201FCCFE004B1126 /* MMTMeteorogramShortcutTests.swift */; };
 		1B1F8FAC201FD6A8004B1126 /* UIApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F8FAB201FD6A8004B1126 /* UIApplicationTests.swift */; };
+		1B2B4F742045F7B3004FBBB5 /* MMTActivityIndicating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2B4F732045F7B3004FBBB5 /* MMTActivityIndicating.swift */; };
 		1B4095CB2040C06900CDF5E4 /* MMTForecasterCommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */; };
 		1B4FD2E6203B506700B33C04 /* MMTShortcutsMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */; };
 		1B58237D2027B1C4003DF651 /* CSSearchableIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B58237C2027B1C4003DF651 /* CSSearchableIndexTests.swift */; };
 		1B65BA2D2035F8B30053173C /* MMTMeteorogramHereShortcutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B65BA2C2035F8B30053173C /* MMTMeteorogramHereShortcutTests.swift */; };
 		1B65BA2F2035FFDD0053173C /* MMTStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B65BA2E2035FFDD0053173C /* MMTStubs.swift */; };
+		1B68CD362045B85000AB8046 /* MMTActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68CD352045B85000AB8046 /* MMTActivityIndicator.swift */; };
+		1B68CD382045B89F00AB8046 /* MMTActivityIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B68CD372045B89F00AB8046 /* MMTActivityIndicator.xib */; };
 		1B8B5E601FB116D4002D2381 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B5E5F1FB116D4002D2381 /* UIViewController.swift */; };
 		1B8C6BF62036FB980029282F /* MMTAppMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BF52036FB980029282F /* MMTAppMigrator.swift */; };
 		1B8C6BF820371BE40029282F /* MMTAppMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BF720371BE40029282F /* MMTAppMigratorTests.swift */; };
@@ -146,11 +149,14 @@
 		1B1F8FA7201FC8CD004B1126 /* MMTDetailedMapShortcutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapShortcutTests.swift; sourceTree = "<group>"; };
 		1B1F8FA9201FCCFE004B1126 /* MMTMeteorogramShortcutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramShortcutTests.swift; sourceTree = "<group>"; };
 		1B1F8FAB201FD6A8004B1126 /* UIApplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationTests.swift; sourceTree = "<group>"; };
+		1B2B4F732045F7B3004FBBB5 /* MMTActivityIndicating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTActivityIndicating.swift; sourceTree = "<group>"; };
 		1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecasterCommentTests.swift; sourceTree = "<group>"; };
 		1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTShortcutsMigratorTests.swift; sourceTree = "<group>"; };
 		1B58237C2027B1C4003DF651 /* CSSearchableIndexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSearchableIndexTests.swift; sourceTree = "<group>"; };
 		1B65BA2C2035F8B30053173C /* MMTMeteorogramHereShortcutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramHereShortcutTests.swift; sourceTree = "<group>"; };
 		1B65BA2E2035FFDD0053173C /* MMTStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTStubs.swift; sourceTree = "<group>"; };
+		1B68CD352045B85000AB8046 /* MMTActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTActivityIndicator.swift; sourceTree = "<group>"; };
+		1B68CD372045B89F00AB8046 /* MMTActivityIndicator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MMTActivityIndicator.xib; sourceTree = "<group>"; };
 		1B8B5E5F1FB116D4002D2381 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		1B8C6BF52036FB980029282F /* MMTAppMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTAppMigrator.swift; sourceTree = "<group>"; };
 		1B8C6BF720371BE40029282F /* MMTAppMigratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTAppMigratorTests.swift; sourceTree = "<group>"; };
@@ -326,6 +332,16 @@
 				1B1F8FAB201FD6A8004B1126 /* UIApplicationTests.swift */,
 			);
 			name = Shortcuts;
+			sourceTree = "<group>";
+		};
+		1B68CD342045B82B00AB8046 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1B2B4F732045F7B3004FBBB5 /* MMTActivityIndicating.swift */,
+				1B68CD352045B85000AB8046 /* MMTActivityIndicator.swift */,
+				1B68CD372045B89F00AB8046 /* MMTActivityIndicator.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		1B8C6BF42036FB680029282F /* Migrator */ = {
@@ -587,6 +603,7 @@
 				1B8C6BF42036FB680029282F /* Migrator */,
 				F9E6969F1AFCDEA200273DA3 /* Model */,
 				F9E696901AFCC41D00273DA3 /* Controllers */,
+				1B68CD342045B82B00AB8046 /* Views */,
 				F9900EB91B282B86006880A1 /* Extensions */,
 				8EE51B501E68D09800C52DC6 /* API */,
 				F9E696741AFCC06600273DA3 /* Main.storyboard */,
@@ -810,6 +827,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9BB14A61B5697EE00C81B3F /* Cities.json in Resources */,
+				1B68CD382045B89F00AB8046 /* MMTActivityIndicator.xib in Resources */,
 				F91A6F541C86F6F200BDDE28 /* Localizable.strings in Resources */,
 				F9E696761AFCC06600273DA3 /* Main.storyboard in Resources */,
 				8E880AC11DF362CC004D8A9E /* Toruń.gpx in Resources */,
@@ -998,6 +1016,7 @@
 				1B8C6BF62036FB980029282F /* MMTAppMigrator.swift in Sources */,
 				F9FFEE471B8DCEF900C30EDD /* UIImageView.swift in Sources */,
 				8E880AC01DF220D1004D8A9E /* MMTDetailedMapPreviewController.swift in Sources */,
+				1B2B4F742045F7B3004FBBB5 /* MMTActivityIndicating.swift in Sources */,
 				F9BB14A41B56765700C81B3F /* MMTCity.swift in Sources */,
 				1BBD84EE1FDF2F3600627B06 /* MMTLocationService.swift in Sources */,
 				1B09566A1FE1AD3800C8189A /* MMTShortcuts.swift in Sources */,
@@ -1024,6 +1043,7 @@
 				1B176844203CC89900E47D30 /* MMTForecasterCommentStore.swift in Sources */,
 				F99A8A301B846A4B0098E170 /* NSCalendar.swift in Sources */,
 				F9ED9FFA1E07527B00190F59 /* UIView.swift in Sources */,
+				1B68CD362045B85000AB8046 /* MMTActivityIndicator.swift in Sources */,
 				1BF36E0D1FE485D200083538 /* MMTDetailedMapShortcut.swift in Sources */,
 				F9F9D6101C52643000A49ACA /* MMTGoogleAnalytics.swift in Sources */,
 				F90F72A71C5A3DA600130353 /* NSUserDefaults.swift in Sources */,

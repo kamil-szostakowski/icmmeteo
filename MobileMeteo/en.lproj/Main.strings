@@ -19,13 +19,6 @@
 
 "7Vu-Dc-7ts.title" = "Weather";
 
-/* Class = "UILabel"; text = "ładowanie meteorogramu"; ObjectID = "R9a-Bf-BXg"; */
-"R9a-Bf-BXg.text" = "meteorogram loading";
-
-"2cn-bO-NDh.text" = "meteorogram loading";
-
-"rki-Sz-vgX.text" = "comment loading";
-
 /* Class = "UIBarButtonItem"; title = "Pokaż"; ObjectID = "SxL-e7-iV7"; */
 "SxL-e7-iV7.title" = "Show";
 
@@ -34,9 +27,6 @@
 
 /* Class = "UINavigationItem"; title = "Wybierz lokalizację"; ObjectID = "aYU-fT-aKy"; */
 "aYU-fT-aKy.title" = "Choose a location";
-
-/* Class = "UILabel"; text = "ładowanie meteorogramu"; ObjectID = "cKu-oD-a6u"; */
-"cKu-oD-a6u.text" = "meteorogram loading";
 
 /* Class = "UISearchBar"; placeholder = "szukaj miasta"; ObjectID = "duU-CU-zjU"; */
 "duU-CU-zjU.placeholder" = "search for a city";

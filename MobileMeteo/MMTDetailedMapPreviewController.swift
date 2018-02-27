@@ -10,13 +10,12 @@
 import UIKit
 import Foundation
 
-class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
+class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate, MMTActivityIndicating
 {
     // MARK: Properties
     
     @IBOutlet weak var detailedMapImage: UIImageView!
     @IBOutlet weak var slider: UISlider!
-    @IBOutlet var activityIndicator: UIView!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var mapTitle: UILabel!
     @IBOutlet weak var momentLabel: UILabel!
@@ -24,6 +23,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     
     var detailedMap: MMTDetailedMap!
     var climateModel: MMTClimateModel!
+    var activityIndicator: MMTActivityIndicator!
 
     private var meteorogramSize: CGSize!
     private var meteorogramLegendSize: CGSize!
@@ -202,7 +202,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
     {
         if lock == true
         {
-            view.addCenteredSubview(view: activityIndicator)
+            displayActivityIndicator(in: view, message: MMTLocalizedString("label.loading.meteorogram"))
             slider.isEnabled = false
             scrollView.isUserInteractionEnabled = false
             return
@@ -210,7 +210,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate
 
         if lock == false
         {
-            activityIndicator.removeFromSuperview()
+            hideActivityIndicator()
             slider.isEnabled = true
             scrollView.isUserInteractionEnabled = true
             return

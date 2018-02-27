@@ -47,6 +47,8 @@
 
 "label.close" = "close";
 "label.try.coamps" = "try COAMPS";
+"label.loading.meteorogram" = "meteorogram loading";
+"label.loading.comment" = "comment loading";
 
 "Dolnośląskie" = "Lower Silesia";
 "Kujawsko-Pomorskie" = "Kuyavian-Pomeranian";
