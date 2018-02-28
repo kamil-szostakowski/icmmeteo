@@ -223,6 +223,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate, M
             self.perform(segue: .UnwindToListOfDetailedMaps, sender: self)
         }
 
+        hideActivityIndicator()
         present(alert, animated: true, completion: nil)
     }
 
