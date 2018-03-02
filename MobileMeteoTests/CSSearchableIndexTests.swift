@@ -10,6 +10,7 @@ import XCTest
 import Foundation
 import CoreLocation
 import CoreSpotlight
+import MeteoModel
 
 @testable import MobileMeteo
 
@@ -18,7 +19,8 @@ class CSSearchableIndexTests: XCTestCase
     // MARK: Test methods
     func testConversionOfMeteorogramPreviewShortcutToSearchableItem()
     {
-        let city = MMTCity(name: "Lorem", region: "Ipsum", location: CLLocation(latitude: 2, longitude: 3))
+        let factory = MMTMockEntityFactory()
+        let city = factory.city(name: "Lorem", region: "Ipsum", location: CLLocation(latitude: 2, longitude: 3))
         let shortcut = MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: city)
         let item = CSSearchableIndex.default().convert(from: shortcut)
         

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import MeteoModel
 @testable import MobileMeteo
 
 class MMTAppMigratorTests: XCTestCase

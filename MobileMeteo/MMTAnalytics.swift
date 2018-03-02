@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MeteoModel
 
 enum MMTAnalyticsCategory: String
 {

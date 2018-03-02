@@ -7,6 +7,7 @@
 //
 
 import CoreLocation
+import MeteoModel
 
 // 3D Touch, quick actions integration
 extension UIApplicationShortcutItem
@@ -86,7 +87,7 @@ extension MMTMeteorogramShortcut
         
         let location = CLLocation(latitude: latitude, longitude: longitude)
         
-        return MMTCity(name: name, region: region, location: location)
+        return MMTDatabase.instance.city(name: name, region: region, location: location)
     }
 
 }

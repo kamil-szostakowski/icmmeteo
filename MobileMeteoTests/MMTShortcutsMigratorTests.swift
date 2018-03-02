@@ -8,6 +8,7 @@
 
 import XCTest
 import CoreLocation
+import MeteoModel
 @testable import MobileMeteo
 
 class MMTShortcutsMigratorTests: XCTestCase
@@ -65,10 +66,21 @@ class MMTShortcutsMigratorTests: XCTestCase
 fileprivate class StubCitiesStore: MMTCitiesStore
 {
     let cities = [("Toruń",true), ("Bydgoszcz",true), ("Włocławek",true), ("Poznań",false), ("Konin",false)]
-        .map { MMTCity(name: $0.0, favourite: $0.1) }
+        .map { StubCitiesStore.city(name: $0.0, favourite: $0.1) }
     
     override func getAllCities(_ completion: ([MMTCityProt]) -> Void) {
         completion(self.cities)
+    }
+    
+    static func city(name: String, favourite: Bool) -> MMTCityProt
+    {
+        let location = CLLocation(latitude: 0, longitude: 0)
+        
+        let
+        city = MMTMockEntityFactory().city(name: name, region: "\(name) region", location: location)
+        city.isFavourite = favourite
+        
+        return city
     }
 }
 
@@ -94,14 +106,3 @@ fileprivate class StubRegister: MMTShortcutRegister
         cleaned = true
     }
 }
-
-fileprivate extension MMTCity
-{
-    convenience init(name: String, favourite: Bool)
-    {
-        let location = CLLocation(latitude: 0, longitude: 0)
-        self.init(name: name, region: "\(name) region", location: location)
-        isFavourite = favourite
-    }
-}
-

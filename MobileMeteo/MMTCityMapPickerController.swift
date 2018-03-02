@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Foundation
+import MeteoModel
 
 class MMTCityAnnotation: NSObject, MKAnnotation
 {

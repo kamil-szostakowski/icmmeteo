@@ -7,6 +7,7 @@
 //
 
 import CoreSpotlight
+import MeteoModel
 
 class MMTShortcutsMigrator: MMTVersionMigrator
 {

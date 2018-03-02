@@ -11,6 +11,7 @@ import Foundation
 import CoreData
 import CoreLocation
 import CoreSpotlight
+import MeteoModel
 
 public let MMTDebugActionCleanupDb = "CLEANUP_DB"
 public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
@@ -28,7 +29,7 @@ public let MMTLocationChangedNotification = Notification.Name(rawValue: "MMTLoca
         
     // MARK: Lifecycle methods
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
-    {
+    {        
         setupLocationManager()        
         performMigration()
         
@@ -80,7 +81,7 @@ extension MMTAppDelegate
     private func setupDatabase()
     {
         let filePath = Bundle.main.path(forResource: "Cities", ofType: "json")
-        let cities = MMTPredefinedCitiesFileStore().getPredefinedCitiesFromFile(filePath!)
+        let cities = MMTPredefinedCitiesFileStore(factory: MMTDatabase.instance).getPredefinedCitiesFromFile(filePath!)
         
         for city in cities {
             guard let cityObject = city as? NSManagedObject else {

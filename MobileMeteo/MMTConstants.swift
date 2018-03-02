@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MeteoModel
 
 let MMTMeteorogramShortcutsLimit = 2
 

@@ -6,6 +6,8 @@
 //  Copyright © 2017 Kamil Szostakowski. All rights reserved.
 //
 
+import MeteoModel
+
 class MMTDetailedMapShortcut : MMTShortcut
 {        
     let climateModel: MMTClimateModel

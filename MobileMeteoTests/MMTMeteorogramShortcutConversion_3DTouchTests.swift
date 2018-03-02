@@ -9,14 +9,17 @@
 import XCTest
 import Foundation
 import CoreLocation
+import MeteoModel
 
 @testable import MobileMeteo
 
 extension MMTMeteorogramShortcut
 {
-    static var testInstance: MMTMeteorogramShortcut {
+    static var testInstance: MMTMeteorogramShortcut
+    {
+        let factory = MMTMockEntityFactory()
         let location = CLLocation(latitude: 2.2, longitude: 3.3)
-        let city = MMTCity(name: "fake-city", region: "fake-region", location: location)
+        let city = factory.city(name: "fake-city", region: "fake-region", location: location)
         
         return MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: city)
     }

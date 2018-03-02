@@ -8,6 +8,7 @@
 
 import CoreLocation
 import CoreSpotlight
+import MeteoModel
 
 // Spotlight search index integration
 extension CSSearchableItem
@@ -69,7 +70,7 @@ extension MMTMeteorogramShortcut
             return nil
         }
         
-        let city = MMTCity(name: "", region: "", location: location)
+        let city = MMTDatabase.instance.city(name: "", region: "", location: location)
         self.init(model: model, city: city)
     }
 }

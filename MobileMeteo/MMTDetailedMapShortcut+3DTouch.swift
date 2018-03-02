@@ -6,6 +6,8 @@
 //  Copyright © 2017 Kamil Szostakowski. All rights reserved.
 //
 
+import MeteoModel
+
 // 3D Touch, quick actions integration
 extension UIApplicationShortcutItem
 {

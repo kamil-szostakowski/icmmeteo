@@ -42,7 +42,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       language = "pl"
       region = "PL"
-      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldUseLaunchSchemeArgsEnv = "NO"
       codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
@@ -77,7 +77,7 @@
                BlueprintIdentifier = "1B9C71E32049B42D00856476"
                BuildableName = "MeteoModelTests.xctest"
                BlueprintName = "MeteoModelTests"
-               ReferencedContainer = "container:MeteoModel/MeteoModel.xcodeproj">
+               ReferencedContainer = "container:MeteoModel.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

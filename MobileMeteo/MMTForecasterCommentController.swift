@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreText
+import MeteoModel
 
 // MARK: Lifecycle extension
 class MMTForecasterCommentController: UIViewController, MMTActivityIndicating

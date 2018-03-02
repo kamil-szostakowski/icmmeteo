@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-protocol MMTLocationService
+public protocol MMTLocationService
 {
     var currentLocation: CLLocation? { get }
 }

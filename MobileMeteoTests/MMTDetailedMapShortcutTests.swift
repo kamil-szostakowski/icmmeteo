@@ -9,6 +9,7 @@
 import XCTest
 import Foundation
 import CoreLocation
+import MeteoModel
 
 @testable import MobileMeteo
 

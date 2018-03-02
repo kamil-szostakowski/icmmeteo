@@ -7,6 +7,7 @@
 //
 
 import CoreLocation
+import MeteoModel
 
 class MMTMeteorogramHereShortcut: MMTMeteorogramShortcut
 {
@@ -22,7 +23,7 @@ class MMTMeteorogramHereShortcut: MMTMeteorogramShortcut
     {
         let name = MMTLocalizedString("forecast.here")
         let location = service.currentLocation ?? .zero
-        let city = MMTCity(name: name, region: "", location: location)
+        let city = MMTDatabase.instance.city(name: name, region: "", location: location)
         
         locationService = service
         super.init(model: model, city: city)
