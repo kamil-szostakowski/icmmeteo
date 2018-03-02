@@ -29,6 +29,7 @@
 		1B8C6BF820371BE40029282F /* MMTAppMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BF720371BE40029282F /* MMTAppMigratorTests.swift */; };
 		1B8C6BFA20371D440029282F /* MMTNSUserDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BF920371D440029282F /* MMTNSUserDefaultsTests.swift */; };
 		1B8C6BFC2037867C0029282F /* MMTShortcutsMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BFB2037867C0029282F /* MMTShortcutsMigrator.swift */; };
+		1B9C72542049BCC600856476 /* Mobile_Meteo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F9E6966E1AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld */; };
 		1BBD84EE1FDF2F3600627B06 /* MMTLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBD84ED1FDF2F3600627B06 /* MMTLocationService.swift */; };
 		1BF36E091FE3003C00083538 /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E081FE3003C00083538 /* UISegmentedControl.swift */; };
 		1BF36E0B1FE3019300083538 /* MMTClimateModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E0A1FE3019300083538 /* MMTClimateModelTests.swift */; };
@@ -109,7 +110,6 @@
 		F9C5B5B01B81D1FC00CFB503 /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C5B5AF1B81D1FC00CFB503 /* UIScrollView.swift */; };
 		F9DAEAA71B85D2DE00D4CD34 /* MMTMeteorogramStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEA9F1B85D2DE00D4CD34 /* MMTMeteorogramStore.swift */; };
 		F9DAEAB81B85D39A00D4CD34 /* MMTWamClimateModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DAEAB21B85D39A00D4CD34 /* MMTWamClimateModelTests.swift */; };
-		F9E696701AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F9E6966E1AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld */; };
 		F9E696761AFCC06600273DA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9E696741AFCC06600273DA3 /* Main.storyboard */; };
 		F9E696781AFCC06600273DA3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9E696771AFCC06600273DA3 /* Images.xcassets */; };
 		F9E6967B1AFCC06600273DA3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9E696791AFCC06600273DA3 /* LaunchScreen.xib */; };
@@ -190,7 +190,7 @@
 		8EB46C751E58FA3F00AEB741 /* MMTCityGeocoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCityGeocoder.swift; sourceTree = "<group>"; };
 		8EB46C771E58FDFE00AEB741 /* MMTGeocoderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTGeocoderTests.swift; sourceTree = "<group>"; };
 		8EC540F61E6E2CFE0052BCD9 /* MMTPredefinedCitiesFileStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTPredefinedCitiesFileStore.swift; sourceTree = "<group>"; };
-		8EC56D6D1BA0B528003A5020 /* MMTError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTError.swift; sourceTree = "<group>"; };
+		8EC56D6D1BA0B528003A5020 /* MMTError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MMTError.swift; path = ../MeteoModel/MeteoModel/MMTError.swift; sourceTree = "<group>"; };
 		8EE51B4C1E68CF2700C52DC6 /* MMTGeocoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTGeocoder.swift; sourceTree = "<group>"; };
 		8EE51B4E1E68CFAB00C52DC6 /* MMTCoreLocationGeocoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCoreLocationGeocoder.swift; sourceTree = "<group>"; };
 		8EE580AF1C0118A0000B36BB /* MMTMeteorogramPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramPreview.swift; sourceTree = "<group>"; };
@@ -231,23 +231,23 @@
 		F96BC8CA1B97285A0073A44E /* MMTAppearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTAppearance.swift; sourceTree = "<group>"; };
 		F973D7561E0C13B2000C108F /* MMTDetailedMapPreviewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapPreviewTests.swift; sourceTree = "<group>"; };
 		F977E33D1BA007C200608270 /* MMTSearchInputFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTSearchInputFilter.swift; sourceTree = "<group>"; };
-		F977E33F1BA013EB00608270 /* MMTSearchInputFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTSearchInputFilterTests.swift; sourceTree = "<group>"; };
+		F977E33F1BA013EB00608270 /* MMTSearchInputFilterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MMTSearchInputFilterTests.swift; path = ../MeteoModel/MeteoModelTests/MMTSearchInputFilterTests.swift; sourceTree = "<group>"; };
 		F9829D701C3FB09D00314438 /* CAAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAAnimation.swift; sourceTree = "<group>"; };
 		F989C52E1B9D6B1A002A1903 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F989C5301B9D6BDA002A1903 /* MMTCityMapPickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCityMapPickerController.swift; sourceTree = "<group>"; };
 		F9941A5A1BECE15800700313 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9941A641BECE32300700313 /* MeteoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeteoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F99A8A2B1B8463FE0098E170 /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
+		F99A8A2B1B8463FE0098E170 /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSURL.swift; path = ../MeteoModel/MeteoModel/Extensions/NSURL.swift; sourceTree = "<group>"; };
 		F99A8A2D1B8464E50098E170 /* MMTNSURLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTNSURLTests.swift; sourceTree = "<group>"; };
-		F99A8A2F1B846A4B0098E170 /* NSCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCalendar.swift; sourceTree = "<group>"; };
-		F99F24601B6B572300622E1E /* NSDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateFormatter.swift; sourceTree = "<group>"; };
+		F99A8A2F1B846A4B0098E170 /* NSCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSCalendar.swift; path = ../MeteoModel/MeteoModel/Extensions/NSCalendar.swift; sourceTree = "<group>"; };
+		F99F24601B6B572300622E1E /* NSDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSDateFormatter.swift; path = ../MeteoModel/MeteoModel/Extensions/NSDateFormatter.swift; sourceTree = "<group>"; };
 		F99F24631B6B574900622E1E /* MMTTestTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTTestTools.swift; sourceTree = "<group>"; };
-		F99F24651B6B585000622E1E /* MMTNSDateFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTNSDateFormatterTests.swift; sourceTree = "<group>"; };
+		F99F24651B6B585000622E1E /* MMTNSDateFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MMTNSDateFormatterTests.swift; path = ../MeteoModel/MeteoModelTests/ExtensionTests/MMTNSDateFormatterTests.swift; sourceTree = "<group>"; };
 		F9AEF6881B8F29130096E936 /* MMTCityCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCityCategory.swift; sourceTree = "<group>"; };
 		F9B2BA401B4BFD0F0081AC29 /* MMTCitiesStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTCitiesStore.swift; sourceTree = "<group>"; };
 		F9B686441B58DDD300E838BD /* MMTTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTTabBarController.swift; sourceTree = "<group>"; };
 		F9BB149A1B56379C00C81B3F /* MMTAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTAppDelegate.swift; sourceTree = "<group>"; };
-		F9BB149E1B5670FD00C81B3F /* MMTDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTDatabase.swift; sourceTree = "<group>"; };
+		F9BB149E1B5670FD00C81B3F /* MMTDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MMTDatabase.swift; path = ../MeteoModel/MeteoModel/MMTDatabase.swift; sourceTree = "<group>"; };
 		F9BB14A31B56765700C81B3F /* MMTCity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MMTCity.swift; path = ../MMTCity.swift; sourceTree = "<group>"; };
 		F9BB14A51B5697EE00C81B3F /* Cities.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Cities.json; sourceTree = "<group>"; };
 		F9C0AF2C1C60D67B009860F8 /* MMTOfflineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTOfflineTests.swift; sourceTree = "<group>"; };
@@ -265,12 +265,12 @@
 		F9E6969D1AFCD04500273DA3 /* MobileMeteo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileMeteo-Prefix.pch"; sourceTree = "<group>"; };
 		F9E696A31AFCE70700273DA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F9ED9FF91E07527B00190F59 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
-		F9ED9FFB1E0845AB00190F59 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		F9ED9FFB1E0845AB00190F59 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = ../MeteoModel/MeteoModel/Extensions/UIImage.swift; sourceTree = "<group>"; };
 		F9EE114C1C6DBB9C003AF8BD /* Toruń.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Toruń.gpx"; sourceTree = "<group>"; };
 		F9EE114D1C6DBBF7003AF8BD /* Iława.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Iława.gpx"; sourceTree = "<group>"; };
 		F9EE114E1C6DBC0B003AF8BD /* Bydgoszcz.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Bydgoszcz.gpx; sourceTree = "<group>"; };
 		F9F240BC1C5237D00030E440 /* MMTAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTAnalytics.swift; sourceTree = "<group>"; };
-		F9F8753A1C47D3C0005E669E /* MMTMeteorogramUrlSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramUrlSession.swift; sourceTree = "<group>"; };
+		F9F8753A1C47D3C0005E669E /* MMTMeteorogramUrlSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MMTMeteorogramUrlSession.swift; path = ../MeteoModel/MeteoModel/MMTMeteorogramUrlSession.swift; sourceTree = "<group>"; };
 		F9F9D60F1C52643000A49ACA /* MMTGoogleAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTGoogleAnalytics.swift; sourceTree = "<group>"; };
 		F9FFEE461B8DCEF900C30EDD /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -868,13 +868,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MobileMeteo-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		449E201CF54EA48B2B48BBA4 /* [CP] Embed Pods Frameworks */ = {
@@ -958,13 +961,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MeteoUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F2E807150C692FAA8B652D02 /* [CP] Check Pods Manifest.lock */ = {
@@ -973,13 +979,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MobileMeteoTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1008,11 +1017,11 @@
 			files = (
 				8EE51B4D1E68CF2700C52DC6 /* MMTGeocoder.swift in Sources */,
 				F9BB149B1B56379C00C81B3F /* MMTAppDelegate.swift in Sources */,
+				1B9C72542049BCC600856476 /* Mobile_Meteo.xcdatamodeld in Sources */,
 				F9DAEAA71B85D2DE00D4CD34 /* MMTMeteorogramStore.swift in Sources */,
 				1BFBAE061FEC2BDF00FC559B /* UIApplication.swift in Sources */,
 				F91A63481C467F3900747AC3 /* UIAlertController.swift in Sources */,
 				F9ED9FFC1E0845AB00190F59 /* UIImage.swift in Sources */,
-				F9E696701AFCC06600273DA3 /* Mobile_Meteo.xcdatamodeld in Sources */,
 				1B8C6BF62036FB980029282F /* MMTAppMigrator.swift in Sources */,
 				F9FFEE471B8DCEF900C30EDD /* UIImageView.swift in Sources */,
 				8E880AC01DF220D1004D8A9E /* MMTDetailedMapPreviewController.swift in Sources */,
@@ -1459,7 +1468,8 @@
 				F9E6966F1AFCC06600273DA3 /* Mobile_Meteo.xcdatamodel */,
 			);
 			currentVersion = F9E6966F1AFCC06600273DA3 /* Mobile_Meteo.xcdatamodel */;
-			path = Mobile_Meteo.xcdatamodeld;
+			name = Mobile_Meteo.xcdatamodeld;
+			path = ../MeteoModel/MeteoModel/Mobile_Meteo.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

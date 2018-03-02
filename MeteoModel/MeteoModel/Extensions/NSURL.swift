@@ -192,6 +192,6 @@ extension URL
     
     private static func mmt_modelLang() -> String
     {
-        return Bundle.main.preferredLocalizations.first ?? "en"
+        return Bundle(for: MMTForecastStore.self).preferredLocalizations.first ?? "en"
     }
 }

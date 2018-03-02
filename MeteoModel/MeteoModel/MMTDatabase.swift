@@ -19,7 +19,8 @@ class MMTDatabase
     // MARK: CoreData stack
     lazy var model: NSManagedObjectModel =
     {
-        let modelURL = Bundle.main.url(forResource: "Mobile_Meteo", withExtension: "momd")
+        let bundle = Bundle(for: type(of: self))
+        let modelURL = bundle.url(forResource: "Mobile_Meteo", withExtension: "momd")
         return NSManagedObjectModel(contentsOf: modelURL!)!
     }()
     
@@ -90,3 +91,12 @@ class MMTDatabase
         abort()
     }
 }
+
+extension MMTDatabase: MMTEntityFactory
+{
+    func createCity() -> MMTCityProt {
+        return MMTCity(entity: MMTCity.entityDescription, insertInto: nil)
+    }
+}
+
+

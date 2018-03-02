@@ -8,7 +8,7 @@
 
 import XCTest
 import Foundation
-@testable import MobileMeteo
+@testable import MeteoModel
 
 class MMTSearchInputFilterTests: XCTestCase
 {
