@@ -15,20 +15,15 @@ public class MMTCityGeocoder
     private let geocoder: MMTGeocoder
     private let entityFactory: MMTEntityFactory
     
-    // MARK: Initializers
-    convenience init()
-    {
-        self.init(general: CLGeocoder(), factory: MMTDatabase.instance)
-    }
-    
-    init(general: MMTGeocoder, factory: MMTEntityFactory)
+    // MARK: Initializers    
+    public init(general: MMTGeocoder, factory: MMTEntityFactory)
     {
         geocoder = general
         entityFactory = factory
     }
     
     // MARK: Interface methods
-    func city(for location: CLLocation, completion: @escaping MMTCityQueryCompletion)
+    public func city(for location: CLLocation, completion: @escaping MMTCityQueryCompletion)
     {
         geocoder.geocode(location: location) { (placemarks, geocodeError) in
             
@@ -53,7 +48,7 @@ public class MMTCityGeocoder
         }
     }
     
-    func cities(matching criteria: String, completion: @escaping MMTCitiesQueryCompletion)
+    public func cities(matching criteria: String, completion: @escaping MMTCitiesQueryCompletion)
     {
         var cities = [MMTCityProt]()
         

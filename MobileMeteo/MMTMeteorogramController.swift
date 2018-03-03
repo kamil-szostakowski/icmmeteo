@@ -68,7 +68,9 @@ extension MMTMeteorogramController
     // MARK: Setup methods
     fileprivate func setupMeteorogramStore(model: MMTClimateModel)
     {
-        meteorogramStore = MMTMeteorogramStore(model: model, date: model.startDate(for: Date()))
+        let cache = MMTDatabase.instance.meteorogramsCache
+        let date = model.startDate(for: Date())
+        meteorogramStore = MMTMeteorogramStore(model: model, date: date, cache: cache)
     }
     
     fileprivate func setupNavigationBar()

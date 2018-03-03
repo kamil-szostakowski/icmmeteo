@@ -30,7 +30,7 @@
 		1B9C72202049B5E900856476 /* NSURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C721F2049B5E900856476 /* NSURL.swift */; };
 		1B9C72222049B5F000856476 /* NSDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C72212049B5F000856476 /* NSDateFormatter.swift */; };
 		1B9C72242049B61200856476 /* NSCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C72232049B61200856476 /* NSCalendar.swift */; };
-		1B9C72262049B65100856476 /* MMTDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C72252049B65100856476 /* MMTDatabase.swift */; };
+		1B9C72262049B65100856476 /* NSManagedObjectContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C72252049B65100856476 /* NSManagedObjectContext.swift */; };
 		1B9C72282049B67100856476 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C72272049B67100856476 /* UIImage.swift */; };
 		1B9C722A2049B69E00856476 /* MMTConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C72292049B69E00856476 /* MMTConstants.swift */; };
 		1B9C722D2049B6EE00856476 /* MMTNSURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C722C2049B6EE00856476 /* MMTNSURLTests.swift */; };
@@ -49,6 +49,7 @@
 		1B9C724C2049B94F00856476 /* MMTMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C724B2049B94F00856476 /* MMTMocks.swift */; };
 		1B9C72562049CD5700856476 /* MMTEntityFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C72552049CD5700856476 /* MMTEntityFactory.swift */; };
 		1BF55CED2049E731009BA4E2 /* Mobile_Meteo.xcdatamodeld in Resources */ = {isa = PBXBuildFile; fileRef = 1B9C724E2049B9CA00856476 /* Mobile_Meteo.xcdatamodeld */; };
+		1BF55CF6204A14E0009BA4E2 /* Mobile_Meteo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C724E2049B9CA00856476 /* Mobile_Meteo.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,7 +89,7 @@
 		1B9C721F2049B5E900856476 /* NSURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURL.swift; sourceTree = "<group>"; };
 		1B9C72212049B5F000856476 /* NSDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDateFormatter.swift; sourceTree = "<group>"; };
 		1B9C72232049B61200856476 /* NSCalendar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCalendar.swift; sourceTree = "<group>"; };
-		1B9C72252049B65100856476 /* MMTDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTDatabase.swift; sourceTree = "<group>"; };
+		1B9C72252049B65100856476 /* NSManagedObjectContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContext.swift; sourceTree = "<group>"; };
 		1B9C72272049B67100856476 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		1B9C72292049B69E00856476 /* MMTConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTConstants.swift; sourceTree = "<group>"; };
 		1B9C722C2049B6EE00856476 /* MMTNSURLTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTNSURLTests.swift; sourceTree = "<group>"; };
@@ -160,7 +161,6 @@
 				1B9C71F52049B44C00856476 /* MMTError.swift */,
 				1B9C72292049B69E00856476 /* MMTConstants.swift */,
 				1B9C71F72049B47100856476 /* MMTMeteorogramUrlSession.swift */,
-				1B9C72252049B65100856476 /* MMTDatabase.swift */,
 				1B9C71DE2049B42D00856476 /* MeteoModel.h */,
 				1B9C71DF2049B42D00856476 /* Info.plist */,
 				1B9C724E2049B9CA00856476 /* Mobile_Meteo.xcdatamodeld */,
@@ -235,6 +235,7 @@
 		1B9C721C2049B5BB00856476 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				1B9C72252049B65100856476 /* NSManagedObjectContext.swift */,
 				1B9C721F2049B5E900856476 /* NSURL.swift */,
 				1B9C721D2049B5D500856476 /* NSTimeInterval.swift */,
 				1B9C72212049B5F000856476 /* NSDateFormatter.swift */,
@@ -400,6 +401,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BF55CF6204A14E0009BA4E2 /* Mobile_Meteo.xcdatamodeld in Sources */,
 				1B9C721E2049B5D500856476 /* NSTimeInterval.swift in Sources */,
 				1B9C71F82049B47100856476 /* MMTMeteorogramUrlSession.swift in Sources */,
 				1B9C72152049B4AD00856476 /* MMTCityGeocoder.swift in Sources */,
@@ -419,7 +421,7 @@
 				1B9C71F62049B44C00856476 /* MMTError.swift in Sources */,
 				1B9C722A2049B69E00856476 /* MMTConstants.swift in Sources */,
 				1B9C720B2049B49600856476 /* MMTDetailedMap.swift in Sources */,
-				1B9C72262049B65100856476 /* MMTDatabase.swift in Sources */,
+				1B9C72262049B65100856476 /* NSManagedObjectContext.swift in Sources */,
 				1B9C72142049B4AD00856476 /* MMTCitiesIndex.swift in Sources */,
 				1B9C72282049B67100856476 /* UIImage.swift in Sources */,
 				1B9C720E2049B49600856476 /* MMTClimateModel.swift in Sources */,

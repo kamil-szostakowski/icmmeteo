@@ -18,19 +18,14 @@ public typealias MMTCurrentCityQueryCompletion = (MMTCityProt?) -> Void
 open class MMTCitiesStore
 {
     // MARK: Properties
-    private let database: MMTDatabase
+    private let context: NSManagedObjectContext
     private let geocoder: MMTCityGeocoder
     
-    // MARK: Initializers
-    public convenience init()
+    // MARK: Initializers    
+    public init(context: NSManagedObjectContext, geocoder gcoder: MMTCityGeocoder)
     {
-        self.init(db: .instance, geocoder: MMTCityGeocoder())
-    }
-    
-    public init(db: MMTDatabase, geocoder gcoder: MMTCityGeocoder)
-    {
-        geocoder = gcoder
-        database = db                
+        self.geocoder = gcoder
+        self.context = context
     }
     
     // MARK: Methods
@@ -74,27 +69,27 @@ open class MMTCitiesStore
         city.isFavourite = favourite
 
         if favourite && aCity.managedObjectContext == nil {
-            database.context.insert(aCity)
+            context.insert(aCity)
         }
         
         if favourite == false && city.isCapital == false {
-            database.context.delete(aCity)
+            context.delete(aCity)
         }
         
-        database.saveContext()
+        context.saveContextIfNeeded()
     }        
     
     // MARK: Helper methods
     private func getAllCities() -> [MMTCityProt]
     {
         let fetchRequest = citiesFetchRequest(predicate: nil)
-        return (try? database.context.fetch(fetchRequest)) ?? []
+        return (try? context.fetch(fetchRequest)) ?? []
     }
     
     private func getCitiesMatchingCriteria(_ criteria: String) -> [MMTCityProt]
     {
         let fetchRequest = citiesFetchRequest(predicate: NSPredicate(format: "SELF.name CONTAINS[cd] %@", criteria))
-        return (try? database.context.fetch(fetchRequest)) ?? []
+        return (try? context.fetch(fetchRequest)) ?? []
     }
     
     private func getCity(with name: String) -> MMTCityProt?
@@ -103,7 +98,7 @@ open class MMTCitiesStore
         fetchRequest = citiesFetchRequest(predicate: NSPredicate(format: "SELF.name LIKE[cd] %@", name))
         fetchRequest.fetchLimit = 1
         
-        return (try? database.context.fetch(fetchRequest))?.first
+        return (try? context.fetch(fetchRequest))?.first
     }
     
     private func citiesFetchRequest(predicate: NSPredicate?) -> NSFetchRequest<MMTCity>

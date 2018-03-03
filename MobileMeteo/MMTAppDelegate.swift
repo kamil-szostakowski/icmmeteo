@@ -49,7 +49,7 @@ public let MMTLocationChangedNotification = Notification.Name(rawValue: "MMTLoca
     
     func applicationWillTerminate(_ application: UIApplication)
     {
-        MMTDatabase.instance.saveContext()
+        MMTDatabase.instance.context.saveContextIfNeeded()
     }
     
     // MARK: External actions related methods
@@ -90,7 +90,7 @@ extension MMTAppDelegate
             MMTDatabase.instance.context.insert(cityObject)
         }
         
-        MMTDatabase.instance.saveContext()
+        MMTDatabase.instance.context.saveContextIfNeeded()
         UserDefaults.standard.isAppInitialized = true
     }
     

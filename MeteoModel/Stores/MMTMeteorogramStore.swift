@@ -9,11 +9,26 @@
 import Foundation
 import CoreLocation
 
+public typealias MMTImagesCache = NSCache<NSString, UIImage>
+
 public class MMTMeteorogramStore: MMTForecastStore
 {
     // MARK: Properties
-    fileprivate var cache: NSCache<NSString, UIImage> {
-        return MMTDatabase.instance.meteorogramsCache
+    private var cache: MMTImagesCache
+    
+    // MARK: Initializers
+    public init(model: MMTClimateModel, date: Date, session: MMTMeteorogramUrlSession, cache: MMTImagesCache)
+    {
+        self.cache = cache
+        super.init(model: model, date: date, session: session)
+    }
+    
+    public convenience init(model: MMTClimateModel, date: Date, cache: MMTImagesCache)
+    {
+        let url = try? URL.mmt_meteorogramDownloadBaseUrl(for: model.type)
+        let session = MMTMeteorogramUrlSession(redirectionBaseUrl: url, timeout: 60)
+        
+        self.init(model: model, date: date, session: session, cache: cache)
     }
     
     // MARK: Methods

@@ -41,11 +41,5 @@ extension MMTCity: MMTCityProt
     {
         get { return capital.boolValue }
         set { capital = newValue as NSNumber }
-    }
-        
-    // MARK: Helper methods
-    class var entityDescription: NSEntityDescription
-    {
-        return NSEntityDescription.entity(forEntityName: "MMTCity", in: MMTDatabase.instance.context)!
-    }
+    }        
 }
