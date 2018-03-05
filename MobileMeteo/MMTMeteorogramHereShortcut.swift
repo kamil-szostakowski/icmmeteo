@@ -22,8 +22,8 @@ class MMTMeteorogramHereShortcut: MMTMeteorogramShortcut
     init(model: MMTClimateModel, locationService service: MMTLocationService)
     {
         let name = MMTLocalizedString("forecast.here")
-        let location = service.currentLocation ?? .zero
-        let city = MMTDatabase.instance.city(name: name, region: "", location: location)
+        let location = service.currentLocation ?? .zero        
+        let city = MMTCityProt(name: name, region: "", location: location)
         
         locationService = service
         super.init(model: model, city: city)

@@ -22,7 +22,7 @@ class MMTGeocoderTests: XCTestCase
     {
         super.setUp()
         generalGeocoder = MMTMockGeocoder()
-        cityGeocoder = MMTCityGeocoder(general: generalGeocoder, factory: MMTMockEntityFactory())
+        cityGeocoder = MMTCityGeocoder(general: generalGeocoder)
     }
     
     override func tearDown()

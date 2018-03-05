@@ -14,7 +14,7 @@ extension MMTCityGeocoder
 {
     convenience init()
     {
-        self.init(general: CLGeocoder(), factory: MMTDatabase.instance)
+        self.init(general: CLGeocoder())
     }
 }
 
@@ -22,6 +22,6 @@ extension MMTCitiesStore
 {
     public convenience init()
     {
-        self.init(context: MMTDatabase.instance.context, geocoder: MMTCityGeocoder())
+        self.init(context: MMTCoreData.instance.context, geocoder: MMTCityGeocoder())
     }
 }

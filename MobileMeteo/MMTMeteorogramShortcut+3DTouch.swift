@@ -87,7 +87,7 @@ extension MMTMeteorogramShortcut
         
         let location = CLLocation(latitude: latitude, longitude: longitude)
         
-        return MMTDatabase.instance.city(name: name, region: region, location: location)
+        return MMTCityProt(name: name, region: region, location: location)
     }
 
 }

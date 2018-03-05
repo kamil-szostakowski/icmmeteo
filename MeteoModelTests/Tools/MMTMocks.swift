@@ -35,19 +35,3 @@ class MMTMockTask: URLSessionTask
 {
     override func cancel() {}
 }
-
-class MMTMockCity: MMTCityProt
-{
-    var name: String = ""
-    var region: String = ""
-    var location: CLLocation = CLLocation()
-    var isFavourite: Bool = false
-    var isCapital: Bool = false
-}
-
-class MMTMockEntityFactory: MMTEntityFactory
-{
-    func createCity() -> MMTCityProt {
-        return MMTMockCity()
-    }
-}

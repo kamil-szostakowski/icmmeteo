@@ -13,13 +13,11 @@ public class MMTCityGeocoder
 {
     // MARK: Properties
     private let geocoder: MMTGeocoder
-    private let entityFactory: MMTEntityFactory
     
     // MARK: Initializers    
-    public init(general: MMTGeocoder, factory: MMTEntityFactory)
+    public init(general: MMTGeocoder)
     {
         geocoder = general
-        entityFactory = factory
     }
     
     // MARK: Interface methods
@@ -40,7 +38,7 @@ public class MMTCityGeocoder
             guard translationError == nil else { error = .locationNotFound; return }
             guard let placemark = placemarks?.first else { error = .locationNotFound; return }
             
-            city = self.entityFactory.city(placemark: placemark)
+            city = MMTCityProt(placemark: placemark)
             
             if city == nil {
                 error = .locationUnsupported
@@ -67,7 +65,7 @@ public class MMTCityGeocoder
             guard let markers = placemarks else { return }
             
             let foundCities: [MMTCityProt] = markers
-                .map(){ self.entityFactory.city(placemark: $0) }
+                .map(){ MMTCityProt(placemark: $0) }
                 .filter(){ $0 != nil }
                 .map{ $0! }
             

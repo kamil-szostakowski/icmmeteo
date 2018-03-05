@@ -49,7 +49,7 @@ public let MMTLocationChangedNotification = Notification.Name(rawValue: "MMTLoca
     
     func applicationWillTerminate(_ application: UIApplication)
     {
-        MMTDatabase.instance.context.saveContextIfNeeded()
+        MMTCoreData.instance.context.saveContextIfNeeded()
     }
     
     // MARK: External actions related methods
@@ -80,18 +80,15 @@ extension MMTAppDelegate
     // MARK: Setup methods
     private func setupDatabase()
     {
+        let coreDataStore = MMTCitiesStore()
         let filePath = Bundle.main.path(forResource: "Cities", ofType: "json")
-        let cities = MMTPredefinedCitiesFileStore(factory: MMTDatabase.instance).getPredefinedCitiesFromFile(filePath!)
         
-        for city in cities {
-            guard let cityObject = city as? NSManagedObject else {
-                continue
-            }
-            MMTDatabase.instance.context.insert(cityObject)
+        MMTPredefinedCitiesFileStore().getPredefinedCitiesFromFile(filePath!).forEach {
+            coreDataStore.save(city: $0)
         }
         
-        MMTDatabase.instance.context.saveContextIfNeeded()
         UserDefaults.standard.isAppInitialized = true
+        MMTCoreData.instance.context.saveContextIfNeeded()
     }
     
     private func setupAppearance()
@@ -144,7 +141,7 @@ extension MMTAppDelegate
     {
         if ProcessInfo.processInfo.arguments.contains(MMTDebugActionCleanupDb) {
             URLCache.shared.removeAllCachedResponses()
-            MMTDatabase.instance.flushDatabase()
+            MMTCoreData.instance.flushDatabase()
             UserDefaults.standard.cleanup()
         }
         

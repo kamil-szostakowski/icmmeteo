@@ -24,8 +24,7 @@ class UIApplicationTests : XCTestCase
         super.setUp()
         UIApplication.shared.shortcutItems?.removeAll()
         
-        let entityFactory = MMTMockEntityFactory()
-        let city = entityFactory.city(name: "Lorem", region: "Ipsum", location: CLLocation(latitude: 2, longitude: 2))
+        let city = MMTCityProt(name: "Lorem", region: "Ipsum", location: CLLocation(latitude: 2, longitude: 2))
         meteorogramShortcut = MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: city)
         currentLocationShortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel(), locationService: MMTStubLocationService())
     }

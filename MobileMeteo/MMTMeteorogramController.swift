@@ -39,6 +39,9 @@ extension MMTMeteorogramController
     {
         super.viewDidLoad()
         
+        print("Fav: \(city.isFavourite)")
+        print("Cap: \(city.isCapital)")
+        
         setupMeteorogramStore(model: MMTUmClimateModel())
         setupNavigationBar()
         setupInfoBar()
@@ -68,7 +71,7 @@ extension MMTMeteorogramController
     // MARK: Setup methods
     fileprivate func setupMeteorogramStore(model: MMTClimateModel)
     {
-        let cache = MMTDatabase.instance.meteorogramsCache
+        let cache = MMTCoreData.instance.meteorogramsCache
         let date = model.startDate(for: Date())
         meteorogramStore = MMTMeteorogramStore(model: model, date: date, cache: cache)
     }
@@ -139,7 +142,8 @@ extension MMTMeteorogramController
     // MARK: Navigation methods
     @IBAction func onCloseBtnTouchAction(_ sender: UIBarButtonItem)
     {
-        MMTCitiesStore().markCity(city, asFavourite: city.isFavourite)
+        MMTCitiesStore().save(city: city)
+        MMTCoreData.instance.context.saveContextIfNeeded()
         try? MMTShortcutsMigrator().migrate()
         perform(segue: .UnwindToListOfCities, sender: self)
     }

@@ -13,14 +13,10 @@ public class MMTPredefinedCitiesFileStore
 {
     // MARK: Properties
     private typealias MMTCitiesArray = [[String: AnyObject]]
-    private var entityFactory: MMTEntityFactory
     
-    // MARK: Initializers
-    public init(factory: MMTEntityFactory)
-    {
-        entityFactory = factory
-    }
-    
+    // MARK: Initializer
+    public init() {}
+        
     // MARK: Interface methods
     public func getPredefinedCitiesFromFile(_ file: String) -> [MMTCityProt]
     {
@@ -29,16 +25,19 @@ public class MMTPredefinedCitiesFileStore
         }
         
         var result = [MMTCityProt]()
-        for city in citiesList
+        for cityDict in citiesList
         {
-            let name = city["name"] as! String
-            let lat = city["latitude"] as! Double
-            let lng = city["longitude"] as! Double
-            let region = city["region"] as! String
-                        let
-            city = entityFactory.city(name: name, region: region, location: CLLocation(latitude: lat, longitude: lng))
-            city.isCapital = true
+            let name = cityDict["name"] as! String
+            let lat = cityDict["latitude"] as! Double
+            let lng = cityDict["longitude"] as! Double
+            let region = cityDict["region"] as! String
+            let location = CLLocation(latitude: lat, longitude: lng)
             
+            var
+            city = MMTCityProt(name: name, region: region, location: location)
+            city.isCapital = true
+            city.isFavourite = false
+
             result.append(city)
         }
         

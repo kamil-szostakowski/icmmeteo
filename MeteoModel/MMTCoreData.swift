@@ -9,17 +9,17 @@
 import Foundation
 import CoreData
 
-public class MMTDatabase
+public class MMTCoreData
 {
     // MARK: Properties
-    public static private(set) var instance = MMTDatabase()
+    public static private(set) var instance = MMTCoreData()
     
     public var meteorogramsCache = NSCache<NSString, UIImage>()
     
     // MARK: CoreData stack
     lazy var model: NSManagedObjectModel =
         {
-            let bundle = Bundle(for: MMTDatabase.self)
+            let bundle = Bundle(for: MMTCoreData.self)
             let modelURL = bundle.url(forResource: "Mobile_Meteo", withExtension: "momd")
             return NSManagedObjectModel(contentsOf: modelURL!)!
     }()
@@ -59,7 +59,7 @@ public class MMTDatabase
                 _ = try? FileManager.default.removeItem(atPath: store.url!.path)
             }
             
-            MMTDatabase.instance = MMTDatabase()
+            MMTCoreData.instance = MMTCoreData()
         }
     }
     
@@ -73,11 +73,16 @@ public class MMTDatabase
     }()
 }
 
-extension MMTDatabase: MMTEntityFactory
+extension NSManagedObjectContext
 {
-    public func createCity() -> MMTCityProt
+    public func saveContextIfNeeded()
     {
-        let entityDescription = NSEntityDescription.entity(forEntityName: "MMTCity", in: context)!
-        return MMTCity(entity: entityDescription, insertInto: nil)
+        guard hasChanges == true else {
+            return
+        }
+        
+        try! save()
+        NSLog("Context saved")
     }
 }
+

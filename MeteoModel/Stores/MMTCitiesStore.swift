@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreLocation
-import AddressBook
 import CoreData
 
 public typealias MMTCityQueryCompletion = (MMTCityProt?, MMTError?) -> Void
@@ -31,19 +30,18 @@ open class MMTCitiesStore
     // MARK: Methods
     open func getAllCities(_ completion: MMTCitiesQueryCompletion)
     {
-        completion(getAllCities())
+        completion(context.fetch(request: .allCities()))
     }
     
     public func findCityForLocation(_ location: CLLocation, completion: @escaping MMTCityQueryCompletion)
     {
-        geocoder.city(for: location) {
-            (geocodedCity: MMTCityProt?, error: MMTError?) in
+        geocoder.city(for: location) { (geocodedCity, error) in
             
             var city = geocodedCity;
             defer { completion(city, error) }
             
             guard error == nil else { return }
-            guard let localCity = self.getCity(with: city!.name) else { return; }
+            guard let localCity = self.context.fetch(request: .city(named: city!.name)).first else { return; }
             
             city = localCity
         }
@@ -51,7 +49,7 @@ open class MMTCitiesStore
     
     public func findCitiesMatchingCriteria(_ criteria: String, completion: @escaping MMTCitiesQueryCompletion)
     {
-        let cities = getCitiesMatchingCriteria(criteria)
+        let cities = context.fetch(request: .cities(maching: criteria))
         
         if cities.count > 0 { completion(cities)
             return
@@ -60,54 +58,12 @@ open class MMTCitiesStore
         geocoder.cities(matching: criteria, completion: completion)
     }
     
-    public func markCity(_ city: MMTCityProt, asFavourite favourite: Bool)
+    public func save(city: MMTCityProt)
     {
-        guard let aCity = city as? MMTCity else {
-            return
-        }
-        
-        city.isFavourite = favourite
-
-        if favourite && aCity.managedObjectContext == nil {
-            context.insert(aCity)
-        }
-        
-        if favourite == false && city.isCapital == false {
-            context.delete(aCity)
-        }
-        
-        context.saveContextIfNeeded()
-    }        
-    
-    // MARK: Helper methods
-    private func getAllCities() -> [MMTCityProt]
-    {
-        let fetchRequest = citiesFetchRequest(predicate: nil)
-        return (try? context.fetch(fetchRequest)) ?? []
-    }
-    
-    private func getCitiesMatchingCriteria(_ criteria: String) -> [MMTCityProt]
-    {
-        let fetchRequest = citiesFetchRequest(predicate: NSPredicate(format: "SELF.name CONTAINS[cd] %@", criteria))
-        return (try? context.fetch(fetchRequest)) ?? []
-    }
-    
-    private func getCity(with name: String) -> MMTCityProt?
-    {
-        let
-        fetchRequest = citiesFetchRequest(predicate: NSPredicate(format: "SELF.name LIKE[cd] %@", name))
-        fetchRequest.fetchLimit = 1
-        
-        return (try? context.fetch(fetchRequest))?.first
-    }
-    
-    private func citiesFetchRequest(predicate: NSPredicate?) -> NSFetchRequest<MMTCity>
-    {
-        let
-        fetchRequest = NSFetchRequest<MMTCity>(entityName: "MMTCity")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-        fetchRequest.predicate = predicate
-        
-        return fetchRequest
+        if city.isFavourite || city.isCapital {
+            context.save(entity: city)
+        } else {
+            context.delete(entity: city)
+        }        
     }
 }

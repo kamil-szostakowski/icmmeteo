@@ -11,41 +11,39 @@ import Foundation
 import CoreLocation
 @testable import MeteoModel
 
-class MMTCityFactoryTests: XCTestCase
+class MMTCityProtTests: XCTestCase
 {
     // MARK: Properties
     var location: CLLocation!
-    var factory: MMTEntityFactory!
     
     // MARK: Setup methods
     override func setUp()
     {
         super.setUp()
-        factory = MMTMockEntityFactory()
         location = CLLocation(latitude: 12.1212, longitude: 13.1313)
     }
     
     override func tearDown()
     {
         super.tearDown()
-        factory = nil
         location = nil
     }
     
     // MARK: Test methods
     func testDesignatedInitializer()
     {
-        MMTVerifyCity(factory.city(name: "City Name", region: "Some District", location: location))
+        
+        MMTVerifyCity(MMTCityProt(name: "City Name", region: "Some District", location: location))
     }
     
     func testInitializerForPlacemark()
     {
-        let city1 = factory.city(placemark: MMTTestPlacemark(nil, "City Name", nil, location, "Some District"))
+        let city1 = MMTCityProt(placemark: MMTTestPlacemark(nil, "City Name", nil, location, "Some District"))
         
         XCTAssertNotNil(city1)
         MMTVerifyCity(city1!)
         
-        let city2 = factory.city(placemark: MMTTestPlacemark("City Name", nil, nil, location, "Some District"))
+        let city2 = MMTCityProt(placemark: MMTTestPlacemark("City Name", nil, nil, location, "Some District"))
         
         XCTAssertNotNil(city2)
         MMTVerifyCity(city2!)
@@ -53,27 +51,27 @@ class MMTCityFactoryTests: XCTestCase
     
     func testInitializerForPlacemarkWithoutAdministrativeArea()
     {
-        XCTAssertNil(factory.city(placemark: MMTTestPlacemark(nil, "City Name", nil, location, nil)))
+        XCTAssertNil(MMTCityProt(placemark: MMTTestPlacemark(nil, "City Name", nil, location, nil)))
     }
     
     func testInitializerForPlacemarkWithoutName()
     {
-        XCTAssertNil(factory.city(placemark: MMTTestPlacemark(nil, nil, nil, location, "Some District")))
+        XCTAssertNil(MMTCityProt(placemark: MMTTestPlacemark(nil, nil, nil, location, "Some District")))
     }
     
     func testInitializerForPlacemarkWithoutLocation()
     {
-        XCTAssertNil(factory.city(placemark: MMTTestPlacemark("City Name", nil, nil, nil, "Some District")))
+        XCTAssertNil(MMTCityProt(placemark: MMTTestPlacemark("City Name", nil, nil, nil, "Some District")))
     }
     
     func testInitializerForPlacemarkWithOcean()
     {
-        XCTAssertNil(factory.city(placemark: MMTTestPlacemark("City Name", nil, "Baltic Sea", location, "Some District")))
+        XCTAssertNil(MMTCityProt(placemark: MMTTestPlacemark("City Name", nil, "Baltic Sea", location, "Some District")))
     }
     
     func testLocationProperty()
     {
-        let city = factory.city(name: "City Name", region: "Some District", location: location)
+        var city = MMTCityProt(name: "City Name", region: "Some District", location: location)
         let newLocation = CLLocation(latitude: 14.1414, longitude: 15.1515)
         
         XCTAssertEqual(location.coordinate.latitude, city.location.coordinate.latitude)
@@ -87,7 +85,7 @@ class MMTCityFactoryTests: XCTestCase
     
     func testFavouriteProperty()
     {
-        let city = factory.city(name: "City Name", region: "Some District", location: location)
+        var city = MMTCityProt(name: "City Name", region: "Some District", location: location)
         XCTAssertFalse(city.isFavourite)
         
         city.isFavourite = true
@@ -96,7 +94,7 @@ class MMTCityFactoryTests: XCTestCase
     
     func testCapitalProperty()
     {
-        let city = factory.city(name: "City Name", region: "Some District", location: location)
+        var city = MMTCityProt(name: "City Name", region: "Some District", location: location)
         XCTAssertFalse(city.isCapital)
         
         city.isCapital = true

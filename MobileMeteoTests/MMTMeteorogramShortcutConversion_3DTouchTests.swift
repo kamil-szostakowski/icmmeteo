@@ -17,9 +17,8 @@ extension MMTMeteorogramShortcut
 {
     static var testInstance: MMTMeteorogramShortcut
     {
-        let factory = MMTMockEntityFactory()
         let location = CLLocation(latitude: 2.2, longitude: 3.3)
-        let city = factory.city(name: "fake-city", region: "fake-region", location: location)
+        let city = MMTCityProt(name: "fake-city", region: "fake-region", location: location)
         
         return MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: city)
     }

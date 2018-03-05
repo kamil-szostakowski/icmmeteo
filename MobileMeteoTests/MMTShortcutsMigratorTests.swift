@@ -76,8 +76,8 @@ fileprivate class StubCitiesStore: MMTCitiesStore
     {
         let location = CLLocation(latitude: 0, longitude: 0)
         
-        let
-        city = MMTMockEntityFactory().city(name: name, region: "\(name) region", location: location)
+        var
+        city = MMTCityProt(name: name, region: "\(name) region", location: location)
         city.isFavourite = favourite
         
         return city

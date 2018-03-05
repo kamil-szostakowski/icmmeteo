@@ -70,7 +70,7 @@ extension MMTMeteorogramShortcut
             return nil
         }
         
-        let city = MMTDatabase.instance.city(name: "", region: "", location: location)
+        let city = MMTCityProt(name: "", region: "", location: location)
         self.init(model: model, city: city)
     }
 }
