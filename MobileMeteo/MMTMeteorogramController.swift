@@ -39,9 +39,6 @@ extension MMTMeteorogramController
     {
         super.viewDidLoad()
         
-        print("Fav: \(city.isFavourite)")
-        print("Cap: \(city.isCapital)")
-        
         setupMeteorogramStore(model: MMTUmClimateModel())
         setupNavigationBar()
         setupInfoBar()

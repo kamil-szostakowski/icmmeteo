@@ -11,7 +11,6 @@
 		1B54EF90204D6DC8008B8F90 /* Mobile_Meteo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B54EF8E204D6DC8008B8F90 /* Mobile_Meteo.xcdatamodeld */; };
 		1B54EF93204D729C008B8F90 /* MMTCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54EF91204D729C008B8F90 /* MMTCoreData.swift */; };
 		1B9C71E52049B42D00856476 /* MeteoModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B9C71DB2049B42D00856476 /* MeteoModel.framework */; };
-		1B9C71EC2049B42D00856476 /* MeteoModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B9C71DE2049B42D00856476 /* MeteoModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B9C71F62049B44C00856476 /* MMTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C71F52049B44C00856476 /* MMTError.swift */; };
 		1B9C71F82049B47100856476 /* MMTMeteorogramUrlSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C71F72049B47100856476 /* MMTMeteorogramUrlSession.swift */; };
 		1B9C72002049B48500856476 /* MMTMeteorogramStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C71FA2049B48400856476 /* MMTMeteorogramStore.swift */; };
@@ -65,7 +64,6 @@
 		1B54EF8F204D6DC8008B8F90 /* Mobile_Meteo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Mobile_Meteo.xcdatamodel; sourceTree = "<group>"; };
 		1B54EF91204D729C008B8F90 /* MMTCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTCoreData.swift; sourceTree = "<group>"; };
 		1B9C71DB2049B42D00856476 /* MeteoModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MeteoModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B9C71DE2049B42D00856476 /* MeteoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeteoModel.h; sourceTree = "<group>"; };
 		1B9C71DF2049B42D00856476 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B9C71E42049B42D00856476 /* MeteoModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeteoModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B9C71EB2049B42D00856476 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,6 +126,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B2B2DB9204DEFAB00B7C9B0 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				1B9C71F72049B47100856476 /* MMTMeteorogramUrlSession.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		1B9C71D12049B42D00856476 = {
 			isa = PBXGroup;
 			children = (
@@ -157,9 +163,7 @@
 				1B9C71F92049B47600856476 /* Stores */,
 				1B9C71F52049B44C00856476 /* MMTError.swift */,
 				1B9C72292049B69E00856476 /* MMTConstants.swift */,
-				1B9C71F72049B47100856476 /* MMTMeteorogramUrlSession.swift */,
 				1B54EF91204D729C008B8F90 /* MMTCoreData.swift */,
-				1B9C71DE2049B42D00856476 /* MeteoModel.h */,
 				1B9C71DF2049B42D00856476 /* Info.plist */,
 				1B54EF8E204D6DC8008B8F90 /* Mobile_Meteo.xcdatamodeld */,
 			);
@@ -181,6 +185,7 @@
 		1B9C71F92049B47600856476 /* Stores */ = {
 			isa = PBXGroup;
 			children = (
+				1B2B2DB9204DEFAB00B7C9B0 /* Network */,
 				1B9C71FD2049B48400856476 /* MMTCitiesStore.swift */,
 				1B9C71FE2049B48400856476 /* MMTForecastStore.swift */,
 				1B9C71FA2049B48400856476 /* MMTMeteorogramStore.swift */,
@@ -291,7 +296,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B9C71EC2049B42D00856476 /* MeteoModel.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

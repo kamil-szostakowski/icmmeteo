@@ -6,6 +6,8 @@
 //  Copyright © 2018 Kamil Szostakowski. All rights reserved.
 //
 
+import Foundation
+
 public class MMTForecasterCommentStore
 {
     // MARK: Initializers
