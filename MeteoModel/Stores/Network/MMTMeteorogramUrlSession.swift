@@ -125,9 +125,7 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
     // MARK: Helper methods
     func runTaskWithUrl(_ url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
     {
-        let task = urlSession.dataTask(with: url){
-            (data: Data?, response: URLResponse?, err: Error?) -> Swift.Void in
-            
+        let task = urlSession.dataTask(with: url) { (data, response, err) in            
             var error = err
             
             #if DEBUG

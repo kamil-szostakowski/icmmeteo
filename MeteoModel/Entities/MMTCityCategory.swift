@@ -24,12 +24,14 @@ extension MMTCity
     
     var value: MMTCityProt
     {
-        let location = CLLocation(latitude: lat.doubleValue, longitude: lng.doubleValue)
+        let latitude = lat?.doubleValue ?? 0
+        let longitude = lng?.doubleValue ?? 0
+        let location = CLLocation(latitude: latitude, longitude: longitude)
         
         var
-        city = MMTCityProt(name: name, region: region, location: location)
-        city.isFavourite = favourite.boolValue
-        city.isCapital = capital.boolValue
+        city = MMTCityProt(name: name ?? "", region: region ?? "", location: location)
+        city.isFavourite = favourite?.boolValue ?? false
+        city.isCapital = capital?.boolValue ?? false
         
         return city
     }
