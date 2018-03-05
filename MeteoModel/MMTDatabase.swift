@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import MeteoModel
 import CoreData
 
 public class MMTDatabase
@@ -20,7 +19,7 @@ public class MMTDatabase
     // MARK: CoreData stack
     lazy var model: NSManagedObjectModel =
         {
-            let bundle = Bundle(for: MMTMeteorogramStore.self)
+            let bundle = Bundle(for: MMTDatabase.self)
             let modelURL = bundle.url(forResource: "Mobile_Meteo", withExtension: "momd")
             return NSManagedObjectModel(contentsOf: modelURL!)!
     }()
@@ -82,4 +81,3 @@ extension MMTDatabase: MMTEntityFactory
         return MMTCity(entity: entityDescription, insertInto: nil)
     }
 }
-

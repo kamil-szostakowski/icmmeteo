@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13233.4" systemVersion="16G29" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="v2">
-    <entity name="MMTCity" representedClassName="MMTCity" versionHashModifier="v1.0" syncable="YES">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="v2">
+    <entity name="MMTCity" representedClassName="MMTCity" versionHashModifier="v1.0" syncable="YES" codeGenerationType="class">
         <attribute name="capital" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="favourite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="lat" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
@@ -9,6 +9,6 @@
         <attribute name="region" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MMTCity" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="MMTCity" positionX="-54" positionY="-9" width="128" height="135"/>
     </elements>
 </model>

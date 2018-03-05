@@ -2,6 +2,7 @@
 # link_with 'MobileMeteo', 'MobileMeteoTests', 'MeteoUITests'
 
 platform :ios, '9.3'
+project 'MobileMeteo.xcodeproj'
 
 def common
 	pod 'GoogleAnalytics'
