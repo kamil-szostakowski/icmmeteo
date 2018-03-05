@@ -44,7 +44,6 @@
 		8E79D5281D4E7E0D00BE1A0E /* MMTDetailedMapsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E79D5261D4E7D2100BE1A0E /* MMTDetailedMapsTests.swift */; };
 		8E79D52B1D4E806E00BE1A0E /* MMTDetailedMapsListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E79D52A1D4E806E00BE1A0E /* MMTDetailedMapsListController.swift */; };
 		8E880AC01DF220D1004D8A9E /* MMTDetailedMapPreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E880ABF1DF220D1004D8A9E /* MMTDetailedMapPreviewController.swift */; };
-		8E880AC11DF362CC004D8A9E /* Toruń.gpx in Resources */ = {isa = PBXBuildFile; fileRef = F9EE114C1C6DBB9C003AF8BD /* Toruń.gpx */; };
 		8EE580B01C0118A0000B36BB /* MMTMeteorogramPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EE580AF1C0118A0000B36BB /* MMTMeteorogramPreview.swift */; };
 		A8736ED2857D736E552A5A9A /* libPods-MobileMeteo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC5DA4C9BB5FED94C3F36386 /* libPods-MobileMeteo.a */; };
 		BE37FF3BC88F74390EB45A09 /* libPods-MeteoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E3CE4A773356028F6D9B3B1 /* libPods-MeteoUITests.a */; };
@@ -148,6 +147,7 @@
 		1B1F8FA7201FC8CD004B1126 /* MMTDetailedMapShortcutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapShortcutTests.swift; sourceTree = "<group>"; };
 		1B1F8FA9201FCCFE004B1126 /* MMTMeteorogramShortcutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramShortcutTests.swift; sourceTree = "<group>"; };
 		1B1F8FAB201FD6A8004B1126 /* UIApplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationTests.swift; sourceTree = "<group>"; };
+		1B2B2DC2204E03B500B7C9B0 /* Toruń.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Toruń.gpx"; sourceTree = "<group>"; };
 		1B2B4F732045F7B3004FBBB5 /* MMTActivityIndicating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTActivityIndicating.swift; sourceTree = "<group>"; };
 		1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecasterCommentTests.swift; sourceTree = "<group>"; };
 		1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTShortcutsMigratorTests.swift; sourceTree = "<group>"; };
@@ -231,7 +231,6 @@
 		F9E6969D1AFCD04500273DA3 /* MobileMeteo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MobileMeteo-Prefix.pch"; sourceTree = "<group>"; };
 		F9E696A31AFCE70700273DA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		F9ED9FF91E07527B00190F59 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
-		F9EE114C1C6DBB9C003AF8BD /* Toruń.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Toruń.gpx"; sourceTree = "<group>"; };
 		F9EE114D1C6DBBF7003AF8BD /* Iława.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Iława.gpx"; sourceTree = "<group>"; };
 		F9EE114E1C6DBC0B003AF8BD /* Bydgoszcz.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Bydgoszcz.gpx; sourceTree = "<group>"; };
 		F9F240BC1C5237D00030E440 /* MMTAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTAnalytics.swift; sourceTree = "<group>"; };
@@ -573,9 +572,9 @@
 		F9EE114F1C6DBC1F003AF8BD /* SimulaterdLocations */ = {
 			isa = PBXGroup;
 			children = (
-				F9EE114C1C6DBB9C003AF8BD /* Toruń.gpx */,
 				F9EE114D1C6DBBF7003AF8BD /* Iława.gpx */,
 				F9EE114E1C6DBC0B003AF8BD /* Bydgoszcz.gpx */,
+				1B2B2DC2204E03B500B7C9B0 /* Toruń.gpx */,
 			);
 			name = SimulaterdLocations;
 			sourceTree = "<group>";
@@ -747,7 +746,6 @@
 				1B68CD382045B89F00AB8046 /* MMTActivityIndicator.xib in Resources */,
 				F91A6F541C86F6F200BDDE28 /* Localizable.strings in Resources */,
 				F9E696761AFCC06600273DA3 /* Main.storyboard in Resources */,
-				8E880AC11DF362CC004D8A9E /* Toruń.gpx in Resources */,
 				F9E6967B1AFCC06600273DA3 /* LaunchScreen.xib in Resources */,
 				F930044F1E11D41D00A5CE10 /* MMTCitiesListSectionHeader.xib in Resources */,
 				F9E696781AFCC06600273DA3 /* Images.xcassets in Resources */,
