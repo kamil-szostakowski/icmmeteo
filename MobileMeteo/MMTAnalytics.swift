@@ -14,6 +14,7 @@ enum MMTAnalyticsCategory: String
     case Meteorogram
     case DetailedMaps
     case Shortcut
+    case ForecasterComment
 }
 
 enum MMTAnalyticsAction: String
