@@ -31,12 +31,13 @@ extension MMTShortcut
             return
         }
         
+        tabbar.selectedIndex = index
+        
         guard target.presentedViewController == nil else {
             target.dismiss(animated: false, completion: completion)
             return
         }
         
-        tabbar.selectedIndex = index
         completion()
     }
 }

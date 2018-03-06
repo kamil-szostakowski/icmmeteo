@@ -30,6 +30,7 @@ class MMTForecasterCommentController: UIViewController, MMTActivityIndicating
         super.viewWillAppear(animated)
         setupNotificationHandler()
         updateTextViewContentIfNeeded()
+        analytics?.sendScreenEntryReport(MMTAnalyticsCategory.ForecasterComment.rawValue)
     }
     
     override func viewWillDisappear(_ animated: Bool)
