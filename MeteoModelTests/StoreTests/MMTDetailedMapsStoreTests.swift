@@ -12,11 +12,11 @@ import XCTest
 class MMTDetailedMapsStoreTests: XCTestCase
 {
     // MARK: Fetching detailed maps meteorograms tests
-
     func testFetchOfSupportedDetailedMapMeteorogram()
     {
+        let cache = NSCache<NSString, UIImage>()
         let session = MMTMockMeteorogramUrlSession(UIImage(), nil)
-        let store = MMTDetailedMapsStore(model: MMTUmClimateModel(), date: Date(), session: session)
+        let store = MMTDetailedMapsStore(model: MMTUmClimateModel(), date: Date(), session: session, cache: cache)
 
         store.getMeteorogram(for: .Fog, moment: Date()){
             (image: UIImage?, error: MMTError?) -> Void in
@@ -28,8 +28,9 @@ class MMTDetailedMapsStoreTests: XCTestCase
 
     func testFetchOfUnsupportedDetailedMapMeteorogram()
     {
+        let cache = NSCache<NSString, UIImage>()
         let session = MMTMockMeteorogramUrlSession(UIImage(), nil)
-        let store = MMTDetailedMapsStore(model: MMTWamClimateModel(), date: Date(), session: session)
+        let store = MMTDetailedMapsStore(model: MMTWamClimateModel(), date: Date(), session: session, cache: cache)
 
         store.getMeteorogram(for: .Fog, moment: Date()){
             (image: UIImage?, error: MMTError?) -> Void in
@@ -41,10 +42,11 @@ class MMTDetailedMapsStoreTests: XCTestCase
 
     func testBulkFetchOfSupportedDetailedMapMeteorogram()
     {
-        let model = MMTUmClimateModel()
         let now = Date()
+        let model = MMTUmClimateModel()
+        let cache = NSCache<NSString, UIImage>()
         let session = MMTMockMeteorogramUrlSession(UIImage(), nil)
-        let store = MMTDetailedMapsStore(model: model, date: model.startDate(for: now), session: session)
+        let store = MMTDetailedMapsStore(model: model, date: model.startDate(for: now), session: session, cache: cache)
 
         let finishExpectation = self.expectation(description: "Fetch finish expectation")
         
@@ -224,9 +226,28 @@ class MMTDetailedMapsStoreTests: XCTestCase
             XCTAssertEqual(TT.getDate(2015, 7, 11, 12), moments[27])
         }
     }
+    
+    func testHoursFromForecastStartAt12am()
+    {
+        let model = MMTWamClimateModel()
+        let date = TT.utcFormatter.date(from: "2015-03-12T15:31")!
+        let startDate = model.startDate(for: TT.localFormatter.date(from: "2015-03-12T01:34")!)
+        let store = MMTDetailedMapsStore(model: MMTWamClimateModel(), date: startDate)
+        
+        XCTAssertEqual(27, store.getHoursFromForecastStartDate(forDate: date))
+    }
+    
+    func testHoursFromForecastStartAtMidnight()
+    {
+        let model = MMTWamClimateModel()
+        let date = TT.utcFormatter.date(from: "2015-03-12T15:31")!
+        let startDate = model.startDate(for: TT.localFormatter.date(from: "2015-03-12T09:34")!)
+        let store = MMTDetailedMapsStore(model: MMTWamClimateModel(), date: startDate)
+        
+        XCTAssertEqual(15, store.getHoursFromForecastStartDate(forDate: date))
+    }
 
     // MARK: Helpers
-
     class MMTMockMeteorogramUrlSession: MMTMeteorogramUrlSession
     {
         let image: UIImage?

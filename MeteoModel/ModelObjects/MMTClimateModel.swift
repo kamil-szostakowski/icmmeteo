@@ -42,14 +42,14 @@ public protocol MMTClimateModel
 }
 
 extension MMTClimateModel
-{    
+{
     public func detailedMap(ofType type: MMTDetailedMapType) -> MMTDetailedMap?
     {
         return detailedMaps.first { $0.type == type }
     }
 }
 
-public class MMTUmClimateModel: MMTClimateModel
+public struct MMTUmClimateModel: MMTClimateModel
 {
     public let type = MMTClimateModelType.UM
     public let forecastLength = 60
@@ -59,14 +59,14 @@ public class MMTUmClimateModel: MMTClimateModel
     public let detailedMapStartDelay = TimeInterval(hours: 1)
     public let detailedMapMomentsCount = 20
     
-    public init() {}
-    
     public var detailedMaps: [MMTDetailedMap] { return [
         (.MeanSeaLevelPressure, 0), (.TemperatureAndStreamLine, 0), (.TemperatureOfSurface, 0), (.Precipitation, 1),
         (.Storm, 1), (.Wind, 0), (.MaximumGust, 1), (.Visibility, 0), (.Fog, 0), (.RelativeHumidityAboveIce, 0),
         (.RelativeHumidityAboveWater, 0), (.VeryLowClouds, 0), (.LowClouds, 0), (.MediumClouds, 0), (.HighClouds, 0),
         (.TotalCloudiness, 0),
     ]}
+    
+    public init() {}
     
     public func startDate(for date: Date) -> Date
     {
@@ -80,7 +80,7 @@ public class MMTUmClimateModel: MMTClimateModel
     }
 }
 
-public class MMTCoampsClimateModel: MMTClimateModel
+public struct MMTCoampsClimateModel: MMTClimateModel
 {
     public let type = MMTClimateModelType.COAMPS
     public let forecastLength = 84
@@ -90,12 +90,12 @@ public class MMTCoampsClimateModel: MMTClimateModel
     public let detailedMapStartDelay = TimeInterval(hours: 0)
     public let detailedMapMomentsCount = 28
     
-    public init() {}
-    
     public var detailedMaps: [MMTDetailedMap] { return [
         (.MeanSeaLevelPressure, 0), (.TemperatureAndStreamLine, 0), (.TemperatureOfSurface, 0), (.Precipitation, 1), (.Wind, 0),
         (.Visibility, 1), (.RelativeHumidity, 0), (.LowClouds, 1), (.MediumClouds, 1), (.HighClouds, 1), (.TotalCloudiness, 1)
     ]}
+    
+    public init() {}
     
     public func startDate(for date: Date) -> Date
     {
@@ -109,7 +109,7 @@ public class MMTCoampsClimateModel: MMTClimateModel
     }
 }
 
-public class MMTWamClimateModel: MMTClimateModel
+public struct MMTWamClimateModel: MMTClimateModel
 {
     public let type = MMTClimateModelType.WAM
     public let forecastLength = 84
@@ -122,9 +122,9 @@ public class MMTWamClimateModel: MMTClimateModel
     public var detailedMaps: [MMTDetailedMap] { return [
         (.TideHeight, 1), (.AverageTidePeriod, 1), (.SpectrumPeakPeriod, 1)
     ]}
-    
-    public init() {}
 
+    public init() {}
+    
     public func startDate(for date: Date) -> Date
     {
         let dateWithOffset = date.addingTimeInterval(-availabilityDelay)

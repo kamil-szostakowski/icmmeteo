@@ -135,7 +135,7 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate, M
     
     private func fetchForecastStartDate()
     {
-        meteorogramStore.getForecastStartDate {(_ date: Date?, _ error: MMTError?) in
+        MMTForecastStore(model :meteorogramStore.climateModel).startDate {(_ date: Date?, _ error: MMTError?) in
             guard let startDate = date else {
                 self.displayErrorAlert(.meteorogramFetchFailure)
                 return

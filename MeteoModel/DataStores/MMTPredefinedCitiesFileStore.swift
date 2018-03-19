@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-public class MMTPredefinedCitiesFileStore
+public struct MMTPredefinedCitiesFileStore
 {
     // MARK: Properties
     private typealias MMTCitiesArray = [[String: AnyObject]]

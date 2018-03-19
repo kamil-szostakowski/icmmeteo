@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MMTForecasterCommentStore
+public struct MMTForecasterCommentStore
 {
     // MARK: Initializers
     public init() {}

@@ -9,8 +9,32 @@
 import UIKit
 import Foundation
 
-public class MMTDetailedMapsStore: MMTForecastStore
+public struct MMTDetailedMapsStore
 {
+    // MARK: Properties
+    private var cache: MMTImagesCache
+    private let urlSession: MMTMeteorogramUrlSession
+    private let forecastStartDate: Date
+    public let climateModel: MMTClimateModel
+
+    
+    // MARK: Initializers
+    public init(model: MMTClimateModel, date: Date, session: MMTMeteorogramUrlSession, cache: MMTImagesCache)
+    {
+        self.cache = cache
+        self.urlSession = session
+        self.climateModel = model
+        self.forecastStartDate = date
+    }
+    
+    public init(model: MMTClimateModel, date: Date)
+    {
+        let url = try? URL.mmt_meteorogramDownloadBaseUrl(for: model.type)
+        let session = MMTMeteorogramUrlSession(redirectionBaseUrl: url, timeout: 60)
+        
+        self.init(model: model, date: date, session: session, cache: MMTCoreData.instance.meteorogramsCache)
+    }
+    
     // MARK: Methods
     public func getForecastMoments(for map: MMTDetailedMap) -> [Date]
     {
@@ -62,5 +86,10 @@ public class MMTDetailedMapsStore: MMTForecastStore
         group.notify(queue: queue) {
             DispatchQueue.main.async { completion(nil, nil, nil, true) }
         }
-    }    
+    }
+    
+    func getHoursFromForecastStartDate(forDate endDate: Date) -> Int
+    {
+        return Int(endDate.timeIntervalSince(forecastStartDate)/3600)
+    }
 }

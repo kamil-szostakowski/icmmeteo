@@ -12,19 +12,24 @@ import CoreLocation
 
 public typealias MMTImagesCache = NSCache<NSString, UIImage>
 
-public class MMTMeteorogramStore: MMTForecastStore
+public struct MMTMeteorogramStore
 {
     // MARK: Properties
     private var cache: MMTImagesCache
+    private let urlSession: MMTMeteorogramUrlSession
+    private let forecastStartDate: Date
+    public let climateModel: MMTClimateModel
     
     // MARK: Initializers
     public init(model: MMTClimateModel, date: Date, session: MMTMeteorogramUrlSession, cache: MMTImagesCache)
     {
         self.cache = cache
-        super.init(model: model, date: date, session: session)
+        self.urlSession = session
+        self.climateModel = model
+        self.forecastStartDate = date
     }
     
-    public convenience init(model: MMTClimateModel, date: Date, cache: MMTImagesCache)
+    public init(model: MMTClimateModel, date: Date, cache: MMTImagesCache)
     {
         let url = try? URL.mmt_meteorogramDownloadBaseUrl(for: model.type)
         let session = MMTMeteorogramUrlSession(redirectionBaseUrl: url, timeout: 60)
