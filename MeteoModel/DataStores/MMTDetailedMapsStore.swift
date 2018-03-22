@@ -51,7 +51,7 @@ public struct MMTDetailedMapsStore
         return Array(moments[map.momentsOffset..<moments.count])
     }
 
-    public func getMeteorogram(for map: MMTDetailedMapType, moment: Date, completion: @escaping MMTFetchMeteorogramCompletion)
+    func getMeteorogram(for map: MMTDetailedMapType, moment: Date, completion: @escaping MMTFetchMeteorogramCompletion)
     {
         let tZeroPlus = getHoursFromForecastStartDate(forDate: moment)
         

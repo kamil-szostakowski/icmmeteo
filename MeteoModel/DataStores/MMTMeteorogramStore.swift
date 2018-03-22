@@ -1,82 +1,116 @@
 //
-//  MMTUmMeteorogramStore.swift
-//  MobileMeteo
+//  MMTMeteorogramStore.swift
+//  MeteoModel
 //
-//  Created by Kamil Szostakowski on 19.08.2015.
-//  Copyright (c) 2015 Kamil Szostakowski. All rights reserved.
+//  Created by szostakowskik on 22.03.2018.
+//  Copyright © 2018 Kamil Szostakowski. All rights reserved.
 //
 
 import UIKit
-import Foundation
-import CoreLocation
 
 public typealias MMTImagesCache = NSCache<NSString, UIImage>
 
 public struct MMTMeteorogramStore
 {
     // MARK: Properties
-    private var cache: MMTImagesCache
-    private let urlSession: MMTMeteorogramUrlSession
-    private let forecastStartDate: Date
-    public let climateModel: MMTClimateModel
+    private let forecastStore: MMTForecastStore
+    private let meteorogramImageStore: MMTMeteorogramImageStore
+    private let cache: MMTImagesCache
+    
+    public var climateModel: MMTClimateModel {
+        return meteorogramImageStore.climateModel
+    }
     
     // MARK: Initializers
-    public init(model: MMTClimateModel, date: Date, session: MMTMeteorogramUrlSession, cache: MMTImagesCache)
+    init(_ forecast: MMTForecastStore, _ images: MMTMeteorogramImageStore, _ cache: MMTImagesCache)
     {
+        self.forecastStore = forecast
+        self.meteorogramImageStore = images
         self.cache = cache
-        self.urlSession = session
-        self.climateModel = model
-        self.forecastStartDate = date
     }
     
-    public init(model: MMTClimateModel, date: Date, cache: MMTImagesCache)
+    // MARK: Interface methods
+    public func meteorogram(for city: MMTCityProt, completion: @escaping (MMTMeteorogram?, MMTError?) -> Void)
     {
-        let url = try? URL.mmt_meteorogramDownloadBaseUrl(for: model.type)
-        let session = MMTMeteorogramUrlSession(redirectionBaseUrl: url, timeout: 60)
+        let queue = DispatchQueue.global()
+        let group = DispatchGroup()
+        let climateModel = meteorogramImageStore.climateModel
         
-        self.init(model: model, date: date, session: session, cache: cache)
-    }
-    
-    // MARK: Methods
-    public func getMeteorogram(for city: MMTCityProt, completion: @escaping MMTFetchMeteorogramCompletion)
-    {
-        let url = try! URL.mmt_meteorogramSearchUrl(for: climateModel.type, location: city.location)
-        let cacheKey = "\(climateModel.type.rawValue)-\(city.name)-\(forecastStartDate)" as NSString
+        var data: (met: UIImage?, leg: UIImage?, date: Date?, err: MMTError?)
         
-        if let cachedImage = cache.object(forKey: cacheKey) {
-            completion(cachedImage, nil)
-            return
+        queue.async(group: group) {
+            group.enter()
+            self.forecastStore.startDate { (date: Date?, error: MMTError?) in
+                data.date = date ?? climateModel.startDate(for: Date())
+                group.leave()
+            }
         }
         
-        urlSession.fetchMeteorogramImageForUrl(url) {
-            (image: UIImage?, error: MMTError?) in
+        queue.async(group: group) {
             
-            if error == nil {
-                self.cache.setObject(image!, forKey: cacheKey)
+            let key = "\(climateModel.type.rawValue)-legend" as NSString
+            
+            if let cachedImage = self.cache.object(forKey: key) {
+                data.leg = cachedImage
+                return
             }
             
-            completion(image, error)
+            group.enter()
+            self.meteorogramImageStore.getLegend { (image: UIImage?, error: MMTError?) in
+                data.leg = image
+                
+                if error == nil {
+                    self.cache.setObject(image!, forKey: key)
+                }
+                
+                group.leave()
+            }
+        }
+        
+        queue.async(group: group) {
+            
+            let forecastStartDate = climateModel.startDate(for: Date())
+            let key = "\(climateModel.type.rawValue)-\(city.name)-\(forecastStartDate)" as NSString
+            
+            if let cachedImage = self.cache.object(forKey: key) {
+                data.met = cachedImage
+                return
+            }
+
+            group.enter()
+            self.meteorogramImageStore.getMeteorogram(for: city) { (image: UIImage?, error: MMTError?) in
+                data.met = image
+                data.err = error
+                
+                if error == nil {
+                    self.cache.setObject(image!, forKey: key)
+                }
+                
+                group.leave()
+            }
+        }
+        
+        group.notify(queue: queue) {
+            guard let meteorogram = MMTMeteorogram(model: climateModel, data: data) else {
+                DispatchQueue.main.async { completion(nil, .meteorogramFetchFailure) }
+                return
+            }
+            DispatchQueue.main.async { completion(meteorogram, nil) }
         }
     }
-    
-    public func getLegend(_ completion: @escaping MMTFetchMeteorogramCompletion)
+}
+
+extension MMTMeteorogram
+{
+    init?(model: MMTClimateModel, data: (met: UIImage?, leg: UIImage?, date: Date?, err: MMTError?))
     {
-        let url = try! URL.mmt_meteorogramLegendUrl(for: climateModel.type)
-        let cacheKey = "\(climateModel.type.rawValue)-legend" as NSString
-        
-        if let cachedImage = cache.object(forKey: cacheKey) {
-            completion(cachedImage, nil)
-            return
+        guard let date = data.date, let meteorogram = data.met else {
+            return nil
         }
         
-        urlSession.fetchImageFromUrl(url) {
-            (image: UIImage?, error: MMTError?) in
-            
-            if error == nil {
-                self.cache.setObject(image!, forKey: cacheKey)
-            }
-            
-            completion(image, error)
-        }
+        self.image = meteorogram
+        self.legend = data.leg
+        self.startDate = date
+        self.model = model
     }
 }

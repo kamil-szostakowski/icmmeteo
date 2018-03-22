@@ -10,8 +10,8 @@ import UIKit
 
 public struct MMTMeteorogram
 {
-    let model: MMTClimateModel
-    let image: UIImage
-    let legend: UIImage?
-    let startDate: Date
+    public let model: MMTClimateModel
+    public let image: UIImage
+    public let legend: UIImage?
+    public let startDate: Date    
 }

@@ -20,14 +20,6 @@ public struct MMTForecastStore
         climateModel = model
         urlSession = session
     }
-
-    public init(model: MMTClimateModel)
-    {
-        let url = try? URL.mmt_meteorogramDownloadBaseUrl(for: model.type)
-        let session = MMTMeteorogramUrlSession(redirectionBaseUrl: url, timeout: 60)
-
-        self.init(model: model, session: session)
-    }
     
     // MARK: Methods
     public func startDate(_ completion: @escaping MMTFetchForecastStartDateCompletion)
