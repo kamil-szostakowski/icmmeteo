@@ -61,7 +61,7 @@ public struct MMTDetailedMapsStore
             return
         }
 
-        urlSession.fetchImageFromUrl(downloadUrl, completion: completion)
+        urlSession.image(from: downloadUrl, completion: completion)
     }
 
     public func getMeteorograms(for moments: [Date], map: MMTDetailedMapType, completion: @escaping MMTFetchMeteorogramsCompletion)

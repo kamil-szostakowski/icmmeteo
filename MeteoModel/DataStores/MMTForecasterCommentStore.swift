@@ -19,7 +19,7 @@ public struct MMTForecasterCommentStore
         let baseUrl = try? URL.mmt_meteorogramDownloadBaseUrl(for: .UM)
         let session = MMTMeteorogramUrlSession(redirectionBaseUrl: baseUrl)
         
-        session.fetchHTMLContent(from: URL.mmt_forecasterCommentUrl(), encoding: .isoLatin2) {
+        session.html(from: URL.mmt_forecasterCommentUrl(), encoding: .isoLatin2) {
             (html: String?, error: MMTError?) in
             
             guard let htmlString = html, error == nil else {

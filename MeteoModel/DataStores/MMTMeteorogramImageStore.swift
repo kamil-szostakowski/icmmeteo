@@ -27,11 +27,11 @@ struct MMTMeteorogramImageStore
     func getMeteorogram(for city: MMTCityProt, completion: @escaping MMTFetchMeteorogramCompletion)
     {
         let url = try! URL.mmt_meteorogramSearchUrl(for: climateModel.type, location: city.location)
-        urlSession.fetchMeteorogramImageForUrl(url, completion: completion)    }
+        urlSession.meteorogramImage(from: url, completion: completion)    }
     
     func getLegend(_ completion: @escaping MMTFetchMeteorogramCompletion)
     {
         let url = try! URL.mmt_meteorogramLegendUrl(for: climateModel.type)
-        urlSession.fetchImageFromUrl(url, completion: completion)
+        urlSession.image(from: url, completion: completion)
     }
 }

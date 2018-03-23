@@ -34,7 +34,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
         let html = "<html><head></head><body>Lorem ipsum</body></html>"
         let session = MMTMockMeteorogramUrlSession(html.data(using: .windowsCP1250), nil, nil)
         
-        session.fetchHTMLContent(from: url, encoding: .utf8) { (htmlResult, error) in
+        session.html(from: url, encoding: .utf8) { (htmlResult, error) in
             XCTAssertEqual(html, htmlResult)
             XCTAssertNil(error)
         }
@@ -44,7 +44,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
     {
         let session = MMTMockMeteorogramUrlSession(nil, nil, NSError())
         
-        session.fetchHTMLContent(from: url, encoding: .utf8) { (html, error) in
+        session.html(from: url, encoding: .utf8) { (html, error) in
             XCTAssertEqual(error, MMTError.htmlFetchFailure)
             XCTAssertNil(html)
         }
@@ -54,7 +54,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
     {
         let session = MMTMockMeteorogramUrlSession(nil, nil, nil)
         
-        session.fetchHTMLContent(from: url, encoding: .utf8) { (html, error) in
+        session.html(from: url, encoding: .utf8) { (html, error) in
             XCTAssertEqual(error, MMTError.htmlFetchFailure)
             XCTAssertNil(html)
         }
@@ -66,7 +66,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
         let image = UIImagePNGRepresentation(.from(color: .blue))
         let sesstion = MMTMockMeteorogramUrlSession(image, nil, nil)
 
-        sesstion.fetchImageFromUrl(url) {
+        sesstion.image(from: url) {
             (image: UIImage?, error: MMTError?) -> Void in
 
             XCTAssertNotNil(image)
@@ -78,7 +78,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
     {
         let sesstion = MMTMockMeteorogramUrlSession(nil, nil, NSError())
 
-        sesstion.fetchImageFromUrl(url) {
+        sesstion.image(from: url) {
             (image: UIImage?, error: MMTError?) -> Void in
 
             XCTAssertEqual(error, MMTError.meteorogramFetchFailure)
@@ -90,7 +90,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
     {
         let sesstion = MMTMockMeteorogramUrlSession(Data(), nil, nil)
 
-        sesstion.fetchImageFromUrl(url) {
+        sesstion.image(from: url) {
             (image: UIImage?, error: MMTError?) -> Void in
 
             XCTAssertEqual(error, MMTError.meteorogramFetchFailure)
@@ -104,7 +104,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
         let image = UIImagePNGRepresentation(.from(color: .red))
         let sesstion = MMTMockMeteorogramUrlSession(image, nil, nil)
 
-        sesstion.fetchMeteorogramImageForUrl(url) {
+        sesstion.meteorogramImage(from: url) {
             (image: UIImage?, error: MMTError?) -> Void in
 
             XCTAssertNotNil(image)
@@ -116,7 +116,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
     {
         let sesstion = MMTMockMeteorogramUrlSession(Data(), nil, nil)
 
-        sesstion.fetchMeteorogramImageForUrl(url) {
+        sesstion.meteorogramImage(from: url) {
             (image: UIImage?, error: MMTError?) -> Void in
 
             XCTAssertEqual(error, MMTError.meteorogramFetchFailure)
@@ -128,7 +128,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
     {
         let sesstion = MMTMockMeteorogramUrlSession(nil, nil, NSError())
 
-        sesstion.fetchMeteorogramImageForUrl(url) {
+        sesstion.meteorogramImage(from: url) {
             (image: UIImage?, error: MMTError?) -> Void in
 
             XCTAssertEqual(error, MMTError.meteorogramFetchFailure)
@@ -141,7 +141,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
         let response = URLResponse(url: url, mimeType: nil, expectedContentLength: 0, textEncodingName: nil)
         let sesstion = MMTMockMeteorogramUrlSession(nil, response, nil)
 
-        sesstion.fetchMeteorogramImageForUrl(url) {
+        sesstion.meteorogramImage(from: url) {
             (image: UIImage?, error: MMTError?) -> Void in
 
             XCTAssertEqual(error, MMTError.meteorogramFetchFailure)

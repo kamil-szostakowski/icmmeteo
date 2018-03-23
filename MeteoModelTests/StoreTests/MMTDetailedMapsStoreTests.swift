@@ -261,8 +261,7 @@ class MMTDetailedMapsStoreTests: XCTestCase
             super.init(redirectionBaseUrl: nil, timeout: 0)
         }
 
-        override func fetchImageFromUrl(_ url: URL, completion: @escaping MMTFetchMeteorogramCompletion)
-        {
+        override func image(from url: URL, completion: @escaping MMTFetchMeteorogramCompletion) {
             completion(image, error)
         }
     }

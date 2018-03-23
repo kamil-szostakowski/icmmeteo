@@ -25,7 +25,7 @@ class MMTMockMeteorogramUrlSession: MMTMeteorogramUrlSession
         super.init(redirectionBaseUrl: URL(string: "http://example.com")!, timeout: 60)
     }
     
-    override func runTaskWithUrl(_ url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
+    override func runTask(with url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
     {
         completion(mockData, mockResponse, mockError)
     }

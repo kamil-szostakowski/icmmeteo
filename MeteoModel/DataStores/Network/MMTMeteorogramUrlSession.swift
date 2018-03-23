@@ -42,9 +42,9 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
     }
     
     // MARK: Interface methods
-    func fetchImageFromUrl(_ url: URL, completion: @escaping MMTFetchMeteorogramCompletion)
+    func image(from url: URL, completion: @escaping MMTFetchMeteorogramCompletion)
     {
-        runTaskWithUrl(url) {
+        runTask(with: url) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
 
             guard error == nil else {
@@ -61,9 +61,9 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
         }
     }
     
-    func fetchMeteorogramImageForUrl(_ searchUrl: URL, completion: @escaping MMTFetchMeteorogramCompletion)
+    func meteorogramImage(from searchUrl: URL, completion: @escaping MMTFetchMeteorogramCompletion)
     {
-        runTaskWithUrl(searchUrl) {
+        runTask(with: searchUrl) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
 
             guard error == nil else {
@@ -85,12 +85,12 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
         }
     }
     
-    func fetchHTMLContent(from url: URL, encoding: String.Encoding, completion: @escaping MMTFetchHTMLCompletion)
+    func html(from url: URL, encoding: String.Encoding, completion: @escaping MMTFetchHTMLCompletion)
     {
-        runTaskWithUrl(url) {
+        runTask(with: url) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
             
-            guard let htmlString = self.htmlStringFromResponseData(data, encoding: encoding), error == nil else {
+            guard let htmlString = self.html(response: data, encoding: encoding), error == nil else {
                 completion(nil, .htmlFetchFailure)
                 return
             }
@@ -105,13 +105,13 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
         var req: URLRequest?
         
         defer { completionHandler(req) }
-        guard let requestUrl = request.url else { task.cancel(); return }
-        guard let destinationUrl = meteorogramDownloadFromRedirectionUrl(requestUrl) else { task.cancel(); return }
+        guard let redirectionUrl = request.url else { task.cancel(); return }
+        guard let destinationUrl = meteorogramDownloadUrl(from: redirectionUrl) else { task.cancel(); return }
     
         req = URLRequest(url: destinationUrl)
     }
     
-    private func meteorogramDownloadFromRedirectionUrl(_ redirectionUrl: URL) -> URL?
+    private func meteorogramDownloadUrl(from redirectionUrl: URL) -> URL?
     {
         let urlComponents = redirectionUrl.absoluteString.components(separatedBy: "?")
 
@@ -123,7 +123,7 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
     }
     
     // MARK: Helper methods
-    func runTaskWithUrl(_ url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
+    func runTask(with url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> Void)
     {
         let task = urlSession.dataTask(with: url) { (data, response, err) in            
             var error = err
@@ -140,7 +140,7 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
         task.resume()
     }
     
-    private func htmlStringFromResponseData(_ data: Data?, encoding: String.Encoding) -> String?
+    private func html(response data: Data?, encoding: String.Encoding) -> String?
     {
         guard let htmlData = data else { return nil }
         guard let htmlString = String(data: htmlData, encoding: encoding) else { return nil }

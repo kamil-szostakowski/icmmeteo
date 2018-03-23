@@ -24,7 +24,7 @@ public struct MMTForecastStore
     // MARK: Methods
     public func startDate(_ completion: @escaping MMTFetchForecastStartDateCompletion)
     {
-        urlSession.fetchHTMLContent(from: try! URL.mmt_forecastStartUrl(for: climateModel.type), encoding: .windowsCP1250) {
+        urlSession.html(from: try! URL.mmt_forecastStartUrl(for: climateModel.type), encoding: .windowsCP1250) {
             (html: String?, error: MMTError?) in
             
             let reportError = {
