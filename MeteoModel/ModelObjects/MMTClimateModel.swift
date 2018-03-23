@@ -59,11 +59,7 @@ public struct MMTUmClimateModel: MMTClimateModel
     public let detailedMapStartDelay = TimeInterval(hours: 1)
     public let detailedMapMomentsCount = 20
     
-    public var detailedMaps: [MMTDetailedMap] { return [
-        (.MeanSeaLevelPressure, 0), (.TemperatureAndStreamLine, 0), (.TemperatureOfSurface, 0), (.Precipitation, 1),
-        (.Storm, 1), (.Wind, 0), (.MaximumGust, 1), (.Visibility, 0), (.Fog, 0), (.RelativeHumidityAboveIce, 0),
-        (.RelativeHumidityAboveWater, 0), (.VeryLowClouds, 0), (.LowClouds, 0), (.MediumClouds, 0), (.HighClouds, 0),
-        (.TotalCloudiness, 0),
+    public var detailedMaps: [MMTDetailedMap] { return [ MMTDetailedMap(self, .MeanSeaLevelPressure, 0), MMTDetailedMap(self, .TemperatureAndStreamLine, 0), MMTDetailedMap(self, .TemperatureOfSurface, 0), MMTDetailedMap(self, .Precipitation, 1), MMTDetailedMap(self, .Storm, 1), MMTDetailedMap(self, .Wind, 0), MMTDetailedMap(self, .MaximumGust, 1), MMTDetailedMap(self, .Visibility, 0), MMTDetailedMap(self, .Fog, 0), MMTDetailedMap(self, .RelativeHumidityAboveIce, 0), MMTDetailedMap(self, .RelativeHumidityAboveWater, 0), MMTDetailedMap(self, .VeryLowClouds, 0), MMTDetailedMap(self, .LowClouds, 0), MMTDetailedMap(self, .MediumClouds, 0), MMTDetailedMap(self, .HighClouds, 0), MMTDetailedMap(self, .TotalCloudiness, 0),
     ]}
     
     public init() {}
@@ -90,9 +86,7 @@ public struct MMTCoampsClimateModel: MMTClimateModel
     public let detailedMapStartDelay = TimeInterval(hours: 0)
     public let detailedMapMomentsCount = 28
     
-    public var detailedMaps: [MMTDetailedMap] { return [
-        (.MeanSeaLevelPressure, 0), (.TemperatureAndStreamLine, 0), (.TemperatureOfSurface, 0), (.Precipitation, 1), (.Wind, 0),
-        (.Visibility, 1), (.RelativeHumidity, 0), (.LowClouds, 1), (.MediumClouds, 1), (.HighClouds, 1), (.TotalCloudiness, 1)
+    public var detailedMaps: [MMTDetailedMap] { return [MMTDetailedMap(self, .MeanSeaLevelPressure, 0), MMTDetailedMap(self, .TemperatureAndStreamLine, 0), MMTDetailedMap(self, .TemperatureOfSurface, 0), MMTDetailedMap(self, .Precipitation, 1), MMTDetailedMap(self, .Wind, 0), MMTDetailedMap(self, .Visibility, 1), MMTDetailedMap(self, .RelativeHumidity, 0), MMTDetailedMap(self, .LowClouds, 1), MMTDetailedMap(self, .MediumClouds, 1), MMTDetailedMap(self, .HighClouds, 1), MMTDetailedMap(self, .TotalCloudiness, 1)
     ]}
     
     public init() {}
@@ -119,8 +113,7 @@ public struct MMTWamClimateModel: MMTClimateModel
     public let detailedMapStartDelay = TimeInterval(hours: 0)
     public let detailedMapMomentsCount = 28
 
-    public var detailedMaps: [MMTDetailedMap] { return [
-        (.TideHeight, 1), (.AverageTidePeriod, 1), (.SpectrumPeakPeriod, 1)
+    public var detailedMaps: [MMTDetailedMap] { return [ MMTDetailedMap(self, .TideHeight, 1), MMTDetailedMap(self, .AverageTidePeriod, 1), MMTDetailedMap(self, .SpectrumPeakPeriod, 1)
     ]}
 
     public init() {}

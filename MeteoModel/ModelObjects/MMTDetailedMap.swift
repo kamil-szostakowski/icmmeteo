@@ -32,4 +32,30 @@ public enum MMTDetailedMapType: String
     case SpectrumPeakPeriod
 }
 
-public typealias MMTDetailedMap = (type: MMTDetailedMapType, momentsOffset: Int)
+public struct MMTDetailedMap
+{
+    public let climateModel: MMTClimateModel
+    public let type: MMTDetailedMapType
+    public let momentsOffset: Int
+    
+    init(_ model: MMTClimateModel, _ type: MMTDetailedMapType, _ offset: Int)
+    {
+        self.climateModel = model
+        self.type = type
+        self.momentsOffset = offset
+    }
+    
+    func forecastMoments(for model: MMTClimateModel, forecastStart: Date) -> [Date]
+    {
+        var moments = [Date]()
+        
+        for index in 0...model.detailedMapMomentsCount {
+            let momentOffset = index == 0 ? model.detailedMapStartDelay : TimeInterval(hours: index*3)
+            let momentDate = forecastStart.addingTimeInterval(momentOffset)
+            
+            moments.append(momentDate)
+        }
+        
+        return Array(moments[momentsOffset..<moments.count])
+    }
+}

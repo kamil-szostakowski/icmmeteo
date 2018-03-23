@@ -34,4 +34,16 @@ struct MMTMeteorogramImageStore
         let url = try! URL.mmt_meteorogramLegendUrl(for: climateModel.type)
         urlSession.image(from: url, completion: completion)
     }
+    
+    func getMeteorogram(for map: MMTDetailedMap, moment: Date, startDate: Date, completion: @escaping MMTFetchMeteorogramCompletion)
+    {
+        let tZeroPlus = Int(moment.timeIntervalSince(startDate)/3600)
+        
+        guard let downloadUrl = try? URL.mmt_detailedMapDownloadUrl(for: map.climateModel.type, map: map.type, tZero: startDate, plus: tZeroPlus) else {
+            completion(nil, .detailedMapNotSupported)
+            return
+        }
+        
+        urlSession.image(from: downloadUrl, completion: completion)
+    }
 }

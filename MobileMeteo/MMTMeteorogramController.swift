@@ -127,7 +127,6 @@ extension MMTMeteorogramController
     
     fileprivate func setupInfoBar(date: Date?)
     {
-        // TODO: Refactor fetching of forecast start date
         let forecastStartDate = date ?? meteorogramStore.climateModel.startDate(for: Date())
         forecastStartLabel.text = MMTLocalizedStringWithFormat("forecast.start: %@", DateFormatter.utcFormatter.string(from: forecastStartDate))
     }

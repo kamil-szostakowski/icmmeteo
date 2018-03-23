@@ -929,7 +929,7 @@
                                                             <constraint firstAttribute="height" constant="1" id="2m6-aH-5Ty"/>
                                                         </constraints>
                                                     </view>
-                                                    <slider opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ml6-jq-dek">
+                                                    <slider opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="ml6-jq-dek">
                                                         <rect key="frame" x="6" y="8" width="363" height="31"/>
                                                         <accessibility key="accessibilityConfiguration" identifier="moment-slider"/>
                                                         <connections>
