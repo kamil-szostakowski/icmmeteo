@@ -17,9 +17,9 @@ public extension MMTCityGeocoder
     }
 }
 
-public extension MMTCitiesStore
+public extension MMTCoreDataCitiesStore
 {
-    public convenience init()
+    public init()
     {
         self.init(context: MMTCoreData.instance.context, geocoder: MMTCityGeocoder())
     }

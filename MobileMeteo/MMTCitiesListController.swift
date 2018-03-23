@@ -61,7 +61,7 @@ extension MMTCitiesListController
         
         searchInput = MMTSearchInput("")
         citiesIndex = MMTCitiesIndex()
-        citiesStore = MMTCitiesStore()
+        citiesStore = MMTCoreDataCitiesStore()
         
         setupTableView()
     }
@@ -137,7 +137,7 @@ extension MMTCitiesListController
     // MARK: Data update methods
     fileprivate func updateIndex(completion: MMTCompletion)
     {
-        citiesStore.getAllCities {
+        citiesStore.all {
             self.citiesIndex =  MMTCitiesIndex($0, currentCity: self.currentLocation)
             completion()
         }
@@ -145,7 +145,7 @@ extension MMTCitiesListController
     
     fileprivate func updateIndex(criteria: String, completion: @escaping MMTCompletion)
     {
-        citiesStore.findCitiesMatchingCriteria(criteria) {
+        citiesStore.cities(maching: criteria) {
             self.citiesIndex = MMTCitiesIndex(searchResult: $0)
             completion()
         }
@@ -157,7 +157,7 @@ extension MMTCitiesListController
             return
         }
         
-        citiesStore.findCityForLocation(location) { (city: MMTCityProt?, error: MMTError?) in
+        citiesStore.city(for: location) { (city: MMTCityProt?, error: MMTError?) in
             
             // Maybe we should update the current location if failed
             guard let currentCity = city, error == nil else { return }

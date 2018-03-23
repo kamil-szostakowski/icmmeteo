@@ -80,10 +80,10 @@ extension MMTAppDelegate
     // MARK: Setup methods
     private func setupDatabase()
     {
-        let coreDataStore = MMTCitiesStore()
+        let coreDataStore = MMTCoreDataCitiesStore()
         let filePath = Bundle.main.path(forResource: "Cities", ofType: "json")
         
-        MMTPredefinedCitiesFileStore().getPredefinedCitiesFromFile(filePath!).forEach {
+        MMTPredefinedCitiesFileStore().predefinedCities(from: filePath!).forEach {
             coreDataStore.save(city: $0)
         }
         

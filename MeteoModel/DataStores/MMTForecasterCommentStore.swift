@@ -14,7 +14,7 @@ public struct MMTForecasterCommentStore
     public init() {}
     
     // MARK: Interface methods
-    public func getForecasterComment(completion: @escaping MMTFetchCommentCompletion)
+    public func forecasterComment(completion: @escaping MMTFetchCommentCompletion)
     {
         let baseUrl = try? URL.mmt_meteorogramDownloadBaseUrl(for: .UM)
         let session = MMTMeteorogramUrlSession(redirectionBaseUrl: baseUrl)

@@ -10,11 +10,18 @@ import Foundation
 import CoreLocation
 import CoreData
 
-public typealias MMTCityQueryCompletion = (MMTCityProt?, MMTError?) -> Void
-public typealias MMTCitiesQueryCompletion = ([MMTCityProt]) -> Void
-public typealias MMTCurrentCityQueryCompletion = (MMTCityProt?) -> Void
+public protocol MMTCitiesStore
+{
+    func all(_ completion: ([MMTCityProt]) -> Void)
+    
+    func city(for location: CLLocation, completion: @escaping (MMTCityProt?, MMTError?) -> Void)
+    
+    func cities(maching criteria: String, completion: @escaping ([MMTCityProt]) -> Void)
+    
+    func save(city: MMTCityProt)
+}
 
-open class MMTCitiesStore
+public struct MMTCoreDataCitiesStore : MMTCitiesStore
 {
     // MARK: Properties
     private let context: NSManagedObjectContext
@@ -28,12 +35,12 @@ open class MMTCitiesStore
     }
     
     // MARK: Methods
-    open func getAllCities(_ completion: MMTCitiesQueryCompletion)
+    public func all(_ completion: ([MMTCityProt]) -> Void)
     {
         completion(context.fetch(request: .allCities()))
     }
     
-    public func findCityForLocation(_ location: CLLocation, completion: @escaping MMTCityQueryCompletion)
+    public func city(for location: CLLocation, completion: @escaping (MMTCityProt?, MMTError?) -> Void)
     {
         geocoder.city(for: location) { (geocodedCity, error) in
             
@@ -47,7 +54,7 @@ open class MMTCitiesStore
         }
     }
     
-    public func findCitiesMatchingCriteria(_ criteria: String, completion: @escaping MMTCitiesQueryCompletion)
+    public func cities(maching criteria: String, completion: @escaping ([MMTCityProt]) -> Void)
     {
         let cities = context.fetch(request: .cities(maching: criteria))
         

@@ -139,7 +139,7 @@ extension MMTMeteorogramController
     // MARK: Navigation methods
     @IBAction func onCloseBtnTouchAction(_ sender: UIBarButtonItem)
     {
-        MMTCitiesStore().save(city: city)
+        MMTCoreDataCitiesStore().save(city: city)
         MMTCoreData.instance.context.saveContextIfNeeded()
         try? MMTShortcutsMigrator().migrate()
         perform(segue: .UnwindToListOfCities, sender: self)

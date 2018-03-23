@@ -18,9 +18,9 @@ public struct MMTPredefinedCitiesFileStore
     public init() {}
         
     // MARK: Interface methods
-    public func getPredefinedCitiesFromFile(_ file: String) -> [MMTCityProt]
+    public func predefinedCities(from file: String) -> [MMTCityProt]
     {
-        guard let citiesList = getPredefinedCitiesFromJsonFile(file) else {
+        guard let citiesList = predefinedCities(json: file) else {
             return []
         }
         
@@ -45,7 +45,7 @@ public struct MMTPredefinedCitiesFileStore
     }
     
     // MARK: Helper methods
-    private func getPredefinedCitiesFromJsonFile(_ path: String) -> MMTCitiesArray?
+    private func predefinedCities(json path: String) -> MMTCitiesArray?
     {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else { return nil }
         guard let json = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) else {
