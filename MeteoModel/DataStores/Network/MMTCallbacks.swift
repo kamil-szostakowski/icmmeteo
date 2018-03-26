@@ -8,7 +8,5 @@
 
 import UIKit
 
-public typealias MMTFetchMeteorogramCompletion = (_ image: UIImage?, _ error: MMTError?) -> Void
-public typealias MMTFetchForecastStartDateCompletion = (_ date: Date?, _ error: MMTError?) -> Void
 public typealias MMTFetchHTMLCompletion = (_ html: String?, _ error: MMTError?) -> Void
 public typealias MMTFetchCommentCompletion = (_ comment: NSAttributedString?, _ error: MMTError?) -> Void

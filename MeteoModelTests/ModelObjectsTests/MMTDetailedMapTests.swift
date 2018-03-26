@@ -20,7 +20,7 @@ class MMTDetailedMapTests: XCTestCase
         var standardMapsCount = 0
         
         for map in model.detailedMaps {
-            let moments = map.forecastMoments(for: model, forecastStart: startDate)
+            let moments = map.forecastMoments(for: startDate)
             
             if map.momentsOffset == 0
             {
@@ -46,7 +46,7 @@ class MMTDetailedMapTests: XCTestCase
         var standardMapsCount = 0
         
         for map in model.detailedMaps {
-            let moments = map.forecastMoments(for: model, forecastStart: startDate)
+            let moments = map.forecastMoments(for: startDate)
             
             if map.momentsOffset == 1
             {
@@ -70,7 +70,7 @@ class MMTDetailedMapTests: XCTestCase
         let startDate = model.startDate(for: date)
         
         for map in MMTCoampsClimateModel().detailedMaps {
-            let moments = map.forecastMoments(for: model, forecastStart: startDate)
+            let moments = map.forecastMoments(for: startDate)
             
             if map.momentsOffset == 0
             {
@@ -92,7 +92,7 @@ class MMTDetailedMapTests: XCTestCase
         let startDate = model.startDate(for: date)
         
         for map in MMTCoampsClimateModel().detailedMaps {
-            let moments = map.forecastMoments(for: model, forecastStart: startDate)
+            let moments = map.forecastMoments(for: startDate)
             
             if map.momentsOffset == 1
             {
@@ -114,7 +114,7 @@ class MMTDetailedMapTests: XCTestCase
         let startDate = model.startDate(for: date)
         
         for map in MMTWamClimateModel().detailedMaps {
-            let moments = map.forecastMoments(for: model, forecastStart: startDate)
+            let moments = map.forecastMoments(for: startDate)
             
             XCTAssertEqual(28, moments.count)
             
@@ -132,7 +132,7 @@ class MMTDetailedMapTests: XCTestCase
         let startDate = model.startDate(for: date)
         
         for map in MMTWamClimateModel().detailedMaps {
-            let moments = map.forecastMoments(for: model, forecastStart: startDate)
+            let moments = map.forecastMoments(for: startDate)
             
             XCTAssertEqual(28, moments.count)
             
@@ -150,7 +150,7 @@ class MMTDetailedMapTests: XCTestCase
         let startDate = model.startDate(for: date)
         
         for map in MMTWamClimateModel().detailedMaps {
-            let moments = map.forecastMoments(for: model, forecastStart: startDate)
+            let moments = map.forecastMoments(for: startDate)
             
             XCTAssertEqual(28, moments.count)
             

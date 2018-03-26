@@ -42,7 +42,7 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
     }
     
     // MARK: Interface methods
-    func image(from url: URL, completion: @escaping MMTFetchMeteorogramCompletion)
+    func image(from url: URL, completion: @escaping (UIImage?, MMTError?) -> Void)
     {
         runTask(with: url) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
@@ -61,7 +61,7 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
         }
     }
     
-    func meteorogramImage(from searchUrl: URL, completion: @escaping MMTFetchMeteorogramCompletion)
+    func meteorogramImage(from searchUrl: URL, completion: @escaping (UIImage?, MMTError?) -> Void)
     {
         runTask(with: searchUrl) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in

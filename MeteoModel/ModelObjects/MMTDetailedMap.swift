@@ -45,13 +45,13 @@ public struct MMTDetailedMap
         self.momentsOffset = offset
     }
     
-    func forecastMoments(for model: MMTClimateModel, forecastStart: Date) -> [Date]
+    func forecastMoments(for startDate: Date) -> [Date]
     {
         var moments = [Date]()
         
-        for index in 0...model.detailedMapMomentsCount {
-            let momentOffset = index == 0 ? model.detailedMapStartDelay : TimeInterval(hours: index*3)
-            let momentDate = forecastStart.addingTimeInterval(momentOffset)
+        for index in 0...climateModel.detailedMapMomentsCount {
+            let momentOffset = index == 0 ? climateModel.detailedMapStartDelay : TimeInterval(hours: index*3)
+            let momentDate = startDate.addingTimeInterval(momentOffset)
             
             moments.append(momentDate)
         }

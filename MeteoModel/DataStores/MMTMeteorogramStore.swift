@@ -38,8 +38,8 @@ public struct MMTMeteorogramStore
         var meteorogram: MMTMeteorogram? = MMTMeteorogram(model: self.climateModel)
         var error: MMTError?
         
+        group.enter()
         queue.async(group: group) {
-            group.enter()
             self.forecastStore.startDate { (date: Date?, error: MMTError?) in
                 meteorogram?.startDate = date ?? self.climateModel.startDate(for: Date())
                 group.leave()
@@ -47,7 +47,6 @@ public struct MMTMeteorogramStore
         }
         
         queue.async(group: group) {
-            
             let key = "\(self.climateModel.type.rawValue)-legend" as NSString
             
             if let cachedImage = self.cache.object(forKey: key) {
@@ -55,6 +54,7 @@ public struct MMTMeteorogramStore
                 return
             }
             
+            // TODO: Move .enter() call up
             group.enter()
             self.meteorogramImageStore.getLegend { (image: UIImage?, error: MMTError?) in
                 meteorogram?.legend = image
@@ -68,7 +68,7 @@ public struct MMTMeteorogramStore
         }
         
         queue.async(group: group) {
-            
+            // TODO: Fix calculations of forecast start date
             let forecastStartDate = self.climateModel.startDate(for: Date())
             let key = "\(self.climateModel.type.rawValue)-\(city.name)-\(forecastStartDate)" as NSString
             
@@ -77,6 +77,7 @@ public struct MMTMeteorogramStore
                 return
             }
 
+            // TODO: Move .enter() call up
             group.enter()
             self.meteorogramImageStore.getMeteorogram(for: city) { (image: UIImage?, err: MMTError?) in
                 
@@ -109,7 +110,7 @@ public struct MMTMeteorogramStore
             }
                                     
             // TODO: Handle scenario when there are no moments
-            let moments = map.forecastMoments(for: self.climateModel, forecastStart: startDate)
+            let moments = map.forecastMoments(for: startDate)
             var result = [Date : UIImage] ()
             var errorCount = 0
             
@@ -117,7 +118,7 @@ public struct MMTMeteorogramStore
             meteorogram = MMTMapMeteorogram(model: self.climateModel)
             meteorogram.startDate = startDate
             meteorogram.moments = moments
-            
+
             let queue = DispatchQueue.global()
             let group = DispatchGroup()
             
@@ -130,19 +131,17 @@ public struct MMTMeteorogramStore
                     continue
                 }
                 
+                group.enter()
                 queue.async(group: group) {
-                    group.enter()
-                    
                     self.meteorogramImageStore.getMeteorogram(for: map, moment: date, startDate: startDate) {
                         (image: UIImage?, error: MMTError?) in
                         
                         if error != nil {
-                            errorCount += 1
+                            errorCount += 1                            
                         } else if let img = image {
                             self.cache.setObject(img, forKey: key)
                             result[date] = img
                         }
-                        
                         group.leave()
                     }
                 }
@@ -150,12 +149,12 @@ public struct MMTMeteorogramStore
             
             group.notify(queue: queue) {
                 guard errorCount < moments.count/2 else {
-                    DispatchQueue.main.async { completion(nil, .meteorogramFetchFailure) }
+                    completion(nil, .meteorogramFetchFailure)
                     return
                 }
                 
                 meteorogram.images = moments.map { result[$0] }
-                DispatchQueue.main.async { completion(meteorogram, nil) }
+                completion(meteorogram, nil)
             }
         }
     }

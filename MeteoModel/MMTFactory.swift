@@ -25,19 +25,19 @@ public extension MMTCoreDataCitiesStore
     }
 }
 
-public extension MMTMeteorogramStore
+extension MMTMeteorogramStore
 {
     public init(model: MMTClimateModel)
     {
         let cache = MMTCoreData.instance.meteorogramsCache
-        let meteorogramImageStore = MMTMeteorogramImageStore(model: model)
-        let forecastStore = MMTForecastStore(model: model)
+        let meteorogramImageStore = MMTWebMeteorogramImageStore(model: model)
+        let forecastStore = MMTWebForecastStore(model: model)
         
         self.init(forecastStore, meteorogramImageStore, cache)
     }
 }
 
-extension MMTMeteorogramImageStore
+extension MMTWebMeteorogramImageStore
 {
     init(model: MMTClimateModel)
     {
@@ -48,7 +48,7 @@ extension MMTMeteorogramImageStore
     }
 }
 
-extension MMTForecastStore
+extension MMTWebForecastStore
 {
     public init(model: MMTClimateModel)
     {

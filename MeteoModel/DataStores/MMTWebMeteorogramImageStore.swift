@@ -10,7 +10,18 @@ import UIKit
 import Foundation
 import CoreLocation
 
-struct MMTMeteorogramImageStore
+protocol MMTMeteorogramImageStore
+{
+    var climateModel: MMTClimateModel { get }
+    
+    func getMeteorogram(for city: MMTCityProt, completion: @escaping (UIImage?, MMTError?) -> Void)
+    
+    func getLegend(_ completion: @escaping (UIImage?, MMTError?) -> Void)
+    
+    func getMeteorogram(for map: MMTDetailedMap, moment: Date, startDate: Date, completion: @escaping (UIImage?, MMTError?) -> Void)
+}
+
+struct MMTWebMeteorogramImageStore : MMTMeteorogramImageStore
 {
     // MARK: Properties
     private let urlSession: MMTMeteorogramUrlSession
@@ -24,18 +35,18 @@ struct MMTMeteorogramImageStore
     }
         
     // MARK: Methods
-    func getMeteorogram(for city: MMTCityProt, completion: @escaping MMTFetchMeteorogramCompletion)
+    func getMeteorogram(for city: MMTCityProt, completion: @escaping (UIImage?, MMTError?) -> Void)
     {
         let url = try! URL.mmt_meteorogramSearchUrl(for: climateModel.type, location: city.location)
         urlSession.meteorogramImage(from: url, completion: completion)    }
     
-    func getLegend(_ completion: @escaping MMTFetchMeteorogramCompletion)
+    func getLegend(_ completion: @escaping (UIImage?, MMTError?) -> Void)
     {
         let url = try! URL.mmt_meteorogramLegendUrl(for: climateModel.type)
         urlSession.image(from: url, completion: completion)
     }
     
-    func getMeteorogram(for map: MMTDetailedMap, moment: Date, startDate: Date, completion: @escaping MMTFetchMeteorogramCompletion)
+    func getMeteorogram(for map: MMTDetailedMap, moment: Date, startDate: Date, completion: @escaping (UIImage?, MMTError?) -> Void)
     {
         let tZeroPlus = Int(moment.timeIntervalSince(startDate)/3600)
         
