@@ -30,10 +30,11 @@ extension MMTMeteorogramStore
     public init(model: MMTClimateModel)
     {
         let cache = MMTCoreData.instance.meteorogramsCache
-        let meteorogramImageStore = MMTWebMeteorogramImageStore(model: model)
+        let imageStore = MMTWebMeteorogramImageStore(model: model)
+        let cachingStore = MMTCachingMeteorogramImageStore(store: imageStore, cache: cache)
         let forecastStore = MMTWebForecastStore(model: model)
         
-        self.init(forecastStore, meteorogramImageStore, cache)
+        self.init(forecastStore, cachingStore)
     }
 }
 

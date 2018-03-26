@@ -14,7 +14,6 @@ class MMTMeteorogramStoreMapTests: XCTestCase
     // MARK: Properties
     var map: MMTDetailedMap!
     var startDate: Date!
-    var cache: NSCache<NSString, UIImage>!
     var forecastStore: MMTMockForecastStore!
     var imageStore: MMTMockMeteorogramImageStore!
     var meteorogramStore: MMTMeteorogramStore!
@@ -28,7 +27,6 @@ class MMTMeteorogramStoreMapTests: XCTestCase
     {
         
         super.setUp()
-        cache = NSCache<NSString, UIImage>()
         map = MMTDetailedMap(MMTUmClimateModel(), .Precipitation, 0)
         startDate = Date()
         
@@ -36,7 +34,7 @@ class MMTMeteorogramStoreMapTests: XCTestCase
         forecastStore = MMTMockForecastStore()
         forecastStore.result = (startDate, nil)
         
-        meteorogramStore = MMTMeteorogramStore(forecastStore, imageStore, cache)
+        meteorogramStore = MMTMeteorogramStore(forecastStore, imageStore)
         completionExpectation = expectation(description: "completion")
     }
     

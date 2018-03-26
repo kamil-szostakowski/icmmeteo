@@ -85,7 +85,7 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
         }
     }
     
-    func html(from url: URL, encoding: String.Encoding, completion: @escaping MMTFetchHTMLCompletion)
+    func html(from url: URL, encoding: String.Encoding, completion: @escaping (String?, MMTError?) -> Void)
     {
         runTask(with: url) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in

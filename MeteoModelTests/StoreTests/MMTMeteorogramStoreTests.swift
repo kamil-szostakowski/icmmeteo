@@ -14,7 +14,6 @@ class MMTMeteorogramStoreTests: XCTestCase
 {
     // MARK: Properties
     var city: MMTCityProt!
-    var cache: NSCache<NSString, UIImage>!
     var forecastStore: MMTMockForecastStore!
     var imageStore: MMTMockMeteorogramImageStore!
     var meteorogramStore: MMTMeteorogramStore!
@@ -24,7 +23,6 @@ class MMTMeteorogramStoreTests: XCTestCase
     override func setUp()
     {
         super.setUp()
-        cache = NSCache<NSString, UIImage>()
         city = MMTCityProt(name: "Lorem", region: "", location: CLLocation())
         
         forecastStore = MMTMockForecastStore()
@@ -34,7 +32,7 @@ class MMTMeteorogramStoreTests: XCTestCase
         imageStore.meteorogramResult = (UIImage(), nil)
         imageStore.legendResult = (UIImage(), nil)
         
-        meteorogramStore = MMTMeteorogramStore(forecastStore, imageStore, cache)
+        meteorogramStore = MMTMeteorogramStore(forecastStore, imageStore)
         completionExpectation = expectation(description: "completion")
     }
     
@@ -47,8 +45,6 @@ class MMTMeteorogramStoreTests: XCTestCase
         meteorogramStore.meteorogram(for: city) { (meteorogram, error) in
             XCTAssertEqual(meteorogram?.startDate, startDate)
             XCTAssertNotNil(meteorogram?.legend)
-            XCTAssertNotNil(self.cache.object(forKey: "UM-legend"))
-            XCTAssertNotNil(self.cache.object(forKey: "UM-Lorem-\(startDate)" as NSString))
             XCTAssertNil(error)
             self.completionExpectation.fulfill()
         }
@@ -125,42 +121,7 @@ class MMTMeteorogramStoreTests: XCTestCase
 //        }
 //    }
 //
-//    func testBulkFetchOfSupportedDetailedMapMeteorogram()
-//    {
-//        let now = Date()
-//        let model = MMTUmClimateModel()
-//        let cache = NSCache<NSString, UIImage>()
-//        let session = MMTMockMeteorogramUrlSession(UIImage(), nil)
-//        let store = MMTDetailedMapsStore(model: model, date: model.startDate(for: now), session: session, cache: cache)
-//
-//        let finishExpectation = self.expectation(description: "Fetch finish expectation")
-//
-//        let moments = [Date(timeInterval: 3*3600, since: now),
-//                       Date(timeInterval: 6*3600, since: now),
-//                       Date(timeInterval: 9*3600, since: now)]
-//
-//        var fetchCount = 0
-//        store.getMeteorograms(for: moments, map: .Fog) {
-//            (image: UIImage?, date: Date?, error: MMTError?, finish: Bool) -> Void in
-//
-//            if finish
-//            {
-//                finishExpectation.fulfill()
-//                XCTAssertEqual(fetchCount, moments.count)
-//            }
-//            else
-//            {
-//                XCTAssertNotNil(image)
-//                XCTAssertNotNil(date)
-//                XCTAssertNil(error)
-//
-//                fetchCount += 1
-//            }
-//        }
-//
-//        self.waitForExpectations(timeout: 1, handler: nil)
-//    }
-//
+    //    // TODO: Find a place for these tests
 //    func testHoursFromForecastStartAt12am()
 //    {
 //        let model = MMTWamClimateModel()
@@ -182,21 +143,21 @@ class MMTMeteorogramStoreTests: XCTestCase
 //    }
 
     // MARK: Helpers
-    class MMTMockMeteorogramUrlSession: MMTMeteorogramUrlSession
-    {
-        let image: UIImage?
-        let error: MMTError?
-
-        init(_ img: UIImage?, _ err: MMTError?)
-        {
-            image = img
-            error = err
-
-            super.init(redirectionBaseUrl: nil, timeout: 0)
-        }
-
-        override func image(from url: URL, completion: @escaping (UIImage?, MMTError?) -> Void) {
-            completion(image, error)
-        }
-    }    
+//    class MMTMockMeteorogramUrlSession: MMTMeteorogramUrlSession
+//    {
+//        let image: UIImage?
+//        let error: MMTError?
+//
+//        init(_ img: UIImage?, _ err: MMTError?)
+//        {
+//            image = img
+//            error = err
+//
+//            super.init(redirectionBaseUrl: nil, timeout: 0)
+//        }
+//
+//        override func image(from url: URL, completion: @escaping (UIImage?, MMTError?) -> Void) {
+//            completion(image, error)
+//        }
+//    }    
 }

@@ -15,18 +15,16 @@ public struct MMTMeteorogramStore
     // MARK: Properties
     private let forecastStore: MMTForecastStore
     private let meteorogramImageStore: MMTMeteorogramImageStore
-    private let cache: MMTImagesCache
     
     public var climateModel: MMTClimateModel {
         return meteorogramImageStore.climateModel
     }
     
     // MARK: Initializers
-    init(_ forecast: MMTForecastStore, _ images: MMTMeteorogramImageStore, _ cache: MMTImagesCache)
+    init(_ forecast: MMTForecastStore, _ images: MMTMeteorogramImageStore)
     {
         self.forecastStore = forecast
         self.meteorogramImageStore = images
-        self.cache = cache
     }
     
     // MARK: Interface methods
@@ -46,50 +44,26 @@ public struct MMTMeteorogramStore
             }
         }
         
+        group.enter()
         queue.async(group: group) {
-            let key = "\(self.climateModel.type.rawValue)-legend" as NSString
-            
-            if let cachedImage = self.cache.object(forKey: key) {
-                meteorogram?.legend = cachedImage
-                return
-            }
-            
-            // TODO: Move .enter() call up
-            group.enter()
             self.meteorogramImageStore.getLegend { (image: UIImage?, error: MMTError?) in
                 meteorogram?.legend = image
-                
-                if error == nil {
-                    self.cache.setObject(image!, forKey: key)
-                }
-                
                 group.leave()
             }
         }
         
+        group.enter()
         queue.async(group: group) {
-            // TODO: Fix calculations of forecast start date
-            let forecastStartDate = self.climateModel.startDate(for: Date())
-            let key = "\(self.climateModel.type.rawValue)-\(city.name)-\(forecastStartDate)" as NSString
-            
-            if let cachedImage = self.cache.object(forKey: key) {
-                meteorogram?.image = cachedImage
-                return
-            }
-
-            // TODO: Move .enter() call up
-            group.enter()
             self.meteorogramImageStore.getMeteorogram(for: city) { (image: UIImage?, err: MMTError?) in
                 
-                if err != nil
-                {
-                    error = err
-                    meteorogram = nil
-                }
-                else if let img = image
-                {
+                error = err
+                
+                if let img = image {
                     meteorogram?.image = img
-                    self.cache.setObject(img, forKey: key)
+                }
+                
+                if err != nil {
+                    meteorogram = nil
                 }
                 
                 group.leave()
@@ -124,13 +98,6 @@ public struct MMTMeteorogramStore
             
             for date in moments
             {
-                let key = "\(self.climateModel.type.rawValue)-\(map.type.rawValue)-\(date)" as NSString
-                
-                if let img = self.cache.object(forKey: key) {
-                    result[date] = img
-                    continue
-                }
-                
                 group.enter()
                 queue.async(group: group) {
                     self.meteorogramImageStore.getMeteorogram(for: map, moment: date, startDate: startDate) {
@@ -139,15 +106,15 @@ public struct MMTMeteorogramStore
                         if error != nil {
                             errorCount += 1                            
                         } else if let img = image {
-                            self.cache.setObject(img, forKey: key)
                             result[date] = img
                         }
+                        
                         group.leave()
                     }
                 }
             }
             
-            group.notify(queue: queue) {
+            group.notify(queue: .main) {
                 guard errorCount < moments.count/2 else {
                     completion(nil, .meteorogramFetchFailure)
                     return
