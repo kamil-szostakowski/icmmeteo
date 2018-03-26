@@ -160,4 +160,12 @@ class MMTDetailedMapTests: XCTestCase
             XCTAssertEqual(TT.getDate(2015, 7, 11, 12), moments[27])
         }
     }
+    
+    func testForecastMomentsWithTooBigOffset()
+    {
+        let map = MMTDetailedMap(MMTUmClimateModel(), .Precipitation, 30)
+        let date = TT.utcFormatter.date(from: "2015-07-08T07:00")!
+        
+        XCTAssertEqual(map.forecastMoments(for: date).count, 0)
+    }
 }

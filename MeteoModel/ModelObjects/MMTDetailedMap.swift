@@ -56,6 +56,10 @@ public struct MMTDetailedMap
             moments.append(momentDate)
         }
         
-        return Array(moments[momentsOffset..<moments.count])
+        if momentsOffset < moments.count {
+            return Array(moments[momentsOffset..<moments.count])
+        }
+        
+        return []
     }
 }

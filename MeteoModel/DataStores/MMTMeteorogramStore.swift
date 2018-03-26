@@ -70,8 +70,8 @@ public struct MMTMeteorogramStore
             }
         }
         
-        group.notify(queue: queue) {
-            DispatchQueue.main.async { completion(meteorogram, error) }
+        group.notify(queue: .main) {
+            completion(meteorogram, error)
         }
     }
     
@@ -82,11 +82,14 @@ public struct MMTMeteorogramStore
                 completion(nil, .meteorogramFetchFailure)
                 return
             }
-                                    
-            // TODO: Handle scenario when there are no moments
+            
             let moments = map.forecastMoments(for: startDate)
             var result = [Date : UIImage] ()
             var errorCount = 0
+            
+            if moments.count == 0 {
+                completion(nil, .meteorogramFetchFailure)
+            }
             
             var
             meteorogram = MMTMapMeteorogram(model: self.climateModel)
