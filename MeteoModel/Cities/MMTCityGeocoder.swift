@@ -21,7 +21,7 @@ public class MMTCityGeocoder
     }
     
     // MARK: Interface methods
-    public func city(for location: CLLocation, completion: @escaping MMTCityQueryCompletion)
+    public func city(for location: CLLocation, completion: @escaping (MMTCityProt?, MMTError?) -> Void)
     {
         geocoder.geocode(location: location) { (placemarks, geocodeError) in
             
@@ -46,7 +46,7 @@ public class MMTCityGeocoder
         }
     }
     
-    public func cities(matching criteria: String, completion: @escaping MMTCitiesQueryCompletion)
+    public func cities(matching criteria: String, completion: @escaping ([MMTCityProt]) -> Void)
     {
         var cities = [MMTCityProt]()
         

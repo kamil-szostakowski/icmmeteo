@@ -23,10 +23,13 @@ class MMTShortcutsMigratorTests: XCTestCase
     override func setUp()
     {
         super.setUp()
+        let cities = [("Toruń",true), ("Bydgoszcz",true), ("Włocławek",true), ("Poznań",false), ("Konin",false)]
+        
         quickActions = StubRegister()
         spotlight = StubRegister()
         locationService = MMTStubLocationService()
-        shortcutsMigrator = MMTShortcutsMigrator(store: StubCitiesStore(), spotlight: spotlight, quickActions: quickActions, locationService: locationService)
+        
+        shortcutsMigrator = MMTShortcutsMigrator(store: StubCitiesStore(cities.map { MMTCityProt($0) }), spotlight: spotlight, quickActions: quickActions, locationService: locationService)
     }
 
     override func tearDown()
@@ -63,26 +66,15 @@ class MMTShortcutsMigratorTests: XCTestCase
 }
 
 // MARK: Helper extensions
-fileprivate class StubCitiesStore: MMTCitiesStore
+extension MMTCityProt
 {
-    let cities = [("Toruń",true), ("Bydgoszcz",true), ("Włocławek",true), ("Poznań",false), ("Konin",false)]
-        .map { StubCitiesStore.city(name: $0.0, favourite: $0.1) }
-    
-    override func getAllCities(_ completion: ([MMTCityProt]) -> Void) {
-        completion(self.cities)
-    }
-    
-    static func city(name: String, favourite: Bool) -> MMTCityProt
+    init(_ data: (String, Bool))
     {
-        let location = CLLocation(latitude: 0, longitude: 0)
-        
-        var
-        city = MMTCityProt(name: name, region: "\(name) region", location: location)
-        city.isFavourite = favourite
-        
-        return city
+        self.init(name: data.0, region: "\(data.0) region", location: CLLocation(latitude: 0, longitude: 0))
+        self.isFavourite = data.1
     }
 }
+
 
 fileprivate class StubRegister: MMTShortcutRegister
 {

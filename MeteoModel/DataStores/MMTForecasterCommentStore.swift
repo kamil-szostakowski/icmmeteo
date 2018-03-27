@@ -8,18 +8,18 @@
 
 import Foundation
 
-public class MMTForecasterCommentStore
+public struct MMTForecasterCommentStore
 {
     // MARK: Initializers
     public init() {}
     
     // MARK: Interface methods
-    public func getForecasterComment(completion: @escaping MMTFetchCommentCompletion)
+    public func forecasterComment(completion: @escaping (NSAttributedString?, MMTError?) -> Void)
     {
         let baseUrl = try? URL.mmt_meteorogramDownloadBaseUrl(for: .UM)
         let session = MMTMeteorogramUrlSession(redirectionBaseUrl: baseUrl)
         
-        session.fetchHTMLContent(from: URL.mmt_forecasterCommentUrl(), encoding: .isoLatin2) {
+        session.html(from: URL.mmt_forecasterCommentUrl(), encoding: .isoLatin2) {
             (html: String?, error: MMTError?) in
             
             guard let htmlString = html, error == nil else {

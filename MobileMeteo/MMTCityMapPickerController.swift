@@ -48,7 +48,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
         btnShow.accessibilityIdentifier = "show"
         navigationBar.accessibilityIdentifier = "select-location-screen"
         
-        citiesStore = MMTCitiesStore()
+        citiesStore = MMTCoreDataCitiesStore()
         btnShow.isEnabled = false
         
         setupMapView()
@@ -96,7 +96,7 @@ class MMTCityMapPickerController: UIViewController, MKMapViewDelegate
     {
         setInteractionEnabled(false)
         
-        citiesStore.findCityForLocation(selectedLocation) {
+        citiesStore.city(for: selectedLocation) {
             (city: MMTCityProt?, error: MMTError?) in
             
             guard let aCity = city, error == nil else

@@ -32,7 +32,7 @@ class MMTMeteorogramShortcut : MMTShortcut
     {
         tabbar.displayActivityIndicator(in: tabbar.view, message: nil)
         
-        MMTCitiesStore().findCityForLocation(location) { (city, error) in
+        MMTCoreDataCitiesStore().city(for: location) { (city, error) in
             
             tabbar.hideActivityIndicator()
             

@@ -18,14 +18,10 @@ class MMTDetailedMapsListController: UIViewController
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
     // MARK: Properties
-    private var meteorogramStore: MMTDetailedMapsStore!
-    
     var selectedDetailedMap: MMTDetailedMap!
     var selectedClimateModel: MMTClimateModel! {
         didSet {
-            meteorogramStore = MMTDetailedMapsStore(model: selectedClimateModel, date: selectedClimateModel.startDate(for: Date()))
             segmentControl.selectedModelType = selectedClimateModel.type
-            
             if oldValue != nil {
                 tableView.reloadData()
             }
@@ -53,8 +49,7 @@ extension MMTDetailedMapsListController
         guard let previewController = segue.destination as? MMTDetailedMapPreviewController else {
             return
         }
-        
-        previewController.climateModel = meteorogramStore.climateModel
+                
         previewController.detailedMap = selectedDetailedMap
     }
 }
@@ -84,14 +79,14 @@ extension MMTDetailedMapsListController : UITableViewDataSource, UITableViewDele
     // MARK: Table view methods
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return meteorogramStore.climateModel.detailedMaps.count
+        return selectedClimateModel.detailedMaps.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let
         cell = tableView.dequeueReusableCell(withIdentifier: "DetailedMapCell", for: indexPath)
-        cell.textLabel?.text = MMTLocalizedStringWithFormat("detailed-maps.\(meteorogramStore.climateModel.detailedMaps[indexPath.row].type.rawValue)")
+        cell.textLabel?.text = MMTLocalizedStringWithFormat("detailed-maps.\(selectedClimateModel.detailedMaps[indexPath.row].type.rawValue)")
         
         return cell
     }
@@ -99,7 +94,7 @@ extension MMTDetailedMapsListController : UITableViewDataSource, UITableViewDele
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         tableView.deselectRow(at: indexPath, animated: true)
-        selectedDetailedMap = meteorogramStore.climateModel.detailedMaps[indexPath.row]
+        selectedDetailedMap = selectedClimateModel.detailedMaps[indexPath.row]
         perform(segue: .DisplayDetailedMap, sender: self)
     }
 }

@@ -41,7 +41,7 @@ extension MMTMeteorogramController
         
         setupMeteorogramStore(model: MMTUmClimateModel())
         setupNavigationBar()
-        setupInfoBar()
+        setupInfoBar(date: nil)
         setupStarButton()
         setupScrollView()
         
@@ -68,9 +68,7 @@ extension MMTMeteorogramController
     // MARK: Setup methods
     fileprivate func setupMeteorogramStore(model: MMTClimateModel)
     {
-        let cache = MMTCoreData.instance.meteorogramsCache
-        let date = model.startDate(for: Date())
-        meteorogramStore = MMTMeteorogramStore(model: model, date: date, cache: cache)
+        meteorogramStore = MMTMeteorogramStore(model: model)
     }
     
     fileprivate func setupNavigationBar()
@@ -127,9 +125,10 @@ extension MMTMeteorogramController
         legendImage.updateSizeConstraints(size)
     }
     
-    fileprivate func setupInfoBar()
+    fileprivate func setupInfoBar(date: Date?)
     {
-        forecastStartLabel.text = MMTLocalizedStringWithFormat("forecast.start: %@", DateFormatter.utcFormatter.string(from: meteorogramStore.forecastStartDate))
+        let forecastStartDate = date ?? meteorogramStore.climateModel.startDate(for: Date())
+        forecastStartLabel.text = MMTLocalizedStringWithFormat("forecast.start: %@", DateFormatter.utcFormatter.string(from: forecastStartDate))
     }
 }
 
@@ -139,7 +138,7 @@ extension MMTMeteorogramController
     // MARK: Navigation methods
     @IBAction func onCloseBtnTouchAction(_ sender: UIBarButtonItem)
     {
-        MMTCitiesStore().save(city: city)
+        MMTCoreDataCitiesStore().save(city: city)
         MMTCoreData.instance.context.saveContextIfNeeded()
         try? MMTShortcutsMigrator().migrate()
         perform(segue: .UnwindToListOfCities, sender: self)
@@ -197,32 +196,26 @@ extension MMTMeteorogramController
         setupMeteorogram(image: nil)
         setupMeteorogramLegend(image: nil)
         
-        meteorogramStore.getForecastStartDate {_,_ in
-            self.setupInfoBar()
-        }
-        
         scrollView.contentOffset = .zero
         modelSegmentedControl.isEnabled = false
         
         displayActivityIndicator(in: view, message: MMTLocalizedString("label.loading.meteorogram"))
         
-        meteorogramStore.getLegend {
-            (image: UIImage?, error: MMTError?) in
-            self.setupMeteorogramLegend(image: image)
-        }
-        
-        meteorogramStore.getMeteorogram(for: city) {
-            (image: UIImage?, error: MMTError?) in
+        meteorogramStore.meteorogram(for: city) {
+            (met: MMTMeteorogram?, error: MMTError?) in
             
             self.hideActivityIndicator()
             self.modelSegmentedControl.isEnabled = true
             
-            guard error == nil else {
+            guard let meteorogram = met, error == nil else {
                 self.displayErrorAlert(error!)
                 return
             }
             
-            self.setupMeteorogram(image: image)
+            self.setupInfoBar(date: meteorogram.startDate)
+            self.setupMeteorogram(image: meteorogram.image)
+            self.setupMeteorogramLegend(image: meteorogram.legend)
+            
             self.adjustZoomScale()
             self.analytics?.sendUserActionReport(.Meteorogram, action: .MeteorogramDidDisplay, actionLabel: self.meteorogramStore.climateModel.type.rawValue)
         }

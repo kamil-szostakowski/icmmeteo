@@ -22,33 +22,13 @@ class MMTForecastStoreTests: XCTestCase
         return contentWithDateString("201.02.04 00:00 UT")
     }
     
-    // MARK: Test methods
-    func testHoursFromForecastStartAt12am()
-    {
-        let model = MMTWamClimateModel()
-        let date = TT.utcFormatter.date(from: "2015-03-12T15:31")!
-        let startDate = model.startDate(for: TT.localFormatter.date(from: "2015-03-12T01:34")!)
-        let store = MMTForecastStore(model: MMTWamClimateModel(), date: startDate)
-
-        XCTAssertEqual(27, store.getHoursFromForecastStartDate(forDate: date))
-    }
-
-    func testHoursFromForecastStartAtMidnight()
-    {
-        let model = MMTWamClimateModel()
-        let date = TT.utcFormatter.date(from: "2015-03-12T15:31")!
-        let startDate = model.startDate(for: TT.localFormatter.date(from: "2015-03-12T09:34")!)
-        let store = MMTForecastStore(model: MMTWamClimateModel(), date: startDate)
-
-        XCTAssertEqual(15, store.getHoursFromForecastStartDate(forDate: date))
-    }
-    
+    // MARK: Test methods    
     func testFetchForecastStartDate()
     {
         let session = MMTMockMeteorogramUrlSession(validContent.data(using: .windowsCP1250), nil, nil)
-        let store = MMTForecastStore(model: MMTUmClimateModel(), date: Date(), session: session)
+        let store = MMTWebForecastStore(model: MMTUmClimateModel(), session: session)
     
-        store.getForecastStartDate { (date, error) in
+        store.startDate { (date, error) in
             XCTAssertEqual(date, TT.utcFormatter.date(from: "2014-10-15T12:34"))
         }
     }
@@ -56,9 +36,9 @@ class MMTForecastStoreTests: XCTestCase
     func testFetchForecastStartDateWithInvalidFormat()
     {
         let session = MMTMockMeteorogramUrlSession(invalidContent.data(using: .windowsCP1250), nil, nil)
-        let store = MMTForecastStore(model: MMTUmClimateModel(), date: Date(), session: session)
+        let store = MMTWebForecastStore(model: MMTUmClimateModel(), session: session)
         
-        store.getForecastStartDate { (date, error) in
+        store.startDate { (date, error) in
             XCTAssertEqual(error, MMTError.forecastStartDateNotFound)
         }
     }
@@ -66,9 +46,9 @@ class MMTForecastStoreTests: XCTestCase
     func testFetchForecastStartDateWithInvalidEncoding()
     {
         let session = MMTMockMeteorogramUrlSession(validContent.data(using: .utf8), nil, nil)
-        let store = MMTForecastStore(model: MMTUmClimateModel(), date: Date(), session: session)
+        let store = MMTWebForecastStore(model: MMTUmClimateModel(), session: session)
         
-        store.getForecastStartDate { (date, error) in
+        store.startDate { (date, error) in
             XCTAssertEqual(error, MMTError.forecastStartDateNotFound)
         }
     }

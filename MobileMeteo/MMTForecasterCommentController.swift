@@ -50,7 +50,7 @@ fileprivate extension MMTForecasterCommentController
             return
         }
         
-        MMTForecasterCommentStore().getForecasterComment { (comment, error) in
+        MMTForecasterCommentStore().forecasterComment { (comment, error) in
             guard let content = comment else {
                 self.displayErrorAlert(error!)
                 return

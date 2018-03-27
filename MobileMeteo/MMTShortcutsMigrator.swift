@@ -22,7 +22,7 @@ class MMTShortcutsMigrator: MMTVersionMigrator
     // MARK: Initializers
     convenience init ()
     {
-        self.init(store: MMTCitiesStore(), spotlight: CSSearchableIndex.default(), quickActions: UIApplication.shared, locationService: UIApplication.shared.locationService!)
+        self.init(store: MMTCoreDataCitiesStore(), spotlight: CSSearchableIndex.default(), quickActions: UIApplication.shared, locationService: UIApplication.shared.locationService!)
     }
     
     init(store: MMTCitiesStore, spotlight: MMTShortcutRegister, quickActions: MMTShortcutRegister, locationService: MMTLocationService)
@@ -36,7 +36,7 @@ class MMTShortcutsMigrator: MMTVersionMigrator
     // MARK: Interface methods
     func migrate() throws
     {
-        citiesStore.getAllCities {
+        citiesStore.all {
             spotlightRegister.unregisterAll()
             quickActionsRegister.unregisterAll()
             
