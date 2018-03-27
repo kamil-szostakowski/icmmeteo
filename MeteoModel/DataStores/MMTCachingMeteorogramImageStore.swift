@@ -24,18 +24,16 @@ struct MMTCachingMeteorogramImageStore : MMTMeteorogramImageStore
     }
     
     // MARK: Interface methods
-    func getMeteorogram(for city: MMTCityProt, completion: @escaping (UIImage?, MMTError?) -> Void)
+    func getMeteorogram(for city: MMTCityProt, startDate: Date, completion: @escaping (UIImage?, MMTError?) -> Void)
     {
-        // TODO: Fix calculations of forecast start date
-        let forecastStartDate = self.climateModel.startDate(for: Date())
-        let key = "\(self.climateModel.type.rawValue)-\(city.name)-\(forecastStartDate)" as NSString
+        let key = "\(self.climateModel.type.rawValue)-\(city.name)-\(startDate)" as NSString
         
         if let cachedImage = imageCache.object(forKey: key) {
             completion(cachedImage, nil)
             return
         }
 
-        imageStore.getMeteorogram(for: city) { (image, error) in
+        imageStore.getMeteorogram(for: city, startDate: startDate) { (image, error) in
             if let img = image {
                 self.imageCache.setObject(img, forKey: key)
             }

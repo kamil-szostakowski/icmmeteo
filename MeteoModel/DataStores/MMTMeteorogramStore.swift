@@ -30,48 +30,46 @@ public struct MMTMeteorogramStore
     // MARK: Interface methods
     public func meteorogram(for city: MMTCityProt, completion: @escaping (MMTMeteorogram?, MMTError?) -> Void)
     {
-        let queue = DispatchQueue.global()
-        let group = DispatchGroup()
-        
-        var meteorogram: MMTMeteorogram? = MMTMeteorogram(model: self.climateModel)
-        var error: MMTError?
-        
-        group.enter()
-        queue.async(group: group) {
-            self.forecastStore.startDate { (date: Date?, error: MMTError?) in
-                meteorogram?.startDate = date ?? self.climateModel.startDate(for: Date())
-                group.leave()
-            }
-        }
-        
-        group.enter()
-        queue.async(group: group) {
-            self.meteorogramImageStore.getLegend { (image: UIImage?, error: MMTError?) in
-                meteorogram?.legend = image
-                group.leave()
-            }
-        }
-        
-        group.enter()
-        queue.async(group: group) {
-            self.meteorogramImageStore.getMeteorogram(for: city) { (image: UIImage?, err: MMTError?) in
-                
-                error = err
-                
-                if let img = image {
-                    meteorogram?.image = img
+        forecastStore.startDate { (date: Date?, error: MMTError?) in
+            var error: MMTError?
+            
+            var
+            meteorogram: MMTMeteorogram? = MMTMeteorogram(model: self.climateModel)
+            meteorogram?.startDate = date ?? self.climateModel.startDate(for: Date())
+            
+            let queue = DispatchQueue.global()
+            let group = DispatchGroup()
+            
+            group.enter()
+            queue.async(group: group) {
+                self.meteorogramImageStore.getLegend { (image: UIImage?, error: MMTError?) in
+                    meteorogram?.legend = image
+                    group.leave()
                 }
-                
-                if err != nil {
-                    meteorogram = nil
-                }
-                
-                group.leave()
             }
-        }
-        
-        group.notify(queue: .main) {
-            completion(meteorogram, error)
+            
+            group.enter()
+            queue.async(group: group) {
+                self.meteorogramImageStore.getMeteorogram(for: city, startDate: meteorogram!.startDate) {
+                    (image: UIImage?, err: MMTError?) in
+                    
+                    error = err
+                    
+                    if let img = image {
+                        meteorogram?.image = img
+                    }
+                    
+                    if err != nil {
+                        meteorogram = nil
+                    }
+                    
+                    group.leave()
+                }
+            }
+            
+            group.notify(queue: .main) {
+                completion(meteorogram, error)
+            }
         }
     }
     

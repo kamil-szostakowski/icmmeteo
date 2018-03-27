@@ -37,7 +37,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
         
         mockImageStore.meteorogramResult = (UIImage(), nil)
         
-        store.getMeteorogram(for: city) { (image, error) in
+        store.getMeteorogram(for: city, startDate: startDate) { (image, error) in
             
             XCTAssertNotNil(self.cache.object(forKey: key))
             XCTAssertNil(error)
@@ -55,7 +55,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
         
         mockImageStore.meteorogramResult = (nil, MMTError.meteorogramFetchFailure)
         
-        store.getMeteorogram(for: city) { (image, error) in
+        store.getMeteorogram(for: city, startDate: startDate) { (image, error) in
             
             XCTAssertNil(self.cache.object(forKey: key))
             XCTAssertNotNil(error)
@@ -68,14 +68,15 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     
     func testRetreiveMeteorogramFromCache()
     {
+        
         let climateModel = mockImageStore.climateModel
-        let startDate = climateModel.startDate(for: Date())
+        let startDate = climateModel.startDate(for: Date().addingTimeInterval(TimeInterval(hours: 120)))
         let key = "\(climateModel.type.rawValue)-\(city.name)-\(startDate)" as NSString
 
         cache.setObject(UIImage(), forKey: key)
         mockImageStore.meteorogramResult = (nil, MMTError.meteorogramNotFound)
         
-        store.getMeteorogram(for: city) { (image, error) in
+        store.getMeteorogram(for: city, startDate: startDate) { (image, error) in
             
             XCTAssertNil(error)
             XCTAssertNotNil(image)

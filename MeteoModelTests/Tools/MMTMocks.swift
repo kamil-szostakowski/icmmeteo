@@ -58,7 +58,7 @@ class MMTMockMeteorogramImageStore : MMTMeteorogramImageStore
         return MMTUmClimateModel()
     }
     
-    func getMeteorogram(for city: MMTCityProt, completion: @escaping (UIImage?, MMTError?) -> Void) {
+    func getMeteorogram(for city: MMTCityProt, startDate: Date, completion: @escaping (UIImage?, MMTError?) -> Void) {
         DispatchQueue.main.async {
             completion(self.meteorogramResult!.0, self.meteorogramResult!.1)
         }
