@@ -9,6 +9,7 @@
 import XCTest
 import MapKit
 import CoreLocation
+import Contacts
 @testable import MeteoModel
 
 class MMTGeocoderTests: XCTestCase
@@ -159,7 +160,7 @@ class MMTGeocoderTests: XCTestCase
             completion(placemarks, error)
         }
         
-        func geocode(addressDictionary: [AnyHashable : Any], completion: @escaping MMTGeocodeCompletion)
+        func geocode(address: CNPostalAddress, completion: @escaping MMTGeocodeCompletion)
         {
             completion(placemarks, error)
         }
