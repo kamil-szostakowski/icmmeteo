@@ -19,10 +19,18 @@
 		1B4095CB2040C06900CDF5E4 /* MMTForecasterCommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */; };
 		1B4FD2E6203B506700B33C04 /* MMTShortcutsMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */; };
 		1B58237D2027B1C4003DF651 /* CSSearchableIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B58237C2027B1C4003DF651 /* CSSearchableIndexTests.swift */; };
+		1B622EE020949E5D00C96ACF /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B622EDE20949E5D00C96ACF /* Interface.storyboard */; };
+		1B622EE220949E5D00C96ACF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B622EE120949E5D00C96ACF /* Assets.xcassets */; };
+		1B622EE920949E5D00C96ACF /* MeteoWatchExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1B622EE820949E5D00C96ACF /* MeteoWatchExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1B622EEE20949E5D00C96ACF /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B622EED20949E5D00C96ACF /* InterfaceController.swift */; };
+		1B622EF020949E5D00C96ACF /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B622EEF20949E5D00C96ACF /* ExtensionDelegate.swift */; };
+		1B622EF220949E5D00C96ACF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B622EF120949E5D00C96ACF /* Assets.xcassets */; };
+		1B622EF620949E5D00C96ACF /* MeteoWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 1B622EDC20949E5D00C96ACF /* MeteoWatch.app */; };
 		1B65BA2D2035F8B30053173C /* MMTMeteorogramHereShortcutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B65BA2C2035F8B30053173C /* MMTMeteorogramHereShortcutTests.swift */; };
 		1B65BA2F2035FFDD0053173C /* MMTMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B65BA2E2035FFDD0053173C /* MMTMocks.swift */; };
 		1B68CD362045B85000AB8046 /* MMTActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68CD352045B85000AB8046 /* MMTActivityIndicator.swift */; };
 		1B68CD382045B89F00AB8046 /* MMTActivityIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B68CD372045B89F00AB8046 /* MMTActivityIndicator.xib */; };
+		1B727D1F2094AC77007F9084 /* MeteoModelWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B622EFE20949E5D00C96ACF /* MeteoModelWatch.framework */; };
 		1B8B5E601FB116D4002D2381 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B5E5F1FB116D4002D2381 /* UIViewController.swift */; };
 		1B8C6BF62036FB980029282F /* MMTAppMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BF52036FB980029282F /* MMTAppMigrator.swift */; };
 		1B8C6BF820371BE40029282F /* MMTAppMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BF720371BE40029282F /* MMTAppMigratorTests.swift */; };
@@ -86,6 +94,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1B622EEA20949E5D00C96ACF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F9E6965C1AFCC06600273DA3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B622EE720949E5D00C96ACF;
+			remoteInfo = "MeteoWatch Extension";
+		};
+		1B622EF420949E5D00C96ACF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F9E6965C1AFCC06600273DA3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B622EDB20949E5D00C96ACF;
+			remoteInfo = MeteoWatch;
+		};
+		1B622EFD20949E5D00C96ACF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BF55CE02049E63E009BA4E2 /* MeteoModel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1B622ED220949DF200C96ACF;
+			remoteInfo = MeteoModelWatch;
+		};
 		1BF55CE52049E63E009BA4E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1BF55CE02049E63E009BA4E2 /* MeteoModel.xcodeproj */;
@@ -124,6 +153,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1B622F0020949E5D00C96ACF /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1B622EE920949E5D00C96ACF /* MeteoWatchExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B622F0220949E5D00C96ACF /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				1B622EF620949E5D00C96ACF /* MeteoWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1B9C726D2049E28B00856476 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -151,6 +202,15 @@
 		1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecasterCommentTests.swift; sourceTree = "<group>"; };
 		1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTShortcutsMigratorTests.swift; sourceTree = "<group>"; };
 		1B58237C2027B1C4003DF651 /* CSSearchableIndexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSearchableIndexTests.swift; sourceTree = "<group>"; };
+		1B622EDC20949E5D00C96ACF /* MeteoWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeteoWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B622EDF20949E5D00C96ACF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		1B622EE120949E5D00C96ACF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1B622EE320949E5D00C96ACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B622EE820949E5D00C96ACF /* MeteoWatchExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MeteoWatchExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B622EED20949E5D00C96ACF /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		1B622EEF20949E5D00C96ACF /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		1B622EF120949E5D00C96ACF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1B622EF320949E5D00C96ACF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B65BA2C2035F8B30053173C /* MMTMeteorogramHereShortcutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramHereShortcutTests.swift; sourceTree = "<group>"; };
 		1B65BA2E2035FFDD0053173C /* MMTMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMocks.swift; sourceTree = "<group>"; };
 		1B68CD352045B85000AB8046 /* MMTActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTActivityIndicator.swift; sourceTree = "<group>"; };
@@ -237,6 +297,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1B622EE520949E5D00C96ACF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B727D1F2094AC77007F9084 /* MeteoModelWatch.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7116D35C68F873D34877D883 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F9941A611BECE32300700313 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -296,6 +371,27 @@
 			name = Shortcuts;
 			sourceTree = "<group>";
 		};
+		1B622EDD20949E5D00C96ACF /* MeteoWatch */ = {
+			isa = PBXGroup;
+			children = (
+				1B622EDE20949E5D00C96ACF /* Interface.storyboard */,
+				1B622EE120949E5D00C96ACF /* Assets.xcassets */,
+				1B622EE320949E5D00C96ACF /* Info.plist */,
+			);
+			path = MeteoWatch;
+			sourceTree = "<group>";
+		};
+		1B622EEC20949E5D00C96ACF /* MeteoWatchExtension */ = {
+			isa = PBXGroup;
+			children = (
+				1B622EED20949E5D00C96ACF /* InterfaceController.swift */,
+				1B622EEF20949E5D00C96ACF /* ExtensionDelegate.swift */,
+				1B622EF120949E5D00C96ACF /* Assets.xcassets */,
+				1B622EF320949E5D00C96ACF /* Info.plist */,
+			);
+			path = MeteoWatchExtension;
+			sourceTree = "<group>";
+		};
 		1B68CD342045B82B00AB8046 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -329,6 +425,7 @@
 			isa = PBXGroup;
 			children = (
 				1BF55CE62049E63E009BA4E2 /* MeteoModel.framework */,
+				1B622EFE20949E5D00C96ACF /* MeteoModelWatch.framework */,
 				1BF55CE82049E63E009BA4E2 /* MeteoModelTests.xctest */,
 			);
 			name = Products;
@@ -485,6 +582,8 @@
 				F9E696661AFCC06600273DA3 /* MobileMeteo */,
 				F9E696831AFCC06600273DA3 /* MobileMeteoTests */,
 				F9941A571BECE15800700313 /* MobileMeteoUITests */,
+				1B622EDD20949E5D00C96ACF /* MeteoWatch */,
+				1B622EEC20949E5D00C96ACF /* MeteoWatchExtension */,
 				F9E696651AFCC06600273DA3 /* Products */,
 				1E0B96656B6BD26F0DC667D3 /* Frameworks */,
 				79433CAFD73501A7E8002C26 /* Pods */,
@@ -497,6 +596,8 @@
 				F9E696641AFCC06600273DA3 /* MobileMeteo.app */,
 				F9E696801AFCC06600273DA3 /* MobileMeteoTests.xctest */,
 				F9941A641BECE32300700313 /* MeteoUITests.xctest */,
+				1B622EDC20949E5D00C96ACF /* MeteoWatch.app */,
+				1B622EE820949E5D00C96ACF /* MeteoWatchExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -588,6 +689,41 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1B622EDB20949E5D00C96ACF /* MeteoWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B622F0120949E5D00C96ACF /* Build configuration list for PBXNativeTarget "MeteoWatch" */;
+			buildPhases = (
+				1B622EDA20949E5D00C96ACF /* Resources */,
+				1B622F0020949E5D00C96ACF /* Embed App Extensions */,
+				7116D35C68F873D34877D883 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1B622EEB20949E5D00C96ACF /* PBXTargetDependency */,
+			);
+			name = MeteoWatch;
+			productName = MeteoWatch;
+			productReference = 1B622EDC20949E5D00C96ACF /* MeteoWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		1B622EE720949E5D00C96ACF /* MeteoWatchExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B622EFF20949E5D00C96ACF /* Build configuration list for PBXNativeTarget "MeteoWatchExtension" */;
+			buildPhases = (
+				1B622EE420949E5D00C96ACF /* Sources */,
+				1B622EE520949E5D00C96ACF /* Frameworks */,
+				1B622EE620949E5D00C96ACF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MeteoWatchExtension;
+			productName = "MeteoWatch Extension";
+			productReference = 1B622EE820949E5D00C96ACF /* MeteoWatchExtension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		F9941A631BECE32300700313 /* MeteoUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F9941A6B1BECE32400700313 /* Build configuration list for PBXNativeTarget "MeteoUITests" */;
@@ -620,11 +756,13 @@
 				449E201CF54EA48B2B48BBA4 /* [CP] Embed Pods Frameworks */,
 				44E11C3BDEAA093020E7E7D9 /* [CP] Copy Pods Resources */,
 				1B9C726D2049E28B00856476 /* Embed Frameworks */,
+				1B622F0220949E5D00C96ACF /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				1BF55CEC2049E6EB009BA4E2 /* PBXTargetDependency */,
+				1B622EF520949E5D00C96ACF /* PBXTargetDependency */,
 			);
 			name = MobileMeteo;
 			productName = MobileMeteo;
@@ -664,6 +802,16 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Kamil Szostakowski";
 				TargetAttributes = {
+					1B622EDB20949E5D00C96ACF = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = GMU6W6K8X6;
+						ProvisioningStyle = Automatic;
+					};
+					1B622EE720949E5D00C96ACF = {
+						CreatedOnToolsVersion = 9.2;
+						DevelopmentTeam = GMU6W6K8X6;
+						ProvisioningStyle = Automatic;
+					};
 					F9941A631BECE32300700313 = {
 						CreatedOnToolsVersion = 7.1;
 						LastSwiftMigration = 0900;
@@ -706,11 +854,20 @@
 				F9E696631AFCC06600273DA3 /* MobileMeteo */,
 				F9E6967F1AFCC06600273DA3 /* MobileMeteoTests */,
 				F9941A631BECE32300700313 /* MeteoUITests */,
+				1B622EDB20949E5D00C96ACF /* MeteoWatch */,
+				1B622EE720949E5D00C96ACF /* MeteoWatchExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		1B622EFE20949E5D00C96ACF /* MeteoModelWatch.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MeteoModelWatch.framework;
+			remoteRef = 1B622EFD20949E5D00C96ACF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		1BF55CE62049E63E009BA4E2 /* MeteoModel.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -728,6 +885,23 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1B622EDA20949E5D00C96ACF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B622EE220949E5D00C96ACF /* Assets.xcassets in Resources */,
+				1B622EE020949E5D00C96ACF /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1B622EE620949E5D00C96ACF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B622EF220949E5D00C96ACF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F9941A621BECE32300700313 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -906,6 +1080,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1B622EE420949E5D00C96ACF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B622EF020949E5D00C96ACF /* ExtensionDelegate.swift in Sources */,
+				1B622EEE20949E5D00C96ACF /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F9941A601BECE32300700313 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -991,6 +1174,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1B622EEB20949E5D00C96ACF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B622EE720949E5D00C96ACF /* MeteoWatchExtension */;
+			targetProxy = 1B622EEA20949E5D00C96ACF /* PBXContainerItemProxy */;
+		};
+		1B622EF520949E5D00C96ACF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B622EDB20949E5D00C96ACF /* MeteoWatch */;
+			targetProxy = 1B622EF420949E5D00C96ACF /* PBXContainerItemProxy */;
+		};
 		1BF55CEC2049E6EB009BA4E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MeteoModel;
@@ -1009,6 +1202,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		1B622EDE20949E5D00C96ACF /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B622EDF20949E5D00C96ACF /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		F91A6F561C86F6F200BDDE28 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1039,6 +1240,114 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1B622EF720949E5D00C96ACF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = GMU6W6K8X6;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IBSC_MODULE = MeteoWatchExtension;
+				INFOPLIST_FILE = MeteoWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.meteo.watch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+			};
+			name = Debug;
+		};
+		1B622EF820949E5D00C96ACF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GMU6W6K8X6;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				IBSC_MODULE = MeteoWatchExtension;
+				INFOPLIST_FILE = MeteoWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.meteo.watch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+			};
+			name = Release;
+		};
+		1B622EF920949E5D00C96ACF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = GMU6W6K8X6;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MeteoWatchExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.meteo.watch.extension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+			};
+			name = Debug;
+		};
+		1B622EFA20949E5D00C96ACF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GMU6W6K8X6;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MeteoWatchExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.meteo.watch.extension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.2;
+			};
+			name = Release;
+		};
 		F9941A6C1BECE32400700313 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 32E38FF08C15F447B5728A61 /* Pods-MeteoUITests.debug.xcconfig */;
@@ -1310,6 +1619,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1B622EFF20949E5D00C96ACF /* Build configuration list for PBXNativeTarget "MeteoWatchExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B622EF920949E5D00C96ACF /* Debug */,
+				1B622EFA20949E5D00C96ACF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B622F0120949E5D00C96ACF /* Build configuration list for PBXNativeTarget "MeteoWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B622EF720949E5D00C96ACF /* Debug */,
+				1B622EF820949E5D00C96ACF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F9941A6B1BECE32400700313 /* Build configuration list for PBXNativeTarget "MeteoUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
