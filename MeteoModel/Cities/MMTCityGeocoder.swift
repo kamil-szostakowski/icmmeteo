@@ -6,7 +6,7 @@
 //  Copyright © 2017 Kamil Szostakowski. All rights reserved.
 //
 
-import AddressBook
+import Contacts
 import CoreLocation
 
 public class MMTCityGeocoder
@@ -50,15 +50,14 @@ public class MMTCityGeocoder
     {
         var cities = [MMTCityProt]()
         
-        let address: [NSObject:NSObject] =
-        [
-            kABPersonAddressCityKey: criteria as NSObject,
-            kABPersonAddressCountryKey: "Poland" as NSObject,
-            kABPersonAddressCountryCodeKey: "PL" as NSObject,
-        ]
+        let
+        address = CNMutablePostalAddress()
+        address.city = criteria
+        address.country = "Poland"
+        address.isoCountryCode = "PL"
         
         geocoder.cancelGeocode()
-        geocoder.geocode(addressDictionary: address){ (placemarks, error) in
+        geocoder.geocode(address: address){ (placemarks, error) in
             
             defer { completion(cities) }
             guard error == nil else { return }

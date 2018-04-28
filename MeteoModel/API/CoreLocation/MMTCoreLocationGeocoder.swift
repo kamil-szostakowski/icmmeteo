@@ -8,10 +8,11 @@
 
 import Foundation
 import CoreLocation
+import Contacts
 
-extension CLPlacemark: MMTPlacemark {}
+extension CLPlacemark : MMTPlacemark {}
 
-extension CLGeocoder: MMTGeocoder
+extension CLGeocoder : MMTGeocoder
 {
     public func geocode(location: CLLocation, completion: @escaping MMTGeocodeCompletion)
     {
@@ -20,10 +21,16 @@ extension CLGeocoder: MMTGeocoder
         }
     }
     
-    public func geocode(addressDictionary: [AnyHashable : Any], completion: @escaping MMTGeocodeCompletion)
+    public func geocode(address: CNPostalAddress, completion: @escaping MMTGeocodeCompletion)
     {
-        geocodeAddressDictionary(addressDictionary) {
-            completion($0, $1)
+        if #available(iOS 11.0, *) {
+            geocodePostalAddress(address) {
+                completion($0, $1)
+            }
+        } else {
+            geocodeAddressString("\(address.city), \(address.country)") {
+                completion($0, $1)
+            }
         }
     }
 }
