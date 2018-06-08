@@ -12,14 +12,12 @@ import MeteoModel
 class MMTCitiesSearchBarDelegate: NSObject, UISearchBarDelegate
 {
     // MARK: Properties
-    var searchInput: MMTSearchInput!
     private var onSearch: (String?) -> Void
     
     // MARK: Initializers
     init(handler: @escaping (String?) -> Void)
     {
         onSearch = handler
-        searchInput = MMTSearchInput("")
         super.init()
     }
     
@@ -31,16 +29,13 @@ class MMTCitiesSearchBarDelegate: NSObject, UISearchBarDelegate
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     {
-        searchInput = MMTSearchInput(searchText)
-        searchBar.text = searchInput.stringValue
-                
-        onSearch(searchInput.isValid ? searchText : nil)
+        searchBar.text = MMTSearchInput(searchText).stringValue
+        onSearch(searchBar.text)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
     {
         searchBar.reset()
-        searchInput = MMTSearchInput("")
         onSearch(nil)
     }
     

@@ -30,7 +30,6 @@
 		1B8C6BFA20371D440029282F /* MMTNSUserDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BF920371D440029282F /* MMTNSUserDefaultsTests.swift */; };
 		1B8C6BFC2037867C0029282F /* MMTShortcutsMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BFB2037867C0029282F /* MMTShortcutsMigrator.swift */; };
 		1BA0206F20C95F3800170D9D /* MMTCitiesSearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA0206E20C95F3800170D9D /* MMTCitiesSearchBarDelegate.swift */; };
-		1BBD84EE1FDF2F3600627B06 /* MMTLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBD84ED1FDF2F3600627B06 /* MMTLocationService.swift */; };
 		1BF36E091FE3003C00083538 /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E081FE3003C00083538 /* UISegmentedControl.swift */; };
 		1BF36E0D1FE485D200083538 /* MMTDetailedMapShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E0C1FE485D200083538 /* MMTDetailedMapShortcut.swift */; };
 		1BF36E0F1FE4860900083538 /* MMTMeteorogramShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E0E1FE4860900083538 /* MMTMeteorogramShortcut.swift */; };
@@ -164,7 +163,6 @@
 		1B8C6BF920371D440029282F /* MMTNSUserDefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTNSUserDefaultsTests.swift; sourceTree = "<group>"; };
 		1B8C6BFB2037867C0029282F /* MMTShortcutsMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTShortcutsMigrator.swift; sourceTree = "<group>"; };
 		1BA0206E20C95F3800170D9D /* MMTCitiesSearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTCitiesSearchBarDelegate.swift; sourceTree = "<group>"; };
-		1BBD84ED1FDF2F3600627B06 /* MMTLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTLocationService.swift; sourceTree = "<group>"; };
 		1BF36E081FE3003C00083538 /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
 		1BF36E0C1FE485D200083538 /* MMTDetailedMapShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapShortcut.swift; sourceTree = "<group>"; };
 		1BF36E0E1FE4860900083538 /* MMTMeteorogramShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramShortcut.swift; sourceTree = "<group>"; };
@@ -432,7 +430,6 @@
 				F90F72A61C5A3DA600130353 /* NSUserDefaults.swift */,
 				F9829D701C3FB09D00314438 /* CAAnimation.swift */,
 				F90A5DD71E1711D300058B57 /* CGSize.swift */,
-				1BBD84ED1FDF2F3600627B06 /* MMTLocationService.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -667,7 +664,7 @@
 				CLASSPREFIX = MMT;
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Kamil Szostakowski";
 				TargetAttributes = {
 					F9941A631BECE32300700313 = {
@@ -941,7 +938,6 @@
 				F9FFEE471B8DCEF900C30EDD /* UIImageView.swift in Sources */,
 				8E880AC01DF220D1004D8A9E /* MMTDetailedMapPreviewController.swift in Sources */,
 				1B2B4F742045F7B3004FBBB5 /* MMTActivityIndicating.swift in Sources */,
-				1BBD84EE1FDF2F3600627B06 /* MMTLocationService.swift in Sources */,
 				1B09566A1FE1AD3800C8189A /* MMTShortcuts.swift in Sources */,
 				1B176846203CC8F200E47D30 /* MMTForecasterCommentController.swift in Sources */,
 				1B5B6B7220C8806C007C6678 /* MMTCitiesListDataSource.swift in Sources */,
@@ -1100,12 +1096,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1155,12 +1153,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

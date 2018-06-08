@@ -21,8 +21,7 @@ public class MMTSearchInput
         return rawInput.removed(doubled: .whitespaces).count > 2
     }
     
-    // MARK: Initializers
-    
+    // MARK: Initializers    
     public init(_ input: String)
     {
         rawInput = input.removed(doubled: .whitespaces)

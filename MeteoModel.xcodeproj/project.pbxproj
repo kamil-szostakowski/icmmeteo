@@ -53,6 +53,9 @@
 		1B9C72442049B73200856476 /* MMTSearchInputFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C72432049B73200856476 /* MMTSearchInputFilterTests.swift */; };
 		1B9C724A2049B92A00856476 /* MMTTestTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C72492049B92A00856476 /* MMTTestTools.swift */; };
 		1B9C724C2049B94F00856476 /* MMTMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C724B2049B94F00856476 /* MMTMocks.swift */; };
+		1BA0207420CACA3F00170D9D /* MMTLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA0207320CACA3F00170D9D /* MMTLocationService.swift */; };
+		1BA0207620CACD6000170D9D /* MMTCoreLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA0207520CACD6000170D9D /* MMTCoreLocationService.swift */; };
+		1BA0207920CB159600170D9D /* MMTModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA0207820CB159600170D9D /* MMTModelController.swift */; };
 		1BCFAE90206945C50046215D /* MMTMeteorogramStoreMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCFAE8F206945C50046215D /* MMTMeteorogramStoreMapTests.swift */; };
 		1BCFAE92206991830046215D /* MMTCachingMeteorogramImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCFAE91206991830046215D /* MMTCachingMeteorogramImageStore.swift */; };
 		1BCFAE94206998850046215D /* MMTCachingMeteorogramImageStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCFAE93206998850046215D /* MMTCachingMeteorogramImageStoreTests.swift */; };
@@ -121,6 +124,9 @@
 		1B9C72492049B92A00856476 /* MMTTestTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTTestTools.swift; sourceTree = "<group>"; };
 		1B9C724B2049B94F00856476 /* MMTMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMocks.swift; sourceTree = "<group>"; };
 		1B9C72522049BC2A00856476 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		1BA0207320CACA3F00170D9D /* MMTLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTLocationService.swift; sourceTree = "<group>"; };
+		1BA0207520CACD6000170D9D /* MMTCoreLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTCoreLocationService.swift; sourceTree = "<group>"; };
+		1BA0207820CB159600170D9D /* MMTModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTModelController.swift; sourceTree = "<group>"; };
 		1BCFAE8F206945C50046215D /* MMTMeteorogramStoreMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramStoreMapTests.swift; sourceTree = "<group>"; };
 		1BCFAE91206991830046215D /* MMTCachingMeteorogramImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTCachingMeteorogramImageStore.swift; sourceTree = "<group>"; };
 		1BCFAE93206998850046215D /* MMTCachingMeteorogramImageStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTCachingMeteorogramImageStoreTests.swift; sourceTree = "<group>"; };
@@ -157,6 +163,7 @@
 		1B4B09CB20C1B8F000E364A0 /* ModelControllers */ = {
 			isa = PBXGroup;
 			children = (
+				1BA0207820CB159600170D9D /* MMTModelController.swift */,
 				1B4B09CC20C1B90A00E364A0 /* MMTCitiesListModelController.swift */,
 			);
 			path = ModelControllers;
@@ -278,6 +285,8 @@
 			children = (
 				1B9C72182049B5A400856476 /* MMTGeocoder.swift */,
 				1B9C72192049B5A400856476 /* MMTCoreLocationGeocoder.swift */,
+				1BA0207320CACA3F00170D9D /* MMTLocationService.swift */,
+				1BA0207520CACD6000170D9D /* MMTCoreLocationService.swift */,
 			);
 			path = CoreLocation;
 			sourceTree = "<group>";
@@ -399,7 +408,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Kamil Szostakowski";
 				TargetAttributes = {
 					1B9C71DA2049B42D00856476 = {
@@ -466,14 +475,17 @@
 				1B9C72052049B48500856476 /* MMTPredefinedCitiesFileStore.swift in Sources */,
 				1B9C72032049B48500856476 /* MMTCitiesStore.swift in Sources */,
 				1BD6C3012060145600746B5A /* MMTMeteorogram.swift in Sources */,
+				1BA0207620CACD6000170D9D /* MMTCoreLocationService.swift in Sources */,
 				1B9C72202049B5E900856476 /* NSURL.swift in Sources */,
 				1B9C721B2049B5A400856476 /* MMTCoreLocationGeocoder.swift in Sources */,
 				1B4B09CD20C1B90A00E364A0 /* MMTCitiesListModelController.swift in Sources */,
+				1BA0207420CACA3F00170D9D /* MMTLocationService.swift in Sources */,
 				1B9C72242049B61200856476 /* NSCalendar.swift in Sources */,
 				1B9C71F62049B44C00856476 /* MMTError.swift in Sources */,
 				1B9C722A2049B69E00856476 /* MMTConstants.swift in Sources */,
 				1B54EF90204D6DC8008B8F90 /* Mobile_Meteo.xcdatamodeld in Sources */,
 				1B611A8720642C2F00CDEF84 /* MMTFactory.swift in Sources */,
+				1BA0207920CB159600170D9D /* MMTModelController.swift in Sources */,
 				1B2B2DB7204DB45100B7C9B0 /* MMTCityProt.swift in Sources */,
 				1B54EF93204D729C008B8F90 /* MMTCoreData.swift in Sources */,
 				1B9C720B2049B49600856476 /* MMTDetailedMap.swift in Sources */,
@@ -538,6 +550,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -545,6 +558,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -598,6 +612,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -605,6 +620,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

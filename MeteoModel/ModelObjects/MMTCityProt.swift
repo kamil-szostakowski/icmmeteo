@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-public struct MMTCityProt
+public struct MMTCityProt: Equatable
 {
     public var name: String
     public var region: String
@@ -32,7 +32,13 @@ public struct MMTCityProt
         guard let region = placemark.administrativeArea else { return nil }
         guard let location = placemark.location else { return nil }
         guard placemark.ocean == nil else { return nil }
+        guard name.count > 0 else { return nil }
         
         self.init(name: name, region: region, location: location)
+    }
+    
+    public static func == (lhs: MMTCityProt, rhs: MMTCityProt) -> Bool
+    {
+        return lhs.name == rhs.name && lhs.region == rhs.region
     }
 }
