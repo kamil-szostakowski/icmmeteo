@@ -10,7 +10,7 @@ protocol MMTShortcut
 {        
     var identifier: String { get }
     
-    func execute(using tabbar: MMTTabBarController, completion: MMTCompletion?)
+    func execute(using tabbar: MMTTabBarController, completion: (() -> Void)?)
 }
 
 protocol MMTShortcutRegister
@@ -24,7 +24,7 @@ protocol MMTShortcutRegister
 
 extension MMTShortcut
 {
-    func prepare(tabbar: MMTTabBarController, target: UIViewController, completion: @escaping MMTCompletion)
+    func prepare(tabbar: MMTTabBarController, target: UIViewController, completion: @escaping (() -> Void))
     {
         guard let index = tabbar.viewControllers?.index(of: target) else {
             completion()
