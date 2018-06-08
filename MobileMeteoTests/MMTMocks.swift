@@ -20,7 +20,7 @@ class MMTUnsupportedShortcut: MMTShortcut
 {
     var identifier: String = ""
     
-    func execute(using tabbar: MMTTabBarController, completion: MMTCompletion?) { }
+    func execute(using tabbar: MMTTabBarController, completion: (() -> Void)?) { }
 }
 
 class StubMigrator : MMTVersionMigrator
