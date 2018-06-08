@@ -34,7 +34,7 @@ extension GAI: MMTAnalytics
     }
 }
 
-extension UIViewController
+extension NSObject
 {
     var analytics: MMTAnalytics?
     {        
