@@ -9,7 +9,7 @@
 import Foundation
 import MeteoModel
 
-class MMTCitiesListDataSource : NSObject, UITableViewDataSource, UITableViewDelegate
+class MMTCitiesListDataSource : NSObject, UITableViewDataSource, UITableViewDelegate, MMTAnalyticsReporter
 {
     // MARK: Properties
     private var citiesIndex: MMTCitiesIndex

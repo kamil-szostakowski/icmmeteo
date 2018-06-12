@@ -1,7 +1,7 @@
 # Uncomment this line to define a global platform for your project
 # link_with 'MobileMeteo', 'MobileMeteoTests', 'MeteoUITests'
 
-platform :ios, '9.3'
+platform :ios, '10.3'
 project 'MobileMeteo.xcodeproj'
 
 def common

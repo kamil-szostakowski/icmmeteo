@@ -65,6 +65,7 @@ extension MMTCitiesListController
         super.viewWillAppear(animated)
         
         setupLocationService()
+        modelController.activate()
         modelController.onLocationChange(location: currentLocation)
         analytics?.sendScreenEntryReport(MMTAnalyticsCategory.Locations.rawValue)
         
@@ -124,6 +125,7 @@ extension MMTCitiesListController
     
     func onModelUpdate()
     {
+        print("Model update")
         if modelController.searchInput.isValid == false {
             dataSource.update(cities: modelController.cities)
             dataSource.update(currentLocation: modelController.currentCity)

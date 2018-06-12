@@ -81,7 +81,6 @@
 		F9E6967B1AFCC06600273DA3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9E696791AFCC06600273DA3 /* LaunchScreen.xib */; };
 		F9E696A41AFCE70700273DA3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9E696A31AFCE70700273DA3 /* CoreLocation.framework */; };
 		F9ED9FFA1E07527B00190F59 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9ED9FF91E07527B00190F59 /* UIView.swift */; };
-		F9F240BD1C5237D00030E440 /* MMTAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F240BC1C5237D00030E440 /* MMTAnalytics.swift */; };
 		F9F9D6101C52643000A49ACA /* MMTGoogleAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F9D60F1C52643000A49ACA /* MMTGoogleAnalytics.swift */; };
 		F9FFEE471B8DCEF900C30EDD /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FFEE461B8DCEF900C30EDD /* UIImageView.swift */; };
 /* End PBXBuildFile section */
@@ -233,7 +232,6 @@
 		F9ED9FF91E07527B00190F59 /* UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		F9EE114D1C6DBBF7003AF8BD /* Iława.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Iława.gpx"; sourceTree = "<group>"; };
 		F9EE114E1C6DBC0B003AF8BD /* Bydgoszcz.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Bydgoszcz.gpx; sourceTree = "<group>"; };
-		F9F240BC1C5237D00030E440 /* MMTAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTAnalytics.swift; sourceTree = "<group>"; };
 		F9F9D60F1C52643000A49ACA /* MMTGoogleAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTGoogleAnalytics.swift; sourceTree = "<group>"; };
 		F9FFEE461B8DCEF900C30EDD /* UIImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -582,7 +580,6 @@
 		F9F9D60E1C52641800A49ACA /* GoogleAnalytics */ = {
 			isa = PBXGroup;
 			children = (
-				F9F240BC1C5237D00030E440 /* MMTAnalytics.swift */,
 				F9F9D60F1C52643000A49ACA /* MMTGoogleAnalytics.swift */,
 			);
 			name = GoogleAnalytics;
@@ -943,7 +940,6 @@
 				1B5B6B7220C8806C007C6678 /* MMTCitiesListDataSource.swift in Sources */,
 				1BF36E0F1FE4860900083538 /* MMTMeteorogramShortcut.swift in Sources */,
 				8E79D52B1D4E806E00BE1A0E /* MMTDetailedMapsListController.swift in Sources */,
-				F9F240BD1C5237D00030E440 /* MMTAnalytics.swift in Sources */,
 				1BFBAE081FEDAD0C00FC559B /* MMTMeteorogramHereShortcut.swift in Sources */,
 				F90A5DD81E1711D300058B57 /* CGSize.swift in Sources */,
 				F957544F1B4D068400C4E672 /* MMTCitiesListController.swift in Sources */,

@@ -22,7 +22,6 @@ extension UIScrollView
     }
 
     // MARK: Zooming
-
     func animateZoom(scale: CGFloat)
     {
         let animation = { () -> Void in
@@ -33,6 +32,11 @@ extension UIScrollView
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 10, options: [], animations: animation, completion: nil)
     }
     
+    func animateZoomScale(for contentSize: CGSize)
+    {
+        animateZoom(scale: zoomScale(for: contentSize))
+    }
+    
     func zoomScaleFittingWidth(for size: CGSize) -> CGFloat
     {
         return bounds.width/size.width
@@ -41,5 +45,12 @@ extension UIScrollView
     func zoomScaleFittingHeight(for size: CGSize) -> CGFloat
     {
         return bounds.height/size.height
+    }
+    
+    func zoomScale(for size: CGSize) -> CGFloat
+    {
+        return traitCollection.verticalSizeClass == .compact ?
+            zoomScaleFittingWidth(for: size) :
+            zoomScaleFittingHeight(for: size)
     }
 }

@@ -38,6 +38,7 @@ public class MMTCitiesListModelController: MMTModelController
     // MARK: Interface methods
     public func onSearchPhraseChange(phrase: String?)
     {
+        // TODO: Cancel action when the input didn't change
         searchInput = MMTSearchInput(phrase ?? "")
         
         guard searchInput.isValid else {

@@ -7,9 +7,11 @@
 //
 
 import CoreSpotlight
+import MeteoModel
 
 extension CSSearchableIndex : MMTShortcutRegister
-{    
+{
+    // MARK: MMTShortcutRegister methods
     func register(_ shortcut: MMTShortcut)
     {
         guard let item = convert(from: shortcut) else {
@@ -41,5 +43,24 @@ extension CSSearchableIndex : MMTShortcutRegister
     func convert(from activity: NSUserActivity) -> MMTShortcut?
     {
         return MMTMeteorogramShortcut(userActivity: activity)
+    }
+}
+
+extension CSSearchableIndex
+{
+    // MARK: Spotlight methods
+    static func update(for city: MMTCityProt)
+    {
+        guard isIndexingAvailable() else {
+            return
+        }
+        
+        let shortcut = MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: city)
+        
+        switch city.isFavourite
+        {
+            case true: self.default().register(shortcut)
+            case false: self.default().unregister(shortcut)
+        }
     }
 }

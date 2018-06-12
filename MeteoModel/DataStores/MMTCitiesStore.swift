@@ -24,7 +24,7 @@ public protocol MMTCitiesStore
 public struct MMTCoreDataCitiesStore : MMTCitiesStore
 {
     // MARK: Properties
-    private let context: NSManagedObjectContext
+    public private(set) var context: NSManagedObjectContext
     private let geocoder: MMTCityGeocoder
     
     // MARK: Initializers    

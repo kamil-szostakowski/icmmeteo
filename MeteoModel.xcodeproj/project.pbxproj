@@ -17,6 +17,8 @@
 		1B54EF93204D729C008B8F90 /* MMTCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54EF91204D729C008B8F90 /* MMTCoreData.swift */; };
 		1B55FC1D20658B5E00056679 /* MMTDetailedMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B55FC1C20658B5E00056679 /* MMTDetailedMapTests.swift */; };
 		1B611A8720642C2F00CDEF84 /* MMTFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B611A8620642C2F00CDEF84 /* MMTFactory.swift */; };
+		1B7CC19A20CF0968000B985E /* MMTMeteorogramModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CC19920CF0968000B985E /* MMTMeteorogramModelController.swift */; };
+		1B7CC19D20CF1E40000B985E /* MMTAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B7CC19C20CF1E40000B985E /* MMTAnalytics.swift */; };
 		1B9C71E52049B42D00856476 /* MeteoModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B9C71DB2049B42D00856476 /* MeteoModel.framework */; };
 		1B9C71F62049B44C00856476 /* MMTError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C71F52049B44C00856476 /* MMTError.swift */; };
 		1B9C71F82049B47100856476 /* MMTMeteorogramUrlSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B9C71F72049B47100856476 /* MMTMeteorogramUrlSession.swift */; };
@@ -84,6 +86,8 @@
 		1B54EF91204D729C008B8F90 /* MMTCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTCoreData.swift; sourceTree = "<group>"; };
 		1B55FC1C20658B5E00056679 /* MMTDetailedMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapTests.swift; sourceTree = "<group>"; };
 		1B611A8620642C2F00CDEF84 /* MMTFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTFactory.swift; sourceTree = "<group>"; };
+		1B7CC19920CF0968000B985E /* MMTMeteorogramModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramModelController.swift; sourceTree = "<group>"; };
+		1B7CC19C20CF1E40000B985E /* MMTAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTAnalytics.swift; sourceTree = "<group>"; };
 		1B9C71DB2049B42D00856476 /* MeteoModel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MeteoModel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B9C71DF2049B42D00856476 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B9C71E42049B42D00856476 /* MeteoModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MeteoModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +171,7 @@
 			children = (
 				1BA0207820CB159600170D9D /* MMTModelController.swift */,
 				1B4B09CC20C1B90A00E364A0 /* MMTCitiesListModelController.swift */,
+				1B7CC19920CF0968000B985E /* MMTMeteorogramModelController.swift */,
 			);
 			path = ModelControllers;
 			sourceTree = "<group>";
@@ -182,6 +187,14 @@
 				1B9C72392049B71500856476 /* MMTClimateModelTests.swift */,
 			);
 			path = ModelObjectsTests;
+			sourceTree = "<group>";
+		};
+		1B7CC19B20CF1E34000B985E /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				1B7CC19C20CF1E40000B985E /* MMTAnalytics.swift */,
+			);
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		1B9C71D12049B42D00856476 = {
@@ -278,6 +291,7 @@
 		1B9C72162049B58C00856476 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				1B7CC19B20CF1E34000B985E /* Analytics */,
 				1B9C72172049B59300856476 /* CoreLocation */,
 			);
 			path = API;
@@ -489,6 +503,7 @@
 				1BA0207620CACD6000170D9D /* MMTCoreLocationService.swift in Sources */,
 				1B9C72202049B5E900856476 /* NSURL.swift in Sources */,
 				1B9C721B2049B5A400856476 /* MMTCoreLocationGeocoder.swift in Sources */,
+				1B7CC19D20CF1E40000B985E /* MMTAnalytics.swift in Sources */,
 				1B4B09CD20C1B90A00E364A0 /* MMTCitiesListModelController.swift in Sources */,
 				1BA0207420CACA3F00170D9D /* MMTLocationService.swift in Sources */,
 				1B9C72242049B61200856476 /* NSCalendar.swift in Sources */,
@@ -499,6 +514,7 @@
 				1BA0207920CB159600170D9D /* MMTModelController.swift in Sources */,
 				1B2B2DB7204DB45100B7C9B0 /* MMTCityProt.swift in Sources */,
 				1B54EF93204D729C008B8F90 /* MMTCoreData.swift in Sources */,
+				1B7CC19A20CF0968000B985E /* MMTMeteorogramModelController.swift in Sources */,
 				1B9C720B2049B49600856476 /* MMTDetailedMap.swift in Sources */,
 				1B9C72142049B4AD00856476 /* MMTCitiesIndex.swift in Sources */,
 				1B9C72282049B67100856476 /* UIImage.swift in Sources */,
