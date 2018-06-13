@@ -67,7 +67,7 @@ extension MMTCitiesListModelController
     {
         citiesStore.all {
             self.cities = $0
-            self.delegate?.onModelUpdate()
+            self.delegate?.onModelUpdate(self)
         }
     }
     
@@ -75,7 +75,7 @@ extension MMTCitiesListModelController
     {
         citiesStore.cities(maching: criteria) {
             self.cities = $0
-            self.delegate?.onModelUpdate()
+            self.delegate?.onModelUpdate(self)
         }
     }
     
@@ -91,7 +91,7 @@ extension MMTCitiesListModelController
             }
             
             self.currentCity = aCity
-            self.delegate?.onModelUpdate()
+            self.delegate?.onModelUpdate(self)
         }
     }
 }

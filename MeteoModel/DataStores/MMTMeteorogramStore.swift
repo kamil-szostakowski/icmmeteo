@@ -10,7 +10,16 @@ import UIKit
 
 public typealias MMTImagesCache = NSCache<NSString, UIImage>
 
-public struct MMTMeteorogramStore
+public protocol MMTMeteorogramDataStore
+{
+    var climateModel: MMTClimateModel { get }
+    
+    func meteorogram(for city: MMTCityProt, completion: @escaping (MMTMeteorogram?, MMTError?) -> Void)
+    
+    func meteorogram(for map: MMTDetailedMap, completion: @escaping (MMTMapMeteorogram?, MMTError?) -> Void)
+}
+
+public struct MMTMeteorogramStore: MMTMeteorogramDataStore
 {
     // MARK: Properties
     private let forecastStore: MMTForecastStore

@@ -10,7 +10,7 @@ import Foundation
 
 public protocol MMTModelControllerDelegate : AnyObject
 {
-    func onModelUpdate()
+    func onModelUpdate(_ controller: MMTModelController)
 }
 
 public protocol MMTModelController

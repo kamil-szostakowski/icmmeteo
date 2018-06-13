@@ -123,7 +123,7 @@ extension MMTCitiesListController
         perform(segue: segue, sender: self)
     }
     
-    func onModelUpdate()
+    func onModelUpdate(_ controller: MMTModelController)
     {
         print("Model update")
         if modelController.searchInput.isValid == false {

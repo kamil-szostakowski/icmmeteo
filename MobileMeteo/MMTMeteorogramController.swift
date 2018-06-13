@@ -209,7 +209,7 @@ extension MMTMeteorogramController : UIScrollViewDelegate
 extension MMTMeteorogramController: MMTModelControllerDelegate
 {
     // MARK: Model update methods
-    func onModelUpdate()
+    func onModelUpdate(_ controller: MMTModelController)
     {
         city = modelController.city
         

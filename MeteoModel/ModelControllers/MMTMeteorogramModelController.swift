@@ -24,11 +24,11 @@ public class MMTMeteorogramModelController: MMTModelController, MMTAnalyticsRepo
         return dataStore.climateModel
     }
     
-    private var dataStore: MMTMeteorogramStore
+    private var dataStore: MMTMeteorogramDataStore
     private var citiesStore: MMTCitiesStore
     
     // MARK: Initializers    
-    public init(city: MMTCityProt, meteorogramStore: MMTMeteorogramStore, citiesStore: MMTCitiesStore)
+    public init(city: MMTCityProt, meteorogramStore: MMTMeteorogramDataStore, citiesStore: MMTCitiesStore)
     {
         self.city = city
         self.dataStore = meteorogramStore
@@ -61,7 +61,7 @@ extension MMTMeteorogramModelController
             MMTAnalyticsAction.LocationDidRemoveFromFavourites
 
         analytics?.sendUserActionReport(.Locations, action: action, actionLabel:  city.name)
-        delegate?.onModelUpdate()
+        delegate?.onModelUpdate(self)
     }
 }
 
@@ -71,7 +71,7 @@ extension MMTMeteorogramModelController
     fileprivate func downloadMeteorogram()
     {
         requestPending = true
-        delegate?.onModelUpdate()
+        delegate?.onModelUpdate(self)
         
         dataStore.meteorogram(for: city) { (meteorogram, error) in
             
@@ -83,7 +83,7 @@ extension MMTMeteorogramModelController
                 self.analytics?.sendUserActionReport(.Meteorogram, action: .MeteorogramDidDisplay, actionLabel: self.climateModel.type.rawValue)
             }
             
-            self.delegate?.onModelUpdate()
+            self.delegate?.onModelUpdate(self)
         }
     }
 }

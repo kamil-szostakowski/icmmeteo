@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import XCTest
 import Foundation
 import CoreLocation
 @testable import MeteoModel
@@ -75,5 +76,82 @@ class MMTMockMeteorogramImageStore : MMTMeteorogramImageStore
             let result = self.mapResult!.popLast()!
             completion(result.0, result.1)
         }
+    }
+}
+
+class MMTMockMeteorogramStore: MMTMeteorogramDataStore
+{
+    var climateModel: MMTClimateModel = MMTUmClimateModel()
+    var mapMeteorogram: MMTMapMeteorogram?
+    var meteorogram: MMTMeteorogram?
+    var error: MMTError?
+    
+    func meteorogram(for city: MMTCityProt, completion: @escaping (MMTMeteorogram?, MMTError?) -> Void)
+    {
+        completion(meteorogram, error)
+    }
+    
+    func meteorogram(for map: MMTDetailedMap, completion: @escaping (MMTMapMeteorogram?, MMTError?) -> Void)
+    {
+        completion(mapMeteorogram, error)
+    }
+}
+
+class MMTMockModelControllerDelegate<T>: MMTModelControllerDelegate where T: MMTModelController
+{
+    var updateCallbacks = [(T) -> Void]()
+    var updatesCount: Int = 0
+    
+    func onModelUpdate(_ controller: MMTModelController)
+    {
+        if updatesCount < updateCallbacks.count {
+            updatesCount += 1
+            updateCallbacks[updatesCount-1](controller as! T)
+        }
+    }
+    
+    func awaitModelUpdate(completions: [(T) -> Void]) -> [XCTestExpectation]
+    {
+        var updateExpectations = [XCTestExpectation]()
+        
+        updateCallbacks = [{ _ in XCTFail("Too many updates") }]
+        
+        for completion in completions.reversed()
+        {
+            let updateExpectation = XCTestExpectation(description: "Expectation")
+            updateExpectations.append(updateExpectation)
+            
+            updateCallbacks.insert({
+                completion($0)
+                updateExpectation.fulfill()
+            }, at: 0)
+        }
+        
+        return updateExpectations
+    }
+}
+
+class MMTMockCitiesStore: MMTCitiesStore
+{
+    var allCities = [MMTCityProt]()
+    var searchResult = [MMTCityProt]()
+    var currentCity: MMTCityProt?
+    var savedCity: MMTCityProt?
+    var error: MMTError?
+    
+    func all(_ completion: ([MMTCityProt]) -> Void) {
+        completion(allCities)
+    }
+    
+    func city(for location: CLLocation, completion: @escaping (MMTCityProt?, MMTError?) -> Void) {
+        completion(currentCity, error)
+    }
+    
+    func cities(maching criteria: String, completion: @escaping ([MMTCityProt]) -> Void) {
+        completion(searchResult)
+    }
+    
+    func save(city: MMTCityProt) {
+        savedCity = city
     }
 }
