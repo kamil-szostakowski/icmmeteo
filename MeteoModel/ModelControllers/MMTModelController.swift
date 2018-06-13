@@ -13,11 +13,15 @@ public protocol MMTModelControllerDelegate : AnyObject
     func onModelUpdate(_ controller: MMTModelController)
 }
 
-public protocol MMTModelController
+public class MMTModelController
 {
-    var delegate: MMTModelControllerDelegate? { get set }
+    public weak var delegate: MMTModelControllerDelegate?
     
-    func activate()
+    public func activate()
+    {
+    }
     
-    func deactivate()
+    public func deactivate()
+    {        
+    }
 }

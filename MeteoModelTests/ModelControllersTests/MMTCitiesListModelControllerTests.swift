@@ -44,7 +44,6 @@ class MMTCitiesListModelControllerTests: XCTestCase
     func testInitialization()
     {
         XCTAssertEqual(modelController.cities.count, 0)
-        XCTAssertEqual(modelController.currentCity, nil)
         XCTAssertEqual(modelController.searchInput.stringValue, "")
     }
     
@@ -52,7 +51,6 @@ class MMTCitiesListModelControllerTests: XCTestCase
     {
         let expectations = mockDelegate.awaitModelUpdate(completions: [{
             XCTAssertEqual($0.cities.count, 4)
-            XCTAssertEqual($0.currentCity, nil)
             XCTAssertEqual($0.searchInput.stringValue, "")
         }])
         
@@ -106,59 +104,5 @@ class MMTCitiesListModelControllerTests: XCTestCase
         
         modelController.onSearchPhraseChange(phrase: "Lo")
         wait(for: expectations, timeout: 2)
-    }
-    
-    func testUpdateOfCurrentCity()
-    {
-        citiesStore.currentCity = citiesStore.allCities.first!
-        modelController.activate()
-        
-        let expectations = mockDelegate.awaitModelUpdate(completions: [{
-            XCTAssertEqual($0.cities.count, 4)
-            XCTAssertEqual($0.currentCity?.name, "Lorem")
-        }])
-        
-        modelController.onLocationChange(location: CLLocation())
-        wait(for: expectations, timeout: 2)
-    }
-    
-    func testUpdateOfCurrentCityWithInvalidLocation()
-    {
-        modelController.activate()
-        let expectations = mockDelegate.awaitModelUpdate(completions: [{
-            XCTAssertEqual($0.cities.count, 4)
-            XCTAssertNil($0.currentCity)
-        }])
-        
-        modelController.onLocationChange(location: nil)
-        wait(for: expectations, timeout: 2)
-    }
-    
-    func testUpdateOfCurrentCityWithError()
-    {
-        citiesStore.error = .locationNotFound
-        modelController.activate()
-        
-        // No updates should be made
-        let expectations = mockDelegate.awaitModelUpdate(completions: [])
-        
-        modelController.onLocationChange(location: CLLocation())
-        wait(for: expectations, timeout: 2)
-        
-        XCTAssertEqual(modelController.cities.count, 4)
-        XCTAssertNil(modelController.currentCity)
-    }
-    
-    func testUpdateOfCurrentCityWithSameCity()
-    {
-        modelController.activate()
-        let expectations = mockDelegate.awaitModelUpdate(completions: [{
-            XCTAssertEqual($0.cities.count, 4)
-            XCTAssertEqual($0.currentCity?.name, "Sit")
-        }])
-        
-        modelController.onLocationChange(location: CLLocation())
-        modelController.onLocationChange(location: CLLocation())
-        wait(for: expectations, timeout: 2)
-    }
+    }    
 }

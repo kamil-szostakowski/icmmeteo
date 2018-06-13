@@ -23,6 +23,7 @@ class MMTCitiesListController: UIViewController, MMTModelControllerDelegate
     fileprivate var dataSource: MMTCitiesListDataSource!
     fileprivate var searchBarDelegate: MMTCitiesSearchBarDelegate!
     fileprivate var modelController: MMTCitiesListModelController!
+    fileprivate var currentCityModelController: MMTCurrentCityModelController!
     
     fileprivate var currentLocation: CLLocation? {
         return UIApplication.shared.locationService?.currentLocation
@@ -66,7 +67,7 @@ extension MMTCitiesListController
         
         setupLocationService()
         modelController.activate()
-        modelController.onLocationChange(location: currentLocation)
+        currentCityModelController.onLocationChange(location: currentLocation)
         analytics?.sendScreenEntryReport(MMTAnalyticsCategory.Locations.rawValue)
         
         if selectedCity != nil {
@@ -102,7 +103,12 @@ extension MMTCitiesListController
     {
         modelController = MMTCitiesListModelController(store: MMTCoreDataCitiesStore())
         modelController.delegate = self
+        
+        currentCityModelController = MMTCurrentCityModelController(store: MMTCoreDataCitiesStore())
+        currentCityModelController.delegate = self
+        
         modelController.activate()
+        currentCityModelController.activate()
     }
     
     fileprivate func setupLocationService()
@@ -119,18 +125,22 @@ extension MMTCitiesListController
     {
         selectedCity = city
         searchBar.reset()
-        modelController.onSearchPhraseChange(phrase: nil)
         perform(segue: segue, sender: self)
     }
     
     func onModelUpdate(_ controller: MMTModelController)
     {
+        // Accept only successfull updates of the current city
+        guard currentCityModelController.requestPending == false, currentCityModelController.error == nil else {
+            return
+        }
+        
         print("Model update")
-        if modelController.searchInput.isValid == false {
-            dataSource.update(cities: modelController.cities)
-            dataSource.update(currentLocation: modelController.currentCity)
-        } else {
+        if modelController.searchInput.isValid {
             dataSource.update(searchResults: modelController.cities)
+        } else if modelController.searchInput.isValid == false && currentCityModelController.requestPending == false {
+            dataSource.update(cities: modelController.cities)
+            dataSource.update(currentLocation: currentCityModelController.currentCity)
         }
         
         tableView.reloadData()
@@ -143,6 +153,6 @@ extension MMTCitiesListController
     
     @objc func handleLocationDidChange(notification: Notification)
     {
-        modelController.onLocationChange(location: currentLocation)
+        currentCityModelController.onLocationChange(location: currentLocation)
     }
 }

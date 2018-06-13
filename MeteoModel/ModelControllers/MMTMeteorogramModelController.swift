@@ -14,7 +14,6 @@ public class MMTMeteorogramModelController: MMTModelController, MMTAnalyticsRepo
     public var analytics: MMTAnalytics?
     
     // MARK: Properties
-    public var delegate: MMTModelControllerDelegate?
     public var meteorogram: MMTMeteorogram?
     public var error: MMTError?
     public var requestPending: Bool
@@ -37,13 +36,13 @@ public class MMTMeteorogramModelController: MMTModelController, MMTAnalyticsRepo
     }
     
     // MARK: Lifecycle methods
-    public func activate()
+    public override func activate()
     {
         downloadMeteorogram()
         analytics?.sendScreenEntryReport("Meteorogram: \(climateModel.type.rawValue)")
     }
     
-    public func deactivate()
+    public override func deactivate()
     {
         citiesStore.save(city: city)
     }

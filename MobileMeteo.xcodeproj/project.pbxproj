@@ -10,6 +10,7 @@
 		1B03D61B2018CF8C005C6A1C /* MMTMeteorogramShortcutConversion_3DTouchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B03D61A2018CF8C005C6A1C /* MMTMeteorogramShortcutConversion_3DTouchTests.swift */; };
 		1B09566A1FE1AD3800C8189A /* MMTShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0956691FE1AD3800C8189A /* MMTShortcuts.swift */; };
 		1B0A8255201D3D2B00D55710 /* MMTMeteorogramShortcutConversion_SpotlightTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0A8254201D3D2B00D55710 /* MMTMeteorogramShortcutConversion_SpotlightTests.swift */; };
+		1B1020CC20D1C3A400B24809 /* MMTCityAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1020CB20D1C3A400B24809 /* MMTCityAnnotation.swift */; };
 		1B176846203CC8F200E47D30 /* MMTForecasterCommentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B176845203CC8F200E47D30 /* MMTForecasterCommentController.swift */; };
 		1B1F8FA6201F808C004B1126 /* MMTDetailedMapShortcut_3DTouchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F8FA5201F808C004B1126 /* MMTDetailedMapShortcut_3DTouchTests.swift */; };
 		1B1F8FA8201FC8CD004B1126 /* MMTDetailedMapShortcutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F8FA7201FC8CD004B1126 /* MMTDetailedMapShortcutTests.swift */; };
@@ -141,6 +142,7 @@
 		1B03D61A2018CF8C005C6A1C /* MMTMeteorogramShortcutConversion_3DTouchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramShortcutConversion_3DTouchTests.swift; sourceTree = "<group>"; };
 		1B0956691FE1AD3800C8189A /* MMTShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTShortcuts.swift; sourceTree = "<group>"; };
 		1B0A8254201D3D2B00D55710 /* MMTMeteorogramShortcutConversion_SpotlightTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramShortcutConversion_SpotlightTests.swift; sourceTree = "<group>"; };
+		1B1020CB20D1C3A400B24809 /* MMTCityAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTCityAnnotation.swift; sourceTree = "<group>"; };
 		1B176845203CC8F200E47D30 /* MMTForecasterCommentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecasterCommentController.swift; sourceTree = "<group>"; };
 		1B1F8FA5201F808C004B1126 /* MMTDetailedMapShortcut_3DTouchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapShortcut_3DTouchTests.swift; sourceTree = "<group>"; };
 		1B1F8FA7201FC8CD004B1126 /* MMTDetailedMapShortcutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapShortcutTests.swift; sourceTree = "<group>"; };
@@ -296,6 +298,14 @@
 			name = Shortcuts;
 			sourceTree = "<group>";
 		};
+		1B1020C920D1C38C00B24809 /* CoreLocation */ = {
+			isa = PBXGroup;
+			children = (
+				1B1020CB20D1C3A400B24809 /* MMTCityAnnotation.swift */,
+			);
+			name = CoreLocation;
+			sourceTree = "<group>";
+		};
 		1B68CD342045B82B00AB8046 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +402,7 @@
 		8EE51B501E68D09800C52DC6 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				1B1020C920D1C38C00B24809 /* CoreLocation */,
 				1B0956681FE1AC8700C8189A /* Shortcuts */,
 				F9F9D60E1C52641800A49ACA /* GoogleAnalytics */,
 			);
@@ -951,6 +962,7 @@
 				F9ED9FFA1E07527B00190F59 /* UIView.swift in Sources */,
 				1B68CD362045B85000AB8046 /* MMTActivityIndicator.swift in Sources */,
 				1BF36E0D1FE485D200083538 /* MMTDetailedMapShortcut.swift in Sources */,
+				1B1020CC20D1C3A400B24809 /* MMTCityAnnotation.swift in Sources */,
 				F9F9D6101C52643000A49ACA /* MMTGoogleAnalytics.swift in Sources */,
 				F90F72A71C5A3DA600130353 /* NSUserDefaults.swift in Sources */,
 				F9326D2D1C5F83180033E11B /* MMTInfoController.swift in Sources */,
