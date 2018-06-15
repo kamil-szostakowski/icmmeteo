@@ -88,12 +88,16 @@ class MMTMockMeteorogramStore: MMTMeteorogramDataStore
     
     func meteorogram(for city: MMTCityProt, completion: @escaping (MMTMeteorogram?, MMTError?) -> Void)
     {
-        completion(meteorogram, error)
+        DispatchQueue.global(qos: .background).async {
+            completion(self.meteorogram, self.error)
+        }
     }
     
     func meteorogram(for map: MMTDetailedMap, completion: @escaping (MMTMapMeteorogram?, MMTError?) -> Void)
     {
-        completion(mapMeteorogram, error)
+        DispatchQueue.global(qos: .background).async {
+            completion(self.mapMeteorogram, self.error)
+        }
     }
 }
 
