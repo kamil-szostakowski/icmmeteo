@@ -159,3 +159,16 @@ class MMTMockCitiesStore: MMTCitiesStore
         savedCity = city
     }
 }
+
+class MMTMockForecasterStore: MMTForecasterCommentDataStore
+{
+    var comment: NSAttributedString?
+    var error: MMTError?
+    
+    func forecasterComment(completion: @escaping (NSAttributedString?, MMTError?) -> Void)
+    {
+        DispatchQueue.global(qos: .background).async {
+            completion(self.comment, self.error)
+        }
+    }
+}

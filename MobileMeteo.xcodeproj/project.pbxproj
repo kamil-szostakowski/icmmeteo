@@ -30,6 +30,7 @@
 		1B8C6BF820371BE40029282F /* MMTAppMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BF720371BE40029282F /* MMTAppMigratorTests.swift */; };
 		1B8C6BFA20371D440029282F /* MMTNSUserDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BF920371D440029282F /* MMTNSUserDefaultsTests.swift */; };
 		1B8C6BFC2037867C0029282F /* MMTShortcutsMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BFB2037867C0029282F /* MMTShortcutsMigrator.swift */; };
+		1B8FB8C920D428AC00AF95C8 /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8FB8C820D428AC00AF95C8 /* NSAttributedString.swift */; };
 		1BA0206F20C95F3800170D9D /* MMTCitiesSearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA0206E20C95F3800170D9D /* MMTCitiesSearchBarDelegate.swift */; };
 		1BF36E091FE3003C00083538 /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E081FE3003C00083538 /* UISegmentedControl.swift */; };
 		1BF36E0D1FE485D200083538 /* MMTDetailedMapShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E0C1FE485D200083538 /* MMTDetailedMapShortcut.swift */; };
@@ -163,6 +164,7 @@
 		1B8C6BF720371BE40029282F /* MMTAppMigratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTAppMigratorTests.swift; sourceTree = "<group>"; };
 		1B8C6BF920371D440029282F /* MMTNSUserDefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTNSUserDefaultsTests.swift; sourceTree = "<group>"; };
 		1B8C6BFB2037867C0029282F /* MMTShortcutsMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTShortcutsMigrator.swift; sourceTree = "<group>"; };
+		1B8FB8C820D428AC00AF95C8 /* NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSAttributedString.swift; path = ../MeteoModel/Extensions/NSAttributedString.swift; sourceTree = "<group>"; };
 		1BA0206E20C95F3800170D9D /* MMTCitiesSearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTCitiesSearchBarDelegate.swift; sourceTree = "<group>"; };
 		1BF36E081FE3003C00083538 /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
 		1BF36E0C1FE485D200083538 /* MMTDetailedMapShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapShortcut.swift; sourceTree = "<group>"; };
@@ -325,6 +327,15 @@
 			name = Migrator;
 			sourceTree = "<group>";
 		};
+		1B8FB8C620D4109000AF95C8 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				1BA0206E20C95F3800170D9D /* MMTCitiesSearchBarDelegate.swift */,
+				1B5B6B7120C8806C007C6678 /* MMTCitiesListDataSource.swift */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
 		1BF148711F686F27002D9FB0 /* ViewExtensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -439,6 +450,7 @@
 				F90F72A61C5A3DA600130353 /* NSUserDefaults.swift */,
 				F9829D701C3FB09D00314438 /* CAAnimation.swift */,
 				F90A5DD71E1711D300058B57 /* CGSize.swift */,
+				1B8FB8C820D428AC00AF95C8 /* NSAttributedString.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -480,9 +492,8 @@
 		F9C23A951B621D7200A94A4B /* Weather */ = {
 			isa = PBXGroup;
 			children = (
+				1B8FB8C620D4109000AF95C8 /* Delegates */,
 				F93004501E11D49B00A5CE10 /* Views */,
-				1BA0206E20C95F3800170D9D /* MMTCitiesSearchBarDelegate.swift */,
-				1B5B6B7120C8806C007C6678 /* MMTCitiesListDataSource.swift */,
 				F957544E1B4D068400C4E672 /* MMTCitiesListController.swift */,
 				F989C5301B9D6BDA002A1903 /* MMTCityMapPickerController.swift */,
 				F95754481B4CFF0A00C4E672 /* MMTMeteorogramController.swift */,
@@ -975,6 +986,7 @@
 				F95754491B4CFF0A00C4E672 /* MMTMeteorogramController.swift in Sources */,
 				1B8C6BFC2037867C0029282F /* MMTShortcutsMigrator.swift in Sources */,
 				F9B686451B58DDD300E838BD /* MMTTabBarController.swift in Sources */,
+				1B8FB8C920D428AC00AF95C8 /* NSAttributedString.swift in Sources */,
 				F96BC8CB1B97285A0073A44E /* MMTAppearance.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
