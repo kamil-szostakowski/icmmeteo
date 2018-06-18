@@ -52,8 +52,19 @@ class MMTCurrentCityModelControllerTests: XCTestCase
         wait(for: expectations, timeout: 2)
     }
     
-    func testUpdateOfCurrentCityWithInvalidLocation()
+    func testUpdateOfCurrentCityWithInvalidLocationWhenNotPresentBefore()
     {
+        // No Model update call expected
+        let expectations = mockDelegate.awaitModelUpdate(completions: [])
+        
+        modelController.onLocationChange(location: nil)
+        wait(for: expectations, timeout: 2)
+    }
+    
+    func testUpdateOfCurrentCityWithInvalidLocationWhenPresentBefore()
+    {
+        modelController.currentCity = citiesStore.currentCity
+        
         let expectations = mockDelegate.awaitModelUpdate(completions: [{
             XCTAssertFalse($0.requestPending)
             XCTAssertNil($0.currentCity)

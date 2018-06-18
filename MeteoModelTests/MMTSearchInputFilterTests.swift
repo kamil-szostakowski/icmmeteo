@@ -46,4 +46,14 @@ class MMTSearchInputFilterTests: XCTestCase
     {
         XCTAssertEqual("aaa ccc ", MMTSearchInput("aaa ccc   ").stringValue)
     }
+    
+    func testComparison()
+    {
+        XCTAssertEqual(MMTSearchInput("lorem ipsum"), MMTSearchInput("lorem ipsum"))
+        XCTAssertEqual(MMTSearchInput("lorem ipsum "), MMTSearchInput("lorem ipsum  "))
+        XCTAssertEqual(MMTSearchInput("lorem ipsum"), MMTSearchInput("lorem   ipsum"))
+        
+        XCTAssertNotEqual(MMTSearchInput("lorem ipsum"), MMTSearchInput("lorem ipsum "))
+        XCTAssertNotEqual(MMTSearchInput("lorem"), MMTSearchInput("ipsum "))
+    }
 }

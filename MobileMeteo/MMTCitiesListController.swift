@@ -66,8 +66,8 @@ extension MMTCitiesListController
         super.viewWillAppear(animated)
         
         setupLocationService()
-        modelController.activate()
         currentCityModelController.onLocationChange(location: currentLocation)
+        modelController.activate()
         analytics?.sendScreenEntryReport(MMTAnalyticsCategory.Locations.rawValue)
         
         if selectedCity != nil {
@@ -135,7 +135,6 @@ extension MMTCitiesListController
             return
         }
         
-        print("Model update")
         if modelController.searchInput.isValid {
             dataSource.update(searchResults: modelController.cities)
         } else if modelController.searchInput.isValid == false && currentCityModelController.requestPending == false {

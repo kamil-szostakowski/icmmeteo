@@ -67,12 +67,16 @@ class MMTCitiesListModelControllerTests: XCTestCase
         }])
         
         modelController.onSearchPhraseChange(phrase: "Lor")
+        modelController.onSearchPhraseChange(phrase: "Lor")
         wait(for: expectations, timeout: 2)
     }
     
-    func testSearchWithEmptyPhrase()
+    func testSearchWithEmptyPhraseWhenSearchActive()
     {
         modelController.activate()
+        modelController.cities = citiesStore.searchResult
+        modelController.searchInput = MMTSearchInput("Lorem ipsum")
+        
         let expectations = mockDelegate.awaitModelUpdate(completions: [{
             XCTAssertEqual($0.cities.count, 4)
             XCTAssertEqual($0.searchInput.stringValue, "")
@@ -82,27 +86,65 @@ class MMTCitiesListModelControllerTests: XCTestCase
         wait(for: expectations, timeout: 2)
     }
     
-    func testSearchWithNilPhrase()
+    func testSearchWithEmptyPhraseWhenSearchInactive()
     {
         modelController.activate()
-        let expectations = mockDelegate.awaitModelUpdate(completions: [{
-            XCTAssertEqual($0.cities.count, 4)
-            XCTAssertEqual($0.searchInput.stringValue, "")
-        }])
+        
+        // No model update expected
+        let expectations = mockDelegate.awaitModelUpdate(completions: [])
         
         modelController.onSearchPhraseChange(phrase: nil)
         wait(for: expectations, timeout: 2)
+        
+        XCTAssertEqual(modelController.cities.count, 4)
+        XCTAssertEqual(modelController.searchInput.stringValue, "")
     }
     
-    func testSearchWithInvalidPhrase()
+    func testSearchWithInvalidPhraseWhenSearchActive()
     {
         modelController.activate()
-        let expectations = mockDelegate.awaitModelUpdate(completions: [{
-            XCTAssertEqual($0.cities.count, 4)
-            XCTAssertEqual($0.searchInput.stringValue, "Lo")
-        }])
+        modelController.cities = citiesStore.searchResult
+        modelController.searchInput = MMTSearchInput("Lorem ipsum")
+        
+        // No model update expected
+        let expectations = mockDelegate.awaitModelUpdate(completions: [])
         
         modelController.onSearchPhraseChange(phrase: "Lo")
         wait(for: expectations, timeout: 2)
-    }    
+        
+        XCTAssertEqual(modelController.cities.count, 2)
+        XCTAssertEqual(modelController.searchInput.stringValue, "Lo")
+    }
+    
+    func testSearchWithInvalidPhraseWhenSearchInactive()
+    {
+        modelController.activate()
+        
+        // No model update expected
+        let expectations = mockDelegate.awaitModelUpdate(completions: [])
+        
+        modelController.onSearchPhraseChange(phrase: "Lo")
+        wait(for: expectations, timeout: 2)
+        
+        XCTAssertEqual(modelController.cities.count, 4)
+        XCTAssertEqual(modelController.searchInput.stringValue, "Lo")
+    }
+    
+    func testSearchWhenPhraseChangedButResultSetUnchanged()
+    {
+        modelController.activate()
+        
+        let firstSearchExpectations = mockDelegate.awaitModelUpdate(completions: [{
+            
+            XCTAssertEqual($0.cities.count, 2)
+            XCTAssertEqual($0.searchInput.stringValue, "Lorem")
+        }])
+        
+        modelController.onSearchPhraseChange(phrase: "Lorem")
+        modelController.onSearchPhraseChange(phrase: "Lorem ipsum")
+        wait(for: firstSearchExpectations, timeout: 2)
+        
+        XCTAssertEqual(modelController.cities.count, 2)
+        XCTAssertEqual(modelController.searchInput.stringValue, "Lorem ipsum")
+    }
 }

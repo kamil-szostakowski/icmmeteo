@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MMTSearchInput
+public class MMTSearchInput: Equatable
 {
     // MARK: Properties
     private var rawInput: String!
@@ -30,6 +30,11 @@ public class MMTSearchInput
         if rawInput.count > 0 && input.last == " " {
             rawInput.append(" ")
         }
+    }
+    
+    public static func == (lhs: MMTSearchInput, rhs: MMTSearchInput) -> Bool
+    {
+        return lhs.stringValue == rhs.stringValue
     }
 }
 

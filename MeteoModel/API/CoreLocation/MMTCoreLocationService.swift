@@ -48,9 +48,7 @@ extension MMTCoreLocationService: CLLocationManagerDelegate
     
     @objc public func handleAppActivation(notification: Notification)
     {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            NotificationCenter.default.post(name: .locationChangedNotification, object: nil)
-        }
+        NotificationCenter.default.post(name: .locationChangedNotification, object: nil)
     }
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])

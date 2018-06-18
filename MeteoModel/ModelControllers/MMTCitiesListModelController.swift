@@ -25,21 +25,32 @@ public class MMTCitiesListModelController: MMTModelController
     // MARK: Lifecycle methods
     public override func activate()
     {
+        print("Updated model with all cities")
         updateAllCities()
     }
     
     // MARK: Interface methods
     public func onSearchPhraseChange(phrase: String?)
     {
-        // TODO: Cancel action when the input didn't change
-        searchInput = MMTSearchInput(phrase ?? "")
+        let newSearchInput = MMTSearchInput(phrase ?? "")
         
-        guard searchInput.isValid else {
+        guard searchInput != newSearchInput else {
+            return
+        }
+        
+        searchInput = newSearchInput
+        
+        guard newSearchInput.stringValue.count > 0 else {
+            print("Updated model because search was canceled")
             updateAllCities()
             return
         }
         
-        updateCities(matching: searchInput.stringValue)
+        guard newSearchInput.isValid else {
+            return
+        }
+        
+        updateCities(matching: searchInput)
     }    
 }
 
@@ -54,9 +65,16 @@ extension MMTCitiesListModelController
         }
     }
     
-    fileprivate func updateCities(matching criteria: String)
+    fileprivate func updateCities(matching criteria: MMTSearchInput)
     {
-        citiesStore.cities(maching: criteria) {
+        citiesStore.cities(maching: criteria.stringValue) {
+            
+            guard self.cities != $0 else {
+                print("Canceled update because search result didn't change")
+                return
+            }
+            
+            print("Updated model with search result")
             self.cities = $0
             self.delegate?.onModelUpdate(self)
         }

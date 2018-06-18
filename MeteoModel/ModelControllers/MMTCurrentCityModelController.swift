@@ -27,12 +27,10 @@ public class MMTCurrentCityModelController: MMTModelController
     // MARK: Interface methods
     public func onLocationChange(location: CLLocation?)
     {
-        guard let newLocation = location else
-        {
-            requestPending = false
-            currentCity = nil
+        guard let newLocation = location else {
             error = nil
-            delegate?.onModelUpdate(self)
+            requestPending = false
+            tryUpdateCurrentCity(with: nil)            
             return
         }
         
@@ -53,16 +51,25 @@ extension MMTCurrentCityModelController
             self.error = error
             
             guard let aCity = city, error == nil else {
+                print("Updated model because geolocation failure")
                 self.delegate?.onModelUpdate(self)
                 return
             }
             
-            guard self.currentCity != aCity else {
-                return
-            }
-            
-            self.currentCity = city
-            self.delegate?.onModelUpdate(self)
+            self.tryUpdateCurrentCity(with: aCity)
         }
+    }
+    
+    fileprivate func tryUpdateCurrentCity(with city: MMTCityProt?)
+    {
+        guard currentCity != city else {
+            print("Canceleded model update because destination didn't change")
+            return
+        }
+        
+        print("Updated model with current location \(String(describing: city?.location.coordinate))")
+        
+        currentCity = city
+        delegate?.onModelUpdate(self)
     }
 }
