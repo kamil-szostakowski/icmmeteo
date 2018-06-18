@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MMTSearchInput
+public class MMTSearchInput: Equatable
 {
     // MARK: Properties
     private var rawInput: String!
@@ -21,8 +21,7 @@ public class MMTSearchInput
         return rawInput.removed(doubled: .whitespaces).count > 2
     }
     
-    // MARK: Initializers
-    
+    // MARK: Initializers    
     public init(_ input: String)
     {
         rawInput = input.removed(doubled: .whitespaces)
@@ -31,6 +30,11 @@ public class MMTSearchInput
         if rawInput.count > 0 && input.last == " " {
             rawInput.append(" ")
         }
+    }
+    
+    public static func == (lhs: MMTSearchInput, rhs: MMTSearchInput) -> Bool
+    {
+        return lhs.stringValue == rhs.stringValue
     }
 }
 

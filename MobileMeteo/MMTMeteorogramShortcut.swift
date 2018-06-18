@@ -28,7 +28,7 @@ class MMTMeteorogramShortcut : MMTShortcut
         self.climateModelType = model.type.rawValue
     }
         
-    func execute(using tabbar: MMTTabBarController, completion: MMTCompletion?)
+    func execute(using tabbar: MMTTabBarController, completion: (() -> Void)?)
     {
         tabbar.displayActivityIndicator(in: tabbar.view, message: nil)
         

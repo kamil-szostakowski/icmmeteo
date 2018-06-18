@@ -29,7 +29,7 @@ class MMTMeteorogramHereShortcut: MMTMeteorogramShortcut
         super.init(model: model, city: city)
     }
     
-    override func execute(using tabbar: MMTTabBarController, completion: MMTCompletion?)
+    override func execute(using tabbar: MMTTabBarController, completion: (() -> Void)?)
     {
         tabbar.displayActivityIndicator(in: tabbar.view, message: nil)
         
@@ -51,7 +51,7 @@ class MMTMeteorogramHereShortcut: MMTMeteorogramShortcut
         }
     }
     
-    private func retry(after seconds: UInt64, using tabbar: MMTTabBarController, completion: MMTCompletion?)
+    private func retry(after seconds: UInt64, using tabbar: MMTTabBarController, completion: (() -> Void)?)
     {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: seconds * 1000)) {
             self.retryCount += 1

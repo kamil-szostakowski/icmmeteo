@@ -15,13 +15,12 @@ import MeteoModel
 
 public let MMTDebugActionCleanupDb = "CLEANUP_DB"
 public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
-public let MMTLocationChangedNotification = Notification.Name(rawValue: "MMTLocationChangedNotification")
 
 @UIApplicationMain class MMTAppDelegate: UIResponder, UIApplicationDelegate
 {
     // MARK: Properties
     var window: UIWindow?
-    var locationManager: CLLocationManager!
+    var locationService: MMTLocationService!
     
     var rootViewController: MMTTabBarController {
         return self.window!.rootViewController as! MMTTabBarController
@@ -30,7 +29,7 @@ public let MMTLocationChangedNotification = Notification.Name(rawValue: "MMTLoca
     // MARK: Lifecycle methods
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {        
-        setupLocationManager()        
+        setupLocationService()        
         performMigration()
         
         #if DEBUG
@@ -120,14 +119,12 @@ extension MMTAppDelegate
         gai.trackUncaughtExceptions = false
     }
     
-    private func setupLocationManager()
+    private func setupLocationService()
     {
         let handler = #selector(handleLocationDidChange(notification:))
-        NotificationCenter.default.addObserver(self, selector: handler, name: MMTLocationChangedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: handler, name: .locationChangedNotification, object: nil)
         
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+        locationService = MMTCoreLocationService(locationManager: CLLocationManager())
     }
     
     private func performMigration()
@@ -156,32 +153,18 @@ extension MMTAppDelegate
 extension MMTAppDelegate : MMTLocationService
 {
     var currentLocation: CLLocation? {
-        return locationManager.location
+        return locationService.currentLocation
+    }    
+    
+    @objc func handleLocationDidChange(notification: Notification)
+    {
+        try? MMTShortcutsMigrator().migrate()
     }
 }
 
-extension MMTAppDelegate : CLLocationManagerDelegate
+extension UIApplication
 {
-    // MARK: Location service methods
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
-    {
-        if status == .authorizedWhenInUse {
-            locationManager.startMonitoringSignificantLocationChanges()
-            locationManager(manager, didUpdateLocations: [])
-            
-        } else {
-            locationManager.stopMonitoringSignificantLocationChanges()
-            locationManager(manager, didUpdateLocations: [])
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-    {
-        NotificationCenter.default.post(name: MMTLocationChangedNotification, object: nil)
-    }
-    
-    @objc func handleLocationDidChange(notification: Notification)
-    {        
-        try? MMTShortcutsMigrator().migrate()
+    var locationService: MMTLocationService? {
+        return delegate as? MMTLocationService
     }
 }

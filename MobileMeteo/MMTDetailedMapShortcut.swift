@@ -23,7 +23,7 @@ class MMTDetailedMapShortcut : MMTShortcut
         self.detailedMap = map
     }
     
-    func execute(using tabbar: MMTTabBarController, completion: MMTCompletion?)
+    func execute(using tabbar: MMTTabBarController, completion: (() -> Void)?)
     {
         guard let targetVC = (tabbar.viewControllers?.first { $0 as? MMTDetailedMapsListController != nil } as? MMTDetailedMapsListController) else {
             completion?()

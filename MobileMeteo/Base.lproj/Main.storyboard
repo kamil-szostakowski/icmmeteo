@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VAh-Ln-Mxc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VAh-Ln-Mxc">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeue.ttc">
-            <string>HelveticaNeue-Medium</string>
-        </array>
-        <array key="HelveticaNeueLights.ttc">
-            <string>HelveticaNeue-Light</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Pogoda-->
         <scene sceneID="Izp-fd-wZY">
@@ -38,9 +30,6 @@
                                         <color key="tintColor" red="0.062388241291046143" green="0.48353224992752075" blue="0.38298630714416504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="barTintColor" red="0.92150187492370605" green="0.92147433757781982" blue="0.92148995399475098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <textInputTraits key="textInputTraits"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="WYV-gA-76P" id="56B-zf-EL3"/>
-                                        </connections>
                                     </searchBar>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rqd-jQ-RGD" userLabel="Border">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
@@ -118,10 +107,6 @@
                                         </accessibility>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="WYV-gA-76P" id="vLT-hD-fNC"/>
-                                    <outlet property="delegate" destination="WYV-gA-76P" id="Xdv-gW-ZXI"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.92150187492370605" green="0.92147433757781982" blue="0.92148995399475098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -821,9 +806,7 @@
                         <outlet property="navigationBar" destination="fkW-yY-Xe8" id="stY-ez-aMD"/>
                         <outlet property="segmentControl" destination="Y5m-Lt-Km3" id="FfJ-T0-ZnZ"/>
                         <outlet property="tableView" destination="tQf-Ha-W9r" id="QtV-hu-C6U"/>
-                        <segue destination="PxB-id-yZw" kind="show" identifier="DisplayDetailedMap" id="FHs-6N-fme">
-                            <nil key="action"/>
-                        </segue>
+                        <segue destination="PxB-id-yZw" kind="show" identifier="DisplayDetailedMap" id="FHs-6N-fme"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eda-JA-YWC" userLabel="First Responder" sceneMemberID="firstResponder"/>

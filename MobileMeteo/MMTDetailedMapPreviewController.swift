@@ -7,11 +7,10 @@
 //
 // TODO: Check how application handles dates from the future
 
-import UIKit
 import Foundation
 import MeteoModel
 
-class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate, MMTActivityIndicating
+class MMTDetailedMapPreviewController: UIViewController, MMTActivityIndicating
 {
     // MARK: Properties
     @IBOutlet weak var detailedMapImage: UIImageView!
@@ -24,26 +23,24 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate, M
     var detailedMap: MMTDetailedMap!
     var activityIndicator: MMTActivityIndicator!
 
-    private var meteorogramSize: CGSize!
-    private var meteorogramLegendSize: CGSize!
-    private var fetchSequenceStarted = false
-    private var fetchSequenceRetryCount = 0
-    private var meteorogramStore: MMTMeteorogramStore!
-    private var meteorogram: MMTMapMeteorogram!
+    fileprivate var meteorogramSize: CGSize!
+    fileprivate var meteorogramLegendSize: CGSize!
+    fileprivate var modelController: MMTDetailedMapPreviewModelController!
 
     private var detailedMapSize: CGSize {
         return CGSize(width: meteorogramSize.width-meteorogramLegendSize.width, height: meteorogramSize.height)
     }
 
-    // MARK: Overrides
+    // MARK: Lifecycle methods
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
+        setupModelController()
         setupHeader(with: detailedMap.climateModel.startDate(for: Date()))
-        setupMeteorogramStore()
         setupMeteorogramSize()
-        fetchMeteorogramSequence()
+        
+        modelController.activate()
     }
 
     override func viewWillAppear(_ animated: Bool)
@@ -56,128 +53,113 @@ class MMTDetailedMapPreviewController: UIViewController, UIScrollViewDelegate, M
     {
         return .portrait
     }
+}
 
+extension MMTDetailedMapPreviewController
+{
     // MARK: Setup methods
-    private func setupSlider(with meteorogram: MMTMapMeteorogram)
+    fileprivate func setupSlider(with momentsCount: Int)
     {
+        // TODO: Need to be somehow refactored
+        guard slider.maximumValue != Float(momentsCount-1) else {
+            return
+        }
+        
         slider.minimumValue = 0
-        slider.maximumValue = Float(meteorogram.moments.count-1)
+        slider.maximumValue = Float(momentsCount-1)
         slider.value = 0
     }
     
-    private func setupHeader(with moment: Date)
+    fileprivate func setupHeader(with moment: Date)
     {
         mapTitle.text = MMTLocalizedStringWithFormat("detailed-maps.\(detailedMap.type.rawValue)")
         momentLabel.text = DateFormatter.utcFormatter.string(from: moment)
     }
     
-    private func setupMeteorogramStore()
+    fileprivate func setupModelController()
     {
-        meteorogramStore = MMTMeteorogramStore(model: detailedMap.climateModel)
+        modelController = MMTDetailedMapPreviewModelController(map: detailedMap)
+        modelController.delegate = self
     }
-
-    private func setupMeteorogramSize()
+    
+    fileprivate func setupMeteorogramSize()
     {
         meteorogramSize = CGSize(map: detailedMap.climateModel.type)
         meteorogramLegendSize = CGSize(mapLegend: detailedMap.climateModel.type)
     }
-
-    private func setupScrollView()
+    
+    fileprivate func setupScrollView()
     {
         scrollView.maximumZoomScale = 1
         scrollView.minimumZoomScale = scrollView.zoomScaleFittingWidth(for: meteorogramSize)
         scrollView.zoomScale = scrollView.zoomScaleFittingWidth(for: detailedMapSize)
-
+        
         detailedMapImage.updateSizeConstraints(meteorogramSize)
     }
-    
-    private func configureScreen(with meteorogram: MMTMapMeteorogram, momentIndex: Int)
-    {
-        guard let image = meteorogram.images[momentIndex] else {
-            retryMeteorogramFetchSequenceIfNotStarted()
-            return
-        }
-        
-        setupHeader(with: meteorogram.moments[momentIndex])
-        detailedMapImage.image = image
-    }
+}
 
+extension MMTDetailedMapPreviewController: UIScrollViewDelegate
+{
     // MARK: Actions
     @IBAction func onSliderPositionChangeAction(_ sender: UISlider)
-    {        
-        let index = Int(round(sender.value))
-        configureScreen(with: meteorogram, momentIndex: index)
+    {
+        modelController.onMomentDisplayRequest(index: Int(round(sender.value)))
     }
-
+    
     @IBAction func onScrollViewDoubleTapAction(_ sender: UITapGestureRecognizer)
-    {        
+    {
         scrollView.animateZoom(scale: scrollView.zoomScaleFittingWidth(for: detailedMapSize))
     }
-
-    // MARK: Scroll view methods
-
+    
     func viewForZooming(in scrollView: UIScrollView) -> UIView?
     {
         return detailedMapImage
     }
+}
 
-    private func fetchMeteorogramSequence()
-    {
-        lockUserInterface(true)
-        fetchSequenceStarted = true
-        
-        meteorogramStore.meteorogram(for: detailedMap) { (meteorogram: MMTMapMeteorogram?, error: MMTError?) in
-            
-            self.fetchSequenceStarted = false
-            self.meteorogram = meteorogram
-            self.lockUserInterface(false)
-            
-            guard error == nil, meteorogram != nil, self.fetchSequenceRetryCount < 2 else {
-                self.displayErrorAlert(error!)
-                return
-            }
-            
-            self.setupSlider(with: self.meteorogram)
-            self.configureScreen(with: self.meteorogram, momentIndex: 0)
-        }
-    }
-
-    private func retryMeteorogramFetchSequenceIfNotStarted()
-    {
-        if fetchSequenceStarted == false
-        {
-            fetchSequenceRetryCount += 1
-            fetchMeteorogramSequence()
-        }
-    }
-
+extension MMTDetailedMapPreviewController
+{
     // MARK: Helper methods
-    private func lockUserInterface(_ lock: Bool)
-    {
-        if lock == true
+    fileprivate func lockUserInterface(_ lock: Bool)
+    {        
+        switch lock
         {
-            displayActivityIndicator(in: view, message: MMTLocalizedString("label.loading.meteorogram"))
-            slider.isEnabled = false
-            scrollView.isUserInteractionEnabled = false
-            return
+            case true: displayActivityIndicator(in: view, message: MMTLocalizedString("label.loading.meteorogram"))
+            case false: hideActivityIndicator()
         }
-
-        if lock == false
-        {
-            hideActivityIndicator()
-            slider.isEnabled = true
-            scrollView.isUserInteractionEnabled = true
-            return
-        }
+        
+        slider.isEnabled = !lock
+        scrollView.isUserInteractionEnabled = !lock
     }
-
-    private func displayErrorAlert(_ error: MMTError)
+    
+    fileprivate func displayErrorAlert(_ error: MMTError)
     {
         let alert = UIAlertController.alertForMMTError(error){ _ in
             self.perform(segue: .UnwindToListOfDetailedMaps, sender: self)
         }
-
+        
         hideActivityIndicator()
         present(alert, animated: true, completion: nil)
+    }
+}
+
+extension MMTDetailedMapPreviewController: MMTModelControllerDelegate
+{
+    func onModelUpdate(_ controller: MMTModelController)
+    {
+        lockUserInterface(modelController.requestPending)
+        
+        if let error = modelController.error {
+            displayErrorAlert(error)
+            return
+        }
+        
+        guard modelController.requestPending == false else {
+            return
+        }
+        
+        setupSlider(with: modelController.momentsCount)
+        setupHeader(with: modelController.moment!)
+        detailedMapImage.image = modelController.momentImage
     }
 }

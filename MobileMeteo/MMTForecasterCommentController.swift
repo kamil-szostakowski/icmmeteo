@@ -6,23 +6,21 @@
 //  Copyright © 2018 Kamil Szostakowski. All rights reserved.
 //
 
-import UIKit
-import CoreText
 import MeteoModel
 
-// MARK: Lifecycle extension
 class MMTForecasterCommentController: UIViewController, MMTActivityIndicating
 {
     // MARK: Outlets
     @IBOutlet weak var textView: UITextView!
     
     var activityIndicator: MMTActivityIndicator!
-    var lastUpdate: Date = Date.distantPast
+    var modelController: MMTForecasterCommentModelController!
     
     // MARK: Lifecycle methods
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        setupModelController()
         setupTextView(content: nil)
     }
     
@@ -30,7 +28,7 @@ class MMTForecasterCommentController: UIViewController, MMTActivityIndicating
     {
         super.viewWillAppear(animated)
         setupNotificationHandler()
-        updateTextViewContentIfNeeded()
+        modelController.activate()
         analytics?.sendScreenEntryReport(MMTAnalyticsCategory.ForecasterComment.rawValue)
     }
     
@@ -44,21 +42,10 @@ class MMTForecasterCommentController: UIViewController, MMTActivityIndicating
 // MARK: Setup extension
 fileprivate extension MMTForecasterCommentController
 {
-    func updateTextViewContentIfNeeded()
+    func setupModelController()
     {
-        guard Date().timeIntervalSince(lastUpdate) > TimeInterval(hours: 1) else {
-            return
-        }
-        
-        MMTForecasterCommentStore().forecasterComment { (comment, error) in
-            guard let content = comment else {
-                self.displayErrorAlert(error!)
-                return
-            }
-            
-            self.setupTextView(content: self.formatted(content: content))
-            self.lastUpdate = Date()
-        }
+        modelController = MMTForecasterCommentModelController(dataStore: MMTForecasterCommentStore())
+        modelController.delegate = self
     }
     
     func setupTextView(content: NSAttributedString?)
@@ -66,23 +53,13 @@ fileprivate extension MMTForecasterCommentController
         textView.attributedText = content
         textView.contentOffset = .zero
         textView.isUserInteractionEnabled = content != nil
-        
-        if content != nil {
-            hideActivityIndicator()
-        } else {
-            displayActivityIndicator(in: view, message: MMTLocalizedString("label.loading.comment"))
-        }
     }
     
     func setupNotificationHandler()
     {
         NotificationCenter.default.addObserver(self, selector: #selector(handleDidBecomeActive(notification:)), name: .UIApplicationDidBecomeActive, object: nil)
     }
-}
-
-// MARK: Utility extension
-fileprivate extension MMTForecasterCommentController
-{
+    
     func displayErrorAlert(_ error: MMTError)
     {
         let alert = UIAlertController.alertForMMTError(error){ _ in
@@ -93,29 +70,36 @@ fileprivate extension MMTForecasterCommentController
         present(alert, animated: true, completion: nil)
     }
     
-    func formatted(content: NSAttributedString) -> NSAttributedString
+    func setActivityIndicator(visible: Bool)
     {
-        let range = NSRange(location: 0, length: content.length)
-        let font = MMTAppearance.fontWithSize(16)
-        
-        let
-        paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .justified
-        
-        let
-        formattedContent = NSMutableAttributedString(attributedString: content)
-        formattedContent.addAttribute(.font, value: font, range: range)
-        formattedContent.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
-        
-        return NSAttributedString(attributedString: formattedContent)
+        switch visible {
+            case true: displayActivityIndicator(in: view, message: MMTLocalizedString("label.loading.comment"))
+            case false: hideActivityIndicator()
+        }
     }
 }
 
-// MARK: Action extension
 fileprivate extension MMTForecasterCommentController
 {
+    // MARK: Action extension
     @objc func handleDidBecomeActive(notification: Notification)
     {
-        updateTextViewContentIfNeeded()
+        modelController.activate()
+    }
+}
+
+extension MMTForecasterCommentController: MMTModelControllerDelegate
+{
+    // MARK: Data update methods
+    func onModelUpdate(_ controller: MMTModelController)
+    {
+        setActivityIndicator(visible: modelController.requestPending)
+        
+        if let error = modelController.error {
+            displayErrorAlert(error)
+            return
+        }
+        
+        setupTextView(content: modelController.comment)
     }
 }

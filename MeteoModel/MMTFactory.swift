@@ -59,3 +59,19 @@ extension MMTWebForecastStore
         self.init(model: model, session: session)
     }
 }
+
+extension MMTMeteorogramModelController
+{
+    public convenience init(city: MMTCityProt, model: MMTClimateModel)
+    {
+        self.init(city: city, meteorogramStore: MMTMeteorogramStore(model: model), citiesStore: MMTCoreDataCitiesStore())
+    }
+}
+
+extension MMTDetailedMapPreviewModelController
+{
+    public convenience init(map: MMTDetailedMap)
+    {
+        self.init(map: map, dataStore: MMTMeteorogramStore(model: map.climateModel))
+    }
+}

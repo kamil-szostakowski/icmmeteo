@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import MeteoModel
 
-enum MMTAnalyticsCategory: String
+public enum MMTAnalyticsCategory: String
 {
     case Locations
     case Meteorogram
@@ -18,7 +17,7 @@ enum MMTAnalyticsCategory: String
     case ForecasterComment
 }
 
-enum MMTAnalyticsAction: String
+public enum MMTAnalyticsAction: String
 {
     case MeteorogramDidDisplay
     case MeteorogramDidDisplayInLandscape
@@ -35,7 +34,7 @@ enum MMTAnalyticsAction: String
     case ShortcutSpotlightDidActivate
     case Shortcut3DTouchDidActivate
     
-    init?(group: MMTCitiesIndexSectionType)
+    public init?(group: MMTCitiesIndexSectionType)
     {
         switch group
         {
@@ -48,16 +47,28 @@ enum MMTAnalyticsAction: String
     }
 }
 
-struct MMTAnalyticsReport
+public struct MMTAnalyticsReport
 {
-    var category: MMTAnalyticsCategory
-    var action: MMTAnalyticsAction
-    var actionLabel: String
+    public var category: MMTAnalyticsCategory
+    public var action: MMTAnalyticsAction
+    public var actionLabel: String
+    
+    public init(category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel: String)
+    {
+        self.category = category
+        self.action = action
+        self.actionLabel = actionLabel
+    }
 }
 
-protocol MMTAnalytics
+public protocol MMTAnalytics
 {    
     func sendScreenEntryReport(_ screen: String)
     func sendUserActionReport(_ action: MMTAnalyticsReport)
     func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel: String)
+}
+
+public protocol MMTAnalyticsReporter
+{
+    var analytics: MMTAnalytics? { get }
 }

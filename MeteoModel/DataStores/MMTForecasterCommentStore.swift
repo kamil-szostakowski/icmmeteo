@@ -8,7 +8,12 @@
 
 import Foundation
 
-public struct MMTForecasterCommentStore
+public protocol MMTForecasterCommentDataStore
+{
+    func forecasterComment(completion: @escaping (NSAttributedString?, MMTError?) -> Void)
+}
+
+public struct MMTForecasterCommentStore: MMTForecasterCommentDataStore
 {
     // MARK: Initializers
     public init() {}

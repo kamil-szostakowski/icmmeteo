@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import MeteoModel
 
 extension GAI: MMTAnalytics
 {    
-    func sendScreenEntryReport(_ screen: String)
+    public func sendScreenEntryReport(_ screen: String)
     {
         let analyticsReport = GAIDictionaryBuilder.createScreenView().build() as NSDictionary
         
@@ -18,7 +19,7 @@ extension GAI: MMTAnalytics
         defaultTracker.send(analyticsReport as! [AnyHashable: Any])
     }
     
-    func sendUserActionReport(_ report: MMTAnalyticsReport)
+    public func sendUserActionReport(_ report: MMTAnalyticsReport)
     {
         let category = report.category.rawValue
         let action = report.action.rawValue
@@ -28,15 +29,15 @@ extension GAI: MMTAnalytics
         defaultTracker.send(analyticsReport as! [AnyHashable: Any])
     }
     
-    func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel label: String)
+    public func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel label: String)
     {
         sendUserActionReport(MMTAnalyticsReport(category: category, action: action, actionLabel: label))
     }
 }
 
-extension UIViewController
+extension MMTAnalyticsReporter
 {
-    var analytics: MMTAnalytics?
+    public var analytics: MMTAnalytics?
     {        
         guard GAI.sharedInstance().defaultTracker != nil else {
             return nil
@@ -52,3 +53,5 @@ extension UIViewController
         return GAI.sharedInstance()
     }
 }
+
+extension UIViewController: MMTAnalyticsReporter {}
