@@ -59,15 +59,15 @@ extension MMTCitiesListController
         setupTableView()
         setupSearchBar()
         setupModelController()
+        setupLocationService()
     }
     
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
         
-        setupLocationService()
-        currentCityModelController.onLocationChange(location: currentLocation)
         modelController.activate()
+        currentCityModelController.onLocationChange(location: currentLocation)
         analytics?.sendScreenEntryReport(MMTAnalyticsCategory.Locations.rawValue)
         
         if selectedCity != nil {
@@ -131,7 +131,7 @@ extension MMTCitiesListController
     func onModelUpdate(_ controller: MMTModelController)
     {
         // Accept only successfull updates of the current city
-        guard currentCityModelController.requestPending == false, currentCityModelController.error == nil else {
+        if shouldSkipUpdate(from: controller as? MMTCurrentCityModelController) {
             return
         }
         
@@ -153,5 +153,17 @@ extension MMTCitiesListController
     @objc func handleLocationDidChange(notification: Notification)
     {
         currentCityModelController.onLocationChange(location: currentLocation)
+    }
+    
+    func shouldSkipUpdate(from controller: MMTCurrentCityModelController?) -> Bool
+    {
+        if let aController = controller
+        {
+            if aController.requestPending || aController.error != nil {
+                return true
+            }            
+        }
+        
+        return false
     }
 }

@@ -9,7 +9,7 @@
 import XCTest
 import Foundation
 
-class MMTMeteorogramPreview: XCTestCase
+class MMTMeteorogramPreviewTests: XCTestCase
 {
     var app: XCUIApplication!
     

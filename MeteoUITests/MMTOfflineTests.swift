@@ -48,7 +48,7 @@ class MMTOfflineTests: XCTestCase
         app.otherElements["cities-search"].tap()
         app.otherElements["cities-search"].typeText("aaa")
         
-        sleep(5)
+        sleep(3)
         app.tables.cells["find-city-on-map"].tap()
         
         let
@@ -63,7 +63,7 @@ class MMTOfflineTests: XCTestCase
     func test_displayDetailedMapPreview()
     {
         app.tabBars.buttons["Mapy"].tap()
-        app.tables.cells.staticTexts["Opad"].tap()
+        app.tables.cells.staticTexts["Opady atmosferyczne"].tap()
 
         sleep(5)
         verifyFailureAlert(app.alerts.element(boundBy: 0), meteorogramFetchError)

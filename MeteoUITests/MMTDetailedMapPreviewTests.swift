@@ -37,7 +37,7 @@ class MMTDetailedMapPreviewTests: XCTestCase
     // MARK: Test methods
     func test_DisplayMapPreviewForModelUm()
     {
-        let mapTitle = "Opad"        
+        let mapTitle = "Opady atmosferyczne"
         displayPreview(for: mapTitle, model: "UM")
 
         let actualMapTitle = app.staticTexts["DetailedMapTitle"].label
@@ -60,8 +60,8 @@ class MMTDetailedMapPreviewTests: XCTestCase
         let activityIndicator = app.otherElements["activity-indicator"]
         let slider = app.sliders["moment-slider"]
 
-        XCTAssertFalse(slider.isEnabled)
         XCTAssertTrue(activityIndicator.exists)
+        XCTAssertFalse(slider.isEnabled)        
 
         expectation(for: NSPredicate(format: "exists == false"), evaluatedWith: activityIndicator){
             XCTAssertTrue(slider.isEnabled)
