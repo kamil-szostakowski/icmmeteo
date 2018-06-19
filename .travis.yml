@@ -10,4 +10,4 @@ before_install:
 - gem install xcpretty -N
 
 script:
-- xcodebuild test -workspace MobileMeteo.xcworkspace -scheme MobileMeteo -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.4' -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.3.1' | xcpretty -c
+- xcodebuild test -workspace MobileMeteo.xcworkspace -scheme MobileMeteo -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.4' -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.3.1' | xcpretty -c; test ${PIPESTATUS[0]} -eq 0
