@@ -1,4 +1,5 @@
 ![](https://img.shields.io/badge/platform-iOS-green.svg)
+![](https://api.travis-ci.com/kamil-szostakowski/icmmeteo.svg?branch=develop)
 
 # ICM Meteo #
 
