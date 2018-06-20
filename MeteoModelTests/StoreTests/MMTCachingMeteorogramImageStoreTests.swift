@@ -190,5 +190,11 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
         
         wait(for: [completionExpectation], timeout: 3)
     }
+    
+    func testSuccess()
+    {
+        print("somthing")
+        XCTAssertTrue(true)
+    }
 
 }
