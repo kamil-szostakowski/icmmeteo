@@ -193,6 +193,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     
     func testSuccess()
     {
+        print("somthing")
         XCTAssertTrue(true)
     }
 
