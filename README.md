@@ -3,6 +3,8 @@
 
 # ICM Meteo #
 
+[![Join the chat at https://gitter.im/icmmeteo/Lobby](https://badges.gitter.im/icmmeteo/Lobby.svg)](https://gitter.im/icmmeteo/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ICM Meteo is an iOS app which gives fast and easy access to the wether forecast service provided by by Interdisciplinary centre for mathematical and computational modeling [meteo.pl](http://meteo.pl)
 
 ## Screenshots
