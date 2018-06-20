@@ -32,7 +32,6 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     // MARK: Test methods
     func testStoreMeteorogramInCache()
     {
-        XCTFail()
         let startDate = mockImageStore.climateModel.startDate(for: Date())
         let key = "\(mockImageStore.climateModel.type.rawValue)-\(city.name)-\(startDate)" as NSString
         
