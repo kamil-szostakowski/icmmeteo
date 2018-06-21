@@ -12,7 +12,7 @@ import CoreData
 
 public protocol MMTCitiesStore
 {
-    func all(_ completion: @escaping ([MMTCityProt]) -> Void)
+    func all(_ completion: ([MMTCityProt]) -> Void)
     
     func city(for location: CLLocation, completion: @escaping (MMTCityProt?, MMTError?) -> Void)
     
@@ -35,7 +35,7 @@ public struct MMTCoreDataCitiesStore : MMTCitiesStore
     }
     
     // MARK: Methods
-    public func all(_ completion: @escaping ([MMTCityProt]) -> Void)
+    public func all(_ completion: ([MMTCityProt]) -> Void)
     {
         completion(context.fetch(request: .allCities()))
     }

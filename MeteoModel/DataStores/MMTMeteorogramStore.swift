@@ -8,8 +8,6 @@
 
 import UIKit
 
-public typealias MMTImagesCache = NSCache<NSString, UIImage>
-
 public protocol MMTMeteorogramDataStore
 {
     var climateModel: MMTClimateModel { get }

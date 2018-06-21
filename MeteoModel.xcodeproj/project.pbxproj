@@ -73,6 +73,7 @@
 		1BD6C3012060145600746B5A /* MMTMeteorogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD6C3002060145600746B5A /* MMTMeteorogram.swift */; };
 		1BFC168920DAF34300320D1F /* MMTForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFC168820DAF34300320D1F /* MMTForecastService.swift */; };
 		1BFC168C20DAF3AB00320D1F /* MMTForecastServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFC168B20DAF3AB00320D1F /* MMTForecastServiceTests.swift */; };
+		1BFC169020DC096900320D1F /* MMTImagesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFC168F20DC096900320D1F /* MMTImagesCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +158,7 @@
 		1BD6C3002060145600746B5A /* MMTMeteorogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogram.swift; sourceTree = "<group>"; };
 		1BFC168820DAF34300320D1F /* MMTForecastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecastService.swift; sourceTree = "<group>"; };
 		1BFC168B20DAF3AB00320D1F /* MMTForecastServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecastServiceTests.swift; sourceTree = "<group>"; };
+		1BFC168F20DC096900320D1F /* MMTImagesCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTImagesCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,8 +254,8 @@
 				1B9C71F92049B47600856476 /* DataStores */,
 				1B9C71F52049B44C00856476 /* MMTError.swift */,
 				1B9C72292049B69E00856476 /* MMTConstants.swift */,
-				1B54EF91204D729C008B8F90 /* MMTCoreData.swift */,
 				1B611A8620642C2F00CDEF84 /* MMTFactory.swift */,
+				1BFC168F20DC096900320D1F /* MMTImagesCache.swift */,
 				1B9C71DF2049B42D00856476 /* Info.plist */,
 				1B54EF8E204D6DC8008B8F90 /* Mobile_Meteo.xcdatamodeld */,
 			);
@@ -401,6 +403,7 @@
 			isa = PBXGroup;
 			children = (
 				1B9C72092049B49600856476 /* MMTCityCategory.swift */,
+				1B54EF91204D729C008B8F90 /* MMTCoreData.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -573,6 +576,7 @@
 				1B9C72002049B48500856476 /* MMTWebMeteorogramImageStore.swift in Sources */,
 				1B04F2BF206409B1009096C4 /* MMTMeteorogramStore.swift in Sources */,
 				1B9C72132049B4AD00856476 /* MMTSearchInputFilter.swift in Sources */,
+				1BFC169020DC096900320D1F /* MMTImagesCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

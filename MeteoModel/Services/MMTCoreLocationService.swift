@@ -26,9 +26,8 @@ public class MMTCoreLocationService: NSObject, MMTLocationService
         super.init()
         
         self.locationManager.delegate = self
-        //self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.requestAlwaysAuthorization()
-    }    
+    }
 }
 
 extension MMTCoreLocationService: CLLocationManagerDelegate

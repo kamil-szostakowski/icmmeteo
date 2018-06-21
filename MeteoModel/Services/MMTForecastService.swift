@@ -72,7 +72,7 @@ public class MMTForecastService
             self.currentCity = city
             self.currentStartDate = startDate
             self.meteorogramStore.meteorogram(for: city) { meteorogram, error in             
-                completion(error != nil ? .newData : .failed)
+                completion(error != nil ? .failed : .newData)
             }
         }
     }

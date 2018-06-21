@@ -23,7 +23,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     {
         super.setUp()
         city = MMTCityProt(name: "Lorem", region: "", location: CLLocation())
-        cache = NSCache<NSString, UIImage>()
+        cache = MMTImagesCache()
         mockImageStore = MMTMockMeteorogramImageStore()
         store = MMTCachingMeteorogramImageStore(store: mockImageStore, cache: cache)
         completionExpectation = expectation(description: "completion")
@@ -33,7 +33,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     func testStoreMeteorogramInCache()
     {
         let startDate = mockImageStore.climateModel.startDate(for: Date())
-        let key = "\(mockImageStore.climateModel.type.rawValue)-\(city.name)-\(startDate)" as NSString
+        let key = "\(mockImageStore.climateModel.type.rawValue)-\(city.name)-\(startDate)"
         
         mockImageStore.meteorogramResult = (UIImage(), nil)
         
@@ -51,7 +51,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     func testStoreMeteorogramInCacheWhenError()
     {
         let startDate = mockImageStore.climateModel.startDate(for: Date())
-        let key = "\(mockImageStore.climateModel.type.rawValue)-\(city.name)-\(startDate)" as NSString
+        let key = "\(mockImageStore.climateModel.type.rawValue)-\(city.name)-\(startDate)"
         
         mockImageStore.meteorogramResult = (nil, MMTError.meteorogramFetchFailure)
         
@@ -71,7 +71,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
         
         let climateModel = mockImageStore.climateModel
         let startDate = climateModel.startDate(for: Date().addingTimeInterval(TimeInterval(hours: 120)))
-        let key = "\(climateModel.type.rawValue)-\(city.name)-\(startDate)" as NSString
+        let key = "\(climateModel.type.rawValue)-\(city.name)-\(startDate)"
 
         cache.setObject(UIImage(), forKey: key)
         mockImageStore.meteorogramResult = (nil, MMTError.meteorogramNotFound)
@@ -88,7 +88,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     
     func testStoreLegendInCache()
     {
-        let key = "\(mockImageStore.climateModel.type.rawValue)-legend" as NSString
+        let key = "\(mockImageStore.climateModel.type.rawValue)-legend"
         
         mockImageStore.legendResult = (UIImage(), nil)
         store.getLegend { (image, error) in
@@ -104,7 +104,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     
     func testStoreLegendInCacheWhenError()
     {
-        let key = "\(mockImageStore.climateModel.type.rawValue)-legend" as NSString
+        let key = "\(mockImageStore.climateModel.type.rawValue)-legend"
         
         mockImageStore.legendResult = (nil, MMTError.meteorogramFetchFailure)
         store.getLegend { (image, error) in
@@ -121,7 +121,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     
     func testRetreiveLegendFromCache()
     {
-        let key = "\(mockImageStore.climateModel.type.rawValue)-legend" as NSString
+        let key = "\(mockImageStore.climateModel.type.rawValue)-legend"
         
         cache.setObject(UIImage(), forKey: key)
         mockImageStore.legendResult = (nil, MMTError.meteorogramFetchFailure)
@@ -140,7 +140,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     {
         let moment = Date()
         let map = MMTDetailedMap(MMTUmClimateModel(), .Precipitation, 0)
-        let key = "\(mockImageStore.climateModel.type.rawValue)-\(map.type.rawValue)-\(moment)" as NSString
+        let key = "\(mockImageStore.climateModel.type.rawValue)-\(map.type.rawValue)-\(moment)"
         
         mockImageStore.mapResult = [(UIImage(), nil)]
         store.getMeteorogram(for: map, moment: moment, startDate: moment) { (image, error) in
@@ -158,7 +158,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     {
         let moment = Date()
         let map = MMTDetailedMap(MMTUmClimateModel(), .Precipitation, 0)
-        let key = "\(mockImageStore.climateModel.type.rawValue)-\(map.type.rawValue)-\(moment)" as NSString
+        let key = "\(mockImageStore.climateModel.type.rawValue)-\(map.type.rawValue)-\(moment)"
         
         mockImageStore.mapResult = [(nil, MMTError.meteorogramFetchFailure)]
         store.getMeteorogram(for: map, moment: moment, startDate: moment) { (image, error) in
@@ -176,7 +176,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     {
         let moment = Date()
         let map = MMTDetailedMap(MMTUmClimateModel(), .Precipitation, 0)
-        let key = "\(mockImageStore.climateModel.type.rawValue)-\(map.type.rawValue)-\(moment)" as NSString
+        let key = "\(mockImageStore.climateModel.type.rawValue)-\(map.type.rawValue)-\(moment)"
         
         mockImageStore.mapResult = [(nil, MMTError.meteorogramFetchFailure)]
         cache.setObject(UIImage(), forKey: key)
