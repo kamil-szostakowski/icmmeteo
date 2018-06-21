@@ -75,3 +75,15 @@ extension MMTDetailedMapPreviewModelController
         self.init(map: map, dataStore: MMTMeteorogramStore(model: map.climateModel))
     }
 }
+
+extension MMTForecastService
+{
+    public convenience init(model: MMTClimateModel)
+    {
+        let forecastStore = MMTWebForecastStore(model: model)
+        let meteorogramStore = MMTMeteorogramStore(model: model)
+        let citiesStore = MMTCoreDataCitiesStore()
+        
+        self.init(forecastStore: forecastStore, meteorogramStore: meteorogramStore, citiesStore: citiesStore)
+    }
+}

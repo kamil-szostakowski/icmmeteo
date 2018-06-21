@@ -37,26 +37,26 @@ class MMTShortcutsMigrator: MMTVersionMigrator
     func migrate() throws
     {
         citiesStore.all {
-            spotlightRegister.unregisterAll()
-            quickActionsRegister.unregisterAll()
+            self.spotlightRegister.unregisterAll()
+            self.quickActionsRegister.unregisterAll()
             
             // Spotlight index migration
             $0.filter { $0.isFavourite == true }
                 .map { MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: $0) }
-                .forEach { spotlightRegister.register($0) }
+                .forEach { self.spotlightRegister.register($0) }
             
             if self.locationService.currentLocation != nil {
                 let shortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel(), locationService: self.locationService)
-                quickActionsRegister.register(shortcut)
+                self.quickActionsRegister.register(shortcut)
             }
             
             // 3D Touch quic actions migration
             $0.filter { $0.isFavourite == true }
                 .prefix(MMTMeteorogramShortcutsLimit)
                 .map { MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: $0) }
-                .forEach { quickActionsRegister.register($0) }
+                .forEach { self.quickActionsRegister.register($0) }
             
-            quickActionsRegister.register(MMTDetailedMapShortcut(model: MMTUmClimateModel(), map: .Precipitation))
+            self.quickActionsRegister.register(MMTDetailedMapShortcut(model: MMTUmClimateModel(), map: .Precipitation))
         }
     }
 }

@@ -143,16 +143,22 @@ class MMTMockCitiesStore: MMTCitiesStore
     var savedCity: MMTCityProt?
     var error: MMTError?
     
-    func all(_ completion: ([MMTCityProt]) -> Void) {
-        completion(allCities)
+    func all(_ completion: @escaping ([MMTCityProt]) -> Void) {
+        DispatchQueue.global(qos: .background).async {
+            completion(self.allCities)
+        }
     }
     
     func city(for location: CLLocation, completion: @escaping (MMTCityProt?, MMTError?) -> Void) {
-        completion(currentCity, error)
+        DispatchQueue.global(qos: .background).async {
+            completion(self.currentCity, self.error)
+        }
     }
     
     func cities(maching criteria: String, completion: @escaping ([MMTCityProt]) -> Void) {
-        completion(searchResult)
+        DispatchQueue.global(qos: .background).async {
+            completion(self.searchResult)
+        }
     }
     
     func save(city: MMTCityProt) {
