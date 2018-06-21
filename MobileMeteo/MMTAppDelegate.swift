@@ -21,6 +21,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     // MARK: Properties
     var window: UIWindow?
     var locationService: MMTLocationService!
+    var forecastService = MMTForecastService(model: MMTUmClimateModel())
     
     var rootViewController: MMTTabBarController {
         return self.window!.rootViewController as! MMTTabBarController
@@ -42,6 +43,8 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         
         setupAppearance()
         setupAnalytics()
+        
+        UIApplication.shared.setMinimumBackgroundFetchInterval(3600)
         
         return true
     }    
@@ -70,7 +73,13 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         shortcut?.execute(using: rootViewController) { completionHandler(true) }
         
         rootViewController.analytics?.sendUserActionReport(.Shortcut, action: .Shortcut3DTouchDidActivate, actionLabel: "")
-    }    
+    }
+    
+    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
+    {
+        print("Background fetch, location: \(String(describing: locationService.currentLocation?.coordinate))")
+        forecastService.update(for: locationService.currentLocation, completion: completionHandler)
+    }
 }
 
 // Setup extension
