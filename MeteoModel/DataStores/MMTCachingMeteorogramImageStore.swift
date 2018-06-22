@@ -29,14 +29,12 @@ struct MMTCachingMeteorogramImageStore : MMTMeteorogramImageStore
         let key = climateModel.cacheKey(city: city, startDate: startDate)
         
         if let cachedImage = imageCache.object(forKey: key) {
-            print("METEOROGRAM GOT FROM CACHE")
             completion(cachedImage, nil)
             return
         }
 
         imageStore.getMeteorogram(for: city, startDate: startDate) { (image, error) in
             if let img = image {
-                print("METEOROGRAM SAVED TO CACHE")
                 self.imageCache.setObject(img, forKey: key)
             }
             completion(image, error)

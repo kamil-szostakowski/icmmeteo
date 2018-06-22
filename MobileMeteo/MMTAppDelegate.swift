@@ -16,11 +16,11 @@ import MeteoModel
 public let MMTDebugActionCleanupDb = "CLEANUP_DB"
 public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
 
-@UIApplicationMain class MMTAppDelegate: UIResponder, UIApplicationDelegate
+@UIApplicationMain class MMTAppDelegate: UIResponder, UIApplicationDelegate, MMTAnalyticsReporter
 {
     // MARK: Properties
     var window: UIWindow?
-    var locationService: MMTLocationService!
+    var locationService: MMTCoreLocationService!
     var forecastService = MMTForecastService(model: MMTUmClimateModel())
     
     var rootViewController: MMTTabBarController {
@@ -29,9 +29,10 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         
     // MARK: Lifecycle methods
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
-    {        
-        setupLocationService()        
-        performMigration()
+    {
+        setupAppearance()
+        setupAnalytics()
+        setupLocationService()
         
         #if DEBUG
         setupDebugEnvironment()
@@ -41,10 +42,8 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
             setupDatabase()
         }
         
-        setupAppearance()
-        setupAnalytics()
-        
         UIApplication.shared.setMinimumBackgroundFetchInterval(3600)
+        performMigration()
         
         return true
     }    
@@ -61,8 +60,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         shortcut = CSSearchableIndex.default().convert(from: userActivity)
         shortcut?.execute(using: rootViewController, completion: nil)
         
-        rootViewController.analytics?.sendUserActionReport(.Shortcut, action: .ShortcutSpotlightDidActivate, actionLabel: "")
-        
+        analytics?.sendUserActionReport(.Shortcut, action: .ShortcutSpotlightDidActivate, actionLabel: "")
         return true
     }
     
@@ -77,7 +75,12 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
-        forecastService.update(for: locationService.currentLocation, completion: completionHandler)
+        forecastService.update(for: locationService.currentLocation) { status in
+            if status == .newData {
+                self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish, actionLabel: "")
+            }
+            completionHandler(status)
+        }
     }
 }
 
@@ -133,6 +136,7 @@ extension MMTAppDelegate
         NotificationCenter.default.addObserver(self, selector: handler, name: .locationChangedNotification, object: nil)
         
         locationService = MMTCoreLocationService(locationManager: CLLocationManager())
+        locationService.analytics = analytics
     }
     
     private func performMigration()
