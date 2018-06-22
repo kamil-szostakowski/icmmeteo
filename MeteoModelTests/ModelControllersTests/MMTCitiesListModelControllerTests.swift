@@ -134,15 +134,19 @@ class MMTCitiesListModelControllerTests: XCTestCase
     {
         modelController.activate()
         
-        let firstSearchExpectations = mockDelegate.awaitModelUpdate(completions: [{
-            
+        let firstSearchExpectations = mockDelegate.awaitModelUpdate(completions: [{            
             XCTAssertEqual($0.cities.count, 2)
             XCTAssertEqual($0.searchInput.stringValue, "Lorem")
         }])
         
         modelController.onSearchPhraseChange(phrase: "Lorem")
-        modelController.onSearchPhraseChange(phrase: "Lorem ipsum")
         wait(for: firstSearchExpectations, timeout: 2)
+        
+        mockDelegate.updatesCount = 0
+        let secondSearchExpectations = mockDelegate.awaitModelUpdate(completions: [])
+        
+        modelController.onSearchPhraseChange(phrase: "Lorem ipsum")
+        wait(for: secondSearchExpectations, timeout: 2)
         
         XCTAssertEqual(modelController.cities.count, 2)
         XCTAssertEqual(modelController.searchInput.stringValue, "Lorem ipsum")

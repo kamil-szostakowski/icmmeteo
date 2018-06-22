@@ -8,12 +8,12 @@
 
 import Foundation
 
-protocol MMTForecastStore
+public protocol MMTForecastStore
 {    
     func startDate(_ completion: @escaping (Date?, MMTError?) -> Void)
 }
 
-struct MMTWebForecastStore : MMTForecastStore
+public struct MMTWebForecastStore : MMTForecastStore
 {
     // MARK: Properties
     let urlSession: MMTMeteorogramUrlSession
@@ -27,7 +27,7 @@ struct MMTWebForecastStore : MMTForecastStore
     }
     
     // MARK: Methods
-    func startDate(_ completion: @escaping (Date?, MMTError?) -> Void)
+    public func startDate(_ completion: @escaping (Date?, MMTError?) -> Void)
     {
         urlSession.html(from: try! URL.mmt_forecastStartUrl(for: climateModel.type), encoding: .windowsCP1250) {
             (html: String?, error: MMTError?) in

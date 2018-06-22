@@ -10,7 +10,7 @@ import XCTest
 import Foundation
 @testable import MeteoModel
 
-class MMTSearchInputFilterTests: XCTestCase
+class MMTSearchInputTests: XCTestCase
 {
     func testTooShortInput()
     {

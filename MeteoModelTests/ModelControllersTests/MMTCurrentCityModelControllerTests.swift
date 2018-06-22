@@ -93,13 +93,18 @@ class MMTCurrentCityModelControllerTests: XCTestCase
     
     func testUpdateOfCurrentCityWithSameCity()
     {
-        let expectations = mockDelegate.awaitModelUpdate(completions: [onRequestPending, {
+        let firstExpectations = mockDelegate.awaitModelUpdate(completions: [onRequestPending, {
             XCTAssertEqual($0.currentCity?.name, "Sit")
-        }, onRequestPending])
+        }])
         
         modelController.onLocationChange(location: CLLocation())
+        wait(for: firstExpectations, timeout: 2)
+        
+        mockDelegate.updatesCount = 0
+        let secondExpectations = mockDelegate.awaitModelUpdate(completions: [onRequestPending])
+        
         modelController.onLocationChange(location: CLLocation())
-        wait(for: expectations, timeout: 2)
+        wait(for: secondExpectations, timeout: 2)
     }
     
     // MARK: Helper methods
