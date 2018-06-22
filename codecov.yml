@@ -1,0 +1,4 @@
+ignore:
+- "MeteoModelTests"
+- "MobileMeteoTests"
+- "MeteoUITests"
