@@ -83,7 +83,8 @@ extension MMTForecastService
         let forecastStore = MMTWebForecastStore(model: model)
         let meteorogramStore = MMTMeteorogramStore(model: model)
         let citiesStore = MMTCoreDataCitiesStore()
+        let cache = MMTCoreData.instance.meteorogramsCache
         
-        self.init(forecastStore: forecastStore, meteorogramStore: meteorogramStore, citiesStore: citiesStore)
+        self.init(forecastStore: forecastStore, meteorogramStore: meteorogramStore, citiesStore: citiesStore, cache: cache)
     }
 }

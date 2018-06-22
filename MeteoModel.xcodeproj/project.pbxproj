@@ -74,6 +74,8 @@
 		1BFC168920DAF34300320D1F /* MMTForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFC168820DAF34300320D1F /* MMTForecastService.swift */; };
 		1BFC168C20DAF3AB00320D1F /* MMTForecastServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFC168B20DAF3AB00320D1F /* MMTForecastServiceTests.swift */; };
 		1BFC169020DC096900320D1F /* MMTImagesCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFC168F20DC096900320D1F /* MMTImagesCache.swift */; };
+		1BFC169520DD19A400320D1F /* MMTImagesCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFC169420DD19A400320D1F /* MMTImagesCacheTests.swift */; };
+		1BFC169720DD1BA500320D1F /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFC169620DD1BA500320D1F /* Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +161,8 @@
 		1BFC168820DAF34300320D1F /* MMTForecastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecastService.swift; sourceTree = "<group>"; };
 		1BFC168B20DAF3AB00320D1F /* MMTForecastServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecastServiceTests.swift; sourceTree = "<group>"; };
 		1BFC168F20DC096900320D1F /* MMTImagesCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTImagesCache.swift; sourceTree = "<group>"; };
+		1BFC169420DD19A400320D1F /* MMTImagesCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTImagesCacheTests.swift; sourceTree = "<group>"; };
+		1BFC169620DD1BA500320D1F /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,7 +269,7 @@
 		1B9C71E82049B42D00856476 /* MeteoModelTests */ = {
 			isa = PBXGroup;
 			children = (
-				1BFC168A20DAF39100320D1F /* Services */,
+				1BFC168A20DAF39100320D1F /* ServicesTests */,
 				1B55FC1B20658B4100056679 /* ModelObjectsTests */,
 				1BA0207A20CB194900170D9D /* ModelControllersTests */,
 				1B9C72302049B70400856476 /* StoreTests */,
@@ -275,6 +279,7 @@
 				1B2B2DBB204DF36C00B7C9B0 /* MMTCitiesIndexTests.swift */,
 				1B9C72342049B71500856476 /* MMTGeocoderTests.swift */,
 				1B9C71EB2049B42D00856476 /* Info.plist */,
+				1BFC169420DD19A400320D1F /* MMTImagesCacheTests.swift */,
 			);
 			path = MeteoModelTests;
 			sourceTree = "<group>";
@@ -383,6 +388,7 @@
 			children = (
 				1B9C72492049B92A00856476 /* MMTTestTools.swift */,
 				1B9C724B2049B94F00856476 /* MMTMocks.swift */,
+				1BFC169620DD1BA500320D1F /* Date.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -418,12 +424,12 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		1BFC168A20DAF39100320D1F /* Services */ = {
+		1BFC168A20DAF39100320D1F /* ServicesTests */ = {
 			isa = PBXGroup;
 			children = (
 				1BFC168B20DAF3AB00320D1F /* MMTForecastServiceTests.swift */,
 			);
-			path = Services;
+			path = ServicesTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -586,6 +592,7 @@
 			files = (
 				1B9C723E2049B71500856476 /* MMTMeteorogramUrlSessionTests.swift in Sources */,
 				1BA0207C20CB197100170D9D /* MMTCitiesListModelControllerTests.swift in Sources */,
+				1BFC169520DD19A400320D1F /* MMTImagesCacheTests.swift in Sources */,
 				1B9C72412049B71500856476 /* MMTMeteorogramStoreTests.swift in Sources */,
 				1B9C72422049B71500856476 /* MMTClimateModelTests.swift in Sources */,
 				1B9C724A2049B92A00856476 /* MMTTestTools.swift in Sources */,
@@ -606,6 +613,7 @@
 				1B9C72402049B71500856476 /* MMTCoampsClimateModelTests.swift in Sources */,
 				1B9C722F2049B6F300856476 /* MMTNSDateFormatterTests.swift in Sources */,
 				1B8CFEEB20D461F70063D532 /* MMTForecasterCommentModelControllerTests.swift in Sources */,
+				1BFC169720DD1BA500320D1F /* Date.swift in Sources */,
 				1B9C722D2049B6EE00856476 /* MMTNSURLTests.swift in Sources */,
 				1B9C723A2049B71500856476 /* MMTForecastStoreTests.swift in Sources */,
 				1B9C72442049B73200856476 /* MMTSearchInputTests.swift in Sources */,

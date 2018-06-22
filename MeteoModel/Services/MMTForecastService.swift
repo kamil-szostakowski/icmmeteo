@@ -16,16 +16,18 @@ public class MMTForecastService
     fileprivate var forecastStore: MMTForecastStore
     fileprivate var meteorogramStore: MMTMeteorogramDataStore
     fileprivate var citiesStore: MMTCitiesStore
+    fileprivate var cache: MMTImagesCache
     
     fileprivate var currentCity: MMTCityProt?
     fileprivate var currentStartDate: Date?
     
     // MARK: Initializers
-    public init(forecastStore: MMTForecastStore, meteorogramStore: MMTMeteorogramDataStore, citiesStore: MMTCitiesStore)
+    public init(forecastStore: MMTForecastStore, meteorogramStore: MMTMeteorogramDataStore, citiesStore: MMTCitiesStore, cache: MMTImagesCache)
     {
         self.forecastStore = forecastStore
         self.meteorogramStore = meteorogramStore
         self.citiesStore = citiesStore
+        self.cache = cache
     }
     
     // MARK: Interface methods
@@ -71,7 +73,8 @@ public class MMTForecastService
             
             self.currentCity = city
             self.currentStartDate = startDate
-            self.meteorogramStore.meteorogram(for: city) { meteorogram, error in             
+            self.meteorogramStore.meteorogram(for: city) { meteorogram, error in
+                self.tryCache(meteorogram: meteorogram)
                 completion(error != nil ? .failed : .newData)
             }
         }
@@ -87,5 +90,15 @@ extension MMTForecastService
         let new: (MMTCityProt?, Date?) = (city, startDate)
         
         return old != new
+    }
+    
+    fileprivate func tryCache(meteorogram mgram: MMTMeteorogram?)
+    {
+        guard let meteorogram = mgram, let city = currentCity, let date = currentStartDate else {
+            return
+        }
+        
+        let key = meteorogram.model.cacheKey(city: city, startDate: date)
+        cache.setPinnedObject(meteorogram.image, forKey: key)
     }
 }

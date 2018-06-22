@@ -17,22 +17,33 @@ class MMTForecastServiceTests: XCTestCase
     var forecastStore: MMTMockForecastStore!
     var meteorogramStore: MMTMockMeteorogramStore!
     var citiesStore: MMTMockCitiesStore!
+    var nsCache: NSCache<NSString, UIImage>!
+    var cache: MMTImagesCache!
+    var expectedKey: String!
     
     // MARK: Setup methods
     override func setUp()
     {
         super.setUp()
+    
+        let model = MMTUmClimateModel()
+        let startDate = Date.from(2018, 1, 20, 22, 0, 0)
+        let currentCity = MMTCityProt(name: "Lorem", region: "Loremia", location: CLLocation())
         
         forecastStore = MMTMockForecastStore()
-        forecastStore.result = (Date(), nil)
+        forecastStore.result = (startDate, nil)
         
         citiesStore = MMTMockCitiesStore()
-        citiesStore.currentCity = MMTCityProt(name: "Lorem", region: "Loremia", location: CLLocation())
+        citiesStore.currentCity = currentCity
         
         meteorogramStore = MMTMockMeteorogramStore()
-        meteorogramStore.meteorogram = MMTMeteorogram(model: MMTUmClimateModel())
+        meteorogramStore.meteorogram = MMTMeteorogram(model: model)
         
-        service = MMTForecastService(forecastStore: forecastStore, meteorogramStore: meteorogramStore, citiesStore: citiesStore)
+        nsCache = NSCache<NSString, UIImage>()
+        cache = MMTImagesCache(cache: nsCache)
+        expectedKey = model.cacheKey(city: currentCity, startDate: startDate)
+        
+        service = MMTForecastService(forecastStore: forecastStore, meteorogramStore: meteorogramStore, citiesStore: citiesStore, cache: cache)
     }
     
     // MARK: Test methods
@@ -48,6 +59,7 @@ class MMTForecastServiceTests: XCTestCase
         }
         
         wait(for: [completion], timeout: 2)
+        XCTAssertNotNil(cache.object(forKey: expectedKey))
     }
     
     func testInitialUpdate()
@@ -60,6 +72,7 @@ class MMTForecastServiceTests: XCTestCase
         }
         
         wait(for: [completion], timeout: 2)
+        XCTAssertNotNil(cache.object(forKey: expectedKey))
     }
     
     func testUpdateRequiredWhenStartDateChanged()
@@ -76,6 +89,7 @@ class MMTForecastServiceTests: XCTestCase
         }
         
         wait(for: [completion], timeout: 2)
+        XCTAssertNotNil(cache.object(forKey: expectedKey))
     }
 
     func testUpdateRequiredWhenLocationChanged()
@@ -92,6 +106,7 @@ class MMTForecastServiceTests: XCTestCase
         }
         
         wait(for: [completion], timeout: 2)
+        XCTAssertNotNil(cache.object(forKey: expectedKey))
     }
     
     func testUpdateNotRequiredWhenLocationUnavailable()
@@ -104,6 +119,7 @@ class MMTForecastServiceTests: XCTestCase
         }
         
         wait(for: [completion], timeout: 2)
+        XCTAssertNil(cache.object(forKey: expectedKey))
     }
     
     func testUpdateFailureWhenForecastStartDateUpdateFailed()
@@ -117,6 +133,7 @@ class MMTForecastServiceTests: XCTestCase
         }
         
         wait(for: [completion], timeout: 2)
+        XCTAssertNil(cache.object(forKey: expectedKey))
     }
     
     func testUpdateFailureWhenLocationUpdateFailed()
@@ -132,6 +149,7 @@ class MMTForecastServiceTests: XCTestCase
         }
         
         wait(for: [completion], timeout: 2)
+        XCTAssertNil(cache.object(forKey: expectedKey))
     }
     
     func testUpdateFailureWhenMeteorogramFetchFailed()
@@ -147,6 +165,20 @@ class MMTForecastServiceTests: XCTestCase
         }
         
         wait(for: [completion], timeout: 2)
+        XCTAssertNil(cache.object(forKey: expectedKey))
+    }
+    
+    func testCachingFetchedMeteorogram()
+    {
+        let completion = expectation(description: "update completion")
+        
+        service.update(for: CLLocation()) {
+            completion.fulfill()
+            XCTAssertEqual($0, .newData)
+        }
+        
+        wait(for: [completion], timeout: 2)
+        XCTAssertNotNil(cache.object(forKey: expectedKey))
     }
     
     // MARK: Helper methods

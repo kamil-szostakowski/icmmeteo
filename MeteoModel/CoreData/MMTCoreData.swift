@@ -13,10 +13,8 @@ import CoreData
 public class MMTCoreData
 {
     // MARK: Properties
-    public static private(set) var instance = MMTCoreData()
-    
-    //public var meteorogramsCache = NSCache<NSString, UIImage>()
-    public var meteorogramsCache = MMTImagesCache()
+    public static private(set) var instance = MMTCoreData()    
+    public var meteorogramsCache = MMTImagesCache(cache: NSCache<NSString, UIImage>())
     
     // MARK: CoreData stack
     lazy var model: NSManagedObjectModel =

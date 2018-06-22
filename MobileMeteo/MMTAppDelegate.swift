@@ -77,7 +77,6 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
-        print("Background fetch, location: \(String(describing: locationService.currentLocation?.coordinate))")
         forecastService.update(for: locationService.currentLocation, completion: completionHandler)
     }
 }
@@ -168,6 +167,7 @@ extension MMTAppDelegate : MMTLocationService
     @objc func handleLocationDidChange(notification: Notification)
     {
         try? MMTShortcutsMigrator().migrate()
+        forecastService.update(for: locationService.currentLocation, completion: { _ in })
     }
 }
 

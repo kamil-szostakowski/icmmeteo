@@ -26,7 +26,7 @@ struct MMTCachingMeteorogramImageStore : MMTMeteorogramImageStore
     // MARK: Interface methods
     func getMeteorogram(for city: MMTCityProt, startDate: Date, completion: @escaping (UIImage?, MMTError?) -> Void)
     {
-        let key = "\(climateModel.type.rawValue)-\(city.name)-\(startDate)"
+        let key = climateModel.cacheKey(city: city, startDate: startDate)
         
         if let cachedImage = imageCache.object(forKey: key) {
             print("METEOROGRAM GOT FROM CACHE")
@@ -45,7 +45,7 @@ struct MMTCachingMeteorogramImageStore : MMTMeteorogramImageStore
     
     func getLegend(_ completion: @escaping (UIImage?, MMTError?) -> Void)
     {
-        let key = "\(climateModel.type.rawValue)-legend"
+        let key = climateModel.cacheKeyForLegend()
         
         if let cachedImage = imageCache.object(forKey: key) {
             completion(cachedImage, nil)
@@ -62,7 +62,7 @@ struct MMTCachingMeteorogramImageStore : MMTMeteorogramImageStore
     
     func getMeteorogram(for map: MMTDetailedMap, moment: Date, startDate: Date, completion: @escaping (UIImage?, MMTError?) -> Void)
     {
-        let key = "\(climateModel.type.rawValue)-\(map.type.rawValue)-\(moment)"
+        let key = climateModel.cacheKey(map: map.type, moment: moment)
         
         if let img = imageCache.object(forKey: key) {
             completion(img, nil)

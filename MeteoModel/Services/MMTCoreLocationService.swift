@@ -35,7 +35,7 @@ extension MMTCoreLocationService: CLLocationManagerDelegate
     // MARK: Location service methods
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
     {
-        if status == .authorizedWhenInUse {
+        if status == .authorizedWhenInUse || status == .authorizedAlways {
             locationManager.startMonitoringSignificantLocationChanges()
             locationManager(manager, didUpdateLocations: [])
             NotificationCenter.default.addObserver(self, selector: #selector(handleAppActivation(notification:)), name: .UIApplicationDidBecomeActive, object: nil)

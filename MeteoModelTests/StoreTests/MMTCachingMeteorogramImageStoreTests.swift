@@ -23,7 +23,7 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     {
         super.setUp()
         city = MMTCityProt(name: "Lorem", region: "", location: CLLocation())
-        cache = MMTImagesCache()
+        cache = MMTImagesCache(cache: NSCache<NSString, UIImage>())
         mockImageStore = MMTMockMeteorogramImageStore()
         store = MMTCachingMeteorogramImageStore(store: mockImageStore, cache: cache)
         completionExpectation = expectation(description: "completion")
