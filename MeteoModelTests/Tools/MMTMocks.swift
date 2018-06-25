@@ -164,13 +164,12 @@ class MMTMockCitiesStore: MMTCitiesStore
 
 class MMTMockForecasterStore: MMTForecasterCommentDataStore
 {
-    var comment: NSAttributedString?
-    var error: MMTError?
+    var comment: MMTResult<NSAttributedString>!
     
-    func forecasterComment(completion: @escaping (NSAttributedString?, MMTError?) -> Void)
+    func forecasterComment(completion: @escaping (MMTResult<NSAttributedString>) -> Void)
     {
         DispatchQueue.global(qos: .background).async {
-            completion(self.comment, self.error)
+            completion(self.comment)
         }
     }
 }

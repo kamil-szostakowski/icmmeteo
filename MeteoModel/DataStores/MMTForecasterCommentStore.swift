@@ -10,7 +10,7 @@ import Foundation
 
 public protocol MMTForecasterCommentDataStore
 {
-    func forecasterComment(completion: @escaping (NSAttributedString?, MMTError?) -> Void)
+    func forecasterComment(completion: @escaping (MMTResult<NSAttributedString>) -> Void)
 }
 
 public struct MMTForecasterCommentStore: MMTForecasterCommentDataStore
@@ -19,7 +19,7 @@ public struct MMTForecasterCommentStore: MMTForecasterCommentDataStore
     public init() {}
     
     // MARK: Interface methods
-    public func forecasterComment(completion: @escaping (NSAttributedString?, MMTError?) -> Void)
+    public func forecasterComment(completion: @escaping (MMTResult<NSAttributedString>) -> Void)
     {
         let baseUrl = try? URL.mmt_meteorogramDownloadBaseUrl(for: .UM)
         let session = MMTMeteorogramUrlSession(redirectionBaseUrl: baseUrl)
@@ -27,22 +27,24 @@ public struct MMTForecasterCommentStore: MMTForecasterCommentDataStore
         session.html(from: URL.mmt_forecasterCommentUrl(), encoding: .isoLatin2) {
             (result: MMTResult<String>) in
             
+            let reportError = { completion(.failure(.commentFetchFailure)) }
+            
             guard case let .success(html) = result else {
-                completion(nil, .commentFetchFailure)
+                reportError()
                 return
             }
             
             guard let comment = self.comment(from: html) else {
-                completion(nil, .commentFetchFailure)
+                reportError()
                 return
             }
             
             guard let formattedComment = try? NSAttributedString(htmlString: comment) else {
-                completion(nil, .commentFetchFailure)
+                reportError()
                 return
             }
             
-            completion(formattedComment, nil)
+            completion(.success(formattedComment))
         }
     }
     
