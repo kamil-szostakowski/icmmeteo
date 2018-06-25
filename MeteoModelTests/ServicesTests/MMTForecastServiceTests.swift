@@ -37,7 +37,7 @@ class MMTForecastServiceTests: XCTestCase
         citiesStore.currentCity = currentCity
         
         meteorogramStore = MMTMockMeteorogramStore()
-        meteorogramStore.meteorogram = MMTMeteorogram(model: model)
+        meteorogramStore.meteorogram = .success(MMTMeteorogram(model: model))
         
         nsCache = NSCache<NSString, UIImage>()
         cache = MMTImagesCache(cache: nsCache)
@@ -154,8 +154,7 @@ class MMTForecastServiceTests: XCTestCase
     
     func testUpdateFailureWhenMeteorogramFetchFailed()
     {
-        meteorogramStore.meteorogram = nil
-        meteorogramStore.error = .meteorogramNotFound
+        meteorogramStore.meteorogram = .failure(.meteorogramNotFound)
         
         let completion = expectation(description: "update completion")
         

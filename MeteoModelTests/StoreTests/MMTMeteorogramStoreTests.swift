@@ -42,10 +42,10 @@ class MMTMeteorogramStoreTests: XCTestCase
         let startDate = Date()
         forecastStore.result = .success(startDate)
         
-        meteorogramStore.meteorogram(for: city) { (meteorogram, error) in
-            XCTAssertEqual(meteorogram?.startDate, startDate)
-            XCTAssertNotNil(meteorogram?.legend)
-            XCTAssertNil(error)
+        meteorogramStore.meteorogram(for: city) {
+            guard case let .success(meteorogram) = $0 else { XCTFail(); return }
+            XCTAssertEqual(meteorogram.startDate, startDate)
+            XCTAssertNotNil(meteorogram.legend)
             self.completionExpectation.fulfill()
         }
         
@@ -56,10 +56,10 @@ class MMTMeteorogramStoreTests: XCTestCase
     {
         forecastStore.result = .failure(.forecastStartDateNotFound)
         
-        meteorogramStore.meteorogram(for: city) { (meteorogram, error) in
-            XCTAssertEqual(meteorogram?.startDate, MMTUmClimateModel().startDate(for: Date()))
-            XCTAssertNotNil(meteorogram?.legend)
-            XCTAssertNil(error)
+        meteorogramStore.meteorogram(for: city) {
+            guard case let .success(meteorogram) = $0 else { XCTFail(); return }
+            XCTAssertEqual(meteorogram.startDate, MMTUmClimateModel().startDate(for: Date()))
+            XCTAssertNotNil(meteorogram.legend)
             self.completionExpectation.fulfill()
         }
         
@@ -70,10 +70,9 @@ class MMTMeteorogramStoreTests: XCTestCase
     {
         imageStore.legendResult = .failure(.meteorogramFetchFailure)
         
-        meteorogramStore.meteorogram(for: city) { (meteorogram, error) in
-            XCTAssertNotNil(meteorogram)
-            XCTAssertNil(meteorogram?.legend)
-            XCTAssertNil(error)
+        meteorogramStore.meteorogram(for: city) {
+            guard case let .success(meteorogram) = $0 else { XCTFail(); return }
+            XCTAssertNil(meteorogram.legend)
             self.completionExpectation.fulfill()
         }
         
@@ -84,9 +83,9 @@ class MMTMeteorogramStoreTests: XCTestCase
     {
         imageStore.meteorogramResult = .failure(.meteorogramFetchFailure)
         
-        meteorogramStore.meteorogram(for: city) { (meteorogram, error) in
-            XCTAssertNil(meteorogram)
-            XCTAssertEqual(error, MMTError.meteorogramFetchFailure)
+        meteorogramStore.meteorogram(for: city) {
+            guard case let .failure(error) = $0 else { XCTFail(); return }
+            XCTAssertEqual(error, .meteorogramFetchFailure)
             self.completionExpectation.fulfill()
         }
         

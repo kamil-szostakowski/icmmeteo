@@ -75,9 +75,16 @@ public class MMTForecastService
             
             self.currentCity = city
             self.currentStartDate = startDate
-            self.meteorogramStore.meteorogram(for: city) { meteorogram, error in
-                self.tryCache(meteorogram: meteorogram)
-                completion(error != nil ? .failed : .newData)
+            self.meteorogramStore.meteorogram(for: city) {
+                
+                if case let .success(meteorogram) = $0 {
+                    self.tryCache(meteorogram: meteorogram)
+                    completion(.newData)
+                }
+                
+                if case .failure(_) = $0 {
+                    completion(.failed)
+                }                                
             }
         }
     }

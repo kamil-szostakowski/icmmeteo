@@ -44,13 +44,13 @@ class MMTMeteorogramStoreMapTests: XCTestCase
         let expectedMoments = map.forecastMoments(for: startDate)                
         imageStore.mapResult = expectedMoments.map { _ in success }
         
-        meteorogramStore.meteorogram(for: map) { (meteorogram, error) in
-            XCTAssertEqual(meteorogram?.model.type, MMTClimateModelType.UM)            
-            XCTAssertEqual(meteorogram?.startDate, self.startDate)
-            XCTAssertEqual(meteorogram?.images.count, expectedMoments.count)
-            XCTAssertEqual(meteorogram?.moments.count, expectedMoments.count)
-            XCTAssertEqual(meteorogram?.images.filter { $0 != nil }.count, expectedMoments.count)
-            XCTAssertNil(error)
+        meteorogramStore.meteorogram(for: map) {
+            guard case let .success(meteorogram) = $0 else { XCTFail(); return }
+            XCTAssertEqual(meteorogram.model.type, MMTClimateModelType.UM)
+            XCTAssertEqual(meteorogram.startDate, self.startDate)
+            XCTAssertEqual(meteorogram.images.count, expectedMoments.count)
+            XCTAssertEqual(meteorogram.moments.count, expectedMoments.count)
+            XCTAssertEqual(meteorogram.images.filter { $0 != nil }.count, expectedMoments.count)
             self.completionExpectation.fulfill()
         }
         
@@ -61,9 +61,9 @@ class MMTMeteorogramStoreMapTests: XCTestCase
     {
         forecastStore.result = .failure(.forecastStartDateNotFound)
         
-        meteorogramStore.meteorogram(for: map) { (meteorogram, error) in
-            XCTAssertNil(meteorogram)
-            XCTAssertEqual(error, MMTError.meteorogramFetchFailure)
+        meteorogramStore.meteorogram(for: map) {
+            guard case let .failure(error) = $0 else { XCTFail(); return }
+            XCTAssertEqual(error, .meteorogramFetchFailure)
             self.completionExpectation.fulfill()
         }
         
@@ -80,13 +80,13 @@ class MMTMeteorogramStoreMapTests: XCTestCase
             return index <= 9 ? failure : success
         }
 
-        meteorogramStore.meteorogram(for: map) { (meteorogram, error) in
-            XCTAssertEqual(meteorogram?.model.type, MMTClimateModelType.UM)
-            XCTAssertEqual(meteorogram?.startDate, self.startDate)
-            XCTAssertEqual(meteorogram?.moments.count, expectedMoments.count)
-            XCTAssertEqual(meteorogram?.images.count, expectedMoments.count)
-            XCTAssertEqual(meteorogram?.images.filter { $0 != nil }.count, expectedMoments.count-9)
-            XCTAssertNil(error)
+        meteorogramStore.meteorogram(for: map) {
+            guard case let .success(meteorogram) = $0 else { XCTFail(); return }
+            XCTAssertEqual(meteorogram.model.type, MMTClimateModelType.UM)
+            XCTAssertEqual(meteorogram.startDate, self.startDate)
+            XCTAssertEqual(meteorogram.moments.count, expectedMoments.count)
+            XCTAssertEqual(meteorogram.images.count, expectedMoments.count)
+            XCTAssertEqual(meteorogram.images.filter { $0 != nil }.count, expectedMoments.count-9)
             self.completionExpectation.fulfill()
         }
         
@@ -101,9 +101,9 @@ class MMTMeteorogramStoreMapTests: XCTestCase
             return index <= 12 ? failure : success
         }
         
-        meteorogramStore.meteorogram(for: map) { (meteorogram, error) in
-            XCTAssertNil(meteorogram)
-            XCTAssertEqual(error, MMTError.meteorogramFetchFailure)
+        meteorogramStore.meteorogram(for: map) {
+            guard case let .failure(error) = $0 else { XCTFail(); return }
+            XCTAssertEqual(error, .meteorogramFetchFailure)
             self.completionExpectation.fulfill()
         }
         

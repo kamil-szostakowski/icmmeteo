@@ -72,15 +72,20 @@ extension MMTMeteorogramModelController
         requestPending = true
         delegate?.onModelUpdate(self)
         
-        dataStore.meteorogram(for: city) { (meteorogram, error) in
+        dataStore.meteorogram(for: city) {
             
             self.requestPending = false
-            self.meteorogram = meteorogram
-            self.error = error
             
-            if meteorogram != nil && error == nil {
+            if case let .success(meteorogram) = $0 {
+                self.meteorogram = meteorogram
+                self.error = nil
                 self.analytics?.sendUserActionReport(.Meteorogram, action: .MeteorogramDidDisplay, actionLabel: self.climateModel.type.rawValue)
             }
+            
+            if case let .failure(error) = $0 {
+                self.error = error
+                self.meteorogram = nil
+            }            
             
             self.delegate?.onModelUpdate(self)
         }

@@ -8,15 +8,6 @@
 
 import UIKit
 
-public protocol MMTMeteorogramDataStore
-{
-    var climateModel: MMTClimateModel { get }
-    
-    func meteorogram(for city: MMTCityProt, completion: @escaping (MMTMeteorogram?, MMTError?) -> Void)
-    
-    func meteorogram(for map: MMTDetailedMap, completion: @escaping (MMTMapMeteorogram?, MMTError?) -> Void)
-}
-
 public struct MMTMeteorogramStore: MMTMeteorogramDataStore
 {
     // MARK: Properties
@@ -35,15 +26,15 @@ public struct MMTMeteorogramStore: MMTMeteorogramDataStore
     }
     
     // MARK: Interface methods
-    public func meteorogram(for city: MMTCityProt, completion: @escaping (MMTMeteorogram?, MMTError?) -> Void)
+    public func meteorogram(for city: MMTCityProt, completion: @escaping (MMTResult<MMTMeteorogram>) -> Void)
     {
         forecastStore.startDate { (result: MMTResult<Date>) in
-            var error: MMTError?            
-            var meteorogram: MMTMeteorogram? = MMTMeteorogram(model: self.climateModel)
+            var error: MMTError?
+            var meteorogram = MMTMeteorogram(model: self.climateModel)
             
             switch result {
-                case let .success(date): meteorogram?.startDate = date
-                case .failure(_): meteorogram?.startDate = self.climateModel.startDate(for: Date())
+                case let .success(date): meteorogram.startDate = date
+                case .failure(_): meteorogram.startDate = self.climateModel.startDate(for: Date())
             }
             
             let queue = DispatchQueue.global()
@@ -53,7 +44,7 @@ public struct MMTMeteorogramStore: MMTMeteorogramDataStore
             queue.async(group: group) {
                 self.meteorogramImageStore.getLegend { result in
                     if case let .success(image) = result {
-                        meteorogram?.legend = image
+                        meteorogram.legend = image
                     }
                     group.leave()
                 }
@@ -61,29 +52,30 @@ public struct MMTMeteorogramStore: MMTMeteorogramDataStore
             
             group.enter()
             queue.async(group: group) {
-                self.meteorogramImageStore.getMeteorogram(for: city, startDate: meteorogram!.startDate) {
+                self.meteorogramImageStore.getMeteorogram(for: city, startDate: meteorogram.startDate) {
                     switch $0 {
-                        case let .success(img): meteorogram?.image = img
-                        case let .failure(err):
-                            error = err
-                            meteorogram = nil
+                        case let .success(img): meteorogram.image = img
+                        case let .failure(err): error = err
                     }
                     group.leave()
                 }
             }
             
             group.notify(queue: .main) {
-                completion(meteorogram, error)
+                switch error != nil {
+                    case true: completion(.failure(error!))
+                    case false: completion(.success(meteorogram))
+                }
             }
         }
     }
     
-    public func meteorogram(for map: MMTDetailedMap, completion: @escaping (MMTMapMeteorogram?, MMTError?) -> Void)
+    public func meteorogram(for map: MMTDetailedMap, completion: @escaping (MMTResult<MMTMapMeteorogram>) -> Void)
     {
         forecastStore.startDate {(result: MMTResult<Date>) in
             
             guard case let .success(startDate) = result else {
-                completion(nil, .meteorogramFetchFailure)
+                completion(.failure(.meteorogramFetchFailure))
                 return
             }            
             
@@ -92,7 +84,7 @@ public struct MMTMeteorogramStore: MMTMeteorogramDataStore
             var errorCount = 0
             
             if moments.count == 0 {
-                completion(nil, .meteorogramFetchFailure)
+                completion(.failure(.meteorogramFetchFailure))
             }
             
             var
@@ -120,12 +112,12 @@ public struct MMTMeteorogramStore: MMTMeteorogramDataStore
             
             group.notify(queue: .main) {
                 guard errorCount < moments.count/2 else {
-                    completion(nil, .meteorogramFetchFailure)
+                    completion(.failure(.meteorogramFetchFailure))
                     return
                 }
                 
                 meteorogram.images = moments.map { result[$0] }
-                completion(meteorogram, nil)
+                completion(.success(meteorogram))
             }
         }
     }

@@ -82,21 +82,20 @@ class MMTMockMeteorogramImageStore : MMTMeteorogramImageStore
 class MMTMockMeteorogramStore: MMTMeteorogramDataStore
 {
     var climateModel: MMTClimateModel = MMTUmClimateModel()
-    var mapMeteorogram: MMTMapMeteorogram?
-    var meteorogram: MMTMeteorogram?
-    var error: MMTError?
+    var mapMeteorogram: MMTResult<MMTMapMeteorogram>!
+    var meteorogram: MMTResult<MMTMeteorogram>!
     
-    func meteorogram(for city: MMTCityProt, completion: @escaping (MMTMeteorogram?, MMTError?) -> Void)
+    func meteorogram(for city: MMTCityProt, completion: @escaping (MMTResult<MMTMeteorogram>) -> Void)
     {
         DispatchQueue.global(qos: .background).async {
-            completion(self.meteorogram, self.error)
+            completion(self.meteorogram)
         }
     }
     
-    func meteorogram(for map: MMTDetailedMap, completion: @escaping (MMTMapMeteorogram?, MMTError?) -> Void)
+    func meteorogram(for map: MMTDetailedMap, completion: @escaping (MMTResult<MMTMapMeteorogram>) -> Void)
     {
         DispatchQueue.global(qos: .background).async {
-            completion(self.mapMeteorogram, self.error)
+            completion(self.mapMeteorogram)
         }
     }
 }
