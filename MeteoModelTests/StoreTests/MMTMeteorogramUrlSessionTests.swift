@@ -67,10 +67,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
         let sesstion = MMTMockMeteorogramUrlSession(image, nil, nil)
 
         sesstion.image(from: url) {
-            (image: UIImage?, error: MMTError?) -> Void in
-
-            XCTAssertNotNil(image)
-            XCTAssertNil(error)
+            if case .failure(_) = $0 { XCTFail() }
         }
     }
 
@@ -79,10 +76,8 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
         let sesstion = MMTMockMeteorogramUrlSession(nil, nil, NSError())
 
         sesstion.image(from: url) {
-            (image: UIImage?, error: MMTError?) -> Void in
-
+            guard case let .failure(error) = $0 else { XCTFail(); return }
             XCTAssertEqual(error, MMTError.meteorogramFetchFailure)
-            XCTAssertNil(image)
         }
     }
 
@@ -91,10 +86,8 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
         let sesstion = MMTMockMeteorogramUrlSession(Data(), nil, nil)
 
         sesstion.image(from: url) {
-            (image: UIImage?, error: MMTError?) -> Void in
-
+            guard case let .failure(error) = $0 else { XCTFail(); return }
             XCTAssertEqual(error, MMTError.meteorogramFetchFailure)
-            XCTAssertNil(image)
         }
     }
 
@@ -105,10 +98,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
         let sesstion = MMTMockMeteorogramUrlSession(image, nil, nil)
 
         sesstion.meteorogramImage(from: url) {
-            (image: UIImage?, error: MMTError?) -> Void in
-
-            XCTAssertNotNil(image)
-            XCTAssertNil(error)
+            guard case .success(_) = $0 else { XCTFail(); return }
         }
     }
 
@@ -117,10 +107,8 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
         let sesstion = MMTMockMeteorogramUrlSession(Data(), nil, nil)
 
         sesstion.meteorogramImage(from: url) {
-            (image: UIImage?, error: MMTError?) -> Void in
-
-            XCTAssertEqual(error, MMTError.meteorogramFetchFailure)
-            XCTAssertNil(image)
+            guard case let .failure(error) = $0 else { XCTFail(); return }
+            XCTAssertEqual(error, .meteorogramFetchFailure)
         }
     }
 
@@ -129,10 +117,8 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
         let sesstion = MMTMockMeteorogramUrlSession(nil, nil, NSError())
 
         sesstion.meteorogramImage(from: url) {
-            (image: UIImage?, error: MMTError?) -> Void in
-
-            XCTAssertEqual(error, MMTError.meteorogramFetchFailure)
-            XCTAssertNil(image)
+            guard case let .failure(error) = $0 else { XCTFail(); return }
+            XCTAssertEqual(error, .meteorogramFetchFailure)
         }
     }
 
@@ -142,10 +128,8 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
         let sesstion = MMTMockMeteorogramUrlSession(nil, response, nil)
 
         sesstion.meteorogramImage(from: url) {
-            (image: UIImage?, error: MMTError?) -> Void in
-
-            XCTAssertEqual(error, MMTError.meteorogramFetchFailure)
-            XCTAssertNil(image)
+            guard case let .failure(error) = $0 else { XCTFail(); return }
+            XCTAssertEqual(error, .meteorogramFetchFailure)
         }
     }
 

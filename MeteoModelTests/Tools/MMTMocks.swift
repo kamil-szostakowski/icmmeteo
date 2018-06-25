@@ -51,30 +51,30 @@ class MMTMockForecastStore : MMTForecastStore
 
 class MMTMockMeteorogramImageStore : MMTMeteorogramImageStore
 {
-    var meteorogramResult: (UIImage?, MMTError?)?
-    var mapResult: [(UIImage?, MMTError?)]?
-    var legendResult: (UIImage?, MMTError?)?
+    var meteorogramResult: MMTResult<UIImage>!
+    var mapResult: [MMTResult<UIImage>]!
+    var legendResult: MMTResult<UIImage>!
     
     var climateModel: MMTClimateModel {
         return MMTUmClimateModel()
     }
     
-    func getMeteorogram(for city: MMTCityProt, startDate: Date, completion: @escaping (UIImage?, MMTError?) -> Void) {
+    func getMeteorogram(for city: MMTCityProt, startDate: Date, completion: @escaping (MMTResult<UIImage>) -> Void) {
         DispatchQueue.main.async {
-            completion(self.meteorogramResult!.0, self.meteorogramResult!.1)
+            completion(self.meteorogramResult)
         }
     }
     
-    func getLegend(_ completion: @escaping (UIImage?, MMTError?) -> Void) {
+    func getLegend(_ completion: @escaping (MMTResult<UIImage>) -> Void) {
         DispatchQueue.main.async {
-            completion(self.legendResult!.0, self.legendResult!.1)
+            completion(self.legendResult)
         }
     }
     
-    func getMeteorogram(for map: MMTDetailedMap, moment: Date, startDate: Date, completion: @escaping (UIImage?, MMTError?) -> Void) {
+    func getMeteorogram(for map: MMTDetailedMap, moment: Date, startDate: Date, completion: @escaping (MMTResult<UIImage>) -> Void) {
         DispatchQueue.main.async {
             let result = self.mapResult!.popLast()!
-            completion(result.0, result.1)
+            completion(result)
         }
     }
 }

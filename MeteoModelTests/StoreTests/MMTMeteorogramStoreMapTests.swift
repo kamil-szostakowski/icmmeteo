@@ -19,8 +19,8 @@ class MMTMeteorogramStoreMapTests: XCTestCase
     var meteorogramStore: MMTMeteorogramStore!
     var completionExpectation: XCTestExpectation!
     
-    let success: (UIImage?, MMTError?) = (UIImage(), nil)
-    let failure: (UIImage?, MMTError?) = (nil, .meteorogramFetchFailure)
+    let success: MMTResult<UIImage> = .success(UIImage())
+    let failure: MMTResult<UIImage> = .failure(.meteorogramFetchFailure)
     
     // MARK: Setup methods
     override func setUp()

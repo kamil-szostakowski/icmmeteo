@@ -29,8 +29,8 @@ class MMTMeteorogramStoreTests: XCTestCase
         forecastStore.result = .success(Date())
         
         imageStore = MMTMockMeteorogramImageStore()
-        imageStore.meteorogramResult = (UIImage(), nil)
-        imageStore.legendResult = (UIImage(), nil)
+        imageStore.meteorogramResult = .success(UIImage())
+        imageStore.legendResult = .success(UIImage())
         
         meteorogramStore = MMTMeteorogramStore(forecastStore, imageStore)
         completionExpectation = expectation(description: "completion")
@@ -68,7 +68,7 @@ class MMTMeteorogramStoreTests: XCTestCase
     
     func testFetchOfMeteorogramWithoutLegend()
     {
-        imageStore.legendResult = (nil, .meteorogramFetchFailure)
+        imageStore.legendResult = .failure(.meteorogramFetchFailure)
         
         meteorogramStore.meteorogram(for: city) { (meteorogram, error) in
             XCTAssertNotNil(meteorogram)
@@ -82,7 +82,7 @@ class MMTMeteorogramStoreTests: XCTestCase
     
     func testFailedFetchOfMeteorogram()
     {
-        imageStore.meteorogramResult = (nil, .meteorogramFetchFailure)
+        imageStore.meteorogramResult = .failure(.meteorogramFetchFailure)
         
         meteorogramStore.meteorogram(for: city) { (meteorogram, error) in
             XCTAssertNil(meteorogram)
