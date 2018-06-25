@@ -51,7 +51,7 @@ struct StubCitiesStore: MMTCitiesStore
         completion(self.cities)
     }
     
-    func city(for location: CLLocation, completion: @escaping (MMTCityProt?, MMTError?) -> Void) {}
+    func city(for location: CLLocation, completion: @escaping (MMTResult<MMTCityProt>) -> Void) {}
     
     func cities(maching criteria: String, completion: @escaping ([MMTCityProt]) -> Void) {}
     

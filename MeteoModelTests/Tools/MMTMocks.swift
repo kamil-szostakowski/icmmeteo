@@ -138,17 +138,16 @@ class MMTMockCitiesStore: MMTCitiesStore
 {
     var allCities = [MMTCityProt]()
     var searchResult = [MMTCityProt]()
-    var currentCity: MMTCityProt?
+    var currentCity: MMTResult<MMTCityProt>!
     var savedCity: MMTCityProt?
-    var error: MMTError?
     
     func all(_ completion:([MMTCityProt]) -> Void) {
         completion(self.allCities)
     }
     
-    func city(for location: CLLocation, completion: @escaping (MMTCityProt?, MMTError?) -> Void) {
+    func city(for location: CLLocation, completion: @escaping (MMTResult<MMTCityProt>) -> Void) {
         DispatchQueue.global(qos: .background).async {
-            completion(self.currentCity, self.error)
+            completion(self.currentCity)
         }
     }
     

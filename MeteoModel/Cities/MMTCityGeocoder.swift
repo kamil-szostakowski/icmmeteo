@@ -21,27 +21,35 @@ public class MMTCityGeocoder
     }
     
     // MARK: Interface methods
-    public func city(for location: CLLocation, completion: @escaping (MMTCityProt?, MMTError?) -> Void)
+    public func city(for location: CLLocation, completion: @escaping (MMTResult<MMTCityProt>) -> Void)
     {
-        geocoder.geocode(location: location) { (placemarks, geocodeError) in
+        geocoder.geocode(location: location) {
             
-            var translationError = geocodeError
+            if case .failure(_) = $0 {
+                completion(.failure(.locationNotFound))
+                return
+            }
             
             #if DEBUG
-            translationError = MMTMeteorogramUrlSession.simulatedError ?? translationError
+            if MMTMeteorogramUrlSession.simulatedError != nil {
+                completion(.failure(.locationNotFound))
+                return
+            }
             #endif
             
-            var city: MMTCityProt? = nil
-            var error: MMTError? = nil
-            
-            defer { completion(city, error) }
-            guard translationError == nil else { error = .locationNotFound; return }
-            guard let placemark = placemarks?.first else { error = .locationNotFound; return }
-            
-            city = MMTCityProt(placemark: placemark)
-            
-            if city == nil {
-                error = .locationUnsupported
+            if case let .success(placemarks) = $0
+            {
+                guard let placemark = placemarks.first else {
+                    completion(.failure(.locationNotFound))
+                    return
+                }
+                
+                guard let city = MMTCityProt(placemark: placemark) else {
+                    completion(.failure(.locationUnsupported))
+                    return
+                }
+                
+                completion(.success(city))
             }
         }
     }
@@ -57,19 +65,23 @@ public class MMTCityGeocoder
         address.isoCountryCode = "PL"
         
         geocoder.cancelGeocode()
-        geocoder.geocode(address: address){ (placemarks, error) in
+        geocoder.geocode(address: address) {
             
-            defer { completion(cities) }
-            guard error == nil else { return }
-            guard let markers = placemarks else { return }
+            if case .failure(_) = $0 {
+                completion([])
+            }
             
-            let foundCities: [MMTCityProt] = markers
-                .map(){ MMTCityProt(placemark: $0) }
-                .filter(){ $0 != nil }
-                .map{ $0! }
-            
-            if foundCities.count > 0 {
-                cities.append(contentsOf: foundCities)
+            if case let .success(placemarks) = $0 {
+                let foundCities: [MMTCityProt] = placemarks
+                    .map(){ MMTCityProt(placemark: $0) }
+                    .filter(){ $0 != nil }
+                    .map{ $0! }
+                
+                if foundCities.count > 0 {
+                    cities.append(contentsOf: foundCities)
+                }
+                
+                completion(cities)
             }
         }
     }

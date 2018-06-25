@@ -32,27 +32,29 @@ class MMTMeteorogramShortcut : MMTShortcut
     {
         tabbar.displayActivityIndicator(in: tabbar.view, message: nil)
         
-        MMTCoreDataCitiesStore().city(for: location) { (city, error) in
+        MMTCoreDataCitiesStore().city(for: location) {
             
             tabbar.hideActivityIndicator()
             
-            guard let selectedCity = city, error == nil else {
-                tabbar.present(UIAlertController.alertForMMTError(error!), animated: true, completion: nil)
+            if case let .failure(error) = $0 {
+                tabbar.present(UIAlertController.alertForMMTError(error), animated: true, completion: nil)
                 completion?()
                 return
             }
             
-            guard let targetVC = (tabbar.viewControllers?.first { $0 as? MMTCitiesListController != nil } as? MMTCitiesListController) else {
-                completion?()
-                return
-            }
-            
-            self.prepare(tabbar: tabbar, target: targetVC)
-            {
-                targetVC.selectedCity = selectedCity
-                targetVC.perform(segue: .DisplayMeteorogram, sender: tabbar)
-                completion?()
+            if case let .success(city) = $0 {
+                guard let targetVC = (tabbar.viewControllers?.first { $0 as? MMTCitiesListController != nil } as? MMTCitiesListController) else {
+                    completion?()
+                    return
+                }
+                
+                self.prepare(tabbar: tabbar, target: targetVC)
+                {
+                    targetVC.selectedCity = city
+                    targetVC.perform(segue: .DisplayMeteorogram, sender: tabbar)
+                    completion?()
+                }
             }
         }
-    }
+    }    
 }

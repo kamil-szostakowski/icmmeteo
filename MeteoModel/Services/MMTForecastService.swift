@@ -56,8 +56,10 @@ public class MMTForecastService
         
         group.enter()
         queue.async(group: group) {
-            self.citiesStore.city(for: aLocation) { city, error in
-                aCity = city
+            self.citiesStore.city(for: aLocation) {
+                if case let .success(city) = $0 {
+                    aCity = city
+                }
                 group.leave()
             }
         }

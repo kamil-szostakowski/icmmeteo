@@ -14,7 +14,7 @@ public protocol MMTCitiesStore
 {
     func all(_ completion: ([MMTCityProt]) -> Void)
     
-    func city(for location: CLLocation, completion: @escaping (MMTCityProt?, MMTError?) -> Void)
+    func city(for location: CLLocation, completion: @escaping (MMTResult<MMTCityProt>) -> Void)
     
     func cities(maching criteria: String, completion: @escaping ([MMTCityProt]) -> Void)
     
@@ -40,17 +40,21 @@ public struct MMTCoreDataCitiesStore : MMTCitiesStore
         completion(context.fetch(request: .allCities()))
     }
     
-    public func city(for location: CLLocation, completion: @escaping (MMTCityProt?, MMTError?) -> Void)
+    public func city(for location: CLLocation, completion: @escaping (MMTResult<MMTCityProt>) -> Void)
     {
-        geocoder.city(for: location) { (geocodedCity, error) in
+        geocoder.city(for: location) {
             
-            var city = geocodedCity;
-            defer { completion(city, error) }
+            if case let .failure(error) = $0 {
+                completion(.failure(error))
+            }
             
-            guard error == nil else { return }
-            guard let localCity = self.context.fetch(request: .city(named: city!.name)).first else { return; }
-            
-            city = localCity
+            if case let .success(city) = $0 {
+                guard let localCity = self.context.fetch(request: .city(named: city.name)).first else {
+                    completion(.success(city))
+                    return
+                }
+                completion(.success(localCity))
+            }                        
         }
     }
     

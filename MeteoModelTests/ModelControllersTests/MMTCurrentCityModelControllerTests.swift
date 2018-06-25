@@ -22,8 +22,7 @@ class MMTCurrentCityModelControllerTests: XCTestCase
     {
         super.setUp()
         citiesStore = MMTMockCitiesStore()
-        citiesStore.currentCity = MMTCityProt(name: "Sit", region: "Sitia", location: CLLocation())
-        citiesStore.error = nil
+        citiesStore.currentCity = .success(MMTCityProt(name: "Sit", region: "Sitia", location: CLLocation()))
         
         mockDelegate = MMTMockModelControllerDelegate<MMTCurrentCityModelController>()
         modelController = MMTCurrentCityModelController(store: citiesStore)
@@ -40,7 +39,7 @@ class MMTCurrentCityModelControllerTests: XCTestCase
     
     func testUpdateOfCurrentCity()
     {
-        citiesStore.currentCity = MMTCityProt(name: "Lorem", region: "Loremia", location: CLLocation())
+        citiesStore.currentCity = .success(MMTCityProt(name: "Lorem", region: "Loremia", location: CLLocation()))
         
         let expectations = mockDelegate.awaitModelUpdate(completions: [onRequestPending, {
             XCTAssertNil($0.error)
@@ -63,7 +62,12 @@ class MMTCurrentCityModelControllerTests: XCTestCase
     
     func testUpdateOfCurrentCityWithInvalidLocationWhenPresentBefore()
     {
-        modelController.currentCity = citiesStore.currentCity
+        guard case let .success(city) = citiesStore.currentCity! else {
+            XCTFail()
+            return
+        }
+        
+        modelController.currentCity = city
         
         let expectations = mockDelegate.awaitModelUpdate(completions: [{
             XCTAssertFalse($0.requestPending)
@@ -77,7 +81,7 @@ class MMTCurrentCityModelControllerTests: XCTestCase
     
     func testUpdateOfCurrentCityWithError()
     {
-        citiesStore.error = .locationNotFound
+        citiesStore.currentCity = .failure(.locationNotFound)
         
         // No updates should be made
         let expectations = mockDelegate.awaitModelUpdate(completions: [onRequestPending, {
