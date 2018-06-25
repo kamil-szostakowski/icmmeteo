@@ -25,14 +25,14 @@ public struct MMTForecasterCommentStore: MMTForecasterCommentDataStore
         let session = MMTMeteorogramUrlSession(redirectionBaseUrl: baseUrl)
         
         session.html(from: URL.mmt_forecasterCommentUrl(), encoding: .isoLatin2) {
-            (html: String?, error: MMTError?) in
+            (result: MMTResult<String>) in
             
-            guard let htmlString = html, error == nil else {
+            guard case let .success(html) = result else {
                 completion(nil, .commentFetchFailure)
                 return
             }
             
-            guard let comment = self.comment(from: htmlString) else {
+            guard let comment = self.comment(from: html) else {
                 completion(nil, .commentFetchFailure)
                 return
             }

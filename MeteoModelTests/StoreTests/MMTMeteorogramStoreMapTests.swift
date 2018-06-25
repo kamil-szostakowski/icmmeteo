@@ -32,7 +32,7 @@ class MMTMeteorogramStoreMapTests: XCTestCase
         
         imageStore = MMTMockMeteorogramImageStore()
         forecastStore = MMTMockForecastStore()
-        forecastStore.result = (startDate, nil)
+        forecastStore.result = .success(startDate)
         
         meteorogramStore = MMTMeteorogramStore(forecastStore, imageStore)
         completionExpectation = expectation(description: "completion")
@@ -59,7 +59,7 @@ class MMTMeteorogramStoreMapTests: XCTestCase
     
     func testFetchOfFullMapMeteorogramWithoutStartDate()
     {
-        forecastStore.result = (nil, .forecastStartDateNotFound)
+        forecastStore.result = .failure(.forecastStartDateNotFound)
         
         meteorogramStore.meteorogram(for: map) { (meteorogram, error) in
             XCTAssertNil(meteorogram)

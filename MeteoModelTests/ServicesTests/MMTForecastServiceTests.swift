@@ -31,7 +31,7 @@ class MMTForecastServiceTests: XCTestCase
         let currentCity = MMTCityProt(name: "Lorem", region: "Loremia", location: CLLocation())
         
         forecastStore = MMTMockForecastStore()
-        forecastStore.result = (startDate, nil)
+        forecastStore.result = .success(startDate)
         
         citiesStore = MMTMockCitiesStore()
         citiesStore.currentCity = currentCity
@@ -81,7 +81,7 @@ class MMTForecastServiceTests: XCTestCase
         let completion = expectation(description: "update completion")
         
         performInitialUpdate()
-        forecastStore.result = (newDate, nil)
+        forecastStore.result = .success(newDate)
         
         service.update(for: CLLocation()) {
             completion.fulfill()
@@ -124,7 +124,7 @@ class MMTForecastServiceTests: XCTestCase
     
     func testUpdateFailureWhenForecastStartDateUpdateFailed()
     {
-        forecastStore.result = (nil, .forecastStartDateNotFound)
+        forecastStore.result = .failure(.forecastStartDateNotFound)
         let completion = expectation(description: "update completion")
         
         service.update(for: CLLocation()) {

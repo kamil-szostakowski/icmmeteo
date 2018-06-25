@@ -34,9 +34,9 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
         let html = "<html><head></head><body>Lorem ipsum</body></html>"
         let session = MMTMockMeteorogramUrlSession(html.data(using: .windowsCP1250), nil, nil)
         
-        session.html(from: url, encoding: .utf8) { (htmlResult, error) in
+        session.html(from: url, encoding: .utf8) { result in
+            guard case let .success(htmlResult) = result else { XCTFail(); return }
             XCTAssertEqual(html, htmlResult)
-            XCTAssertNil(error)
         }
     }
     
@@ -44,9 +44,9 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
     {
         let session = MMTMockMeteorogramUrlSession(nil, nil, NSError())
         
-        session.html(from: url, encoding: .utf8) { (html, error) in
-            XCTAssertEqual(error, MMTError.htmlFetchFailure)
-            XCTAssertNil(html)
+        session.html(from: url, encoding: .utf8) { result in
+            guard case let .failure(error) = result else { XCTFail(); return }
+            XCTAssertEqual(error, .htmlFetchFailure)
         }
     }
     
@@ -54,9 +54,9 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
     {
         let session = MMTMockMeteorogramUrlSession(nil, nil, nil)
         
-        session.html(from: url, encoding: .utf8) { (html, error) in
+        session.html(from: url, encoding: .utf8) { result in
+            guard case let .failure(error) = result else { XCTFail(); return }
             XCTAssertEqual(error, MMTError.htmlFetchFailure)
-            XCTAssertNil(html)
         }
     }
 

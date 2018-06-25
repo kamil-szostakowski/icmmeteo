@@ -37,12 +37,15 @@ public struct MMTMeteorogramStore: MMTMeteorogramDataStore
     // MARK: Interface methods
     public func meteorogram(for city: MMTCityProt, completion: @escaping (MMTMeteorogram?, MMTError?) -> Void)
     {
-        forecastStore.startDate { (date: Date?, error: MMTError?) in
+        forecastStore.startDate { (result: MMTResult<Date>) in
             var error: MMTError?
             
-            var
-            meteorogram: MMTMeteorogram? = MMTMeteorogram(model: self.climateModel)
-            meteorogram?.startDate = date ?? self.climateModel.startDate(for: Date())
+            var meteorogram: MMTMeteorogram? = MMTMeteorogram(model: self.climateModel)
+            
+            switch result {
+                case let .success(date):  meteorogram?.startDate = date
+                case .failure(_):  meteorogram?.startDate = self.climateModel.startDate(for: Date())
+            }
             
             let queue = DispatchQueue.global()
             let group = DispatchGroup()
@@ -82,11 +85,12 @@ public struct MMTMeteorogramStore: MMTMeteorogramDataStore
     
     public func meteorogram(for map: MMTDetailedMap, completion: @escaping (MMTMapMeteorogram?, MMTError?) -> Void)
     {
-        forecastStore.startDate {(date: Date?, error: MMTError?) in
-            guard let startDate = date else {
+        forecastStore.startDate {(result: MMTResult<Date>) in
+            
+            guard case let .success(startDate) = result else {
                 completion(nil, .meteorogramFetchFailure)
                 return
-            }
+            }            
             
             let moments = map.forecastMoments(for: startDate)
             var result = [Date : UIImage] ()

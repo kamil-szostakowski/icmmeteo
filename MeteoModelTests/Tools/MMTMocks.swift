@@ -40,11 +40,11 @@ class MMTMockTask: URLSessionTask
 
 class MMTMockForecastStore : MMTForecastStore
 {
-    var result: (Date?, MMTError?)?
+    var result: MMTResult<Date>!
     
-    func startDate(_ completion: @escaping (Date?, MMTError?) -> Void) {
+    func startDate(_ completion: @escaping (MMTResult<Date>) -> Void) {
         DispatchQueue.main.async {
-            completion(self.result!.0, self.result!.1)
+            completion(self.result)
         }
     }
 }

@@ -46,8 +46,10 @@ public class MMTForecastService
 
         group.enter()
         queue.async(group: group) {
-            self.forecastStore.startDate { date, error in
-                aStartDate = date
+            self.forecastStore.startDate { (result: MMTResult<Date>) in                                
+                if case let .success(date) = result {
+                    aStartDate = date
+                }
                 group.leave()
             }
         }

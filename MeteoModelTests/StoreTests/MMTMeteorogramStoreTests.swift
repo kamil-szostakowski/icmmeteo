@@ -26,7 +26,7 @@ class MMTMeteorogramStoreTests: XCTestCase
         city = MMTCityProt(name: "Lorem", region: "", location: CLLocation())
         
         forecastStore = MMTMockForecastStore()
-        forecastStore.result = (Date(), nil)
+        forecastStore.result = .success(Date())
         
         imageStore = MMTMockMeteorogramImageStore()
         imageStore.meteorogramResult = (UIImage(), nil)
@@ -40,7 +40,7 @@ class MMTMeteorogramStoreTests: XCTestCase
     func testFetchOfFullMeteorogram()
     {
         let startDate = Date()
-        forecastStore.result = (startDate, nil)
+        forecastStore.result = .success(startDate)
         
         meteorogramStore.meteorogram(for: city) { (meteorogram, error) in
             XCTAssertEqual(meteorogram?.startDate, startDate)
@@ -54,7 +54,7 @@ class MMTMeteorogramStoreTests: XCTestCase
     
     func testFetchOfMeteorogramWithoutStartDate()
     {
-        forecastStore.result = (nil, .forecastStartDateNotFound)
+        forecastStore.result = .failure(.forecastStartDateNotFound)
         
         meteorogramStore.meteorogram(for: city) { (meteorogram, error) in
             XCTAssertEqual(meteorogram?.startDate, MMTUmClimateModel().startDate(for: Date()))
