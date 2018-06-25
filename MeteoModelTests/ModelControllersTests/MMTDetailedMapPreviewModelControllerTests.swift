@@ -16,6 +16,7 @@ class MMTDetailedMapPreviewModelControllerTests: XCTestCase
     var modelControllerDelegate: MMTMockModelControllerDelegate<MMTDetailedMapPreviewModelController>!
     var meteorogramStore: MMTMockMeteorogramStore!
     var detailedMap: MMTDetailedMap!
+    var mapMeteorogram: MMTMapMeteorogram!
     
     // MARK: Setup methods
     override func setUp()
@@ -23,20 +24,21 @@ class MMTDetailedMapPreviewModelControllerTests: XCTestCase
         super.setUp()
         detailedMap = MMTUmClimateModel().detailedMaps.first!
         
-        meteorogramStore = MMTMockMeteorogramStore()
-        meteorogramStore.mapMeteorogram = MMTMapMeteorogram(model: detailedMap.climateModel)
-        meteorogramStore.mapMeteorogram?.images = [UIImage(), UIImage(), UIImage(), UIImage()]
-        meteorogramStore.mapMeteorogram?.moments = [
+        mapMeteorogram = MMTMapMeteorogram(model: detailedMap.climateModel)
+        mapMeteorogram.images = [UIImage(), UIImage(), UIImage(), UIImage()]
+        mapMeteorogram.moments = [
             Date(timeIntervalSince1970: 10),
             Date(timeIntervalSince1970: 20),
             Date(timeIntervalSince1970: 30),
             Date(timeIntervalSince1970: 40)
         ]
-        
-        meteorogramStore.mapMeteorogram?.images.forEach {
-            let index = meteorogramStore.mapMeteorogram?.images.index(of: $0)
+        mapMeteorogram.images.forEach {
+            let index = mapMeteorogram.images.index(of: $0)
             $0?.accessibilityIdentifier = String(format: "%d", arguments: [index!])
         }
+        
+        meteorogramStore = MMTMockMeteorogramStore()
+        meteorogramStore.mapMeteorogram = .success(mapMeteorogram)
         
         modelControllerDelegate = MMTMockModelControllerDelegate<MMTDetailedMapPreviewModelController>()
         modelController = MMTDetailedMapPreviewModelController(map: detailedMap, dataStore: meteorogramStore)
@@ -71,8 +73,7 @@ class MMTDetailedMapPreviewModelControllerTests: XCTestCase
     
     func testFetchMeteorogramFailure()
     {
-        meteorogramStore.mapMeteorogram = nil
-        meteorogramStore.error = .meteorogramFetchFailure
+        meteorogramStore.mapMeteorogram = .failure(.meteorogramFetchFailure)
         
         let expectations = modelControllerDelegate.awaitModelUpdate(completions: [{
             XCTAssertTrue($0.requestPending)
@@ -89,19 +90,23 @@ class MMTDetailedMapPreviewModelControllerTests: XCTestCase
     
     func testFetchMeteorogramWithSingleRetry()
     {
-        self.meteorogramStore.mapMeteorogram?.images[0] = nil
+        mapMeteorogram.images[0] = nil
+        meteorogramStore.mapMeteorogram = .success(mapMeteorogram)
         
         let expectations = modelControllerDelegate.awaitModelUpdate(completions: [{
             // Request failre
             XCTAssertTrue($0.requestPending)
             XCTAssertNil($0.error)
-            self.meteorogramStore.mapMeteorogram?.images[0] = nil
+            
+            self.mapMeteorogram.images[0] = nil
+            self.meteorogramStore.mapMeteorogram = .success(self.mapMeteorogram)
         },{
             // Retry
             XCTAssertTrue($0.requestPending)
             XCTAssertNil($0.error)
-            self.meteorogramStore.mapMeteorogram?.images[0] = UIImage()
-            self.meteorogramStore.mapMeteorogram?.images[0]?.accessibilityIdentifier = "0"
+            self.mapMeteorogram.images[0] = UIImage()
+            self.mapMeteorogram.images[0]?.accessibilityIdentifier = "0"
+            self.meteorogramStore.mapMeteorogram = .success(self.mapMeteorogram)
         },{
             // Request success
             XCTAssertFalse($0.requestPending)
@@ -116,13 +121,15 @@ class MMTDetailedMapPreviewModelControllerTests: XCTestCase
     
     func testFetchMeteorogramFailureWhenRetryCountExceeded()
     {
-        meteorogramStore.mapMeteorogram?.images[0] = nil
+        mapMeteorogram.images[0] = nil
+        meteorogramStore.mapMeteorogram = .success(mapMeteorogram)
         
         let expectations = modelControllerDelegate.awaitModelUpdate(completions: [{
             // Request failure
             XCTAssertTrue($0.requestPending)
             XCTAssertNil($0.error)
-            self.meteorogramStore.mapMeteorogram?.images[0] = nil
+            self.mapMeteorogram.images[0] = nil
+            self.meteorogramStore.mapMeteorogram = .success(self.mapMeteorogram)
         },{
             // Retry
             XCTAssertTrue($0.requestPending)
@@ -145,12 +152,14 @@ class MMTDetailedMapPreviewModelControllerTests: XCTestCase
     
     func testRetryFetchMeteorogramWhenMomentNotFound()
     {
-        meteorogramStore.mapMeteorogram?.images[2] = nil
+        mapMeteorogram.images[2] = nil
+        meteorogramStore.mapMeteorogram = .success(mapMeteorogram)
         
         let expectations = modelControllerDelegate.awaitModelUpdate(completions: [{
             XCTAssertTrue($0.requestPending)
             XCTAssertNil($0.error)
-            self.meteorogramStore.mapMeteorogram?.images[2] = UIImage()
+            self.mapMeteorogram.images[2] = UIImage()
+            self.meteorogramStore.mapMeteorogram = .success(self.mapMeteorogram)
         },{
             // Request success
             XCTAssertFalse($0.requestPending)

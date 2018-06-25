@@ -40,41 +40,41 @@ class MMTMockTask: URLSessionTask
 
 class MMTMockForecastStore : MMTForecastStore
 {
-    var result: (Date?, MMTError?)?
+    var result: MMTResult<Date>!
     
-    func startDate(_ completion: @escaping (Date?, MMTError?) -> Void) {
+    func startDate(_ completion: @escaping (MMTResult<Date>) -> Void) {
         DispatchQueue.main.async {
-            completion(self.result!.0, self.result!.1)
+            completion(self.result)
         }
     }
 }
 
 class MMTMockMeteorogramImageStore : MMTMeteorogramImageStore
 {
-    var meteorogramResult: (UIImage?, MMTError?)?
-    var mapResult: [(UIImage?, MMTError?)]?
-    var legendResult: (UIImage?, MMTError?)?
+    var meteorogramResult: MMTResult<UIImage>!
+    var mapResult: [MMTResult<UIImage>]!
+    var legendResult: MMTResult<UIImage>!
     
     var climateModel: MMTClimateModel {
         return MMTUmClimateModel()
     }
     
-    func getMeteorogram(for city: MMTCityProt, startDate: Date, completion: @escaping (UIImage?, MMTError?) -> Void) {
+    func getMeteorogram(for city: MMTCityProt, startDate: Date, completion: @escaping (MMTResult<UIImage>) -> Void) {
         DispatchQueue.main.async {
-            completion(self.meteorogramResult!.0, self.meteorogramResult!.1)
+            completion(self.meteorogramResult)
         }
     }
     
-    func getLegend(_ completion: @escaping (UIImage?, MMTError?) -> Void) {
+    func getLegend(_ completion: @escaping (MMTResult<UIImage>) -> Void) {
         DispatchQueue.main.async {
-            completion(self.legendResult!.0, self.legendResult!.1)
+            completion(self.legendResult)
         }
     }
     
-    func getMeteorogram(for map: MMTDetailedMap, moment: Date, startDate: Date, completion: @escaping (UIImage?, MMTError?) -> Void) {
+    func getMeteorogram(for map: MMTDetailedMap, moment: Date, startDate: Date, completion: @escaping (MMTResult<UIImage>) -> Void) {
         DispatchQueue.main.async {
             let result = self.mapResult!.popLast()!
-            completion(result.0, result.1)
+            completion(result)
         }
     }
 }
@@ -82,21 +82,20 @@ class MMTMockMeteorogramImageStore : MMTMeteorogramImageStore
 class MMTMockMeteorogramStore: MMTMeteorogramDataStore
 {
     var climateModel: MMTClimateModel = MMTUmClimateModel()
-    var mapMeteorogram: MMTMapMeteorogram?
-    var meteorogram: MMTMeteorogram?
-    var error: MMTError?
+    var mapMeteorogram: MMTResult<MMTMapMeteorogram>!
+    var meteorogram: MMTResult<MMTMeteorogram>!
     
-    func meteorogram(for city: MMTCityProt, completion: @escaping (MMTMeteorogram?, MMTError?) -> Void)
+    func meteorogram(for city: MMTCityProt, completion: @escaping (MMTResult<MMTMeteorogram>) -> Void)
     {
         DispatchQueue.global(qos: .background).async {
-            completion(self.meteorogram, self.error)
+            completion(self.meteorogram)
         }
     }
     
-    func meteorogram(for map: MMTDetailedMap, completion: @escaping (MMTMapMeteorogram?, MMTError?) -> Void)
+    func meteorogram(for map: MMTDetailedMap, completion: @escaping (MMTResult<MMTMapMeteorogram>) -> Void)
     {
         DispatchQueue.global(qos: .background).async {
-            completion(self.mapMeteorogram, self.error)
+            completion(self.mapMeteorogram)
         }
     }
 }
@@ -139,17 +138,16 @@ class MMTMockCitiesStore: MMTCitiesStore
 {
     var allCities = [MMTCityProt]()
     var searchResult = [MMTCityProt]()
-    var currentCity: MMTCityProt?
+    var currentCity: MMTResult<MMTCityProt>!
     var savedCity: MMTCityProt?
-    var error: MMTError?
     
     func all(_ completion:([MMTCityProt]) -> Void) {
         completion(self.allCities)
     }
     
-    func city(for location: CLLocation, completion: @escaping (MMTCityProt?, MMTError?) -> Void) {
+    func city(for location: CLLocation, completion: @escaping (MMTResult<MMTCityProt>) -> Void) {
         DispatchQueue.global(qos: .background).async {
-            completion(self.currentCity, self.error)
+            completion(self.currentCity)
         }
     }
     
@@ -166,13 +164,12 @@ class MMTMockCitiesStore: MMTCitiesStore
 
 class MMTMockForecasterStore: MMTForecasterCommentDataStore
 {
-    var comment: NSAttributedString?
-    var error: MMTError?
+    var comment: MMTResult<NSAttributedString>!
     
-    func forecasterComment(completion: @escaping (NSAttributedString?, MMTError?) -> Void)
+    func forecasterComment(completion: @escaping (MMTResult<NSAttributedString>) -> Void)
     {
         DispatchQueue.global(qos: .background).async {
-            completion(self.comment, self.error)
+            completion(self.comment)
         }
     }
 }

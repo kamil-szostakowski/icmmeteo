@@ -64,16 +64,21 @@ extension MMTDetailedMapPreviewModelController
         requestPending = true
         delegate?.onModelUpdate(self)
         
-        dataStore.meteorogram(for: map) { (meteorogram: MMTMapMeteorogram?, error: MMTError?) in
+        dataStore.meteorogram(for: map) {
             
             self.requestPending = false
-            self.meteorogram = meteorogram
-            self.error = error
             
-            switch error == nil {
-                case true: self.onMomentDisplayRequest(index: 0)
-                case false: self.delegate?.onModelUpdate(self)
+            if case let .failure(error) = $0 {
+                self.error = error
+                self.meteorogram = nil
+                self.delegate?.onModelUpdate(self)
             }
+            
+            if case let .success(meteorogram) = $0 {
+                self.meteorogram = meteorogram
+                self.error = nil
+                self.onMomentDisplayRequest(index: 0)
+            }            
         }
     }
     

@@ -32,8 +32,7 @@ class MMTCitiesListModelControllerTests: XCTestCase
             MMTCityProt(name: "Lorem", region: "Loremia", location: CLLocation()),
             MMTCityProt(name: "Ipsum", region: "Ipsumia", location: CLLocation()),
         ]
-        citiesStore.currentCity = citiesStore.allCities.last!
-        citiesStore.error = nil
+        citiesStore.currentCity = .success(citiesStore.allCities.last!)
         
         mockDelegate = MMTMockModelControllerDelegate<MMTCitiesListModelController>()
         modelController = MMTCitiesListModelController(store: citiesStore)

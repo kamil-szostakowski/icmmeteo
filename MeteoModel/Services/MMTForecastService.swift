@@ -46,16 +46,20 @@ public class MMTForecastService
 
         group.enter()
         queue.async(group: group) {
-            self.forecastStore.startDate { date, error in
-                aStartDate = date
+            self.forecastStore.startDate { (result: MMTResult<Date>) in                                
+                if case let .success(date) = result {
+                    aStartDate = date
+                }
                 group.leave()
             }
         }
         
         group.enter()
         queue.async(group: group) {
-            self.citiesStore.city(for: aLocation) { city, error in
-                aCity = city
+            self.citiesStore.city(for: aLocation) {
+                if case let .success(city) = $0 {
+                    aCity = city
+                }
                 group.leave()
             }
         }
@@ -73,9 +77,16 @@ public class MMTForecastService
             
             self.currentCity = city
             self.currentStartDate = startDate
-            self.meteorogramStore.meteorogram(for: city) { meteorogram, error in
-                self.tryCache(meteorogram: meteorogram)
-                completion(error != nil ? .failed : .newData)
+            self.meteorogramStore.meteorogram(for: city) {
+                
+                if case let .success(meteorogram) = $0 {
+                    self.tryCache(meteorogram: meteorogram)
+                    completion(.newData)
+                }
+                
+                if case .failure(_) = $0 {
+                    completion(.failed)
+                }                                
             }
         }
     }

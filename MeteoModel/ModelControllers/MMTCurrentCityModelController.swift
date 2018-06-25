@@ -59,17 +59,18 @@ extension MMTCurrentCityModelController
         requestPending = true
         delegate?.onModelUpdate(self)
         
-        citiesStore.city(for: location) { (city: MMTCityProt?, error: MMTError?) in
+        citiesStore.city(for: location) {
             self.requestPending = false
-            self.error = error
             
-            guard let aCity = city, error == nil else {
+            if case let .failure(error) = $0 {
                 print("Updated model because geolocation failure")
+                self.error = error
                 self.delegate?.onModelUpdate(self)
-                return
             }
             
-            self.onCurrentCityUpdate(city: aCity)
+            if case let .success(city) = $0 {
+                self.onCurrentCityUpdate(city: city)
+            }
         }
     }
 }

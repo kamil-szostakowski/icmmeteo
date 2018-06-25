@@ -28,7 +28,8 @@ class MMTForecastStoreTests: XCTestCase
         let session = MMTMockMeteorogramUrlSession(validContent.data(using: .windowsCP1250), nil, nil)
         let store = MMTWebForecastStore(model: MMTUmClimateModel(), session: session)
     
-        store.startDate { (date, error) in
+        store.startDate { result in
+            guard case let .success(date) = result else { XCTFail(); return }
             XCTAssertEqual(date, TT.utcFormatter.date(from: "2014-10-15T12:34"))
         }
     }
@@ -38,8 +39,9 @@ class MMTForecastStoreTests: XCTestCase
         let session = MMTMockMeteorogramUrlSession(invalidContent.data(using: .windowsCP1250), nil, nil)
         let store = MMTWebForecastStore(model: MMTUmClimateModel(), session: session)
         
-        store.startDate { (date, error) in
-            XCTAssertEqual(error, MMTError.forecastStartDateNotFound)
+        store.startDate { result in
+            guard case let .failure(error) = result else { XCTFail(); return }
+            XCTAssertEqual(error, .forecastStartDateNotFound)
         }
     }
     
@@ -48,8 +50,9 @@ class MMTForecastStoreTests: XCTestCase
         let session = MMTMockMeteorogramUrlSession(validContent.data(using: .utf8), nil, nil)
         let store = MMTWebForecastStore(model: MMTUmClimateModel(), session: session)
         
-        store.startDate { (date, error) in
-            XCTAssertEqual(error, MMTError.forecastStartDateNotFound)
+        store.startDate { result in
+            guard case let .failure(error) = result else { XCTFail(); return }
+            XCTAssertEqual(error, .forecastStartDateNotFound)
         }
     }
     

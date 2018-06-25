@@ -40,15 +40,12 @@ class MMTGeocoderTests: XCTestCase
         let placemark = MMTMockPlacemark(name: "City", locality: nil, ocean: nil, location: CLLocation(), administrativeArea: "Some District")
         let expect = expectation(description: "geocode finished")
         
-        generalGeocoder.placemarks = [placemark]
+        generalGeocoder.result = .success([placemark])
         
         cityGeocoder.city(for: CLLocation()) {
-            (city: MMTCityProt?, error: MMTError?) in
-            
+            guard case let .success(city) = $0 else { XCTFail(); return }
             expect.fulfill()
-            
-            XCTAssertNil(error)
-            XCTAssertNotNil(city)
+            XCTAssertEqual(city.name, "City")
         }
         
         waitForExpectations(timeout: 1, handler: nil)
@@ -56,14 +53,14 @@ class MMTGeocoderTests: XCTestCase
     
     func testFindCityForLocationWithError()
     {
-        generalGeocoder.error = MMTError.mailNotAvailable
+        generalGeocoder.result = .failure(.mailNotAvailable)
         
         MMTAssertLocationGeocodeFailed(with: .locationNotFound)
     }
 
     func testFindCityForLocationWithEmptyResponse()
     {
-        generalGeocoder.placemarks = []
+        generalGeocoder.result = .success([])
         
         MMTAssertLocationGeocodeFailed(with: .locationNotFound)
     }
@@ -71,7 +68,7 @@ class MMTGeocoderTests: XCTestCase
     func testFindCityForLocationWithInvalidPlacemark()
     {
         let placemark = MMTMockPlacemark(name: nil, locality: nil, ocean: nil, location: CLLocation(), administrativeArea: nil)
-        generalGeocoder.placemarks = [placemark]
+        generalGeocoder.result = .success([placemark])
         
         MMTAssertLocationGeocodeFailed(with: .locationUnsupported)
     }
@@ -83,26 +80,20 @@ class MMTGeocoderTests: XCTestCase
         let validPlacemark = MMTMockPlacemark(name: "City", locality: nil, ocean: nil, location: CLLocation(), administrativeArea: "Some District")
         let invalidPlacemark = MMTMockPlacemark(name: nil, locality: nil, ocean: nil, location: CLLocation(), administrativeArea: nil)
         
-        generalGeocoder.placemarks = [validPlacemark, invalidPlacemark, invalidPlacemark, validPlacemark]
+        generalGeocoder.result = .success([validPlacemark, invalidPlacemark, invalidPlacemark, validPlacemark])
         
         MMTAssertCriteriaGeocodeResult(count: 2)
     }
     
     func testFindCitiesForCriteriaWithError()
     {
-        generalGeocoder.error = MMTError.mailNotAvailable
-        MMTAssertCriteriaGeocodeResult(count: 0)
-    }
-    
-    func testFindCitiesForCriteriaWithNilResult()
-    {
-        generalGeocoder.placemarks = nil
+        generalGeocoder.result = .failure(.mailNotAvailable)
         MMTAssertCriteriaGeocodeResult(count: 0)
     }
     
     func testFindCitiesForCriteriaWithEmptyResult()
     {
-        generalGeocoder.placemarks = []
+        generalGeocoder.result = .success([])
         MMTAssertCriteriaGeocodeResult(count: 0)
     }
     
@@ -110,7 +101,7 @@ class MMTGeocoderTests: XCTestCase
     {
         let placemark = MMTMockPlacemark(name: nil, locality: nil, ocean: nil, location: CLLocation(), administrativeArea: nil)
         
-        generalGeocoder.placemarks = [placemark, placemark]
+        generalGeocoder.result = .success([placemark, placemark])
         MMTAssertCriteriaGeocodeResult(count: 0)
     }
     
@@ -121,11 +112,8 @@ class MMTGeocoderTests: XCTestCase
         let expect = expectation(description: "geocode finished")
         
         cityGeocoder.city(for: CLLocation()) {
-            (city: MMTCityProt?, err: MMTError?) in
-            
+            guard case let .failure(err) = $0 else { XCTFail(); return }
             expect.fulfill()
-            
-            XCTAssertNil(city, file: file, line: line)
             XCTAssertEqual(err, error, file: file, line: line)
         }
         
@@ -150,19 +138,18 @@ class MMTGeocoderTests: XCTestCase
     
     class MMTMockGeocoder: MMTGeocoder
     {
-        var placemarks: [MMTPlacemark]?
-        var error: Error?
+        var result: MMTResult<[MMTPlacemark]>!
         
         // MARK: Mocked methods
         
-        func geocode(location: CLLocation, completion: @escaping MMTGeocodeCompletion)
+        func geocode(location: CLLocation, completion: @escaping (MMTResult<[MMTPlacemark]>) -> Void)
         {
-            completion(placemarks, error)
+            completion(result)
         }
         
-        func geocode(address: CNPostalAddress, completion: @escaping MMTGeocodeCompletion)
+        func geocode(address: CNPostalAddress, completion: @escaping (MMTResult<[MMTPlacemark]>) -> Void)
         {
-            completion(placemarks, error)
+            completion(result)
         }
         
         func cancelGeocode()

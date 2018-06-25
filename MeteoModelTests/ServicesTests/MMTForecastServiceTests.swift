@@ -31,13 +31,13 @@ class MMTForecastServiceTests: XCTestCase
         let currentCity = MMTCityProt(name: "Lorem", region: "Loremia", location: CLLocation())
         
         forecastStore = MMTMockForecastStore()
-        forecastStore.result = (startDate, nil)
+        forecastStore.result = .success(startDate)
         
         citiesStore = MMTMockCitiesStore()
-        citiesStore.currentCity = currentCity
+        citiesStore.currentCity = .success(currentCity)
         
         meteorogramStore = MMTMockMeteorogramStore()
-        meteorogramStore.meteorogram = MMTMeteorogram(model: model)
+        meteorogramStore.meteorogram = .success(MMTMeteorogram(model: model))
         
         nsCache = NSCache<NSString, UIImage>()
         cache = MMTImagesCache(cache: nsCache)
@@ -81,7 +81,7 @@ class MMTForecastServiceTests: XCTestCase
         let completion = expectation(description: "update completion")
         
         performInitialUpdate()
-        forecastStore.result = (newDate, nil)
+        forecastStore.result = .success(newDate)
         
         service.update(for: CLLocation()) {
             completion.fulfill()
@@ -98,7 +98,7 @@ class MMTForecastServiceTests: XCTestCase
         let completion = expectation(description: "update completion")
         
         performInitialUpdate()
-        citiesStore.currentCity = newCity
+        citiesStore.currentCity = .success(newCity)
         
         service.update(for: CLLocation()) {
             completion.fulfill()
@@ -124,7 +124,7 @@ class MMTForecastServiceTests: XCTestCase
     
     func testUpdateFailureWhenForecastStartDateUpdateFailed()
     {
-        forecastStore.result = (nil, .forecastStartDateNotFound)
+        forecastStore.result = .failure(.forecastStartDateNotFound)
         let completion = expectation(description: "update completion")
         
         service.update(for: CLLocation()) {
@@ -138,9 +138,7 @@ class MMTForecastServiceTests: XCTestCase
     
     func testUpdateFailureWhenLocationUpdateFailed()
     {
-        citiesStore.currentCity = nil
-        citiesStore.error = .locationNotFound
-        
+        citiesStore.currentCity = .failure(.locationNotFound)        
         let completion = expectation(description: "update completion")
         
         service.update(for: CLLocation()) {
@@ -154,8 +152,7 @@ class MMTForecastServiceTests: XCTestCase
     
     func testUpdateFailureWhenMeteorogramFetchFailed()
     {
-        meteorogramStore.meteorogram = nil
-        meteorogramStore.error = .meteorogramNotFound
+        meteorogramStore.meteorogram = .failure(.meteorogramNotFound)
         
         let completion = expectation(description: "update completion")
         

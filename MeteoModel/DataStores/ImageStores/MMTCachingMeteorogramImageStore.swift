@@ -24,56 +24,56 @@ struct MMTCachingMeteorogramImageStore : MMTMeteorogramImageStore
     }
     
     // MARK: Interface methods
-    func getMeteorogram(for city: MMTCityProt, startDate: Date, completion: @escaping (UIImage?, MMTError?) -> Void)
+    func getMeteorogram(for city: MMTCityProt, startDate: Date, completion: @escaping (MMTResult<UIImage>) -> Void)
     {
         let key = climateModel.cacheKey(city: city, startDate: startDate)
         
         if let cachedImage = imageCache.object(forKey: key) {
             print("METEOROGRAM GOT FROM CACHE")
-            completion(cachedImage, nil)
+            completion(.success(cachedImage))
             return
         }
 
-        imageStore.getMeteorogram(for: city, startDate: startDate) { (image, error) in
-            if let img = image {
+        imageStore.getMeteorogram(for: city, startDate: startDate) {
+            if case let .success(img) = $0 {
                 print("METEOROGRAM SAVED TO CACHE")
                 self.imageCache.setObject(img, forKey: key)
             }
-            completion(image, error)
+            completion($0)
         }
     }
     
-    func getLegend(_ completion: @escaping (UIImage?, MMTError?) -> Void)
+    func getLegend(_ completion: @escaping (MMTResult<UIImage>) -> Void)
     {
         let key = climateModel.cacheKeyForLegend()
         
         if let cachedImage = imageCache.object(forKey: key) {
-            completion(cachedImage, nil)
+            completion(.success(cachedImage))
             return
         }
 
-        imageStore.getLegend { (image, error) in
-            if let img = image {
+        imageStore.getLegend { result in
+            if case let .success(img) = result {
                 self.imageCache.setObject(img, forKey: key)
             }
-            completion(image, error)
+            completion(result)
         }
     }
     
-    func getMeteorogram(for map: MMTDetailedMap, moment: Date, startDate: Date, completion: @escaping (UIImage?, MMTError?) -> Void)
+    func getMeteorogram(for map: MMTDetailedMap, moment: Date, startDate: Date, completion: @escaping (MMTResult<UIImage>) -> Void)
     {
         let key = climateModel.cacheKey(map: map.type, moment: moment)
         
         if let img = imageCache.object(forKey: key) {
-            completion(img, nil)
+            completion(.success(img))
             return
         }
 
-        imageStore.getMeteorogram(for: map, moment: moment, startDate: startDate) { (image, error) in
-            if let img = image {
+        imageStore.getMeteorogram(for: map, moment: moment, startDate: startDate) { result in
+            if case let .success(img) = result {
                 self.imageCache.setObject(img, forKey: key)
             }
-            completion(image, error)
+            completion(result)
         }
     }
 

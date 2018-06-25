@@ -35,13 +35,11 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
         let startDate = mockImageStore.climateModel.startDate(for: Date())
         let key = "\(mockImageStore.climateModel.type.rawValue)-\(city.name)-\(startDate)"
         
-        mockImageStore.meteorogramResult = (UIImage(), nil)
+        mockImageStore.meteorogramResult = .success(UIImage())
         
-        store.getMeteorogram(for: city, startDate: startDate) { (image, error) in
-            
+        store.getMeteorogram(for: city, startDate: startDate) {
+            guard case .success(_) = $0 else { XCTFail(); return }
             XCTAssertNotNil(self.cache.object(forKey: key))
-            XCTAssertNil(error)
-            XCTAssertNotNil(image)            
             self.completionExpectation.fulfill()
         }
         
@@ -51,15 +49,14 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     func testStoreMeteorogramInCacheWhenError()
     {
         let startDate = mockImageStore.climateModel.startDate(for: Date())
-        let key = "\(mockImageStore.climateModel.type.rawValue)-\(city.name)-\(startDate)"
+        let key = mockImageStore.climateModel.cacheKey(city: city, startDate: startDate)
         
-        mockImageStore.meteorogramResult = (nil, MMTError.meteorogramFetchFailure)
+        mockImageStore.meteorogramResult = .failure(.meteorogramFetchFailure)
         
-        store.getMeteorogram(for: city, startDate: startDate) { (image, error) in
-            
+        store.getMeteorogram(for: city, startDate: startDate) {
+            guard case let .failure(error) = $0 else { XCTFail(); return }
+            XCTAssertEqual(error, .meteorogramFetchFailure)
             XCTAssertNil(self.cache.object(forKey: key))
-            XCTAssertNotNil(error)
-            XCTAssertNil(image)
             self.completionExpectation.fulfill()
         }
         
@@ -71,15 +68,13 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
         
         let climateModel = mockImageStore.climateModel
         let startDate = climateModel.startDate(for: Date().addingTimeInterval(TimeInterval(hours: 120)))
-        let key = "\(climateModel.type.rawValue)-\(city.name)-\(startDate)"
+        let key = mockImageStore.climateModel.cacheKey(city: city, startDate: startDate)
 
         cache.setObject(UIImage(), forKey: key)
-        mockImageStore.meteorogramResult = (nil, MMTError.meteorogramNotFound)
+        mockImageStore.meteorogramResult = .failure(.meteorogramNotFound)
         
-        store.getMeteorogram(for: city, startDate: startDate) { (image, error) in
-            
-            XCTAssertNil(error)
-            XCTAssertNotNil(image)
+        store.getMeteorogram(for: city, startDate: startDate) {
+            guard case .success(_) = $0 else { XCTFail(); return }
             self.completionExpectation.fulfill()
         }
         
@@ -88,14 +83,12 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     
     func testStoreLegendInCache()
     {
-        let key = "\(mockImageStore.climateModel.type.rawValue)-legend"
+        let key = mockImageStore.climateModel.cacheKeyForLegend()
         
-        mockImageStore.legendResult = (UIImage(), nil)
-        store.getLegend { (image, error) in
-         
+        mockImageStore.legendResult = .success(UIImage())
+        store.getLegend {
+            guard case .success(_) = $0 else { XCTFail(); return }
             XCTAssertNotNil(self.cache.object(forKey: key))
-            XCTAssertNil(error)
-            XCTAssertNotNil(image)
             self.completionExpectation.fulfill()
         }
         
@@ -104,14 +97,13 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     
     func testStoreLegendInCacheWhenError()
     {
-        let key = "\(mockImageStore.climateModel.type.rawValue)-legend"
+        let key = mockImageStore.climateModel.cacheKeyForLegend()
         
-        mockImageStore.legendResult = (nil, MMTError.meteorogramFetchFailure)
-        store.getLegend { (image, error) in
-            
+        mockImageStore.legendResult = .failure(.meteorogramFetchFailure)
+        store.getLegend {
+            guard case let .failure(error) = $0 else { XCTFail(); return }
+            XCTAssertEqual(error, .meteorogramFetchFailure)
             XCTAssertNil(self.cache.object(forKey: key))
-            XCTAssertNotNil(error)
-            XCTAssertNil(image)
             self.completionExpectation.fulfill()
         }
         
@@ -121,15 +113,13 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     
     func testRetreiveLegendFromCache()
     {
-        let key = "\(mockImageStore.climateModel.type.rawValue)-legend"
+        let key = mockImageStore.climateModel.cacheKeyForLegend()
         
         cache.setObject(UIImage(), forKey: key)
-        mockImageStore.legendResult = (nil, MMTError.meteorogramFetchFailure)
+        mockImageStore.legendResult = .failure(.meteorogramFetchFailure)
         
-        store.getLegend { (image, error) in
-            
-            XCTAssertNil(error)
-            XCTAssertNotNil(image)
+        store.getLegend {
+            guard case .success(_) = $0 else { XCTFail(); return }
             self.completionExpectation.fulfill()
         }
         
@@ -140,14 +130,12 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     {
         let moment = Date()
         let map = MMTDetailedMap(MMTUmClimateModel(), .Precipitation, 0)
-        let key = "\(mockImageStore.climateModel.type.rawValue)-\(map.type.rawValue)-\(moment)"
+        let key = mockImageStore.climateModel.cacheKey(map: map.type, moment: moment)
         
-        mockImageStore.mapResult = [(UIImage(), nil)]
-        store.getMeteorogram(for: map, moment: moment, startDate: moment) { (image, error) in
-
+        mockImageStore.mapResult = [.success(UIImage())]
+        store.getMeteorogram(for: map, moment: moment, startDate: moment) {
+            guard case .success(_) = $0 else { XCTFail(); return }
             XCTAssertNotNil(self.cache.object(forKey: key))
-            XCTAssertNil(error)
-            XCTAssertNotNil(image)
             self.completionExpectation.fulfill()
         }
         
@@ -158,14 +146,13 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     {
         let moment = Date()
         let map = MMTDetailedMap(MMTUmClimateModel(), .Precipitation, 0)
-        let key = "\(mockImageStore.climateModel.type.rawValue)-\(map.type.rawValue)-\(moment)"
+        let key = mockImageStore.climateModel.cacheKey(map: map.type, moment: moment)
         
-        mockImageStore.mapResult = [(nil, MMTError.meteorogramFetchFailure)]
-        store.getMeteorogram(for: map, moment: moment, startDate: moment) { (image, error) in
-            
+        mockImageStore.mapResult = [.failure(.meteorogramFetchFailure)]
+        store.getMeteorogram(for: map, moment: moment, startDate: moment) {
+            guard case let .failure(error) = $0 else { XCTFail(); return }
+            XCTAssertEqual(error, .meteorogramFetchFailure)
             XCTAssertNil(self.cache.object(forKey: key))
-            XCTAssertNotNil(error)
-            XCTAssertNil(image)
             self.completionExpectation.fulfill()
         }
         
@@ -176,15 +163,13 @@ class MMTCachingMeteorogramImageStoreTests: XCTestCase
     {
         let moment = Date()
         let map = MMTDetailedMap(MMTUmClimateModel(), .Precipitation, 0)
-        let key = "\(mockImageStore.climateModel.type.rawValue)-\(map.type.rawValue)-\(moment)"
+        let key = mockImageStore.climateModel.cacheKey(map: map.type, moment: moment)
         
-        mockImageStore.mapResult = [(nil, MMTError.meteorogramFetchFailure)]
+        mockImageStore.mapResult = [.failure(.meteorogramFetchFailure)]
         cache.setObject(UIImage(), forKey: key)
         
-        store.getMeteorogram(for: map, moment: moment, startDate: moment) { (image, error) in
-            
-            XCTAssertNil(error)
-            XCTAssertNotNil(image)
+        store.getMeteorogram(for: map, moment: moment, startDate: moment) {
+            guard case .success(_) = $0 else { XCTFail(); return }
             self.completionExpectation.fulfill()
         }
         

@@ -10,8 +10,6 @@ import Foundation
 import CoreLocation
 import Contacts
 
-public typealias MMTGeocodeCompletion = ([MMTPlacemark]?, Error?) -> Void
-
 public protocol MMTPlacemark
 {
     var name: String? { get }
@@ -23,9 +21,9 @@ public protocol MMTPlacemark
 
 public protocol MMTGeocoder
 {
-    func geocode(location: CLLocation, completion: @escaping MMTGeocodeCompletion)
+    func geocode(location: CLLocation, completion: @escaping (MMTResult<[MMTPlacemark]>) -> Void)
     
-    func geocode(address: CNPostalAddress, completion: @escaping MMTGeocodeCompletion)
+    func geocode(address: CNPostalAddress, completion: @escaping (MMTResult<[MMTPlacemark]>) -> Void)
     
     func cancelGeocode()
 }

@@ -37,15 +37,19 @@ public class MMTForecasterCommentModelController: MMTModelController
     // MARK: Interface methods
     func updateTextViewContent()
     {
-        requestPending = true
+        requestPending = true                
         delegate?.onModelUpdate(self)
         
-        dataStore.forecasterComment { (comment, error) in
+        dataStore.forecasterComment {
             
-            self.error = error
             self.lastUpdate = Date()
             self.requestPending = false
-            self.comment = comment?.formattedAsComment()
+            
+            switch $0 {
+                case let .failure(error): self.error = error
+                case let .success(content): self.comment = content.formattedAsComment()
+            }
+            
             self.delegate?.onModelUpdate(self)
         }
     }

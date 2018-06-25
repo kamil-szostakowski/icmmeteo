@@ -10,7 +10,7 @@ import Foundation
 
 public protocol MMTForecastStore
 {    
-    func startDate(_ completion: @escaping (Date?, MMTError?) -> Void)
+    func startDate(_ completion: @escaping (MMTResult<Date>) -> Void)
 }
 
 public struct MMTWebForecastStore : MMTForecastStore
@@ -27,26 +27,23 @@ public struct MMTWebForecastStore : MMTForecastStore
     }
     
     // MARK: Methods
-    public func startDate(_ completion: @escaping (Date?, MMTError?) -> Void)
+    public func startDate(_ completion: @escaping (MMTResult<Date>) -> Void)
     {
         urlSession.html(from: try! URL.mmt_forecastStartUrl(for: climateModel.type), encoding: .windowsCP1250) {
-            (html: String?, error: MMTError?) in
+            (result: MMTResult<String>) in
             
-            let reportError = {
-                completion(nil, .forecastStartDateNotFound)
-            }
-            
-            guard let htmlString = html, error == nil else {
-                reportError()
+            guard case let .success(html) = result else {
+                completion(.failure(.forecastStartDateNotFound))
                 return
             }
             
-            guard let date = self.startDate(from: htmlString) else {
-                reportError()
+            guard let date = self.startDate(from: html) else {
+                completion(.failure(.forecastStartDateNotFound))
+                
                 return
             }
             
-            completion(date, nil)
+            completion(.success(date))
         }
     }    
     

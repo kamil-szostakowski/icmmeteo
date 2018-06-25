@@ -42,60 +42,60 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
     }
     
     // MARK: Interface methods
-    func image(from url: URL, completion: @escaping (UIImage?, MMTError?) -> Void)
+    func image(from url: URL, completion: @escaping (MMTResult<UIImage>) -> Void)
     {
         runTask(with: url) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
 
             guard error == nil else {
-                completion(nil, .meteorogramFetchFailure)
+                completion(.failure(.meteorogramFetchFailure))
                 return
             }
 
             guard let image = UIImage(data) else {
-                completion(nil, .meteorogramFetchFailure)
+                completion(.failure(.meteorogramFetchFailure))
                 return
             }
 
-            completion(image, nil)
+            completion(.success(image))
         }
     }
     
-    func meteorogramImage(from searchUrl: URL, completion: @escaping (UIImage?, MMTError?) -> Void)
+    func meteorogramImage(from searchUrl: URL, completion: @escaping (MMTResult<UIImage>) -> Void)
     {
         runTask(with: searchUrl) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
 
             guard error == nil else {
-                completion(nil, .meteorogramFetchFailure)
+                completion(.failure(.meteorogramFetchFailure))
                 return
             }
 
             guard searchUrl.absoluteString != response?.url?.absoluteString else {
-                completion(nil, .meteorogramFetchFailure)
+                completion(.failure(.meteorogramFetchFailure))
                 return
             }
 
             guard let image = UIImage(data) else {
-                completion(nil, .meteorogramFetchFailure)
+                completion(.failure(.meteorogramFetchFailure))
                 return
             }
             
-            completion(image, nil)
+            completion(.success(image))
         }
     }
     
-    func html(from url: URL, encoding: String.Encoding, completion: @escaping (String?, MMTError?) -> Void)
+    func html(from url: URL, encoding: String.Encoding, completion: @escaping (MMTResult<String>) -> Void)
     {
         runTask(with: url) {
             (data: Data?, response: URLResponse?, error: Error?) -> Void in
             
             guard let htmlString = self.html(response: data, encoding: encoding), error == nil else {
-                completion(nil, .htmlFetchFailure)
+                completion(.failure(.htmlFetchFailure))
                 return
             }
             
-            completion(htmlString, nil)
+            completion(.success(htmlString))
         }
     }
     

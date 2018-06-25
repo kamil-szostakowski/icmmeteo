@@ -36,8 +36,7 @@ class MMTForecasterCommentModelControllerTests: XCTestCase
     
     func testFetchForecasterComment()
     {
-        dataStore.comment = NSAttributedString(string: "Lorem ipsum")
-        dataStore.error = nil
+        dataStore.comment = .success(NSAttributedString(string: "Lorem ipsum"))
         
         let expectations = modelControllerDelegate.awaitModelUpdate(completions: [verifyPendingRequest, {
             XCTAssertFalse($0.requestPending)
@@ -51,8 +50,7 @@ class MMTForecasterCommentModelControllerTests: XCTestCase
     
     func testFetchForecasterCommentWhenFailure()
     {
-        dataStore.comment = nil
-        dataStore.error = .commentFetchFailure
+        dataStore.comment = .failure(.commentFetchFailure)
         
         let expectations = modelControllerDelegate.awaitModelUpdate(completions: [verifyPendingRequest, {
             XCTAssertEqual($0.error, .commentFetchFailure)
@@ -66,8 +64,7 @@ class MMTForecasterCommentModelControllerTests: XCTestCase
     
     func testFetchForcasterCommentBeforeCacheExpired()
     {
-        dataStore.comment = NSAttributedString(string: "Lorem ipsum")
-        dataStore.error = nil
+        dataStore.comment = .success(NSAttributedString(string: "Lorem ipsum"))
         
         let expectations = modelControllerDelegate.awaitModelUpdate(completions: [verifyPendingRequest, {
             XCTAssertFalse($0.requestPending)
