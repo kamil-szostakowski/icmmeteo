@@ -1,6 +1,7 @@
 ![](https://img.shields.io/badge/platform-iOS-green.svg)
 ![](https://api.travis-ci.com/kamil-szostakowski/icmmeteo.svg?branch=develop)
 [![Join the chat at https://gitter.im/icmmeteo/Lobby](https://badges.gitter.im/icmmeteo/Lobby.svg)](https://gitter.im/icmmeteo/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![codecov](https://codecov.io/gh/kamil-szostakowski/icmmeteo/branch/develop/graph/badge.svg)](https://codecov.io/gh/kamil-szostakowski/icmmeteo)
 
 # ICM Meteo #
 
