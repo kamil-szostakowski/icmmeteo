@@ -17,6 +17,12 @@
 		1B1F8FAA201FCCFE004B1126 /* MMTMeteorogramShortcutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F8FA9201FCCFE004B1126 /* MMTMeteorogramShortcutTests.swift */; };
 		1B1F8FAC201FD6A8004B1126 /* UIApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F8FAB201FD6A8004B1126 /* UIApplicationTests.swift */; };
 		1B2B4F742045F7B3004FBBB5 /* MMTActivityIndicating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2B4F732045F7B3004FBBB5 /* MMTActivityIndicating.swift */; };
+		1B39BEBB20DD8A60002495B5 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B39BEBA20DD8A60002495B5 /* NotificationCenter.framework */; };
+		1B39BEBE20DD8A60002495B5 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B39BEBD20DD8A60002495B5 /* TodayViewController.swift */; };
+		1B39BEC120DD8A60002495B5 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B39BEBF20DD8A60002495B5 /* MainInterface.storyboard */; };
+		1B39BEC520DD8A60002495B5 /* MeteoWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1B39BEB920DD8A60002495B5 /* MeteoWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1B39BECB20DD8DB9002495B5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9E696771AFCC06600273DA3 /* Images.xcassets */; };
+		1B39BECC20DD9394002495B5 /* MeteoModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF55CE62049E63E009BA4E2 /* MeteoModel.framework */; };
 		1B4095CB2040C06900CDF5E4 /* MMTForecasterCommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */; };
 		1B4FD2E6203B506700B33C04 /* MMTShortcutsMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */; };
 		1B58237D2027B1C4003DF651 /* CSSearchableIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B58237C2027B1C4003DF651 /* CSSearchableIndexTests.swift */; };
@@ -88,6 +94,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1B39BEC320DD8A60002495B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F9E6965C1AFCC06600273DA3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B39BEB820DD8A60002495B5;
+			remoteInfo = MeteoWidget;
+		};
 		1BF55CE52049E63E009BA4E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1BF55CE02049E63E009BA4E2 /* MeteoModel.xcodeproj */;
@@ -126,6 +139,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1B39BECA20DD8A60002495B5 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1B39BEC520DD8A60002495B5 /* MeteoWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1B9C726D2049E28B00856476 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -151,6 +175,11 @@
 		1B1F8FAB201FD6A8004B1126 /* UIApplicationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationTests.swift; sourceTree = "<group>"; };
 		1B2B2DC2204E03B500B7C9B0 /* Toruń.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Toruń.gpx"; sourceTree = "<group>"; };
 		1B2B4F732045F7B3004FBBB5 /* MMTActivityIndicating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTActivityIndicating.swift; sourceTree = "<group>"; };
+		1B39BEB920DD8A60002495B5 /* MeteoWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MeteoWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B39BEBA20DD8A60002495B5 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		1B39BEBD20DD8A60002495B5 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		1B39BEC020DD8A60002495B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		1B39BEC220DD8A60002495B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecasterCommentTests.swift; sourceTree = "<group>"; };
 		1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTShortcutsMigratorTests.swift; sourceTree = "<group>"; };
 		1B58237C2027B1C4003DF651 /* CSSearchableIndexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSearchableIndexTests.swift; sourceTree = "<group>"; };
@@ -241,6 +270,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1B39BEB620DD8A60002495B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B39BECC20DD9394002495B5 /* MeteoModel.framework in Frameworks */,
+				1B39BEBB20DD8A60002495B5 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F9941A611BECE32300700313 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -306,6 +344,16 @@
 				1B1020CB20D1C3A400B24809 /* MMTCityAnnotation.swift */,
 			);
 			name = CoreLocation;
+			sourceTree = "<group>";
+		};
+		1B39BEBC20DD8A60002495B5 /* MeteoWidget */ = {
+			isa = PBXGroup;
+			children = (
+				1B39BEBD20DD8A60002495B5 /* TodayViewController.swift */,
+				1B39BEBF20DD8A60002495B5 /* MainInterface.storyboard */,
+				1B39BEC220DD8A60002495B5 /* Info.plist */,
+			);
+			path = MeteoWidget;
 			sourceTree = "<group>";
 		};
 		1B68CD342045B82B00AB8046 /* Views */ = {
@@ -384,6 +432,7 @@
 				6E3CE4A773356028F6D9B3B1 /* libPods-MeteoUITests.a */,
 				BC5DA4C9BB5FED94C3F36386 /* libPods-MobileMeteo.a */,
 				C8D23B87D7A42D9A142AF2B4 /* libPods-MobileMeteoTests.a */,
+				1B39BEBA20DD8A60002495B5 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -508,6 +557,7 @@
 				F9E696661AFCC06600273DA3 /* MobileMeteo */,
 				F9E696831AFCC06600273DA3 /* MobileMeteoTests */,
 				F9941A571BECE15800700313 /* MobileMeteoUITests */,
+				1B39BEBC20DD8A60002495B5 /* MeteoWidget */,
 				F9E696651AFCC06600273DA3 /* Products */,
 				1E0B96656B6BD26F0DC667D3 /* Frameworks */,
 				79433CAFD73501A7E8002C26 /* Pods */,
@@ -520,6 +570,7 @@
 				F9E696641AFCC06600273DA3 /* MobileMeteo.app */,
 				F9E696801AFCC06600273DA3 /* MobileMeteoTests.xctest */,
 				F9941A641BECE32300700313 /* MeteoUITests.xctest */,
+				1B39BEB920DD8A60002495B5 /* MeteoWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -610,6 +661,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1B39BEB820DD8A60002495B5 /* MeteoWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B39BEC920DD8A60002495B5 /* Build configuration list for PBXNativeTarget "MeteoWidget" */;
+			buildPhases = (
+				1B39BEB520DD8A60002495B5 /* Sources */,
+				1B39BEB620DD8A60002495B5 /* Frameworks */,
+				1B39BEB720DD8A60002495B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MeteoWidget;
+			productName = MeteoWidget;
+			productReference = 1B39BEB920DD8A60002495B5 /* MeteoWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		F9941A631BECE32300700313 /* MeteoUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F9941A6B1BECE32400700313 /* Build configuration list for PBXNativeTarget "MeteoUITests" */;
@@ -642,11 +710,13 @@
 				449E201CF54EA48B2B48BBA4 /* [CP] Embed Pods Frameworks */,
 				44E11C3BDEAA093020E7E7D9 /* [CP] Copy Pods Resources */,
 				1B9C726D2049E28B00856476 /* Embed Frameworks */,
+				1B39BECA20DD8A60002495B5 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				1BF55CEC2049E6EB009BA4E2 /* PBXTargetDependency */,
+				1B39BEC420DD8A60002495B5 /* PBXTargetDependency */,
 			);
 			name = MobileMeteo;
 			productName = MobileMeteo;
@@ -682,10 +752,15 @@
 			attributes = {
 				CLASSPREFIX = MMT;
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 0940;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Kamil Szostakowski";
 				TargetAttributes = {
+					1B39BEB820DD8A60002495B5 = {
+						CreatedOnToolsVersion = 9.4.1;
+						DevelopmentTeam = GMU6W6K8X6;
+						ProvisioningStyle = Automatic;
+					};
 					F9941A631BECE32300700313 = {
 						CreatedOnToolsVersion = 7.1;
 						LastSwiftMigration = 0900;
@@ -733,6 +808,7 @@
 				F9E696631AFCC06600273DA3 /* MobileMeteo */,
 				F9E6967F1AFCC06600273DA3 /* MobileMeteoTests */,
 				F9941A631BECE32300700313 /* MeteoUITests */,
+				1B39BEB820DD8A60002495B5 /* MeteoWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -755,6 +831,15 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1B39BEB720DD8A60002495B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B39BEC120DD8A60002495B5 /* MainInterface.storyboard in Resources */,
+				1B39BECB20DD8DB9002495B5 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F9941A621BECE32300700313 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -933,6 +1018,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1B39BEB520DD8A60002495B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B39BEBE20DD8A60002495B5 /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F9941A601BECE32300700313 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1020,6 +1113,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1B39BEC420DD8A60002495B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B39BEB820DD8A60002495B5 /* MeteoWidget */;
+			targetProxy = 1B39BEC320DD8A60002495B5 /* PBXContainerItemProxy */;
+		};
 		1BF55CEC2049E6EB009BA4E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MeteoModel;
@@ -1038,6 +1136,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		1B39BEBF20DD8A60002495B5 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B39BEC020DD8A60002495B5 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		F91A6F561C86F6F200BDDE28 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1068,6 +1174,59 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1B39BEC620DD8A60002495B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = GMU6W6K8X6;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MeteoWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.meteo.MeteoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1B39BEC720DD8A60002495B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GMU6W6K8X6;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = MeteoWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.meteo.MeteoWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		F9941A6C1BECE32400700313 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 32E38FF08C15F447B5728A61 /* Pods-MeteoUITests.debug.xcconfig */;
@@ -1343,6 +1502,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1B39BEC920DD8A60002495B5 /* Build configuration list for PBXNativeTarget "MeteoWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1B39BEC620DD8A60002495B5 /* Debug */,
+				1B39BEC720DD8A60002495B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F9941A6B1BECE32400700313 /* Build configuration list for PBXNativeTarget "MeteoUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

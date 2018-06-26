@@ -18,8 +18,8 @@ public class MMTForecastService
     fileprivate var citiesStore: MMTCitiesStore
     fileprivate var cache: MMTImagesCache
     
-    fileprivate var currentCity: MMTCityProt?
-    fileprivate var currentStartDate: Date?
+    public private(set) var currentCity: MMTCityProt?
+    public private(set) var currentStartDate: Date?
     
     // MARK: Initializers
     public init(forecastStore: MMTForecastStore, meteorogramStore: MMTMeteorogramDataStore, citiesStore: MMTCitiesStore, cache: MMTImagesCache)
