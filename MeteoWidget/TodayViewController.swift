@@ -14,6 +14,9 @@ import NotificationCenter
 class TodayViewController: UIViewController, NCWidgetProviding
 {
     @IBOutlet weak var meteorogramImage: UIImageView!
+    @IBOutlet weak var hederHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var headerView: UIView!
+    
     private var locationService: MMTLocationService!
     private var forecastService: MMTForecastService!
     private var meteorogramStore: MMTMeteorogramStore!
@@ -25,11 +28,13 @@ class TodayViewController: UIViewController, NCWidgetProviding
         locationService = MMTCoreLocationService(locationManager: CLLocationManager())
         forecastService = MMTForecastService(model: MMTUmClimateModel())
         meteorogramStore = MMTMeteorogramStore(model: MMTUmClimateModel())
-        
+        hederHeightConstraint.constant = extensionContext?.widgetMaximumSize(for: .compact).height ?? 0        
         extensionContext?.widgetLargestAvailableDisplayMode = .expanded
     }
     
-    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+    func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize)
+    {
+        headerView.isHidden = activeDisplayMode == .expanded
         preferredContentSize = maxSize
     }
     
@@ -48,7 +53,7 @@ class TodayViewController: UIViewController, NCWidgetProviding
                     return
                 }
                 print("meteorogram updated")
-                self.meteorogramImage.image = meteorogram.image
+                self.meteorogramImage?.image = meteorogram.image
                 completionHandler(NCUpdateResult.newData)
             }
         }
