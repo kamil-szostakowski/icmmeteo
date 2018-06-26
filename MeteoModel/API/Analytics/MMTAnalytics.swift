@@ -30,9 +30,13 @@ public enum MMTAnalyticsAction: String
     case LocationDidSelectSearchResult
     case LocationDidSelectOnMap
     case LocationDidSelectOnSpotlight
+    case LocationDidAllowWhenUsing
+    case LocationDidAllowAlways
+    case LocationDidAllowNever
     case DetailedMapDidSelectModel
     case ShortcutSpotlightDidActivate
     case Shortcut3DTouchDidActivate
+    case BackgroundUpdateDidFinish
     
     public init?(group: MMTCitiesIndexSectionType)
     {

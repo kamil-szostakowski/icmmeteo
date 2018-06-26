@@ -9,8 +9,10 @@
 import Foundation
 import CoreLocation
 
-public class MMTCoreLocationService: NSObject, MMTLocationService
+public class MMTCoreLocationService: NSObject, MMTLocationService, MMTAnalyticsReporter
 {
+    public var analytics: MMTAnalytics?
+    
     // MARK: Properties
     private var locationManager: CLLocationManager
     
@@ -35,15 +37,20 @@ extension MMTCoreLocationService: CLLocationManagerDelegate
     // MARK: Location service methods
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
     {
+        var action: MMTAnalyticsAction = .LocationDidAllowNever
+        
         if status == .authorizedWhenInUse || status == .authorizedAlways {
             locationManager.startMonitoringSignificantLocationChanges()
             locationManager(manager, didUpdateLocations: [])
+            action = status == .authorizedWhenInUse ? .LocationDidAllowWhenUsing : .LocationDidAllowAlways
             NotificationCenter.default.addObserver(self, selector: #selector(handleAppActivation(notification:)), name: .UIApplicationDidBecomeActive, object: nil)
         } else {
             locationManager.stopMonitoringSignificantLocationChanges()
             locationManager(manager, didUpdateLocations: [])
             NotificationCenter.default.removeObserver(self)
         }
+        
+        analytics?.sendUserActionReport(.Locations, action: action, actionLabel: "")
     }
     
     @objc public func handleAppActivation(notification: Notification)
