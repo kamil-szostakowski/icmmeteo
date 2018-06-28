@@ -18,6 +18,8 @@
 		1B1F8FAC201FD6A8004B1126 /* UIApplicationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F8FAB201FD6A8004B1126 /* UIApplicationTests.swift */; };
 		1B2B4F742045F7B3004FBBB5 /* MMTActivityIndicating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2B4F732045F7B3004FBBB5 /* MMTActivityIndicating.swift */; };
 		1B2C534220E2D98C003727A3 /* WidgetAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B2C534120E2D98C003727A3 /* WidgetAssets.xcassets */; };
+		1B2C534820E3E789003727A3 /* UIBackgroundFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C534720E3E789003727A3 /* UIBackgroundFetchResult.swift */; };
+		1B2C534C20E3EAF1003727A3 /* NCUpdateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C534B20E3EAF1003727A3 /* NCUpdateResult.swift */; };
 		1B39BEBB20DD8A60002495B5 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B39BEBA20DD8A60002495B5 /* NotificationCenter.framework */; };
 		1B39BEBE20DD8A60002495B5 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B39BEBD20DD8A60002495B5 /* TodayViewController.swift */; };
 		1B39BEC120DD8A60002495B5 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B39BEBF20DD8A60002495B5 /* MainInterface.storyboard */; };
@@ -177,6 +179,10 @@
 		1B2B2DC2204E03B500B7C9B0 /* Toruń.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Toruń.gpx"; sourceTree = "<group>"; };
 		1B2B4F732045F7B3004FBBB5 /* MMTActivityIndicating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTActivityIndicating.swift; sourceTree = "<group>"; };
 		1B2C534120E2D98C003727A3 /* WidgetAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WidgetAssets.xcassets; sourceTree = "<group>"; };
+		1B2C534720E3E789003727A3 /* UIBackgroundFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBackgroundFetchResult.swift; sourceTree = "<group>"; };
+		1B2C534B20E3EAF1003727A3 /* NCUpdateResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCUpdateResult.swift; sourceTree = "<group>"; };
+		1B2C534D20E3EE9E003727A3 /* MobileMeteo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileMeteo.entitlements; sourceTree = "<group>"; };
+		1B2C534E20E3EEAC003727A3 /* MeteoWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MeteoWidget.entitlements; sourceTree = "<group>"; };
 		1B39BEB920DD8A60002495B5 /* MeteoWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MeteoWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B39BEBA20DD8A60002495B5 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		1B39BEBD20DD8A60002495B5 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -348,9 +354,18 @@
 			name = CoreLocation;
 			sourceTree = "<group>";
 		};
+		1B2C534A20E3EAE5003727A3 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1B2C534B20E3EAF1003727A3 /* NCUpdateResult.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		1B39BEBC20DD8A60002495B5 /* MeteoWidget */ = {
 			isa = PBXGroup;
 			children = (
+				1B2C534A20E3EAE5003727A3 /* Extensions */,
 				1B39BEBD20DD8A60002495B5 /* TodayViewController.swift */,
 				1B39BEBF20DD8A60002495B5 /* MainInterface.storyboard */,
 				1B39BEC220DD8A60002495B5 /* Info.plist */,
@@ -499,10 +514,11 @@
 				F91A63471C467F3900747AC3 /* UIAlertController.swift */,
 				1B8B5E5F1FB116D4002D2381 /* UIViewController.swift */,
 				1BF36E081FE3003C00083538 /* UISegmentedControl.swift */,
+				1B2C534720E3E789003727A3 /* UIBackgroundFetchResult.swift */,
 				F90F72A61C5A3DA600130353 /* NSUserDefaults.swift */,
+				1B8FB8C820D428AC00AF95C8 /* NSAttributedString.swift */,
 				F9829D701C3FB09D00314438 /* CAAnimation.swift */,
 				F90A5DD71E1711D300058B57 /* CGSize.swift */,
-				1B8FB8C820D428AC00AF95C8 /* NSAttributedString.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -1026,6 +1042,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B2C534C20E3EAF1003727A3 /* NCUpdateResult.swift in Sources */,
 				1B39BEBE20DD8A60002495B5 /* TodayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1074,6 +1091,7 @@
 				1BF36E091FE3003C00083538 /* UISegmentedControl.swift in Sources */,
 				F9ED9FFA1E07527B00190F59 /* UIView.swift in Sources */,
 				1B68CD362045B85000AB8046 /* MMTActivityIndicator.swift in Sources */,
+				1B2C534820E3E789003727A3 /* UIBackgroundFetchResult.swift in Sources */,
 				1BF36E0D1FE485D200083538 /* MMTDetailedMapShortcut.swift in Sources */,
 				1B1020CC20D1C3A400B24809 /* MMTCityAnnotation.swift in Sources */,
 				F9F9D6101C52643000A49ACA /* MMTGoogleAnalytics.swift in Sources */,

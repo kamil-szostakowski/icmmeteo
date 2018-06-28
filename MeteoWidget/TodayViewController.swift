@@ -13,23 +13,24 @@ import NotificationCenter
 
 class TodayViewController: UIViewController, NCWidgetProviding
 {
+    // MARK: Properties
     @IBOutlet weak var meteorogramImage: UIImageView!
     @IBOutlet weak var hederHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var headerView: UIView!
     
     private var locationService: MMTLocationService!
-    private var forecastService: MMTForecastService!
-    private var meteorogramStore: MMTMeteorogramStore!
+    private var modelController: MMTTodayModelController!
     
+    // MARK: Lefecycle methods
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
-        locationService = MMTCoreLocationService(locationManager: CLLocationManager())
-        forecastService = MMTForecastService(model: MMTUmClimateModel())
-        meteorogramStore = MMTMeteorogramStore(model: MMTUmClimateModel())
-        hederHeightConstraint.constant = extensionContext?.widgetMaximumSize(for: .compact).height ?? 0        
-        extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+        setupModelController()
+        setupWidgetDisplayMode()
+        
+        // TODO: UI for disabled location services
+        // TODO: UI for meteorogram fetch error
     }
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize)
@@ -40,23 +41,49 @@ class TodayViewController: UIViewController, NCWidgetProviding
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void))
     {
-        forecastService.update(for: locationService.currentLocation) { status in
-            
-            guard let city = self.forecastService.currentCity else {
-                completionHandler(.failed)
-                return
-            }
-            
-            self.meteorogramStore.meteorogram(for: city) {
-                
-                guard case let .success(meteorogram) = $0 else {
-                    return
-                }
-                print("meteorogram updated")
-                self.meteorogramImage?.image = meteorogram.image
-                completionHandler(NCUpdateResult.newData)
-            }
+        modelController.onUpdate(location: locationService.currentLocation) {
+            completionHandler(NCUpdateResult(updateStatus: $0))
         }
     }
+}
+
+extension TodayViewController
+{
+    // MARK: Setup methods
+    fileprivate func setupModelController()
+    {
+        locationService = MMTCoreLocationService(locationManager: CLLocationManager())
+        modelController = MMTTodayModelController(model: MMTUmClimateModel())
+        modelController.delegate = self
+    }
+    
+    fileprivate func setupWidgetDisplayMode()
+    {
+        guard let context = extensionContext else {
+            return
+        }
+        
+        hederHeightConstraint.constant = context.widgetMaximumSize(for: .compact).height
+        context.widgetLargestAvailableDisplayMode = .expanded
+    }
+}
+
+extension TodayViewController: MMTModelControllerDelegate
+{
+    func onModelUpdate(_ controller: MMTModelController)
+    {
+        guard let result = modelController.updateResult else {
+            return
+        }
+        
+        guard case let .success(meteorogram) = result else {
+            return
+        }
+        
+        meteorogramImage.image = meteorogram.image
+        print("Model updated")
+    }
+    
+    // MARK: Data update methods
     
 }

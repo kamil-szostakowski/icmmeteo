@@ -45,6 +45,7 @@ class MMTMeteorogramStoreTests: XCTestCase
         meteorogramStore.meteorogram(for: city) {
             guard case let .success(meteorogram) = $0 else { XCTFail(); return }
             XCTAssertEqual(meteorogram.startDate, startDate)
+            XCTAssertEqual(meteorogram.city, self.city)
             XCTAssertNotNil(meteorogram.legend)
             self.completionExpectation.fulfill()
         }
@@ -59,6 +60,7 @@ class MMTMeteorogramStoreTests: XCTestCase
         meteorogramStore.meteorogram(for: city) {
             guard case let .success(meteorogram) = $0 else { XCTFail(); return }
             XCTAssertEqual(meteorogram.startDate, MMTUmClimateModel().startDate(for: Date()))
+            XCTAssertEqual(meteorogram.city, self.city)
             XCTAssertNotNil(meteorogram.legend)
             self.completionExpectation.fulfill()
         }
@@ -73,6 +75,7 @@ class MMTMeteorogramStoreTests: XCTestCase
         meteorogramStore.meteorogram(for: city) {
             guard case let .success(meteorogram) = $0 else { XCTFail(); return }
             XCTAssertNil(meteorogram.legend)
+            XCTAssertEqual(meteorogram.city, self.city)
             self.completionExpectation.fulfill()
         }
         

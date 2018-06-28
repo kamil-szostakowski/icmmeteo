@@ -30,7 +30,7 @@ public struct MMTMeteorogramStore: MMTMeteorogramDataStore
     {
         forecastStore.startDate { (result: MMTResult<Date>) in
             var error: MMTError?
-            var meteorogram = MMTMeteorogram(model: self.climateModel)
+            var meteorogram = MMTMeteorogram(model: self.climateModel, city: city)
             
             switch result {
                 case let .success(date): meteorogram.startDate = date

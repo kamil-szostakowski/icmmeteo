@@ -10,6 +10,13 @@ import UIKit
 import Foundation
 import CoreLocation
 
+public enum MMTUpdateResult
+{
+    case newData
+    case noData
+    case failed
+}
+
 public class MMTForecastService
 {
     // MARK: Properties
@@ -18,8 +25,7 @@ public class MMTForecastService
     fileprivate var citiesStore: MMTCitiesStore
     fileprivate var cache: MMTImagesCache
     
-    public private(set) var currentCity: MMTCityProt?
-    public private(set) var currentStartDate: Date?
+    public private(set) var currentMeteorogram: MMTMeteorogram?
     
     // MARK: Initializers
     public init(forecastStore: MMTForecastStore, meteorogramStore: MMTMeteorogramDataStore, citiesStore: MMTCitiesStore, cache: MMTImagesCache)
@@ -31,7 +37,7 @@ public class MMTForecastService
     }
     
     // MARK: Interface methods
-    public func update(for location: CLLocation?, completion: @escaping (UIBackgroundFetchResult) -> Void)
+    public func update(for location: CLLocation?, completion: @escaping (MMTUpdateResult) -> Void)
     {
         guard let aLocation = location else {
             completion(.noData)
@@ -75,12 +81,12 @@ public class MMTForecastService
                 return
             }
             
-            self.currentCity = city
-            self.currentStartDate = startDate
             self.meteorogramStore.meteorogram(for: city) {
                 
-                if case let .success(meteorogram) = $0 {
-                    self.tryCache(meteorogram: meteorogram)
+                if case let .success(meteorogram) = $0
+                {
+                    self.currentMeteorogram = meteorogram                    
+                    self.pinToCache(meteorogram: meteorogram)
                     completion(.newData)
                 }
                 
@@ -97,19 +103,15 @@ extension MMTForecastService
     // MARK: Helper methods
     fileprivate func isUpdateRequired(_ city: MMTCityProt, _ startDate: Date) -> Bool
     {
-        let old: (MMTCityProt?, Date?) = (currentCity, currentStartDate)
+        let old: (MMTCityProt?, Date?) = (currentMeteorogram?.city, currentMeteorogram?.startDate)
         let new: (MMTCityProt?, Date?) = (city, startDate)
         
         return old != new
     }
     
-    fileprivate func tryCache(meteorogram mgram: MMTMeteorogram?)
+    fileprivate func pinToCache(meteorogram m: MMTMeteorogram)
     {
-        guard let meteorogram = mgram, let city = currentCity, let date = currentStartDate else {
-            return
-        }
-        
-        let key = meteorogram.model.cacheKey(city: city, startDate: date)
-        cache.setPinnedObject(meteorogram.image, forKey: key)
+        let key = m.model.cacheKey(city: m.city, startDate: m.startDate)
+        cache.setPinnedObject(m.image, forKey: key)
     }
 }

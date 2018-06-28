@@ -36,8 +36,12 @@ class MMTForecastServiceTests: XCTestCase
         citiesStore = MMTMockCitiesStore()
         citiesStore.currentCity = .success(currentCity)
         
+        var
+        meteorogram = MMTMeteorogram(model: model, city: currentCity)
+        meteorogram.startDate = startDate
+        
         meteorogramStore = MMTMockMeteorogramStore()
-        meteorogramStore.meteorogram = .success(MMTMeteorogram(model: model))
+        meteorogramStore.meteorogram = .success(meteorogram)
         
         nsCache = NSCache<NSString, UIImage>()
         cache = MMTImagesCache(cache: nsCache)
@@ -67,7 +71,7 @@ class MMTForecastServiceTests: XCTestCase
         let completion = expectation(description: "update completion")
         
         service.update(for: CLLocation()) {
-            completion.fulfill()
+            completion.fulfill()            
             XCTAssertEqual($0, .newData)
         }
         

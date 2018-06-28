@@ -11,11 +11,14 @@ import UIKit
 public struct MMTMeteorogram
 {
     public let model: MMTClimateModel
-    public var image: UIImage
-    public var legend: UIImage?
-    public var startDate: Date
+    public let city: MMTCityProt
+    public internal(set) var image: UIImage
+    public internal(set) var legend: UIImage?
+    public internal(set) var startDate: Date
     
-    init(model: MMTClimateModel) {
+    init(model: MMTClimateModel, city: MMTCityProt)
+    {
+        self.city = city
         self.model = model
         self.startDate = model.startDate(for: Date())
         self.image = UIImage()
