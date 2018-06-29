@@ -16,6 +16,8 @@ public class MMTCoreLocationService: NSObject, MMTLocationService, MMTAnalyticsR
     // MARK: Properties
     private var locationManager: CLLocationManager
     
+    public private(set) var authorizationStatus: MMTLocationAuthStatus
+    
     public var currentLocation: CLLocation? {
         return locationManager.location
     }
@@ -23,6 +25,7 @@ public class MMTCoreLocationService: NSObject, MMTLocationService, MMTAnalyticsR
     // MARK: Initializers
     public init(locationManager: CLLocationManager)
     {
+        self.authorizationStatus = .unauthorized
         self.locationManager = locationManager
         
         super.init()
@@ -37,20 +40,18 @@ extension MMTCoreLocationService: CLLocationManagerDelegate
     // MARK: Location service methods
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
     {
-        var action: MMTAnalyticsAction = .LocationDidAllowNever
+        authorizationStatus = MMTLocationAuthStatus(status)
         
-        if status == .authorizedWhenInUse || status == .authorizedAlways {
-            locationManager.startMonitoringSignificantLocationChanges()
-            locationManager(manager, didUpdateLocations: [])
-            action = status == .authorizedWhenInUse ? .LocationDidAllowWhenUsing : .LocationDidAllowAlways
-            NotificationCenter.default.addObserver(self, selector: #selector(handleAppActivation(notification:)), name: .UIApplicationDidBecomeActive, object: nil)
-        } else {
-            locationManager.stopMonitoringSignificantLocationChanges()
-            locationManager(manager, didUpdateLocations: [])
-            NotificationCenter.default.removeObserver(self)
+        switch authorizationStatus {
+            case .unauthorized:
+                locationManager.stopMonitoringSignificantLocationChanges()
+            default:
+                locationManager.startMonitoringSignificantLocationChanges()
         }
         
-        analytics?.sendUserActionReport(.Locations, action: action, actionLabel: "")
+        setupNotificationHandler(for: authorizationStatus)
+        locationManager(manager, didUpdateLocations: [])
+        analytics?.sendUserActionReport(.Locations, action: MMTAnalyticsAction(status), actionLabel: "")
     }
     
     @objc public func handleAppActivation(notification: Notification)
@@ -64,3 +65,41 @@ extension MMTCoreLocationService: CLLocationManagerDelegate
     }
 }
 
+extension MMTCoreLocationService
+{
+    fileprivate func setupNotificationHandler(for status: MMTLocationAuthStatus)
+    {
+        guard status != .unauthorized else {
+            NotificationCenter.default.removeObserver(self)
+            return
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAppActivation(notification:)), name: .UIApplicationDidBecomeActive, object: nil)
+    }
+}
+
+extension MMTLocationAuthStatus
+{
+    // MAKR: Converter extension
+    fileprivate init(_ status: CLAuthorizationStatus)
+    {
+        switch status {
+            case .authorizedWhenInUse: self = .whenInUse
+            case .authorizedAlways: self = .always
+            default: self = .unauthorized
+        }
+    }
+}
+
+extension MMTAnalyticsAction
+{
+    // MAKR: Converter extension
+    fileprivate init(_ status: CLAuthorizationStatus)
+    {
+        switch status {
+            case .authorizedWhenInUse: self = .LocationDidAllowWhenUsing
+            case .authorizedAlways: self = .LocationDidAllowAlways
+            default: self = .LocationDidAllowNever
+        }
+    }
+}

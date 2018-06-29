@@ -47,7 +47,7 @@ class MMTForecastServiceTests: XCTestCase
         cache = MMTImagesCache(cache: nsCache)
         expectedKey = model.cacheKey(city: currentCity, startDate: startDate)
         
-        service = MMTForecastService(forecastStore: forecastStore, meteorogramStore: meteorogramStore, citiesStore: citiesStore, cache: cache)
+        service = MMTMeteorogramForecastService(forecastStore: forecastStore, meteorogramStore: meteorogramStore, citiesStore: citiesStore, cache: cache)
     }
     
     // MARK: Test methods

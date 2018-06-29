@@ -76,7 +76,7 @@ extension MMTDetailedMapPreviewModelController
     }
 }
 
-extension MMTForecastService
+extension MMTMeteorogramForecastService
 {
     public convenience init(model: MMTClimateModel)
     {

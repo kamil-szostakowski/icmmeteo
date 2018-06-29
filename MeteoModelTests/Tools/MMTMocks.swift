@@ -173,3 +173,39 @@ class MMTMockForecasterStore: MMTForecasterCommentDataStore
         }
     }
 }
+
+class MMTMockAnalytics: MMTAnalytics
+{
+    var screen: String!
+    var action: MMTAnalyticsAction!
+    var category: MMTAnalyticsCategory!
+    
+    func sendScreenEntryReport(_ screen: String)
+    {
+        if screen != self.screen {
+            XCTFail("Not implemented")
+        }
+    }
+    
+    func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel: String)
+    {
+        if category != self.category || action != self.action {
+            XCTFail("Not implemented")
+        }
+    }
+    
+    func sendUserActionReport(_ action: MMTAnalyticsReport)
+    {
+        sendUserActionReport(action.category, action: action.action, actionLabel: action.actionLabel)
+    }
+}
+
+class MMTMockForecastService: MMTForecastService
+{
+    var currentMeteorogram: MMTMeteorogram?
+    var status: MMTUpdateResult!
+    
+    func update(for location: CLLocation?, completion: @escaping (MMTUpdateResult) -> Void) {
+        completion(status)
+    }        
+}

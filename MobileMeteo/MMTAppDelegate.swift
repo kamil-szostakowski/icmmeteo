@@ -21,7 +21,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     // MARK: Properties
     var window: UIWindow?
     var locationService: MMTCoreLocationService!
-    var forecastService = MMTForecastService(model: MMTUmClimateModel())
+    var forecastService = MMTMeteorogramForecastService(model: MMTUmClimateModel())
     
     var rootViewController: MMTTabBarController {
         return self.window!.rootViewController as! MMTTabBarController
@@ -79,7 +79,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
             if status == .newData {
                 self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish, actionLabel: "")
             }
-            completionHandler(status)
+            completionHandler(UIBackgroundFetchResult(updateStatus: status))
         }
     }
 }
@@ -162,11 +162,8 @@ extension MMTAppDelegate
 }
 
 // Location service extension
-extension MMTAppDelegate : MMTLocationService
+extension MMTAppDelegate
 {
-    var currentLocation: CLLocation? {
-        return locationService.currentLocation
-    }    
     
     @objc func handleLocationDidChange(notification: Notification)
     {
@@ -178,6 +175,6 @@ extension MMTAppDelegate : MMTLocationService
 extension UIApplication
 {
     var locationService: MMTLocationService? {
-        return delegate as? MMTLocationService
+        return (delegate as? MMTAppDelegate)?.locationService
     }
 }

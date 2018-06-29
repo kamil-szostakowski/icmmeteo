@@ -53,7 +53,7 @@ extension TodayViewController
     fileprivate func setupModelController()
     {
         locationService = MMTCoreLocationService(locationManager: CLLocationManager())
-        modelController = MMTTodayModelController(model: MMTUmClimateModel())
+        modelController = MMTTodayModelController(forecastService: MMTMeteorogramForecastService(model: MMTUmClimateModel()))
         modelController.delegate = self
     }
     

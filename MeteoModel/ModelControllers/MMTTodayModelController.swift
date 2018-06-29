@@ -28,7 +28,7 @@ public class MMTTodayModelController: MMTModelController
     {        
         forecastService.update(for: location) { status in
             defer { completion(status) }
-            print("Location: \(location?.coordinate)")
+            
             guard let meteorogram = self.forecastService.currentMeteorogram else {
                 return
             }

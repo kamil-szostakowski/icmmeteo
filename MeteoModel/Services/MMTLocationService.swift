@@ -14,7 +14,15 @@ public extension Notification.Name
     public static let locationChangedNotification = Notification.Name(rawValue: "MMTLocationChangedNotification")
 }
 
+public enum MMTLocationAuthStatus
+{
+    case always
+    case whenInUse
+    case unauthorized    
+}
+
 public protocol MMTLocationService
 {
-    var currentLocation: CLLocation? { get }    
+    var currentLocation: CLLocation? { get }
+    var authorizationStatus: MMTLocationAuthStatus { get }    
 }

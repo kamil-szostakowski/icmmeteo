@@ -12,7 +12,10 @@ import MeteoModel
 
 @testable import MobileMeteo
 
-class MMTStubLocationService : MMTLocationService {
+class MMTStubLocationService : MMTLocationService
+{
+    var authorizationStatus: MMTLocationAuthStatus = .unauthorized
+    
     var currentLocation: CLLocation?
 }
 
