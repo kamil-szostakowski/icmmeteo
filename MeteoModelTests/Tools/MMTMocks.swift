@@ -206,6 +206,15 @@ class MMTMockForecastService: MMTForecastService
     var status: MMTUpdateResult!
     
     func update(for location: CLLocation?, completion: @escaping (MMTUpdateResult) -> Void) {
-        completion(status)
-    }        
+        DispatchQueue.global(qos: .background).async {
+            completion(self.status)
+        }
+    }
+}
+
+class MMTMockLocationService: MMTLocationService
+{
+    var currentLocation: CLLocation?
+    
+    var authorizationStatus: MMTLocationAuthStatus = .unauthorized
 }

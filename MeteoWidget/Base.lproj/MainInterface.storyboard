@@ -19,14 +19,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YXq-aQ-ixC">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YXq-aQ-ixC" userLabel="Main Container">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="220"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vrz-XH-tVx" userLabel="Header">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8vC-XE-bqK" userLabel="Location Error">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                                         <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Usługi lokalizacyjne są niedostępne" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="3TH-yP-eYM">
+                                                <rect key="frame" x="90" y="20" width="210" height="70"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" image="detailed-maps" translatesAutoresizingMaskIntoConstraints="NO" id="lfQ-ix-mfG">
+                                                <rect key="frame" x="20" y="30" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="lfQ-ix-mfG" secondAttribute="height" multiplier="1:1" id="fgA-Qe-RHn"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="lfQ-ix-mfG" firstAttribute="bottom" secondItem="3TH-yP-eYM" secondAttribute="bottom" constant="-10" id="2yB-1H-ZMj"/>
+                                            <constraint firstAttribute="trailing" secondItem="3TH-yP-eYM" secondAttribute="trailing" constant="20" id="I0Q-v4-OiX"/>
+                                            <constraint firstItem="3TH-yP-eYM" firstAttribute="leading" secondItem="lfQ-ix-mfG" secondAttribute="trailing" constant="20" id="OLS-dQ-HO3"/>
+                                            <constraint firstItem="lfQ-ix-mfG" firstAttribute="top" secondItem="3TH-yP-eYM" secondAttribute="top" constant="10" id="QWM-yf-SvZ"/>
+                                            <constraint firstItem="lfQ-ix-mfG" firstAttribute="leading" secondItem="8vC-XE-bqK" secondAttribute="leading" constant="20" id="RYc-1P-KaR"/>
+                                            <constraint firstItem="3TH-yP-eYM" firstAttribute="top" secondItem="8vC-XE-bqK" secondAttribute="top" constant="20" id="YqQ-Q1-q0r"/>
+                                            <constraint firstAttribute="height" constant="110" id="nAG-S1-wyn"/>
+                                            <constraint firstAttribute="bottom" secondItem="3TH-yP-eYM" secondAttribute="bottom" constant="20" id="s2T-gm-tM5"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vrz-XH-tVx" userLabel="Header">
+                                        <rect key="frame" x="0.0" y="110" width="320" height="110"/>
+                                        <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xMI-8O-21p">
-                                                <rect key="frame" x="110" y="25" width="190" height="62"/>
+                                                <rect key="frame" x="110" y="24" width="190" height="62"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pochmurnie, możliwe opady" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="7Yx-kf-zwJ">
                                                         <rect key="frame" x="0.0" y="0.0" width="190" height="47.5"/>
@@ -36,6 +64,9 @@
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start prognozy 26.06.2018 18:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dxl-ch-ymW">
                                                         <rect key="frame" x="0.0" y="47.5" width="190" height="14.5"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="15" id="k59-OM-Kcf"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="12"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -58,10 +89,11 @@
                                             <constraint firstItem="xMI-8O-21p" firstAttribute="leading" secondItem="qYe-ec-Acx" secondAttribute="trailing" constant="20" id="UoB-M1-bwE"/>
                                             <constraint firstAttribute="height" constant="110" id="WQR-Af-f7m"/>
                                             <constraint firstItem="xMI-8O-21p" firstAttribute="centerY" secondItem="qYe-ec-Acx" secondAttribute="centerY" id="i2M-za-9cc"/>
+                                            <constraint firstItem="xMI-8O-21p" firstAttribute="top" secondItem="vrz-XH-tVx" secondAttribute="top" constant="24" id="pWF-Oy-yQ1"/>
                                         </constraints>
                                     </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Zf-Yw-Tuf">
-                                        <rect key="frame" x="0.0" y="110" width="320" height="0.0"/>
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3Zf-Yw-Tuf">
+                                        <rect key="frame" x="0.0" y="220" width="320" height="0.0"/>
                                     </imageView>
                                 </subviews>
                             </stackView>
@@ -78,6 +110,8 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="110"/>
                     <connections>
+                        <outlet property="errorView" destination="8vC-XE-bqK" id="TPT-8h-R6H"/>
+                        <outlet property="errorViewHeightConstraint" destination="nAG-S1-wyn" id="q25-YT-NSe"/>
                         <outlet property="headerView" destination="vrz-XH-tVx" id="e2o-9Q-yOz"/>
                         <outlet property="hederHeightConstraint" destination="WQR-Af-f7m" id="zG7-a2-qoJ"/>
                         <outlet property="meteorogramImage" destination="3Zf-Yw-Tuf" id="71U-KV-M5K"/>
@@ -89,6 +123,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="detailed-maps" width="32" height="32"/>
         <image name="sunny" width="48" height="48"/>
     </resources>
 </document>

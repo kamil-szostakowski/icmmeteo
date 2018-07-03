@@ -13,20 +13,32 @@ public class MMTTodayModelController: MMTModelController
 {
     // MARK: Properties
     private var forecastService: MMTForecastService
+    private var locationService: MMTLocationService
 
-    public private(set) var updateResult: MMTResult<MMTMeteorogram>?
+    public private(set) var meteorogram: MMTMeteorogram?
     public private(set) var locationServicesEnabled: Bool = false
 
     // MARK: Initializers
-    public init(forecastService: MMTForecastService)
+    public init(_ forecastService: MMTForecastService, _ locationService: MMTLocationService)
     {
         self.forecastService = forecastService
+        self.locationService = locationService
     }
 
     // MARK: Interface methods
-    public func onUpdate(location: CLLocation?, completion: @escaping (MMTUpdateResult) -> Void)
+    public func onUpdate(completion: @escaping (MMTUpdateResult) -> Void)
     {        
-        forecastService.update(for: location) { status in
+        guard locationService.authorizationStatus == .always else {
+            meteorogram = nil
+            locationServicesEnabled = false
+            delegate?.onModelUpdate(self)
+            completion(.failed)
+            return
+        }
+    
+        locationServicesEnabled = true
+        
+        forecastService.update(for: locationService.currentLocation) { status in
             defer { completion(status) }
             
             guard let meteorogram = self.forecastService.currentMeteorogram else {
@@ -35,7 +47,7 @@ public class MMTTodayModelController: MMTModelController
             
             if status == .newData
             {
-                self.updateResult = .success(meteorogram)
+                self.meteorogram = meteorogram
                 self.delegate?.onModelUpdate(self)
             }
         }
