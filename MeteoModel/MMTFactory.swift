@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-public extension MMTCityGeocoder
+public extension MMTRemoteCityGeocoder
 {
     public convenience init()
     {
@@ -21,7 +21,7 @@ public extension MMTCoreDataCitiesStore
 {
     public init()
     {
-        self.init(context: MMTCoreData.instance.context, geocoder: MMTCityGeocoder())
+        self.init(MMTCoreData.instance.context, MMTRemoteCityGeocoder())
     }
 }
 

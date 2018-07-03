@@ -9,7 +9,7 @@
 import Contacts
 import CoreLocation
 
-public class MMTCityGeocoder
+public class MMTRemoteCityGeocoder: MMTCityGeocoder
 {
     // MARK: Properties
     private let geocoder: MMTGeocoder

@@ -13,24 +13,30 @@ import CoreData
 public class MMTCoreData
 {
     // MARK: Properties
-    public static private(set) var instance = MMTCoreData()    
+    public static private(set) var instance = MMTCoreData(type: NSSQLiteStoreType)
     public var meteorogramsCache = MMTImagesCache(cache: NSCache<NSString, UIImage>())
+    private var type: String
+    
+    // MARK: Initializers
+    init(type: String)
+    {
+        self.type = type
+    }
     
     // MARK: CoreData stack
     lazy var model: NSManagedObjectModel =
-        {
+    {
             let bundle = Bundle(for: MMTCoreData.self)
             let modelURL = bundle.url(forResource: "Mobile_Meteo", withExtension: "momd")
             return NSManagedObjectModel(contentsOf: modelURL!)!
     }()
     
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator =
-        {
-            let type = NSSQLiteStoreType
+    {
             let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.model)
             let storeURL = self.applicationDocumentsDirectory.appendingPathComponent("Mobile_Meteo.sqlite")
             
-            do { try coordinator.addPersistentStore(ofType: type, configurationName: nil, at: storeURL, options: nil) }
+            do { try coordinator.addPersistentStore(ofType: self.type, configurationName: nil, at: storeURL, options: nil) }
                 
             catch let error as NSError {
                 NSLog("CoreData fatal error: \(String(describing: error))")
@@ -59,7 +65,7 @@ public class MMTCoreData
                 _ = try? FileManager.default.removeItem(atPath: store.url!.path)
             }
             
-            MMTCoreData.instance = MMTCoreData()
+            MMTCoreData.instance = MMTCoreData(type: self.type)
         }
     }
     

@@ -8,6 +8,7 @@
 
 import UIKit
 import XCTest
+import Contacts
 import Foundation
 import CoreLocation
 @testable import MeteoModel
@@ -151,7 +152,7 @@ class MMTMockCitiesStore: MMTCitiesStore
         }
     }
     
-    func cities(maching criteria: String, completion: @escaping ([MMTCityProt]) -> Void) {
+    func cities(matching criteria: String, completion: @escaping ([MMTCityProt]) -> Void) {
         DispatchQueue.global(qos: .background).async {
             completion(self.searchResult)
         }
@@ -217,4 +218,50 @@ class MMTMockLocationService: MMTLocationService
     var currentLocation: CLLocation?
     
     var authorizationStatus: MMTLocationAuthStatus = .unauthorized
+}
+
+class MMTMockGeocoder: MMTGeocoder
+{
+    var result: MMTResult<[MMTPlacemark]>!
+    
+    // MARK: Mocked methods
+    func geocode(location: CLLocation, completion: @escaping (MMTResult<[MMTPlacemark]>) -> Void)
+    {
+        DispatchQueue.global(qos: .background).async {
+            completion(self.result)
+        }
+    }
+    
+    func geocode(address: CNPostalAddress, completion: @escaping (MMTResult<[MMTPlacemark]>) -> Void)
+    {
+        DispatchQueue.global(qos: .background).async {
+            completion(self.result)
+        }
+    }
+    
+    func cancelGeocode()
+    {
+    }
+}
+
+class MMTMockCityGeocoder: MMTCityGeocoder
+{
+    var cityForLocation: MMTResult<MMTCityProt>!
+    var citiesMatchingCriteria: [MMTCityProt]!
+    
+    func city(for location: CLLocation, completion: @escaping (MMTResult<MMTCityProt>) -> Void)
+    {
+        DispatchQueue.global(qos: .background).async {
+            completion(self.cityForLocation)
+        }
+    }
+    
+    func cities(matching criteria: String, completion: @escaping ([MMTCityProt]) -> Void)
+    {
+        DispatchQueue.global(qos: .background).async {
+            completion(self.citiesMatchingCriteria)
+        }
+    }
+    
+    
 }

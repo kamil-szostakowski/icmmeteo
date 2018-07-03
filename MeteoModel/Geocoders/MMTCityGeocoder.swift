@@ -1,5 +1,5 @@
 //
-//  MMTCitiesStore.swift
+//  MMTCityGeocoder.swift
 //  MeteoModel
 //
 //  Created by szostakowskik on 03.07.2018.
@@ -9,13 +9,9 @@
 import Foundation
 import CoreLocation
 
-public protocol MMTCitiesStore
+public protocol MMTCityGeocoder
 {
-    func all(_ completion: ([MMTCityProt]) -> Void)
-    
     func city(for location: CLLocation, completion: @escaping (MMTResult<MMTCityProt>) -> Void)
     
     func cities(matching criteria: String, completion: @escaping ([MMTCityProt]) -> Void)
-    
-    func save(city: MMTCityProt)
 }

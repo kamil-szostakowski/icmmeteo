@@ -12,7 +12,7 @@ import CoreLocation
 import Contacts
 @testable import MeteoModel
 
-class MMTGeocoderTests: XCTestCase
+class MMTCityGeocoderTests: XCTestCase
 {
     var cityGeocoder: MMTCityGeocoder!
     var generalGeocoder: MMTMockGeocoder!
@@ -23,7 +23,7 @@ class MMTGeocoderTests: XCTestCase
     {
         super.setUp()
         generalGeocoder = MMTMockGeocoder()
-        cityGeocoder = MMTCityGeocoder(general: generalGeocoder)
+        cityGeocoder = MMTRemoteCityGeocoder(general: generalGeocoder)
     }
     
     override func tearDown()
@@ -34,7 +34,6 @@ class MMTGeocoderTests: XCTestCase
     }
     
     // MARK: Geocoding with location test methods
-    
     func testFindCityForLocation()
     {
         let placemark = MMTMockPlacemark(name: "City", locality: nil, ocean: nil, location: CLLocation(), administrativeArea: "Some District")
@@ -74,7 +73,6 @@ class MMTGeocoderTests: XCTestCase
     }
     
     // MARK: Geocoding with criteria test methods
-    
     func testFindCitiesForCriteria()
     {
         let validPlacemark = MMTMockPlacemark(name: "City", locality: nil, ocean: nil, location: CLLocation(), administrativeArea: "Some District")
@@ -105,8 +103,7 @@ class MMTGeocoderTests: XCTestCase
         MMTAssertCriteriaGeocodeResult(count: 0)
     }
     
-    // MARK: Assertions
-    
+    // MARK: Assertions    
     func MMTAssertLocationGeocodeFailed(with error: MMTError, file: StaticString = #file, line: UInt = #line)
     {
         let expect = expectation(description: "geocode finished")
@@ -134,29 +131,7 @@ class MMTGeocoderTests: XCTestCase
         waitForExpectations(timeout: 1, handler: nil)
     }
 
-    // MARK: Mocks
-    
-    class MMTMockGeocoder: MMTGeocoder
-    {
-        var result: MMTResult<[MMTPlacemark]>!
-        
-        // MARK: Mocked methods
-        
-        func geocode(location: CLLocation, completion: @escaping (MMTResult<[MMTPlacemark]>) -> Void)
-        {
-            completion(result)
-        }
-        
-        func geocode(address: CNPostalAddress, completion: @escaping (MMTResult<[MMTPlacemark]>) -> Void)
-        {
-            completion(result)
-        }
-        
-        func cancelGeocode()
-        {
-        }
-    }
-    
+    // MARK: Mocks    
     struct MMTMockPlacemark: MMTPlacemark
     {
         var name: String?
