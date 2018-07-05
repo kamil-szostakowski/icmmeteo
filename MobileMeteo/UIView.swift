@@ -6,6 +6,7 @@
 //  Copyright © 2016 Kamil Szostakowski. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 extension UIView
@@ -27,6 +28,22 @@ extension UIView
         let nibName = String(describing: type(of: self))
         let bundle = Bundle(for: type(of: self))
         
-        return bundle.loadNibNamed(nibName, owner: self, options: nil)?.first as! UIView
+        let
+        view = bundle.loadNibNamed(nibName, owner: self, options: nil)?.first as! UIView
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }
+    
+    func addFillingSubview(_ subview: UIView)
+    {
+        addSubview(subview)
+        
+        NSLayoutConstraint.activate([
+            subview.topAnchor.constraint(equalTo: topAnchor),
+            subview.bottomAnchor.constraint(equalTo: bottomAnchor),            
+            subview.leadingAnchor.constraint(equalTo: leadingAnchor),
+            subview.trailingAnchor.constraint(equalTo: trailingAnchor),
+        ])
     }
 }

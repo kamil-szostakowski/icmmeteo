@@ -29,6 +29,7 @@ public class MMTTodayModelController: MMTModelController
     public func onUpdate(completion: @escaping (MMTUpdateResult) -> Void)
     {        
         guard locationService.authorizationStatus == .always else {
+            print("LOCATION SERVICES DISABLED")
             meteorogram = nil
             locationServicesEnabled = false
             delegate?.onModelUpdate(self)

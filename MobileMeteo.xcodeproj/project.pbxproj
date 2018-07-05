@@ -21,10 +21,9 @@
 		1B2C534820E3E789003727A3 /* UIBackgroundFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C534720E3E789003727A3 /* UIBackgroundFetchResult.swift */; };
 		1B2C534C20E3EAF1003727A3 /* NCUpdateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C534B20E3EAF1003727A3 /* NCUpdateResult.swift */; };
 		1B39BEBB20DD8A60002495B5 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B39BEBA20DD8A60002495B5 /* NotificationCenter.framework */; };
-		1B39BEBE20DD8A60002495B5 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B39BEBD20DD8A60002495B5 /* TodayViewController.swift */; };
+		1B39BEBE20DD8A60002495B5 /* MMTTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B39BEBD20DD8A60002495B5 /* MMTTodayViewController.swift */; };
 		1B39BEC120DD8A60002495B5 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B39BEBF20DD8A60002495B5 /* MainInterface.storyboard */; };
 		1B39BEC520DD8A60002495B5 /* MeteoWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1B39BEB920DD8A60002495B5 /* MeteoWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		1B39BECB20DD8DB9002495B5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9E696771AFCC06600273DA3 /* Images.xcassets */; };
 		1B39BECC20DD9394002495B5 /* MeteoModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF55CE62049E63E009BA4E2 /* MeteoModel.framework */; };
 		1B4095CB2040C06900CDF5E4 /* MMTForecasterCommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */; };
 		1B4FD2E6203B506700B33C04 /* MMTShortcutsMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */; };
@@ -34,6 +33,12 @@
 		1B65BA2F2035FFDD0053173C /* MMTMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B65BA2E2035FFDD0053173C /* MMTMocks.swift */; };
 		1B68CD362045B85000AB8046 /* MMTActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68CD352045B85000AB8046 /* MMTActivityIndicator.swift */; };
 		1B68CD382045B89F00AB8046 /* MMTActivityIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B68CD372045B89F00AB8046 /* MMTActivityIndicator.xib */; };
+		1B71864720ED476900E9B45E /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9ED9FF91E07527B00190F59 /* UIView.swift */; };
+		1B8A88B720ED596F00BEB191 /* MMTForecastDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A88B620ED596F00BEB191 /* MMTForecastDescriptionView.swift */; };
+		1B8A88BA20ED597A00BEB191 /* MMTForecastDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B8A88B920ED597A00BEB191 /* MMTForecastDescriptionView.xib */; };
+		1B8A88BD20EE92DE00BEB191 /* MMTViewModeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A88BC20EE92DE00BEB191 /* MMTViewModeDataSource.swift */; };
+		1B8A88C020EEA2F500BEB191 /* MMTUpdatableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A88BF20EEA2F500BEB191 /* MMTUpdatableView.swift */; };
+		1B8A88C320EEA32C00BEB191 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A88C220EEA32C00BEB191 /* UIImageView.swift */; };
 		1B8B5E601FB116D4002D2381 /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8B5E5F1FB116D4002D2381 /* UIViewController.swift */; };
 		1B8C6BF62036FB980029282F /* MMTAppMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BF52036FB980029282F /* MMTAppMigrator.swift */; };
 		1B8C6BF820371BE40029282F /* MMTAppMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BF720371BE40029282F /* MMTAppMigratorTests.swift */; };
@@ -44,6 +49,8 @@
 		1BF36E091FE3003C00083538 /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E081FE3003C00083538 /* UISegmentedControl.swift */; };
 		1BF36E0D1FE485D200083538 /* MMTDetailedMapShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E0C1FE485D200083538 /* MMTDetailedMapShortcut.swift */; };
 		1BF36E0F1FE4860900083538 /* MMTMeteorogramShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E0E1FE4860900083538 /* MMTMeteorogramShortcut.swift */; };
+		1BF5142320ED40E00091653D /* MMTUpdateErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF5142220ED40E00091653D /* MMTUpdateErrorView.swift */; };
+		1BF5142520ED40EF0091653D /* MMTUpdateErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BF5142420ED40EF0091653D /* MMTUpdateErrorView.xib */; };
 		1BF55CE92049E6EB009BA4E2 /* MeteoModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF55CE62049E63E009BA4E2 /* MeteoModel.framework */; };
 		1BF55CEA2049E6EB009BA4E2 /* MeteoModel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF55CE62049E63E009BA4E2 /* MeteoModel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1BFBAE001FEC15D600FC559B /* MMTMeteorogramShortcut+Spotlight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBADFF1FEC15D600FC559B /* MMTMeteorogramShortcut+Spotlight.swift */; };
@@ -181,11 +188,9 @@
 		1B2C534120E2D98C003727A3 /* WidgetAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WidgetAssets.xcassets; sourceTree = "<group>"; };
 		1B2C534720E3E789003727A3 /* UIBackgroundFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBackgroundFetchResult.swift; sourceTree = "<group>"; };
 		1B2C534B20E3EAF1003727A3 /* NCUpdateResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCUpdateResult.swift; sourceTree = "<group>"; };
-		1B2C534D20E3EE9E003727A3 /* MobileMeteo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileMeteo.entitlements; sourceTree = "<group>"; };
-		1B2C534E20E3EEAC003727A3 /* MeteoWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MeteoWidget.entitlements; sourceTree = "<group>"; };
 		1B39BEB920DD8A60002495B5 /* MeteoWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MeteoWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B39BEBA20DD8A60002495B5 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		1B39BEBD20DD8A60002495B5 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		1B39BEBD20DD8A60002495B5 /* MMTTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTTodayViewController.swift; sourceTree = "<group>"; };
 		1B39BEC020DD8A60002495B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		1B39BEC220DD8A60002495B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecasterCommentTests.swift; sourceTree = "<group>"; };
@@ -196,6 +201,11 @@
 		1B65BA2E2035FFDD0053173C /* MMTMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMocks.swift; sourceTree = "<group>"; };
 		1B68CD352045B85000AB8046 /* MMTActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTActivityIndicator.swift; sourceTree = "<group>"; };
 		1B68CD372045B89F00AB8046 /* MMTActivityIndicator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MMTActivityIndicator.xib; sourceTree = "<group>"; };
+		1B8A88B620ED596F00BEB191 /* MMTForecastDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecastDescriptionView.swift; sourceTree = "<group>"; };
+		1B8A88B920ED597A00BEB191 /* MMTForecastDescriptionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MMTForecastDescriptionView.xib; sourceTree = "<group>"; };
+		1B8A88BC20EE92DE00BEB191 /* MMTViewModeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTViewModeDataSource.swift; sourceTree = "<group>"; };
+		1B8A88BF20EEA2F500BEB191 /* MMTUpdatableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTUpdatableView.swift; sourceTree = "<group>"; };
+		1B8A88C220EEA32C00BEB191 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		1B8B5E5F1FB116D4002D2381 /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 		1B8C6BF52036FB980029282F /* MMTAppMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTAppMigrator.swift; sourceTree = "<group>"; };
 		1B8C6BF720371BE40029282F /* MMTAppMigratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTAppMigratorTests.swift; sourceTree = "<group>"; };
@@ -206,6 +216,8 @@
 		1BF36E081FE3003C00083538 /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
 		1BF36E0C1FE485D200083538 /* MMTDetailedMapShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapShortcut.swift; sourceTree = "<group>"; };
 		1BF36E0E1FE4860900083538 /* MMTMeteorogramShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramShortcut.swift; sourceTree = "<group>"; };
+		1BF5142220ED40E00091653D /* MMTUpdateErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTUpdateErrorView.swift; sourceTree = "<group>"; };
+		1BF5142420ED40EF0091653D /* MMTUpdateErrorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MMTUpdateErrorView.xib; sourceTree = "<group>"; };
 		1BF55CE02049E63E009BA4E2 /* MeteoModel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = MeteoModel.xcodeproj; sourceTree = "<group>"; };
 		1BFBADFF1FEC15D600FC559B /* MMTMeteorogramShortcut+Spotlight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MMTMeteorogramShortcut+Spotlight.swift"; sourceTree = "<group>"; };
 		1BFBAE011FEC160900FC559B /* MMTMeteorogramShortcut+3DTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MMTMeteorogramShortcut+3DTouch.swift"; sourceTree = "<group>"; };
@@ -365,8 +377,9 @@
 		1B39BEBC20DD8A60002495B5 /* MeteoWidget */ = {
 			isa = PBXGroup;
 			children = (
+				1BF5141E20ED3F910091653D /* Views */,
 				1B2C534A20E3EAE5003727A3 /* Extensions */,
-				1B39BEBD20DD8A60002495B5 /* TodayViewController.swift */,
+				1B39BEBD20DD8A60002495B5 /* MMTTodayViewController.swift */,
 				1B39BEBF20DD8A60002495B5 /* MainInterface.storyboard */,
 				1B39BEC220DD8A60002495B5 /* Info.plist */,
 				1B2C534120E2D98C003727A3 /* WidgetAssets.xcassets */,
@@ -382,6 +395,14 @@
 				1B68CD372045B89F00AB8046 /* MMTActivityIndicator.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		1B8A88C120EEA31300BEB191 /* MeteorogramImage */ = {
+			isa = PBXGroup;
+			children = (
+				1B8A88C220EEA32C00BEB191 /* UIImageView.swift */,
+			);
+			path = MeteorogramImage;
 			sourceTree = "<group>";
 		};
 		1B8C6BF42036FB680029282F /* Migrator */ = {
@@ -410,6 +431,36 @@
 				F9C5B5AF1B81D1FC00CFB503 /* UIScrollView.swift */,
 			);
 			name = ViewExtensions;
+			sourceTree = "<group>";
+		};
+		1BF5141E20ED3F910091653D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1B8A88C120EEA31300BEB191 /* MeteorogramImage */,
+				1BF5142120ED40C30091653D /* ForecastDescription */,
+				1BF5142020ED40B80091653D /* UpdateError */,
+				1B8A88BC20EE92DE00BEB191 /* MMTViewModeDataSource.swift */,
+				1B8A88BF20EEA2F500BEB191 /* MMTUpdatableView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1BF5142020ED40B80091653D /* UpdateError */ = {
+			isa = PBXGroup;
+			children = (
+				1BF5142220ED40E00091653D /* MMTUpdateErrorView.swift */,
+				1BF5142420ED40EF0091653D /* MMTUpdateErrorView.xib */,
+			);
+			path = UpdateError;
+			sourceTree = "<group>";
+		};
+		1BF5142120ED40C30091653D /* ForecastDescription */ = {
+			isa = PBXGroup;
+			children = (
+				1B8A88B620ED596F00BEB191 /* MMTForecastDescriptionView.swift */,
+				1B8A88B920ED597A00BEB191 /* MMTForecastDescriptionView.xib */,
+			);
+			path = ForecastDescription;
 			sourceTree = "<group>";
 		};
 		1BF55CE12049E63E009BA4E2 /* Products */ = {
@@ -855,8 +906,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B39BEC120DD8A60002495B5 /* MainInterface.storyboard in Resources */,
-				1B39BECB20DD8DB9002495B5 /* Images.xcassets in Resources */,
+				1BF5142520ED40EF0091653D /* MMTUpdateErrorView.xib in Resources */,
 				1B2C534220E2D98C003727A3 /* WidgetAssets.xcassets in Resources */,
+				1B8A88BA20ED597A00BEB191 /* MMTForecastDescriptionView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1042,8 +1094,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B8A88C320EEA32C00BEB191 /* UIImageView.swift in Sources */,
+				1B8A88C020EEA2F500BEB191 /* MMTUpdatableView.swift in Sources */,
+				1B71864720ED476900E9B45E /* UIView.swift in Sources */,
+				1B8A88B720ED596F00BEB191 /* MMTForecastDescriptionView.swift in Sources */,
+				1BF5142320ED40E00091653D /* MMTUpdateErrorView.swift in Sources */,
+				1B8A88BD20EE92DE00BEB191 /* MMTViewModeDataSource.swift in Sources */,
 				1B2C534C20E3EAF1003727A3 /* NCUpdateResult.swift in Sources */,
-				1B39BEBE20DD8A60002495B5 /* TodayViewController.swift in Sources */,
+				1B39BEBE20DD8A60002495B5 /* MMTTodayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
