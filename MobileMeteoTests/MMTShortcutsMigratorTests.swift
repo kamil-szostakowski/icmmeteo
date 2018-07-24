@@ -54,7 +54,7 @@ class MMTShortcutsMigratorTests: XCTestCase
     
     func testShortcutsMigration_WithCurrentLocation()
     {
-        locationService.currentLocation = CLLocation(latitude: 1, longitude: 1)
+        locationService.location = MMTCityProt(name: "Lorem", region: "", location: CLLocation(latitude: 1, longitude: 1))
         try! shortcutsMigrator.migrate()
         
         XCTAssertTrue(quickActions.cleaned)

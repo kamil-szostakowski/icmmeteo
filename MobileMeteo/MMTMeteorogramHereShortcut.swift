@@ -22,7 +22,7 @@ class MMTMeteorogramHereShortcut: MMTMeteorogramShortcut
     init(model: MMTClimateModel, locationService service: MMTLocationService)
     {
         let name = MMTLocalizedString("forecast.here")
-        let location = service.currentLocation ?? .zero        
+        let location = service.location?.location ?? .zero
         let city = MMTCityProt(name: name, region: "", location: location)
         
         locationService = service
@@ -40,7 +40,7 @@ class MMTMeteorogramHereShortcut: MMTMeteorogramShortcut
             return
         }
         
-        guard locationService.currentLocation != nil, location != .zero else {
+        guard locationService.location?.location != nil, location != .zero else {
             retry(after: 1, using: tabbar, completion: completion)
             return
         }
@@ -55,7 +55,7 @@ class MMTMeteorogramHereShortcut: MMTMeteorogramShortcut
     {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: seconds * 1000)) {
             self.retryCount += 1
-            self.location = self.locationService.currentLocation ?? .zero
+            self.location = self.locationService.location?.location ?? .zero
             self.execute(using: tabbar, completion: completion)
         }
     }

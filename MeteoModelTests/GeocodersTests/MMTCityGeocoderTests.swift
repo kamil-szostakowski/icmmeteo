@@ -18,7 +18,6 @@ class MMTCityGeocoderTests: XCTestCase
     var generalGeocoder: MMTMockGeocoder!
     
     // MARK: Setup methods
-    
     override func setUp()
     {
         super.setUp()
@@ -101,9 +100,12 @@ class MMTCityGeocoderTests: XCTestCase
         
         generalGeocoder.result = .success([placemark, placemark])
         MMTAssertCriteriaGeocodeResult(count: 0)
-    }
-    
-    // MARK: Assertions    
+    }    
+}
+
+extension MMTCityGeocoderTests
+{
+    // MARK: Assertions
     func MMTAssertLocationGeocodeFailed(with error: MMTError, file: StaticString = #file, line: UInt = #line)
     {
         let expect = expectation(description: "geocode finished")
@@ -129,15 +131,5 @@ class MMTCityGeocoderTests: XCTestCase
         }
         
         waitForExpectations(timeout: 1, handler: nil)
-    }
-
-    // MARK: Mocks    
-    struct MMTMockPlacemark: MMTPlacemark
-    {
-        var name: String?
-        var locality: String?
-        var ocean: String?
-        var location: CLLocation?
-        var administrativeArea: String?
     }
 }

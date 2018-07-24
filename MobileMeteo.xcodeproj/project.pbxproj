@@ -213,6 +213,8 @@
 		1B8C6BFB2037867C0029282F /* MMTShortcutsMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTShortcutsMigrator.swift; sourceTree = "<group>"; };
 		1B8FB8C820D428AC00AF95C8 /* NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSAttributedString.swift; path = ../MeteoModel/Extensions/NSAttributedString.swift; sourceTree = "<group>"; };
 		1BA0206E20C95F3800170D9D /* MMTCitiesSearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTCitiesSearchBarDelegate.swift; sourceTree = "<group>"; };
+		1BEB08F820F4007700B26035 /* MobileMeteo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileMeteo.entitlements; sourceTree = "<group>"; };
+		1BEB08F920F4008000B26035 /* MeteoWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MeteoWidget.entitlements; sourceTree = "<group>"; };
 		1BF36E081FE3003C00083538 /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
 		1BF36E0C1FE485D200083538 /* MMTDetailedMapShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapShortcut.swift; sourceTree = "<group>"; };
 		1BF36E0E1FE4860900083538 /* MMTMeteorogramShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramShortcut.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 		1B39BEBC20DD8A60002495B5 /* MeteoWidget */ = {
 			isa = PBXGroup;
 			children = (
+				1BEB08F920F4008000B26035 /* MeteoWidget.entitlements */,
 				1BF5141E20ED3F910091653D /* Views */,
 				1B2C534A20E3EAE5003727A3 /* Extensions */,
 				1B39BEBD20DD8A60002495B5 /* MMTTodayViewController.swift */,
@@ -648,6 +651,7 @@
 		F9E696661AFCC06600273DA3 /* MobileMeteo */ = {
 			isa = PBXGroup;
 			children = (
+				1BEB08F820F4007700B26035 /* MobileMeteo.entitlements */,
 				1B8C6BF42036FB680029282F /* Migrator */,
 				F9E696901AFCC41D00273DA3 /* Controllers */,
 				1B68CD342045B82B00AB8046 /* Views */,
@@ -830,6 +834,11 @@
 						CreatedOnToolsVersion = 9.4.1;
 						DevelopmentTeam = GMU6W6K8X6;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					F9941A631BECE32300700313 = {
 						CreatedOnToolsVersion = 7.1;
@@ -841,6 +850,9 @@
 						DevelopmentTeam = GMU6W6K8X6;
 						LastSwiftMigration = 0900;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
@@ -1263,6 +1275,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = MeteoWidget/MeteoWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1291,6 +1304,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = MeteoWidget/MeteoWidget.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1462,6 +1476,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MobileMeteo/MobileMeteo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
@@ -1495,6 +1510,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = MobileMeteo/MobileMeteo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;

@@ -16,6 +16,7 @@ class MMTTodayViewController: UIViewController, NCWidgetProviding
     // MARK: Properties
     private var modelController: MMTTodayModelController!
     private var dataSource: MMTTodayExtensionDataSource!
+    private var locationService: MMTCoreLocationService!
     private weak var currentView: UIView?
     
     // MARK: Lefecycle methods
@@ -47,9 +48,9 @@ extension MMTTodayViewController
     // MARK: Setup methods
     fileprivate func setupModelController()
     {
-        let locationService = MMTCoreLocationService(locationManager: CLLocationManager())
         let forecastService = MMTMeteorogramForecastService(model: MMTUmClimateModel())
         
+        locationService = MMTCoreLocationService(CLLocationManager())
         dataSource = MMTTodayExtensionDataSource()
         modelController = MMTTodayModelController(forecastService, locationService)
         modelController.delegate = self

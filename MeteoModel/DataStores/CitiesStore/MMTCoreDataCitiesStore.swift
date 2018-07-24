@@ -17,7 +17,7 @@ public struct MMTCoreDataCitiesStore : MMTCitiesStore
     private let geocoder: MMTCityGeocoder
     
     // MARK: Initializers    
-    public init(_ context: NSManagedObjectContext, _ geocoder: MMTCityGeocoder)
+    init(_ context: NSManagedObjectContext, _ geocoder: MMTCityGeocoder)
     {
         self.geocoder = geocoder
         self.context = context

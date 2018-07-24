@@ -14,10 +14,11 @@ import CoreLocation
 class MMTTodayModelControllerTests: XCTestCase
 {
     // MARK: Properties
-    var city: MMTCityProt!
+    var city = MMTCityProt(name: "Lorem", region: "Loremia")
+    var forecastService = MMTMockForecastService()
+    var locationService = MMTMockLocationService()
+    
     var modelController: MMTTodayModelController!
-    var locationService: MMTMockLocationService!
-    var forecastService: MMTMockForecastService!
     var modelControllerDelegate: MMTMockModelControllerDelegate<MMTTodayModelController>!
     
     // MARK: Setup methods
@@ -25,147 +26,74 @@ class MMTTodayModelControllerTests: XCTestCase
     {
         super.setUp()
         
-        let model = MMTUmClimateModel()
-        city = MMTCityProt(name: "Lorem", region: "Loremia", location: CLLocation())
-        
-        forecastService = MMTMockForecastService()
-        forecastService.currentMeteorogram = MMTMeteorogram(model: model, city: city)
-        
-        locationService = MMTMockLocationService()
-        locationService.authorizationStatus = .always
-        locationService.currentLocation = city.location
+        forecastService.currentMeteorogram = MMTMeteorogram(model: MMTUmClimateModel(), city: city)
+        locationService.authorizationStatus = .whenInUse
 
         modelControllerDelegate = MMTMockModelControllerDelegate<MMTTodayModelController>()
-        
         modelController = MMTTodayModelController(forecastService, locationService)
         modelController.delegate = modelControllerDelegate
     }
     
     // MARK: Test methods
-    func testModelUpdateWhenNewDataAvailable()
+    func testModelUpdateWhenNewForecastDataAvailable()
     {
         forecastService.status = .newData
+        locationService.locationPromise.resolve(with: .success(city))
         
-        let completionExpect = expectation(description: "completion expectation")
-        let modelUpdateExpect = modelControllerDelegate.awaitModelUpdate(completions: [{
+        verifyModelUpdate(.newData, operation: {
             XCTAssertEqual($0.meteorogram?.city, self.city)
             XCTAssertTrue($0.locationServicesEnabled)
-        }])
-        
-        modelController.onUpdate {
-            XCTAssertEqual($0, .newData)
-            completionExpect.fulfill()
-        }
-        
-        wait(for: modelUpdateExpect + [completionExpect], timeout: 1, enforceOrder: true)
+        })
     }
     
-    func testNoModelUpdateWhenNoDataAvailableOnInitialUpdate()
+    func testModelUpdateWhenNoForecastDataAvailable()
     {
+        forecastService.status = .noData
         forecastService.currentMeteorogram = nil
-        verifyNoModelUpdate(status: .noData)
+        locationService.locationPromise.resolve(with: .success(city))
         
-        XCTAssertNil(modelController.meteorogram)
+        verifyModelUpdate(.noData, operation: {
+            XCTAssertNil($0.meteorogram?.city)
+            XCTAssertTrue($0.locationServicesEnabled)
+        })
     }
     
-    func testNoModelUpdateWhenNoLocationAvailableOnInitialUpdate()
+    func testModelUpdateWhenForecastDataFetchFeiled()
     {
-        locationService.currentLocation = nil
+        forecastService.status = .failed
         forecastService.currentMeteorogram = nil
+        locationService.locationPromise.resolve(with: .success(city))
         
-        verifyNoModelUpdate(status: .noData)
-        XCTAssertNil(modelController.meteorogram)
+        verifyModelUpdate(.failed, operation: {
+            XCTAssertNil($0.meteorogram?.city)
+            XCTAssertTrue($0.locationServicesEnabled)
+        })
     }
     
-    func testNoModelUpdateWhenNoLocationAvailableOnConsecutiveUpdate()
+    func testModelUpdateWhenLocationNotAvailable()
     {
-        forecastService.status = .newData
-        performInitialUpdate()
+        locationService.locationPromise.resolve(with: .failure(.locationNotFound))
         
-        locationService.currentLocation = nil
-        forecastService.currentMeteorogram = nil
-        
-        verifyNoModelUpdate(status: .noData)
-        XCTAssertEqual(modelController.meteorogram?.city, city)
-    }
-    
-    func testNoModelUpdateWhenNewDataNotAvailableOnConsecutiveUpdate()
-    {
-        forecastService.status = .newData
-        performInitialUpdate()        
-        verifyNoModelUpdate(status: .noData)
-        
-        XCTAssertEqual(modelController.meteorogram?.city, city)
-    }
-    
-    func testNoModelUpdateWhenInitialUpdateFailed()
-    {
-        forecastService.currentMeteorogram = nil
-        verifyNoModelUpdate(status: .failed)
-        
-        XCTAssertNil(modelController.meteorogram)
-    }
-    
-    func testNoModelUpdateWhenConsecutiveUpdateFailed()
-    {
-        forecastService.status = .newData
-        performInitialUpdate()
-        verifyNoModelUpdate(status: .failed)
-        
-        XCTAssertEqual(modelController.meteorogram?.city, city)
-    }
-    
-    func testModelUpdateWhenLocationServicesNotAvailable()
-    {
-        locationService.currentLocation = nil
-        verifyLocationServices(status: .unauthorized)
-        verifyLocationServices(status: .whenInUse)
+        verifyModelUpdate(.failed, operation: {
+            XCTAssertNil($0.meteorogram?.city)
+            XCTAssertFalse($0.locationServicesEnabled)
+        })
     }
 }
 
 extension MMTTodayModelControllerTests
 {
     // MARK: Helper methods
-    func performInitialUpdate()
+    func verifyModelUpdate(_ status: MMTUpdateResult, operation: @escaping (MMTTodayModelController) -> Void)
     {
-        let completion = expectation(description: "initial update completion")
-        modelController.onUpdate { _ in completion.fulfill() }
-        wait(for: [completion], timeout: 1)
-    }
-    
-    func verifyNoModelUpdate(status: MMTUpdateResult)
-    {
-        modelControllerDelegate.updatesCount = 0
-        forecastService.status = status
-        
-        let completionExpect = expectation(description: "completion expectation")
-        let modelUpdateExpect = modelControllerDelegate.awaitModelUpdate(completions: [])
+        let completion = expectation(description: "completion expectation")
+        let modelUpdate = modelControllerDelegate.awaitModelUpdate(completions: [operation])
         
         modelController.onUpdate {
             XCTAssertEqual($0, status)
-            XCTAssertTrue(self.modelController.locationServicesEnabled)
-            completionExpect.fulfill()
+            completion.fulfill()
         }
         
-        wait(for: modelUpdateExpect + [completionExpect], timeout: 1, enforceOrder: true)
-    }
-    
-    func verifyLocationServices(status: MMTLocationAuthStatus)
-    {
-        locationService.authorizationStatus = status
-        modelControllerDelegate.updatesCount = 0
-        
-        let completionExpect = expectation(description: "completion expectation")
-        let modelUpdateExpect = modelControllerDelegate.awaitModelUpdate(completions: [{
-            XCTAssertNil($0.meteorogram)
-            XCTAssertFalse($0.locationServicesEnabled)
-        }])
-        
-        modelController.onUpdate {
-            XCTAssertEqual($0, .failed)
-            completionExpect.fulfill()
-        }
-        
-        wait(for: modelUpdateExpect + [completionExpect], timeout: 1, enforceOrder: true)
+        wait(for: modelUpdate + [completion], timeout: 0.5, enforceOrder: true)
     }
 }

@@ -20,5 +20,5 @@ public protocol MMTForecastService
 {
     var currentMeteorogram: MMTMeteorogram? { get }
     
-    func update(for location: CLLocation?, completion: @escaping (MMTUpdateResult) -> Void)
+    func update(for location: MMTCityProt?, completion: @escaping (MMTUpdateResult) -> Void)
 }

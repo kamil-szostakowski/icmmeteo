@@ -14,9 +14,13 @@ import MeteoModel
 
 class MMTStubLocationService : MMTLocationService
 {
+    var location: MMTCityProt?
+    
     var authorizationStatus: MMTLocationAuthStatus = .unauthorized
     
-    var currentLocation: CLLocation?
+    func requestLocation() -> MMTPromise<MMTCityProt> {
+        return MMTPromise<MMTCityProt>()
+    }
 }
 
 class MMTUnsupportedShortcut: MMTShortcut

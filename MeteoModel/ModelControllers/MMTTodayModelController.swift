@@ -14,7 +14,7 @@ public class MMTTodayModelController: MMTModelController
     // MARK: Properties
     private var forecastService: MMTForecastService
     private var locationService: MMTLocationService
-
+    
     public private(set) var meteorogram: MMTMeteorogram?
     public private(set) var locationServicesEnabled: Bool = false
 
@@ -27,30 +27,39 @@ public class MMTTodayModelController: MMTModelController
 
     // MARK: Interface methods
     public func onUpdate(completion: @escaping (MMTUpdateResult) -> Void)
-    {        
-        guard locationService.authorizationStatus == .always else {
-            print("LOCATION SERVICES DISABLED")
-            meteorogram = nil
-            locationServicesEnabled = false
-            delegate?.onModelUpdate(self)
-            completion(.failed)
-            return
+    {
+        locationService.requestLocation().observe {
+            switch $0 {
+            case let .success(city):
+                self.locationServicesEnabled = true
+                self.updateForecast(for: city, completion: completion)
+            case .failure(_):
+                self.meteorogram = nil
+                self.locationServicesEnabled = false
+                self.notifyWatchers(.failed, completion: completion)
+            }
         }
+    }
+}
+
+extension MMTTodayModelController
+{
+    // MARK: Update methods
+    fileprivate func updateForecast(for city: MMTCityProt?, completion: @escaping (MMTUpdateResult) -> Void)
+    {
+        forecastService.update(for: city) { status in
+            
+            defer { self.notifyWatchers(status, completion: completion) }
+            guard status == .newData else { return }
+            guard let meteorogram = self.forecastService.currentMeteorogram else { return }
+            
+            self.meteorogram = meteorogram
+        }
+    }
     
-        locationServicesEnabled = true
-        
-        forecastService.update(for: locationService.currentLocation) { status in
-            defer { completion(status) }
-            
-            guard let meteorogram = self.forecastService.currentMeteorogram else {
-                return
-            }
-            
-            if status == .newData
-            {
-                self.meteorogram = meteorogram
-                self.delegate?.onModelUpdate(self)
-            }
-        }
+    fileprivate func notifyWatchers(_ status: MMTUpdateResult, completion:  @escaping (MMTUpdateResult) -> Void)
+    {
+        delegate?.onModelUpdate(self)
+        completion(status)
     }
 }

@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import Foundation
 import CoreLocation
 @testable import MeteoModel
 
@@ -15,21 +14,21 @@ class MMTCoreLocationServiceTests: XCTestCase
 {
     // MARK: Properties
     var service: MMTCoreLocationService!
-    var locationManager: CLLocationManager!
-    var analytics: MMTMockAnalytics!
-    let notification: Notification.Name = .locationChangedNotification
+    var locationManager: MMTMockLocationManager!
+    var citiesStore: MMTMockCitiesStore!
+    
+    var loremCity = MMTCityProt(name: "Lorem", region: "Loremia")
+    var ipsumCity = MMTCityProt(name: "Ipsum", region: "Ipsumia")
     
     // MARK: Setup methods
     override func setUp()
     {
         super.setUp()
         
-        locationManager = CLLocationManager()
-        analytics = MMTMockAnalytics()
-        analytics.category = .Locations
+        locationManager = MMTMockLocationManager()
+        citiesStore = MMTMockCitiesStore()
         
-        service = MMTCoreLocationService(locationManager: locationManager)
-        service.analytics = analytics
+        service = MMTCoreLocationService(locationManager, citiesStore)
         locationManager.delegate = nil
     }
     
@@ -47,61 +46,147 @@ class MMTCoreLocationServiceTests: XCTestCase
         XCTAssertEqual(service.authorizationStatus, .unauthorized)
     }
     
-    func testAlwaysAuthorizationSuccess()
+    func testAuthorization()
     {
-        analytics.action = .LocationDidAllowAlways
-        service.locationManager(locationManager, didChangeAuthorization: .authorizedAlways)
-        
-        XCTAssertEqual(service.authorizationStatus, .always)
+        verifyAuthorization(.authorizedAlways, .always)
+        verifyAuthorization(.authorizedWhenInUse, .whenInUse)
+        verifyAuthorization(.notDetermined, .unauthorized)
+        verifyAuthorization(.denied, .unauthorized)
+        verifyAuthorization(.restricted, .unauthorized)
     }
     
-    func testWhenInUseAuthorizationSuccess()
+    func testUpdateOnSignificantLocationChange()
     {
-        analytics.action = .LocationDidAllowWhenUsing
-        service.locationManager(locationManager, didChangeAuthorization: .authorizedWhenInUse)
+        let operation = { self.service.locationManager(self.locationManager, didUpdateLocations: []) }
         
-        XCTAssertEqual(service.authorizationStatus, .whenInUse)
+        verifyLocationUpdate(expected: loremCity, operation)
+        verifyLocationUpdate(expected: loremCity, operation, inverted: true)
+        verifyLocationUpdate(expected: ipsumCity, operation)
+        verifyLocationUpdate(expected: nil, operation)
     }
     
-    func testAuthorizationFailure()
+    func testLocationUpdateOnAppActivationWhenAuthorized()
     {
-        let unauthorizedStatuse: [CLAuthorizationStatus] = [.notDetermined, .denied, .restricted]
-
-        for status in unauthorizedStatuse
-        {
-            analytics.action = .LocationDidAllowNever
-            service.locationManager(locationManager, didChangeAuthorization: status)
-            XCTAssertEqual(service.authorizationStatus, .unauthorized)
-        }
-    }
-    
-    func testLocationUpdateOnSignificantLocationChange()
-    {
-        let expectNotification = expectation(forNotification: notification, object: nil, handler: nil)
+        let operation = { NotificationCenter.default.post(name: .UIApplicationDidBecomeActive, object: nil) }
+        verifyAuthorization(.authorizedWhenInUse, .whenInUse)
         
-        analytics.action = .LocationDidAllowAlways
-        service.locationManager(locationManager, didChangeAuthorization: .authorizedAlways)
-        
-        wait(for: [expectNotification], timeout: 1)
-    }
-    
-    func testLocationUpdateOnAppActivation()
-    {
-        analytics.action = .LocationDidAllowWhenUsing
-        service.locationManager(locationManager, didChangeAuthorization: .authorizedWhenInUse)
-        
-        let expectNotification = expectation(forNotification: notification, object: nil, handler: nil)
-        NotificationCenter.default.post(name: .UIApplicationDidBecomeActive, object: nil)
-        wait(for: [expectNotification], timeout: 1)
+        verifyLocationUpdate(expected: loremCity, operation)
+        verifyLocationUpdate(expected: loremCity, operation, inverted: true)
+        verifyLocationUpdate(expected: ipsumCity, operation)
+        verifyLocationUpdate(expected: nil, operation)
     }
     
     func testLocationUpdateOnAppActivationWhenUnauthorized()
     {
-        let
-        expectNotification = expectation(forNotification: notification, object: nil, handler: nil)
-        expectNotification.isInverted = true
+        let operation = { NotificationCenter.default.post(name: .UIApplicationDidBecomeActive, object: nil) }
         
-        NotificationCenter.default.post(name: .UIApplicationDidBecomeActive, object: nil)
-        wait(for: [expectNotification], timeout: 1)
+        verifyAuthorization(.denied, .unauthorized)
+        verifyLocationUpdate(expected: nil, operation, inverted: true)
+    }
+    
+    func testLocationUpdateWhenGeocodingFailure()
+    {
+        verifyLocationUpdate(expected: loremCity, {
+            self.service.locationManager(self.locationManager, didUpdateLocations: [])
+        })
+        
+        verifyLocationUpdate(expected: nil, {
+            self.locationManager.mockLocation = CLLocation()
+            self.service.locationManager(self.locationManager, didUpdateLocations: [])
+        })
+    }
+    
+    func testLocationUpdateWhenFailure()
+    {
+        verifyLocationUpdate(expected: loremCity, {
+            self.service.locationManager(self.locationManager, didUpdateLocations: [])
+        })
+        
+        verifyLocationUpdate(expected: nil, {
+            self.locationManager.mockLocation = CLLocation()
+            self.service.locationManager(self.locationManager, didFailWithError: NSError(domain: "", code: 1, userInfo: nil))
+        })
+    }
+    
+    func testLocationRequestPromiseWhenDetectionSuccess()
+    {
+        verifyLocationRequestPromise(expected: .success(loremCity), {
+            self.service.locationManager(self.locationManager, didUpdateLocations: [])
+        })
+    }
+    
+    func testLocationRequestPromiseWhenDetectionFailure()
+    {
+        verifyLocationRequestPromise(expected: .failure(.locationNotFound), {
+            self.service.locationManager(self.locationManager, didFailWithError: NSError(domain: "", code: 1, userInfo: nil))
+        })
+    }
+
+    func testLocationRequestPromiseWhenNoAuthorization()
+    {
+        verifyLocationRequestPromise(expected: .failure(.locationNotFound), {
+            self.service.locationManager(self.locationManager, didChangeAuthorization: .denied)
+        })
+    }
+    
+    func testLocationRequestPromiseWhenFullfilledBeforeObserved()
+    {
+        verifyLocationUpdate(expected: loremCity, {
+            self.service.locationManager(self.locationManager, didUpdateLocations: [])
+        })
+        
+        verifyLocationRequestPromise(expected: .success(loremCity), {
+            self.service.locationManager(self.locationManager, didUpdateLocations: [])
+        })
+    }
+}
+
+extension MMTCoreLocationServiceTests
+{
+    // MARK: Helper methods
+    func verifyAuthorization(_ authorization: CLAuthorizationStatus, _ status: MMTLocationAuthStatus)
+    {
+        let authNotificationTrigger = expectation(forNotification: .locationAuthChangedNotification, object: nil, handler: nil)
+        service.locationManager(locationManager, didChangeAuthorization: authorization)
+        
+        wait(for: [authNotificationTrigger], timeout: 0.5)
+        XCTAssertEqual(service.authorizationStatus, status)
+    }
+    
+    func verifyLocationUpdate(expected city: MMTCityProt?, _ operation: @escaping () -> Void, inverted: Bool = false)
+    {
+        let
+        expectNotification = expectation(forNotification: .locationChangedNotification, object: nil, handler: nil)
+        expectNotification.isInverted = inverted
+        
+        if let aCity = city {
+            locationManager.mockLocation = aCity.location
+            citiesStore.currentCity = .success(aCity)
+        } else {
+            locationManager.mockLocation = nil
+            citiesStore.currentCity = .failure(.locationNotFound)
+        }
+        
+        operation()
+        wait(for: [expectNotification], timeout: 0.5)
+        XCTAssertEqual(service.location, city)
+    }
+    
+    func verifyLocationRequestPromise(expected result: MMTResult<MMTCityProt>, _ operation: @escaping () -> Void)
+    {
+        let completion = expectation(description: "Completion expectation")
+        
+        if case let .success(city) = result {
+            locationManager.mockLocation = city.location
+        }
+        
+        citiesStore.currentCity = result
+        service.requestLocation().observe {
+            XCTAssertEqual($0, result)
+            completion.fulfill()
+        }
+        
+        operation()
+        wait(for: [completion], timeout: 0.5)
     }
 }

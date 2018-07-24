@@ -175,38 +175,12 @@ class MMTMockForecasterStore: MMTForecasterCommentDataStore
     }
 }
 
-class MMTMockAnalytics: MMTAnalytics
-{
-    var screen: String!
-    var action: MMTAnalyticsAction!
-    var category: MMTAnalyticsCategory!
-    
-    func sendScreenEntryReport(_ screen: String)
-    {
-        if screen != self.screen {
-            XCTFail("Not implemented")
-        }
-    }
-    
-    func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel: String)
-    {
-        if category != self.category || action != self.action {
-            XCTFail("Not implemented")
-        }
-    }
-    
-    func sendUserActionReport(_ action: MMTAnalyticsReport)
-    {
-        sendUserActionReport(action.category, action: action.action, actionLabel: action.actionLabel)
-    }
-}
-
 class MMTMockForecastService: MMTForecastService
 {
     var currentMeteorogram: MMTMeteorogram?
     var status: MMTUpdateResult!
     
-    func update(for location: CLLocation?, completion: @escaping (MMTUpdateResult) -> Void) {
+    func update(for location: MMTCityProt?, completion: @escaping (MMTUpdateResult) -> Void) {
         DispatchQueue.global(qos: .background).async {
             completion(self.status)
         }
@@ -215,9 +189,13 @@ class MMTMockForecastService: MMTForecastService
 
 class MMTMockLocationService: MMTLocationService
 {
-    var currentLocation: CLLocation?
-    
+    var location: MMTCityProt?
     var authorizationStatus: MMTLocationAuthStatus = .unauthorized
+    var locationPromise = MMTPromise<MMTCityProt>()
+    
+    func requestLocation() -> MMTPromise<MMTCityProt> {
+        return locationPromise
+    }
 }
 
 class MMTMockGeocoder: MMTGeocoder
@@ -262,6 +240,22 @@ class MMTMockCityGeocoder: MMTCityGeocoder
             completion(self.citiesMatchingCriteria)
         }
     }
+}
+
+class MMTMockLocationManager: CLLocationManager
+{
+    var mockLocation: CLLocation?
     
-    
+    override var location: CLLocation? {
+        return mockLocation
+    }
+}
+
+struct MMTMockPlacemark: MMTPlacemark
+{
+    var name: String?
+    var locality: String?
+    var ocean: String?
+    var location: CLLocation?
+    var administrativeArea: String?
 }

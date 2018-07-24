@@ -12,6 +12,7 @@ import CoreData
 import CoreLocation
 import CoreSpotlight
 import MeteoModel
+import NotificationCenter
 
 public let MMTDebugActionCleanupDb = "CLEANUP_DB"
 public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
@@ -21,7 +22,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     // MARK: Properties
     var window: UIWindow?
     var locationService: MMTCoreLocationService!
-    var forecastService = MMTMeteorogramForecastService(model: MMTUmClimateModel())
+    var todayModelController: MMTTodayModelController!
     
     var rootViewController: MMTTabBarController {
         return self.window!.rootViewController as! MMTTabBarController
@@ -33,6 +34,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         setupAppearance()
         setupAnalytics()
         setupLocationService()
+        setupTodayModelController()
         
         #if DEBUG
         setupDebugEnvironment()
@@ -42,6 +44,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
             setupDatabase()
         }
         
+        // TODO: Register if always authorization
         UIApplication.shared.setMinimumBackgroundFetchInterval(3600)
         performMigration()
         
@@ -70,16 +73,16 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         shortcut = UIApplication.shared.convert(from: shortcutItem)
         shortcut?.execute(using: rootViewController) { completionHandler(true) }
         
-        rootViewController.analytics?.sendUserActionReport(.Shortcut, action: .Shortcut3DTouchDidActivate, actionLabel: "")
+        analytics?.sendUserActionReport(.Shortcut, action: .Shortcut3DTouchDidActivate, actionLabel: "")
     }
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
-        forecastService.update(for: locationService.currentLocation) { status in
-            if status == .newData {
+        todayModelController.onUpdate {
+            if $0 == .newData {
                 self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish, actionLabel: "")
             }
-            completionHandler(UIBackgroundFetchResult(updateStatus: status))
+            completionHandler(UIBackgroundFetchResult(updateStatus: $0))
         }
     }
 }
@@ -130,13 +133,21 @@ extension MMTAppDelegate
         gai.trackUncaughtExceptions = false
     }
     
+    private func setupTodayModelController()
+    {
+        let forecastService = MMTMeteorogramForecastService(model: MMTUmClimateModel())
+        todayModelController = MMTTodayModelController(forecastService, locationService)
+    }
+    
     private func setupLocationService()
     {
-        let handler = #selector(handleLocationDidChange(notification:))
-        NotificationCenter.default.addObserver(self, selector: handler, name: .locationChangedNotification, object: nil)
+        let locationHandler = #selector(handleLocationDidChange(notification:))
+        let authHandler = #selector(handleLocationAuthDidChange(notification:))
         
-        locationService = MMTCoreLocationService(locationManager: CLLocationManager())
-        locationService.analytics = analytics
+        NotificationCenter.default.addObserver(self, selector: locationHandler, name: .locationChangedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: authHandler, name: .locationAuthChangedNotification, object: nil)
+        
+        locationService = MMTCoreLocationService(CLLocationManager())
     }
     
     private func performMigration()
@@ -164,11 +175,19 @@ extension MMTAppDelegate
 // Location service extension
 extension MMTAppDelegate
 {
+    @objc func handleLocationAuthDidChange(notification: Notification)
+    {
+        let status = locationService.authorizationStatus
+        let authorized = status == .always
+        
+        NCWidgetController().setHasContent(authorized, forWidgetWithBundleIdentifier: "com.szostakowski.meteo.MeteoWidget")
+        analytics?.sendUserActionReport(.Locations, action: .LocationDidChangeAuthorization, actionLabel: status.description)
+    }
     
     @objc func handleLocationDidChange(notification: Notification)
     {
         try? MMTShortcutsMigrator().migrate()
-        forecastService.update(for: locationService.currentLocation, completion: { _ in })
+        todayModelController.onUpdate(completion: { _ in })
     }
 }
 
