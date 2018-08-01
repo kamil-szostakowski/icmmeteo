@@ -16,7 +16,7 @@ import MeteoModel
 class MMTDetailedMapPreviewShortcut_3DTouchTests : XCTestCase
 {
     // MARK: Properties
-    var type = "map-UM-Precipitation"
+    var type = "map/UM/Precipitation"
     var userInfo: [String:Any] = [
         "climate-model": "UM",
         "detailed-map": "Precipitation"

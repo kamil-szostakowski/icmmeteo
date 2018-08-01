@@ -14,30 +14,26 @@ extension UIApplicationShortcutItem
 {
     convenience init(shortcut: MMTMeteorogramShortcut)
     {
-        let subtitle = MMTLocalizedString(shortcut.region)
+        let subtitle = MMTLocalizedString(shortcut.city.region)
         let icon = UIApplicationShortcutIcon(type: .favorite)
         
         let userInfo: [String : Any] = [            
-            "latitude" : shortcut.location.coordinate.latitude,
-            "longitude" : shortcut.location.coordinate.longitude,
-            "city-name" : shortcut.name,
-            "city-region" : shortcut.region,
-            "climate-model" : shortcut.climateModelType
+            "latitude" : shortcut.city.location.coordinate.latitude,
+            "longitude" : shortcut.city.location.coordinate.longitude,
+            "city-name" : shortcut.city.name,
+            "city-region" : shortcut.city.region,
+            "climate-model" : shortcut.climateModel.type.rawValue
         ]
         
-        self.init(type: shortcut.identifier, localizedTitle: shortcut.name, localizedSubtitle: subtitle, icon: icon, userInfo: userInfo)
+        self.init(type: shortcut.identifier, localizedTitle: shortcut.city.name, localizedSubtitle: subtitle, icon: icon, userInfo: userInfo)
     }
 }
 
 extension MMTMeteorogramShortcut
 {
-    convenience init?(shortcut: UIApplicationShortcutItem)
+    init?(shortcut: UIApplicationShortcutItem)
     {
-        guard let model = type(of: self).model(from: shortcut) else {
-            return nil
-        }
-
-        guard let city = type(of: self).city(from: shortcut) else {
+        guard let model = shortcut.model, let city = shortcut.city else {
             return nil
         }
         
@@ -45,43 +41,31 @@ extension MMTMeteorogramShortcut
     }
 }
 
-extension MMTMeteorogramHereShortcut
-{
-    convenience init?(shortcut: UIApplicationShortcutItem, locationService: MMTLocationService)
-    {
-        guard let model = type(of: self).model(from: shortcut) else {
-            return nil
-        }        
-        
-        self.init(model: model, locationService: locationService)
-    }
-}
-
 // Helper extension
-extension MMTMeteorogramShortcut
+extension UIApplicationShortcutItem
 {
-    fileprivate static func model(from shortcut: UIApplicationShortcutItem) -> MMTClimateModel?
+    var model: MMTClimateModel?
     {
-        guard let cmTypeString = shortcut.userInfo?["climate-model"] as? String else {
+        guard let cmTypeString = userInfo?["climate-model"] as? String else {
             return nil
         }
         
         return MMTClimateModelType(rawValue: cmTypeString)?.model
     }
     
-    fileprivate static func city(from shortcut: UIApplicationShortcutItem) -> MMTCityProt?
+    var city: MMTCityProt?
     {
         guard
-            let latitude = shortcut.userInfo?["latitude"] as? CLLocationDegrees,
-            let longitude = shortcut.userInfo?["longitude"] as? CLLocationDegrees else {
+            let latitude = userInfo?["latitude"] as? CLLocationDegrees,
+            let longitude = userInfo?["longitude"] as? CLLocationDegrees else {
                 return nil
         }
         
-        guard let name = shortcut.userInfo?["city-name"] as? String else {
+        guard let name = userInfo?["city-name"] as? String else {
             return nil
         }
         
-        guard let region = shortcut.userInfo?["city-region"] as? String else {
+        guard let region = userInfo?["city-region"] as? String else {
             return nil
         }
         
@@ -89,5 +73,4 @@ extension MMTMeteorogramShortcut
         
         return MMTCityProt(name: name, region: region, location: location)
     }
-
 }

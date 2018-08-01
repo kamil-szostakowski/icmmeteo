@@ -9,61 +9,22 @@
 import CoreLocation
 import MeteoModel
 
-class MMTMeteorogramHereShortcut: MMTMeteorogramShortcut
+struct MMTMeteorogramHereShortcut: MMTShortcut
 {
-    private var retryCount: Int = 0
-    private let RETRY_MAX_COUNT = 5
-    private let locationService: MMTLocationService
+    // MARK: Properties
+    let climateModel: MMTClimateModel
     
-    override var identifier: String {
-        return "current-location"
+    var identifier: String {
+        return "currentlocation"
     }
     
-    init(model: MMTClimateModel, locationService service: MMTLocationService)
+    var destination: MMTNavigator.MMTDestination {
+        return .meteorogramHere(climateModel)
+    }
+    
+    // MARK: initializers
+    init(model: MMTClimateModel)
     {
-        let name = MMTLocalizedString("forecast.here")
-        let location = service.location?.location ?? .zero
-        let city = MMTCityProt(name: name, region: "", location: location)
-        
-        locationService = service
-        super.init(model: model, city: city)
-    }
-    
-    override func execute(using tabbar: MMTTabBarController, completion: (() -> Void)?)
-    {
-        tabbar.displayActivityIndicator(in: tabbar.view, message: nil)
-        
-        guard retryCount < RETRY_MAX_COUNT else {
-            tabbar.hideActivityIndicator()
-            tabbar.present(UIAlertController.alertForMMTError(.locationNotFound), animated: true, completion: nil)
-            completion?()
-            return
-        }
-        
-        guard locationService.location?.location != nil, location != .zero else {
-            retry(after: 1, using: tabbar, completion: completion)
-            return
-        }
-        
-        super.execute(using: tabbar) {
-            tabbar.hideActivityIndicator()
-            completion?()
-        }
-    }
-    
-    private func retry(after seconds: UInt64, using tabbar: MMTTabBarController, completion: (() -> Void)?)
-    {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime(uptimeNanoseconds: seconds * 1000)) {
-            self.retryCount += 1
-            self.location = self.locationService.location?.location ?? .zero
-            self.execute(using: tabbar, completion: completion)
-        }
-    }
-}
-
-fileprivate extension CLLocation
-{
-    static var zero: CLLocation {
-        return CLLocation(latitude: 0, longitude: 0)
+        climateModel = model
     }
 }

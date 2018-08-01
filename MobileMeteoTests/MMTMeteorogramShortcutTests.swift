@@ -21,26 +21,26 @@ class MMTMeteorogramPreviewShortcutTests : XCTestCase
         let city = MMTCityProt(name: "City", region: "Region", location: location)
         let shortcut = MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: city)
         
-        XCTAssertEqual(shortcut.identifier, "meteorogram-UM-2.2:3.3")
-        XCTAssertEqual(shortcut.name, "City")
-        XCTAssertEqual(shortcut.region, "Region")
-        XCTAssertEqual(shortcut.climateModelType, "UM")
-        XCTAssertEqual(shortcut.location.coordinate.latitude, 2.2)
-        XCTAssertEqual(shortcut.location.coordinate.longitude, 3.3)
+        XCTAssertEqual(shortcut.identifier, "meteorogram/UM/City/Region/2.2:3.3")
+        XCTAssertEqual(shortcut.city.name, "City")
+        XCTAssertEqual(shortcut.city.region, "Region")
+        XCTAssertEqual(shortcut.climateModel.type, .UM)
+        XCTAssertEqual(shortcut.city.location.coordinate.latitude, 2.2)
+        XCTAssertEqual(shortcut.city.location.coordinate.longitude, 3.3)
     }
     
     func testInitialization_CoampsModel()
     {
         let location = CLLocation(latitude: 1.2, longitude: 3.4)
-        let city = MMTCityProt(name: "City", region: "Region", location: location)
+        let city = MMTCityProt(name: "Kędzierzyn Koźle", region: "Warmińsko Mazurskie", location: location)
         let shortcut = MMTMeteorogramShortcut(model: MMTCoampsClimateModel(), city: city)
         
-        XCTAssertEqual(shortcut.identifier, "meteorogram-COAMPS-1.2:3.4")
-        XCTAssertEqual(shortcut.name, "City")
-        XCTAssertEqual(shortcut.region, "Region")
-        XCTAssertEqual(shortcut.climateModelType, "COAMPS")
-        XCTAssertEqual(shortcut.location.coordinate.latitude, 1.2)
-        XCTAssertEqual(shortcut.location.coordinate.longitude, 3.4)
+        XCTAssertEqual(shortcut.identifier, "meteorogram/COAMPS/Kędzierzyn Koźle/Warmińsko Mazurskie/1.2:3.4")
+        XCTAssertEqual(shortcut.city.name, "Kędzierzyn Koźle")
+        XCTAssertEqual(shortcut.city.region, "Warmińsko Mazurskie")
+        XCTAssertEqual(shortcut.climateModel.type, .COAMPS)
+        XCTAssertEqual(shortcut.city.location.coordinate.latitude, 1.2)
+        XCTAssertEqual(shortcut.city.location.coordinate.longitude, 3.4)
     }
 
 }

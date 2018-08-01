@@ -23,6 +23,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     var window: UIWindow?
     var locationService: MMTCoreLocationService!
     var todayModelController: MMTTodayModelController!
+    var navigator: MMTNavigator!
     
     var rootViewController: MMTTabBarController {
         return self.window!.rootViewController as! MMTTabBarController
@@ -34,6 +35,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         setupAppearance()
         setupAnalytics()
         setupLocationService()
+        setupNavigator()
         setupTodayModelController()
         
         #if DEBUG
@@ -59,20 +61,22 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     // MARK: External actions related methods
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool
     {
-        let
-        shortcut = CSSearchableIndex.default().convert(from: userActivity)
-        shortcut?.execute(using: rootViewController, completion: nil)
+        guard let destination = CSSearchableIndex.default().convert(from: userActivity)?.destination else {
+            return false
+        }
         
+        navigator.navigate(to: destination) {}
         analytics?.sendUserActionReport(.Shortcut, action: .ShortcutSpotlightDidActivate, actionLabel: "")
         return true
     }
     
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void)
     {        
-        let
-        shortcut = UIApplication.shared.convert(from: shortcutItem)
-        shortcut?.execute(using: rootViewController) { completionHandler(true) }
+        guard let destination = UIApplication.shared.convert(from: shortcutItem)?.destination else {
+            return
+        }
         
+        navigator.navigate(to: destination) { completionHandler(true) }
         analytics?.sendUserActionReport(.Shortcut, action: .Shortcut3DTouchDidActivate, actionLabel: "")
     }
     
@@ -148,6 +152,11 @@ extension MMTAppDelegate
         NotificationCenter.default.addObserver(self, selector: authHandler, name: .locationAuthChangedNotification, object: nil)
         
         locationService = MMTCoreLocationService(CLLocationManager())
+    }
+    
+    private func setupNavigator()
+    {
+        navigator = MMTNavigator(rootViewController, locationService)
     }
     
     private func performMigration()

@@ -25,9 +25,9 @@ class MMTStubLocationService : MMTLocationService
 
 class MMTUnsupportedShortcut: MMTShortcut
 {
-    var identifier: String = ""
+    var destination: MMTNavigator.MMTDestination = .meteorogramHere(MMTUmClimateModel())
     
-    func execute(using tabbar: MMTTabBarController, completion: (() -> Void)?) { }
+    var identifier: String = ""
 }
 
 class StubMigrator : MMTVersionMigrator

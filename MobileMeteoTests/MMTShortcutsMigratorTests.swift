@@ -43,6 +43,7 @@ class MMTShortcutsMigratorTests: XCTestCase
     // MARK: Test methods
     func testShortcutsMigration_NoCurrentLocation()
     {
+        locationService.authorizationStatus = .unauthorized
         try! shortcutsMigrator.migrate()
         
         XCTAssertTrue(quickActions.cleaned)
@@ -54,11 +55,11 @@ class MMTShortcutsMigratorTests: XCTestCase
     
     func testShortcutsMigration_WithCurrentLocation()
     {
-        locationService.location = MMTCityProt(name: "Lorem", region: "", location: CLLocation(latitude: 1, longitude: 1))
+        locationService.authorizationStatus = .whenInUse
         try! shortcutsMigrator.migrate()
         
         XCTAssertTrue(quickActions.cleaned)
-        XCTAssertEqual(quickActions.registrations, ["current-location", "Toruń", "Bydgoszcz", "Precipitation"])
+        XCTAssertEqual(quickActions.registrations, ["currentlocation", "Toruń", "Bydgoszcz", "Precipitation"])
         
         XCTAssertTrue(spotlight.cleaned)
         XCTAssertEqual(spotlight.registrations, ["Toruń", "Bydgoszcz", "Włocławek"])
@@ -88,7 +89,7 @@ fileprivate class StubRegister: MMTShortcutRegister
         } else if let short = shortcut as? MMTMeteorogramHereShortcut {
             registrations.append(short.identifier)
         } else if let short = shortcut as? MMTMeteorogramShortcut {
-            registrations.append(short.name)
+            registrations.append(short.city.name)
         }
     }
         

@@ -27,7 +27,7 @@ extension UIApplicationShortcutItem
 
 extension MMTDetailedMapShortcut
 {
-    convenience init?(shortcut: UIApplicationShortcutItem)
+    init?(shortcut: UIApplicationShortcutItem)
     {
         let value = { (key: String) -> String? in
             return shortcut.userInfo?[key] as? String

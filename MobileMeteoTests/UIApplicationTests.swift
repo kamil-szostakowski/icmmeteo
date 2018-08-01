@@ -26,7 +26,7 @@ class UIApplicationTests : XCTestCase
         
         let city = MMTCityProt(name: "Lorem", region: "Ipsum", location: CLLocation(latitude: 2, longitude: 2))
         meteorogramShortcut = MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: city)
-        currentLocationShortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel(), locationService: MMTStubLocationService())
+        currentLocationShortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel())
     }
     
     override func tearDown()
@@ -40,7 +40,7 @@ class UIApplicationTests : XCTestCase
     func testConversionOfMeteorogramPreviewShortcutToApplicationShortcutItem()
     {
         let item = UIApplication.shared.convert(from: MMTMeteorogramShortcut.testInstance)!
-        XCTAssertEqual(item.type, "meteorogram-UM-2.2:3.3")
+        XCTAssertEqual(item.type, "meteorogram/UM/fakecity/fakeregion/2.2:3.3")
     }
     
     func testConversionOfDetailedMapPreviewShortcutToApplicationShortcutItem()
@@ -48,15 +48,15 @@ class UIApplicationTests : XCTestCase
         let shortcut = MMTDetailedMapShortcut(model: MMTUmClimateModel(), map: .Precipitation)
         let item = UIApplication.shared.convert(from: shortcut)!
         
-        XCTAssertEqual(item.type, "map-UM-Precipitation")
+        XCTAssertEqual(item.type, "map/UM/Precipitation")
     }
     
     func testConversionOfCurrentLocationMeteorogramPreviewShortcutToApplicationShortcutItem()
     {
-        let shortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel(), locationService: MMTStubLocationService())
+        let shortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel())
         let item = UIApplication.shared.convert(from: shortcut)!
         
-        XCTAssertEqual(item.type, "current-location")
+        XCTAssertEqual(item.type, "currentlocation")
     }
     
     func testConversionOfUnsupportedShortcutToApplicationShortcutItem()
@@ -73,14 +73,14 @@ class UIApplicationTests : XCTestCase
     
     func testConversionOfApplicationShortcutItemToMeteorogramPreviewShortcut()
     {
-        let item = UIApplicationShortcutItem(type: "meteorogram-UM-2.2:3.3", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: ["latitude" : 2.2,                                                                                                                                                                 "longitude" : 3.3,                                                                                                                                                          "city-name" : "Lorem",                                                                                                                                                          "city-region" : "Ipsum",                                                                                                                                                          "climate-model" : "UM"])
+        let item = UIApplicationShortcutItem(type: "meteorogram/UM/Lorem/Ipsum/2.2:3.3", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: ["latitude" : 2.2,                                                                                                                                                                 "longitude" : 3.3,                                                                                                                                                          "city-name" : "Lorem",                                                                                                                                                          "city-region" : "Ipsum",                                                                                                                                                          "climate-model" : "UM"])
         
         XCTAssertTrue(UIApplication.shared.convert(from: item) is MMTMeteorogramShortcut)
     }
     
     func testConversionOfApplicationShortcutItemToCurrentLocationMeteorogramPreviewShortcut()
     {
-        let item = UIApplicationShortcutItem(type: "current-location", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: ["latitude" : 0,                                                                                                                                                                 "longitude" : 0,                                                                                                                                                          "city-name" : "",                                                                                                                                                          "city-region" : "",                                                                                                                                                          "climate-model" : "UM"])
+        let item = UIApplicationShortcutItem(type: "currentlocation", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: ["latitude" : 0,                                                                                                                                                                 "longitude" : 0,                                                                                                                                                          "city-name" : "",                                                                                                                                                          "city-region" : "",                                                                                                                                                          "climate-model" : "UM"])
         
         XCTAssertTrue(UIApplication.shared.convert(from: item) is MMTMeteorogramHereShortcut)
     }
@@ -96,7 +96,7 @@ class UIApplicationTests : XCTestCase
         UIApplication.shared.register(meteorogramShortcut)
         
         XCTAssertEqual(UIApplication.shared.shortcutItems?.count, 1)
-        XCTAssertEqual(UIApplication.shared.shortcutItems?[0].type, "meteorogram-UM-2.0:2.0")
+        XCTAssertEqual(UIApplication.shared.shortcutItems?[0].type, "meteorogram/UM/Lorem/Ipsum/2.0:2.0")
     }
     
     func testRegisterCurrentLocationShortcut()
@@ -105,8 +105,8 @@ class UIApplicationTests : XCTestCase
         UIApplication.shared.register(meteorogramShortcut)
         
         XCTAssertEqual(UIApplication.shared.shortcutItems?.count, 2)
-        XCTAssertEqual(UIApplication.shared.shortcutItems?[0].type, "current-location")
-        XCTAssertEqual(UIApplication.shared.shortcutItems?[1].type, "meteorogram-UM-2.0:2.0")
+        XCTAssertEqual(UIApplication.shared.shortcutItems?[0].type, "currentlocation")
+        XCTAssertEqual(UIApplication.shared.shortcutItems?[1].type, "meteorogram/UM/Lorem/Ipsum/2.0:2.0")
     }
     
     func testRegisterAlreadyRegisteredShortcut()
@@ -115,7 +115,7 @@ class UIApplicationTests : XCTestCase
         UIApplication.shared.register(meteorogramShortcut)
         
         XCTAssertEqual(UIApplication.shared.shortcutItems?.count, 1)
-        XCTAssertEqual(UIApplication.shared.shortcutItems?[0].type, "meteorogram-UM-2.0:2.0")
+        XCTAssertEqual(UIApplication.shared.shortcutItems?[0].type, "meteorogram/UM/Lorem/Ipsum/2.0:2.0")
     }
     
     func testRegisterUnsupportedShortcut()
