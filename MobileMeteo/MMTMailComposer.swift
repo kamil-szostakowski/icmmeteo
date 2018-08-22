@@ -11,7 +11,7 @@ import MessageUI
 class MMTMailComposer: MFMailComposeViewController, MFMailComposeViewControllerDelegate
 {
     // Initializers
-    convenience init?(subject: String, recipient: String)
+    convenience init?(_ subject: String, _ recipient: String)
     {
         guard MFMailComposeViewController.canSendMail() else {
             return nil

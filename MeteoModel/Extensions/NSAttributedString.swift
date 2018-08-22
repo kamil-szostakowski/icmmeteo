@@ -51,12 +51,3 @@ extension NSMutableAttributedString
         }
     }
 }
-
-extension NSMutableAttributedString
-{
-    convenience init(textView: UITextView)
-    {
-        self.init(string: textView.text)
-        addAttribute(.font, value: textView.font!)
-    }
-}
