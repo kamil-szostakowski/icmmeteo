@@ -47,8 +47,8 @@
 		<string>com.apple.widget-extension</string>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Usługi lokalizacji są niezbędne do działania wyszukiwarki miejscowości. Pozwalają również na szybki dostęp do prognozy pogody dla miejsca, w którym aktualnie przebywasz.</string>
+	<string>Usługi lokalizacyjne pozwalają nam zapewnić Ci szybki dostęp do prognozy pogody dla miejscowości, w której aktualnie przebywasz. Potrzebujemy ich również aby prezentować widget z aktualną prognozą bezpośrednio na ekranie Spotlight.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Usługi lokalizacji są niezbędne do działania wyszukiwarki miejscowości. Pozwalają również na szybki dostęp do prognozy pogody dla miejsca, w którym aktualnie przebywasz.</string>
+	<string>Usługi lokalizacyjne pozwalają nam zapewnić Ci szybki dostęp do prognozy pogody dla miejscowości, w której aktualnie przebywasz. Potrzebujemy ich również aby prezentować widget z aktualną prognozą bezpośrednio na ekranie Spotlight.</string>
 </dict>
 </plist>

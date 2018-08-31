@@ -40,11 +40,11 @@
 		</dict>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Usługi lokalizacji są niezbędne do działania wyszukiwarki miejscowości. Pozwalają również na szybki dostęp do prognozy pogody dla miejsca, w którym aktualnie przebywasz. Używamy twojej lokalizacji również aby zapewnić jak najsprawniejsze działanie widżetu oraz skrótów 3D Touch.</string>
+	<string>Usługi lokalizacyjne pozwalają nam zapewnić Ci szybki dostęp do prognozy pogody dla miejscowości, w której aktualnie przebywasz. Potrzebujemy ich również aby prezentować widget z aktualną prognozą bezpośrednio na ekranie Spotlight.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Usługi lokalizacji są niezbędne do działania wyszukiwarki miejscowości. Pozwalają również na szybki dostęp do prognozy pogody dla miejsca, w którym aktualnie przebywasz. Używamy twojej lokalizacji również aby zapewnić jak najsprawniejsze działanie widżetu oraz skrótów 3D Touch.</string>
+	<string>Usługi lokalizacyjne pozwalają nam zapewnić Ci szybki dostęp do prognozy pogody dla miejscowości, w której aktualnie przebywasz. Potrzebujemy ich również aby prezentować widget z aktualną prognozą bezpośrednio na ekranie Spotlight.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Usługi lokalizacji są niezbędne do działania wyszukiwarki miejscowości. Pozwalają również na szybki dostęp do prognozy pogody dla miejsca, w którym aktualnie przebywasz.</string>
+	<string>Usługi lokalizacyjne pozwalają nam zapewnić Ci szybki dostęp do prognozy pogody dla miejscowości, w której aktualnie przebywasz. Potrzebujemy ich również aby prezentować widget z aktualną prognozą bezpośrednio na ekranie Spotlight.</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>com.szostakowski.meteo.um</string>
