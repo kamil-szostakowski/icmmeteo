@@ -16,6 +16,7 @@ public class MMTTodayModelController: MMTModelController
     private var locationService: MMTLocationService
     
     public private(set) var meteorogram: MMTMeteorogram?
+    public private(set) var meteorogramDescription: MMTMeteorogramDescription?
     public private(set) var locationServicesEnabled: Bool = false
 
     // MARK: Initializers
@@ -35,6 +36,7 @@ public class MMTTodayModelController: MMTModelController
                 self.updateForecast(for: city, completion: completion)
             case .failure(_):
                 self.meteorogram = nil
+                self.meteorogramDescription = nil
                 self.locationServicesEnabled = false
                 self.notifyWatchers(.failed, completion: completion)
             }
@@ -54,6 +56,7 @@ extension MMTTodayModelController
             guard let meteorogram = self.forecastService.currentMeteorogram else { return }
             
             self.meteorogram = meteorogram
+            self.meteorogramDescription = MMTMeteorogramDescription(meteorogram)
         }
     }
     

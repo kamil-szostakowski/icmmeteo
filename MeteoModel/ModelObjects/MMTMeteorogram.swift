@@ -26,6 +26,21 @@ public struct MMTMeteorogram
     }
 }
 
+public struct MMTMeteorogramDescription
+{
+    public var snow: Double = 0.5
+    public var rain: Double = 0.5
+    public var storm: Double = 0
+    public var strongWind: Double = 0.5
+    public var clouds: Double = 0.5
+    public var startDate: Date
+    
+    public init(_ meteorogram: MMTMeteorogram)
+    {
+        self.startDate = meteorogram.startDate
+    }
+}
+
 public struct MMTMapMeteorogram
 {
     public let model: MMTClimateModel
@@ -33,7 +48,8 @@ public struct MMTMapMeteorogram
     public var images: [UIImage?]
     public var moments: [Date]
     
-    init(model: MMTClimateModel) {
+    init(model: MMTClimateModel)
+    {
         self.model = model
         self.startDate = model.startDate(for: Date())
         self.images = []

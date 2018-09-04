@@ -31,13 +31,9 @@ class MMTTodayExtensionDataSource
             return updateErrorView.updated(with: .locationServicesUnavailable)
         }
         
-        guard let meteorogram = model.meteorogram else {
-            return updateErrorView.updated(with: .meteorogramUpdateFailure)
-        }
-        
         switch ext.widgetActiveDisplayMode {
-            case .compact: return forecastDescriptionView.updated(with: meteorogram)
-            case .expanded: return meteorogramImageView.updated(with: meteorogram.image)
+            case .compact: return configureCompactView(for: model)
+            case .expanded: return configureExpandedView(for: model)
         }
     }
     
@@ -51,5 +47,24 @@ class MMTTodayExtensionDataSource
     {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }
+    
+    private func configureCompactView(for model: MMTTodayModelController) -> UIView
+    {
+        guard let description = model.meteorogramDescription else {
+            return updateErrorView.updated(with: .meteorogramUpdateFailure)
+        }
+        
+        let viewModel = MMTForecastDescriptionView.ViewModel(description)        
+        return forecastDescriptionView.updated(with: viewModel)
+    }
+    
+    private func configureExpandedView(for model: MMTTodayModelController) -> UIView
+    {
+        guard let meteorogram = model.meteorogram else {
+            return updateErrorView.updated(with: .meteorogramUpdateFailure)
+        }
+        
+        return meteorogramImageView.updated(with: meteorogram.image)
     }
 }
