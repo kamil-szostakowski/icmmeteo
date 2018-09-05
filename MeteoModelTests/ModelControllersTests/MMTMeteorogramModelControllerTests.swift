@@ -44,7 +44,7 @@ class MMTMeteorogramModelControllerTests: XCTestCase
     
     func testDownloadMeteorogram()
     {
-        meteorogramStore.meteorogram = .success(MMTMeteorogram(model: MMTUmClimateModel()))
+        meteorogramStore.meteorogram = .success(MMTMeteorogram(model: MMTUmClimateModel(), city: city))
         
         let updateExpectations = modelControllerDelegate.awaitModelUpdate(completions: [onRequestPending, {
             XCTAssertFalse($0.requestPending)

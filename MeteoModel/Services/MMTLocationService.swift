@@ -12,9 +12,41 @@ import CoreLocation
 public extension Notification.Name
 {
     public static let locationChangedNotification = Notification.Name(rawValue: "MMTLocationChangedNotification")
+    public static let locationAuthChangedNotification = Notification.Name(rawValue: "MMTLocationAuthChangedNotification")
+}
+
+public enum MMTLocationAuthStatus: CustomStringConvertible
+{
+    case always
+    case whenInUse
+    case unauthorized
+    
+    public var description: String {
+        switch self {
+            case .always: return "always"
+            case .whenInUse: return "whenInUse"
+            case .unauthorized: return "unauthorized"
+        }
+    }
+}
+
+extension MMTLocationAuthStatus
+{
+    init(_ status: CLAuthorizationStatus)
+    {
+        switch status {
+            case .authorizedWhenInUse: self = .whenInUse
+            case .authorizedAlways: self = .always
+            default: self = .unauthorized
+        }
+    }
 }
 
 public protocol MMTLocationService
 {
-    var currentLocation: CLLocation? { get }    
+    var location: MMTCityProt? { get }
+    
+    var authorizationStatus: MMTLocationAuthStatus { get }
+    
+    func requestLocation() -> MMTPromise<MMTCityProt>
 }

@@ -11,7 +11,7 @@
 "IZE-Jf-c7U.text" = "Find location on map";
 
 /* Class = "UITabBarItem"; title = "Źródło"; ObjectID = "Quj-BL-oec"; */
-"Quj-BL-oec.title" = "Source";
+"Quj-BL-oec.title" = "Info";
 
 "br9-OC-Jd1.title" = "Comment";
 
@@ -49,3 +49,13 @@
 "p0N-cN-cSS.title" = "Detailed maps";
 
 "P8U-V6-ky4.title" = "Detailed maps";
+
+"SLo-fj-Ucp.text" = "Icons (weather)";
+
+"xKB-7Z-eSg.text" = "QA Support";
+
+"oho-M1-ztd.text" = "Author";
+
+"hxn-ye-fln.text" = "Source";
+
+"Pji-mP-zET.text" = "Credits";

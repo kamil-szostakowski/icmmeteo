@@ -16,10 +16,10 @@ class MMTForecastServiceTests: XCTestCase
     var service: MMTForecastService!
     var forecastStore: MMTMockForecastStore!
     var meteorogramStore: MMTMockMeteorogramStore!
-    var citiesStore: MMTMockCitiesStore!
     var nsCache: NSCache<NSString, UIImage>!
     var cache: MMTImagesCache!
     var expectedKey: String!
+    let currentCity = MMTCityProt(name: "Lorem", region: "Loremia")
     
     // MARK: Setup methods
     override func setUp()
@@ -28,22 +28,22 @@ class MMTForecastServiceTests: XCTestCase
     
         let model = MMTUmClimateModel()
         let startDate = Date.from(2018, 1, 20, 22, 0, 0)
-        let currentCity = MMTCityProt(name: "Lorem", region: "Loremia", location: CLLocation())
         
         forecastStore = MMTMockForecastStore()
         forecastStore.result = .success(startDate)
         
-        citiesStore = MMTMockCitiesStore()
-        citiesStore.currentCity = .success(currentCity)
+        var
+        meteorogram = MMTMeteorogram(model: model, city: currentCity)
+        meteorogram.startDate = startDate
         
         meteorogramStore = MMTMockMeteorogramStore()
-        meteorogramStore.meteorogram = .success(MMTMeteorogram(model: model))
+        meteorogramStore.meteorogram = .success(meteorogram)
         
         nsCache = NSCache<NSString, UIImage>()
         cache = MMTImagesCache(cache: nsCache)
         expectedKey = model.cacheKey(city: currentCity, startDate: startDate)
         
-        service = MMTForecastService(forecastStore: forecastStore, meteorogramStore: meteorogramStore, citiesStore: citiesStore, cache: cache)
+        service = MMTMeteorogramForecastService(forecastStore: forecastStore, meteorogramStore: meteorogramStore, cache: cache)
     }
     
     // MARK: Test methods
@@ -53,7 +53,7 @@ class MMTForecastServiceTests: XCTestCase
         performInitialUpdate()
         
         // Redundand update
-        service.update(for: CLLocation()) {
+        service.update(for: currentCity) {
             completion.fulfill()
             XCTAssertEqual($0, .noData)
         }
@@ -66,8 +66,8 @@ class MMTForecastServiceTests: XCTestCase
     {
         let completion = expectation(description: "update completion")
         
-        service.update(for: CLLocation()) {
-            completion.fulfill()
+        service.update(for: currentCity) {
+            completion.fulfill()            
             XCTAssertEqual($0, .newData)
         }
         
@@ -79,15 +79,15 @@ class MMTForecastServiceTests: XCTestCase
     {
         let newDate = Date().addingTimeInterval(TimeInterval(hours: 10))
         let completion = expectation(description: "update completion")
-        
+
         performInitialUpdate()
         forecastStore.result = .success(newDate)
-        
-        service.update(for: CLLocation()) {
+
+        service.update(for: currentCity) {
             completion.fulfill()
             XCTAssertEqual($0, .newData)
         }
-        
+
         wait(for: [completion], timeout: 2)
         XCTAssertNotNil(cache.object(forKey: expectedKey))
     }
@@ -96,15 +96,14 @@ class MMTForecastServiceTests: XCTestCase
     {
         let newCity = MMTCityProt(name: "Ipsum", region: "Ipsumia", location: CLLocation())
         let completion = expectation(description: "update completion")
-        
+
         performInitialUpdate()
-        citiesStore.currentCity = .success(newCity)
-        
-        service.update(for: CLLocation()) {
+
+        service.update(for: newCity) {
             completion.fulfill()
             XCTAssertEqual($0, .newData)
         }
-        
+
         wait(for: [completion], timeout: 2)
         XCTAssertNotNil(cache.object(forKey: expectedKey))
     }
@@ -127,21 +126,7 @@ class MMTForecastServiceTests: XCTestCase
         forecastStore.result = .failure(.forecastStartDateNotFound)
         let completion = expectation(description: "update completion")
         
-        service.update(for: CLLocation()) {
-            completion.fulfill()
-            XCTAssertEqual($0, .failed)
-        }
-        
-        wait(for: [completion], timeout: 2)
-        XCTAssertNil(cache.object(forKey: expectedKey))
-    }
-    
-    func testUpdateFailureWhenLocationUpdateFailed()
-    {
-        citiesStore.currentCity = .failure(.locationNotFound)        
-        let completion = expectation(description: "update completion")
-        
-        service.update(for: CLLocation()) {
+        service.update(for: currentCity) {
             completion.fulfill()
             XCTAssertEqual($0, .failed)
         }
@@ -156,7 +141,7 @@ class MMTForecastServiceTests: XCTestCase
         
         let completion = expectation(description: "update completion")
         
-        service.update(for: CLLocation()) {
+        service.update(for: currentCity) {
             completion.fulfill()
             XCTAssertEqual($0, .failed)
         }
@@ -169,20 +154,21 @@ class MMTForecastServiceTests: XCTestCase
     {
         let completion = expectation(description: "update completion")
         
-        service.update(for: CLLocation()) {
+        service.update(for: currentCity) {
             completion.fulfill()
             XCTAssertEqual($0, .newData)
         }
         
         wait(for: [completion], timeout: 2)
         XCTAssertNotNil(cache.object(forKey: expectedKey))
+        XCTAssertEqual(service.currentMeteorogram?.city, currentCity)
     }
     
     // MARK: Helper methods
     func performInitialUpdate()
     {
         let completion = expectation(description: "initial update completion")
-        service.update(for: CLLocation()) { _ in completion.fulfill() }
+        service.update(for: currentCity) { _ in completion.fulfill() }
         wait(for: [completion], timeout: 2)
     }
 }

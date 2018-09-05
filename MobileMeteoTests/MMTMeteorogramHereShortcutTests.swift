@@ -7,35 +7,25 @@
 //
 
 import XCTest
-import Foundation
-import CoreLocation
 import MeteoModel
 
 @testable import MobileMeteo
 
-class MMTCurrentLocationMeteorogramPreviewShortcutTests: XCTestCase
+class MMTMeteorogramHereShortcutTests: XCTestCase
 {
     func testInitialization_ModelUM()
     {
-        let shortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel(), locationService: MMTStubLocationService())
+        let shortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel())
         
-        XCTAssertEqual(shortcut.identifier, "current-location")
-        XCTAssertEqual(shortcut.name, MMTLocalizedString("forecast.here"))
-        XCTAssertEqual(shortcut.region, "")
-        XCTAssertEqual(shortcut.climateModelType, "UM")
-        XCTAssertEqual(shortcut.location.coordinate.latitude, 0.0)
-        XCTAssertEqual(shortcut.location.coordinate.longitude, 0.0)
+        XCTAssertEqual(shortcut.identifier, "currentlocation")
+        XCTAssertEqual(shortcut.climateModel.type, .UM)
     }
     
     func testInitialization_ModelCOAMPS()
     {
-        let shortcut = MMTMeteorogramHereShortcut(model: MMTCoampsClimateModel(), locationService: MMTStubLocationService())
+        let shortcut = MMTMeteorogramHereShortcut(model: MMTCoampsClimateModel())
         
-        XCTAssertEqual(shortcut.identifier, "current-location")
-        XCTAssertEqual(shortcut.name, MMTLocalizedString("forecast.here"))
-        XCTAssertEqual(shortcut.region, "")
-        XCTAssertEqual(shortcut.climateModelType, "COAMPS")
-        XCTAssertEqual(shortcut.location.coordinate.latitude, 0.0)
-        XCTAssertEqual(shortcut.location.coordinate.longitude, 0.0)
-    }
+        XCTAssertEqual(shortcut.identifier, "currentlocation")
+        XCTAssertEqual(shortcut.climateModel.type, .COAMPS)
+    }    
 }

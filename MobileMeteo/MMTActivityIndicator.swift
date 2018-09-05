@@ -36,19 +36,8 @@ import Foundation
     
     // MARK: Setup methods
     private func setupView()
-    {
-        let
-        view = loadFromNib()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubview(view)
-        
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: self.topAnchor),
-            view.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            view.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            view.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-        ])
+    {    
+        addFillingSubview(loadFromNib())
         
         layer.cornerRadius = 10
         clipsToBounds = true

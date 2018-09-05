@@ -28,3 +28,26 @@ extension NSAttributedString
         return NSAttributedString(attributedString: formattedContent)
     }
 }
+
+extension NSMutableAttributedString
+{
+    var fullRange: NSRange
+    {
+        return NSRange(location: 0, length: length)
+    }
+    
+    func addAttribute(_ name: NSAttributedStringKey, value: Any)
+    {
+        addAttribute(name, value: value, range: fullRange)
+    }
+    
+    func set(url: String, for text: String)
+    {
+        let range = mutableString.range(of: text)
+        
+        if range.location != NSNotFound {
+            addAttribute(.link, value: url, range: range)
+            addAttribute(.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: range)
+        }
+    }
+}

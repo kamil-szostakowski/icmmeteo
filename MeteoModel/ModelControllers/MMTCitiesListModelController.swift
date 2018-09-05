@@ -67,7 +67,7 @@ extension MMTCitiesListModelController
     
     fileprivate func updateCities(matching criteria: MMTSearchInput)
     {
-        citiesStore.cities(maching: criteria.stringValue) {
+        citiesStore.cities(matching: criteria.stringValue) {
             
             guard self.cities != $0 else {
                 print("Canceled update because search result didn't change")

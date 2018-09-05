@@ -8,35 +8,24 @@
 
 import MeteoModel
 
-class MMTDetailedMapShortcut : MMTShortcut
-{        
+struct MMTDetailedMapShortcut : MMTShortcut
+{
+    // MARK: Properties
     let climateModel: MMTClimateModel
     let detailedMap: MMTDetailedMapType
     
     var identifier: String {
-        return "map-\(climateModel.type.rawValue)-\(detailedMap.rawValue)"
+        return "map/\(climateModel.type.rawValue)/\(detailedMap.rawValue)"
     }
     
+    var destination: MMTNavigator.MMTDestination {
+        return .detailedMap(climateModel, detailedMap)
+    }
+    
+    // MARK: Initializer
     init(model: MMTClimateModel, map: MMTDetailedMapType)
     {
         self.climateModel = model
         self.detailedMap = map
-    }
-    
-    func execute(using tabbar: MMTTabBarController, completion: (() -> Void)?)
-    {
-        guard let targetVC = (tabbar.viewControllers?.first { $0 as? MMTDetailedMapsListController != nil } as? MMTDetailedMapsListController) else {
-            completion?()
-            return
-        }
-        
-        prepare(tabbar: tabbar, target: targetVC)
-        {
-            targetVC.selectedClimateModel = self.climateModel
-            targetVC.selectedDetailedMap = self.climateModel.detailedMap(ofType: self.detailedMap)
-            targetVC.perform(segue: .DisplayDetailedMap, sender: tabbar)
-            
-            completion?()
-        }
     }
 }

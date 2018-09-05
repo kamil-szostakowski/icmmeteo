@@ -39,10 +39,7 @@ extension UIApplication : MMTShortcutRegister
     func convert(from shortcut: MMTShortcut) -> UIApplicationShortcutItem?
     {
         if let currentLocationShortcut = shortcut as? MMTMeteorogramHereShortcut {
-            let
-            item = UIMutableApplicationShortcutItem(shortcut: currentLocationShortcut)
-            item.icon = UIApplicationShortcutIcon(type: .location)
-            return item
+            return UIMutableApplicationShortcutItem(shortcut: currentLocationShortcut)
         }
         
         if let meteorogramShortcut = shortcut as? MMTMeteorogramShortcut {
@@ -58,16 +55,16 @@ extension UIApplication : MMTShortcutRegister
     
     func convert(from shortcut: UIApplicationShortcutItem) -> MMTShortcut?
     {
-        if shortcut.type.contains("map-") {
+        if shortcut.type.hasPrefix("map") {
             return MMTDetailedMapShortcut(shortcut: shortcut)
         }
         
-        if shortcut.type.contains("meteorogram-") {
+        if shortcut.type.hasPrefix("meteorogram") {
             return MMTMeteorogramShortcut(shortcut: shortcut)
         }
         
-        if shortcut.type.contains("current-location") {
-            return MMTMeteorogramHereShortcut(shortcut: shortcut, locationService: UIApplication.shared.locationService!)
+        if shortcut.type.hasPrefix("currentlocation") {
+            return MMTMeteorogramHereShortcut(shortcut: shortcut)
         }
                 
         return nil

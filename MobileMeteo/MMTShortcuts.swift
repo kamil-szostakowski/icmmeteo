@@ -10,7 +10,7 @@ protocol MMTShortcut
 {        
     var identifier: String { get }
     
-    func execute(using tabbar: MMTTabBarController, completion: (() -> Void)?)
+    var destination: MMTNavigator.MMTDestination { get }    
 }
 
 protocol MMTShortcutRegister
@@ -20,24 +20,4 @@ protocol MMTShortcutRegister
     func unregister(_ shortcut: MMTShortcut)
     
     func unregisterAll()
-}
-
-extension MMTShortcut
-{
-    func prepare(tabbar: MMTTabBarController, target: UIViewController, completion: @escaping (() -> Void))
-    {
-        guard let index = tabbar.viewControllers?.index(of: target) else {
-            completion()
-            return
-        }
-        
-        tabbar.selectedIndex = index
-        
-        guard target.presentedViewController == nil else {
-            target.dismiss(animated: false, completion: completion)
-            return
-        }
-        
-        completion()
-    }
 }

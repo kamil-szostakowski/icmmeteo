@@ -9,52 +9,28 @@
 import CoreLocation
 import MeteoModel
 
-class MMTMeteorogramShortcut : MMTShortcut
-{        
-    var location: CLLocation
-    let name: String
-    let region: String
-    let climateModelType: String
+struct MMTMeteorogramShortcut : MMTShortcut
+{
+    // MARK: Properties
+    let city: MMTCityProt
+    let climateModel: MMTClimateModel
     
-    var identifier: String {
-        return "meteorogram-\(climateModelType)-\(location.coordinate.latitude):\(location.coordinate.longitude)"
+    var identifier: String
+    {
+        let type = climateModel.type.rawValue
+        let coords = city.location.coordinate
+        
+        return "meteorogram/\(type)/\(city.name)/\(city.region)/\(coords.latitude):\(coords.longitude)"
     }
     
+    var destination: MMTNavigator.MMTDestination {
+        return .meteorogram(climateModel, city)
+    }
+    
+    // MARK: Initializers
     init(model: MMTClimateModel, city: MMTCityProt)
     {
-        self.name = city.name
-        self.region = city.region
-        self.location = city.location
-        self.climateModelType = model.type.rawValue
+        self.city = city
+        self.climateModel = model
     }
-        
-    func execute(using tabbar: MMTTabBarController, completion: (() -> Void)?)
-    {
-        tabbar.displayActivityIndicator(in: tabbar.view, message: nil)
-        
-        MMTCoreDataCitiesStore().city(for: location) {
-            
-            tabbar.hideActivityIndicator()
-            
-            if case let .failure(error) = $0 {
-                tabbar.present(UIAlertController.alertForMMTError(error), animated: true, completion: nil)
-                completion?()
-                return
-            }
-            
-            if case let .success(city) = $0 {
-                guard let targetVC = (tabbar.viewControllers?.first { $0 as? MMTCitiesListController != nil } as? MMTCitiesListController) else {
-                    completion?()
-                    return
-                }
-                
-                self.prepare(tabbar: tabbar, target: targetVC)
-                {
-                    targetVC.selectedCity = city
-                    targetVC.perform(segue: .DisplayMeteorogram, sender: tabbar)
-                    completion?()
-                }
-            }
-        }
-    }    
 }

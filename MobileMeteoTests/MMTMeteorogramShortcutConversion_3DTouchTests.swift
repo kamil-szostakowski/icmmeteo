@@ -18,7 +18,7 @@ extension MMTMeteorogramShortcut
     static var testInstance: MMTMeteorogramShortcut
     {
         let location = CLLocation(latitude: 2.2, longitude: 3.3)
-        let city = MMTCityProt(name: "fake-city", region: "fake-region", location: location)
+        let city = MMTCityProt(name: "fakecity", region: "fakeregion", location: location)
         
         return MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: city)
     }
@@ -29,8 +29,8 @@ class MMTMeteorogramPreviewShortcutConversion_3DTouchTests: XCTestCase
     var userInfo: [String : Any] = [
         "latitude": 2.2,
         "longitude": 3.3,
-        "city-name": "fake-city",
-        "city-region": "fake-region",
+        "city-name": "fakecity",
+        "city-region": "fakeregion",
         "climate-model": "UM"
     ]
     
@@ -43,25 +43,25 @@ class MMTMeteorogramPreviewShortcutConversion_3DTouchTests: XCTestCase
     {        
         let item = UIApplicationShortcutItem(shortcut: MMTMeteorogramShortcut.testInstance)
         
-        XCTAssertEqual(item.type, "meteorogram-UM-2.2:3.3")
-        XCTAssertEqual(item.localizedTitle, "fake-city")
-        XCTAssertEqual(item.localizedSubtitle, "fake-region")
+        XCTAssertEqual(item.type, "meteorogram/UM/fakecity/fakeregion/2.2:3.3")
+        XCTAssertEqual(item.localizedTitle, "fakecity")
+        XCTAssertEqual(item.localizedSubtitle, "fakeregion")
         XCTAssertEqual(item.icon, UIApplicationShortcutIcon(type: .favorite))
             
         XCTAssertEqual(item.userInfo?["latitude"] as? CLLocationDegrees, 2.2)
         XCTAssertEqual(item.userInfo?["longitude"] as? CLLocationDegrees, 3.3)
-        XCTAssertEqual(item.userInfo?["city-name"] as? String, "fake-city")
-        XCTAssertEqual(item.userInfo?["city-region"] as? String, "fake-region")
+        XCTAssertEqual(item.userInfo?["city-name"] as? String, "fakecity")
+        XCTAssertEqual(item.userInfo?["city-region"] as? String, "fakeregion")
         XCTAssertEqual(item.userInfo?["climate-model"] as? String, "UM")
     }
     
     func testConversionToMeteorogramPreviewShortcut()
     {
-        XCTAssertEqual(shortcut?.location.coordinate.latitude, 2.2)
-        XCTAssertEqual(shortcut?.location.coordinate.longitude, 3.3)
-        XCTAssertEqual(shortcut?.name, "fake-city")
-        XCTAssertEqual(shortcut?.region, "fake-region")
-        XCTAssertEqual(shortcut?.climateModelType, "UM")
+        XCTAssertEqual(shortcut?.city.location.coordinate.latitude, 2.2)
+        XCTAssertEqual(shortcut?.city.location.coordinate.longitude, 3.3)
+        XCTAssertEqual(shortcut?.city.name, "fakecity")
+        XCTAssertEqual(shortcut?.city.region, "fakeregion")
+        XCTAssertEqual(shortcut?.climateModel.type, .UM)
     }
     
     func testConversionToMeteorogramPreviewShortcut_NoLatitude()

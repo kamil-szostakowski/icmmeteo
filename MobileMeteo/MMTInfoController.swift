@@ -7,51 +7,80 @@
 //
 
 import UIKit
-import MessageUI
-import Foundation
+import MeteoModel
 
-class MMTMFMailComposeViewController: MFMailComposeViewController
+class MMTInfoController: UIViewController
 {
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask
-    {
-        return .portrait
-    }
-}
-
-class MMTInfoController: UIViewController, MFMailComposeViewControllerDelegate
-{
+    // MARK: Properties
     @IBOutlet var icons: [UIImageView]!
+    @IBOutlet weak var iconsCredit: UITextView!
+    @IBOutlet weak var qaCredit: UITextView!
+    @IBOutlet weak var authorCredit: UITextView!
+    
+    fileprivate var modelController: MMTInfoModelController!
     
     // MARK: Lifecycle methods
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        icons.forEach {
-            $0.imageRenderingMode = UIImageRenderingMode.alwaysTemplate
-        }
+        setupCreditsUrls()
+        setupIconsTint()
+        setupModelController()
     }
-    // MARK: Action methods
+}
+
+extension MMTInfoController
+{
+    // MARK: Actions methods
     @IBAction func feedbackBtnDidTap(_ sender: UIButton)
     {
-        guard MFMailComposeViewController.canSendMail() else {
-            
+        let subject = modelController.feedbackEmailTopic
+        let recipient = modelController.feedbackEmailRecipient
+        
+        guard let mailer = MMTMailComposer(subject, recipient) else {
             present(UIAlertController.alertForMMTError(.mailNotAvailable), animated: true, completion: nil)
             return
         }
         
-        let
-        mailer = MMTMFMailComposeViewController()
-        mailer.view.tintColor = MMTAppearance.textColor        
-        mailer.setToRecipients(["meteo.contact1@gmail.com"])
-        mailer.setSubject("ICM Meteo, Feedback")
-        mailer.mailComposeDelegate = self
-        
         present(mailer, animated: true, completion: nil)
     }
-    
-    // MARK: MFMailComposeViewControllerDelegate methods    
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?)
+}
+
+extension MMTInfoController: UITextViewDelegate, MMTModelControllerDelegate
+{
+    // MARK: Delegate methods
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool
     {
-        dismiss(animated: true, completion: nil)
+        return true
+    }
+    
+    func onModelUpdate(_ controller: MMTModelController)
+    {
+        iconsCredit.attributedText = modelController.weatherIconsCredit
+        qaCredit.attributedText = modelController.qaSupportCredit
+        authorCredit.attributedText = modelController.authorCredit
+    }
+}
+
+extension MMTInfoController
+{
+    // MARK: Setup methods
+    fileprivate func setupModelController()
+    {
+        modelController = MMTInfoModelController(font: iconsCredit.font!)
+        modelController.delegate = self
+        modelController.activate()
+    }
+    
+    fileprivate func setupCreditsUrls()
+    {
+        [iconsCredit, qaCredit, authorCredit].forEach {
+            $0?.textContainerInset = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
+        }
+    }
+    
+    fileprivate func setupIconsTint()
+    {
+        icons.forEach { $0.imageRenderingMode = .alwaysTemplate }
     }
 }

@@ -25,8 +25,8 @@ class MMTCitiesListController: UIViewController, MMTModelControllerDelegate
     fileprivate var modelController: MMTCitiesListModelController!
     fileprivate var currentCityModelController: MMTCurrentCityModelController!
     
-    fileprivate var currentLocation: CLLocation? {
-        return UIApplication.shared.locationService?.currentLocation
+    fileprivate var currentLocation: MMTCityProt? {
+        return UIApplication.shared.locationService?.location
     }
     
     // MARK: Actions
@@ -67,7 +67,7 @@ extension MMTCitiesListController
         super.viewWillAppear(animated)
         
         modelController.activate()
-        currentCityModelController.onLocationChange(location: currentLocation)
+        currentCityModelController.onUpdate(city: currentLocation)
         analytics?.sendScreenEntryReport(MMTAnalyticsCategory.Locations.rawValue)
         
         if selectedCity != nil {
@@ -152,7 +152,7 @@ extension MMTCitiesListController
     
     @objc func handleLocationDidChange(notification: Notification)
     {
-        currentCityModelController.onLocationChange(location: currentLocation)
+        currentCityModelController.onUpdate(city: currentLocation)
     }
     
     func shouldSkipUpdate(from controller: MMTCurrentCityModelController?) -> Bool

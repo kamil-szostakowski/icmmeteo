@@ -30,14 +30,14 @@ public class MMTCurrentCityModelController: MMTModelController
         guard let newLocation = location else {
             error = nil
             requestPending = false
-            onCurrentCityUpdate(city: nil)
+            onUpdate(city: nil)
             return
         }
         
         updateCurrentCity(for: newLocation)
     }
     
-    func onCurrentCityUpdate(city: MMTCityProt?)
+    public func onUpdate(city: MMTCityProt?)
     {
         guard currentCity != city else {
             print("Canceleded model update because destination didn't change")
@@ -69,7 +69,7 @@ extension MMTCurrentCityModelController
             }
             
             if case let .success(city) = $0 {
-                self.onCurrentCityUpdate(city: city)
+                self.onUpdate(city: city)
             }
         }
     }

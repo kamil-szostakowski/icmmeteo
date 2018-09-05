@@ -45,8 +45,9 @@ class MMTShortcutsMigrator: MMTVersionMigrator
                 .map { MMTMeteorogramShortcut(model: MMTUmClimateModel(), city: $0) }
                 .forEach { self.spotlightRegister.register($0) }
             
-            if self.locationService.currentLocation != nil {
-                let shortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel(), locationService: self.locationService)
+            
+            if self.locationService.authorizationStatus != .unauthorized {
+                let shortcut = MMTMeteorogramHereShortcut(model: MMTUmClimateModel())
                 self.quickActionsRegister.register(shortcut)
             }
             

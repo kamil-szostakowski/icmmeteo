@@ -12,15 +12,22 @@ import MeteoModel
 
 @testable import MobileMeteo
 
-class MMTStubLocationService : MMTLocationService {
-    var currentLocation: CLLocation?
+class MMTStubLocationService : MMTLocationService
+{
+    var location: MMTCityProt?
+    
+    var authorizationStatus: MMTLocationAuthStatus = .unauthorized
+    
+    func requestLocation() -> MMTPromise<MMTCityProt> {
+        return MMTPromise<MMTCityProt>()
+    }
 }
 
 class MMTUnsupportedShortcut: MMTShortcut
 {
-    var identifier: String = ""
+    var destination: MMTNavigator.MMTDestination = .meteorogramHere(MMTUmClimateModel())
     
-    func execute(using tabbar: MMTTabBarController, completion: (() -> Void)?) { }
+    var identifier: String = ""
 }
 
 class StubMigrator : MMTVersionMigrator
@@ -53,7 +60,7 @@ struct StubCitiesStore: MMTCitiesStore
     
     func city(for location: CLLocation, completion: @escaping (MMTResult<MMTCityProt>) -> Void) {}
     
-    func cities(maching criteria: String, completion: @escaping ([MMTCityProt]) -> Void) {}
+    func cities(matching criteria: String, completion: @escaping ([MMTCityProt]) -> Void) {}
     
     func save(city: MMTCityProt) {}
 }

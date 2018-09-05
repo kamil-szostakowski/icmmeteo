@@ -9,26 +9,49 @@
 import Foundation
 import CoreLocation
 
-public class MMTCoreLocationService: NSObject, MMTLocationService, MMTAnalyticsReporter
+public class MMTCoreLocationService: NSObject, MMTLocationService
 {
-    public var analytics: MMTAnalytics?
-    
     // MARK: Properties
     private var locationManager: CLLocationManager
+    private var citiesStore: MMTCitiesStore
+    private var promises: [MMTPromise<MMTCityProt>]
     
-    public var currentLocation: CLLocation? {
-        return locationManager.location
+    public private(set) var authorizationStatus: MMTLocationAuthStatus {
+        didSet { NotificationCenter.default.post(name: .locationAuthChangedNotification, object: nil) }
+    }
+    
+    public private(set) var location: MMTCityProt? {
+        didSet { NotificationCenter.default.post(name: .locationChangedNotification, object: nil) }
     }
     
     // MARK: Initializers
-    public init(locationManager: CLLocationManager)
+    public init(_ locationManager: CLLocationManager, _ citiesStore: MMTCitiesStore = MMTCoreDataCitiesStore())
     {
+        self.promises = [MMTPromise<MMTCityProt>]()
+        self.authorizationStatus = .unauthorized
         self.locationManager = locationManager
+        self.citiesStore = citiesStore
         
         super.init()
-        
         self.locationManager.delegate = self
         self.locationManager.requestAlwaysAuthorization()
+    }    
+}
+
+extension MMTCoreLocationService
+{
+    // MARK: Interface methods
+    public func requestLocation() -> MMTPromise<MMTCityProt>
+    {
+        let promise = MMTPromise<MMTCityProt>()
+        
+        if let city = location {
+            promise.resolve(with: .success(city))
+            return promise
+        }
+        
+        promises.append(promise)
+        return promise
     }
 }
 
@@ -37,30 +60,90 @@ extension MMTCoreLocationService: CLLocationManagerDelegate
     // MARK: Location service methods
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus)
     {
-        var action: MMTAnalyticsAction = .LocationDidAllowNever
+        authorizationStatus = MMTLocationAuthStatus(status)
         
-        if status == .authorizedWhenInUse || status == .authorizedAlways {
-            locationManager.startMonitoringSignificantLocationChanges()
-            locationManager(manager, didUpdateLocations: [])
-            action = status == .authorizedWhenInUse ? .LocationDidAllowWhenUsing : .LocationDidAllowAlways
-            NotificationCenter.default.addObserver(self, selector: #selector(handleAppActivation(notification:)), name: .UIApplicationDidBecomeActive, object: nil)
-        } else {
-            locationManager.stopMonitoringSignificantLocationChanges()
-            locationManager(manager, didUpdateLocations: [])
-            NotificationCenter.default.removeObserver(self)
+        switch authorizationStatus
+        {
+            case .unauthorized:
+                locationManager.stopMonitoringSignificantLocationChanges()
+                updateLocationIfChanged(nil)
+                resolvePromises(with: nil)
+            default:
+                locationManager.startMonitoringSignificantLocationChanges()
         }
         
-        analytics?.sendUserActionReport(.Locations, action: action, actionLabel: "")
-    }
-    
-    @objc public func handleAppActivation(notification: Notification)
-    {
-        NotificationCenter.default.post(name: .locationChangedNotification, object: nil)
+        setupNotificationHandler(for: authorizationStatus)
+        locationManager(locationManager, didUpdateLocations: [])
     }
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
     {
-        NotificationCenter.default.post(name: .locationChangedNotification, object: nil)
+        determineCity(for: manager.location) {
+            self.updateLocationIfChanged($0)
+            self.resolvePromises(with: $0)
+        }
+    }
+    
+    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
+    {
+        updateLocationIfChanged(nil)
+        resolvePromises(with: nil)
+    }
+    
+    @objc public func handleAppActivation(notification: Notification)
+    {
+        locationManager(locationManager, didUpdateLocations: [])
     }
 }
 
+extension MMTCoreLocationService
+{
+    // MARK: Setup methods
+    fileprivate func setupNotificationHandler(for status: MMTLocationAuthStatus)
+    {
+        guard status != .unauthorized else {
+            NotificationCenter.default.removeObserver(self)
+            return
+        }
+        
+        let handler = #selector(handleAppActivation(notification:))
+        NotificationCenter.default.addObserver(self, selector: handler, name: .UIApplicationDidBecomeActive, object: nil)
+    }
+}
+
+extension MMTCoreLocationService
+{
+    // MARK: Data update methods
+    fileprivate func determineCity(for location: CLLocation?, completion: @escaping (MMTCityProt?) -> Void)
+    {
+        guard let aLocation = location else { completion(nil); return }
+        determineCity(for: aLocation, completion: completion)
+    }
+    
+    fileprivate func determineCity(for location: CLLocation, completion: @escaping (MMTCityProt?) -> Void)
+    {
+        citiesStore.city(for: location) {
+            switch $0 {
+                case let .success(city): completion(city)
+                case .failure(_): completion(nil)
+            }
+        }
+    }
+    
+    fileprivate func resolvePromises(with city: MMTCityProt?)
+    {
+        let result: MMTResult<MMTCityProt> = city != nil ?
+            .success(city!) :
+            .failure(.locationNotFound)
+        
+        promises.forEach { $0.resolve(with: result) }
+        promises.removeAll()
+    }
+    
+    fileprivate func updateLocationIfChanged(_ city: MMTCityProt?)
+    {
+        if location != city {
+            location =  city
+        }
+    }
+}

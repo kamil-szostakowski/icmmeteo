@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-public extension MMTCityGeocoder
+public extension MMTRemoteCityGeocoder
 {
     public convenience init()
     {
@@ -21,7 +21,7 @@ public extension MMTCoreDataCitiesStore
 {
     public init()
     {
-        self.init(context: MMTCoreData.instance.context, geocoder: MMTCityGeocoder())
+        self.init(MMTCoreData.instance.context, MMTRemoteCityGeocoder())
     }
 }
 
@@ -76,15 +76,14 @@ extension MMTDetailedMapPreviewModelController
     }
 }
 
-extension MMTForecastService
+extension MMTMeteorogramForecastService
 {
     public convenience init(model: MMTClimateModel)
     {
         let forecastStore = MMTWebForecastStore(model: model)
         let meteorogramStore = MMTMeteorogramStore(model: model)
-        let citiesStore = MMTCoreDataCitiesStore()
         let cache = MMTCoreData.instance.meteorogramsCache
         
-        self.init(forecastStore: forecastStore, meteorogramStore: meteorogramStore, citiesStore: citiesStore, cache: cache)
+        self.init(forecastStore: forecastStore, meteorogramStore: meteorogramStore, cache: cache)
     }
 }
