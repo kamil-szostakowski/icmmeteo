@@ -22,4 +22,5 @@ public enum MMTError: String, Error
     case migrationFailure
     case commentFetchFailure
     case htmlFetchFailure
+    case invalidMLInput
 }

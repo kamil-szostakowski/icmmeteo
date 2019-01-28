@@ -49,15 +49,26 @@ class MMTTestTools
 
 extension UIImage
 {
-    static func from(color: UIColor) -> UIImage
+    static func from(color: UIColor, _ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage
     {
-        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        UIGraphicsBeginImageContext(rect.size)
-        let context = UIGraphicsGetCurrentContext()
-        context!.setFillColor(color.cgColor)
-        context!.fill(rect)
-        let img = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return img!
+        UIGraphicsBeginImageContext(size)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            fatalError("Failed to obtain CGContext")
+        }
+        
+        context.setFillColor(color.cgColor)
+        context.fill(CGRect(origin: .zero, size: size))
+        
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
+            fatalError("Failed to obtain image from CGContext")
+        }
+        
+        UIGraphicsEndImageContext()        
+        return image
+    }
+    
+    convenience init(thisBundle named: String)
+    {
+        self.init(named: named, in: Bundle(for: MMTTestTools.self), compatibleWith: nil)!
     }
 }

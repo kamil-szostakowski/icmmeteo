@@ -42,7 +42,6 @@ class MMTTodayModelControllerTests: XCTestCase
         
         verifyModelUpdate(.newData, operation: {
             XCTAssertEqual($0.meteorogram?.city, self.city)
-            XCTAssertNotNil($0.meteorogramDescription)
             XCTAssertTrue($0.locationServicesEnabled)
         })
     }
@@ -55,7 +54,6 @@ class MMTTodayModelControllerTests: XCTestCase
         
         verifyModelUpdate(.noData, operation: {
             XCTAssertNil($0.meteorogram?.city)
-            XCTAssertNil($0.meteorogramDescription)
             XCTAssertTrue($0.locationServicesEnabled)
         })
     }
@@ -68,7 +66,6 @@ class MMTTodayModelControllerTests: XCTestCase
         
         verifyModelUpdate(.failed, operation: {
             XCTAssertNil($0.meteorogram?.city)
-            XCTAssertNil($0.meteorogramDescription)
             XCTAssertTrue($0.locationServicesEnabled)
         })
     }
@@ -78,8 +75,7 @@ class MMTTodayModelControllerTests: XCTestCase
         locationService.locationPromise.resolve(with: .failure(.locationNotFound))
         
         verifyModelUpdate(.failed, operation: {
-            XCTAssertNil($0.meteorogram?.city)
-            XCTAssertNil($0.meteorogramDescription)
+            XCTAssertNil($0.meteorogram?.city)            
             XCTAssertFalse($0.locationServicesEnabled)
         })
     }

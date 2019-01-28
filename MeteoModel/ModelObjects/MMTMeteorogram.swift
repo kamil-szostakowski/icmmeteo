@@ -10,6 +10,20 @@ import UIKit
 
 public struct MMTMeteorogram
 {
+    public struct Prediction: OptionSet
+    {
+        public let rawValue: Int
+        public static var snow = Prediction(rawValue: 1 << 0)
+        public static var rain = Prediction(rawValue: 1 << 1)
+        public static var storm = Prediction(rawValue: 1 << 2)
+        public static var strongWind = Prediction(rawValue: 1 << 3)
+        public static var clouds = Prediction(rawValue: 1 << 4)
+        
+        public init(rawValue: Int) {
+            self.rawValue = rawValue
+        }
+    }
+    
     public let model: MMTClimateModel
     public let city: MMTCityProt
     public internal(set) var image: UIImage
@@ -24,20 +38,11 @@ public struct MMTMeteorogram
         self.image = UIImage()
         self.legend = nil
     }
-}
-
-public struct MMTMeteorogramDescription
-{
-    public var snow: Double = 0.5
-    public var rain: Double = 0.5
-    public var storm: Double = 0
-    public var strongWind: Double = 0.5
-    public var clouds: Double = 0.5
-    public var startDate: Date
     
-    public init(_ meteorogram: MMTMeteorogram)
+    public func prediction() throws -> Prediction
     {
-        self.startDate = meteorogram.startDate
+        guard let cgImage = image.cgImage else { throw MMTError.invalidMLInput }
+        return try MMTPredictionModelImpl.shared.predict(cgImage)
     }
 }
 

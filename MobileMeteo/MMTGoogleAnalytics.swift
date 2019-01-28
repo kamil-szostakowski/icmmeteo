@@ -16,7 +16,7 @@ extension GAI: MMTAnalytics
         let analyticsReport = GAIDictionaryBuilder.createScreenView().build() as NSDictionary
         
         defaultTracker.set(kGAIScreenName, value: screen)
-        defaultTracker.send(analyticsReport as! [AnyHashable: Any])
+        defaultTracker.send(analyticsReport as? [AnyHashable: Any])
     }
     
     public func sendUserActionReport(_ report: MMTAnalyticsReport)
@@ -26,7 +26,7 @@ extension GAI: MMTAnalytics
         let analyticsReport = GAIDictionaryBuilder.createEvent(withCategory: category, action: action, label: report.actionLabel, value: 1).build() as NSDictionary
         
         defaultTracker.set(kGAIScreenName, value: category)
-        defaultTracker.send(analyticsReport as! [AnyHashable: Any])
+        defaultTracker.send(analyticsReport as? [AnyHashable: Any])
     }
     
     public func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel label: String)

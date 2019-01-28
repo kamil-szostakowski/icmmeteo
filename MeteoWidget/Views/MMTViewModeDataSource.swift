@@ -51,11 +51,15 @@ class MMTTodayExtensionDataSource
     
     private func configureCompactView(for model: MMTTodayModelController) -> UIView
     {
-        guard let description = model.meteorogramDescription else {
+        guard let meteorogram = model.meteorogram else {
             return updateErrorView.updated(with: .meteorogramUpdateFailure)
         }
         
-        let viewModel = MMTForecastDescriptionView.ViewModel(description)        
+        guard let prediction = try? meteorogram.prediction() else {
+            return updateErrorView.updated(with: .meteorogramUpdateFailure)
+        }
+        
+        let viewModel = MMTForecastDescriptionView.ViewModel(prediction)        
         return forecastDescriptionView.updated(with: viewModel)
     }
     

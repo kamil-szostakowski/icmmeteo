@@ -57,35 +57,36 @@ extension MMTForecastDescriptionView: MMTUpdatableView
 
 extension MMTForecastDescriptionView.ViewModel
 {
-    init(_ description: MMTMeteorogramDescription)
+    init(_ prediction: MMTMeteorogram.Prediction)
     {
-        let treshold: Double = 0.4
-        let startDate = DateFormatter.utcFormatter.string(from: description.startDate)
+        let startDate = DateFormatter.utcFormatter.string(from: Date()) // FIXME: Wrong date !!!
         var iconImage = #imageLiteral(resourceName: "ext-sunny")
         
         var
         components = [String]()
-        components.append(description.clouds > treshold ? "pochmurnie" : "słonecznie")
+        components.append(prediction.contains(.clouds) ? "pochmurnie" : "słonecznie")
         
-        if description.strongWind > treshold {
+        if prediction.contains(.strongWind) {
             components.append("silny wiatr")
             iconImage = #imageLiteral(resourceName: "ext-wind")
         }
         
-        if description.storm > treshold {
-            components.append("\nmożliwe burze")
-            iconImage = #imageLiteral(resourceName: "ext-storm")
-        } else if description.rain > treshold && description.snow > treshold {
-            if components.count == 2 { components.remove(at: 0) }
-            components.append("możliwe opady deszczu ze śniegiem")
-            iconImage = #imageLiteral(resourceName: "ext-snow")
-        } else if description.rain > treshold {
+//        if prediction.storm > treshold {
+//            components.append("\nmożliwe burze")
+//            iconImage = #imageLiteral(resourceName: "ext-storm")
+//        } else if prediction.rain > treshold && prediction.snow > treshold {
+//            if components.count == 2 { components.remove(at: 0) }
+//            components.append("możliwe opady deszczu ze śniegiem")
+//            iconImage = #imageLiteral(resourceName: "ext-snow")
+        
+        if prediction.contains(.rain) {
             components.append("\nmożliwe opady deszczu")
             iconImage = #imageLiteral(resourceName: "ext-rain")
-        } else if description.snow > treshold {
-            components.append("\nmożliwe opady śniegu")
-            iconImage = #imageLiteral(resourceName: "ext-snow")
         }
+//        else if prediction.snow > treshold {
+//            components.append("\nmożliwe opady śniegu")
+//            iconImage = #imageLiteral(resourceName: "ext-snow")
+//        }
         
         icon = iconImage
         startDateText = "Start prognozy: \(startDate)"
