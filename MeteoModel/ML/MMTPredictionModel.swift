@@ -23,25 +23,34 @@ class MMTPredictionModelImpl : MMTPredictionModel
     class InputProcessor {}
     
     // MARK: Properties
-    private let model = MeteoML()
+    private let rainModel = MeteoML()
+    private let windModel = MeteoWindML()
+    private let cloudsModel = MeteoCloudsML()
     private let inputProcessor = InputProcessor()
     static let shared = MMTPredictionModelImpl()
     
     // MARK: Interface methods
     func predict(_ image: CGImage) throws -> MMTMeteorogram.Prediction
     {
+        var prediction = MMTMeteorogram.Prediction()
         let predictions = try inputProcessor.inputs(from: image)
-            .map { return try model.prediction(input: $0) }
         
-        return try MMTMeteorogram.Prediction(predictions)
+        prediction.insert(try rainModel.prediction(input: MeteoMLInput(predictions[0])))
+        prediction.insert(try windModel.prediction(input: MeteoWindMLInput(predictions[1])))
+        prediction.insert(try cloudsModel.prediction(input: MeteoCloudsMLInput(predictions[2])))
+        
+        return prediction
     }
+    
+    // MARK: Helper methods
+    //private
 }
 
 // MARK: Helper class responsible for model input transformation
-fileprivate extension MMTPredictionModelImpl.InputProcessor
+extension MMTPredictionModelImpl.InputProcessor
 {
     // MARK: Input transformation methods
-    func inputs(from image: CGImage, size: CGSize = CGSize(width: 180, height: 85)) throws -> [MeteoMLInput]
+    func inputs(from image: CGImage, size: CGSize = CGSize(width: 180, height: 85)) throws -> [CVPixelBuffer]
     {
         return try [140, 314, 522]
             .map { return CGRect(origin: CGPoint(x: 65, y: $0), size: size) }
@@ -49,7 +58,6 @@ fileprivate extension MMTPredictionModelImpl.InputProcessor
             .map { return try self.transformScale(input: $0, scale: 0.5) }
             .map { return try self.transformGrayscale(input: $0) }
             .map { return try self.transformPixelBuffer(input: $0) }
-            .map { return try MeteoMLInput($0) }
     }
     
     private func transformCrop(input: CGImage, to rect: CGRect) throws -> CGImage
@@ -74,6 +82,7 @@ fileprivate extension MMTPredictionModelImpl.InputProcessor
         let size = CGSize(width: width, height: height)
         
         guard let context = input.createContext(size: size) else { throw MMTError.invalidMLInput }
+        context.interpolationQuality = .medium
         context.draw(input, in: CGRect(origin: .zero, size: size))
         guard let image = context.makeImage() else { throw MMTError.invalidMLInput }
         
@@ -124,7 +133,7 @@ fileprivate extension CGImage
         let sHeight = size == .zero ? height : Int(size.height)
         let cSpace = CGColorSpaceCreateDeviceGray()
         
-        let context = CGContext(data: nil, width: sWidth, height: sHeight, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: cSpace, bitmapInfo: CGImageAlphaInfo.none.rawValue
+        let context = CGContext(data: nil, width: sWidth, height: sHeight, bitsPerComponent: 8, bytesPerRow: 630, space: cSpace, bitmapInfo: CGImageAlphaInfo.none.rawValue
         )
         
         return context
@@ -134,37 +143,67 @@ fileprivate extension CGImage
 // MARK: Convenience extension
 fileprivate extension MeteoMLInput
 {
-    convenience init(_ pixelBuffer: CVPixelBuffer) throws
-    {
+    convenience init(_ pixelBuffer: CVPixelBuffer) {
         self.init(dnn__input_from_feature_columns__input_layer__image__encoded__ToFloat__0: pixelBuffer)
+    }
+}
+
+fileprivate extension MeteoWindMLInput
+{
+    convenience init(_ pixelBuffer: CVPixelBuffer) throws {
+        self.init(dnn__input_from_feature_columns__input_layer__image__encoded__ToFloat__0: pixelBuffer)
+    }
+}
+
+fileprivate extension MeteoCloudsMLInput
+{
+    convenience init(_ pixelBuffer: CVPixelBuffer) throws {
+        self.init(dnn__input_from_feature_columns__input_layer__image__encoded__ToFloat__0: pixelBuffer)
+    }
+}
+
+// MARK: Convenience extension
+fileprivate extension MeteoMLOutput
+{
+    var rainProbability: Double {
+        return dnn__head__predictions__probabilities__0[0].doubleValue
+    }
+    
+    var snowProbability: Double {
+        return dnn__head__predictions__probabilities__0[1].doubleValue
+    }
+}
+
+fileprivate extension MeteoWindMLOutput
+{
+    var windProbability: Double {
+        return dnn__head__predictions__probabilities__0[0].doubleValue
+    }
+}
+
+fileprivate extension MeteoCloudsMLOutput
+{
+    var cloudsProbability: Double {
+        return dnn__head__predictions__probabilities__0[0].doubleValue
     }
 }
 
 // MARK: Convenience extension
 fileprivate extension MMTMeteorogram.Prediction
 {
-    init(_ predictions: [MeteoMLOutput]) throws
+    mutating func insert(_ prediction: MeteoMLOutput)
     {
-        guard predictions.count == 3 else {
-            throw MMTError.invalidMLInput
-        }
-        
-        let treshold = 0.7
-        self = []
-        
-        // Checking rain probability
-        if predictions[0].dnn__head__predictions__probabilities__0[0].doubleValue > treshold {
-            self.insert(.rain)
-        }
-        
-        // Checking string wind probability
-        if predictions[1].dnn__head__predictions__probabilities__0[1].doubleValue > treshold {
-            self.insert(.strongWind)
-        }
-        
-        // Checking clouds probability
-        if predictions[2].dnn__head__predictions__probabilities__0[2].doubleValue > treshold {
-            self.insert(.clouds)
-        }
+        if prediction.rainProbability > 0.7 { self.insert(.rain) }
+        if prediction.snowProbability > 0.7 { self.insert(.snow) }
+    }
+    
+    mutating func insert(_ prediction: MeteoWindMLOutput)
+    {
+        if prediction.windProbability > 0.7 { self.insert(.strongWind) }
+    }
+    
+    mutating func insert(_ prediction: MeteoCloudsMLOutput)
+    {
+        if prediction.cloudsProbability > 0.7 { self.insert(.clouds) }
     }
 }

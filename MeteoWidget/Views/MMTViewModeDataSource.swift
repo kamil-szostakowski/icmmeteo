@@ -55,11 +55,10 @@ class MMTTodayExtensionDataSource
             return updateErrorView.updated(with: .meteorogramUpdateFailure)
         }
         
-        guard let prediction = try? meteorogram.prediction() else {
+        guard let viewModel = MMTForecastDescriptionView.ViewModel(meteorogram) else {
             return updateErrorView.updated(with: .meteorogramUpdateFailure)
         }
         
-        let viewModel = MMTForecastDescriptionView.ViewModel(prediction)        
         return forecastDescriptionView.updated(with: viewModel)
     }
     

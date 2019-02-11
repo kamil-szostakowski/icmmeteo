@@ -16,12 +16,14 @@ class MMTForecastDescriptionView: UIView
         var icon: UIImage
         var startDateText: String
         var descriptionText: String
+        var city: String
     }
     
     // MARK: Properties
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet var startDateLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet weak var cityNameLabel: UILabel!
     
     // MARK: Initializers
     required init?(coder aDecoder: NSCoder)
@@ -50,6 +52,7 @@ extension MMTForecastDescriptionView: MMTUpdatableView
         iconImageView.image = description.icon
         startDateLabel.text = description.startDateText
         descriptionLabel.text = description.descriptionText
+        cityNameLabel.text = description.city
         
         return self
     }
@@ -57,39 +60,36 @@ extension MMTForecastDescriptionView: MMTUpdatableView
 
 extension MMTForecastDescriptionView.ViewModel
 {
-    init(_ prediction: MMTMeteorogram.Prediction)
+    init?(_ meteorogram: MMTMeteorogram)
     {
-        let startDate = DateFormatter.utcFormatter.string(from: Date()) // FIXME: Wrong date !!!
+        guard let prediction = try? meteorogram.prediction() else {
+            return nil
+        }
+        
+        let startDate = DateFormatter.utcFormatter.string(from: meteorogram.startDate)
         var iconImage = #imageLiteral(resourceName: "ext-sunny")
         
         var
         components = [String]()
-        components.append(prediction.contains(.clouds) ? "pochmurnie" : "słonecznie")
+        components.append(prediction.contains(.clouds) ? "Pochmurnie" : "Słonecznie")
         
         if prediction.contains(.strongWind) {
             components.append("silny wiatr")
             iconImage = #imageLiteral(resourceName: "ext-wind")
         }
-        
-//        if prediction.storm > treshold {
-//            components.append("\nmożliwe burze")
-//            iconImage = #imageLiteral(resourceName: "ext-storm")
-//        } else if prediction.rain > treshold && prediction.snow > treshold {
-//            if components.count == 2 { components.remove(at: 0) }
-//            components.append("możliwe opady deszczu ze śniegiem")
-//            iconImage = #imageLiteral(resourceName: "ext-snow")
-        
+
         if prediction.contains(.rain) {
-            components.append("\nmożliwe opady deszczu")
+            components.append("\nmożliwy deszcz")
             iconImage = #imageLiteral(resourceName: "ext-rain")
         }
-//        else if prediction.snow > treshold {
-//            components.append("\nmożliwe opady śniegu")
-//            iconImage = #imageLiteral(resourceName: "ext-snow")
-//        }
+        else if prediction.contains(.snow) {
+            components.append("\nmożliwy śnieg")
+            iconImage = #imageLiteral(resourceName: "ext-snow")
+        }
         
         icon = iconImage
         startDateText = "Start prognozy: \(startDate)"
         descriptionText = components.joined(separator: ", ")
+        city = meteorogram.city.name
     }
 }

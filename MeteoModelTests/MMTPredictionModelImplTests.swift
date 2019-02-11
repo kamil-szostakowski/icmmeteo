@@ -11,31 +11,75 @@ import XCTest
 
 class MMTPredictionModelImplTests: XCTestCase
 {
-    // MARK: Test methods
-    func testPredictionWhenAllPhenomenaDetected()
+    // MARK: Test methods    
+    func testPrediction_1()
     {
-        let image = UIImage(thisBundle: "2017122300-379-285").cgImage!
-        let model = MMTPredictionModelImpl()
-        let prediction = try! model.predict(image)
-        
+        let image = UIImage(thisBundle: "2017122300-379-285-full").cgImage!
+        let prediction = try! MMTPredictionModelImpl().predict(image)
+
         XCTAssertTrue(prediction.contains(.rain))
+        XCTAssertFalse(prediction.contains(.snow))
+        XCTAssertTrue(prediction.contains(.strongWind))
+        XCTAssertTrue(prediction.contains(.clouds))
+    }
+
+    func testPrediction_2()
+    {
+        let image = UIImage(thisBundle: "2018092900-381-199-full").cgImage!
+        let prediction = try! MMTPredictionModelImpl().predict(image)
+
+        XCTAssertFalse(prediction.contains(.rain))
+        XCTAssertFalse(prediction.contains(.snow))
+        XCTAssertFalse(prediction.contains(.strongWind))
+        XCTAssertFalse(prediction.contains(.clouds))
+    }
+
+    func testPrediction_3()
+    {
+        let image = UIImage(thisBundle: "2017122000-432-277-full").cgImage!
+        let prediction = try! MMTPredictionModelImpl().predict(image)
+
+        XCTAssertTrue(prediction.contains(.snow))
+        XCTAssertFalse(prediction.contains(.rain))
         XCTAssertTrue(prediction.contains(.strongWind))
         XCTAssertTrue(prediction.contains(.clouds))
     }
     
-    func testPredictionWhenNoPhenomenonDetected()
+    func testPrediction_4()
     {
-        let image = UIImage(thisBundle: "2018092900-381-199").cgImage!
-        let model = MMTPredictionModelImpl()
-        let prediction = try! model.predict(image)
+        let image = UIImage(thisBundle: "2018091218-379-285-full").cgImage!
+        let prediction = try! MMTPredictionModelImpl().predict(image)
         
-        XCTAssertTrue(prediction.isEmpty)
+        XCTAssertFalse(prediction.contains(.rain))
+        XCTAssertFalse(prediction.contains(.snow))
+        XCTAssertFalse(prediction.contains(.strongWind))
+        XCTAssertTrue(prediction.contains(.clouds))
     }
     
-//    func testPredictionInputsForInalidImage()
-//    {
-//        let image = UIImage(thisBundle: "2017122300-379-285-rain.jpeg").cgImage!
-//        let model = MMTPredictionModelImpl()
-//        XCTAssertThrowsError(try model.predict(image))
-//    }
+    func testPrediction_5()
+    {
+        let image = UIImage(thisBundle: "2018081406-390-152-full").cgImage!
+        let prediction = try! MMTPredictionModelImpl().predict(image)
+        
+        XCTAssertFalse(prediction.contains(.rain))
+        XCTAssertFalse(prediction.contains(.snow))
+        XCTAssertTrue(prediction.contains(.strongWind))
+        XCTAssertTrue(prediction.contains(.clouds))
+    }
+    
+    func testPredictionPerformance()
+    {
+        let model = MMTPredictionModelImpl()
+        let images = [
+            UIImage(thisBundle: "2018081406-390-152-full").cgImage!,
+            UIImage(thisBundle: "2018092900-381-199-full").cgImage!,
+            UIImage(thisBundle: "2017122000-432-277-full").cgImage!,
+            UIImage(thisBundle: "2018091218-379-285-full").cgImage!,
+            UIImage(thisBundle: "2018081406-390-152-full").cgImage!
+        ]
+        
+        measure {
+            for img in images { _ = try? model.predict(img) }                
+        }
+    }
 }
