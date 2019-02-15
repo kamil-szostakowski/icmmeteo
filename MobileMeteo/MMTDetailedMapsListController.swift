@@ -9,6 +9,7 @@
 import UIKit
 import Foundation
 import MeteoModel
+import MeteoUIKit
 
 class MMTDetailedMapsListController: UIViewController
 {

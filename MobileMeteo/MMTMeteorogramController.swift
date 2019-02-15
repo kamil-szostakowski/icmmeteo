@@ -10,6 +10,7 @@ import Foundation
 import CoreLocation
 import CoreSpotlight
 import MeteoModel
+import MeteoUIKit
 
 class MMTMeteorogramController: UIViewController, MMTActivityIndicating
 {

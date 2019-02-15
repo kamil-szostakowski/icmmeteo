@@ -8,6 +8,7 @@
 
 import UIKit
 import MeteoModel
+import MeteoUIKit
 
 enum MMTUpdateErrorType
 {

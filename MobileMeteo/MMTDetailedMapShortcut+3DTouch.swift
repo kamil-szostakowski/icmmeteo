@@ -7,6 +7,7 @@
 //
 
 import MeteoModel
+import MeteoUIKit
 
 // 3D Touch, quick actions integration
 extension UIApplicationShortcutItem

@@ -7,6 +7,7 @@
 //
 
 import MeteoModel
+import MeteoUIKit
 
 class MMTForecasterCommentController: UIViewController, MMTActivityIndicating
 {

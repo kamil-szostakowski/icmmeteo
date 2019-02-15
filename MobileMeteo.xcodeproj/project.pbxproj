@@ -35,7 +35,6 @@
 		1B68CD362045B85000AB8046 /* MMTActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68CD352045B85000AB8046 /* MMTActivityIndicator.swift */; };
 		1B68CD382045B89F00AB8046 /* MMTActivityIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B68CD372045B89F00AB8046 /* MMTActivityIndicator.xib */; };
 		1B71864720ED476900E9B45E /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9ED9FF91E07527B00190F59 /* UIView.swift */; };
-		1B7948F622160D5100E71BF6 /* MMTConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F957544C1B4D050C00C4E672 /* MMTConstants.swift */; };
 		1B8A88B720ED596F00BEB191 /* MMTForecastDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A88B620ED596F00BEB191 /* MMTForecastDescriptionView.swift */; };
 		1B8A88BA20ED597A00BEB191 /* MMTForecastDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B8A88B920ED597A00BEB191 /* MMTForecastDescriptionView.xib */; };
 		1B8A88BD20EE92DE00BEB191 /* MMTViewModeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A88BC20EE92DE00BEB191 /* MMTViewModeDataSource.swift */; };
@@ -52,6 +51,9 @@
 		1BB3A9072112179700A5BCA4 /* MMTMeteorogramHereShortcut+3DTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB3A9062112179700A5BCA4 /* MMTMeteorogramHereShortcut+3DTouch.swift */; };
 		1BB3A90A2112251300A5BCA4 /* MMTMeteorogramHereShortcutConversion_3DTouchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB3A9092112251300A5BCA4 /* MMTMeteorogramHereShortcutConversion_3DTouchTests.swift */; };
 		1BB3A90D21122B0500A5BCA4 /* MMTNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB3A90C21122B0500A5BCA4 /* MMTNavigator.swift */; };
+		1BD2BC7A2217716E00E2BBA1 /* MeteoUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD2BC772217713800E2BBA1 /* MeteoUIKit.framework */; };
+		1BD2BC7B2217716E00E2BBA1 /* MeteoUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD2BC772217713800E2BBA1 /* MeteoUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1BD2BC7E2217718000E2BBA1 /* MeteoUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD2BC772217713800E2BBA1 /* MeteoUIKit.framework */; };
 		1BF36E091FE3003C00083538 /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E081FE3003C00083538 /* UISegmentedControl.swift */; };
 		1BF36E0D1FE485D200083538 /* MMTDetailedMapShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E0C1FE485D200083538 /* MMTDetailedMapShortcut.swift */; };
 		1BF36E0F1FE4860900083538 /* MMTMeteorogramShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E0E1FE4860900083538 /* MMTMeteorogramShortcut.swift */; };
@@ -117,6 +119,27 @@
 			remoteGlobalIDString = 1B39BEB820DD8A60002495B5;
 			remoteInfo = MeteoWidget;
 		};
+		1BD2BC762217713800E2BBA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BD2BC702217713700E2BBA1 /* MeteoUIKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1BD2BC562217713700E2BBA1;
+			remoteInfo = MeteoUIKit;
+		};
+		1BD2BC782217713800E2BBA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BD2BC702217713700E2BBA1 /* MeteoUIKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1BD2BC5F2217713700E2BBA1;
+			remoteInfo = MeteoUIKitTests;
+		};
+		1BD2BC7C2217716E00E2BBA1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BD2BC702217713700E2BBA1 /* MeteoUIKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1BD2BC552217713700E2BBA1;
+			remoteInfo = MeteoUIKit;
+		};
 		1BF55CE52049E63E009BA4E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1BF55CE02049E63E009BA4E2 /* MeteoModel.xcodeproj */;
@@ -172,6 +195,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				1BD2BC7B2217716E00E2BBA1 /* MeteoUIKit.framework in Embed Frameworks */,
 				1BF55CEA2049E6EB009BA4E2 /* MeteoModel.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -225,6 +249,7 @@
 		1BB3A9062112179700A5BCA4 /* MMTMeteorogramHereShortcut+3DTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MMTMeteorogramHereShortcut+3DTouch.swift"; sourceTree = "<group>"; };
 		1BB3A9092112251300A5BCA4 /* MMTMeteorogramHereShortcutConversion_3DTouchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramHereShortcutConversion_3DTouchTests.swift; sourceTree = "<group>"; };
 		1BB3A90C21122B0500A5BCA4 /* MMTNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTNavigator.swift; sourceTree = "<group>"; };
+		1BD2BC702217713700E2BBA1 /* MeteoUIKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MeteoUIKit.xcodeproj; path = MeteoUIKit/MeteoUIKit.xcodeproj; sourceTree = "<group>"; };
 		1BEB08F820F4007700B26035 /* MobileMeteo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileMeteo.entitlements; sourceTree = "<group>"; };
 		1BEB08F920F4008000B26035 /* MeteoWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MeteoWidget.entitlements; sourceTree = "<group>"; };
 		1BF36E081FE3003C00083538 /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
@@ -308,6 +333,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BD2BC7E2217718000E2BBA1 /* MeteoUIKit.framework in Frameworks */,
 				1B39BECC20DD9394002495B5 /* MeteoModel.framework in Frameworks */,
 				1B39BEBB20DD8A60002495B5 /* NotificationCenter.framework in Frameworks */,
 			);
@@ -327,6 +353,7 @@
 			files = (
 				F989C52F1B9D6B1A002A1903 /* MapKit.framework in Frameworks */,
 				F9E696A41AFCE70700273DA3 /* CoreLocation.framework in Frameworks */,
+				1BD2BC7A2217716E00E2BBA1 /* MeteoUIKit.framework in Frameworks */,
 				F94051691C57B5CA00D52B1C /* CoreSpotlight.framework in Frameworks */,
 				1BF55CE92049E6EB009BA4E2 /* MeteoModel.framework in Frameworks */,
 				A8736ED2857D736E552A5A9A /* libPods-MobileMeteo.a in Frameworks */,
@@ -462,6 +489,15 @@
 				1BB3A90C21122B0500A5BCA4 /* MMTNavigator.swift */,
 			);
 			name = Navigators;
+			sourceTree = "<group>";
+		};
+		1BD2BC712217713700E2BBA1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1BD2BC772217713800E2BBA1 /* MeteoUIKit.framework */,
+				1BD2BC792217713800E2BBA1 /* MeteoUIKitTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		1BF148711F686F27002D9FB0 /* ViewExtensions */ = {
@@ -666,6 +702,7 @@
 		F9E6965B1AFCC06600273DA3 = {
 			isa = PBXGroup;
 			children = (
+				1BD2BC702217713700E2BBA1 /* MeteoUIKit.xcodeproj */,
 				1BF55CE02049E63E009BA4E2 /* MeteoModel.xcodeproj */,
 				F9E696661AFCC06600273DA3 /* MobileMeteo */,
 				F9E696831AFCC06600273DA3 /* MobileMeteoTests */,
@@ -832,6 +869,7 @@
 			dependencies = (
 				1BF55CEC2049E6EB009BA4E2 /* PBXTargetDependency */,
 				1B39BEC420DD8A60002495B5 /* PBXTargetDependency */,
+				1BD2BC7D2217716E00E2BBA1 /* PBXTargetDependency */,
 			);
 			name = MobileMeteo;
 			productName = MobileMeteo;
@@ -925,6 +963,10 @@
 					ProductGroup = 1BF55CE12049E63E009BA4E2 /* Products */;
 					ProjectRef = 1BF55CE02049E63E009BA4E2 /* MeteoModel.xcodeproj */;
 				},
+				{
+					ProductGroup = 1BD2BC712217713700E2BBA1 /* Products */;
+					ProjectRef = 1BD2BC702217713700E2BBA1 /* MeteoUIKit.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -937,6 +979,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		1BD2BC772217713800E2BBA1 /* MeteoUIKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MeteoUIKit.framework;
+			remoteRef = 1BD2BC762217713800E2BBA1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1BD2BC792217713800E2BBA1 /* MeteoUIKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MeteoUIKitTests.xctest;
+			remoteRef = 1BD2BC782217713800E2BBA1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		1BF55CE62049E63E009BA4E2 /* MeteoModel.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1155,7 +1211,6 @@
 				1BF5142320ED40E00091653D /* MMTUpdateErrorView.swift in Sources */,
 				1B8A88BD20EE92DE00BEB191 /* MMTViewModeDataSource.swift in Sources */,
 				1B2C534C20E3EAF1003727A3 /* NCUpdateResult.swift in Sources */,
-				1B7948F622160D5100E71BF6 /* MMTConstants.swift in Sources */,
 				1B39BEBE20DD8A60002495B5 /* MMTTodayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1256,6 +1311,11 @@
 			isa = PBXTargetDependency;
 			target = 1B39BEB820DD8A60002495B5 /* MeteoWidget */;
 			targetProxy = 1B39BEC320DD8A60002495B5 /* PBXContainerItemProxy */;
+		};
+		1BD2BC7D2217716E00E2BBA1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MeteoUIKit;
+			targetProxy = 1BD2BC7C2217716E00E2BBA1 /* PBXContainerItemProxy */;
 		};
 		1BF55CEC2049E6EB009BA4E2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
