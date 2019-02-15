@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -21,14 +20,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Zma-eW-q2F">
-                    <rect key="frame" x="20" y="34" width="280" height="47.5"/>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Zma-eW-q2F">
+                    <rect key="frame" x="20" y="27" width="280" height="61"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMY-HI-75Y">
-                            <rect key="frame" x="0.0" y="0.0" width="32" height="47.5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="64" height="61"/>
                             <subviews>
-                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="ext-detailed-maps" translatesAutoresizingMaskIntoConstraints="NO" id="OKB-9A-7r1">
-                                    <rect key="frame" x="0.0" y="9" width="32" height="32"/>
+                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="error" translatesAutoresizingMaskIntoConstraints="NO" id="OKB-9A-7r1">
+                                    <rect key="frame" x="0.0" y="-6.5" width="64" height="64"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="OKB-9A-7r1" secondAttribute="height" multiplier="1:1" id="l5B-S1-vKB"/>
                                     </constraints>
@@ -38,13 +37,13 @@
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="OKB-9A-7r1" secondAttribute="trailing" id="JBz-nc-fCB"/>
                                 <constraint firstItem="OKB-9A-7r1" firstAttribute="leading" secondItem="DMY-HI-75Y" secondAttribute="leading" id="V1D-lU-Ilr"/>
-                                <constraint firstItem="OKB-9A-7r1" firstAttribute="centerY" secondItem="DMY-HI-75Y" secondAttribute="centerY" id="fQu-ZR-BJ0"/>
+                                <constraint firstItem="OKB-9A-7r1" firstAttribute="centerY" secondItem="DMY-HI-75Y" secondAttribute="centerY" constant="-5" id="fQu-ZR-BJ0"/>
                             </constraints>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Usługi lokalizacyjne są niedostępne." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Toe-Nr-F1N">
-                            <rect key="frame" x="52" y="0.0" width="228" height="47.5"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
-                            <nil key="textColor"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Nie udało się pobrać meteorogram. Spróbuj ponownie później." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Toe-Nr-F1N">
+                            <rect key="frame" x="69" y="0.0" width="211" height="61"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -65,6 +64,6 @@
         </view>
     </objects>
     <resources>
-        <image name="ext-detailed-maps" width="32" height="32"/>
+        <image name="error" width="64" height="64"/>
     </resources>
 </document>

@@ -76,6 +76,17 @@ class MMTTodayModelControllerTests: XCTestCase
         
         verifyModelUpdate(.failed, operation: {
             XCTAssertNil($0.meteorogram?.city)            
+            XCTAssertTrue($0.locationServicesEnabled)
+        })
+    }
+    
+    func testModelUpdateWhenLocationServiceDisabled()
+    {
+        locationService.authorizationStatus = .unauthorized
+        locationService.locationPromise.resolve(with: .failure(.locationNotFound))
+        
+        verifyModelUpdate(.failed, operation: {
+            XCTAssertNil($0.meteorogram?.city)
             XCTAssertFalse($0.locationServicesEnabled)
         })
     }

@@ -68,27 +68,31 @@ extension MMTForecastDescriptionView.ViewModel
         
         let startDate = DateFormatter.utcFormatter.string(from: meteorogram.startDate)
         var iconImage = #imageLiteral(resourceName: "ext-sunny")
+        var components = [String]()
         
-        var
-        components = [String]()
-        components.append(prediction.contains(.clouds) ? "Pochmurnie" : "Słonecznie")
+        if prediction.contains(.clouds) {
+            components.append(MMTLocalizedString("widget.cloudy"))
+            iconImage = #imageLiteral(resourceName: "ext-cloudy")
+        } else {
+            components.append(MMTLocalizedString("widget.sunny"))
+        }
         
         if prediction.contains(.strongWind) {
-            components.append("silny wiatr")
+            components.append(MMTLocalizedString("widget.windy"))
             iconImage = #imageLiteral(resourceName: "ext-wind")
         }
 
         if prediction.contains(.rain) {
-            components.append("\nmożliwy deszcz")
+            components.append(MMTLocalizedString("widget.rainy"))
             iconImage = #imageLiteral(resourceName: "ext-rain")
         }
         else if prediction.contains(.snow) {
-            components.append("\nmożliwy śnieg")
+            components.append(MMTLocalizedString("widget.snowy"))
             iconImage = #imageLiteral(resourceName: "ext-snow")
         }
         
         icon = iconImage
-        startDateText = "Start prognozy: \(startDate)"
+        startDateText = MMTLocalizedStringWithFormat("widget.forecast.start: %@", startDate)
         descriptionText = components.joined(separator: ", ")
         city = meteorogram.city.name
     }

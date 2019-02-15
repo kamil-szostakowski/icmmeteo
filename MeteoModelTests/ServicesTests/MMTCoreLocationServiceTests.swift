@@ -117,6 +117,7 @@ class MMTCoreLocationServiceTests: XCTestCase
     
     func testLocationRequestPromiseWhenDetectionFailure()
     {
+        verifyAuthorization(.authorizedWhenInUse, .whenInUse)
         verifyLocationRequestPromise(expected: .failure(.locationNotFound), {
             self.service.locationManager(self.locationManager, didFailWithError: NSError(domain: "", code: 1, userInfo: nil))
         })
@@ -124,7 +125,8 @@ class MMTCoreLocationServiceTests: XCTestCase
 
     func testLocationRequestPromiseWhenNoAuthorization()
     {
-        verifyLocationRequestPromise(expected: .failure(.locationNotFound), {
+        verifyAuthorization(.denied, .unauthorized)
+        verifyLocationRequestPromise(expected: .failure(.locationServicesDisabled), {
             self.service.locationManager(self.locationManager, didChangeAuthorization: .denied)
         })
     }

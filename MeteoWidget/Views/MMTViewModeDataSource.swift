@@ -39,7 +39,7 @@ class MMTTodayExtensionDataSource
     
     func todayExtension(_ ext: NSExtensionContext, displayModeFor model: MMTTodayModelController) -> NCWidgetDisplayMode
     {
-        return model.locationServicesEnabled ? .expanded : .compact
+        return model.meteorogram != nil ? .expanded : .compact
     }
     
     // MARK: Helper methods

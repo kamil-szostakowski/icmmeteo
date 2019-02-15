@@ -29,13 +29,12 @@ public class MMTTodayModelController: MMTModelController
     public func onUpdate(completion: @escaping (MMTUpdateResult) -> Void)
     {
         locationService.requestLocation().observe {
+            self.locationServicesEnabled = self.locationService.authorizationStatus != .unauthorized
             switch $0 {
             case let .success(city):
-                self.locationServicesEnabled = true
                 self.updateForecast(for: city, completion: completion)
             case .failure(_):
-                self.meteorogram = nil
-                self.locationServicesEnabled = false
+                self.meteorogram = nil                
                 self.notifyWatchers(.failed, completion: completion)
             }
         }

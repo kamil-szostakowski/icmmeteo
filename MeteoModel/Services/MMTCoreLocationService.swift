@@ -132,9 +132,10 @@ extension MMTCoreLocationService
     
     fileprivate func resolvePromises(with city: MMTCityProt?)
     {
+        let isAuthorized = authorizationStatus != .unauthorized
         let result: MMTResult<MMTCityProt> = city != nil ?
             .success(city!) :
-            .failure(.locationNotFound)
+            .failure(isAuthorized ? .locationNotFound : .locationServicesDisabled)
         
         promises.forEach { $0.resolve(with: result) }
         promises.removeAll()
