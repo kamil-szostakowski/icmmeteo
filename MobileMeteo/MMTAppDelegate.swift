@@ -17,7 +17,7 @@ import NotificationCenter
 public let MMTDebugActionCleanupDb = "CLEANUP_DB"
 public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
 
-@UIApplicationMain class MMTAppDelegate: UIResponder, UIApplicationDelegate
+@UIApplicationMain class MMTAppDelegate: UIResponder, UIApplicationDelegate, MMTAnalyticsReporter
 {
     // MARK: Properties
     var window: UIWindow?
@@ -66,7 +66,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         }
         
         navigator.navigate(to: destination) {}
-        analytics?.sendUserActionReport(.Shortcut, action: .ShortcutSpotlightDidActivate, actionLabel: "")
+        analytics?.sendUserActionReport(.Shortcut, action: .ShortcutSpotlightDidActivate)
         return true
     }
     
@@ -77,14 +77,14 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         }
         
         navigator.navigate(to: destination) { completionHandler(true) }
-        analytics?.sendUserActionReport(.Shortcut, action: .Shortcut3DTouchDidActivate, actionLabel: "")
+        analytics?.sendUserActionReport(.Shortcut, action: .Shortcut3DTouchDidActivate)
     }
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
         todayModelController.onUpdate {
             if $0 == .newData {
-                self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish, actionLabel: "")
+                self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish)
             }
             completionHandler(UIBackgroundFetchResult(updateStatus: $0))
         }

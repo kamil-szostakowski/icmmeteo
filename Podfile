@@ -12,6 +12,10 @@ target 'MobileMeteo' do
 	common
 end
 
+target 'MeteoWidget' do
+    common
+end
+
 target 'MobileMeteoTests' do
 	common
 end

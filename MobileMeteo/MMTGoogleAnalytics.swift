@@ -33,6 +33,11 @@ extension GAI: MMTAnalytics
     {
         sendUserActionReport(MMTAnalyticsReport(category: category, action: action, actionLabel: label))
     }
+    
+    func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction)
+    {
+        sendUserActionReport(category, action: action, actionLabel: "")
+    }
 }
 
 extension MMTAnalyticsReporter
@@ -55,7 +60,6 @@ extension MMTAnalyticsReporter
 }
 
 extension UIViewController: MMTAnalyticsReporter {}
-extension MMTAppDelegate: MMTAnalyticsReporter {}
 
 extension MMTAnalyticsAction
 {

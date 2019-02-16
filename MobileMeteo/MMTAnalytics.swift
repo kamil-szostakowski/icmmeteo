@@ -15,13 +15,13 @@ enum MMTAnalyticsCategory: String
     case DetailedMaps
     case Shortcut
     case ForecasterComment
+    case Widget
 }
 
 enum MMTAnalyticsAction: String
 {
     case MeteorogramDidDisplay
     case MeteorogramDidDisplayInLandscape
-    
     case LocationDidAddToFavourites
     case LocationDidRemoveFromFavourites
     case LocationDidSelectCapital
@@ -34,16 +34,21 @@ enum MMTAnalyticsAction: String
     case DetailedMapDidSelectModel
     case ShortcutSpotlightDidActivate
     case Shortcut3DTouchDidActivate
-    case BackgroundUpdateDidFinish    
+    case BackgroundUpdateDidFinish
+    
+    case WidgetDidDisplayCompact
+    case WidgetDidDisplayExpanded
+    case WidgetDidDisplayErrorNoLocationServices
+    case WidgetDidDisplayErrorFetchFailure
 }
 
 struct MMTAnalyticsReport
 {
-    public var category: MMTAnalyticsCategory
-    public var action: MMTAnalyticsAction
-    public var actionLabel: String
+    var category: MMTAnalyticsCategory
+    var action: MMTAnalyticsAction
+    var actionLabel: String
     
-    public init(category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel: String)
+    init(category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel: String = "")
     {
         self.category = category
         self.action = action
@@ -55,6 +60,7 @@ protocol MMTAnalytics
 {    
     func sendScreenEntryReport(_ screen: String)
     func sendUserActionReport(_ action: MMTAnalyticsReport)
+    func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction)
     func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel: String)
 }
 

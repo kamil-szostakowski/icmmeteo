@@ -9,7 +9,7 @@
 import MeteoModel
 import NotificationCenter
 
-class MMTTodayExtensionDataSource
+class MMTExtensionViewModeFactory
 {
     // MARK: Properties
     lazy var meteorogramImageView: UIImageView = {
@@ -25,22 +25,17 @@ class MMTTodayExtensionDataSource
     }()
     
     // MARK: Interface methods
-    func todayExtension(_ ext: NSExtensionContext, viewFor model: MMTTodayModelController) -> UIView
+    func build(for model: MMTTodayModelController, with context: NSExtensionContext) -> (UIView, MMTAnalyticsAction)
     {
         guard model.locationServicesEnabled else {
-            return updateErrorView.updated(with: .locationServicesUnavailable)
+            return (updateErrorView.updated(with: .locationServicesUnavailable), .WidgetDidDisplayErrorNoLocationServices)
         }
         
-        switch ext.widgetActiveDisplayMode {
+        switch context.widgetActiveDisplayMode {
             case .compact: return configureCompactView(for: model)
             case .expanded: return configureExpandedView(for: model)
         }
-    }
-    
-    func todayExtension(_ ext: NSExtensionContext, displayModeFor model: MMTTodayModelController) -> NCWidgetDisplayMode
-    {
-        return model.meteorogram != nil ? .expanded : .compact
-    }
+    }    
     
     // MARK: Helper methods
     private func prepare<T: UIView>(view: T) -> T
@@ -49,25 +44,23 @@ class MMTTodayExtensionDataSource
         return view
     }
     
-    private func configureCompactView(for model: MMTTodayModelController) -> UIView
+    private func configureCompactView(for model: MMTTodayModelController) -> (UIView, MMTAnalyticsAction)
     {
-        guard let meteorogram = model.meteorogram else {
-            return updateErrorView.updated(with: .meteorogramUpdateFailure)
+        guard let meteorogram = model.meteorogram,
+              let viewModel = MMTForecastDescriptionView.ViewModel(meteorogram) else
+        {
+            return (updateErrorView.updated(with: .meteorogramUpdateFailure), .WidgetDidDisplayErrorFetchFailure)
         }
         
-        guard let viewModel = MMTForecastDescriptionView.ViewModel(meteorogram) else {
-            return updateErrorView.updated(with: .meteorogramUpdateFailure)
-        }
-        
-        return forecastDescriptionView.updated(with: viewModel)
+        return (forecastDescriptionView.updated(with: viewModel), .WidgetDidDisplayCompact)
     }
     
-    private func configureExpandedView(for model: MMTTodayModelController) -> UIView
+    private func configureExpandedView(for model: MMTTodayModelController) -> (UIView, MMTAnalyticsAction)
     {
         guard let meteorogram = model.meteorogram else {
-            return updateErrorView.updated(with: .meteorogramUpdateFailure)
+            return (updateErrorView.updated(with: .meteorogramUpdateFailure), .WidgetDidDisplayErrorFetchFailure)
         }
         
-        return meteorogramImageView.updated(with: meteorogram.image)
+        return (meteorogramImageView.updated(with: meteorogram.image), .WidgetDidDisplayExpanded)
     }
 }

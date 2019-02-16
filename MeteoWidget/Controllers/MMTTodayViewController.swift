@@ -15,7 +15,7 @@ class MMTTodayViewController: UIViewController, NCWidgetProviding
 {
     // MARK: Properties
     private var modelController: MMTTodayModelController!
-    private var dataSource: MMTTodayExtensionDataSource!
+    private var factory: MMTExtensionViewModeFactory!
     private var locationService: MMTCoreLocationService!
     private weak var currentView: UIView?
     
@@ -51,7 +51,7 @@ extension MMTTodayViewController
         let forecastService = MMTMeteorogramForecastService(model: MMTUmClimateModel())
         
         locationService = MMTCoreLocationService(CLLocationManager())
-        dataSource = MMTTodayExtensionDataSource()
+        factory = MMTExtensionViewModeFactory()
         modelController = MMTTodayModelController(forecastService, locationService)
         modelController.delegate = self
     }
@@ -66,8 +66,11 @@ extension MMTTodayViewController: MMTModelControllerDelegate
             return
         }
         
-        context.widgetLargestAvailableDisplayMode = dataSource.todayExtension(context, displayModeFor: modelController)
-        replaceCurrentView(with: dataSource.todayExtension(context, viewFor: modelController))        
+        let viewMode = factory.build(for: modelController, with: context)
+        context.widgetLargestAvailableDisplayMode = modelController.meteorogram != nil ? .expanded : .compact
+        
+        replaceCurrentView(with: viewMode.0)
+        analytics?.sendUserActionReport(.Widget, action: viewMode.1)
     }
     
     fileprivate func replaceCurrentView(with newView: UIView)
