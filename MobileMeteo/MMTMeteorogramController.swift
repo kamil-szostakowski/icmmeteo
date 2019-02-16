@@ -65,7 +65,6 @@ extension MMTMeteorogramController
     fileprivate func setupModelController(model: MMTClimateModel)
     {
         modelController = MMTMeteorogramModelController(city: city, model: model)
-        modelController.analytics = analytics
         modelController.delegate = self
     }
     
@@ -155,6 +154,7 @@ extension MMTMeteorogramController
     {
         modelController.deactivate()
         MMTCoreData.instance.context.saveContextIfNeeded()
+        
         try? MMTShortcutsMigrator().migrate()
         perform(segue: .UnwindToListOfCities, sender: self)
     }
@@ -162,6 +162,12 @@ extension MMTMeteorogramController
     @IBAction func onStarBtnTouchAction(_ sender: UIButton)
     {
         modelController.onToggleFavorite()
+        
+        let action: MMTAnalyticsAction = city.isFavourite ?
+            MMTAnalyticsAction.LocationDidAddToFavourites :
+            MMTAnalyticsAction.LocationDidRemoveFromFavourites
+        
+        analytics?.sendUserActionReport(.Locations, action: action, actionLabel:  city.name)
     }
     
     @IBAction func modelTypeDidChange(_ sender: UISegmentedControl)
@@ -172,6 +178,7 @@ extension MMTMeteorogramController
         
         setupModelController(model: climateModel)
         modelController.activate()
+        analytics?.sendScreenEntryReport("Meteorogram: \(climateModel.type.rawValue)")
     }
     
     @IBAction func onScrollViewDoubleTapAction(_ sender: UITapGestureRecognizer)
@@ -241,5 +248,7 @@ extension MMTMeteorogramController: MMTModelControllerDelegate
             case true: adjustZoomScale()
             case false: scrollView.contentOffset = .zero
         }
+        
+        analytics?.sendUserActionReport(.Meteorogram, action: .MeteorogramDidDisplay, actionLabel: modelController.climateModel.type.rawValue)
     }
 }

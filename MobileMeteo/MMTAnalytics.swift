@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum MMTAnalyticsCategory: String
+enum MMTAnalyticsCategory: String
 {
     case Locations
     case Meteorogram
@@ -17,7 +17,7 @@ public enum MMTAnalyticsCategory: String
     case ForecasterComment
 }
 
-public enum MMTAnalyticsAction: String
+enum MMTAnalyticsAction: String
 {
     case MeteorogramDidDisplay
     case MeteorogramDidDisplayInLandscape
@@ -34,22 +34,10 @@ public enum MMTAnalyticsAction: String
     case DetailedMapDidSelectModel
     case ShortcutSpotlightDidActivate
     case Shortcut3DTouchDidActivate
-    case BackgroundUpdateDidFinish
-    
-    public init?(group: MMTCitiesIndexSectionType)
-    {
-        switch group
-        {
-            case .Capitals: self = .LocationDidSelectCapital
-            case .Favourites: self = .LocationDidSelectFavourite
-            case .SearchResults: self = .LocationDidSelectSearchResult
-            case .CurrentLocation: self = .LocationDidSelectCurrentLocation        
-            default: return nil
-        }
-    }
+    case BackgroundUpdateDidFinish    
 }
 
-public struct MMTAnalyticsReport
+struct MMTAnalyticsReport
 {
     public var category: MMTAnalyticsCategory
     public var action: MMTAnalyticsAction
@@ -63,14 +51,14 @@ public struct MMTAnalyticsReport
     }
 }
 
-public protocol MMTAnalytics
+protocol MMTAnalytics
 {    
     func sendScreenEntryReport(_ screen: String)
     func sendUserActionReport(_ action: MMTAnalyticsReport)
     func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel: String)
 }
 
-public protocol MMTAnalyticsReporter
+protocol MMTAnalyticsReporter
 {
     var analytics: MMTAnalytics? { get }
 }

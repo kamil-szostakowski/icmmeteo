@@ -46,6 +46,7 @@
 		1B8C6BFA20371D440029282F /* MMTNSUserDefaultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BF920371D440029282F /* MMTNSUserDefaultsTests.swift */; };
 		1B8C6BFC2037867C0029282F /* MMTShortcutsMigrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8C6BFB2037867C0029282F /* MMTShortcutsMigrator.swift */; };
 		1B8FB8C920D428AC00AF95C8 /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8FB8C820D428AC00AF95C8 /* NSAttributedString.swift */; };
+		1B980AED2218B9E40009792B /* MMTAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B980AEA2218B9E40009792B /* MMTAnalytics.swift */; };
 		1BA0206F20C95F3800170D9D /* MMTCitiesSearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA0206E20C95F3800170D9D /* MMTCitiesSearchBarDelegate.swift */; };
 		1BAE2BD3212C8D4000B11E13 /* MMTMailComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BAE2BD2212C8D4000B11E13 /* MMTMailComposer.swift */; };
 		1BB3A9072112179700A5BCA4 /* MMTMeteorogramHereShortcut+3DTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB3A9062112179700A5BCA4 /* MMTMeteorogramHereShortcut+3DTouch.swift */; };
@@ -244,6 +245,7 @@
 		1B8C6BF920371D440029282F /* MMTNSUserDefaultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTNSUserDefaultsTests.swift; sourceTree = "<group>"; };
 		1B8C6BFB2037867C0029282F /* MMTShortcutsMigrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTShortcutsMigrator.swift; sourceTree = "<group>"; };
 		1B8FB8C820D428AC00AF95C8 /* NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NSAttributedString.swift; path = ../MeteoModel/Extensions/NSAttributedString.swift; sourceTree = "<group>"; };
+		1B980AEA2218B9E40009792B /* MMTAnalytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MMTAnalytics.swift; sourceTree = "<group>"; };
 		1BA0206E20C95F3800170D9D /* MMTCitiesSearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTCitiesSearchBarDelegate.swift; sourceTree = "<group>"; };
 		1BAE2BD2212C8D4000B11E13 /* MMTMailComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMailComposer.swift; sourceTree = "<group>"; };
 		1BB3A9062112179700A5BCA4 /* MMTMeteorogramHereShortcut+3DTouch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MMTMeteorogramHereShortcut+3DTouch.swift"; sourceTree = "<group>"; };
@@ -805,6 +807,7 @@
 		F9F9D60E1C52641800A49ACA /* GoogleAnalytics */ = {
 			isa = PBXGroup;
 			children = (
+				1B980AEA2218B9E40009792B /* MMTAnalytics.swift */,
 				F9F9D60F1C52643000A49ACA /* MMTGoogleAnalytics.swift */,
 			);
 			name = GoogleAnalytics;
@@ -838,8 +841,6 @@
 				F9941A601BECE32300700313 /* Sources */,
 				F9941A611BECE32300700313 /* Frameworks */,
 				F9941A621BECE32300700313 /* Resources */,
-				68E6B1A4925081699E8669B2 /* [CP] Copy Pods Resources */,
-				26D0C4B0F065CBC7DE27FDAD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -859,8 +860,6 @@
 				F9E696601AFCC06600273DA3 /* Sources */,
 				F9E696611AFCC06600273DA3 /* Frameworks */,
 				F9E696621AFCC06600273DA3 /* Resources */,
-				449E201CF54EA48B2B48BBA4 /* [CP] Embed Pods Frameworks */,
-				44E11C3BDEAA093020E7E7D9 /* [CP] Copy Pods Resources */,
 				1B9C726D2049E28B00856476 /* Embed Frameworks */,
 				1B39BECA20DD8A60002495B5 /* Embed App Extensions */,
 			);
@@ -884,8 +883,6 @@
 				F9E6967C1AFCC06600273DA3 /* Sources */,
 				F9E6967D1AFCC06600273DA3 /* Frameworks */,
 				F9E6967E1AFCC06600273DA3 /* Resources */,
-				678FA38F65ABD4F8F48D1192 /* [CP] Embed Pods Frameworks */,
-				7644D0B249D1424C915D6AAE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1053,21 +1050,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		26D0C4B0F065CBC7DE27FDAD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MeteoUITests/Pods-MeteoUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3D2D95754509F00DEC5C65E3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1084,81 +1066,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		449E201CF54EA48B2B48BBA4 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileMeteo/Pods-MobileMeteo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		44E11C3BDEAA093020E7E7D9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileMeteo/Pods-MobileMeteo-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		678FA38F65ABD4F8F48D1192 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		68E6B1A4925081699E8669B2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MeteoUITests/Pods-MeteoUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7644D0B249D1424C915D6AAE /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileMeteoTests/Pods-MobileMeteoTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8D27295BA426CB2554108ADA /* [CP] Check Pods Manifest.lock */ = {
@@ -1255,6 +1162,7 @@
 				F957544F1B4D068400C4E672 /* MMTCitiesListController.swift in Sources */,
 				F93004521E11D4AC00A5CE10 /* MMTCitiesListSectionHeader.swift in Sources */,
 				1BFBAE021FEC160900FC559B /* MMTMeteorogramShortcut+3DTouch.swift in Sources */,
+				1B980AED2218B9E40009792B /* MMTAnalytics.swift in Sources */,
 				F9C5B5B01B81D1FC00CFB503 /* UIScrollView.swift in Sources */,
 				F957544D1B4D050C00C4E672 /* MMTConstants.swift in Sources */,
 				1BF36E091FE3003C00083538 /* UISegmentedControl.swift in Sources */,

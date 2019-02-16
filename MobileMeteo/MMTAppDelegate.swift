@@ -17,7 +17,7 @@ import NotificationCenter
 public let MMTDebugActionCleanupDb = "CLEANUP_DB"
 public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
 
-@UIApplicationMain class MMTAppDelegate: UIResponder, UIApplicationDelegate, MMTAnalyticsReporter
+@UIApplicationMain class MMTAppDelegate: UIResponder, UIApplicationDelegate
 {
     // MARK: Properties
     var window: UIWindow?
