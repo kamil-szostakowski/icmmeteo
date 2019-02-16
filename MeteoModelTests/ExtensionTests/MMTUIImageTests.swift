@@ -21,7 +21,7 @@ class MMTUIImageTests: XCTestCase
     
     func testImageFromValidData()
     {
-        let data = UIImagePNGRepresentation(UIImage.from(color: .red))
+        let data = UIImage.from(color: .red).pngData()
         XCTAssertNotNil(UIImage(data))
     }
     

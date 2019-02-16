@@ -17,9 +17,9 @@ extension UIApplicationShortcutItem
         let icon = UIApplicationShortcutIcon(type: .cloud)
         let mapName = MMTLocalizedStringWithFormat("detailed-maps.\(shortcut.detailedMap.rawValue)")        
         
-        let userInfo: [String : Any] = [
-            "climate-model" : shortcut.climateModel.type.rawValue,
-            "detailed-map" : shortcut.detailedMap.rawValue,
+        let userInfo: [String : NSSecureCoding] = [
+            "climate-model" : shortcut.climateModel.type.rawValue as NSSecureCoding,
+            "detailed-map" : shortcut.detailedMap.rawValue as NSSecureCoding,
         ]
         
         self.init(type: shortcut.identifier, localizedTitle: mapName, localizedSubtitle: nil, icon: icon, userInfo: userInfo)

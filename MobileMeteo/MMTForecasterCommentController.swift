@@ -58,7 +58,7 @@ fileprivate extension MMTForecasterCommentController
     
     func setupNotificationHandler()
     {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleDidBecomeActive(notification:)), name: .UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDidBecomeActive(notification:)), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     func displayErrorAlert(_ error: MMTError)

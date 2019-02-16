@@ -67,7 +67,7 @@ class MMTCoreLocationServiceTests: XCTestCase
     
     func testLocationUpdateOnAppActivationWhenAuthorized()
     {
-        let operation = { NotificationCenter.default.post(name: .UIApplicationDidBecomeActive, object: nil) }
+        let operation = { NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil) }
         verifyAuthorization(.authorizedWhenInUse, .whenInUse)
         
         verifyLocationUpdate(expected: loremCity, operation)
@@ -78,7 +78,7 @@ class MMTCoreLocationServiceTests: XCTestCase
     
     func testLocationUpdateOnAppActivationWhenUnauthorized()
     {
-        let operation = { NotificationCenter.default.post(name: .UIApplicationDidBecomeActive, object: nil) }
+        let operation = { NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil) }
         
         verifyAuthorization(.denied, .unauthorized)
         verifyLocationUpdate(expected: nil, operation, inverted: true)

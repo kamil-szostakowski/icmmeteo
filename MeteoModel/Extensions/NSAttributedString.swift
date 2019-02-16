@@ -36,7 +36,7 @@ extension NSMutableAttributedString
         return NSRange(location: 0, length: length)
     }
     
-    func addAttribute(_ name: NSAttributedStringKey, value: Any)
+    func addAttribute(_ name: NSAttributedString.Key, value: Any)
     {
         addAttribute(name, value: value, range: fullRange)
     }
@@ -47,7 +47,7 @@ extension NSMutableAttributedString
         
         if range.location != NSNotFound {
             addAttribute(.link, value: url, range: range)
-            addAttribute(.underlineStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: range)
+            addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range)
         }
     }
 }

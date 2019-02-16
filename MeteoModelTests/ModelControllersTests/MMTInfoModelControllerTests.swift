@@ -48,7 +48,7 @@ class MMTInfoModelControllerTests: XCTestCase
 extension MMTInfoModelControllerTests
 {
     // MARK: Helper methods
-    func count(attribute: NSAttributedStringKey, in string: NSMutableAttributedString) -> Int
+    func count(attribute: NSAttributedString.Key, in string: NSMutableAttributedString) -> Int
     {
         var urlCount: Int = 0
         string.enumerateAttributes(in: string.fullRange, options: options) { attributes, _, _ in

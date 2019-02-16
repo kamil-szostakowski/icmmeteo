@@ -16,7 +16,7 @@ extension UIApplicationShortcutItem
     {
         let title = MMTLocalizedString("forecast.here")
         let icon = UIApplicationShortcutIcon(type: .location)
-        let userInfo: [String : Any] = ["climate-model": shortcut.climateModel.type.rawValue]
+        let userInfo: [String : NSSecureCoding] = ["climate-model": shortcut.climateModel.type.rawValue as NSSecureCoding]
         
         self.init(type: shortcut.identifier, localizedTitle: title, localizedSubtitle: nil, icon: icon, userInfo: userInfo)
     }

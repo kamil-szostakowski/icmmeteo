@@ -6,6 +6,7 @@
 //  Copyright © 2018 Kamil Szostakowski. All rights reserved.
 //
 
+import UIKit
 import Foundation
 import CoreLocation
 
@@ -107,7 +108,7 @@ extension MMTCoreLocationService
         }
         
         let handler = #selector(handleAppActivation(notification:))
-        NotificationCenter.default.addObserver(self, selector: handler, name: .UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: handler, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 }
 
