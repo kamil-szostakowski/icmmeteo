@@ -35,6 +35,8 @@
 		1B68CD362045B85000AB8046 /* MMTActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68CD352045B85000AB8046 /* MMTActivityIndicator.swift */; };
 		1B68CD382045B89F00AB8046 /* MMTActivityIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B68CD372045B89F00AB8046 /* MMTActivityIndicator.xib */; };
 		1B71864720ED476900E9B45E /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9ED9FF91E07527B00190F59 /* UIView.swift */; };
+		1B895CED221B34CF00385BAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B895CEF221B34CF00385BAD /* InfoPlist.strings */; };
+		1B895CF3221B37B600385BAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B895CF5221B37B600385BAD /* InfoPlist.strings */; };
 		1B8A88B720ED596F00BEB191 /* MMTForecastDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A88B620ED596F00BEB191 /* MMTForecastDescriptionView.swift */; };
 		1B8A88BA20ED597A00BEB191 /* MMTForecastDescriptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B8A88B920ED597A00BEB191 /* MMTForecastDescriptionView.xib */; };
 		1B8A88BD20EE92DE00BEB191 /* MMTExtensionViewModeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B8A88BC20EE92DE00BEB191 /* MMTExtensionViewModeFactory.swift */; };
@@ -237,6 +239,10 @@
 		1B65BA2E2035FFDD0053173C /* MMTMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMocks.swift; sourceTree = "<group>"; };
 		1B68CD352045B85000AB8046 /* MMTActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTActivityIndicator.swift; sourceTree = "<group>"; };
 		1B68CD372045B89F00AB8046 /* MMTActivityIndicator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MMTActivityIndicator.xib; sourceTree = "<group>"; };
+		1B895CEE221B34CF00385BAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1B895CF0221B34D100385BAD /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1B895CF4221B37B600385BAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1B895CF6221B37B700385BAD /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1B8A88B620ED596F00BEB191 /* MMTForecastDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecastDescriptionView.swift; sourceTree = "<group>"; };
 		1B8A88B920ED597A00BEB191 /* MMTForecastDescriptionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MMTForecastDescriptionView.xib; sourceTree = "<group>"; };
 		1B8A88BC20EE92DE00BEB191 /* MMTExtensionViewModeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTExtensionViewModeFactory.swift; sourceTree = "<group>"; };
@@ -433,6 +439,7 @@
 				1BF5141E20ED3F910091653D /* Views */,
 				1B2C534A20E3EAE5003727A3 /* Extensions */,
 				1B2C534120E2D98C003727A3 /* WidgetAssets.xcassets */,
+				1B895CF5221B37B600385BAD /* InfoPlist.strings */,
 				1B584689221616C300D79528 /* Localizable.strings */,
 				1BEB08F920F4008000B26035 /* MeteoWidget.entitlements */,
 				1B39BEC220DD8A60002495B5 /* Info.plist */,
@@ -755,6 +762,7 @@
 				F96BC8CA1B97285A0073A44E /* MMTAppearance.swift */,
 				F957544C1B4D050C00C4E672 /* MMTConstants.swift */,
 				F9E696771AFCC06600273DA3 /* Images.xcassets */,
+				1B895CEF221B34CF00385BAD /* InfoPlist.strings */,
 				F91A6F561C86F6F200BDDE28 /* Localizable.strings */,
 				F9E696671AFCC06600273DA3 /* Supporting Files */,
 			);
@@ -1026,6 +1034,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B584687221616C300D79528 /* Localizable.strings in Resources */,
+				1B895CF3221B37B600385BAD /* InfoPlist.strings in Resources */,
 				1B39BEC120DD8A60002495B5 /* MainInterface.storyboard in Resources */,
 				1BF5142520ED40EF0091653D /* MMTUpdateErrorView.xib in Resources */,
 				1B2C534220E2D98C003727A3 /* WidgetAssets.xcassets in Resources */,
@@ -1045,6 +1054,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9BB14A61B5697EE00C81B3F /* Cities.json in Resources */,
+				1B895CED221B34CF00385BAD /* InfoPlist.strings in Resources */,
 				1B68CD382045B89F00AB8046 /* MMTActivityIndicator.xib in Resources */,
 				F91A6F541C86F6F200BDDE28 /* Localizable.strings in Resources */,
 				F9E696761AFCC06600273DA3 /* Main.storyboard in Resources */,
@@ -1296,6 +1306,24 @@
 				1B58468A221616C600D79528 /* pl */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		1B895CEF221B34CF00385BAD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B895CEE221B34CF00385BAD /* en */,
+				1B895CF0221B34D100385BAD /* pl */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1B895CF5221B37B600385BAD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B895CF4221B37B600385BAD /* en */,
+				1B895CF6221B37B700385BAD /* pl */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		F91A6F561C86F6F200BDDE28 /* Localizable.strings */ = {

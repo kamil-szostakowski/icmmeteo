@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  MobileMeteo
+
+  Created by szostakowskik on 18/02/2019.
+  Copyright © 2019 Kamil Szostakowski. All rights reserved.
+*/
+
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "We use location services for providing you with fast access to accurate weather forecast for your location. We also use them to display a widget on the Spotlight screen.";
+
+"NSLocationWhenInUseUsageDescription" = "We use location services for providing you with fast access to accurate weather forecast for your location. We also use them to display a widget on the Spotlight screen.";
