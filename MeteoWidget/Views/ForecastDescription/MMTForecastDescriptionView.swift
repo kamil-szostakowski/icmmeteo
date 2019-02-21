@@ -61,7 +61,7 @@ extension MMTForecastDescriptionView: MMTUpdatableView
 
 extension MMTForecastDescriptionView.ViewModel
 {
-    init?(_ meteorogram: MMTMeteorogram)
+    init(_ meteorogram: MMTMeteorogram)
     {
         let startDate = DateFormatter.utcFormatter.string(from: meteorogram.startDate)
         

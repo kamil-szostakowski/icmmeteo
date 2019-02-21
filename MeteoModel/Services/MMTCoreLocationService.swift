@@ -29,7 +29,7 @@ public class MMTCoreLocationService: NSObject, MMTLocationService
     public init(_ locationManager: CLLocationManager, _ citiesStore: MMTCitiesStore = MMTCoreDataCitiesStore())
     {
         self.promises = [MMTPromise<MMTCityProt>]()
-        self.authorizationStatus = .unauthorized
+        self.authorizationStatus = .undetermined
         self.locationManager = locationManager
         self.citiesStore = citiesStore
         
@@ -48,6 +48,11 @@ extension MMTCoreLocationService
         
         if let city = location {
             promise.resolve(with: .success(city))
+            return promise
+        }
+        
+        if authorizationStatus == .unauthorized {
+            promise.resolve(with: .failure(.locationServicesDisabled))
             return promise
         }
         

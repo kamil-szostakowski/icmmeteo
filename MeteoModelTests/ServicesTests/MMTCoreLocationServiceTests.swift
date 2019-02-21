@@ -43,14 +43,14 @@ class MMTCoreLocationServiceTests: XCTestCase
     // MARK: Test methods
     func testInitialization()
     {
-        XCTAssertEqual(service.authorizationStatus, .unauthorized)
+        XCTAssertEqual(service.authorizationStatus, .undetermined)
     }
     
     func testAuthorization()
     {
         verifyAuthorization(.authorizedAlways, .always)
         verifyAuthorization(.authorizedWhenInUse, .whenInUse)
-        verifyAuthorization(.notDetermined, .unauthorized)
+        verifyAuthorization(.notDetermined, .undetermined)
         verifyAuthorization(.denied, .unauthorized)
         verifyAuthorization(.restricted, .unauthorized)
     }
@@ -129,6 +129,12 @@ class MMTCoreLocationServiceTests: XCTestCase
         verifyLocationRequestPromise(expected: .failure(.locationServicesDisabled), {
             self.service.locationManager(self.locationManager, didChangeAuthorization: .denied)
         })
+    }
+    
+    func testUnauthorizedLocationRequestPromiseWhenFullfilledBeforeObserved()
+    {
+        verifyAuthorization(.denied, .unauthorized)
+        verifyLocationRequestPromise(expected: .failure(.locationServicesDisabled), {})
     }
     
     func testLocationRequestPromiseWhenFullfilledBeforeObserved()

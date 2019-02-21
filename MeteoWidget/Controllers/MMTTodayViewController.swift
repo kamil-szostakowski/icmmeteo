@@ -52,7 +52,7 @@ extension MMTTodayViewController
         
         locationService = MMTCoreLocationService(CLLocationManager())
         factory = MMTExtensionViewModeFactory()
-        modelController = MMTTodayModelController(forecastService, locationService)
+        modelController = MMTTodayModelController(forecastService, locationService, .memoryConstrained)
         modelController.delegate = self
     }
 }

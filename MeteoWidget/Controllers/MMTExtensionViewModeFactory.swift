@@ -31,9 +31,13 @@ class MMTExtensionViewModeFactory
             return (updateErrorView.updated(with: .locationServicesUnavailable), .WidgetDidDisplayErrorNoLocationServices)
         }
         
+        guard let meteorogram = model.meteorogram else {
+            return (updateErrorView.updated(with: .meteorogramUpdateFailure), .WidgetDidDisplayErrorFetchFailure)
+        }
+        
         switch context.widgetActiveDisplayMode {
-            case .compact: return configureCompactView(for: model)
-            case .expanded: return configureExpandedView(for: model)
+            case .compact: return configureCompactView(for: meteorogram)
+            case .expanded: return configureExpandedView(for: meteorogram)
         }
     }    
     
@@ -44,23 +48,14 @@ class MMTExtensionViewModeFactory
         return view
     }
     
-    private func configureCompactView(for model: MMTTodayModelController) -> (UIView, MMTAnalyticsAction)
+    private func configureCompactView(for meteorogram: MMTMeteorogram) -> (UIView, MMTAnalyticsAction)
     {
-        guard let meteorogram = model.meteorogram,
-              let viewModel = MMTForecastDescriptionView.ViewModel(meteorogram) else
-        {
-            return (updateErrorView.updated(with: .meteorogramUpdateFailure), .WidgetDidDisplayErrorFetchFailure)
-        }
-        
+        let viewModel = MMTForecastDescriptionView.ViewModel(meteorogram)
         return (forecastDescriptionView.updated(with: viewModel), .WidgetDidDisplayCompact)
     }
     
-    private func configureExpandedView(for model: MMTTodayModelController) -> (UIView, MMTAnalyticsAction)
+    private func configureExpandedView(for meteorogram: MMTMeteorogram) -> (UIView, MMTAnalyticsAction)
     {
-        guard let meteorogram = model.meteorogram else {
-            return (updateErrorView.updated(with: .meteorogramUpdateFailure), .WidgetDidDisplayErrorFetchFailure)
-        }
-        
         return (meteorogramImageView.updated(with: meteorogram.image), .WidgetDidDisplayExpanded)
     }
 }
