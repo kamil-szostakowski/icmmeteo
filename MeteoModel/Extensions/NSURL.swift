@@ -192,6 +192,9 @@ extension URL
     
     private static func mmt_modelLang() -> String
     {
-        return Bundle(for: MMTMeteorogramUrlSession.self).preferredLocalizations.first ?? "en"
+        let supportedLangs = ["en", "pl"]
+        let lang = Bundle.main.preferredLocalizations.first ?? supportedLangs.first!
+        
+        return supportedLangs.contains(lang) ? lang : "en"
     }
 }
