@@ -29,6 +29,7 @@ public struct MMTMeteorogram
     public internal(set) var image: UIImage
     public internal(set) var legend: UIImage?
     public internal(set) var startDate: Date
+    public internal(set) var prediction: Prediction?
     
     init(model: MMTClimateModel, city: MMTCityProt)
     {
@@ -37,12 +38,6 @@ public struct MMTMeteorogram
         self.startDate = model.startDate(for: Date())
         self.image = UIImage()
         self.legend = nil
-    }
-    
-    public func prediction() throws -> Prediction
-    {
-        guard let cgImage = image.cgImage else { throw MMTError.invalidMLInput }
-        return try MMTPredictionModelImpl.shared.predict(cgImage)
     }
 }
 

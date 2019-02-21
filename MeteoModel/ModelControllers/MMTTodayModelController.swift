@@ -14,6 +14,7 @@ public class MMTTodayModelController: MMTModelController
     // MARK: Properties
     private var forecastService: MMTForecastService
     private var locationService: MMTLocationService
+    private var cache: MMTPredictionCache
     
     public private(set) var meteorogram: MMTMeteorogram?
     public private(set) var locationServicesEnabled: Bool = false
@@ -21,6 +22,7 @@ public class MMTTodayModelController: MMTModelController
     // MARK: Initializers
     public init(_ forecastService: MMTForecastService, _ locationService: MMTLocationService)
     {
+        self.cache = MMTPredictionCache()
         self.forecastService = forecastService
         self.locationService = locationService
     }
@@ -50,9 +52,11 @@ extension MMTTodayModelController
             
             defer { self.notifyWatchers(status, completion: completion) }
             guard status == .newData else { return }
-            guard let meteorogram = self.forecastService.currentMeteorogram else { return }
             
-            self.meteorogram = meteorogram
+            if let meteorogram = self.forecastService.currentMeteorogram {
+                self.meteorogram = meteorogram
+                self.meteorogram?.prediction = self.prediction(for: meteorogram)
+            }
         }
     }
     
@@ -60,5 +64,24 @@ extension MMTTodayModelController
     {
         delegate?.onModelUpdate(self)
         completion(status)
+    }
+    
+    fileprivate func prediction(for meteorogram: MMTMeteorogram) -> MMTMeteorogram.Prediction?
+    {
+        guard requiresMemoryOptimization() else {
+            return cache.getPrediction(for: meteorogram)
+        }
+        
+        var
+        aMeteorogram = meteorogram
+        aMeteorogram.prediction = try? MMTCoreMLPredictionModel.shared.predict(meteorogram)
+        cache.storePrediction(for: aMeteorogram)
+            
+        return aMeteorogram.prediction
+    }
+    
+    fileprivate func requiresMemoryOptimization() -> Bool
+    {
+        return Bundle.main.bundleIdentifier == "com.szostakowski.meteo"
     }
 }

@@ -22,17 +22,23 @@
             <rect key="frame" x="0.0" y="0.0" width="305" height="133"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="pgn-sv-Vre">
-                    <rect key="frame" x="20" y="23.5" width="265" height="86"/>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="pgn-sv-Vre">
+                    <rect key="frame" x="15" y="38.5" width="275" height="56.5"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mnx-dF-dqe">
-                            <rect key="frame" x="0.0" y="0.0" width="48" height="86"/>
+                            <rect key="frame" x="0.0" y="0.0" width="60" height="56.5"/>
                             <subviews>
-                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="ext-sunny" translatesAutoresizingMaskIntoConstraints="NO" id="UJJ-mU-2jT">
-                                    <rect key="frame" x="0.0" y="19" width="48" height="48"/>
+                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" insetsLayoutMarginsFromSafeArea="NO" image="ext-sunny" translatesAutoresizingMaskIntoConstraints="NO" id="UJJ-mU-2jT">
+                                    <rect key="frame" x="0.0" y="-2" width="60" height="60"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="UJJ-mU-2jT" secondAttribute="height" multiplier="1:1" id="8Op-We-5Ha"/>
+                                        <constraint firstAttribute="width" constant="60" id="stm-AU-6IX"/>
                                     </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="15"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -43,22 +49,22 @@
                             </constraints>
                         </view>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="WL3-gg-qfP">
-                            <rect key="frame" x="68" y="0.0" width="197" height="86"/>
+                            <rect key="frame" x="75" y="0.0" width="200" height="56.5"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Toruń" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRD-Dc-GrV">
-                                    <rect key="frame" x="0.0" y="0.0" width="197" height="31"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="25"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Pochmurnie, możliwe opady" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BZr-CV-IPK">
-                                    <rect key="frame" x="0.0" y="31" width="197" height="40.5"/>
-                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="Pochmurnie, możliwe opady" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="BZr-CV-IPK">
+                                    <rect key="frame" x="0.0" y="25" width="200" height="17"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Start prognozy 26.06.2018 18:00" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="puK-14-TcB">
-                                    <rect key="frame" x="0.0" y="71.5" width="197" height="14.5"/>
+                                    <rect key="frame" x="0.0" y="42" width="200" height="14.5"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="12"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
@@ -70,11 +76,11 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="pgn-sv-Vre" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="fGP-Jj-b4u"/>
-                <constraint firstItem="pgn-sv-Vre" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="l9L-qs-6J0"/>
+                <constraint firstItem="pgn-sv-Vre" firstAttribute="top" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="10" id="fGP-Jj-b4u"/>
+                <constraint firstItem="pgn-sv-Vre" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="l9L-qs-6J0"/>
                 <constraint firstItem="pgn-sv-Vre" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="x8d-dg-Frv"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pgn-sv-Vre" secondAttribute="bottom" constant="20" id="zTJ-eb-Jyo"/>
-                <constraint firstAttribute="trailing" secondItem="pgn-sv-Vre" secondAttribute="trailing" constant="20" id="zca-fW-Wfm"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="pgn-sv-Vre" secondAttribute="bottom" constant="10" id="zTJ-eb-Jyo"/>
+                <constraint firstAttribute="trailing" secondItem="pgn-sv-Vre" secondAttribute="trailing" constant="15" id="zca-fW-Wfm"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>

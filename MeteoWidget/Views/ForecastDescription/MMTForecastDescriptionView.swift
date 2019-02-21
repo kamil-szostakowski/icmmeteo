@@ -63,38 +63,52 @@ extension MMTForecastDescriptionView.ViewModel
 {
     init?(_ meteorogram: MMTMeteorogram)
     {
-        guard let prediction = try? meteorogram.prediction() else {
-            return nil
-        }
-        
         let startDate = DateFormatter.utcFormatter.string(from: meteorogram.startDate)
-        var iconImage = #imageLiteral(resourceName: "ext-sunny")
+        
+        startDateText = MMTLocalizedStringWithFormat("widget.forecast.start: %@", startDate)
+        city = meteorogram.city.name
+        descriptionText = ""
+        icon = #imageLiteral(resourceName: "logo2")
+        
+        if let prediction = meteorogram.prediction {
+            icon = image(for: prediction)
+            descriptionText = text(for: prediction)
+        }
+    }
+    
+    private func image(for prediction: MMTMeteorogram.Prediction) -> UIImage
+    {
+        if prediction.contains(.snow) { return #imageLiteral(resourceName: "ext-snow") }
+        if prediction.contains(.rain) { return #imageLiteral(resourceName: "ext-rain") }
+        if prediction.contains(.strongWind) { return #imageLiteral(resourceName: "ext-wind") }
+        if prediction.contains(.clouds) { return #imageLiteral(resourceName: "ext-cloudy") }
+        
+        return #imageLiteral(resourceName: "ext-sunny")
+    }
+    
+    private func text(for prediction: MMTMeteorogram.Prediction) -> String
+    {
         var components = [String]()
         
         if prediction.contains(.clouds) {
-            components.append(MMTLocalizedString("widget.cloudy"))
-            iconImage = #imageLiteral(resourceName: "ext-cloudy")
+            components.append("widget.cloudy")
         } else {
-            components.append(MMTLocalizedString("widget.sunny"))
+            components.append("widget.sunny")
         }
         
         if prediction.contains(.strongWind) {
-            components.append(MMTLocalizedString("widget.windy"))
-            iconImage = #imageLiteral(resourceName: "ext-wind")
-        }
-
-        if prediction.contains(.rain) {
-            components.append(MMTLocalizedString("widget.rainy"))
-            iconImage = #imageLiteral(resourceName: "ext-rain")
-        }
-        else if prediction.contains(.snow) {
-            components.append(MMTLocalizedString("widget.snowy"))
-            iconImage = #imageLiteral(resourceName: "ext-snow")
+            components.append("widget.windy")
         }
         
-        icon = iconImage
-        startDateText = MMTLocalizedStringWithFormat("widget.forecast.start: %@", startDate)
-        descriptionText = components.joined(separator: ", ")
-        city = meteorogram.city.name
+        if prediction.contains(.rain) {
+            components.append("widget.rainy")
+        }
+        else if prediction.contains(.snow) {
+            components.append("widget.snowy")
+        }
+        
+        return components
+            .map { MMTLocalizedString($0) }
+            .joined(separator: ", ")
     }
 }

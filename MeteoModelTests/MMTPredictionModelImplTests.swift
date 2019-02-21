@@ -11,11 +11,23 @@ import XCTest
 
 class MMTPredictionModelImplTests: XCTestCase
 {
+    var city: MMTCityProt!
+    var meteorogram: MMTMeteorogram!
+    
+    // MARK: Helper methods
+    
+    override func setUp()
+    {
+        super.setUp()
+        city = MMTCityProt(name: "Lorem", region: "Loremia")
+        meteorogram = MMTMeteorogram(model: MMTUmClimateModel(), city: city)
+    }
+    
     // MARK: Test methods    
     func testPrediction_1()
     {
-        let image = UIImage(thisBundle: "2017122300-379-285-full").cgImage!
-        let prediction = try! MMTPredictionModelImpl().predict(image)
+        meteorogram.image = UIImage(thisBundle: "2017122300-379-285-full")
+        let prediction = try! MMTCoreMLPredictionModel().predict(meteorogram)
 
         XCTAssertTrue(prediction.contains(.rain))
         XCTAssertFalse(prediction.contains(.snow))
@@ -25,8 +37,8 @@ class MMTPredictionModelImplTests: XCTestCase
 
     func testPrediction_2()
     {
-        let image = UIImage(thisBundle: "2018092900-381-199-full").cgImage!
-        let prediction = try! MMTPredictionModelImpl().predict(image)
+        meteorogram.image = UIImage(thisBundle: "2018092900-381-199-full")
+        let prediction = try! MMTCoreMLPredictionModel().predict(meteorogram)
 
         XCTAssertFalse(prediction.contains(.rain))
         XCTAssertFalse(prediction.contains(.snow))
@@ -36,8 +48,8 @@ class MMTPredictionModelImplTests: XCTestCase
 
     func testPrediction_3()
     {
-        let image = UIImage(thisBundle: "2017122000-432-277-full").cgImage!
-        let prediction = try! MMTPredictionModelImpl().predict(image)
+        meteorogram.image = UIImage(thisBundle: "2017122000-432-277-full")
+        let prediction = try! MMTCoreMLPredictionModel().predict(meteorogram)
 
         XCTAssertTrue(prediction.contains(.snow))
         XCTAssertFalse(prediction.contains(.rain))
@@ -47,8 +59,8 @@ class MMTPredictionModelImplTests: XCTestCase
     
     func testPrediction_4()
     {
-        let image = UIImage(thisBundle: "2018091218-379-285-full").cgImage!
-        let prediction = try! MMTPredictionModelImpl().predict(image)
+        meteorogram.image = UIImage(thisBundle: "2018091218-379-285-full")
+        let prediction = try! MMTCoreMLPredictionModel().predict(meteorogram)
         
         XCTAssertFalse(prediction.contains(.rain))
         XCTAssertFalse(prediction.contains(.snow))
@@ -58,8 +70,8 @@ class MMTPredictionModelImplTests: XCTestCase
     
     func testPrediction_5()
     {
-        let image = UIImage(thisBundle: "2018081406-390-152-full").cgImage!
-        let prediction = try! MMTPredictionModelImpl().predict(image)
+        meteorogram.image = UIImage(thisBundle: "2018081406-390-152-full")
+        let prediction = try! MMTCoreMLPredictionModel().predict(meteorogram)
         
         XCTAssertFalse(prediction.contains(.rain))
         XCTAssertFalse(prediction.contains(.snow))
@@ -69,17 +81,20 @@ class MMTPredictionModelImplTests: XCTestCase
     
     func testPredictionPerformance()
     {
-        let model = MMTPredictionModelImpl()
+        let model = MMTCoreMLPredictionModel()
         let images = [
-            UIImage(thisBundle: "2018081406-390-152-full").cgImage!,
-            UIImage(thisBundle: "2018092900-381-199-full").cgImage!,
-            UIImage(thisBundle: "2017122000-432-277-full").cgImage!,
-            UIImage(thisBundle: "2018091218-379-285-full").cgImage!,
-            UIImage(thisBundle: "2018081406-390-152-full").cgImage!
+            UIImage(thisBundle: "2018081406-390-152-full"),
+            UIImage(thisBundle: "2018092900-381-199-full"),
+            UIImage(thisBundle: "2017122000-432-277-full"),
+            UIImage(thisBundle: "2018091218-379-285-full"),
+            UIImage(thisBundle: "2018081406-390-152-full")
         ]
         
         measure {
-            for img in images { _ = try? model.predict(img) }                
+            for img in images {
+                meteorogram.image = img
+                _ = try? model.predict(meteorogram)
+            }
         }
     }
 }

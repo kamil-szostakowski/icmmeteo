@@ -18,8 +18,7 @@ enum MMTUpdateErrorType
 
 class MMTUpdateErrorView: UIView
 {
-    // MARK: Properties
-    @IBOutlet weak var iconImageView: UIImageView!
+    // MARK: Properties    
     @IBOutlet weak var descriptionLabel: UILabel!
     
     // MARK: Initializers
