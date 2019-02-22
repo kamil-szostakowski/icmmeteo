@@ -27,15 +27,12 @@ class MMTSingleMeteorogramCache
         appGroup?.synchronize()
         
         DispatchQueue.global().async {
-            guard let url = self.fileUrl else {
-                completion(false)
-                return
-            }
+            guard let url = self.fileUrl else { completion(false); return }
             completion(self.write(image: meteorogram.image, to: url))
         }
     }
     
-    func restoreMeteorogram(completion: @escaping (MMTMeteorogram?) -> Void)
+    func restore(completion: @escaping (MMTMeteorogram?) -> Void)
     {
         guard let dict = appGroup?.dictionaryRepresentation() else { completion(nil); return }
         guard var meteorogram = MMTMeteorogram.deserialize(from: dict) else { completion(nil); return }
@@ -49,27 +46,51 @@ class MMTSingleMeteorogramCache
         }
     }
     
-    // MARK: Helper methods
-    private func write(image: UIImage, to url: URL) -> Bool
+    func cleanup(completion: @escaping (Bool) -> Void)
+    {
+        let city = MMTCityProt(name: "", region: "", location: CLLocation())
+        let dummyMeteorogram = MMTMeteorogram(model: MMTUmClimateModel(), city: city)
+        let serialized = MMTMeteorogram.serialize(dummyMeteorogram)
+        
+        serialized.keys.forEach { self.appGroup?.removeObject(forKey: $0) }
+        appGroup?.synchronize()
+        
+        DispatchQueue.global().async {
+            guard let url = self.fileUrl else { completion(false); return }
+            completion(self.delete(at: url))
+        }
+    }
+}
+
+// MARK: File operations extension
+fileprivate extension MMTSingleMeteorogramCache
+{
+    func write(image: UIImage, to url: URL) -> Bool
     {
         var success = false
         fileCoordinator.coordinate(writingItemAt: url, options: .forReplacing, error: nil) {
-            do { try image.pngData()?.write(to: $0); success = true }
-            catch {}
+            do { try image.pngData()?.write(to: $0); success = true } catch {}
         }
-        
         return success
     }
     
-    private func read(from url: URL) -> UIImage?
+    func read(from url: URL) -> UIImage?
     {
         var image: UIImage?
         fileCoordinator.coordinate(readingItemAt: url, options: .withoutChanges, error: nil) {
             guard let imageDate = try? Data(contentsOf: $0) else { return }
             image = UIImage(data: imageDate)
         }
-        
         return image
+    }
+    
+    func delete(at url: URL) -> Bool
+    {
+        var success = false
+        fileCoordinator.coordinate(writingItemAt: url, options: .forDeleting, error: nil) {
+            do { try FileManager.default.removeItem(at: $0); success = true } catch {}
+        }
+        return success
     }
 }
 

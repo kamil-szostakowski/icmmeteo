@@ -32,12 +32,21 @@ public class MMTTodayModelController: MMTModelController
     // MARK: Interface methods
     public func onUpdate(completion: @escaping (MMTUpdateResult) -> Void)
     {
-        if environment == .memoryConstrained {
-            updateUnderMemoryPressure(completion)
-            return
+        locationService.requestLocation().observe {
+            self.locationServicesEnabled = self.locationService.authorizationStatus == .always
+            
+            guard self.locationServicesEnabled else {
+                self.cache.cleanup { _ in }
+                //self.meteorogram = nil
+                self.notifyWatchers(.failed, completion: completion)
+                return
+            }
+            
+            switch self.environment {
+                case .memoryConstrained: self.updateUnderMemoryPressure(completion)
+                case .normal: self.updateNormally($0, completion)
+            }
         }
-        
-        updateNormally(completion)
     }
 }
 
@@ -46,28 +55,22 @@ extension MMTTodayModelController
     // MARK: Update methods
     fileprivate func updateUnderMemoryPressure(_ completion: @escaping (MMTUpdateResult) -> Void)
     {
-        locationService.requestLocation().observe { _ in
-            self.locationServicesEnabled = self.locationService.authorizationStatus == .always
-            self.cache.restoreMeteorogram { meteorogram in
-                DispatchQueue.main.async {
-                    self.meteorogram = meteorogram
-                    self.notifyWatchers(meteorogram != nil ? .newData : .failed, completion: completion)
-                }
+        cache.restore { meteorogram in
+            DispatchQueue.main.async {
+                self.meteorogram = meteorogram
+                self.notifyWatchers(meteorogram != nil ? .newData : .failed, completion: completion)
             }
         }
     }
     
-    fileprivate func updateNormally(_ completion: @escaping (MMTUpdateResult) -> Void)
+    fileprivate func updateNormally(_ result: MMTResult<MMTCityProt>, _ completion: @escaping (MMTUpdateResult) -> Void)
     {
-        locationService.requestLocation().observe {
-            self.locationServicesEnabled = self.locationService.authorizationStatus == .always
-            switch $0 {
-                case let .success(city):
-                    self.updateForecast(for: city, completion: completion)
-                case .failure(_):
-                    self.meteorogram = nil
-                    self.notifyWatchers(.failed, completion: completion)
-            }
+        switch result {
+            case let .success(city):
+                updateForecast(for: city, completion: completion)
+            case .failure(_):
+                meteorogram = nil
+                notifyWatchers(.failed, completion: completion)
         }
     }
     

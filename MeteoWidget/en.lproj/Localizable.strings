@@ -7,7 +7,7 @@
 */
 
 "error.widget.locationServicesDisabled" = "Location services disabled.";
-"error.widget.meteorogramFetchFailure" = "Meteorogram download failure. Please try again later.";
+"error.widget.meteorogramFetchFailure" = "No meteorogram to present.\n Open the app or try again later.";
 
 "widget.sunny" = "Sunny";
 "widget.cloudy" = "Cloudy";

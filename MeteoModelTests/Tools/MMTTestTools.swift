@@ -8,6 +8,8 @@
 
 import UIKit
 import Foundation
+import CoreLocation
+@testable import MeteoModel
 
 typealias TT = MMTTestTools
 
@@ -70,5 +72,26 @@ extension UIImage
     convenience init(thisBundle named: String)
     {
         self.init(named: named, in: Bundle(for: MMTTestTools.self), compatibleWith: nil)!
+    }
+}
+
+extension MMTMeteorogram
+{
+    static func meteorogram(city: String, startDate: Date) -> MMTMeteorogram
+    {
+        let location = CLLocation(latitude: 1.0, longitude: 2.0)
+        let city = MMTCityProt(name: city, region: "xyz", location: location)
+        
+        var
+        meteorogram = MMTMeteorogram(model: MMTUmClimateModel(), city: city)
+        meteorogram.prediction = MMTMeteorogram.Prediction([.snow, .strongWind])
+        meteorogram.image = UIImage(thisBundle: "2018092900-381-199-full")
+        meteorogram.startDate = startDate
+        
+        return meteorogram
+    }
+    
+    static var loremCity: MMTMeteorogram {
+        return meteorogram(city: "Lorem", startDate: Date.from(2019, 3, 20, 10, 15, 20))
     }
 }

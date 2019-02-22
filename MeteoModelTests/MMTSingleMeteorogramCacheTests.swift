@@ -22,7 +22,7 @@ class MMTSingleMeteorogramCacheTests: XCTestCase
         super.setUp()
         
         let expect = expectation(description: "Init expectation")
-        predictionCache.store(meteorogram: loremCityMeteorogram) {_ in expect.fulfill() }
+        predictionCache.store(meteorogram: MMTMeteorogram.loremCity) {_ in expect.fulfill() }
         wait(for: [expect], timeout: 5.0)
     }
     
@@ -43,8 +43,7 @@ class MMTSingleMeteorogramCacheTests: XCTestCase
     func testRestoreMeteorogram()
     {
         let expect = expectation(description: "Completion expectation")
-        predictionCache.restoreMeteorogram {
-            
+        predictionCache.restore {
             XCTAssertEqual($0?.city.name, "Lorem")
             XCTAssertEqual($0?.city.region, "xyz")
             XCTAssertEqual($0?.city.location.coordinate.latitude, 1.0)
@@ -56,26 +55,16 @@ class MMTSingleMeteorogramCacheTests: XCTestCase
         }
         wait(for: [expect], timeout: 5.0)
     }
-}
-
-// MARK: Helper methods
-extension MMTSingleMeteorogramCacheTests
-{
-    func meteorogram(city: String, startDate: Date) -> MMTMeteorogram
-    {
-        let location = CLLocation(latitude: 1.0, longitude: 2.0)
-        let city = MMTCityProt(name: city, region: "xyz", location: location)
-        
-        var
-        meteorogram = MMTMeteorogram(model: MMTUmClimateModel(), city: city)
-        meteorogram.prediction = MMTMeteorogram.Prediction([.snow, .strongWind])
-        meteorogram.image = UIImage(thisBundle: "2018092900-381-199-full")
-        meteorogram.startDate = startDate
-        
-        return meteorogram
-    }
     
-    var loremCityMeteorogram: MMTMeteorogram {
-        return self.meteorogram(city: "Lorem", startDate: expectedDate)
+    func testCleanupCache()
+    {
+        let cleanupExpect = expectation(description: "Cleanup expectation")
+        let restoreExpect = expectation(description: "Restore expectation")
+        
+        predictionCache.cleanup { _ in cleanupExpect.fulfill() }
+        wait(for: [cleanupExpect], timeout: 1)
+        
+        predictionCache.restore { XCTAssertNil($0); restoreExpect.fulfill() }
+        wait(for: [restoreExpect], timeout: 1)
     }
 }

@@ -749,8 +749,8 @@
 		F9E696661AFCC06600273DA3 /* MobileMeteo */ = {
 			isa = PBXGroup;
 			children = (
-				1BB3A90B21122AEF00A5BCA4 /* Navigators */,
 				1BEB08F820F4007700B26035 /* MobileMeteo.entitlements */,
+				1BB3A90B21122AEF00A5BCA4 /* Navigators */,
 				1B8C6BF42036FB680029282F /* Migrator */,
 				F9E696901AFCC41D00273DA3 /* Controllers */,
 				1B68CD342045B82B00AB8046 /* Views */,

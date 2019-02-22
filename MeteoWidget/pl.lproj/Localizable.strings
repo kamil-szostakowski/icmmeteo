@@ -7,7 +7,7 @@
 */
 
 "error.widget.locationServicesDisabled" = "Usługi lokalizacyjne są niedostępne.";
-"error.widget.meteorogramFetchFailure" = "Nie udało się pobrać meteorogramu. Spróbuj ponownie później.";
+"error.widget.meteorogramFetchFailure" = "Brak meteorogramu. Otwórz aplikację lub spróbuj ponownie później.";
 
 "widget.sunny" = "Słonecznie";
 "widget.cloudy" = "Pochmurnie";
