@@ -65,6 +65,20 @@
                BlueprintName = "MeteoModelTests"
                ReferencedContainer = "container:MeteoModel.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "MMTPredictionModelImplTests/testPrediction_1()">
+               </Test>
+               <Test
+                  Identifier = "MMTPredictionModelImplTests/testPrediction_2()">
+               </Test>
+               <Test
+                  Identifier = "MMTPredictionModelImplTests/testPrediction_4()">
+               </Test>
+               <Test
+                  Identifier = "MMTPredictionModelImplTests/testPrediction_5()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
