@@ -37,7 +37,7 @@ public class MMTTodayModelController: MMTModelController
             
             guard self.locationServicesEnabled else {
                 self.cache.cleanup { _ in }
-                //self.meteorogram = nil
+                self.meteorogram = nil
                 self.notifyWatchers(.failed, completion: completion)
                 return
             }
@@ -83,7 +83,7 @@ extension MMTTodayModelController
             
             if var meteorogram = self.forecastService.currentMeteorogram
             {
-                meteorogram.prediction = try? MMTCoreMLPredictionModel.shared.predict(meteorogram)
+                meteorogram.prediction = try? MMTCoreMLPredictionModel().predict(meteorogram)
                 self.meteorogram = meteorogram
                 self.cache.store(meteorogram: meteorogram) { _ in }
             }

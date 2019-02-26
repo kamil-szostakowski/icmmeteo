@@ -21,7 +21,6 @@ class MMTCoreMLPredictionModel : MMTPredictionModel
     private let windModel = MeteoWindML()
     private let cloudsModel = MeteoCloudsML()
     private let inputProcessor = InputProcessor()
-    static let shared = MMTCoreMLPredictionModel()
     
     // MARK: Interface methods
     func predict(_ meteorogram: MMTMeteorogram) throws -> MMTMeteorogram.Prediction

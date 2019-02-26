@@ -157,13 +157,7 @@ extension MMTCitiesListController
     
     func shouldSkipUpdate(from controller: MMTCurrentCityModelController?) -> Bool
     {
-        if let aController = controller
-        {
-            if aController.requestPending || aController.error != nil {
-                return true
-            }            
-        }
-        
-        return false
+        guard let aController = controller else { return false }                
+        return aController.requestPending || aController.error != nil
     }
 }
