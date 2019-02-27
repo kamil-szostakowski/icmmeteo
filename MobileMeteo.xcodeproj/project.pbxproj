@@ -20,6 +20,7 @@
 		1B2C534220E2D98C003727A3 /* WidgetAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B2C534120E2D98C003727A3 /* WidgetAssets.xcassets */; };
 		1B2C534820E3E789003727A3 /* UIBackgroundFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C534720E3E789003727A3 /* UIBackgroundFetchResult.swift */; };
 		1B2C534C20E3EAF1003727A3 /* NCUpdateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C534B20E3EAF1003727A3 /* NCUpdateResult.swift */; };
+		1B2F75E5222738C90077FADB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1B2F75E4222738C90077FADB /* Settings.bundle */; };
 		1B39BEBB20DD8A60002495B5 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B39BEBA20DD8A60002495B5 /* NotificationCenter.framework */; };
 		1B39BEBE20DD8A60002495B5 /* MMTTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B39BEBD20DD8A60002495B5 /* MMTTodayViewController.swift */; };
 		1B39BEC120DD8A60002495B5 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B39BEBF20DD8A60002495B5 /* MainInterface.storyboard */; };
@@ -224,6 +225,7 @@
 		1B2C534120E2D98C003727A3 /* WidgetAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WidgetAssets.xcassets; sourceTree = "<group>"; };
 		1B2C534720E3E789003727A3 /* UIBackgroundFetchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBackgroundFetchResult.swift; sourceTree = "<group>"; };
 		1B2C534B20E3EAF1003727A3 /* NCUpdateResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NCUpdateResult.swift; sourceTree = "<group>"; };
+		1B2F75E4222738C90077FADB /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		1B39BEB920DD8A60002495B5 /* MeteoWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MeteoWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B39BEBA20DD8A60002495B5 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		1B39BEBD20DD8A60002495B5 /* MMTTodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTTodayViewController.swift; sourceTree = "<group>"; };
@@ -764,6 +766,7 @@
 				F9E696771AFCC06600273DA3 /* Images.xcassets */,
 				1B895CEF221B34CF00385BAD /* InfoPlist.strings */,
 				F91A6F561C86F6F200BDDE28 /* Localizable.strings */,
+				1B2F75E4222738C90077FADB /* Settings.bundle */,
 				F9E696671AFCC06600273DA3 /* Supporting Files */,
 			);
 			path = MobileMeteo;
@@ -1060,6 +1063,7 @@
 				F9E696761AFCC06600273DA3 /* Main.storyboard in Resources */,
 				F9E6967B1AFCC06600273DA3 /* LaunchScreen.xib in Resources */,
 				F930044F1E11D41D00A5CE10 /* MMTCitiesListSectionHeader.xib in Resources */,
+				1B2F75E5222738C90077FADB /* Settings.bundle in Resources */,
 				F9E696781AFCC06600273DA3 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
