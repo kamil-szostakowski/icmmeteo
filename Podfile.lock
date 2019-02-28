@@ -4,9 +4,13 @@ PODS:
 DEPENDENCIES:
   - GoogleAnalytics
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - GoogleAnalytics
+
 SPEC CHECKSUMS:
   GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
 
-PODFILE CHECKSUM: 34c0b6e4a1e32e1d19bf1cba2d9dd1a41c88f6fc
+PODFILE CHECKSUM: 1542f6c44f2ad7a1c7d7956d398e7d249faaafef
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.3

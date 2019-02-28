@@ -8,6 +8,8 @@
 
 import UIKit
 import Foundation
+import CoreLocation
+@testable import MeteoModel
 
 typealias TT = MMTTestTools
 
@@ -49,15 +51,47 @@ class MMTTestTools
 
 extension UIImage
 {
-    static func from(color: UIColor) -> UIImage
+    static func from(color: UIColor, _ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage
     {
-        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        UIGraphicsBeginImageContext(rect.size)
-        let context = UIGraphicsGetCurrentContext()
-        context!.setFillColor(color.cgColor)
-        context!.fill(rect)
-        let img = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return img!
+        UIGraphicsBeginImageContext(size)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            fatalError("Failed to obtain CGContext")
+        }
+        
+        context.setFillColor(color.cgColor)
+        context.fill(CGRect(origin: .zero, size: size))
+        
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
+            fatalError("Failed to obtain image from CGContext")
+        }
+        
+        UIGraphicsEndImageContext()        
+        return image
+    }
+    
+    convenience init(thisBundle named: String)
+    {
+        self.init(named: named, in: Bundle(for: MMTTestTools.self), compatibleWith: nil)!
+    }
+}
+
+extension MMTMeteorogram
+{
+    static func meteorogram(city: String, startDate: Date) -> MMTMeteorogram
+    {
+        let location = CLLocation(latitude: 1.0, longitude: 2.0)
+        let city = MMTCityProt(name: city, region: "xyz", location: location)
+        
+        var
+        meteorogram = MMTMeteorogram(model: MMTUmClimateModel(), city: city)
+        meteorogram.prediction = MMTMeteorogram.Prediction([.snow, .strongWind])
+        meteorogram.image = UIImage(thisBundle: "2018092900-381-199-full")
+        meteorogram.startDate = startDate
+        
+        return meteorogram
+    }
+    
+    static var loremCity: MMTMeteorogram {
+        return meteorogram(city: "Lorem", startDate: Date.from(2019, 3, 20, 10, 15, 20))
     }
 }

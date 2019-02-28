@@ -13,6 +13,20 @@ import Foundation
 import CoreLocation
 @testable import MeteoModel
 
+class MMTTestDispatcher
+{
+    private static var dispatchAsync = true
+    private static let queue = DispatchQueue(label: "test queue")
+    
+    public static func dispatch(call: @escaping () -> Void)
+    {
+        switch dispatchAsync {
+            case true: queue.async { call() }
+            case false: call()
+        }
+    }
+}
+
 class MMTMockMeteorogramUrlSession: MMTMeteorogramUrlSession
 {
     let mockData: Data?
@@ -43,10 +57,9 @@ class MMTMockForecastStore : MMTForecastStore
 {
     var result: MMTResult<Date>!
     
-    func startDate(_ completion: @escaping (MMTResult<Date>) -> Void) {
-        DispatchQueue.main.async {
-            completion(self.result)
-        }
+    func startDate(_ completion: @escaping (MMTResult<Date>) -> Void)
+    {
+        MMTTestDispatcher.dispatch { completion(self.result) }
     }
 }
 
@@ -60,20 +73,18 @@ class MMTMockMeteorogramImageStore : MMTMeteorogramImageStore
         return MMTUmClimateModel()
     }
     
-    func getMeteorogram(for city: MMTCityProt, startDate: Date, completion: @escaping (MMTResult<UIImage>) -> Void) {
-        DispatchQueue.main.async {
-            completion(self.meteorogramResult)
-        }
+    func getMeteorogram(for city: MMTCityProt, startDate: Date, completion: @escaping (MMTResult<UIImage>) -> Void)
+    {
+        MMTTestDispatcher.dispatch { completion(self.meteorogramResult) }
     }
     
-    func getLegend(_ completion: @escaping (MMTResult<UIImage>) -> Void) {
-        DispatchQueue.main.async {
-            completion(self.legendResult)
-        }
+    func getLegend(_ completion: @escaping (MMTResult<UIImage>) -> Void)
+    {
+        MMTTestDispatcher.dispatch { completion(self.legendResult) }
     }
     
     func getMeteorogram(for map: MMTDetailedMap, moment: Date, startDate: Date, completion: @escaping (MMTResult<UIImage>) -> Void) {
-        DispatchQueue.main.async {
+        MMTTestDispatcher.dispatch {
             let result = self.mapResult!.popLast()!
             completion(result)
         }
@@ -88,16 +99,12 @@ class MMTMockMeteorogramStore: MMTMeteorogramDataStore
     
     func meteorogram(for city: MMTCityProt, completion: @escaping (MMTResult<MMTMeteorogram>) -> Void)
     {
-        DispatchQueue.global(qos: .background).async {
-            completion(self.meteorogram)
-        }
+        MMTTestDispatcher.dispatch { completion(self.meteorogram) }
     }
     
     func meteorogram(for map: MMTDetailedMap, completion: @escaping (MMTResult<MMTMapMeteorogram>) -> Void)
     {
-        DispatchQueue.global(qos: .background).async {
-            completion(self.mapMeteorogram)
-        }
+        MMTTestDispatcher.dispatch { completion(self.mapMeteorogram) }
     }
 }
 
@@ -142,20 +149,19 @@ class MMTMockCitiesStore: MMTCitiesStore
     var currentCity: MMTResult<MMTCityProt>!
     var savedCity: MMTCityProt?
     
-    func all(_ completion:([MMTCityProt]) -> Void) {
+    func all(_ completion:([MMTCityProt]) -> Void)
+    {
         completion(self.allCities)
     }
     
-    func city(for location: CLLocation, completion: @escaping (MMTResult<MMTCityProt>) -> Void) {
-        DispatchQueue.global(qos: .background).async {
-            completion(self.currentCity)
-        }
+    func city(for location: CLLocation, completion: @escaping (MMTResult<MMTCityProt>) -> Void)
+    {
+        MMTTestDispatcher.dispatch { completion(self.currentCity) }
     }
     
-    func cities(matching criteria: String, completion: @escaping ([MMTCityProt]) -> Void) {
-        DispatchQueue.global(qos: .background).async {
-            completion(self.searchResult)
-        }
+    func cities(matching criteria: String, completion: @escaping ([MMTCityProt]) -> Void)
+    {
+        MMTTestDispatcher.dispatch { completion(self.searchResult) }
     }
     
     func save(city: MMTCityProt) {
@@ -169,9 +175,7 @@ class MMTMockForecasterStore: MMTForecasterCommentDataStore
     
     func forecasterComment(completion: @escaping (MMTResult<NSAttributedString>) -> Void)
     {
-        DispatchQueue.global(qos: .background).async {
-            completion(self.comment)
-        }
+        MMTTestDispatcher.dispatch { completion(self.comment) }
     }
 }
 
@@ -180,10 +184,9 @@ class MMTMockForecastService: MMTForecastService
     var currentMeteorogram: MMTMeteorogram?
     var status: MMTUpdateResult!
     
-    func update(for location: MMTCityProt?, completion: @escaping (MMTUpdateResult) -> Void) {
-        DispatchQueue.global(qos: .background).async {
-            completion(self.status)
-        }
+    func update(for location: MMTCityProt?, completion: @escaping (MMTUpdateResult) -> Void)
+    {
+        MMTTestDispatcher.dispatch { completion(self.status) }
     }
 }
 
@@ -205,16 +208,12 @@ class MMTMockGeocoder: MMTGeocoder
     // MARK: Mocked methods
     func geocode(location: CLLocation, completion: @escaping (MMTResult<[MMTPlacemark]>) -> Void)
     {
-        DispatchQueue.global(qos: .background).async {
-            completion(self.result)
-        }
+        MMTTestDispatcher.dispatch { completion(self.result) }
     }
     
     func geocode(address: CNPostalAddress, completion: @escaping (MMTResult<[MMTPlacemark]>) -> Void)
     {
-        DispatchQueue.global(qos: .background).async {
-            completion(self.result)
-        }
+        MMTTestDispatcher.dispatch { completion(self.result) }
     }
     
     func cancelGeocode()
@@ -229,16 +228,12 @@ class MMTMockCityGeocoder: MMTCityGeocoder
     
     func city(for location: CLLocation, completion: @escaping (MMTResult<MMTCityProt>) -> Void)
     {
-        DispatchQueue.global(qos: .background).async {
-            completion(self.cityForLocation)
-        }
+        MMTTestDispatcher.dispatch { completion(self.cityForLocation) }
     }
     
     func cities(matching criteria: String, completion: @escaping ([MMTCityProt]) -> Void)
     {
-        DispatchQueue.global(qos: .background).async {
-            completion(self.citiesMatchingCriteria)
-        }
+        MMTTestDispatcher.dispatch { completion(self.citiesMatchingCriteria) }
     }
 }
 

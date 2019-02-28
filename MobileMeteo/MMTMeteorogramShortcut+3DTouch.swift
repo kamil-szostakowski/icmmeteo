@@ -8,6 +8,7 @@
 
 import CoreLocation
 import MeteoModel
+import MeteoUIKit
 
 // 3D Touch, quick actions integration
 extension UIApplicationShortcutItem
@@ -17,12 +18,12 @@ extension UIApplicationShortcutItem
         let subtitle = MMTLocalizedString(shortcut.city.region)
         let icon = UIApplicationShortcutIcon(type: .favorite)
         
-        let userInfo: [String : Any] = [            
-            "latitude" : shortcut.city.location.coordinate.latitude,
-            "longitude" : shortcut.city.location.coordinate.longitude,
-            "city-name" : shortcut.city.name,
-            "city-region" : shortcut.city.region,
-            "climate-model" : shortcut.climateModel.type.rawValue
+        let userInfo: [String : NSSecureCoding] = [
+            "latitude" : shortcut.city.location.coordinate.latitude as NSSecureCoding,
+            "longitude" : shortcut.city.location.coordinate.longitude as NSSecureCoding,
+            "city-name" : shortcut.city.name as NSSecureCoding,
+            "city-region" : shortcut.city.region as NSSecureCoding,
+            "climate-model" : shortcut.climateModel.type.rawValue as NSSecureCoding
         ]
         
         self.init(type: shortcut.identifier, localizedTitle: shortcut.city.name, localizedSubtitle: subtitle, icon: icon, userInfo: userInfo)

@@ -8,6 +8,7 @@
 
 import UIKit
 import MeteoModel
+import MeteoUIKit
 
 enum MMTUpdateErrorType
 {
@@ -17,8 +18,7 @@ enum MMTUpdateErrorType
 
 class MMTUpdateErrorView: UIView
 {
-    // MARK: Properties
-    @IBOutlet weak var iconImageView: UIImageView!
+    // MARK: Properties    
     @IBOutlet weak var descriptionLabel: UILabel!
     
     // MARK: Initializers
@@ -45,14 +45,14 @@ extension MMTUpdateErrorView: MMTUpdatableView
 {
     func updated(with errorType: MMTUpdateErrorType) -> MMTUpdateErrorView
     {
-        switch errorType {            
-            case .locationServicesUnavailable:
-                iconImageView.image = #imageLiteral(resourceName: "ext-detailed-maps")
-                descriptionLabel.text = "Usługi lokalizacyjne są niedostępne."
-            case .meteorogramUpdateFailure:
-                iconImageView.image = #imageLiteral(resourceName: "ext-detailed-maps")
-                descriptionLabel.text = "Nie udało się pobrać meteorogramu."
+        var key = ""        
+        switch errorType
+        {
+            case .locationServicesUnavailable: key = "error.widget.locationServicesDisabled"
+            case .meteorogramUpdateFailure: key = "error.widget.meteorogramFetchFailure"
         }
+                
+        descriptionLabel.text = MMTLocalizedString(key)
         return self
     }
 }

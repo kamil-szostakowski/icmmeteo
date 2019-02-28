@@ -39,15 +39,19 @@ public class MMTCurrentCityModelController: MMTModelController
     
     public func onUpdate(city: MMTCityProt?)
     {
-        guard currentCity != city else {
-            print("Canceleded model update because destination didn't change")
-            return
+        citiesStore.all {
+            let aCity = $0.filter { $0 == city }.first ?? city
+            
+            if currentCity == aCity && currentCity?.isFavourite == aCity?.isFavourite {
+                print("Canceled model update because destination didn't change")
+                return
+            }            
+            
+            print("Updated model with current location \(String(describing: aCity?.location.coordinate))")
+            
+            currentCity = aCity
+            delegate?.onModelUpdate(self)
         }
-        
-        print("Updated model with current location \(String(describing: city?.location.coordinate))")
-        
-        currentCity = city
-        delegate?.onModelUpdate(self)
     }
 }
 

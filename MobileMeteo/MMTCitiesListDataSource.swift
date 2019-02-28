@@ -8,6 +8,7 @@
 
 import Foundation
 import MeteoModel
+import MeteoUIKit
 
 class MMTCitiesListDataSource : NSObject, UITableViewDataSource, UITableViewDelegate, MMTAnalyticsReporter
 {

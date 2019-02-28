@@ -47,7 +47,7 @@ extension MMTCityMapPickerController
     {
         let spanInMeters: CLLocationDistance = 230000
         let centerOfPoland = CLLocationCoordinate2D(latitude: 52.249, longitude: 19.20)
-        let region = MKCoordinateRegionMakeWithDistance(centerOfPoland, spanInMeters, spanInMeters)
+        let region = MKCoordinateRegion.init(center: centerOfPoland, latitudinalMeters: spanInMeters, longitudinalMeters: spanInMeters)
         
         mapView.setRegion(region, animated: false)
     }

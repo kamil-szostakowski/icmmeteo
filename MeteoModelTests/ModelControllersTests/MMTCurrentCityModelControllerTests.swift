@@ -16,13 +16,16 @@ class MMTCurrentCityModelControllerTests: XCTestCase
     var citiesStore: MMTMockCitiesStore!
     var modelController: MMTCurrentCityModelController!
     var mockDelegate: MMTMockModelControllerDelegate<MMTCurrentCityModelController>!
+    var sitia = MMTCityProt(name: "Sit", region: "Sitia", location: CLLocation())
+    var loremia = MMTCityProt(name: "Lorem", region: "Loremia", location: CLLocation())
     
     // MARK: Setup methods
     override func setUp()
     {
         super.setUp()
         citiesStore = MMTMockCitiesStore()
-        citiesStore.currentCity = .success(MMTCityProt(name: "Sit", region: "Sitia", location: CLLocation()))
+        citiesStore.currentCity = .success(sitia)
+        citiesStore.allCities = [sitia, loremia]
         
         mockDelegate = MMTMockModelControllerDelegate<MMTCurrentCityModelController>()
         modelController = MMTCurrentCityModelController(store: citiesStore)
@@ -39,7 +42,7 @@ class MMTCurrentCityModelControllerTests: XCTestCase
     
     func testUpdateOfCurrentCity()
     {
-        citiesStore.currentCity = .success(MMTCityProt(name: "Lorem", region: "Loremia", location: CLLocation()))
+        citiesStore.currentCity = .success(loremia)
         
         let expectations = mockDelegate.awaitModelUpdate(completions: [onRequestPending, {
             XCTAssertNil($0.error)
@@ -95,14 +98,9 @@ class MMTCurrentCityModelControllerTests: XCTestCase
         XCTAssertNil(modelController.currentCity)
     }
     
-    func testUpdateOfCurrentCityWithSameCity()
+    func testUpdateOfCurrentCityWithSameNotFavoriteCity()
     {
-        let firstExpectations = mockDelegate.awaitModelUpdate(completions: [onRequestPending, {
-            XCTAssertEqual($0.currentCity?.name, "Sit")
-        }])
-        
-        modelController.onLocationChange(location: CLLocation())
-        wait(for: firstExpectations, timeout: 2)
+        verify(city: "Sit", favorite: false)
         
         mockDelegate.updatesCount = 0
         let secondExpectations = mockDelegate.awaitModelUpdate(completions: [onRequestPending])
@@ -111,10 +109,36 @@ class MMTCurrentCityModelControllerTests: XCTestCase
         wait(for: secondExpectations, timeout: 2)
     }
     
+    func testUpdateOfCurrentCityWithSameFavoriteCity()
+    {
+        verify(city: "Sit", favorite: false)
+        
+        citiesStore.currentCity = .success(sitia)
+        sitia.isFavourite = true
+        mockDelegate.updatesCount = 0
+        citiesStore.allCities = [sitia, loremia]
+        
+        verify(city: "Sit", favorite: true)
+    }
+    
     // MARK: Helper methods
     func onRequestPending(controller: MMTCurrentCityModelController)
     {
         XCTAssertNil(controller.error)
         XCTAssertTrue(controller.requestPending)
+    }
+}
+
+extension MMTCurrentCityModelControllerTests
+{
+    func verify(city name: String, favorite: Bool)
+    {
+        let firstExpectations = mockDelegate.awaitModelUpdate(completions: [onRequestPending, {
+            XCTAssertEqual($0.currentCity!.name, name)
+            XCTAssertEqual($0.currentCity!.isFavourite, favorite)
+            }])
+        
+        modelController.onLocationChange(location: CLLocation())
+        wait(for: firstExpectations, timeout: 2)
     }
 }

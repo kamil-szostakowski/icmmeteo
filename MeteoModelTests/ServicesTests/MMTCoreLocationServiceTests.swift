@@ -43,14 +43,14 @@ class MMTCoreLocationServiceTests: XCTestCase
     // MARK: Test methods
     func testInitialization()
     {
-        XCTAssertEqual(service.authorizationStatus, .unauthorized)
+        XCTAssertEqual(service.authorizationStatus, .undetermined)
     }
     
     func testAuthorization()
     {
         verifyAuthorization(.authorizedAlways, .always)
         verifyAuthorization(.authorizedWhenInUse, .whenInUse)
-        verifyAuthorization(.notDetermined, .unauthorized)
+        verifyAuthorization(.notDetermined, .undetermined)
         verifyAuthorization(.denied, .unauthorized)
         verifyAuthorization(.restricted, .unauthorized)
     }
@@ -67,7 +67,7 @@ class MMTCoreLocationServiceTests: XCTestCase
     
     func testLocationUpdateOnAppActivationWhenAuthorized()
     {
-        let operation = { NotificationCenter.default.post(name: .UIApplicationDidBecomeActive, object: nil) }
+        let operation = { NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil) }
         verifyAuthorization(.authorizedWhenInUse, .whenInUse)
         
         verifyLocationUpdate(expected: loremCity, operation)
@@ -78,7 +78,7 @@ class MMTCoreLocationServiceTests: XCTestCase
     
     func testLocationUpdateOnAppActivationWhenUnauthorized()
     {
-        let operation = { NotificationCenter.default.post(name: .UIApplicationDidBecomeActive, object: nil) }
+        let operation = { NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil) }
         
         verifyAuthorization(.denied, .unauthorized)
         verifyLocationUpdate(expected: nil, operation, inverted: true)
@@ -117,6 +117,7 @@ class MMTCoreLocationServiceTests: XCTestCase
     
     func testLocationRequestPromiseWhenDetectionFailure()
     {
+        verifyAuthorization(.authorizedWhenInUse, .whenInUse)
         verifyLocationRequestPromise(expected: .failure(.locationNotFound), {
             self.service.locationManager(self.locationManager, didFailWithError: NSError(domain: "", code: 1, userInfo: nil))
         })
@@ -124,9 +125,16 @@ class MMTCoreLocationServiceTests: XCTestCase
 
     func testLocationRequestPromiseWhenNoAuthorization()
     {
-        verifyLocationRequestPromise(expected: .failure(.locationNotFound), {
+        verifyAuthorization(.denied, .unauthorized)
+        verifyLocationRequestPromise(expected: .failure(.locationServicesDisabled), {
             self.service.locationManager(self.locationManager, didChangeAuthorization: .denied)
         })
+    }
+    
+    func testUnauthorizedLocationRequestPromiseWhenFullfilledBeforeObserved()
+    {
+        verifyAuthorization(.denied, .unauthorized)
+        verifyLocationRequestPromise(expected: .failure(.locationServicesDisabled), {})
     }
     
     func testLocationRequestPromiseWhenFullfilledBeforeObserved()

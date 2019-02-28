@@ -9,6 +9,7 @@
 
 import Foundation
 import MeteoModel
+import MeteoUIKit
 
 class MMTDetailedMapPreviewController: UIViewController, MMTActivityIndicating
 {

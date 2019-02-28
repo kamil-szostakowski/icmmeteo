@@ -8,6 +8,7 @@
 
 import Foundation
 import MeteoModel
+import MeteoUIKit
 
 let MMTMeteorogramShortcutsLimit = 2
 
@@ -25,13 +26,3 @@ let MMTTranslationCityCategory:[MMTCitiesIndexSectionType: String] =
     .Favourites: MMTLocalizedString("locations.favourites"),
     .Capitals: MMTLocalizedString("locations.district-capitals"),
 ]
-
-func MMTLocalizedString(_ string: String) -> String
-{
-    return NSLocalizedString(string, comment: "")
-}
-
-func MMTLocalizedStringWithFormat(_ format: String, _ arguments: CVarArg...) -> String
-{
-    return String(format: NSLocalizedString(format, comment: ""), arguments: arguments)
-}

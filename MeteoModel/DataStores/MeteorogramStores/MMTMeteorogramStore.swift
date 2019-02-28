@@ -91,22 +91,19 @@ public struct MMTMeteorogramStore: MMTMeteorogramDataStore
             meteorogram = MMTMapMeteorogram(model: self.climateModel)
             meteorogram.startDate = startDate
             meteorogram.moments = moments
-
-            let queue = DispatchQueue.global()
+            
             let group = DispatchGroup()
             
             for date in moments
             {
                 group.enter()
-                queue.async(group: group) {
-                    self.meteorogramImageStore.getMeteorogram(for: map, moment: date, startDate: startDate) {
+                self.meteorogramImageStore.getMeteorogram(for: map, moment: date, startDate: startDate) {
                         
-                        switch $0 {
-                            case let .success(img): result[date] = img
-                            case .failure(_): errorCount += 1
-                        }
-                        group.leave()
+                    switch $0 {
+                        case let .success(img): result[date] = img
+                        case .failure(_): errorCount += 1
                     }
+                    group.leave()
                 }
             }
             

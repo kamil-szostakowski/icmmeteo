@@ -8,6 +8,7 @@
 
 import UIKit
 import MeteoModel
+import MeteoUIKit
 
 class MMTForecastDescriptionView: UIView
 {
@@ -16,12 +17,14 @@ class MMTForecastDescriptionView: UIView
         var icon: UIImage
         var startDateText: String
         var descriptionText: String
+        var city: String
     }
     
     // MARK: Properties
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet var startDateLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet weak var cityNameLabel: UILabel!
     
     // MARK: Initializers
     required init?(coder aDecoder: NSCoder)
@@ -50,6 +53,7 @@ extension MMTForecastDescriptionView: MMTUpdatableView
         iconImageView.image = description.icon
         startDateLabel.text = description.startDateText
         descriptionLabel.text = description.descriptionText
+        cityNameLabel.text = description.city
         
         return self
     }
@@ -57,38 +61,54 @@ extension MMTForecastDescriptionView: MMTUpdatableView
 
 extension MMTForecastDescriptionView.ViewModel
 {
-    init(_ description: MMTMeteorogramDescription)
+    init(_ meteorogram: MMTMeteorogram)
     {
-        let treshold: Double = 0.4
-        let startDate = DateFormatter.utcFormatter.string(from: description.startDate)
-        var iconImage = #imageLiteral(resourceName: "ext-sunny")
+        let startDate = DateFormatter.utcFormatter.string(from: meteorogram.startDate)
         
-        var
-        components = [String]()
-        components.append(description.clouds > treshold ? "pochmurnie" : "słonecznie")
+        startDateText = MMTLocalizedStringWithFormat("widget.forecast.start: %@", startDate)
+        city = meteorogram.city.name
+        descriptionText = ""
+        icon = #imageLiteral(resourceName: "logo2")
         
-        if description.strongWind > treshold {
-            components.append("silny wiatr")
-            iconImage = #imageLiteral(resourceName: "ext-wind")
+        if let prediction = meteorogram.prediction {
+            icon = image(for: prediction)
+            descriptionText = text(for: prediction)
+        }
+    }
+    
+    private func image(for prediction: MMTMeteorogram.Prediction) -> UIImage
+    {
+        if prediction.contains(.snow) { return #imageLiteral(resourceName: "ext-snow") }
+        if prediction.contains(.rain) { return #imageLiteral(resourceName: "ext-rain") }
+        if prediction.contains(.strongWind) { return #imageLiteral(resourceName: "ext-wind") }
+        if prediction.contains(.clouds) { return #imageLiteral(resourceName: "ext-cloudy") }
+        
+        return #imageLiteral(resourceName: "ext-sunny")
+    }
+    
+    private func text(for prediction: MMTMeteorogram.Prediction) -> String
+    {
+        var components = [String]()
+        
+        if prediction.contains(.clouds) {
+            components.append("widget.cloudy")
+        } else {
+            components.append("widget.sunny")
         }
         
-        if description.storm > treshold {
-            components.append("\nmożliwe burze")
-            iconImage = #imageLiteral(resourceName: "ext-storm")
-        } else if description.rain > treshold && description.snow > treshold {
-            if components.count == 2 { components.remove(at: 0) }
-            components.append("możliwe opady deszczu ze śniegiem")
-            iconImage = #imageLiteral(resourceName: "ext-snow")
-        } else if description.rain > treshold {
-            components.append("\nmożliwe opady deszczu")
-            iconImage = #imageLiteral(resourceName: "ext-rain")
-        } else if description.snow > treshold {
-            components.append("\nmożliwe opady śniegu")
-            iconImage = #imageLiteral(resourceName: "ext-snow")
+        if prediction.contains(.strongWind) {
+            components.append("widget.windy")
         }
         
-        icon = iconImage
-        startDateText = "Start prognozy: \(startDate)"
-        descriptionText = components.joined(separator: ", ")
+        if prediction.contains(.rain) {
+            components.append("widget.rainy")
+        }
+        else if prediction.contains(.snow) {
+            components.append("widget.snowy")
+        }
+        
+        return components
+            .map { MMTLocalizedString($0) }
+            .joined(separator: ", ")
     }
 }

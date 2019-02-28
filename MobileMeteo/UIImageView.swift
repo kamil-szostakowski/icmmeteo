@@ -11,7 +11,7 @@ import Foundation
 
 extension UIImageView
 {
-    var imageRenderingMode: UIImageRenderingMode {
+    var imageRenderingMode: UIImage.RenderingMode {
         get { return image?.renderingMode ?? .automatic }
         set { image = image?.withRenderingMode(newValue) }
     }
@@ -20,11 +20,11 @@ extension UIImageView
     {
         for constraint in self.constraints 
         {
-            if constraint.firstAttribute == NSLayoutAttribute.width {
+            if constraint.firstAttribute == NSLayoutConstraint.Attribute.width {
                 constraint.constant = size.width
             }
             
-            if constraint.firstAttribute == NSLayoutAttribute.height {
+            if constraint.firstAttribute == NSLayoutConstraint.Attribute.height {
                 constraint.constant = size.height
             }
         }

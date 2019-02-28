@@ -20,12 +20,14 @@ public enum MMTLocationAuthStatus: CustomStringConvertible
     case always
     case whenInUse
     case unauthorized
+    case undetermined
     
     public var description: String {
         switch self {
             case .always: return "always"
             case .whenInUse: return "whenInUse"
             case .unauthorized: return "unauthorized"
+            case .undetermined: return "undetermined"
         }
     }
 }
@@ -37,6 +39,7 @@ extension MMTLocationAuthStatus
         switch status {
             case .authorizedWhenInUse: self = .whenInUse
             case .authorizedAlways: self = .always
+            case .notDetermined: self = .undetermined
             default: self = .unauthorized
         }
     }

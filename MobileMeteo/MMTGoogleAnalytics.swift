@@ -11,33 +11,38 @@ import MeteoModel
 
 extension GAI: MMTAnalytics
 {    
-    public func sendScreenEntryReport(_ screen: String)
+    func sendScreenEntryReport(_ screen: String)
     {
         let analyticsReport = GAIDictionaryBuilder.createScreenView().build() as NSDictionary
         
         defaultTracker.set(kGAIScreenName, value: screen)
-        defaultTracker.send(analyticsReport as! [AnyHashable: Any])
+        defaultTracker.send(analyticsReport as? [AnyHashable: Any])
     }
     
-    public func sendUserActionReport(_ report: MMTAnalyticsReport)
+    func sendUserActionReport(_ report: MMTAnalyticsReport)
     {
         let category = report.category.rawValue
         let action = report.action.rawValue
         let analyticsReport = GAIDictionaryBuilder.createEvent(withCategory: category, action: action, label: report.actionLabel, value: 1).build() as NSDictionary
         
         defaultTracker.set(kGAIScreenName, value: category)
-        defaultTracker.send(analyticsReport as! [AnyHashable: Any])
+        defaultTracker.send(analyticsReport as? [AnyHashable: Any])
     }
     
-    public func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel label: String)
+    func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel label: String)
     {
         sendUserActionReport(MMTAnalyticsReport(category: category, action: action, actionLabel: label))
+    }
+    
+    func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction)
+    {
+        sendUserActionReport(category, action: action, actionLabel: "")
     }
 }
 
 extension MMTAnalyticsReporter
 {
-    public var analytics: MMTAnalytics?
+    var analytics: MMTAnalytics?
     {        
         guard GAI.sharedInstance().defaultTracker != nil else {
             return nil
@@ -55,3 +60,18 @@ extension MMTAnalyticsReporter
 }
 
 extension UIViewController: MMTAnalyticsReporter {}
+
+extension MMTAnalyticsAction
+{
+    init?(group: MMTCitiesIndexSectionType)
+    {
+        switch group
+        {
+        case .Capitals: self = .LocationDidSelectCapital
+        case .Favourites: self = .LocationDidSelectFavourite
+        case .SearchResults: self = .LocationDidSelectSearchResult
+        case .CurrentLocation: self = .LocationDidSelectCurrentLocation
+        default: return nil
+        }
+    }
+}

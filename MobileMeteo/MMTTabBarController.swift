@@ -21,10 +21,10 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate, MMTAc
 
         delegate = self
         
-        let attributes = [NSAttributedStringKey.font: MMTAppearance.fontWithSize(10)]
+        let attributes = [NSAttributedString.Key.font: MMTAppearance.fontWithSize(10)]
 
-        UITabBarItem.appearance().setTitleTextAttributes(attributes, for: UIControlState())
-        UITabBarItem.appearance().setTitleTextAttributes(attributes, for: UIControlState.selected)
+        UITabBarItem.appearance().setTitleTextAttributes(attributes, for: UIControl.State())
+        UITabBarItem.appearance().setTitleTextAttributes(attributes, for: UIControl.State.selected)
         UITabBar.appearance().tintColor = MMTAppearance.textColor
     }
     

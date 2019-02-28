@@ -30,7 +30,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     }
         
     // MARK: Lifecycle methods
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         setupAppearance()
         setupAnalytics()
@@ -59,14 +59,14 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     }
     
     // MARK: External actions related methods
-    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool
     {
         guard let destination = CSSearchableIndex.default().convert(from: userActivity)?.destination else {
             return false
         }
         
         navigator.navigate(to: destination) {}
-        analytics?.sendUserActionReport(.Shortcut, action: .ShortcutSpotlightDidActivate, actionLabel: "")
+        analytics?.sendUserActionReport(.Shortcut, action: .ShortcutSpotlightDidActivate)
         return true
     }
     
@@ -77,14 +77,14 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         }
         
         navigator.navigate(to: destination) { completionHandler(true) }
-        analytics?.sendUserActionReport(.Shortcut, action: .Shortcut3DTouchDidActivate, actionLabel: "")
+        analytics?.sendUserActionReport(.Shortcut, action: .Shortcut3DTouchDidActivate)
     }
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
         todayModelController.onUpdate {
             if $0 == .newData {
-                self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish, actionLabel: "")
+                self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish)
             }
             completionHandler(UIBackgroundFetchResult(updateStatus: $0))
         }
@@ -110,20 +110,20 @@ extension MMTAppDelegate
     
     private func setupAppearance()
     {
-        let attributes: [NSAttributedStringKey: Any] = [
+        let attributes: [NSAttributedString.Key: Any] = [
             .font: MMTAppearance.boldFontWithSize(16),
             .foregroundColor: MMTAppearance.textColor
         ]
         
         UINavigationBar.appearance().titleTextAttributes = attributes
-        UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: UIControlState())
+        UIBarButtonItem.appearance().setTitleTextAttributes(attributes, for: UIControl.State())
         
-        let disabledAttributes: [NSAttributedStringKey: Any] = [
+        let disabledAttributes: [NSAttributedString.Key: Any] = [
             .font: MMTAppearance.boldFontWithSize(16),
             .foregroundColor: UIColor.lightGray
         ]
         
-        UIBarButtonItem.appearance().setTitleTextAttributes(disabledAttributes, for: UIControlState.disabled)
+        UIBarButtonItem.appearance().setTitleTextAttributes(disabledAttributes, for: UIControl.State.disabled)
     }
     
     private func setupAnalytics()

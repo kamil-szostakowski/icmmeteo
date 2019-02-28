@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  MobileMeteo
+
+  Created by szostakowskik on 14/02/2019.
+  Copyright © 2019 Kamil Szostakowski. All rights reserved.
+*/
+
+"error.widget.locationServicesDisabled" = "Usługi lokalizacyjne są niedostępne.";
+"error.widget.meteorogramFetchFailure" = "Brak meteorogramu. Otwórz aplikację lub spróbuj ponownie później.";
+
+"widget.sunny" = "Słonecznie";
+"widget.cloudy" = "Pochmurnie";
+"widget.rainy" = "możliwy deszcz";
+"widget.windy" = "silny wiatr";
+"widget.snowy" = "możliwy śnieg";
+"widget.forecast.start: %@" = "Start prognozy: %@";

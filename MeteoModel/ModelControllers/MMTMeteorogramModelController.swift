@@ -9,10 +9,8 @@
 import Foundation
 import CoreSpotlight
 
-public class MMTMeteorogramModelController: MMTModelController, MMTAnalyticsReporter
+public class MMTMeteorogramModelController: MMTModelController
 {
-    public var analytics: MMTAnalytics?
-    
     // MARK: Properties
     public var meteorogram: MMTMeteorogram?
     public var error: MMTError?
@@ -39,7 +37,6 @@ public class MMTMeteorogramModelController: MMTModelController, MMTAnalyticsRepo
     public override func activate()
     {
         downloadMeteorogram()
-        analytics?.sendScreenEntryReport("Meteorogram: \(climateModel.type.rawValue)")
     }
     
     public override func deactivate()
@@ -54,12 +51,6 @@ extension MMTMeteorogramModelController
     public func onToggleFavorite()
     {
         city.isFavourite = !city.isFavourite
-        
-        let action: MMTAnalyticsAction = city.isFavourite ?
-            MMTAnalyticsAction.LocationDidAddToFavourites :
-            MMTAnalyticsAction.LocationDidRemoveFromFavourites
-
-        analytics?.sendUserActionReport(.Locations, action: action, actionLabel:  city.name)
         delegate?.onModelUpdate(self)
     }
 }
@@ -79,7 +70,6 @@ extension MMTMeteorogramModelController
             if case let .success(meteorogram) = $0 {
                 self.meteorogram = meteorogram
                 self.error = nil
-                self.analytics?.sendUserActionReport(.Meteorogram, action: .MeteorogramDidDisplay, actionLabel: self.climateModel.type.rawValue)
             }
             
             if case let .failure(error) = $0 {

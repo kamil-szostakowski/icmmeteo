@@ -1,56 +1,20 @@
  [
-  {
-    "name": "Białystok", "latitude": 53.132260, "longitude": 23.167809, "region": "Podlaskie"
-  },
-  {
-    "name": "Bydgoszcz", "latitude": 53.120743, "longitude": 18.018270, "region": "Kujawsko-Pomorskie"
-  },
-  {
-    "name": "Gdańsk", "latitude": 54.352685, "longitude": 18.639215, "region": "Pomorskie"
-  },
-  {
-    "name": "Gorzów Wielkopolski", "latitude": 52.732159, "longitude": 15.236088, "region": "Lubuskie"
-  },
-  {
-    "name": "Katowice", "latitude": 50.265494, "longitude": 19.020239, "region": "Śląskie"
-  },
-  {
-    "name": "Kielce", "latitude": 50.866826, "longitude": 20.629718, "region": "Świętokrzyskie"
-  },
-  {
-    "name": "Kraków", "latitude": 50.064400, "longitude": 19.947195, "region": "Małopolskie"
-  },
-  {
-    "name": "Lublin", "latitude": 51.246486, "longitude": 22.561024, "region": "Lubelskie"
-  },
-  {
-    "name": "Łódź", "latitude": 51.760795, "longitude": 19.459307, "region": "Łódzkie"
-  },
-  {
-    "name": "Olsztyn", "latitude": 53.777837, "longitude": 20.483895, "region": "Warmińsko-Mazurskie"
-  },
-  {
-    "name": "Opole", "latitude": 50.674826, "longitude": 17.922103, "region": "Opolskie"
-  },
-  {
-    "name": "Poznań", "latitude": 52.407650, "longitude": 16.925012, "region": "Wielkopolskie"
-  },
-  {
-    "name": "Rzeszów", "latitude": 50.041384, "longitude": 22.004248, "region": "Podkarpackie"
-  },
-  {
-    "name": "Szczecin", "latitude": 53.427242, "longitude": 14.564885, "region": "Zachodniopomorskie"
-  },
-  {
-    "name": "Toruń", "latitude": 53.013496, "longitude": 18.597600, "region": "Kujawsko-Pomorskie"
-  },
-  {
-    "name": "Warszawa", "latitude": 52.231256, "longitude": 21.012442, "region": "Mazowieckie"
-  },
-  {
-    "name": "Wrocław", "latitude": 51.108328, "longitude": 17.033063, "region": "Dolnośląskie"
-  },
-  {
-    "name": "Zielona Góra", "latitude": 51.935632, "longitude": 15.505940, "region": "Lubuskie"
-  }
+  { "name": "Białystok", "latitude": 53.132260, "longitude": 23.167809, "region": "Podlaskie" },
+  { "name": "Bydgoszcz", "latitude": 53.120743, "longitude": 18.018270, "region": "Kujawsko-Pomorskie" },
+  { "name": "Gdańsk", "latitude": 54.352685, "longitude": 18.639215, "region": "Pomorskie" },
+  { "name": "Gorzów Wielkopolski", "latitude": 52.732159, "longitude": 15.236088, "region": "Lubuskie" },
+  { "name": "Katowice", "latitude": 50.265494, "longitude": 19.020239, "region": "Śląskie" },
+  { "name": "Kielce", "latitude": 50.866826, "longitude": 20.629718, "region": "Świętokrzyskie" },
+  { "name": "Kraków", "latitude": 50.064400, "longitude": 19.947195, "region": "Małopolskie" },
+  { "name": "Lublin", "latitude": 51.246486, "longitude": 22.561024, "region": "Lubelskie" },
+  { "name": "Łódź", "latitude": 51.760795, "longitude": 19.459307, "region": "Łódzkie" },
+  { "name": "Olsztyn", "latitude": 53.777837, "longitude": 20.483895, "region": "Warmińsko-Mazurskie" },
+  { "name": "Opole", "latitude": 50.674826, "longitude": 17.922103, "region": "Opolskie" },
+  { "name": "Poznań", "latitude": 52.407650, "longitude": 16.925012, "region": "Wielkopolskie" },
+  { "name": "Rzeszów", "latitude": 50.041384, "longitude": 22.004248, "region": "Podkarpackie" },
+  { "name": "Szczecin", "latitude": 53.427242, "longitude": 14.564885, "region": "Zachodniopomorskie" },
+  { "name": "Toruń", "latitude": 53.013496, "longitude": 18.597600, "region": "Kujawsko-Pomorskie" },
+  { "name": "Warszawa", "latitude": 52.231256, "longitude": 21.012442, "region": "Mazowieckie" },
+  { "name": "Wrocław", "latitude": 51.108328, "longitude": 17.033063, "region": "Dolnośląskie" },
+  { "name": "Zielona Góra", "latitude": 51.935632, "longitude": 15.505940, "region": "Lubuskie" }
 ]

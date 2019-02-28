@@ -8,20 +8,20 @@
 
 import Foundation
 
-public enum MMTAnalyticsCategory: String
+enum MMTAnalyticsCategory: String
 {
     case Locations
     case Meteorogram
     case DetailedMaps
     case Shortcut
     case ForecasterComment
+    case Widget
 }
 
-public enum MMTAnalyticsAction: String
+enum MMTAnalyticsAction: String
 {
     case MeteorogramDidDisplay
     case MeteorogramDidDisplayInLandscape
-    
     case LocationDidAddToFavourites
     case LocationDidRemoveFromFavourites
     case LocationDidSelectCapital
@@ -36,26 +36,19 @@ public enum MMTAnalyticsAction: String
     case Shortcut3DTouchDidActivate
     case BackgroundUpdateDidFinish
     
-    public init?(group: MMTCitiesIndexSectionType)
-    {
-        switch group
-        {
-            case .Capitals: self = .LocationDidSelectCapital
-            case .Favourites: self = .LocationDidSelectFavourite
-            case .SearchResults: self = .LocationDidSelectSearchResult
-            case .CurrentLocation: self = .LocationDidSelectCurrentLocation        
-            default: return nil
-        }
-    }
+    case WidgetDidDisplayCompact
+    case WidgetDidDisplayExpanded
+    case WidgetDidDisplayErrorNoLocationServices
+    case WidgetDidDisplayErrorFetchFailure
 }
 
-public struct MMTAnalyticsReport
+struct MMTAnalyticsReport
 {
-    public var category: MMTAnalyticsCategory
-    public var action: MMTAnalyticsAction
-    public var actionLabel: String
+    var category: MMTAnalyticsCategory
+    var action: MMTAnalyticsAction
+    var actionLabel: String
     
-    public init(category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel: String)
+    init(category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel: String = "")
     {
         self.category = category
         self.action = action
@@ -63,14 +56,15 @@ public struct MMTAnalyticsReport
     }
 }
 
-public protocol MMTAnalytics
+protocol MMTAnalytics
 {    
     func sendScreenEntryReport(_ screen: String)
     func sendUserActionReport(_ action: MMTAnalyticsReport)
+    func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction)
     func sendUserActionReport(_ category: MMTAnalyticsCategory, action: MMTAnalyticsAction, actionLabel: String)
 }
 
-public protocol MMTAnalyticsReporter
+protocol MMTAnalyticsReporter
 {
     var analytics: MMTAnalytics? { get }
 }

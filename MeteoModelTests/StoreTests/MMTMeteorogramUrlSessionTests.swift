@@ -63,7 +63,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
     // MARK: Test methods for fetching images
     func testFetchImage()
     {
-        let image = UIImagePNGRepresentation(.from(color: .blue))
+        let image = UIImage.from(color: .blue).pngData()
         let sesstion = MMTMockMeteorogramUrlSession(image, nil, nil)
 
         sesstion.image(from: url) {
@@ -94,7 +94,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
     // MARK: Test methods for fetching meteorograms
     func testFetchMeteorogramImage()
     {        
-        let image = UIImagePNGRepresentation(.from(color: .red))
+        let image = UIImage.from(color: .red).pngData()
         let sesstion = MMTMockMeteorogramUrlSession(image, nil, nil)
 
         sesstion.meteorogramImage(from: url) {

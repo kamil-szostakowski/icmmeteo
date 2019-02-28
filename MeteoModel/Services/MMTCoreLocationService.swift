@@ -6,6 +6,7 @@
 //  Copyright © 2018 Kamil Szostakowski. All rights reserved.
 //
 
+import UIKit
 import Foundation
 import CoreLocation
 
@@ -28,7 +29,7 @@ public class MMTCoreLocationService: NSObject, MMTLocationService
     public init(_ locationManager: CLLocationManager, _ citiesStore: MMTCitiesStore = MMTCoreDataCitiesStore())
     {
         self.promises = [MMTPromise<MMTCityProt>]()
-        self.authorizationStatus = .unauthorized
+        self.authorizationStatus = .undetermined
         self.locationManager = locationManager
         self.citiesStore = citiesStore
         
@@ -47,6 +48,11 @@ extension MMTCoreLocationService
         
         if let city = location {
             promise.resolve(with: .success(city))
+            return promise
+        }
+        
+        if authorizationStatus == .unauthorized {
+            promise.resolve(with: .failure(.locationServicesDisabled))
             return promise
         }
         
@@ -107,7 +113,7 @@ extension MMTCoreLocationService
         }
         
         let handler = #selector(handleAppActivation(notification:))
-        NotificationCenter.default.addObserver(self, selector: handler, name: .UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: handler, name: UIApplication.didBecomeActiveNotification, object: nil)
     }
 }
 
@@ -132,9 +138,10 @@ extension MMTCoreLocationService
     
     fileprivate func resolvePromises(with city: MMTCityProt?)
     {
+        let isAuthorized = authorizationStatus != .unauthorized
         let result: MMTResult<MMTCityProt> = city != nil ?
             .success(city!) :
-            .failure(.locationNotFound)
+            .failure(isAuthorized ? .locationNotFound : .locationServicesDisabled)
         
         promises.forEach { $0.resolve(with: result) }
         promises.removeAll()
