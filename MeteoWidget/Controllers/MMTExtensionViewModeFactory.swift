@@ -27,17 +27,14 @@ class MMTExtensionViewModeFactory
     // MARK: Interface methods
     func build(for model: MMTTodayModelController, with context: NSExtensionContext) -> (UIView, MMTAnalyticsAction)
     {
-        guard model.locationServicesEnabled else {
-            return (updateErrorView.updated(with: .locationServicesUnavailable), .WidgetDidDisplayErrorNoLocationServices)
-        }
-        
-        guard let meteorogram = model.meteorogram else {
-            return (updateErrorView.updated(with: .meteorogramUpdateFailure), .WidgetDidDisplayErrorFetchFailure)
-        }
-        
-        switch context.widgetActiveDisplayMode {
-            case .compact: return configureCompactView(for: meteorogram)
-            case .expanded: return configureExpandedView(for: meteorogram)
+        switch model.updateResult {
+            case .failure(let error):
+                return (updateErrorView.updated(with: error), analyticsAction(for: error))
+            case .success(let meteorogram):
+                switch context.widgetActiveDisplayMode {
+                    case .compact: return configureCompactView(for: meteorogram)
+                    case .expanded: return configureExpandedView(for: meteorogram)
+                }
         }
     }    
     
@@ -57,5 +54,14 @@ class MMTExtensionViewModeFactory
     private func configureExpandedView(for meteorogram: MMTMeteorogram) -> (UIView, MMTAnalyticsAction)
     {
         return (meteorogramImageView.updated(with: meteorogram.image), .WidgetDidDisplayExpanded)
+    }
+    
+    private func analyticsAction(for error: MMTTodayModelController.UpdateError) -> MMTAnalyticsAction
+    {
+        switch error {
+            case .locationServicesUnavailable: return .WidgetDidDisplayErrorNoLocationServices
+            case .meteorogramUpdateFailure: return .WidgetDidDisplayErrorFetchFailure            
+            case .undetermined: return .WidgetDidDisplayErrorFetchFailure
+        }
     }
 }

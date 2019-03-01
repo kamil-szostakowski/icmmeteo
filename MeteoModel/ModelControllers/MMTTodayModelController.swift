@@ -11,14 +11,27 @@ import CoreLocation
 
 public class MMTTodayModelController: MMTModelController
 {
+    // MARK: Inner types
+    public enum UpdateError
+    {
+        case locationServicesUnavailable
+        case meteorogramUpdateFailure        
+        case undetermined
+    }
+    
+    public enum UpdateResult
+    {
+        case success(MMTMeteorogram)
+        case failure(UpdateError)
+    }
+    
     // MARK: Properties
     private var forecastService: MMTForecastService
     private var locationService: MMTLocationService
-    private var cache: MMTSingleMeteorogramCache
+    private var cache: MMTSingleMeteorogramCache    
     
     public private(set) var environment: MMTEnvironment
-    public private(set) var meteorogram: MMTMeteorogram?
-    public private(set) var locationServicesEnabled: Bool = false
+    public private(set) var updateResult: UpdateResult
 
     // MARK: Initializers
     public init(_ forecastService: MMTForecastService, _ locationService: MMTLocationService, _ environment: MMTEnvironment = .normal)
@@ -27,17 +40,16 @@ public class MMTTodayModelController: MMTModelController
         self.forecastService = forecastService
         self.locationService = locationService
         self.environment = environment
+        self.updateResult = .failure(.undetermined)
     }
 
     // MARK: Interface methods
     public func onUpdate(completion: @escaping (MMTUpdateResult) -> Void)
     {
         locationService.requestLocation().observe {
-            self.locationServicesEnabled = self.locationService.authorizationStatus == .always
-            
-            guard self.locationServicesEnabled else {
+            guard self.locationService.authorizationStatus == .always else {
                 self.cache.cleanup { _ in }
-                self.meteorogram = nil
+                self.updateResult = .failure(.locationServicesUnavailable)
                 self.notifyWatchers(.failed, completion: completion)
                 return
             }
@@ -57,7 +69,7 @@ extension MMTTodayModelController
     {
         cache.restore { meteorogram in
             DispatchQueue.main.async {
-                self.meteorogram = meteorogram
+                self.updateResult = meteorogram != nil ? .success(meteorogram!) : .failure(.meteorogramUpdateFailure)
                 self.notifyWatchers(meteorogram != nil ? .newData : .failed, completion: completion)
             }
         }
@@ -69,7 +81,7 @@ extension MMTTodayModelController
             case let .success(city):
                 updateForecast(for: city, completion: completion)
             case .failure(_):
-                meteorogram = nil
+                updateResult = .failure(.meteorogramUpdateFailure)
                 notifyWatchers(.failed, completion: completion)
         }
     }
@@ -83,7 +95,7 @@ extension MMTTodayModelController
             if var meteorogram = self.forecastService.currentMeteorogram, self.shouldPersist(update: status)
             {
                 meteorogram.prediction = try? MMTCoreMLPredictionModel().predict(meteorogram)
-                self.meteorogram = meteorogram
+                self.updateResult = .success(meteorogram)
                 self.cache.store(meteorogram: meteorogram) { _ in }
             }
         }
