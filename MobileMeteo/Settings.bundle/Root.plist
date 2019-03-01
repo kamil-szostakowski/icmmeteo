@@ -24,7 +24,7 @@
 			<key>Key</key>
 			<string>refresh-interval</string>
 			<key>DefaultValue</key>
-			<string>360</string>
+			<string>3600</string>
 			<key>Titles</key>
 			<array>
 				<string>1 godzina</string>

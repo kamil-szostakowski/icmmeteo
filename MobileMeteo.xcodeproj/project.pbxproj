@@ -884,6 +884,7 @@
 				F9E696601AFCC06600273DA3 /* Sources */,
 				F9E696611AFCC06600273DA3 /* Frameworks */,
 				F9E696621AFCC06600273DA3 /* Resources */,
+				1BE175642228862B00D19446 /* Update app version in Settings.bundle */,
 				1B9C726D2049E28B00856476 /* Embed Frameworks */,
 				1B39BECA20DD8A60002495B5 /* Embed App Extensions */,
 			);
@@ -1078,6 +1079,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1BE175642228862B00D19446 /* Update app version in Settings.bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Update app version in Settings.bundle";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "version=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" \"$PROJECT_DIR/$INFOPLIST_FILE\")\nbuild=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$PROJECT_DIR/$INFOPLIST_FILE\")\n/usr/libexec/PlistBuddy -c \"Set PreferenceSpecifiers:0:DefaultValue $version ($build)\" \"$CODESIGNING_FOLDER_PATH/Settings.bundle/Root.plist\"\n";
+		};
 		3D2D95754509F00DEC5C65E3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

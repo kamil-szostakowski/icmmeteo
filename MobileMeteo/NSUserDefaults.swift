@@ -14,6 +14,7 @@ extension UserDefaults
     {
         case Initialized
         case SequenceNumber
+        case WidgetRefreshInterval = "refresh-interval"
     }
     
     // MARK: Properties
@@ -35,10 +36,32 @@ extension UserDefaults
         }
     }
     
+    var widgetRefreshInterval: TimeInterval
+    {
+        return value(forKey: .WidgetRefreshInterval)?.doubleValue ?? 3600
+    }
+    
     // MARK: Methods
     func cleanup()
     {
         removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        synchronize()
+    }
+    
+    func importSettings()
+    {
+        let settingsUrl = Bundle.main.url(forResource: "Settings", withExtension: "bundle")!.appendingPathComponent("Root.plist")
+        let settingsPlist = NSDictionary(contentsOf:settingsUrl)!
+        let preferences = settingsPlist["PreferenceSpecifiers"] as! [NSDictionary]
+        
+        var defaultsToRegister = Dictionary<String, Any>()
+        
+        for preference in preferences {
+            guard let key = preference["Key"] as? String else { continue }
+            defaultsToRegister[key] = preference["DefaultValue"]
+        }
+        
+        register(defaults: defaultsToRegister)
         synchronize()
     }
     
