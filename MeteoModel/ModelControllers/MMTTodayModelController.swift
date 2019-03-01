@@ -79,9 +79,8 @@ extension MMTTodayModelController
         forecastService.update(for: city) { status in
             
             defer { self.notifyWatchers(status, completion: completion) }
-            guard status == .newData else { return }
             
-            if var meteorogram = self.forecastService.currentMeteorogram
+            if var meteorogram = self.forecastService.currentMeteorogram, self.shouldPersist(update: status)
             {
                 meteorogram.prediction = try? MMTCoreMLPredictionModel().predict(meteorogram)
                 self.meteorogram = meteorogram
@@ -94,5 +93,10 @@ extension MMTTodayModelController
     {
         delegate?.onModelUpdate(self)
         completion(status)
+    }
+    
+    fileprivate func shouldPersist(update status: MMTUpdateResult) -> Bool
+    {
+        return cache.isEmpty || status == .newData
     }
 }

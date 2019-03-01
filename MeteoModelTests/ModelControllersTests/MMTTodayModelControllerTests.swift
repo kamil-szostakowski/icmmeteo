@@ -118,6 +118,30 @@ class MMTTodayModelControllerTests: XCTestCase
             XCTAssertTrue($0.locationServicesEnabled)
         })
     }
+    
+    /*
+     * - Open the app and let the app fetch forecast for the current location and store it in cahce.
+     * - Go to settings and disable location services.
+     * - Widget should display error message.
+     * - Go to settings and enable location services (Always).
+     * - Go back to the app.
+     * --> Expected: Widget should display forecast.
+     */
+    
+    func testRestoreCacheWithCurrentForecast()
+    {
+        setupModelController(env: .normal)
+        cleanupCache()
+        
+        forecastService.status = .noData
+        locationService.locationPromise.resolve(with: .success(city))
+        
+        verifyModelUpdate(.noData, operation: {
+            XCTAssertEqual($0.meteorogram?.city, self.city)
+            XCTAssertTrue($0.locationServicesEnabled)
+            XCTAssertFalse(self.cache.isEmpty)
+        })
+    }
 }
 
 extension MMTTodayModelControllerTests
