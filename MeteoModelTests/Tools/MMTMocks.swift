@@ -184,7 +184,7 @@ class MMTMockForecastService: MMTForecastService
     var currentMeteorogram: MMTMeteorogram?
     var status: MMTUpdateResult!
     
-    func update(for location: MMTCityProt?, completion: @escaping (MMTUpdateResult) -> Void)
+    func update(for location: MMTCityProt, completion: @escaping (MMTUpdateResult) -> Void)
     {
         MMTTestDispatcher.dispatch { completion(self.status) }
     }

@@ -47,6 +47,18 @@ class MMTTestTools
             
         return utcFormatter
     }
+    
+    static var cachesUrl: URL
+    {
+        let fm = FileManager.default
+        let url = fm.urls(for: .documentDirectory, in: .allDomainsMask).first!
+        
+        if fm.fileExists(atPath: url.path) == false {
+            try! fm.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+        }
+        
+        return url
+    }
 }
 
 extension UIImage

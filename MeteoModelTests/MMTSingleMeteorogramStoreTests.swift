@@ -10,20 +10,24 @@ import XCTest
 import CoreLocation
 @testable import MeteoModel
 
-class MMTSingleMeteorogramCacheTests: XCTestCase
+class MMTSingleMeteorogramStoreTests: XCTestCase
 {
     // MARK: Properties
-    var meteorogramCache = MMTSingleMeteorogramCache()
+    var meteorogramCache: MMTSingleMeteorogramStore!
     var appGroup = UserDefaults(suiteName: "group.com.szostakowski.meteo")!
+    let meteorogramImage = UIImage(thisBundle: "2018092900-381-199-full")
     let expectedDate = Date.from(2019, 3, 20, 10, 15, 20)
 
     // MARK: Setup methods
-    override func setUp() {
+    override func setUp()
+    {
         super.setUp()
+        meteorogramCache = MMTSingleMeteorogramStore(MMTTestTools.cachesUrl.appendingPathComponent("meteorogram.png"))
         
-        let expect = expectation(description: "Init expectation")
-        meteorogramCache.store(meteorogram: MMTMeteorogram.loremCity) {_ in expect.fulfill() }
-        wait(for: [expect], timeout: 5.0)
+        var
+        meteorogram = MMTMeteorogram.loremCity
+        meteorogram.image = meteorogramImage
+        meteorogramCache.store(meteorogram)
     }
     
     // MARK: Test methods
@@ -42,30 +46,23 @@ class MMTSingleMeteorogramCacheTests: XCTestCase
     
     func testRestoreMeteorogram()
     {
-        let expect = expectation(description: "Completion expectation")
-        meteorogramCache.restore {
-            XCTAssertEqual($0?.city.name, "Lorem")
-            XCTAssertEqual($0?.city.region, "xyz")
-            XCTAssertEqual($0?.city.location.coordinate.latitude, 1.0)
-            XCTAssertEqual($0?.city.location.coordinate.longitude, 2.0)
-            XCTAssertEqual($0?.model.type.rawValue, "UM")
-            XCTAssertEqual($0?.startDate, self.expectedDate)
-            XCTAssertEqual($0?.prediction?.rawValue, 9)
-            expect.fulfill()
-        }
-        wait(for: [expect], timeout: 5.0)
+        let meteorogram = meteorogramCache.restore()
+        
+        XCTAssertEqual(meteorogram?.city.name, "Lorem")
+        XCTAssertEqual(meteorogram?.city.region, "xyz")
+        XCTAssertEqual(meteorogram?.city.location.coordinate.latitude, 1.0)
+        XCTAssertEqual(meteorogram?.city.location.coordinate.longitude, 2.0)
+        XCTAssertEqual(meteorogram?.model.type.rawValue, "UM")
+        XCTAssertEqual(meteorogram?.startDate, self.expectedDate)
+        XCTAssertEqual(meteorogram?.prediction?.rawValue, 9)
+        XCTAssertEqual(meteorogram?.image.pngData(), meteorogramImage.pngData())
     }
     
     func testCleanupCache()
     {
-        let cleanupExpect = expectation(description: "Cleanup expectation")
-        let restoreExpect = expectation(description: "Restore expectation")
+        meteorogramCache.cleanup()
+        _ = meteorogramCache.restore()
         
-        meteorogramCache.cleanup { _ in cleanupExpect.fulfill() }
-        wait(for: [cleanupExpect], timeout: 1)
-        
-        meteorogramCache.restore { XCTAssertNil($0); restoreExpect.fulfill() }
-        wait(for: [restoreExpect], timeout: 1)        
         XCTAssertTrue(meteorogramCache.isEmpty)
     }
     
