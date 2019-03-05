@@ -67,7 +67,11 @@ extension MMTTodayViewController: MMTModelControllerDelegate
         }
         
         let viewMode = factory.build(for: modelController, with: context)
-        context.widgetLargestAvailableDisplayMode = modelController.meteorogram != nil ? .expanded : .compact
+        
+        switch modelController.updateResult {
+            case .success(_): context.widgetLargestAvailableDisplayMode = .expanded
+            case .failure(_): context.widgetLargestAvailableDisplayMode = .compact
+        }
         
         replaceCurrentView(with: viewMode.0)
         analytics?.sendUserActionReport(.Widget, action: viewMode.1)

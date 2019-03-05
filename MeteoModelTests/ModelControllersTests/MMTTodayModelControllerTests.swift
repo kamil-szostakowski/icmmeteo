@@ -42,9 +42,7 @@ class MMTTodayModelControllerTests: XCTestCase
         locationService.locationPromise.resolve(with: .failure(.locationNotFound))
         
         verifyModelUpdate(.failed, operation: {
-            XCTAssertNil($0.meteorogram)
-            XCTAssertNil($0.meteorogram?.city)
-            XCTAssertFalse($0.locationServicesEnabled)
+            XCTAssertEqual($0.updateResult, .failure(.locationServicesUnavailable))
         })
     }
     
@@ -54,32 +52,29 @@ class MMTTodayModelControllerTests: XCTestCase
         locationService.locationPromise.resolve(with: .success(city))
         
         verifyModelUpdate(.newData, operation: {
-            XCTAssertEqual($0.meteorogram?.city, self.city)
-            XCTAssertTrue($0.locationServicesEnabled)
+            XCTAssertEqual($0.updateResult, .success(self.forecastService.currentMeteorogram!))
         })
     }
     
-    func testModelUpdateWhenNoForecastDataAvailable_NormalEnv()
+    func testInitialModelUpdateWhenNoForecastDataAvailable_NormalEnv()
     {
         forecastService.status = .noData
         forecastService.currentMeteorogram = nil
         locationService.locationPromise.resolve(with: .success(city))
         
         verifyModelUpdate(.noData, operation: {
-            XCTAssertNil($0.meteorogram?.city)
-            XCTAssertTrue($0.locationServicesEnabled)
+            XCTAssertEqual($0.updateResult, .failure(.undetermined))
         })
     }
     
-    func testModelUpdateWhenForecastDataFetchFeiled_NormalEnv()
+    func testInitialModelUpdateWhenForecastDataFetchFeiled_NormalEnv()
     {
         forecastService.status = .failed
         forecastService.currentMeteorogram = nil
         locationService.locationPromise.resolve(with: .success(city))
         
         verifyModelUpdate(.failed, operation: {
-            XCTAssertNil($0.meteorogram?.city)
-            XCTAssertTrue($0.locationServicesEnabled)
+            XCTAssertEqual($0.updateResult, .failure(.undetermined))
         })
     }
     
@@ -88,8 +83,7 @@ class MMTTodayModelControllerTests: XCTestCase
         locationService.locationPromise.resolve(with: .failure(.locationNotFound))
         
         verifyModelUpdate(.failed, operation: {
-            XCTAssertNil($0.meteorogram?.city)            
-            XCTAssertTrue($0.locationServicesEnabled)
+            XCTAssertEqual($0.updateResult, .failure(.meteorogramUpdateFailure))
         })
     }
     
@@ -100,8 +94,7 @@ class MMTTodayModelControllerTests: XCTestCase
         locationService.locationPromise.resolve(with: .success(city))
         
         verifyModelUpdate(.newData, operation: {
-            XCTAssertEqual($0.meteorogram?.city, self.city)
-            XCTAssertTrue($0.locationServicesEnabled)
+            XCTAssertEqual($0.updateResult, .success(self.forecastService.currentMeteorogram!))
         })
     }
     
@@ -114,8 +107,30 @@ class MMTTodayModelControllerTests: XCTestCase
         locationService.locationPromise.resolve(with: .success(city))
         
         verifyModelUpdate(.failed, operation: {
-            XCTAssertNil($0.meteorogram)
-            XCTAssertTrue($0.locationServicesEnabled)
+            XCTAssertEqual($0.updateResult, .failure(.meteorogramUpdateFailure))
+        })
+    }
+    
+    /*
+     * - Open the app and let the app fetch forecast for the current location and store it in cahce.
+     * - Go to settings and disable location services.
+     * - Widget should display error message.
+     * - Go to settings and enable location services (Always).
+     * - Go back to the app.
+     * --> Expected: Widget should display forecast.
+     */
+    
+    func testRestoreCacheWithCurrentForecast()
+    {
+        setupModelController(env: .normal)
+        cleanupCache()
+        
+        forecastService.status = .noData
+        locationService.locationPromise.resolve(with: .success(city))
+        
+        verifyModelUpdate(.noData, operation: {
+            XCTAssertEqual($0.updateResult, .success(self.forecastService.currentMeteorogram!))
+            XCTAssertFalse(self.cache.isEmpty)
         })
     }
 }
@@ -154,5 +169,21 @@ extension MMTTodayModelControllerTests
         let expect = expectation(description: "Cleanup expectation")
         cache.cleanup { _ in expect.fulfill() }
         wait(for: [expect], timeout: 5.0)
+    }
+}
+
+extension MMTTodayModelController.UpdateResult: Equatable
+{
+    public static func == (lhs: MMTTodayModelController.UpdateResult, rhs: MMTTodayModelController.UpdateResult) -> Bool
+    {
+        if case let .failure(first) = lhs, case let .failure(second) = rhs {
+            return first == second
+        }
+        
+        if case let .success(first) = lhs, case let .success(second) = rhs {
+            return first.city == second.city
+        }
+        
+        return false
     }
 }

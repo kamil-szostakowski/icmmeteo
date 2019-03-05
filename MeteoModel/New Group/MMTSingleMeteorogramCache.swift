@@ -20,6 +20,11 @@ class MMTSingleMeteorogramCache
     private let fileUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupId)?.appendingPathComponent("meteorogram.png")
     
     // MARK: Interface methods
+    var isEmpty: Bool {
+        guard let dict = appGroup?.dictionaryRepresentation() else { return false }
+        return MMTMeteorogram.deserialize(from: dict) == nil
+    }
+    
     func store(meteorogram: MMTMeteorogram, completion: @escaping (Bool) -> Void)
     {
         let serialized = MMTMeteorogram.serialize(meteorogram)

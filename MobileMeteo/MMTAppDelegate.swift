@@ -32,6 +32,8 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     // MARK: Lifecycle methods
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
+        UserDefaults.standard.importSettings()
+        
         setupAppearance()
         setupAnalytics()
         setupLocationService()
@@ -46,12 +48,15 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
             setupDatabase()
         }
         
-        // TODO: Register if always authorization
-        UIApplication.shared.setMinimumBackgroundFetchInterval(3600)
         performMigration()
-        
         return true
-    }    
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication)
+    {
+        let interval = UserDefaults.standard.widgetRefreshInterval
+        UIApplication.shared.setMinimumBackgroundFetchInterval(interval)
+    }
     
     func applicationWillTerminate(_ application: UIApplication)
     {

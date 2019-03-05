@@ -10,12 +10,6 @@ import UIKit
 import MeteoModel
 import MeteoUIKit
 
-enum MMTUpdateErrorType
-{
-    case locationServicesUnavailable
-    case meteorogramUpdateFailure
-}
-
 class MMTUpdateErrorView: UIView
 {
     // MARK: Properties    
@@ -43,13 +37,14 @@ class MMTUpdateErrorView: UIView
 
 extension MMTUpdateErrorView: MMTUpdatableView
 {
-    func updated(with errorType: MMTUpdateErrorType) -> MMTUpdateErrorView
+    func updated(with errorType: MMTTodayModelController.UpdateError) -> MMTUpdateErrorView
     {
         var key = ""        
         switch errorType
         {
             case .locationServicesUnavailable: key = "error.widget.locationServicesDisabled"
-            case .meteorogramUpdateFailure: key = "error.widget.meteorogramFetchFailure"
+            case .meteorogramUpdateFailure: key = "error.widget.meteorogramFetchFailure"            
+            case .undetermined: key = "error.widget.meteorogramFetchFailure"            
         }
                 
         descriptionLabel.text = MMTLocalizedString(key)

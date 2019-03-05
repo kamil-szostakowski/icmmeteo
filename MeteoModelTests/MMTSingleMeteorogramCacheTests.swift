@@ -13,7 +13,7 @@ import CoreLocation
 class MMTSingleMeteorogramCacheTests: XCTestCase
 {
     // MARK: Properties
-    var predictionCache = MMTSingleMeteorogramCache()
+    var meteorogramCache = MMTSingleMeteorogramCache()
     var appGroup = UserDefaults(suiteName: "group.com.szostakowski.meteo")!
     let expectedDate = Date.from(2019, 3, 20, 10, 15, 20)
 
@@ -22,7 +22,7 @@ class MMTSingleMeteorogramCacheTests: XCTestCase
         super.setUp()
         
         let expect = expectation(description: "Init expectation")
-        predictionCache.store(meteorogram: MMTMeteorogram.loremCity) {_ in expect.fulfill() }
+        meteorogramCache.store(meteorogram: MMTMeteorogram.loremCity) {_ in expect.fulfill() }
         wait(for: [expect], timeout: 5.0)
     }
     
@@ -43,7 +43,7 @@ class MMTSingleMeteorogramCacheTests: XCTestCase
     func testRestoreMeteorogram()
     {
         let expect = expectation(description: "Completion expectation")
-        predictionCache.restore {
+        meteorogramCache.restore {
             XCTAssertEqual($0?.city.name, "Lorem")
             XCTAssertEqual($0?.city.region, "xyz")
             XCTAssertEqual($0?.city.location.coordinate.latitude, 1.0)
@@ -61,10 +61,16 @@ class MMTSingleMeteorogramCacheTests: XCTestCase
         let cleanupExpect = expectation(description: "Cleanup expectation")
         let restoreExpect = expectation(description: "Restore expectation")
         
-        predictionCache.cleanup { _ in cleanupExpect.fulfill() }
+        meteorogramCache.cleanup { _ in cleanupExpect.fulfill() }
         wait(for: [cleanupExpect], timeout: 1)
         
-        predictionCache.restore { XCTAssertNil($0); restoreExpect.fulfill() }
-        wait(for: [restoreExpect], timeout: 1)
+        meteorogramCache.restore { XCTAssertNil($0); restoreExpect.fulfill() }
+        wait(for: [restoreExpect], timeout: 1)        
+        XCTAssertTrue(meteorogramCache.isEmpty)
+    }
+    
+    func testIsNotEmpty()
+    {
+        XCTAssertFalse(meteorogramCache.isEmpty)
     }
 }
