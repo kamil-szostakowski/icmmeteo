@@ -54,6 +54,20 @@ public class MMTTodayModelController: MMTModelController
             self.update($0, completion)
         }
     }
+    
+    public func onUpdate(_ city: MMTCityProt, completion: @escaping (MMTUpdateResult) -> Void)
+    {
+        forecastService.update(for: city) { status in
+            defer { self.notifyWatchers(status, completion: completion) }
+            
+            if var meteorogram = self.forecastService.currentMeteorogram {
+                if self.environment == .normal {
+                    meteorogram.prediction = try? MMTCoreMLPredictionModel().predict(meteorogram)
+                }
+                self.updateResult = .success(meteorogram)
+            }
+        }
+    }
 }
 
 extension MMTTodayModelController
@@ -63,26 +77,10 @@ extension MMTTodayModelController
     {
         switch result {
             case let .success(city):
-                updateForecast(for: city, completion: completion)
+                onUpdate(city, completion: completion)
             case .failure(_):
                 updateResult = .failure(.meteorogramUpdateFailure)
                 notifyWatchers(.failed, completion: completion)
-        }
-    }
-    
-    fileprivate func updateForecast(for city: MMTCityProt, completion: @escaping (MMTUpdateResult) -> Void)
-    {
-        forecastService.update(for: city) { status in
-            
-            defer { self.notifyWatchers(status, completion: completion) }
-            
-            if var meteorogram = self.forecastService.currentMeteorogram
-            {
-                if self.environment == .normal {
-                    meteorogram.prediction = try? MMTCoreMLPredictionModel().predict(meteorogram)
-                }
-                self.updateResult = .success(meteorogram)
-            }
         }
     }
     

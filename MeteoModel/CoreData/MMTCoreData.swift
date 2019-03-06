@@ -15,6 +15,7 @@ public class MMTCoreData
     // MARK: Properties
     public static private(set) var instance = MMTCoreData(type: NSSQLiteStoreType)
     public var meteorogramsCache = MMTImagesCache(cache: NSCache<NSString, UIImage>())
+    public var meteorogramStore = MMTSingleMeteorogramStore()
     private var type: String
     
     // MARK: Initializers

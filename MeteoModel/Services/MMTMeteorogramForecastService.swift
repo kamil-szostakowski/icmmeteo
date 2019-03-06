@@ -85,11 +85,5 @@ extension MMTMeteorogramForecastService
         let new: (MMTCityProt?, Date?) = (city, startDate)
         
         return old != new
-    }
-    
-//    fileprivate func pinToCache(meteorogram m: MMTMeteorogram)
-//    {
-//        let key = m.model.cacheKey(city: m.city, startDate: m.startDate)
-//        cache.setPinnedObject(m.image, forKey: key)
-//    }
+    }    
 }

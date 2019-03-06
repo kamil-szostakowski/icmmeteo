@@ -23,7 +23,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     var window: UIWindow?
     var locationService: MMTCoreLocationService!
     var todayModelController: MMTTodayModelController!
-    var navigator: MMTNavigator!
+    var navigator: MMTNavigator!    
     
     var rootViewController: MMTTabBarController {
         return self.window!.rootViewController as! MMTTabBarController
@@ -87,11 +87,16 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
-        todayModelController.onUpdate {
-            if $0 == .newData {
-                self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish)
+        DispatchQueue.global(qos: .background).async {
+            guard let meteorogram = MMTCoreData.instance.meteorogramStore.restore() else {
+                completionHandler(.noData)
+                return
             }
-            completionHandler(UIBackgroundFetchResult(updateStatus: $0))
+            
+            self.todayModelController.onUpdate(meteorogram.city) {
+                self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish)
+                completionHandler(UIBackgroundFetchResult(updateStatus: $0))
+            }
         }
     }
 }
@@ -169,6 +174,12 @@ extension MMTAppDelegate
         let migrator = try? MMTAppMigrator(migrators: [MMTShortcutsMigrator()])
         try? migrator?.migrate(from: UserDefaults.standard.sequenceNumber)
     }
+    
+//    private func syncCache()
+//    {
+//        guard let meteorogram = MMTCoreData.instance.meteorogramStore.restore() else { return }
+//        MMTCoreData.instance.meteorogramsCache.setPinnedObject(meteorogram)
+//    }
     
     #if DEBUG
     private func setupDebugEnvironment()
