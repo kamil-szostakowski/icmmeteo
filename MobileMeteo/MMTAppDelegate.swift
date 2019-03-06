@@ -33,6 +33,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         UserDefaults.standard.importSettings()
+        application.setMinimumBackgroundFetchInterval(3600)
         
         setupAppearance()
         setupAnalytics()
@@ -50,12 +51,6 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         
         performMigration()
         return true
-    }
-    
-    func applicationDidBecomeActive(_ application: UIApplication)
-    {
-        let interval = UserDefaults.standard.widgetRefreshInterval
-        UIApplication.shared.setMinimumBackgroundFetchInterval(interval)
     }
     
     func applicationWillTerminate(_ application: UIApplication)
