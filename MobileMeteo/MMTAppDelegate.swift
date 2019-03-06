@@ -192,7 +192,7 @@ extension MMTAppDelegate
     @objc func handleLocationAuthDidChange(notification: Notification)
     {
         let status = locationService.authorizationStatus
-        let authorized = status == .always
+        let authorized = status == .whenInUse
         
         NCWidgetController().setHasContent(authorized, forWidgetWithBundleIdentifier: "com.szostakowski.meteo.MeteoWidget")
         analytics?.sendUserActionReport(.Locations, action: .LocationDidChangeAuthorization, actionLabel: status.description)

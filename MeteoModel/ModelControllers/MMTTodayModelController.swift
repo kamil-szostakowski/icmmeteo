@@ -45,7 +45,7 @@ public class MMTTodayModelController: MMTModelController
     public func onUpdate(completion: @escaping (MMTUpdateResult) -> Void)
     {
         locationService.requestLocation().observe {
-            guard self.locationService.authorizationStatus == .always else {
+            guard self.locationService.authorizationStatus == .whenInUse else {
                 self.updateResult = .failure(.locationServicesUnavailable)
                 self.notifyWatchers(.failed, completion: completion)
                 return

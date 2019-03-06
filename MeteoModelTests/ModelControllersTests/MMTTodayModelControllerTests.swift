@@ -27,7 +27,7 @@ class MMTTodayModelControllerTests: XCTestCase
         super.setUp()
         
         forecastService.currentMeteorogram = MMTMeteorogram(model: MMTUmClimateModel(), city: city)
-        locationService.authorizationStatus = .always
+        locationService.authorizationStatus = .whenInUse
 
         modelControllerDelegate = MMTMockModelControllerDelegate<MMTTodayModelController>()
         setupModelController(env: .normal)

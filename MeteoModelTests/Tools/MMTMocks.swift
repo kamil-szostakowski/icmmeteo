@@ -15,7 +15,7 @@ import CoreLocation
 
 class MMTTestDispatcher
 {
-    private static var dispatchAsync = true
+    private static var dispatchAsync = false
     private static let queue = DispatchQueue(label: "test queue")
     
     public static func dispatch(call: @escaping () -> Void)
