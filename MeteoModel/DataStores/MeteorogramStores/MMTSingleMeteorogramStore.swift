@@ -134,7 +134,7 @@ fileprivate extension MMTMeteorogram
         
         return [
             "met-model": meteorogram.model.type.rawValue,
-            "met-prediction": meteorogram.prediction?.rawValue ?? 0,
+            "met-prediction": meteorogram.prediction?.rawValue ?? Int.min,
             "met-start-date": meteorogram.startDate.timeIntervalSince1970
         ].merging(serializedCity) { (current, new) in current }
     }
@@ -150,7 +150,10 @@ fileprivate extension MMTMeteorogram
         var
         meteorogram = MMTMeteorogram(model: modelType.model, city: city)
         meteorogram.startDate = Date(timeIntervalSince1970: startDate)
-        meteorogram.prediction = MMTMeteorogram.Prediction(rawValue: prediction)
+        
+        if (prediction != Int.min) {
+            meteorogram.prediction = MMTMeteorogram.Prediction(rawValue: prediction)
+        }
         
         return meteorogram
     }
