@@ -16,7 +16,7 @@ class MMTMeteorogramForecastServiceTests: XCTestCase
     var service: MMTForecastService!
     var forecastStore: MMTMockForecastStore!
     var meteorogramStore: MMTMockMeteorogramStore!
-    var cache: MMTMeteorogramCache!
+    var cache = MMTMockMeteorogramCache()
     var meteorogram: MMTMeteorogram!
     
     // MARK: Setup methods
@@ -34,10 +34,7 @@ class MMTMeteorogramForecastServiceTests: XCTestCase
         
         meteorogramStore = MMTMockMeteorogramStore()
         meteorogramStore.meteorogram = .success(meteorogram)
-        
-        cache = MMTSingleMeteorogramStore(MMTTestTools.cachesUrl.appendingPathComponent("meteorogram.png"))
-        cache.cleanup()
-        
+                
         service = MMTMeteorogramForecastService(forecastStore: forecastStore, meteorogramStore: meteorogramStore, cache: cache)
     }
     

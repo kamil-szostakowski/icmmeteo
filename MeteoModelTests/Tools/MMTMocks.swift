@@ -254,3 +254,24 @@ struct MMTMockPlacemark: MMTPlacemark
     var location: CLLocation?
     var administrativeArea: String?
 }
+
+class MMTMockMeteorogramCache: MMTMeteorogramCache
+{
+    var meteorogram: MMTMeteorogram?
+    
+    @discardableResult
+    func store(_ meteorogram: MMTMeteorogram) -> Bool {
+        self.meteorogram = meteorogram
+        return true
+    }
+    
+    func restore() -> MMTMeteorogram? {
+        return meteorogram
+    }
+    
+    @discardableResult
+    func cleanup() -> Bool {
+        self.meteorogram = nil
+        return true
+    }        
+}

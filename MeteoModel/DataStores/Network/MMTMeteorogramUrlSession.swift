@@ -132,9 +132,7 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
             error = MMTMeteorogramUrlSession.simulatedError ?? error
             #endif
             
-            DispatchQueue.main.async(execute: {
-                completion(data, response, error)
-            })
+            completion(data, response, error)
         }
         
         task.resume()

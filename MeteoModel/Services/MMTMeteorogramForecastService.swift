@@ -30,6 +30,7 @@ public class MMTMeteorogramForecastService: MMTForecastService
     // MARK: Interface methods
     public func update(for location: MMTCityProt, completion: @escaping (MMTUpdateResult) -> Void)
     {
+        let ui = DispatchQueue.main
         let queue = DispatchQueue.global(qos: .background)
         let group = DispatchGroup()
         var aStartDate: Date?
@@ -48,32 +49,27 @@ public class MMTMeteorogramForecastService: MMTForecastService
             group.leave()
         }
         
-        group.notify(queue: .main) {
+        group.notify(queue: queue) {
             guard let startDate = aStartDate else {
-                completion(.failed)
+                ui.async { completion(.failed) }
                 return
             }
             
             guard self.isUpdateRequired(location, startDate) == true else {
-                completion(.noData)
+                ui.async { completion(.noData) }
                 return
             }
             
             self.meteorogramStore.meteorogram(for: location) {
                 
-                if case let .success(meteorogram) = $0
-                {
+                if case let .success(meteorogram) = $0 {
                     self.currentMeteorogram = meteorogram
-                    queue.async {
-                        self.cache.store(meteorogram)
-                        DispatchQueue.main.async {
-                            completion(.newData)
-                        }
-                    }
+                    self.cache.store(meteorogram)                    
+                    ui.async { completion(.newData) }
                 }
                 
                 if case .failure(_) = $0 {
-                    completion(.failed)
+                    ui.async { completion(.failed) }
                 }                                
             }
         }
