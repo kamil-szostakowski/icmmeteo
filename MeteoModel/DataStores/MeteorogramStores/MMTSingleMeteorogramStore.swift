@@ -12,12 +12,18 @@ import CoreLocation
 
 fileprivate let groupId = "group.com.szostakowski.meteo"
 
-class MMTSingleMeteorogramCache
+class MMTSingleMeteorogramStore: MMTMeteorogramCache
 {    
     // MARK: Properties
     private let appGroup = UserDefaults(suiteName: groupId)
     private let fileCoordinator = NSFileCoordinator(filePresenter: nil)
-    private let fileUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupId)?.appendingPathComponent("meteorogram.png")
+    private let fileUrl: URL
+    
+    // MARK
+    init(_ url: URL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupId)!.appendingPathComponent("meteorogram.png"))
+    {
+        self.fileUrl = url
+    }
     
     // MARK: Interface methods
     var isEmpty: Bool {
@@ -25,33 +31,30 @@ class MMTSingleMeteorogramCache
         return MMTMeteorogram.deserialize(from: dict) == nil
     }
     
-    func store(meteorogram: MMTMeteorogram, completion: @escaping (Bool) -> Void)
+    @discardableResult
+    func store(_ meteorogram: MMTMeteorogram) -> Bool
     {
+        FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
+        
         let serialized = MMTMeteorogram.serialize(meteorogram)
         serialized.keys.forEach { self.appGroup?.set(serialized[$0], forKey: $0) }
         appGroup?.synchronize()
         
-        DispatchQueue.global().async {
-            guard let url = self.fileUrl else { completion(false); return }
-            completion(self.write(image: meteorogram.image, to: url))
-        }
+        return write(image: meteorogram.image, to: fileUrl)
     }
     
-    func restore(completion: @escaping (MMTMeteorogram?) -> Void)
+    func restore() -> MMTMeteorogram?
     {
-        guard let dict = appGroup?.dictionaryRepresentation() else { completion(nil); return }
-        guard var meteorogram = MMTMeteorogram.deserialize(from: dict) else { completion(nil); return }
-        
-        DispatchQueue.global().async {
-            guard let url = self.fileUrl else { completion(meteorogram); return }
-            guard let image = self.read(from: url) else { completion(meteorogram); return }
+        guard let dict = appGroup?.dictionaryRepresentation() else { return nil }
+        guard var meteorogram = MMTMeteorogram.deserialize(from: dict) else { return nil }
+        guard let image = read(from: fileUrl) else { return nil }
             
-            meteorogram.image = image
-            completion(meteorogram)
-        }
+        meteorogram.image = image
+        return meteorogram
     }
     
-    func cleanup(completion: @escaping (Bool) -> Void)
+    @discardableResult
+    func cleanup() -> Bool
     {
         let city = MMTCityProt(name: "", region: "", location: CLLocation())
         let dummyMeteorogram = MMTMeteorogram(model: MMTUmClimateModel(), city: city)
@@ -60,19 +63,17 @@ class MMTSingleMeteorogramCache
         serialized.keys.forEach { self.appGroup?.removeObject(forKey: $0) }
         appGroup?.synchronize()
         
-        DispatchQueue.global().async {
-            guard let url = self.fileUrl else { completion(false); return }
-            completion(self.delete(at: url))
-        }
+        return delete(at: fileUrl)
     }
 }
 
 // MARK: File operations extension
-fileprivate extension MMTSingleMeteorogramCache
+fileprivate extension MMTSingleMeteorogramStore
 {
     func write(image: UIImage, to url: URL) -> Bool
     {
         var success = false
+        
         fileCoordinator.coordinate(writingItemAt: url, options: .forReplacing, error: nil) {
             do { try image.pngData()?.write(to: $0); success = true } catch {}
         }

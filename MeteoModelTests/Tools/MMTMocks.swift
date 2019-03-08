@@ -184,7 +184,7 @@ class MMTMockForecastService: MMTForecastService
     var currentMeteorogram: MMTMeteorogram?
     var status: MMTUpdateResult!
     
-    func update(for location: MMTCityProt?, completion: @escaping (MMTUpdateResult) -> Void)
+    func update(for location: MMTCityProt, completion: @escaping (MMTUpdateResult) -> Void)
     {
         MMTTestDispatcher.dispatch { completion(self.status) }
     }
@@ -253,4 +253,25 @@ struct MMTMockPlacemark: MMTPlacemark
     var ocean: String?
     var location: CLLocation?
     var administrativeArea: String?
+}
+
+class MMTMockMeteorogramCache: MMTMeteorogramCache
+{
+    var meteorogram: MMTMeteorogram?
+    
+    @discardableResult
+    func store(_ meteorogram: MMTMeteorogram) -> Bool {
+        self.meteorogram = meteorogram
+        return true
+    }
+    
+    func restore() -> MMTMeteorogram? {
+        return meteorogram
+    }
+    
+    @discardableResult
+    func cleanup() -> Bool {
+        self.meteorogram = nil
+        return true
+    }        
 }

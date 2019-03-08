@@ -15,12 +15,12 @@ public class MMTMeteorogramForecastService: MMTForecastService
     // MARK: Properties
     fileprivate var forecastStore: MMTForecastStore
     fileprivate var meteorogramStore: MMTMeteorogramDataStore
-    fileprivate var cache: MMTImagesCache
+    fileprivate var cache: MMTMeteorogramCache
     
     public private(set) var currentMeteorogram: MMTMeteorogram?
     
-    // MARK: Initializers
-    public init(forecastStore: MMTForecastStore, meteorogramStore: MMTMeteorogramDataStore, cache: MMTImagesCache)
+    // MARK: Initializers    
+    public init(forecastStore: MMTForecastStore, meteorogramStore: MMTMeteorogramDataStore, cache: MMTMeteorogramCache)
     {
         self.forecastStore = forecastStore
         self.meteorogramStore = meteorogramStore
@@ -28,49 +28,48 @@ public class MMTMeteorogramForecastService: MMTForecastService
     }
     
     // MARK: Interface methods
-    public func update(for location: MMTCityProt?, completion: @escaping (MMTUpdateResult) -> Void)
+    public func update(for location: MMTCityProt, completion: @escaping (MMTUpdateResult) -> Void)
     {
-        guard let city = location else {
-            completion(.noData)
-            return
-        }
-        
+        let ui = DispatchQueue.main
         let queue = DispatchQueue.global(qos: .background)
         let group = DispatchGroup()
         var aStartDate: Date?
-
+        
         group.enter()
         queue.async(group: group) {
-            self.forecastStore.startDate { (result: MMTResult<Date>) in                                
-                if case let .success(date) = result {
-                    aStartDate = date
-                }
-                group.leave()
+            self.currentMeteorogram = self.cache.restore()
+            group.leave()
+        }
+
+        group.enter()
+        forecastStore.startDate { (result: MMTResult<Date>) in
+            if case let .success(date) = result {
+                aStartDate = date
             }
+            group.leave()
         }
         
-        group.notify(queue: .main) {
+        group.notify(queue: queue) {
             guard let startDate = aStartDate else {
-                completion(.failed)
+                ui.async { completion(.failed) }
                 return
             }
             
-            guard self.isUpdateRequired(city, startDate) == true else {
-                completion(.noData)
+            guard self.isUpdateRequired(location, startDate) == true else {
+                ui.async { completion(.noData) }
                 return
             }
             
-            self.meteorogramStore.meteorogram(for: city) {
+            self.meteorogramStore.meteorogram(for: location) {
                 
-                if case let .success(meteorogram) = $0
-                {
-                    self.currentMeteorogram = meteorogram                    
-                    self.pinToCache(meteorogram: meteorogram)
-                    completion(.newData)
+                if case let .success(meteorogram) = $0 {
+                    self.currentMeteorogram = meteorogram
+                    self.cache.store(meteorogram)                    
+                    ui.async { completion(.newData) }
                 }
                 
                 if case .failure(_) = $0 {
-                    completion(.failed)
+                    ui.async { completion(.failed) }
                 }                                
             }
         }
@@ -88,9 +87,9 @@ extension MMTMeteorogramForecastService
         return old != new
     }
     
-    fileprivate func pinToCache(meteorogram m: MMTMeteorogram)
-    {
-        let key = m.model.cacheKey(city: m.city, startDate: m.startDate)
-        cache.setPinnedObject(m.image, forKey: key)
-    }
+//    fileprivate func pinToCache(meteorogram m: MMTMeteorogram)
+//    {
+//        let key = m.model.cacheKey(city: m.city, startDate: m.startDate)
+//        cache.setPinnedObject(m.image, forKey: key)
+//    }
 }

@@ -10,39 +10,31 @@ import XCTest
 import CoreLocation
 @testable import MeteoModel
 
-class MMTForecastServiceTests: XCTestCase
+class MMTMeteorogramForecastServiceTests: XCTestCase
 {
     // Properties
     var service: MMTForecastService!
     var forecastStore: MMTMockForecastStore!
     var meteorogramStore: MMTMockMeteorogramStore!
-    var nsCache: NSCache<NSString, UIImage>!
-    var cache: MMTImagesCache!
-    var expectedKey: String!
-    let currentCity = MMTCityProt(name: "Lorem", region: "Loremia")
+    var cache = MMTMockMeteorogramCache()
+    var meteorogram: MMTMeteorogram!
     
     // MARK: Setup methods
     override func setUp()
     {
         super.setUp()
-    
-        let model = MMTUmClimateModel()
         let startDate = Date.from(2018, 1, 20, 22, 0, 0)
         
         forecastStore = MMTMockForecastStore()
         forecastStore.result = .success(startDate)
         
-        var
-        meteorogram = MMTMeteorogram(model: model, city: currentCity)
+        meteorogram = MMTMeteorogram.loremCity
         meteorogram.startDate = startDate
+        meteorogram.image = UIImage(thisBundle: "2018092900-381-199-full")
         
         meteorogramStore = MMTMockMeteorogramStore()
         meteorogramStore.meteorogram = .success(meteorogram)
-        
-        nsCache = NSCache<NSString, UIImage>()
-        cache = MMTImagesCache(cache: nsCache)
-        expectedKey = model.cacheKey(city: currentCity, startDate: startDate)
-        
+                
         service = MMTMeteorogramForecastService(forecastStore: forecastStore, meteorogramStore: meteorogramStore, cache: cache)
     }
     
@@ -53,26 +45,40 @@ class MMTForecastServiceTests: XCTestCase
         performInitialUpdate()
         
         // Redundand update
-        service.update(for: currentCity) {
+        service.update(for: meteorogram.city) {
             completion.fulfill()
             XCTAssertEqual($0, .noData)
         }
         
         wait(for: [completion], timeout: 2)
-        XCTAssertNotNil(cache.object(forKey: expectedKey))
+        XCTAssertNotNil(cache.restore())
     }
     
     func testInitialUpdate()
     {
         let completion = expectation(description: "update completion")
         
-        service.update(for: currentCity) {
+        service.update(for: meteorogram.city) {
             completion.fulfill()            
             XCTAssertEqual($0, .newData)
         }
         
         wait(for: [completion], timeout: 2)
-        XCTAssertNotNil(cache.object(forKey: expectedKey))
+        XCTAssertNotNil(cache.restore())
+    }
+    
+    func testInitFromCache()
+    {
+        let completion = expectation(description: "update completion")
+        cache.store(meteorogram)
+        
+        service.update(for: meteorogram.city) {
+            completion.fulfill()
+            XCTAssertEqual($0, .noData)
+        }
+        
+        wait(for: [completion], timeout: 2)
+        XCTAssertNotNil(cache.restore())
     }
     
     func testUpdateRequiredWhenStartDateChanged()
@@ -83,13 +89,13 @@ class MMTForecastServiceTests: XCTestCase
         performInitialUpdate()
         forecastStore.result = .success(newDate)
 
-        service.update(for: currentCity) {
+        service.update(for: meteorogram.city) {
             completion.fulfill()
             XCTAssertEqual($0, .newData)
         }
 
         wait(for: [completion], timeout: 2)
-        XCTAssertNotNil(cache.object(forKey: expectedKey))
+        XCTAssertNotNil(cache.restore())
     }
 
     func testUpdateRequiredWhenLocationChanged()
@@ -105,34 +111,21 @@ class MMTForecastServiceTests: XCTestCase
         }
 
         wait(for: [completion], timeout: 2)
-        XCTAssertNotNil(cache.object(forKey: expectedKey))
-    }
-    
-    func testUpdateNotRequiredWhenLocationUnavailable()
-    {
-        let completion = expectation(description: "update completion")
-        
-        service.update(for: nil) {
-            completion.fulfill()
-            XCTAssertEqual($0, .noData)
-        }
-        
-        wait(for: [completion], timeout: 2)
-        XCTAssertNil(cache.object(forKey: expectedKey))
-    }
+        XCTAssertNotNil(cache.restore())
+    }    
     
     func testUpdateFailureWhenForecastStartDateUpdateFailed()
     {
         forecastStore.result = .failure(.forecastStartDateNotFound)
         let completion = expectation(description: "update completion")
         
-        service.update(for: currentCity) {
+        service.update(for: meteorogram.city) {
             completion.fulfill()
             XCTAssertEqual($0, .failed)
         }
         
         wait(for: [completion], timeout: 2)
-        XCTAssertNil(cache.object(forKey: expectedKey))
+        XCTAssertNil(cache.restore())
     }
     
     func testUpdateFailureWhenMeteorogramFetchFailed()
@@ -141,34 +134,34 @@ class MMTForecastServiceTests: XCTestCase
         
         let completion = expectation(description: "update completion")
         
-        service.update(for: currentCity) {
+        service.update(for: meteorogram.city) {
             completion.fulfill()
             XCTAssertEqual($0, .failed)
         }
         
         wait(for: [completion], timeout: 2)
-        XCTAssertNil(cache.object(forKey: expectedKey))
+        XCTAssertNil(cache.restore())
     }
     
     func testCachingFetchedMeteorogram()
     {
         let completion = expectation(description: "update completion")
         
-        service.update(for: currentCity) {
+        service.update(for: meteorogram.city) {
             completion.fulfill()
             XCTAssertEqual($0, .newData)
         }
         
         wait(for: [completion], timeout: 2)
-        XCTAssertNotNil(cache.object(forKey: expectedKey))
-        XCTAssertEqual(service.currentMeteorogram?.city, currentCity)
+        XCTAssertNotNil(cache.restore())
+        XCTAssertEqual(service.currentMeteorogram?.city, meteorogram.city)
     }
     
     // MARK: Helper methods
     func performInitialUpdate()
     {
         let completion = expectation(description: "initial update completion")
-        service.update(for: currentCity) { _ in completion.fulfill() }
+        service.update(for: meteorogram.city) { _ in completion.fulfill() }
         wait(for: [completion], timeout: 2)
     }
 }

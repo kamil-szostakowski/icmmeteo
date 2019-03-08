@@ -17,7 +17,6 @@ class MMTTodayModelControllerTests: XCTestCase
     var city = MMTCityProt(name: "Lorem", region: "Loremia")
     var forecastService = MMTMockForecastService()
     var locationService = MMTMockLocationService()
-    var cache = MMTSingleMeteorogramCache()
     
     var modelController: MMTTodayModelController!
     var modelControllerDelegate: MMTMockModelControllerDelegate<MMTTodayModelController>!
@@ -32,7 +31,6 @@ class MMTTodayModelControllerTests: XCTestCase
 
         modelControllerDelegate = MMTMockModelControllerDelegate<MMTTodayModelController>()
         setupModelController(env: .normal)
-        setupCache(forecastService.currentMeteorogram!)
     }
     
     // MARK: Test methods
@@ -46,7 +44,7 @@ class MMTTodayModelControllerTests: XCTestCase
         })
     }
     
-    func testModelUpdateWhenNewForecastDataAvailable_NormalEnv()
+    func testModelUpdateWhenNewForecastDataAvailable()
     {
         forecastService.status = .newData
         locationService.locationPromise.resolve(with: .success(city))
@@ -56,7 +54,7 @@ class MMTTodayModelControllerTests: XCTestCase
         })
     }
     
-    func testInitialModelUpdateWhenNoForecastDataAvailable_NormalEnv()
+    func testInitialModelUpdateWhenNoForecastDataAvailable()
     {
         forecastService.status = .noData
         forecastService.currentMeteorogram = nil
@@ -67,7 +65,7 @@ class MMTTodayModelControllerTests: XCTestCase
         })
     }
     
-    func testInitialModelUpdateWhenForecastDataFetchFeiled_NormalEnv()
+    func testInitialModelUpdateWhenForecastDataFetchFailed()
     {
         forecastService.status = .failed
         forecastService.currentMeteorogram = nil
@@ -78,7 +76,7 @@ class MMTTodayModelControllerTests: XCTestCase
         })
     }
     
-    func testModelUpdateWhenLocationNotAvailable_NormalEnv()
+    func testModelUpdateWhenLocationNotAvailable()
     {
         locationService.locationPromise.resolve(with: .failure(.locationNotFound))
         
@@ -87,29 +85,28 @@ class MMTTodayModelControllerTests: XCTestCase
         })
     }
     
-    func testModelUpdateWhenMeteorogramIsInCache_LowMemoryEnv()
-    {
-        setupModelController(env: .memoryConstrained)
-        forecastService.status = .newData
-        locationService.locationPromise.resolve(with: .success(city))
-        
-        verifyModelUpdate(.newData, operation: {
-            XCTAssertEqual($0.updateResult, .success(self.forecastService.currentMeteorogram!))
-        })
-    }
+//    func testModelUpdateWhenMeteorogramIsInCache_LowMemoryEnv()
+//    {
+//        setupModelController(env: .memoryConstrained)
+//        forecastService.status = .newData
+//        locationService.locationPromise.resolve(with: .success(city))
+//        
+//        verifyModelUpdate(.newData, operation: {
+//            XCTAssertEqual($0.updateResult, .success(self.forecastService.currentMeteorogram!))
+//        })
+//    }
     
-    func testModelUpdateWhenMeteorogramNotInCache_LowMemoryEnv()
-    {
-        setupModelController(env: .memoryConstrained)
-        cleanupCache()
-        
-        forecastService.status = .newData
-        locationService.locationPromise.resolve(with: .success(city))
-        
-        verifyModelUpdate(.failed, operation: {
-            XCTAssertEqual($0.updateResult, .failure(.meteorogramUpdateFailure))
-        })
-    }
+//    func testModelUpdateWhenMeteorogramNotInCache_LowMemoryEnv()
+//    {
+//        setupModelController(env: .memoryConstrained)
+//
+//        forecastService.status = .newData
+//        locationService.locationPromise.resolve(with: .success(city))
+//
+//        verifyModelUpdate(.failed, operation: {
+//            XCTAssertEqual($0.updateResult, .failure(.meteorogramUpdateFailure))
+//        })
+//    }
     
     /*
      * - Open the app and let the app fetch forecast for the current location and store it in cahce.
@@ -123,14 +120,12 @@ class MMTTodayModelControllerTests: XCTestCase
     func testRestoreCacheWithCurrentForecast()
     {
         setupModelController(env: .normal)
-        cleanupCache()
         
         forecastService.status = .noData
         locationService.locationPromise.resolve(with: .success(city))
         
         verifyModelUpdate(.noData, operation: {
             XCTAssertEqual($0.updateResult, .success(self.forecastService.currentMeteorogram!))
-            XCTAssertFalse(self.cache.isEmpty)
         })
     }
 }
@@ -155,20 +150,6 @@ extension MMTTodayModelControllerTests
     {
         modelController = MMTTodayModelController(forecastService, locationService, env)
         modelController.delegate = modelControllerDelegate
-    }
-    
-    func setupCache(_ meteorogram: MMTMeteorogram)
-    {
-        let expect = expectation(description: "Init expectation")
-        cache.store(meteorogram: meteorogram) {_ in expect.fulfill() }
-        wait(for: [expect], timeout: 1.0)
-    }
-    
-    func cleanupCache()
-    {
-        let expect = expectation(description: "Cleanup expectation")
-        cache.cleanup { _ in expect.fulfill() }
-        wait(for: [expect], timeout: 5.0)
     }
 }
 

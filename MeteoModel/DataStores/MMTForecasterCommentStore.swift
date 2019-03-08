@@ -27,7 +27,11 @@ public struct MMTForecasterCommentStore: MMTForecasterCommentDataStore
         session.html(from: URL.mmt_forecasterCommentUrl(), encoding: .isoLatin2) {
             (result: MMTResult<String>) in
             
-            let reportError = { completion(.failure(.commentFetchFailure)) }
+            let reportError = {
+                DispatchQueue.main.async {
+                    completion(.failure(.commentFetchFailure))
+                }
+            }
             
             guard case let .success(html) = result else {
                 reportError()
@@ -44,7 +48,9 @@ public struct MMTForecasterCommentStore: MMTForecasterCommentDataStore
                 return
             }
             
-            completion(.success(formattedComment))
+            DispatchQueue.main.async {
+                completion(.success(formattedComment))
+            }
         }
     }
     
