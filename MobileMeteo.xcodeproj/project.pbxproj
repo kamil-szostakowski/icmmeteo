@@ -241,6 +241,7 @@
 		1B65BA2E2035FFDD0053173C /* MMTMocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMocks.swift; sourceTree = "<group>"; };
 		1B68CD352045B85000AB8046 /* MMTActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTActivityIndicator.swift; sourceTree = "<group>"; };
 		1B68CD372045B89F00AB8046 /* MMTActivityIndicator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MMTActivityIndicator.xib; sourceTree = "<group>"; };
+		1B699C602233321200ED4FD7 /* Cities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Cities.json; path = ../MeteoModelTests/Cities.json; sourceTree = "<group>"; };
 		1B895CEE221B34CF00385BAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1B895CF0221B34D100385BAD /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1B895CF4221B37B600385BAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -801,6 +802,7 @@
 			isa = PBXGroup;
 			children = (
 				F9E696851AFCC06600273DA3 /* Info.plist */,
+				1B699C602233321200ED4FD7 /* Cities.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
