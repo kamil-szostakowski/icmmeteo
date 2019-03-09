@@ -35,6 +35,7 @@
 		1B65BA2F2035FFDD0053173C /* MMTMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B65BA2E2035FFDD0053173C /* MMTMocks.swift */; };
 		1B68CD362045B85000AB8046 /* MMTActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B68CD352045B85000AB8046 /* MMTActivityIndicator.swift */; };
 		1B68CD382045B89F00AB8046 /* MMTActivityIndicator.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B68CD372045B89F00AB8046 /* MMTActivityIndicator.xib */; };
+		1B699C6E22341EBB00ED4FD7 /* MMTAppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B699C6D22341EBB00ED4FD7 /* MMTAppDelegateTests.swift */; };
 		1B71864720ED476900E9B45E /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9ED9FF91E07527B00190F59 /* UIView.swift */; };
 		1B895CED221B34CF00385BAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B895CEF221B34CF00385BAD /* InfoPlist.strings */; };
 		1B895CF3221B37B600385BAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B895CF5221B37B600385BAD /* InfoPlist.strings */; };
@@ -242,6 +243,7 @@
 		1B68CD352045B85000AB8046 /* MMTActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTActivityIndicator.swift; sourceTree = "<group>"; };
 		1B68CD372045B89F00AB8046 /* MMTActivityIndicator.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MMTActivityIndicator.xib; sourceTree = "<group>"; };
 		1B699C602233321200ED4FD7 /* Cities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = Cities.json; path = ../MeteoModelTests/Cities.json; sourceTree = "<group>"; };
+		1B699C6D22341EBB00ED4FD7 /* MMTAppDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTAppDelegateTests.swift; sourceTree = "<group>"; };
 		1B895CEE221B34CF00385BAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1B895CF0221B34D100385BAD /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1B895CF4221B37B600385BAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -792,6 +794,7 @@
 				F99A8A371B849A850098E170 /* ExtensionsTests */,
 				F99F24621B6B573500622E1E /* Tools */,
 				1B8C6BF720371BE40029282F /* MMTAppMigratorTests.swift */,
+				1B699C6D22341EBB00ED4FD7 /* MMTAppDelegateTests.swift */,
 				1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */,
 				F9E696841AFCC06600273DA3 /* Supporting Files */,
 			);
@@ -1268,6 +1271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B1F8FAC201FD6A8004B1126 /* UIApplicationTests.swift in Sources */,
+				1B699C6E22341EBB00ED4FD7 /* MMTAppDelegateTests.swift in Sources */,
 				1B4FD2E6203B506700B33C04 /* MMTShortcutsMigratorTests.swift in Sources */,
 				F9060B3F1C059FE70025EE8D /* MMTUIScrollViewTests.swift in Sources */,
 				1B1F8FAA201FCCFE004B1126 /* MMTMeteorogramShortcutTests.swift in Sources */,

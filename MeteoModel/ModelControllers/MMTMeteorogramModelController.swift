@@ -9,7 +9,7 @@
 import Foundation
 import CoreSpotlight
 
-public class MMTMeteorogramModelController: MMTModelController
+public class MMTMeteorogramModelController: MMTBaseModelController
 {
     // MARK: Properties
     public var meteorogram: MMTMeteorogram?

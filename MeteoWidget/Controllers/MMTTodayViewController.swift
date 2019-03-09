@@ -15,8 +15,8 @@ class MMTTodayViewController: UIViewController, NCWidgetProviding
 {
     // MARK: Properties
     private var modelController: MMTTodayModelController!
-    private var factory: MMTExtensionViewModeFactory!
-    private var locationService: MMTCoreLocationService!
+    private var factory: MMTFactory = MMTDefaultFactory()
+    private var viewFactory = MMTExtensionViewModeFactory()
     private weak var currentView: UIView?
     
     // MARK: Lefecycle methods
@@ -47,12 +47,8 @@ extension MMTTodayViewController
 {
     // MARK: Setup methods
     fileprivate func setupModelController()
-    {
-        let forecastService = MMTMeteorogramForecastService(model: MMTUmClimateModel())
-        
-        locationService = MMTCoreLocationService(CLLocationManager())
-        factory = MMTExtensionViewModeFactory()
-        modelController = MMTTodayModelController(forecastService, locationService, .memoryConstrained)
+    {                
+        modelController = factory.createTodayModelController(.memoryConstrained)
         modelController.delegate = self
     }
 }
@@ -66,7 +62,7 @@ extension MMTTodayViewController: MMTModelControllerDelegate
             return
         }
         
-        let viewMode = factory.build(for: modelController, with: context)
+        let viewMode = viewFactory.build(for: modelController, with: context)
         
         switch modelController.updateResult {
             case .success(_): context.widgetLargestAvailableDisplayMode = .expanded

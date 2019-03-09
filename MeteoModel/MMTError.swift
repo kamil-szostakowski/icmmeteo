@@ -12,6 +12,7 @@ public enum MMTError: String, Error
 {
     case meteorogramNotFound
     case meteorogramFetchFailure
+    case forecastUndetermined
     case locationUnsupported
     case locationNotFound
     case locationServicesDisabled

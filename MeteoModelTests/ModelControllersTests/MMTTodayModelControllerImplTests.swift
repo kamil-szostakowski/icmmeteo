@@ -11,15 +11,15 @@ import Foundation
 import CoreLocation
 @testable import MeteoModel
 
-class MMTTodayModelControllerTests: XCTestCase
+class MMTTodayModelControllerImplTests: XCTestCase
 {
     // MARK: Properties
     var city = MMTCityProt(name: "Lorem", region: "Loremia")
     var forecastService = MMTMockForecastService()
     var locationService = MMTMockLocationService()
     
-    var modelController: MMTTodayModelController!
-    var modelControllerDelegate: MMTMockModelControllerDelegate<MMTTodayModelController>!
+    var modelController: MMTTodayModelControllerImpl!
+    var modelControllerDelegate: MMTMockModelControllerDelegate<MMTTodayModelControllerImpl>!
     
     // MARK: Setup methods
     override func setUp()
@@ -29,7 +29,7 @@ class MMTTodayModelControllerTests: XCTestCase
         forecastService.currentMeteorogram = MMTMeteorogram(model: MMTUmClimateModel(), city: city)
         locationService.authorizationStatus = .whenInUse
 
-        modelControllerDelegate = MMTMockModelControllerDelegate<MMTTodayModelController>()
+        modelControllerDelegate = MMTMockModelControllerDelegate<MMTTodayModelControllerImpl>()
         setupModelController(env: .normal)
     }
     
@@ -40,7 +40,7 @@ class MMTTodayModelControllerTests: XCTestCase
         locationService.locationPromise.resolve(with: .failure(.locationNotFound))
         
         verifyModelUpdate(.failed, operation: {
-            XCTAssertEqual($0.updateResult, .failure(.locationServicesUnavailable))
+            XCTAssertEqual($0.updateResult, .failure(.locationServicesDisabled))
         })
     }
     
@@ -61,7 +61,7 @@ class MMTTodayModelControllerTests: XCTestCase
         locationService.locationPromise.resolve(with: .success(city))
         
         verifyModelUpdate(.noData, operation: {
-            XCTAssertEqual($0.updateResult, .failure(.undetermined))
+            XCTAssertEqual($0.updateResult, .failure(.forecastUndetermined))
         })
     }
     
@@ -72,7 +72,7 @@ class MMTTodayModelControllerTests: XCTestCase
         locationService.locationPromise.resolve(with: .success(city))
         
         verifyModelUpdate(.failed, operation: {
-            XCTAssertEqual($0.updateResult, .failure(.undetermined))
+            XCTAssertEqual($0.updateResult, .failure(.forecastUndetermined))
         })
     }
     
@@ -81,32 +81,9 @@ class MMTTodayModelControllerTests: XCTestCase
         locationService.locationPromise.resolve(with: .failure(.locationNotFound))
         
         verifyModelUpdate(.failed, operation: {
-            XCTAssertEqual($0.updateResult, .failure(.meteorogramUpdateFailure))
+            XCTAssertEqual($0.updateResult, .failure(.meteorogramFetchFailure))
         })
     }
-    
-//    func testModelUpdateWhenMeteorogramIsInCache_LowMemoryEnv()
-//    {
-//        setupModelController(env: .memoryConstrained)
-//        forecastService.status = .newData
-//        locationService.locationPromise.resolve(with: .success(city))
-//        
-//        verifyModelUpdate(.newData, operation: {
-//            XCTAssertEqual($0.updateResult, .success(self.forecastService.currentMeteorogram!))
-//        })
-//    }
-    
-//    func testModelUpdateWhenMeteorogramNotInCache_LowMemoryEnv()
-//    {
-//        setupModelController(env: .memoryConstrained)
-//
-//        forecastService.status = .newData
-//        locationService.locationPromise.resolve(with: .success(city))
-//
-//        verifyModelUpdate(.failed, operation: {
-//            XCTAssertEqual($0.updateResult, .failure(.meteorogramUpdateFailure))
-//        })
-//    }
     
     /*
      * - Open the app and let the app fetch forecast for the current location and store it in cahce.
@@ -130,7 +107,7 @@ class MMTTodayModelControllerTests: XCTestCase
     }
 }
 
-extension MMTTodayModelControllerTests
+extension MMTTodayModelControllerImplTests
 {
     // MARK: Helper methods
     func verifyModelUpdate(_ status: MMTUpdateResult, operation: @escaping (MMTTodayModelController) -> Void)
@@ -148,23 +125,7 @@ extension MMTTodayModelControllerTests
     
     func setupModelController(env: MMTEnvironment)
     {
-        modelController = MMTTodayModelController(forecastService, locationService, env)
+        modelController = MMTTodayModelControllerImpl(forecastService, locationService, env)
         modelController.delegate = modelControllerDelegate
-    }
-}
-
-extension MMTTodayModelController.UpdateResult: Equatable
-{
-    public static func == (lhs: MMTTodayModelController.UpdateResult, rhs: MMTTodayModelController.UpdateResult) -> Bool
-    {
-        if case let .failure(first) = lhs, case let .failure(second) = rhs {
-            return first == second
-        }
-        
-        if case let .success(first) = lhs, case let .success(second) = rhs {
-            return first.city == second.city
-        }
-        
-        return false
     }
 }

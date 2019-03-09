@@ -9,7 +9,7 @@
 import Foundation
 import CoreLocation
 
-public class MMTCurrentCityModelController: MMTModelController
+public class MMTCurrentCityModelController: MMTBaseModelController
 {
     // MARK: Properties
     private var citiesStore: MMTCitiesStore

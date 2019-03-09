@@ -56,12 +56,13 @@ class MMTExtensionViewModeFactory
         return (meteorogramImageView.updated(with: meteorogram.image), .WidgetDidDisplayExpanded)
     }
     
-    private func analyticsAction(for error: MMTTodayModelController.UpdateError) -> MMTAnalyticsAction
+    private func analyticsAction(for error: MMTError) -> MMTAnalyticsAction
     {
         switch error {
-            case .locationServicesUnavailable: return .WidgetDidDisplayErrorNoLocationServices
-            case .meteorogramUpdateFailure: return .WidgetDidDisplayErrorFetchFailure            
-            case .undetermined: return .WidgetDidDisplayErrorFetchFailure
+            case .locationServicesDisabled:
+                return .WidgetDidDisplayErrorNoLocationServices
+            default:
+                return .WidgetDidDisplayErrorFetchFailure
         }
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public struct MMTMeteorogram
+public struct MMTMeteorogram: Equatable
 {
     public struct Prediction: OptionSet
     {
@@ -38,6 +38,14 @@ public struct MMTMeteorogram
         self.startDate = model.startDate(for: Date())
         self.image = UIImage()
         self.legend = nil
+    }
+    
+    public static func == (lhs: MMTMeteorogram, rhs: MMTMeteorogram) -> Bool
+    {
+        let left = (lhs.model.type, lhs.city, lhs.startDate)
+        let right = (rhs.model.type, rhs.city, rhs.startDate)
+        
+        return left == right
     }
 }
 

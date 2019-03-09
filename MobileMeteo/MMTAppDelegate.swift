@@ -23,10 +23,11 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     var window: UIWindow?
     var locationService: MMTCoreLocationService!
     var todayModelController: MMTTodayModelController!
-    var navigator: MMTNavigator!    
+    var navigator: MMTNavigator!
+    var factory: MMTFactory = MMTDefaultFactory()
     
     var rootViewController: MMTTabBarController {
-        return self.window!.rootViewController as! MMTTabBarController
+        return window!.rootViewController as! MMTTabBarController
     }
         
     // MARK: Lifecycle methods
@@ -38,8 +39,9 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         setupAppearance()
         setupAnalytics()
         setupLocationService()
-        setupNavigator()
-        setupTodayModelController()
+        
+        navigator = MMTNavigator(rootViewController, locationService)
+        todayModelController = factory.createTodayModelController(.normal)
         
         #if DEBUG
         setupDebugEnvironment()
@@ -83,7 +85,8 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
         DispatchQueue.global(qos: .background).async {
-            guard let meteorogram = MMTCoreData.instance.meteorogramStore.restore() else {
+            
+            guard let meteorogram = self.factory.meteorogramCache.restore() else {
                 completionHandler(.noData)
                 return
             }
@@ -142,12 +145,6 @@ extension MMTAppDelegate
         gai.trackUncaughtExceptions = false
     }
     
-    private func setupTodayModelController()
-    {
-        let forecastService = MMTMeteorogramForecastService(model: MMTUmClimateModel())
-        todayModelController = MMTTodayModelController(forecastService, locationService)
-    }
-    
     private func setupLocationService()
     {
         let locationHandler = #selector(handleLocationDidChange(notification:))
@@ -157,12 +154,7 @@ extension MMTAppDelegate
         NotificationCenter.default.addObserver(self, selector: authHandler, name: .locationAuthChangedNotification, object: nil)
         
         locationService = MMTCoreLocationService(CLLocationManager())
-    }
-    
-    private func setupNavigator()
-    {
-        navigator = MMTNavigator(rootViewController, locationService)
-    }
+    }    
     
     private func performMigration()
     {

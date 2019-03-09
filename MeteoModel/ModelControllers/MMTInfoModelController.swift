@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-public class MMTInfoModelController: MMTModelController
+public class MMTInfoModelController: MMTBaseModelController
 {
     // MARK: Properties
     public var weatherIconsCredit: NSMutableAttributedString
