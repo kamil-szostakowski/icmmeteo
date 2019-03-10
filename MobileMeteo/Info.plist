@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>8</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -39,10 +39,6 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Usługi lokalizacyjne pozwalają nam zapewnić Ci szybki dostęp do prognozy pogody dla miejscowości, w której aktualnie przebywasz. Potrzebujemy ich również aby prezentować widget z aktualną prognozą bezpośrednio na ekranie Spotlight.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Usługi lokalizacyjne pozwalają nam zapewnić Ci szybki dostęp do prognozy pogody dla miejscowości, w której aktualnie przebywasz. Potrzebujemy ich również aby prezentować widget z aktualną prognozą bezpośrednio na ekranie Spotlight.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Usługi lokalizacyjne pozwalają nam zapewnić Ci szybki dostęp do prognozy pogody dla miejscowości, w której aktualnie przebywasz. Potrzebujemy ich również aby prezentować widget z aktualną prognozą bezpośrednio na ekranie Spotlight.</string>
 	<key>NSUserActivityTypes</key>

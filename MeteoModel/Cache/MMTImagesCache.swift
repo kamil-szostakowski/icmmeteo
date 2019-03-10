@@ -51,6 +51,15 @@ public class MMTImagesCache
     }
 }
 
+//public extension MMTImagesCache
+//{
+//    public func setPinnedObject(_ object: MMTMeteorogram)
+//    {
+//        let key = object.model.cacheKey(city: object.city, startDate: object.startDate)
+//        setPinnedObject(object.image, forKey: key)
+//    }
+//}
+
 extension MMTClimateModel
 {
     func cacheKey(city: MMTCityProt, startDate: Date) -> String

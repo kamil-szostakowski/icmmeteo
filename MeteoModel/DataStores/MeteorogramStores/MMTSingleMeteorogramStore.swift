@@ -10,29 +10,32 @@ import UIKit
 import Foundation
 import CoreLocation
 
-fileprivate let groupId = "group.com.szostakowski.meteo"
-
-class MMTSingleMeteorogramStore: MMTMeteorogramCache
+public class MMTSingleMeteorogramStore: MMTMeteorogramCache
 {    
     // MARK: Properties
+    private static let groupId = "group.com.szostakowski.meteo"
     private let appGroup = UserDefaults(suiteName: groupId)
     private let fileCoordinator = NSFileCoordinator(filePresenter: nil)
     private let fileUrl: URL
     
+    public static var defaultStoreUrl: URL {
+        return FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupId)!.appendingPathComponent("meteorogram.png")
+    }
+    
     // MARK
-    init(_ url: URL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupId)!.appendingPathComponent("meteorogram.png"))
+    public init(_ url: URL = defaultStoreUrl)
     {
         self.fileUrl = url
     }
     
     // MARK: Interface methods
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         guard let dict = appGroup?.dictionaryRepresentation() else { return false }
         return MMTMeteorogram.deserialize(from: dict) == nil
     }
     
     @discardableResult
-    func store(_ meteorogram: MMTMeteorogram) -> Bool
+    public func store(_ meteorogram: MMTMeteorogram) -> Bool
     {
         FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
         
@@ -43,7 +46,7 @@ class MMTSingleMeteorogramStore: MMTMeteorogramCache
         return write(image: meteorogram.image, to: fileUrl)
     }
     
-    func restore() -> MMTMeteorogram?
+    public func restore() -> MMTMeteorogram?
     {
         guard let dict = appGroup?.dictionaryRepresentation() else { return nil }
         guard var meteorogram = MMTMeteorogram.deserialize(from: dict) else { return nil }
@@ -54,7 +57,7 @@ class MMTSingleMeteorogramStore: MMTMeteorogramCache
     }
     
     @discardableResult
-    func cleanup() -> Bool
+    public func cleanup() -> Bool
     {
         let city = MMTCityProt(name: "", region: "", location: CLLocation())
         let dummyMeteorogram = MMTMeteorogram(model: MMTUmClimateModel(), city: city)
@@ -134,7 +137,7 @@ fileprivate extension MMTMeteorogram
         
         return [
             "met-model": meteorogram.model.type.rawValue,
-            "met-prediction": meteorogram.prediction?.rawValue ?? 0,
+            "met-prediction": meteorogram.prediction?.rawValue ?? Int.min,
             "met-start-date": meteorogram.startDate.timeIntervalSince1970
         ].merging(serializedCity) { (current, new) in current }
     }
@@ -150,7 +153,10 @@ fileprivate extension MMTMeteorogram
         var
         meteorogram = MMTMeteorogram(model: modelType.model, city: city)
         meteorogram.startDate = Date(timeIntervalSince1970: startDate)
-        meteorogram.prediction = MMTMeteorogram.Prediction(rawValue: prediction)
+        
+        if (prediction != Int.min) {
+            meteorogram.prediction = MMTMeteorogram.Prediction(rawValue: prediction)
+        }
         
         return meteorogram
     }

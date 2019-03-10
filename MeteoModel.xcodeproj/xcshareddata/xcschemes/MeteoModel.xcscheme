@@ -26,9 +26,53 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      codeCoverageEnabled = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "YES"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <CodeCoverageTargets>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "1B9C71DA2049B42D00856476"
+            BuildableName = "MeteoModel.framework"
+            BlueprintName = "MeteoModel"
+            ReferencedContainer = "container:MeteoModel.xcodeproj">
+         </BuildableReference>
+      </CodeCoverageTargets>
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1B9C71E32049B42D00856476"
+               BuildableName = "MeteoModelTests.xctest"
+               BlueprintName = "MeteoModelTests"
+               ReferencedContainer = "container:MeteoModel.xcodeproj">
+            </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "MMTPredictionModelImplTests/testPrediction_1()">
+               </Test>
+               <Test
+                  Identifier = "MMTPredictionModelImplTests/testPrediction_2()">
+               </Test>
+               <Test
+                  Identifier = "MMTPredictionModelImplTests/testPrediction_4()">
+               </Test>
+               <Test
+                  Identifier = "MMTPredictionModelImplTests/testPrediction_5()">
+               </Test>
+            </SkippedTests>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "1B9C71DA2049B42D00856476"
+            BuildableName = "MeteoModel.framework"
+            BlueprintName = "MeteoModel"
+            ReferencedContainer = "container:MeteoModel.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

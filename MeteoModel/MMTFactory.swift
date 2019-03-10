@@ -9,6 +9,40 @@
 import Foundation
 import CoreLocation
 
+// MARK: Factory protocol
+public protocol MMTFactory
+{
+    var meteorogramCache: MMTMeteorogramCache { get }
+    
+    var locationService: MMTLocationService { get }
+    
+    func createTodayModelController(_ :MMTEnvironment) -> MMTTodayModelController
+}
+
+// MARK: Default factory implementation
+public class MMTDefaultFactory: MMTFactory
+{
+    // MARK: Properties
+    public lazy var meteorogramCache: MMTMeteorogramCache = {
+        return MMTSingleMeteorogramStore()
+    }()
+    
+    public lazy var locationService: MMTLocationService = {
+        return MMTCoreLocationService(CLLocationManager())
+    }()
+    
+    // MARK: Initializers
+    public init() {}
+    
+    // MARK: Methods
+    public func createTodayModelController(_ env: MMTEnvironment) -> MMTTodayModelController
+    {
+        let forecastService = MMTMeteorogramForecastService(model: MMTUmClimateModel())
+        return MMTTodayModelControllerImpl(forecastService, locationService)
+    }
+}
+
+// MARK: Convinience initializers
 public extension MMTRemoteCityGeocoder
 {
     public convenience init()

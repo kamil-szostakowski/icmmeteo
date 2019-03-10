@@ -14,7 +14,6 @@ extension UserDefaults
     {
         case Initialized
         case SequenceNumber
-        case WidgetRefreshInterval = "refresh-interval"
     }
     
     // MARK: Properties
@@ -34,12 +33,7 @@ extension UserDefaults
             setValue(newValue, forKey: .SequenceNumber)
             synchronize()
         }
-    }
-    
-    var widgetRefreshInterval: TimeInterval
-    {
-        return value(forKey: .WidgetRefreshInterval)?.doubleValue ?? 3600
-    }
+    }    
     
     // MARK: Methods
     func cleanup()

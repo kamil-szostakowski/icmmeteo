@@ -24,21 +24,24 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     var locationService: MMTCoreLocationService!
     var todayModelController: MMTTodayModelController!
     var navigator: MMTNavigator!
+    var factory: MMTFactory = MMTDefaultFactory()
     
     var rootViewController: MMTTabBarController {
-        return self.window!.rootViewController as! MMTTabBarController
+        return window!.rootViewController as! MMTTabBarController
     }
         
     // MARK: Lifecycle methods
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         UserDefaults.standard.importSettings()
+        application.setMinimumBackgroundFetchInterval(3600)
         
         setupAppearance()
         setupAnalytics()
         setupLocationService()
-        setupNavigator()
-        setupTodayModelController()
+        
+        navigator = MMTNavigator(rootViewController, locationService)
+        todayModelController = factory.createTodayModelController(.normal)
         
         #if DEBUG
         setupDebugEnvironment()
@@ -50,12 +53,6 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         
         performMigration()
         return true
-    }
-    
-    func applicationDidBecomeActive(_ application: UIApplication)
-    {
-        let interval = UserDefaults.standard.widgetRefreshInterval
-        UIApplication.shared.setMinimumBackgroundFetchInterval(interval)
     }
     
     func applicationWillTerminate(_ application: UIApplication)
@@ -87,11 +84,17 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
-        todayModelController.onUpdate {
-            if $0 == .newData {
-                self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish)
+        DispatchQueue.global(qos: .background).async {
+            
+            guard let meteorogram = self.factory.meteorogramCache.restore() else {
+                completionHandler(.noData)
+                return
             }
-            completionHandler(UIBackgroundFetchResult(updateStatus: $0))
+            
+            self.todayModelController.onUpdate(meteorogram.city) {
+                self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish)
+                completionHandler(UIBackgroundFetchResult(updateStatus: $0))
+            }
         }
     }
 }
@@ -103,9 +106,9 @@ extension MMTAppDelegate
     private func setupDatabase()
     {
         let coreDataStore = MMTCoreDataCitiesStore()
-        let filePath = Bundle.main.path(forResource: "Cities", ofType: "json")
+        let url = Bundle.main.url(forResource: "Cities", withExtension: "json")
         
-        MMTPredefinedCitiesFileStore().predefinedCities(from: filePath!).forEach {
+        MMTPredefinedCitiesFileStore().predefinedCities(from: url!).forEach {
             coreDataStore.save(city: $0)
         }
         
@@ -142,12 +145,6 @@ extension MMTAppDelegate
         gai.trackUncaughtExceptions = false
     }
     
-    private func setupTodayModelController()
-    {
-        let forecastService = MMTMeteorogramForecastService(model: MMTUmClimateModel())
-        todayModelController = MMTTodayModelController(forecastService, locationService)
-    }
-    
     private func setupLocationService()
     {
         let locationHandler = #selector(handleLocationDidChange(notification:))
@@ -157,18 +154,19 @@ extension MMTAppDelegate
         NotificationCenter.default.addObserver(self, selector: authHandler, name: .locationAuthChangedNotification, object: nil)
         
         locationService = MMTCoreLocationService(CLLocationManager())
-    }
-    
-    private func setupNavigator()
-    {
-        navigator = MMTNavigator(rootViewController, locationService)
-    }
+    }    
     
     private func performMigration()
     {
         let migrator = try? MMTAppMigrator(migrators: [MMTShortcutsMigrator()])
         try? migrator?.migrate(from: UserDefaults.standard.sequenceNumber)
     }
+    
+//    private func syncCache()
+//    {
+//        guard let meteorogram = MMTCoreData.instance.meteorogramStore.restore() else { return }
+//        MMTCoreData.instance.meteorogramsCache.setPinnedObject(meteorogram)
+//    }
     
     #if DEBUG
     private func setupDebugEnvironment()
@@ -192,7 +190,7 @@ extension MMTAppDelegate
     @objc func handleLocationAuthDidChange(notification: Notification)
     {
         let status = locationService.authorizationStatus
-        let authorized = status == .always
+        let authorized = status == .whenInUse
         
         NCWidgetController().setHasContent(authorized, forWidgetWithBundleIdentifier: "com.szostakowski.meteo.MeteoWidget")
         analytics?.sendUserActionReport(.Locations, action: .LocationDidChangeAuthorization, actionLabel: status.description)

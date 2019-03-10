@@ -9,44 +9,38 @@
 import Foundation
 import CoreLocation
 
-public class MMTTodayModelController: MMTModelController
+public protocol MMTTodayModelController: MMTModelController
 {
-    // MARK: Inner types
-    public enum UpdateError
-    {
-        case locationServicesUnavailable
-        case meteorogramUpdateFailure        
-        case undetermined
-    }
+    var updateResult: MMTResult<MMTMeteorogram> { get }
     
-    public enum UpdateResult
-    {
-        case success(MMTMeteorogram)
-        case failure(UpdateError)
-    }
+    func onUpdate(completion: @escaping (MMTUpdateResult) -> Void)
     
+    func onUpdate(_ city: MMTCityProt, completion: @escaping (MMTUpdateResult) -> Void)
+}
+
+class MMTTodayModelControllerImpl: MMTBaseModelController, MMTTodayModelController
+{    
     // MARK: Properties
     private var forecastService: MMTForecastService
     private var locationService: MMTLocationService
-    
-    public private(set) var environment: MMTEnvironment
-    public private(set) var updateResult: UpdateResult
+    private var environment: MMTEnvironment
+    private(set) var updateResult: MMTResult<MMTMeteorogram>
 
     // MARK: Initializers
-    public init(_ forecastService: MMTForecastService, _ locationService: MMTLocationService, _ environment: MMTEnvironment = .normal)
+    init(_ forecastService: MMTForecastService, _ locationService: MMTLocationService, _ environment: MMTEnvironment = .normal)
     {
         self.forecastService = forecastService
         self.locationService = locationService
         self.environment = environment
-        self.updateResult = .failure(.undetermined)
+        self.updateResult = .failure(.forecastUndetermined)
     }
 
-    // MARK: Interface methods
-    public func onUpdate(completion: @escaping (MMTUpdateResult) -> Void)
+    // MARK: Interface methods    
+    func onUpdate(completion: @escaping (MMTUpdateResult) -> Void)
     {
         locationService.requestLocation().observe {
-            guard self.locationService.authorizationStatus == .always else {
-                self.updateResult = .failure(.locationServicesUnavailable)
+            guard self.locationService.authorizationStatus == .whenInUse else {
+                self.updateResult = .failure(.locationServicesDisabled)
                 self.notifyWatchers(.failed, completion: completion)
                 return
             }
@@ -54,35 +48,33 @@ public class MMTTodayModelController: MMTModelController
             self.update($0, completion)
         }
     }
+    
+    func onUpdate(_ city: MMTCityProt, completion: @escaping (MMTUpdateResult) -> Void)
+    {
+        forecastService.update(for: city) { status in
+            defer { self.notifyWatchers(status, completion: completion) }
+            
+            if var meteorogram = self.forecastService.currentMeteorogram {
+                if self.environment == .normal {
+                    meteorogram.prediction = try? MMTCoreMLPredictionModel().predict(meteorogram)
+                }
+                self.updateResult = .success(meteorogram)
+            }
+        }
+    }
 }
 
-extension MMTTodayModelController
+extension MMTTodayModelControllerImpl
 {
     // MARK: Update methods
     fileprivate func update(_ result: MMTResult<MMTCityProt>, _ completion: @escaping (MMTUpdateResult) -> Void)
     {
         switch result {
             case let .success(city):
-                updateForecast(for: city, completion: completion)
+                onUpdate(city, completion: completion)
             case .failure(_):
-                updateResult = .failure(.meteorogramUpdateFailure)
+                updateResult = .failure(.meteorogramFetchFailure)
                 notifyWatchers(.failed, completion: completion)
-        }
-    }
-    
-    fileprivate func updateForecast(for city: MMTCityProt, completion: @escaping (MMTUpdateResult) -> Void)
-    {
-        forecastService.update(for: city) { status in
-            
-            defer { self.notifyWatchers(status, completion: completion) }
-            
-            if var meteorogram = self.forecastService.currentMeteorogram
-            {
-                if self.environment == .normal {
-                    meteorogram.prediction = try? MMTCoreMLPredictionModel().predict(meteorogram)
-                }
-                self.updateResult = .success(meteorogram)
-            }
         }
     }
     

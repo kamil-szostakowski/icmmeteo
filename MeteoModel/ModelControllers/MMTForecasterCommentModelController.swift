@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class MMTForecasterCommentModelController: MMTModelController
+public class MMTForecasterCommentModelController: MMTBaseModelController
 {
     // MAKR: Properties
     public var comment: NSAttributedString?

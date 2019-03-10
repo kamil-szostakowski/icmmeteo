@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-public class MMTDetailedMapPreviewModelController: MMTModelController
+public class MMTDetailedMapPreviewModelController: MMTBaseModelController
 {
     // MARK: Properties
     public var moment: Date?
@@ -34,7 +34,7 @@ public class MMTDetailedMapPreviewModelController: MMTModelController
     }
     
     // MARK: Lifecycle methods
-    override public func activate()
+    public override func activate()
     {
         fetchMeteorogram()
     }

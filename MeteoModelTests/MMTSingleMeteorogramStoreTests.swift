@@ -17,6 +17,7 @@ class MMTSingleMeteorogramStoreTests: XCTestCase
     var appGroup = UserDefaults(suiteName: "group.com.szostakowski.meteo")!
     let meteorogramImage = UIImage(thisBundle: "2018092900-381-199-full")
     let expectedDate = Date.from(2019, 3, 20, 10, 15, 20)
+    var meteorogram = MMTMeteorogram.loremCity
 
     // MARK: Setup methods
     override func setUp()
@@ -24,14 +25,12 @@ class MMTSingleMeteorogramStoreTests: XCTestCase
         super.setUp()
         meteorogramCache = MMTSingleMeteorogramStore(MMTTestTools.cachesUrl.appendingPathComponent("meteorogram.png"))
         
-        var
-        meteorogram = MMTMeteorogram.loremCity
         meteorogram.image = meteorogramImage
         meteorogramCache.store(meteorogram)
     }
     
     // MARK: Test methods
-    func testStoringPrediction()
+    func testStoringMeteorogram()
     {
         let interval = expectedDate.timeIntervalSince1970
         
@@ -42,6 +41,15 @@ class MMTSingleMeteorogramStoreTests: XCTestCase
         XCTAssertEqual(self.appGroup.object(forKey: "met-start-date") as? Double, interval)
         XCTAssertEqual(self.appGroup.object(forKey: "met-prediction") as? Int, 9)
         XCTAssertEqual(self.appGroup.object(forKey: "met-model") as? String, "UM")
+    }
+    
+    func testStoringMeteorogramWithoutPrediction()
+    {
+        meteorogram.prediction = nil
+        meteorogramCache.store(meteorogram)
+        
+        XCTAssertEqual(self.appGroup.object(forKey: "met-prediction") as? Int, Int.min)
+        XCTAssertNil(meteorogramCache.restore()?.prediction)
     }
     
     func testRestoreMeteorogram()

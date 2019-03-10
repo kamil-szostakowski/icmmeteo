@@ -37,14 +37,13 @@ class MMTUpdateErrorView: UIView
 
 extension MMTUpdateErrorView: MMTUpdatableView
 {
-    func updated(with errorType: MMTTodayModelController.UpdateError) -> MMTUpdateErrorView
+    func updated(with errorType: MMTError) -> MMTUpdateErrorView
     {
         var key = ""        
         switch errorType
         {
-            case .locationServicesUnavailable: key = "error.widget.locationServicesDisabled"
-            case .meteorogramUpdateFailure: key = "error.widget.meteorogramFetchFailure"            
-            case .undetermined: key = "error.widget.meteorogramFetchFailure"            
+            case .locationServicesDisabled: key = "error.widget.locationServicesDisabled"
+            default: key = "error.widget.meteorogramFetchFailure"            
         }
                 
         descriptionLabel.text = MMTLocalizedString(key)
