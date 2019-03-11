@@ -35,7 +35,7 @@ class MMTMeteorogramForecastServiceTests: XCTestCase
         meteorogramStore = MMTMockMeteorogramStore()
         meteorogramStore.meteorogram = .success(meteorogram)
                 
-        service = MMTMeteorogramForecastService(forecastStore: forecastStore, meteorogramStore: meteorogramStore, cache: cache)
+        service = MMTMeteorogramForecastService(forecastStore, meteorogramStore, cache)
     }
     
     // MARK: Test methods
@@ -59,12 +59,13 @@ class MMTMeteorogramForecastServiceTests: XCTestCase
         let completion = expectation(description: "update completion")
         
         service.update(for: meteorogram.city) {
-            completion.fulfill()            
+            completion.fulfill()
             XCTAssertEqual($0, .newData)
         }
         
         wait(for: [completion], timeout: 2)
         XCTAssertNotNil(cache.restore())
+        XCTAssertEqual(service.currentMeteorogram, meteorogram)
     }
     
     func testInitFromCache()
@@ -79,6 +80,7 @@ class MMTMeteorogramForecastServiceTests: XCTestCase
         
         wait(for: [completion], timeout: 2)
         XCTAssertNotNil(cache.restore())
+        XCTAssertEqual(service.currentMeteorogram, meteorogram)
     }
     
     func testUpdateRequiredWhenStartDateChanged()
@@ -114,6 +116,7 @@ class MMTMeteorogramForecastServiceTests: XCTestCase
         XCTAssertNotNil(cache.restore())
     }    
     
+    // TODO: Consider checking the same condition after sucessfull attempt
     func testUpdateFailureWhenForecastStartDateUpdateFailed()
     {
         forecastStore.result = .failure(.forecastStartDateNotFound)
@@ -126,12 +129,13 @@ class MMTMeteorogramForecastServiceTests: XCTestCase
         
         wait(for: [completion], timeout: 2)
         XCTAssertNil(cache.restore())
+        XCTAssertNil(service.currentMeteorogram)
     }
     
+    // TODO: Consider checking the same condition after sucessfull attempt
     func testUpdateFailureWhenMeteorogramFetchFailed()
     {
         meteorogramStore.meteorogram = .failure(.meteorogramNotFound)
-        
         let completion = expectation(description: "update completion")
         
         service.update(for: meteorogram.city) {
@@ -141,6 +145,7 @@ class MMTMeteorogramForecastServiceTests: XCTestCase
         
         wait(for: [completion], timeout: 2)
         XCTAssertNil(cache.restore())
+        XCTAssertNil(service.currentMeteorogram)
     }
     
     func testCachingFetchedMeteorogram()

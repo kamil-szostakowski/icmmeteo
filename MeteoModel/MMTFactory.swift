@@ -37,8 +37,23 @@ public class MMTDefaultFactory: MMTFactory
     // MARK: Methods
     public func createTodayModelController(_ env: MMTEnvironment) -> MMTTodayModelController
     {
-        let forecastService = MMTMeteorogramForecastService(model: MMTUmClimateModel())
+        let mlModel = env == .normal ? MMTCoreMLPredictionModel() : nil
+        let forecastService = createForecastService(mlModel)
         return MMTTodayModelControllerImpl(forecastService, locationService)
+    }
+}
+
+// MARK: Helper extension
+extension MMTDefaultFactory
+{
+    fileprivate func createForecastService(_ mlModel: MMTPredictionModel?) -> MMTForecastService
+    {
+        let model = MMTUmClimateModel()
+        let forecastStore = MMTWebForecastStore(model: model)
+        let meteorogramStore = MMTMeteorogramStore(model: model)
+        let forecastService = MMTMeteorogramForecastService(forecastStore, meteorogramStore, meteorogramCache)
+        
+        return MMTPredictingForecastService(forecastService, mlModel)
     }
 }
 
@@ -107,17 +122,5 @@ extension MMTDetailedMapPreviewModelController
     public convenience init(map: MMTDetailedMap)
     {
         self.init(map: map, dataStore: MMTMeteorogramStore(model: map.climateModel))
-    }
-}
-
-extension MMTMeteorogramForecastService
-{
-    public convenience init(model: MMTClimateModel)
-    {
-        let forecastStore = MMTWebForecastStore(model: model)
-        let meteorogramStore = MMTMeteorogramStore(model: model)
-        let cache = MMTSingleMeteorogramStore()
-        
-        self.init(forecastStore: forecastStore, meteorogramStore: meteorogramStore, cache: cache)
     }
 }
