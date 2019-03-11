@@ -10,17 +10,19 @@ import UIKit
 import Foundation
 import CoreLocation
 
-public class MMTMeteorogramForecastService: MMTForecastService
+class MMTMeteorogramForecastService: MMTForecastService
 {    
     // MARK: Properties
     fileprivate var forecastStore: MMTForecastStore
     fileprivate var meteorogramStore: MMTMeteorogramDataStore
     fileprivate var cache: MMTMeteorogramCache
     
-    public private(set) var currentMeteorogram: MMTMeteorogram?
+    private(set) var currentMeteorogram: MMTMeteorogram?
     
     // MARK: Initializers    
-    public init(forecastStore: MMTForecastStore, meteorogramStore: MMTMeteorogramDataStore, cache: MMTMeteorogramCache)
+    init(_ forecastStore: MMTForecastStore,
+         _ meteorogramStore: MMTMeteorogramDataStore,
+         _ cache: MMTMeteorogramCache)
     {
         self.forecastStore = forecastStore
         self.meteorogramStore = meteorogramStore
@@ -28,7 +30,7 @@ public class MMTMeteorogramForecastService: MMTForecastService
     }
     
     // MARK: Interface methods
-    public func update(for location: MMTCityProt, completion: @escaping (MMTUpdateResult) -> Void)
+    func update(for location: MMTCityProt, completion: @escaping (MMTUpdateResult) -> Void)
     {
         let ui = DispatchQueue.main
         let queue = DispatchQueue.global(qos: .background)

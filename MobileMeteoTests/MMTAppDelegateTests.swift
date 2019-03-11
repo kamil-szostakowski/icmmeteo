@@ -61,7 +61,7 @@ extension MMTAppDelegateTests
     {
         let completion = expectation(description: "Completion expectation")
         
-        appDelegate.application(UIApplication.shared, didFinishLaunchingWithOptions: nil)
+        _ = appDelegate.application(UIApplication.shared, didFinishLaunchingWithOptions: nil)
         appDelegate.application(UIApplication.shared) {
             XCTAssertEqual($0, status)
             completion.fulfill()

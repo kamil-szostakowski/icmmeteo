@@ -182,7 +182,7 @@ class MMTMockForecasterStore: MMTForecasterCommentDataStore
 class MMTMockForecastService: MMTForecastService
 {
     var currentMeteorogram: MMTMeteorogram?
-    var status: MMTUpdateResult!
+    var status: MMTUpdateResult = .failed
     
     func update(for location: MMTCityProt, completion: @escaping (MMTUpdateResult) -> Void)
     {
@@ -273,5 +273,18 @@ class MMTMockMeteorogramCache: MMTMeteorogramCache
     func cleanup() -> Bool {
         self.meteorogram = nil
         return true
+    }        
+}
+
+class MMTMockPredictionModel: MMTPredictionModel
+{
+    var prediction: MMTMeteorogram.Prediction!
+    
+    init(_ prediction: MMTMeteorogram.Prediction?) {
+        self.prediction = prediction
+    }
+    
+    func predict(_ image: MMTMeteorogram) throws -> MMTMeteorogram.Prediction {
+        return prediction
     }        
 }
