@@ -16,19 +16,11 @@ class MMTMockFactory: MMTFactory
 {
     // MARK: Configuration Properties
     var forecastUpdateResult: MMTUpdateResult!
-    var cachedMeteorogram: MMTMeteorogram?
 
     // MARK: Interface methods
     lazy var locationService: MMTLocationService = {
         return MMTMockLocationService()
-    }()
-    
-    lazy var meteorogramCache: MMTMeteorogramCache = {
-        let
-        cache = MMTMockMeteorogramCache()
-        cache.meteorogram = cachedMeteorogram
-        return cache
-    }()
+    }()      
 
     func createTodayModelController(_: MMTEnvironment) -> MMTTodayModelController {
         let
@@ -90,27 +82,6 @@ struct StubCitiesStore: MMTCitiesStore
     func cities(matching criteria: String, completion: @escaping ([MMTCityProt]) -> Void) {}
     
     func save(city: MMTCityProt) {}
-}
-
-class MMTMockMeteorogramCache: MMTMeteorogramCache
-{
-    var meteorogram: MMTMeteorogram?
-    
-    @discardableResult
-    func store(_ meteorogram: MMTMeteorogram) -> Bool {
-        self.meteorogram = meteorogram
-        return true
-    }
-    
-    func restore() -> MMTMeteorogram? {
-        return meteorogram
-    }
-    
-    @discardableResult
-    func cleanup() -> Bool {
-        self.meteorogram = nil
-        return true
-    }
 }
 
 class MMTMockLocationService: MMTLocationService

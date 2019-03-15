@@ -13,8 +13,7 @@ import CoreData
 public class MMTCoreData
 {
     // MARK: Properties
-    public static private(set) var instance = MMTCoreData(type: NSSQLiteStoreType)
-    public var meteorogramsCache = MMTImagesCache(cache: NSCache<NSString, UIImage>())
+    public static private(set) var instance = MMTCoreData(type: NSSQLiteStoreType)    
     private var type: String    
     
     // MARK: Initializers
@@ -58,8 +57,7 @@ public class MMTCoreData
     public func flushDatabase()
     {
         self.context.performAndWait {
-            self.meteorogramsCache.removeAllObjects()
-            
+                        
             for store in self.persistentStoreCoordinator.persistentStores {
                 _ = try? self.persistentStoreCoordinator.remove(store)
                 _ = try? FileManager.default.removeItem(atPath: store.url!.path)

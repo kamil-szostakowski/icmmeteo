@@ -55,6 +55,11 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
         return true
     }
     
+    func applicationDidBecomeActive(_ application: UIApplication)
+    {
+        MeteoModel.syncCaches()
+    }
+    
     func applicationWillTerminate(_ application: UIApplication)
     {
         MMTCoreData.instance.context.saveContextIfNeeded()
@@ -84,17 +89,10 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
-        DispatchQueue.global(qos: .background).async {
-            
-            guard let meteorogram = self.factory.meteorogramCache.restore() else {
-                completionHandler(.noData)
-                return
-            }
-            
-            self.todayModelController.onUpdate(meteorogram.city) {
-                self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish)
-                completionHandler(UIBackgroundFetchResult(updateStatus: $0))
-            }
+        // TODO: Should I cleanup cache when auth status changes?
+        self.todayModelController.onUpdate {
+            self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish)
+            completionHandler(UIBackgroundFetchResult(updateStatus: $0))
         }
     }
 }
@@ -162,18 +160,13 @@ extension MMTAppDelegate
         try? migrator?.migrate(from: UserDefaults.standard.sequenceNumber)
     }
     
-//    private func syncCache()
-//    {
-//        guard let meteorogram = MMTCoreData.instance.meteorogramStore.restore() else { return }
-//        MMTCoreData.instance.meteorogramsCache.setPinnedObject(meteorogram)
-//    }
-    
     #if DEBUG
     private func setupDebugEnvironment()
     {
         if ProcessInfo.processInfo.arguments.contains(MMTDebugActionCleanupDb) {
             URLCache.shared.removeAllCachedResponses()
             MMTCoreData.instance.flushDatabase()
+            MeteoModel.cleanupCaches()            
             UserDefaults.standard.cleanup()
         }
         

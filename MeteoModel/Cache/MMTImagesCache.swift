@@ -9,27 +9,21 @@
 import UIKit
 import Foundation
 
-public class MMTImagesCache
+class MMTImagesCache
 {
     // MARK: Properties
     private var cache: NSCache<NSString, UIImage>
-    private var pinnedCache: Dictionary<String, UIImage>
     
     // MARK
     init(cache: NSCache<NSString, UIImage>)
     {
         self.cache = cache
-        self.pinnedCache = Dictionary<String, UIImage>()
     }
     
     // MARK: interface methods
     func object(forKey: String) -> UIImage?
     {
-        if let discardableObject = cache.object(forKey: forKey as NSString) {
-            return discardableObject
-        }
-        
-        return pinnedCache[forKey]
+        return cache.object(forKey: forKey as NSString)
     }
     
     func setObject(_ object: UIImage, forKey: String)
@@ -37,28 +31,11 @@ public class MMTImagesCache
         cache.setObject(object, forKey: forKey as NSString)
     }
     
-    func setPinnedObject(_ object: UIImage, forKey: String)
-    {
-        setObject(object, forKey: forKey)        
-        pinnedCache.removeAll()
-        pinnedCache[forKey] = object
-    }
-    
     func removeAllObjects()
     {
         cache.removeAllObjects()
-        pinnedCache.removeAll()
     }
 }
-
-//public extension MMTImagesCache
-//{
-//    public func setPinnedObject(_ object: MMTMeteorogram)
-//    {
-//        let key = object.model.cacheKey(city: object.city, startDate: object.startDate)
-//        setPinnedObject(object.image, forKey: key)
-//    }
-//}
 
 extension MMTClimateModel
 {

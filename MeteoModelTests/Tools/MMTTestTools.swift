@@ -106,4 +106,9 @@ extension MMTMeteorogram
     static var loremCity: MMTMeteorogram {
         return meteorogram(city: "Lorem", startDate: Date.from(2019, 3, 20, 10, 15, 20))
     }
+    
+    static var ipsumCity: MMTMeteorogram {
+        return meteorogram(city: "Ipsum", startDate: Date.from(2019, 4, 10, 13, 25, 00))
+    }
+
 }

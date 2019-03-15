@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol MMTMeteorogramCache
+protocol MMTMeteorogramCache
 {
     @discardableResult
     func store(_ meteorogram: MMTMeteorogram) -> Bool
