@@ -50,43 +50,18 @@ class MMTImagesCacheTests: XCTestCase
         XCTAssertNil(cache.object(forKey: "key"))
     }
     
-    func testSettingPinnedObject()
-    {
-        cache.setPinnedObject(UIImage(), forKey: "key")
-        nsCache.removeAllObjects()
-        
-        XCTAssertNotNil(cache.object(forKey: "key"))
-    }
-    
-    func testKeepSinglePinnedObjectAtOnce()
-    {
-        cache.setPinnedObject(UIImage(), forKey: "key")
-        nsCache.removeAllObjects()
-        
-        XCTAssertNotNil(cache.object(forKey: "key"))
-        
-        cache.setPinnedObject(UIImage(), forKey: "newKey")
-        nsCache.removeAllObjects()
-        
-        XCTAssertNotNil(cache.object(forKey: "newKey"))
-        XCTAssertNil(cache.object(forKey: "key"))
-    }
-    
     func testCacheCleanup()
     {
         cache.setObject(UIImage(), forKey: "key1")
         cache.setObject(UIImage(), forKey: "key2")
-        cache.setPinnedObject(UIImage(), forKey: "key3")
         
         XCTAssertNotNil(cache.object(forKey: "key1"))
         XCTAssertNotNil(cache.object(forKey: "key2"))
-        XCTAssertNotNil(cache.object(forKey: "key3"))
         
         cache.removeAllObjects()
         
         XCTAssertNil(cache.object(forKey: "key1"))
         XCTAssertNil(cache.object(forKey: "key2"))
-        XCTAssertNil(cache.object(forKey: "key3"))
     }
 }
 

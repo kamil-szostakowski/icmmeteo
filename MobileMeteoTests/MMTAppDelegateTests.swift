@@ -21,35 +21,19 @@ class MMTAppDelegateTests: XCTestCase
     {
         super.setUp()
         
-        let city = MMTCityProt(name: "Lorem", region: "", location: CLLocation())
-        mockFactory.cachedMeteorogram = MMTMeteorogram(model: MMTUmClimateModel(), city:city)
-        
         appDelegate.factory = mockFactory
         appDelegate.window = UIApplication.shared.keyWindow
     }
 
     // MARK: Test methods
-    func testBackgroundFetchWhenCacheIsEmpty()
-    {
-        mockFactory.forecastUpdateResult = .noData
-        mockFactory.cachedMeteorogram = nil
-        verifyBackgroundFetchStatus(.noData)
-    }
-    
-    func testBackgroundFetchWhenNoData()
+    func testBackgroundFetch()
     {
         mockFactory.forecastUpdateResult = .noData
         verifyBackgroundFetchStatus(.noData)
-    }
-    
-    func testBackgroundFetchWhenNewData()
-    {
+        
         mockFactory.forecastUpdateResult = .newData
         verifyBackgroundFetchStatus(.newData)
-    }
-    
-    func testBackgroundFetchWhenFailure()
-    {
+        
         mockFactory.forecastUpdateResult = .failed
         verifyBackgroundFetchStatus(.failed)
     }

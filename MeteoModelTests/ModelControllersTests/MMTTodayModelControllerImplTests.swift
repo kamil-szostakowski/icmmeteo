@@ -30,7 +30,8 @@ class MMTTodayModelControllerImplTests: XCTestCase
         locationService.authorizationStatus = .whenInUse
 
         modelControllerDelegate = MMTMockModelControllerDelegate<MMTTodayModelControllerImpl>()
-        setupModelController(env: .normal)
+        modelController = MMTTodayModelControllerImpl(forecastService, locationService)
+        modelController.delegate = modelControllerDelegate
     }
     
     // MARK: Test methods
@@ -100,11 +101,5 @@ extension MMTTodayModelControllerImplTests
         }
         
         wait(for: modelUpdate + [completion], timeout: 0.5, enforceOrder: true)
-    }
-    
-    func setupModelController(env: MMTEnvironment)
-    {
-        modelController = MMTTodayModelControllerImpl(forecastService, locationService, env)
-        modelController.delegate = modelControllerDelegate
     }
 }

@@ -6,14 +6,13 @@
 //  Copyright © 2018 Kamil Szostakowski. All rights reserved.
 //
 
+import UIKit
 import Foundation
 import CoreLocation
 
 // MARK: Factory protocol
 public protocol MMTFactory
 {
-    var meteorogramCache: MMTMeteorogramCache { get }
-    
     var locationService: MMTLocationService { get }
     
     func createTodayModelController(_ :MMTEnvironment) -> MMTTodayModelController
@@ -22,14 +21,25 @@ public protocol MMTFactory
 // MARK: Default factory implementation
 public class MMTDefaultFactory: MMTFactory
 {
-    // MARK: Properties
-    public lazy var meteorogramCache: MMTMeteorogramCache = {
-        return MMTSingleMeteorogramStore()
-    }()
+    // MARK: Public properties
+    public static let shared = MMTDefaultFactory()
     
     public lazy var locationService: MMTLocationService = {
         return MMTCoreLocationService(CLLocationManager())
     }()
+    
+    // MARK: Private properties
+    fileprivate lazy var imagesCache: MMTImagesCache = {
+        return MMTImagesCache(cache: NSCache<NSString, UIImage>())
+    }()
+    
+    fileprivate lazy var meteorogramCache: MMTMeteorogramCache = {
+        return MMTSingleMeteorogramStore()
+    }()
+    
+    fileprivate var cacheManager: MMTCacheManager {
+        return MMTCacheManager(meteorogramCache, imagesCache)
+    }
     
     // MARK: Initializers
     public init() {}
@@ -39,7 +49,9 @@ public class MMTDefaultFactory: MMTFactory
     {
         let mlModel = env == .normal ? MMTCoreMLPredictionModel() : nil
         let forecastService = createForecastService(mlModel)
-        return MMTTodayModelControllerImpl(forecastService, locationService)
+        let locationServ = createLocationService(env)
+        
+        return MMTTodayModelControllerImpl(forecastService, locationServ)
     }
 }
 
@@ -54,6 +66,28 @@ extension MMTDefaultFactory
         let forecastService = MMTMeteorogramForecastService(forecastStore, meteorogramStore, meteorogramCache)
         
         return MMTPredictingForecastService(forecastService, mlModel)
+    }
+    
+    fileprivate func createLocationService(_ env: MMTEnvironment) -> MMTLocationService
+    {
+        return env == .normal ? locationService : MMTCachedLocationService(meteorogramCache)
+    }
+}
+
+public class MeteoModel
+{
+    public static func syncCaches()
+    {
+        DispatchQueue.global(qos: .background).async {
+            MMTDefaultFactory.shared.cacheManager.sync()
+        }
+    }
+    
+    public static func cleanupCaches()
+    {
+        DispatchQueue.global(qos: .background).async {
+            MMTDefaultFactory.shared.cacheManager.cleanup()
+        }
     }
 }
 
@@ -78,7 +112,7 @@ extension MMTMeteorogramStore
 {
     public init(model: MMTClimateModel)
     {
-        let cache = MMTCoreData.instance.meteorogramsCache
+        let cache = MMTDefaultFactory.shared.imagesCache
         let imageStore = MMTWebMeteorogramImageStore(model: model)
         let cachingStore = MMTCachingMeteorogramImageStore(store: imageStore, cache: cache)
         let forecastStore = MMTWebForecastStore(model: model)
