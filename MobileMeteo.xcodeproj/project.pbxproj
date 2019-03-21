@@ -28,6 +28,11 @@
 		1B39BECC20DD9394002495B5 /* MeteoModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF55CE62049E63E009BA4E2 /* MeteoModel.framework */; };
 		1B4095CB2040C06900CDF5E4 /* MMTForecasterCommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */; };
 		1B4FD2E6203B506700B33C04 /* MMTShortcutsMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */; };
+		1B545125223D299800DE7259 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B545124223D299800DE7259 /* Onboarding.storyboard */; };
+		1B54512A223D2C4C00DE7259 /* MMTOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B545129223D2C4C00DE7259 /* MMTOnboardingController.swift */; };
+		1B5451312243D4A000DE7259 /* MMTPartialCoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5451302243D4A000DE7259 /* MMTPartialCoverPresentationController.swift */; };
+		1B5451362243D9ED00DE7259 /* MMTPartialCoverSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5451352243D9ED00DE7259 /* MMTPartialCoverSegue.swift */; };
+		1B54513C224433F300DE7259 /* MMTOnboardingFinalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54513B224433F300DE7259 /* MMTOnboardingFinalController.swift */; };
 		1B58237D2027B1C4003DF651 /* CSSearchableIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B58237C2027B1C4003DF651 /* CSSearchableIndexTests.swift */; };
 		1B584687221616C300D79528 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1B584689221616C300D79528 /* Localizable.strings */; };
 		1B5B6B7220C8806C007C6678 /* MMTCitiesListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5B6B7120C8806C007C6678 /* MMTCitiesListDataSource.swift */; };
@@ -234,6 +239,11 @@
 		1B39BEC220DD8A60002495B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecasterCommentTests.swift; sourceTree = "<group>"; };
 		1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTShortcutsMigratorTests.swift; sourceTree = "<group>"; };
+		1B545124223D299800DE7259 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
+		1B545129223D2C4C00DE7259 /* MMTOnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTOnboardingController.swift; sourceTree = "<group>"; };
+		1B5451302243D4A000DE7259 /* MMTPartialCoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTPartialCoverPresentationController.swift; sourceTree = "<group>"; };
+		1B5451352243D9ED00DE7259 /* MMTPartialCoverSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTPartialCoverSegue.swift; sourceTree = "<group>"; };
+		1B54513B224433F300DE7259 /* MMTOnboardingFinalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTOnboardingFinalController.swift; sourceTree = "<group>"; };
 		1B58237C2027B1C4003DF651 /* CSSearchableIndexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSSearchableIndexTests.swift; sourceTree = "<group>"; };
 		1B584688221616C300D79528 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1B58468A221616C600D79528 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -452,6 +462,32 @@
 				1B980AF62218BEBC0009792B /* MeteoWidget-BridgingHeader.h */,
 			);
 			path = MeteoWidget;
+			sourceTree = "<group>";
+		};
+		1B545128223D2C2200DE7259 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				1B545129223D2C4C00DE7259 /* MMTOnboardingController.swift */,
+				1B54513B224433F300DE7259 /* MMTOnboardingFinalController.swift */,
+			);
+			name = Onboarding;
+			sourceTree = "<group>";
+		};
+		1B54512D2243D44E00DE7259 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				1B5451322243D8E000DE7259 /* PartialCover */,
+			);
+			name = Transitions;
+			sourceTree = "<group>";
+		};
+		1B5451322243D8E000DE7259 /* PartialCover */ = {
+			isa = PBXGroup;
+			children = (
+				1B5451302243D4A000DE7259 /* MMTPartialCoverPresentationController.swift */,
+				1B5451352243D9ED00DE7259 /* MMTPartialCoverSegue.swift */,
+			);
+			name = PartialCover;
 			sourceTree = "<group>";
 		};
 		1B58468B2216179600D79528 /* Controllers */ = {
@@ -757,11 +793,13 @@
 				1BEB08F820F4007700B26035 /* MobileMeteo.entitlements */,
 				1BB3A90B21122AEF00A5BCA4 /* Navigators */,
 				1B8C6BF42036FB680029282F /* Migrator */,
+				1B54512D2243D44E00DE7259 /* Transitions */,
 				F9E696901AFCC41D00273DA3 /* Controllers */,
 				1B68CD342045B82B00AB8046 /* Views */,
 				F9900EB91B282B86006880A1 /* Extensions */,
 				8EE51B501E68D09800C52DC6 /* API */,
 				F9E696741AFCC06600273DA3 /* Main.storyboard */,
+				1B545124223D299800DE7259 /* Onboarding.storyboard */,
 				F9E696791AFCC06600273DA3 /* LaunchScreen.xib */,
 				F9BB149A1B56379C00C81B3F /* MMTAppDelegate.swift */,
 				F96BC8CA1B97285A0073A44E /* MMTAppearance.swift */,
@@ -813,6 +851,7 @@
 		F9E696901AFCC41D00273DA3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1B545128223D2C2200DE7259 /* Onboarding */,
 				8E79D5291D4E804400BE1A0E /* DetailedMaps */,
 				F9C23A951B621D7200A94A4B /* Weather */,
 				1B176845203CC8F200E47D30 /* MMTForecasterCommentController.swift */,
@@ -1063,6 +1102,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9BB14A61B5697EE00C81B3F /* Cities.json in Resources */,
+				1B545125223D299800DE7259 /* Onboarding.storyboard in Resources */,
 				1B895CED221B34CF00385BAD /* InfoPlist.strings in Resources */,
 				1B68CD382045B89F00AB8046 /* MMTActivityIndicator.xib in Resources */,
 				F91A6F541C86F6F200BDDE28 /* Localizable.strings in Resources */,
@@ -1227,6 +1267,7 @@
 				1B8C6BF62036FB980029282F /* MMTAppMigrator.swift in Sources */,
 				F9FFEE471B8DCEF900C30EDD /* UIImageView.swift in Sources */,
 				8E880AC01DF220D1004D8A9E /* MMTDetailedMapPreviewController.swift in Sources */,
+				1B5451312243D4A000DE7259 /* MMTPartialCoverPresentationController.swift in Sources */,
 				1B2B4F742045F7B3004FBBB5 /* MMTActivityIndicating.swift in Sources */,
 				1B09566A1FE1AD3800C8189A /* MMTShortcuts.swift in Sources */,
 				1B176846203CC8F200E47D30 /* MMTForecasterCommentController.swift in Sources */,
@@ -1241,11 +1282,14 @@
 				1B980AED2218B9E40009792B /* MMTAnalytics.swift in Sources */,
 				F9C5B5B01B81D1FC00CFB503 /* UIScrollView.swift in Sources */,
 				F957544D1B4D050C00C4E672 /* MMTConstants.swift in Sources */,
+				1B5451362243D9ED00DE7259 /* MMTPartialCoverSegue.swift in Sources */,
 				1BF36E091FE3003C00083538 /* UISegmentedControl.swift in Sources */,
 				F9ED9FFA1E07527B00190F59 /* UIView.swift in Sources */,
 				1B68CD362045B85000AB8046 /* MMTActivityIndicator.swift in Sources */,
 				1B2C534820E3E789003727A3 /* UIBackgroundFetchResult.swift in Sources */,
+				1B54513C224433F300DE7259 /* MMTOnboardingFinalController.swift in Sources */,
 				1BF36E0D1FE485D200083538 /* MMTDetailedMapShortcut.swift in Sources */,
+				1B54512A223D2C4C00DE7259 /* MMTOnboardingController.swift in Sources */,
 				1B1020CC20D1C3A400B24809 /* MMTCityAnnotation.swift in Sources */,
 				F9F9D6101C52643000A49ACA /* MMTGoogleAnalytics.swift in Sources */,
 				F90F72A71C5A3DA600130353 /* NSUserDefaults.swift in Sources */,

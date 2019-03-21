@@ -130,6 +130,11 @@ extension MMTAppDelegate
         ]
         
         UIBarButtonItem.appearance().setTitleTextAttributes(disabledAttributes, for: UIControl.State.disabled)
+        
+        let
+        page = UIPageControl.appearance()
+        page.pageIndicatorTintColor = UIColor.lightGray
+        page.currentPageIndicatorTintColor = MMTAppearance.meteoGreenColor
     }
     
     private func setupAnalytics()
