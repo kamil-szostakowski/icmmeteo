@@ -63,9 +63,9 @@ extension MMTDefaultFactory
         let model = MMTUmClimateModel()
         let forecastStore = MMTWebForecastStore(model: model)
         let meteorogramStore = MMTMeteorogramStore(model: model)
-        let forecastService = MMTMeteorogramForecastService(forecastStore, meteorogramStore, meteorogramCache)
+        let predictingStore = MMTPredictingMetorogramStore(meteorogramStore, mlModel)
         
-        return MMTPredictingForecastService(forecastService, mlModel)
+        return MMTMeteorogramForecastService(forecastStore, predictingStore, meteorogramCache)        
     }
     
     fileprivate func createLocationService(_ env: MMTEnvironment) -> MMTLocationService
