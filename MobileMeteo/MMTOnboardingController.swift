@@ -10,21 +10,25 @@ import UIKit
 
 enum MMTOnboardingSlide: String
 {
-    case whatsNew
+    case widgetCompact
+    case widgetExpanded
     case whatsNext
-    case letsStart
+    case contact
 }
 
-class MMTOnboardingController: UIPageViewController
+class MMTOnboardingController: UIPageViewController, MTPartialCoverPresentationSizing
 {
     // MARK: Properties
     lazy var onboardingDelegate: MMTOnboardingDelegate = {
         return MMTOnboardingDelegate(pages: [
-            viewController(for: .whatsNew),
+            viewController(for: .widgetExpanded),
+            viewController(for: .widgetCompact),
             viewController(for: .whatsNext),
-            viewController(for: .letsStart),
+            viewController(for: .contact),
         ])
     }()
+    
+    var desiredHeight: CGFloat = 500
     
     // MARK: Lifecycle methods
     override func viewDidLoad()
@@ -87,5 +91,23 @@ class MMTOnboardingDelegate: NSObject, UIPageViewControllerDelegate, UIPageViewC
         guard controllers.count > 0 else { return 0 }
         
         return pages.firstIndex(of: controllers.first!) ?? 0
+    }
+}
+
+class MMTSlideController: UIViewController
+{
+    @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var shadowView: UIView!
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        
+        image.layer.cornerRadius = 10
+        shadowView.layer.shadowOffset = CGSize(width: 0, height: 3)
+        shadowView.layer.shadowColor = UIColor.black.cgColor
+        shadowView.layer.shadowOpacity = 0.8;
+        shadowView.layer.shadowRadius = 5.0;
+        shadowView.layer.cornerRadius = 20
     }
 }

@@ -10,7 +10,32 @@ import Foundation
 
 class MMTOnboardingFinalController: UIViewController
 {
-    @IBAction func onTapGettingStarted(_ sender: UIButton)
+    // MARK: Properties
+    @IBOutlet weak var gettingStartedButton: UIButton!
+    
+    // MARK: Lifecycle methods
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        setupButtons()
+    }
+}
+
+// MARK: Setup methods
+extension MMTOnboardingFinalController
+{
+    fileprivate func setupButtons()
+    {
+        gettingStartedButton.layer.borderWidth = 1
+        gettingStartedButton.layer.cornerRadius = 5
+        gettingStartedButton.layer.borderColor = MMTAppearance.meteoGreenColor.cgColor
+    }
+}
+
+// MARK: Action methods
+extension MMTOnboardingFinalController
+{
+    @IBAction func onTapCloseButton(_ sender: UIButton)
     {
         dismiss(animated: true, completion: nil)
     }

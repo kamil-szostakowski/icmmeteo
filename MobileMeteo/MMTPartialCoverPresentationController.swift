@@ -8,6 +8,11 @@
 
 import Foundation
 
+protocol MTPartialCoverPresentationSizing
+{
+    var desiredHeight: CGFloat { get }
+}
+
 class MMTPartialCoverPresentationController: UIPresentationController
 {
     // MARK: Properties
@@ -52,9 +57,14 @@ class MMTPartialCoverPresentationController: UIPresentationController
         presentedViewController.view.layer.cornerRadius = 20
         
         container.addFillingSubview(dimmingView)
-        container.addFillingSubview(contentView, UIEdgeInsets(top: 40, left: 30, bottom: -40, right: -30))
-        contentView.addFillingSubview(presentedViewController.view)
         
+        if let sizing = presentedViewController as? MTPartialCoverPresentationSizing {
+            addWithExplicitHeight(container, sizing.desiredHeight)
+        } else {
+            addWithFullHeight(container)
+        }
+        
+        contentView.addFillingSubview(presentedViewController.view)
         animate(alpha: 0.6)
     }
     
@@ -72,5 +82,22 @@ extension MMTPartialCoverPresentationController
         presentingViewController.transitionCoordinator?.animate(alongsideTransition: { context in
             self.dimmingView.alpha = alpha
         }, completion: nil)
+    }
+    
+    fileprivate func addWithExplicitHeight(_ container: UIView, _ height: CGFloat)
+    {
+        container.addSubview(contentView)
+        NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 30),
+            contentView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -30),
+            contentView.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            contentView.heightAnchor.constraint(equalToConstant: height)
+        ])
+    }
+    
+    fileprivate func addWithFullHeight(_ container: UIView)
+    {
+        let insets = UIEdgeInsets(top: 40, left: 30, bottom: -40, right: -30)
+        container.addFillingSubview(contentView, insets)
     }
 }

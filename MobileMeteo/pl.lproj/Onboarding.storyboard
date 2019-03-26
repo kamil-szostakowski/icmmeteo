@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ET4-mJ-2MP">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Slide Controller-->
+        <scene sceneID="9Oy-iQ-d1Z">
+            <objects>
+                <viewController storyboardIdentifier="widgetCompact" id="by2-zp-vSQ" customClass="MMTSlideController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dh8-ew-581">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="Widget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cSz-Xb-VOG">
+                                <rect key="frame" x="20" y="40" width="335" height="29.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" red="0.062745098040000002" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n2A-nK-JUD">
+                                <rect key="frame" x="20" y="89.5" width="335" height="557.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="tt5-b5-ei8">
+                                        <rect key="frame" x="0.0" y="144" width="335" height="269.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLq-OP-pmG">
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="80.5"/>
+                                                <string key="text">W trybie kompaktowym, dzięki algorytmom sztucznej inteligencji widget jest w stanie zaprezentować skrócony opis meteorogramu. Wystarczy rzut oka aby się z nim zapoznać!</string>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NG6-GR-jNh">
+                                                <rect key="frame" x="0.0" y="130.5" width="335" height="139"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" image="widget-compact" translatesAutoresizingMaskIntoConstraints="NO" id="tBl-fH-D3P">
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="139"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="tBl-fH-D3P" secondAttribute="height" multiplier="719:299" id="ys8-hE-GIE"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="tBl-fH-D3P" secondAttribute="trailing" id="7HH-4k-suf"/>
+                                                    <constraint firstItem="tBl-fH-D3P" firstAttribute="top" secondItem="NG6-GR-jNh" secondAttribute="top" id="L8s-lW-1GI"/>
+                                                    <constraint firstItem="tBl-fH-D3P" firstAttribute="leading" secondItem="NG6-GR-jNh" secondAttribute="leading" id="Zdk-dC-qlv"/>
+                                                    <constraint firstAttribute="bottom" secondItem="tBl-fH-D3P" secondAttribute="bottom" id="f82-zq-pzR"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="tt5-b5-ei8" firstAttribute="top" relation="greaterThanOrEqual" secondItem="n2A-nK-JUD" secondAttribute="top" id="X04-iY-fXI"/>
+                                    <constraint firstItem="tt5-b5-ei8" firstAttribute="leading" secondItem="n2A-nK-JUD" secondAttribute="leading" id="bfz-0Y-IqN"/>
+                                    <constraint firstItem="tt5-b5-ei8" firstAttribute="centerY" secondItem="n2A-nK-JUD" secondAttribute="centerY" id="dDH-sQ-Tui"/>
+                                    <constraint firstAttribute="trailing" secondItem="tt5-b5-ei8" secondAttribute="trailing" id="pGc-ZL-gOS"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="tt5-b5-ei8" secondAttribute="bottom" id="rQh-Xf-2f7"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="MUu-VI-DRx" firstAttribute="trailing" secondItem="cSz-Xb-VOG" secondAttribute="trailing" constant="20" id="3eX-eZ-Hbm"/>
+                            <constraint firstItem="MUu-VI-DRx" firstAttribute="trailing" secondItem="n2A-nK-JUD" secondAttribute="trailing" constant="20" id="4fY-UM-IdU"/>
+                            <constraint firstItem="cSz-Xb-VOG" firstAttribute="leading" secondItem="MUu-VI-DRx" secondAttribute="leading" constant="20" id="F1d-lT-oOb"/>
+                            <constraint firstItem="cSz-Xb-VOG" firstAttribute="top" secondItem="MUu-VI-DRx" secondAttribute="top" constant="20" id="RE7-z8-jpm"/>
+                            <constraint firstItem="n2A-nK-JUD" firstAttribute="leading" secondItem="MUu-VI-DRx" secondAttribute="leading" constant="20" id="XhP-C7-5Pm"/>
+                            <constraint firstItem="MUu-VI-DRx" firstAttribute="bottom" secondItem="n2A-nK-JUD" secondAttribute="bottom" constant="20" id="asa-t7-G4T"/>
+                            <constraint firstItem="n2A-nK-JUD" firstAttribute="top" secondItem="cSz-Xb-VOG" secondAttribute="bottom" constant="20" id="jz5-r5-wId"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="MUu-VI-DRx"/>
+                    </view>
+                    <connections>
+                        <outlet property="image" destination="tBl-fH-D3P" id="tSn-tA-72g"/>
+                        <outlet property="shadowView" destination="NG6-GR-jNh" id="ZBx-mx-6Lt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pwD-v7-gMN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1238" y="-447"/>
+        </scene>
+        <!--Slide Controller-->
+        <scene sceneID="Du4-h6-kMK">
+            <objects>
+                <viewController storyboardIdentifier="widgetExpanded" id="QjC-ag-0zV" customClass="MMTSlideController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xOF-44-yxj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Widget" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfm-4K-DUP">
+                                <rect key="frame" x="20" y="40" width="335" height="29.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" red="0.062745098040000002" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DLl-ru-zvd">
+                                <rect key="frame" x="20" y="89.5" width="335" height="557.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="6S8-gg-dwk">
+                                        <rect key="frame" x="0.0" y="68" width="335" height="421.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hhp-Eb-F02">
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="100.5"/>
+                                                <string key="text">Od teraz aplikacja ICM Meteo daje możliwość dostępu do prognozy pogody z poziomu widgeta. W trybie rozwiniętym daje on natychmiastowy dostęp do najnowszego meteorogramu dla twojej aktualnej lokalizacji.</string>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xHA-Fh-7xq">
+                                                <rect key="frame" x="0.0" y="150.5" width="335" height="271"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" insetsLayoutMarginsFromSafeArea="NO" image="widget-expanded" translatesAutoresizingMaskIntoConstraints="NO" id="TCS-iM-ZdO">
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="271"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" secondItem="TCS-iM-ZdO" secondAttribute="height" multiplier="715:578" id="0n9-7I-Uyd"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="TCS-iM-ZdO" firstAttribute="top" secondItem="xHA-Fh-7xq" secondAttribute="top" id="Gng-aJ-08P"/>
+                                                    <constraint firstItem="TCS-iM-ZdO" firstAttribute="leading" secondItem="xHA-Fh-7xq" secondAttribute="leading" id="Xcc-7M-lJx"/>
+                                                    <constraint firstAttribute="bottom" secondItem="TCS-iM-ZdO" secondAttribute="bottom" id="tQE-X0-kGZ"/>
+                                                    <constraint firstAttribute="trailing" secondItem="TCS-iM-ZdO" secondAttribute="trailing" id="wrl-tj-0h8"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="6S8-gg-dwk" firstAttribute="leading" secondItem="DLl-ru-zvd" secondAttribute="leading" id="15J-ol-0OJ"/>
+                                    <constraint firstItem="6S8-gg-dwk" firstAttribute="centerY" secondItem="DLl-ru-zvd" secondAttribute="centerY" id="B13-Uo-m5F"/>
+                                    <constraint firstItem="6S8-gg-dwk" firstAttribute="top" relation="greaterThanOrEqual" secondItem="DLl-ru-zvd" secondAttribute="top" id="ZHU-nW-4OJ"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6S8-gg-dwk" secondAttribute="bottom" id="fAh-vS-E1f"/>
+                                    <constraint firstAttribute="trailing" secondItem="6S8-gg-dwk" secondAttribute="trailing" id="gSF-rm-bMo"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="KfT-V3-FJe" firstAttribute="bottom" secondItem="DLl-ru-zvd" secondAttribute="bottom" constant="20" id="91s-lO-nrv"/>
+                            <constraint firstItem="qfm-4K-DUP" firstAttribute="leading" secondItem="KfT-V3-FJe" secondAttribute="leading" constant="20" id="9CF-Ml-vWH"/>
+                            <constraint firstItem="qfm-4K-DUP" firstAttribute="top" secondItem="KfT-V3-FJe" secondAttribute="top" constant="20" id="9wD-if-NsV"/>
+                            <constraint firstItem="DLl-ru-zvd" firstAttribute="leading" secondItem="KfT-V3-FJe" secondAttribute="leading" constant="20" id="Oq9-Nh-NTG"/>
+                            <constraint firstItem="KfT-V3-FJe" firstAttribute="trailing" secondItem="qfm-4K-DUP" secondAttribute="trailing" constant="20" id="Q5B-cN-Dgr"/>
+                            <constraint firstItem="KfT-V3-FJe" firstAttribute="trailing" secondItem="DLl-ru-zvd" secondAttribute="trailing" constant="20" id="Zux-ns-51B"/>
+                            <constraint firstItem="DLl-ru-zvd" firstAttribute="top" secondItem="qfm-4K-DUP" secondAttribute="bottom" constant="20" id="dpu-jH-4pP"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="KfT-V3-FJe"/>
+                    </view>
+                    <connections>
+                        <outlet property="image" destination="TCS-iM-ZdO" id="Q3Q-wa-wHd"/>
+                        <outlet property="shadowView" destination="xHA-Fh-7xq" id="Q1l-ph-6DC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BZH-X5-YIh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="559" y="-447"/>
+        </scene>
+        <!--Onboarding Final Controller-->
+        <scene sceneID="XNa-dU-hBp">
+            <objects>
+                <viewController storyboardIdentifier="whatsNext" id="Cbb-uZ-8C9" customClass="MMTOnboardingFinalController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Mz9-EM-nBm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xeA-iD-5Bk">
+                                <rect key="frame" x="20" y="89.5" width="335" height="507.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="6L4-wv-nWb">
+                                        <rect key="frame" x="0.0" y="72.5" width="335" height="363"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5z-fx-xui">
+                                                <rect key="frame" x="0.0" y="0.0" width="335" height="120.5"/>
+                                                <string key="text">Aplikacja ICM Meteo jest na bieżąco rozwijana. Dokładamy wszelkich starań by dostarczyć produkt jak najwyższej jakości. Z pośród wielu pomysłów na nowe funkcjonalności w najbliższej przyszłości zamierzamy udostępnić</string>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <string key="userLabel">Z wielu pomysłów na nowe funkcjonalności w najbliższej przyszłości zamierzamy udostępnić - Powiadomienia o nadchodzących opadach - Rozszerzenie aplikacji na Apple Watch</string>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Powiadomienia o nadchodzących opadach." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CzI-e5-k3B">
+                                                <rect key="frame" x="0.0" y="140.5" width="335" height="41"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                                <color key="textColor" red="0.062745098040000002" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <string key="userLabel">Z wielu pomysłów na nowe funkcjonalności w najbliższej przyszłości zamierzamy udostępnić - Powiadomienia o nadchodzących opadach - Rozszerzenie aplikacji na Apple Watch</string>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Rozszerzenie aplikacji na platformę Apple Watch" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l3p-hu-sZg">
+                                                <rect key="frame" x="0.0" y="201.5" width="335" height="41"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                                <color key="textColor" red="0.062745098040000002" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <string key="userLabel">Z wielu pomysłów na nowe funkcjonalności w najbliższej przyszłości zamierzamy udostępnić - Powiadomienia o nadchodzących opadach - Rozszerzenie aplikacji na Apple Watch</string>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lhy-Gl-Iry">
+                                                <rect key="frame" x="0.0" y="262.5" width="335" height="100.5"/>
+                                                <string key="text">Jeśli mają Państwo pytania, sugestie lub chcą się podzielić wrażeniami z użytkowania aplikacji, zapraszamy do kontaktu. Formularz kontaktowy dostępny jest w zakładce Informacje.</string>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <string key="userLabel">Z wielu pomysłów na nowe funkcjonalności w najbliższej przyszłości zamierzamy udostępnić - Powiadomienia o nadchodzących opadach - Rozszerzenie aplikacji na Apple Watch</string>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="6L4-wv-nWb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="xeA-iD-5Bk" secondAttribute="top" id="0z6-dO-W1Z"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="6L4-wv-nWb" secondAttribute="bottom" id="4Lt-8C-vSn"/>
+                                    <constraint firstItem="6L4-wv-nWb" firstAttribute="leading" secondItem="xeA-iD-5Bk" secondAttribute="leading" id="8YX-kJ-TOL"/>
+                                    <constraint firstItem="6L4-wv-nWb" firstAttribute="centerY" secondItem="xeA-iD-5Bk" secondAttribute="centerY" id="oxw-SP-bOJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="6L4-wv-nWb" secondAttribute="trailing" id="p2W-tK-N7q"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ofS-at-1e6">
+                                <rect key="frame" x="20" y="617" width="335" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GQM-Qd-vz0">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
+                                        <state key="normal" title="ZACZYNAMY"/>
+                                        <connections>
+                                            <action selector="onTapCloseButton:" destination="Cbb-uZ-8C9" eventType="touchUpInside" id="OJ8-cl-fbx"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Co dalej?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vdq-JT-Yu1">
+                                <rect key="frame" x="134.5" y="40" width="106.5" height="29.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="25"/>
+                                <color key="textColor" red="0.062745098040000002" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ofS-at-1e6" firstAttribute="leading" secondItem="Mz9-EM-nBm" secondAttribute="leading" constant="20" id="7NE-9w-HyC"/>
+                            <constraint firstItem="ofS-at-1e6" firstAttribute="top" secondItem="xeA-iD-5Bk" secondAttribute="bottom" constant="20" id="7Xj-xm-bTZ"/>
+                            <constraint firstItem="Vdq-JT-Yu1" firstAttribute="centerX" secondItem="Obl-S1-kAM" secondAttribute="centerX" id="E6V-s6-0PK"/>
+                            <constraint firstItem="Vdq-JT-Yu1" firstAttribute="top" secondItem="Obl-S1-kAM" secondAttribute="top" constant="20" id="GIK-w2-zQb"/>
+                            <constraint firstItem="xeA-iD-5Bk" firstAttribute="top" secondItem="Vdq-JT-Yu1" secondAttribute="bottom" constant="20" id="Hef-0c-A2g"/>
+                            <constraint firstAttribute="bottom" secondItem="ofS-at-1e6" secondAttribute="bottom" constant="20" id="LLq-LV-4qj"/>
+                            <constraint firstItem="Obl-S1-kAM" firstAttribute="trailing" secondItem="xeA-iD-5Bk" secondAttribute="trailing" constant="20" id="M2c-a3-4rM"/>
+                            <constraint firstAttribute="trailing" secondItem="ofS-at-1e6" secondAttribute="trailing" constant="20" id="WXc-qL-eTP"/>
+                            <constraint firstItem="xeA-iD-5Bk" firstAttribute="leading" secondItem="Obl-S1-kAM" secondAttribute="leading" constant="20" id="r1c-Cw-iFC"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Obl-S1-kAM"/>
+                    </view>
+                    <connections>
+                        <outlet property="gettingStartedButton" destination="GQM-Qd-vz0" id="6gI-hN-Nun"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TG6-4J-hEI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1902" y="-447"/>
+        </scene>
+        <!--Onboarding Controller-->
+        <scene sceneID="6mj-qw-pMH">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" modalPresentationStyle="overFullScreen" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="ET4-mJ-2MP" customClass="MMTOnboardingController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3pK-2q-Mm0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-124" y="-446"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="widget-compact" width="717" height="299"/>
+        <image name="widget-expanded" width="715" height="578"/>
+    </resources>
+    <color key="tintColor" red="0.062745098040000002" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+</document>

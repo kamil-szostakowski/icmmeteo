@@ -34,9 +34,6 @@
 /* Class = "UIBarButtonItem"; title = "Pokaż"; ObjectID = "fvc-eg-Voa"; */
 "fvc-eg-Voa.title" = "Pokaż";
 
-/* Class = "UILabel"; text = "W przypadku pytań, problemów lub sugestii napisz do nas"; ObjectID = "goB-rh-WOg"; */
-"goB-rh-WOg.text" = "W przypadku pytań, problemów lub sugestii napisz do nas";
-
 /* Class = "UILabel"; text = "Wyniki uzyskano przy użyciu oprogramowania Met Office."; ObjectID = "oqM-tk-ebb"; */
 "oqM-tk-ebb.text" = "Wyniki uzyskano przy użyciu oprogramowania Met Office.";
 
@@ -59,3 +56,7 @@
 "hxn-ye-fln.text" = "Źródło";
 
 "Pji-mP-zET.text" = "Zasługi";
+
+"fme-qe-1IX.normalTitle" = "Napisz do nas";
+
+"6r0-eC-u3K.normalTitle" = "Przewodnik";
