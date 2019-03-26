@@ -28,7 +28,6 @@
 		1B39BECC20DD9394002495B5 /* MeteoModel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BF55CE62049E63E009BA4E2 /* MeteoModel.framework */; };
 		1B4095CB2040C06900CDF5E4 /* MMTForecasterCommentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */; };
 		1B4FD2E6203B506700B33C04 /* MMTShortcutsMigratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */; };
-		1B545125223D299800DE7259 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B545124223D299800DE7259 /* Onboarding.storyboard */; };
 		1B54512A223D2C4C00DE7259 /* MMTOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B545129223D2C4C00DE7259 /* MMTOnboardingController.swift */; };
 		1B5451312243D4A000DE7259 /* MMTPartialCoverPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5451302243D4A000DE7259 /* MMTPartialCoverPresentationController.swift */; };
 		1B5451362243D9ED00DE7259 /* MMTPartialCoverSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5451352243D9ED00DE7259 /* MMTPartialCoverSegue.swift */; };
@@ -66,6 +65,7 @@
 		1BD2BC7A2217716E00E2BBA1 /* MeteoUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD2BC772217713800E2BBA1 /* MeteoUIKit.framework */; };
 		1BD2BC7B2217716E00E2BBA1 /* MeteoUIKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD2BC772217713800E2BBA1 /* MeteoUIKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1BD2BC7E2217718000E2BBA1 /* MeteoUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD2BC772217713800E2BBA1 /* MeteoUIKit.framework */; };
+		1BF041F3224AC06F00567108 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BF041F5224AC06F00567108 /* Onboarding.storyboard */; };
 		1BF36E091FE3003C00083538 /* UISegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E081FE3003C00083538 /* UISegmentedControl.swift */; };
 		1BF36E0D1FE485D200083538 /* MMTDetailedMapShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E0C1FE485D200083538 /* MMTDetailedMapShortcut.swift */; };
 		1BF36E0F1FE4860900083538 /* MMTMeteorogramShortcut.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF36E0E1FE4860900083538 /* MMTMeteorogramShortcut.swift */; };
@@ -239,7 +239,6 @@
 		1B39BEC220DD8A60002495B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B4095C92040C06100CDF5E4 /* MMTForecasterCommentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTForecasterCommentTests.swift; sourceTree = "<group>"; };
 		1B4FD2E5203B506700B33C04 /* MMTShortcutsMigratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTShortcutsMigratorTests.swift; sourceTree = "<group>"; };
-		1B545124223D299800DE7259 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
 		1B545129223D2C4C00DE7259 /* MMTOnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTOnboardingController.swift; sourceTree = "<group>"; };
 		1B5451302243D4A000DE7259 /* MMTPartialCoverPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTPartialCoverPresentationController.swift; sourceTree = "<group>"; };
 		1B5451352243D9ED00DE7259 /* MMTPartialCoverSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTPartialCoverSegue.swift; sourceTree = "<group>"; };
@@ -279,6 +278,9 @@
 		1BD2BC702217713700E2BBA1 /* MeteoUIKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MeteoUIKit.xcodeproj; path = MeteoUIKit/MeteoUIKit.xcodeproj; sourceTree = "<group>"; };
 		1BEB08F820F4007700B26035 /* MobileMeteo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MobileMeteo.entitlements; sourceTree = "<group>"; };
 		1BEB08F920F4008000B26035 /* MeteoWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MeteoWidget.entitlements; sourceTree = "<group>"; };
+		1BF041F4224AC06F00567108 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Onboarding.storyboard; sourceTree = "<group>"; };
+		1BF041F9224AC08100567108 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Onboarding.strings; sourceTree = "<group>"; };
+		1BF041FB224AC08600567108 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Onboarding.strings; sourceTree = "<group>"; };
 		1BF36E081FE3003C00083538 /* UISegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISegmentedControl.swift; sourceTree = "<group>"; };
 		1BF36E0C1FE485D200083538 /* MMTDetailedMapShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTDetailedMapShortcut.swift; sourceTree = "<group>"; };
 		1BF36E0E1FE4860900083538 /* MMTMeteorogramShortcut.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MMTMeteorogramShortcut.swift; sourceTree = "<group>"; };
@@ -799,7 +801,7 @@
 				F9900EB91B282B86006880A1 /* Extensions */,
 				8EE51B501E68D09800C52DC6 /* API */,
 				F9E696741AFCC06600273DA3 /* Main.storyboard */,
-				1B545124223D299800DE7259 /* Onboarding.storyboard */,
+				1BF041F5224AC06F00567108 /* Onboarding.storyboard */,
 				F9E696791AFCC06600273DA3 /* LaunchScreen.xib */,
 				F9BB149A1B56379C00C81B3F /* MMTAppDelegate.swift */,
 				F96BC8CA1B97285A0073A44E /* MMTAppearance.swift */,
@@ -1102,7 +1104,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9BB14A61B5697EE00C81B3F /* Cities.json in Resources */,
-				1B545125223D299800DE7259 /* Onboarding.storyboard in Resources */,
+				1BF041F3224AC06F00567108 /* Onboarding.storyboard in Resources */,
 				1B895CED221B34CF00385BAD /* InfoPlist.strings in Resources */,
 				1B68CD382045B89F00AB8046 /* MMTActivityIndicator.xib in Resources */,
 				F91A6F541C86F6F200BDDE28 /* Localizable.strings in Resources */,
@@ -1397,6 +1399,16 @@
 				1B895CF6221B37B700385BAD /* pl */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1BF041F5224AC06F00567108 /* Onboarding.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1BF041F4224AC06F00567108 /* Base */,
+				1BF041F9224AC08100567108 /* en */,
+				1BF041FB224AC08600567108 /* pl */,
+			);
+			name = Onboarding.storyboard;
 			sourceTree = "<group>";
 		};
 		F91A6F561C86F6F200BDDE28 /* Localizable.strings */ = {
