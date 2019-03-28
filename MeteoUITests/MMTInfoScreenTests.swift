@@ -24,6 +24,7 @@ class MMTInfoScreenTests: XCTestCase
         
         app = XCUIApplication()
         app.launchArguments = ["CLEANUP_DB"]
+        app.launchArguments = ["SKIP_ONBOARDING"]
         app.launch()
     }
     

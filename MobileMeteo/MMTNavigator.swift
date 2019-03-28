@@ -14,6 +14,7 @@ class MMTNavigator
     // MARK: Destinations
     enum MMTDestination
     {
+        case onboarding(UInt)
         case meteorogramHere(MMTClimateModel)
         case meteorogram(MMTClimateModel, MMTCityProt)
         case detailedMap(MMTClimateModel, MMTDetailedMapType)
@@ -22,18 +23,24 @@ class MMTNavigator
     // MARK: Properties
     private var locationService: MMTLocationService
     private var tabbar: MMTTabBarController
+    private var defaults: UserDefaults
     
     // MARK: Initializers
-    init(_ tabbar: MMTTabBarController, _ locationService: MMTLocationService)
+    init(
+        _ tabbar: MMTTabBarController,
+        _ locationService: MMTLocationService,
+        _ userDefaults: UserDefaults = .standard)
     {
         self.tabbar = tabbar
         self.locationService = locationService
+        self.defaults = userDefaults
     }
     
     // MARK: Interface methods
     func navigate(to destination: MMTDestination, completion: @escaping () -> Void)
     {
         switch destination {
+            case let .onboarding(seq): navigateToOnboarding(seq, completion)
             case let .meteorogramHere(model): navigateToMeteorogramHere(model, completion)
             case let .meteorogram(model, city): navigateToMeteorogram(city, model, completion)
             case let .detailedMap(model, map): navigateToDetailedMap(map, model, completion)
@@ -44,6 +51,15 @@ class MMTNavigator
 extension MMTNavigator
 {
     // MARK: Helper methods
+    fileprivate func navigateToOnboarding(_ sequence: UInt, _ completion: @escaping () -> Void)
+    {
+        if defaults.onboardingSequenceNumber < sequence {
+            tabbar.perform(segue: .DisplayOnboarding, sender: self.tabbar)
+            defaults.onboardingSequenceNumber = sequence
+        }
+        completion()
+    }
+    
     fileprivate func navigateToMeteorogramHere(_ model: MMTClimateModel, _ completion: @escaping () -> Void)
     {
         tabbar.displayActivityIndicator(in: tabbar.view, message: nil)

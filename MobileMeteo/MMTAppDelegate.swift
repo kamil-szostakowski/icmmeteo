@@ -16,6 +16,7 @@ import NotificationCenter
 
 public let MMTDebugActionCleanupDb = "CLEANUP_DB"
 public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
+public let MMTDebugActionSkipOnboarding = "SKIP_ONBOARDING"
 
 @UIApplicationMain class MMTAppDelegate: UIResponder, UIApplicationDelegate, MMTAnalyticsReporter
 {
@@ -58,6 +59,7 @@ public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
     func applicationDidBecomeActive(_ application: UIApplication)
     {
         MeteoModel.syncCaches()
+        navigator.navigate(to: .onboarding(1)) {}
     }
     
     func applicationWillTerminate(_ application: UIApplication)
@@ -168,14 +170,20 @@ extension MMTAppDelegate
     #if DEBUG
     private func setupDebugEnvironment()
     {
-        if ProcessInfo.processInfo.arguments.contains(MMTDebugActionCleanupDb) {
+        let arguments = ProcessInfo.processInfo.arguments
+        
+        if arguments.contains(MMTDebugActionCleanupDb) {
             URLCache.shared.removeAllCachedResponses()
             MMTCoreData.instance.flushDatabase()
             MeteoModel.cleanupCaches()            
             UserDefaults.standard.cleanup()
         }
         
-        if ProcessInfo.processInfo.arguments.contains(MMTDebugActionSimulatedOfflineMode) {
+        if arguments.contains(MMTDebugActionSkipOnboarding) {
+            UserDefaults.standard.onboardingSequenceNumber = .max
+        }
+        
+        if arguments.contains(MMTDebugActionSimulatedOfflineMode) {
             MMTMeteorogramUrlSession.simulateOfflineMode = true
         }
     }

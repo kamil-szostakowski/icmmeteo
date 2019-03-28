@@ -367,6 +367,7 @@
                         <segue destination="DF6-dW-Nzk" kind="relationship" relationship="viewControllers" id="s8y-dr-XE0"/>
                         <segue destination="nRU-bg-HIN" kind="relationship" relationship="viewControllers" id="Vxy-tq-CDS"/>
                         <segue destination="sj4-kp-3OW" kind="relationship" relationship="viewControllers" id="sn4-HF-EfS"/>
+                        <segue destination="iB0-qg-jCg" kind="presentation" identifier="DisplayOnboarding" customClass="MMTPartialCoverSegue" customModule="MobileMeteo" customModuleProvider="target" id="scd-Be-byU"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gVD-sy-iWH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -379,7 +380,7 @@
                 <viewControllerPlaceholder storyboardName="Onboarding" id="iB0-qg-jCg" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDx-bV-ZA3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-623" y="1206"/>
+            <point key="canvasLocation" x="452" y="92"/>
         </scene>
         <!--Źródło-->
         <scene sceneID="2lb-S5-Lie">
@@ -528,7 +529,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
-                                                                    <segue destination="iB0-qg-jCg" kind="presentation" customClass="MMTPartialCoverSegue" customModule="MobileMeteo" customModuleProvider="target" id="rlR-MO-tdi"/>
+                                                                    <segue destination="iB0-qg-jCg" kind="presentation" identifier="DisplayOnboarding" customClass="MMTPartialCoverSegue" customModule="MobileMeteo" customModuleProvider="target" id="rlR-MO-tdi"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fme-qe-1IX">
@@ -1080,4 +1081,7 @@
         <image name="model-um" width="64" height="64"/>
         <image name="vibrant-bg" width="750" height="1334"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="rlR-MO-tdi"/>
+    </inferredMetricsTieBreakers>
 </document>
