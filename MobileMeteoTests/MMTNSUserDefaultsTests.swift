@@ -26,16 +26,20 @@ class MMTNSUserDefaultsTests: XCTestCase
     {
         XCTAssertNil(defaults.value(forKey: "Initialized"))
         XCTAssertNil(defaults.value(forKey: "SequenceNumber"))
+        XCTAssertNil(defaults.value(forKey: "OnboardingSequenceNumber"))
         
+        XCTAssertEqual(defaults.onboardingSequenceNumber, 0)
         XCTAssertEqual(defaults.isAppInitialized, false)
-        XCTAssertEqual(defaults.sequenceNumber, 0)
+        XCTAssertEqual(defaults.sequenceNumber, 0)        
     }
     
     func testModificationOfProperties()
     {
+        defaults.onboardingSequenceNumber = 15
         defaults.isAppInitialized = true
         defaults.sequenceNumber = 10
         
+        XCTAssertEqual(defaults.onboardingSequenceNumber, 15)
         XCTAssertEqual(defaults.isAppInitialized, true)
         XCTAssertEqual(defaults.sequenceNumber, 10)
     }
@@ -44,9 +48,11 @@ class MMTNSUserDefaultsTests: XCTestCase
     {
         defaults.isAppInitialized = true
         defaults.sequenceNumber = 10
+        defaults.onboardingSequenceNumber = 15
         defaults.cleanup()
         
         XCTAssertNil(defaults.value(forKey: "Initialized"))
         XCTAssertNil(defaults.value(forKey: "SequenceNumber"))
+        XCTAssertNil(defaults.value(forKey: "OnboardingSequenceNumber"))
     }
 }

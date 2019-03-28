@@ -42,7 +42,7 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "YES">
+            skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F9941A631BECE32300700313"
@@ -52,7 +52,34 @@
             </BuildableReference>
             <SkippedTests>
                <Test
+                  Identifier = "MMTCitiesListFavouritesTests">
+               </Test>
+               <Test
+                  Identifier = "MMTCitiesListMapTests">
+               </Test>
+               <Test
+                  Identifier = "MMTCitiesListSearchTests">
+               </Test>
+               <Test
+                  Identifier = "MMTCitiesListTestCase">
+               </Test>
+               <Test
                   Identifier = "MMTCityMapPickerTests">
+               </Test>
+               <Test
+                  Identifier = "MMTDetailedMapPreviewTests">
+               </Test>
+               <Test
+                  Identifier = "MMTDetailedMapsTests">
+               </Test>
+               <Test
+                  Identifier = "MMTForecasterCommentTests">
+               </Test>
+               <Test
+                  Identifier = "MMTMeteorogramPreviewTests">
+               </Test>
+               <Test
+                  Identifier = "MMTOfflineTests">
                </Test>
             </SkippedTests>
          </TestableReference>

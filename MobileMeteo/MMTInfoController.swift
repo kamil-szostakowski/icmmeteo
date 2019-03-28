@@ -16,6 +16,8 @@ class MMTInfoController: UIViewController
     @IBOutlet weak var iconsCredit: UITextView!
     @IBOutlet weak var qaCredit: UITextView!
     @IBOutlet weak var authorCredit: UITextView!
+    @IBOutlet weak var onboardingButton: UIButton!    
+    @IBOutlet weak var feedbackButton: UIButton!
     
     fileprivate var modelController: MMTInfoModelController!
     
@@ -26,6 +28,9 @@ class MMTInfoController: UIViewController
         setupCreditsUrls()
         setupIconsTint()
         setupModelController()
+        
+        onboardingButton.layer.borderColor = MMTAppearance.meteoGreenColor.cgColor
+        feedbackButton.layer.borderColor = MMTAppearance.meteoGreenColor.cgColor
     }
 }
 

@@ -14,6 +14,7 @@ extension UserDefaults
     {
         case Initialized
         case SequenceNumber
+        case OnboardingSequenceNumber
     }
     
     // MARK: Properties
@@ -33,7 +34,15 @@ extension UserDefaults
             setValue(newValue, forKey: .SequenceNumber)
             synchronize()
         }
-    }    
+    }
+    
+    var onboardingSequenceNumber: UInt {
+        get { return value(forKey: .OnboardingSequenceNumber)?.uintValue ?? 0 }
+        set {
+            setValue(newValue, forKey: .OnboardingSequenceNumber)
+            synchronize()
+        }
+    }
     
     // MARK: Methods
     func cleanup()

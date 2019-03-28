@@ -35,15 +35,15 @@ extension UIView
         return view
     }
     
-    func addFillingSubview(_ subview: UIView)
+    func addFillingSubview(_ subview: UIView, _ insets: UIEdgeInsets = .zero)
     {
         addSubview(subview)
         
         NSLayoutConstraint.activate([
-            subview.topAnchor.constraint(equalTo: topAnchor),
-            subview.bottomAnchor.constraint(equalTo: bottomAnchor),            
-            subview.leadingAnchor.constraint(equalTo: leadingAnchor),
-            subview.trailingAnchor.constraint(equalTo: trailingAnchor),
+            subview.topAnchor.constraint(equalTo: topAnchor, constant: insets.top),
+            subview.bottomAnchor.constraint(equalTo: bottomAnchor, constant: insets.bottom),
+            subview.leadingAnchor.constraint(equalTo: leadingAnchor, constant: insets.left),
+            subview.trailingAnchor.constraint(equalTo: trailingAnchor, constant: insets.right),
         ])
     }
 }

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VAh-Ln-Mxc">
-    <device id="retina5_9" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VAh-Ln-Mxc">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,11 +15,11 @@
             <objects>
                 <viewController id="WYV-gA-76P" customClass="MMTCitiesListController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FTP-br-PBR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cMF-AY-pik" userLabel="SearchBar">
-                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" searchBarStyle="prominent" placeholder="szukaj miasta" translatesAutoresizingMaskIntoConstraints="NO" id="duU-CU-zjU">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -55,7 +54,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="30" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="c9a-Dj-a8h">
-                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
@@ -63,18 +62,18 @@
                                         <rect key="frame" x="0.0" y="30" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lmv-5P-aMf" id="d2J-8x-WBs">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L7a-vM-89s">
-                                                    <rect key="frame" x="15.000000000000002" y="4" width="31.666666666666668" height="19.333333333333332"/>
+                                                    <rect key="frame" x="15" y="4" width="31.5" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" red="0.062388241291046143" green="0.48353224992752075" blue="0.38298630714416504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ACu-82-Djp">
-                                                    <rect key="frame" x="15.000000000000004" y="23.333333333333329" width="45.333333333333336" height="16.666666666666668"/>
+                                                    <rect key="frame" x="15" y="23.5" width="45.5" height="17"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -90,11 +89,11 @@
                                         <rect key="frame" x="0.0" y="74" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cdG-DQ-GEg" id="p9r-6T-Dgt">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Wskaż lokalizację na mapie" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IZE-Jf-c7U">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.666666666666664"/>
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
                                                     <color key="textColor" red="0.062388241291046143" green="0.48353224992752075" blue="0.38298630714416504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -142,22 +141,22 @@
             <objects>
                 <viewController id="lDT-Dp-3bJ" customClass="MMTMeteorogramController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3sI-9X-sH4">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vibrant-bg" translatesAutoresizingMaskIntoConstraints="NO" id="sYb-4u-jBu">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="778"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XZr-Ul-alD">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="kIY-dt-Llw">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="734"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
                                 <blurEffect style="light"/>
                             </visualEffectView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WG3-jp-oXw">
-                                <rect key="frame" x="0.0" y="88" width="375" height="621.66666666666663"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="534"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="inx-gO-O0P" userLabel="Container">
                                         <rect key="frame" x="0.0" y="0.0" width="640" height="660"/>
@@ -211,10 +210,10 @@
                                 </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMZ-dc-XIY" userLabel="Bottom Bar">
-                                <rect key="frame" x="0.0" y="709.66666666666663" width="375" height="102.33333333333337"/>
+                                <rect key="frame" x="0.0" y="598" width="375" height="69"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2qQ-bN-M64">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="68.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ttt-As-lq8" userLabel="Border">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
@@ -224,7 +223,7 @@
                                                 </constraints>
                                             </view>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="SqV-hs-h36">
-                                                <rect key="frame" x="8" y="32.333333333333371" width="359" height="29"/>
+                                                <rect key="frame" x="8" y="33" width="359" height="29"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <segments>
                                                     <segment title="UM (60h)"/>
@@ -266,7 +265,7 @@
                                 <variation key="heightClass=compact-widthClass=compact" hidden="YES"/>
                             </view>
                             <navigationBar contentMode="scaleToFill" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="tNU-2w-XXV">
-                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <color key="barTintColor" red="0.92000001668930054" green="0.92000001668930054" blue="0.92000001668930054" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
                                     <navigationItem title="Miasto" id="pkw-kA-ZXA">
@@ -368,52 +367,61 @@
                         <segue destination="DF6-dW-Nzk" kind="relationship" relationship="viewControllers" id="s8y-dr-XE0"/>
                         <segue destination="nRU-bg-HIN" kind="relationship" relationship="viewControllers" id="Vxy-tq-CDS"/>
                         <segue destination="sj4-kp-3OW" kind="relationship" relationship="viewControllers" id="sn4-HF-EfS"/>
+                        <segue destination="iB0-qg-jCg" kind="presentation" identifier="DisplayOnboarding" customClass="MMTPartialCoverSegue" customModule="MobileMeteo" customModuleProvider="target" id="scd-Be-byU"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gVD-sy-iWH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-222" y="-151"/>
         </scene>
+        <!--Onboarding-->
+        <scene sceneID="79K-Wf-7Up">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Onboarding" id="iB0-qg-jCg" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TDx-bV-ZA3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="452" y="92"/>
+        </scene>
         <!--Źródło-->
         <scene sceneID="2lb-S5-Lie">
             <objects>
                 <viewController id="sj4-kp-3OW" customClass="MMTInfoController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NYm-rq-91G">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oJa-Ym-ri5" userLabel="Content">
-                                <rect key="frame" x="0.0" y="88" width="375" height="641"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ob2-iE-SPR">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PE8-1C-i4E" userLabel="Container">
-                                                <rect key="frame" x="20" y="20" width="335" height="724.66666666666663"/>
+                                                <rect key="frame" x="20" y="20" width="335" height="838"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Gpp-aq-egl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="724.66666666666663"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="838"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="HSw-Xp-6FR">
-                                                                <rect key="frame" x="0.0" y="0.0" width="335" height="214.33333333333334"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="335" height="214.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="HSw-Xp-6FR" secondAttribute="height" multiplier="1024:656" id="z7K-Rr-VHt"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Źródło" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxn-ye-fln">
-                                                                <rect key="frame" x="0.0" y="234.33333333333331" width="335" height="24"/>
+                                                                <rect key="frame" x="0.0" y="234.5" width="335" height="24"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                                                 <color key="textColor" red="0.062745098040000002" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="aXG-J0-waj">
-                                                                <rect key="frame" x="0.0" y="278.33333333333331" width="335" height="53.333333333333314"/>
+                                                                <rect key="frame" x="0.0" y="278.5" width="335" height="72"/>
                                                                 <subviews>
                                                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="info-university" translatesAutoresizingMaskIntoConstraints="NO" id="biw-C5-3Xd" userLabel="Icon 1">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="31.333333333333332" height="53.333333333333336"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="57" height="72"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Prognoza została udostępniona nieodpłatnie przez serwis meteo.pl prowadzony przez ICM, Uniwersytet Warszawski. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vd-h5-NfU" userLabel="Msg 1">
-                                                                        <rect key="frame" x="46.333333333333343" y="0.0" width="288.66666666666663" height="53.333333333333336"/>
+                                                                        <rect key="frame" x="72" y="0.0" width="263" height="72"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -421,41 +429,27 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="f6l-JL-Atc">
-                                                                <rect key="frame" x="0.0" y="351.66666666666669" width="335" height="36"/>
+                                                                <rect key="frame" x="0.0" y="370.5" width="335" height="72"/>
                                                                 <subviews>
                                                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="info-computer" translatesAutoresizingMaskIntoConstraints="NO" id="xAo-CG-xaa" userLabel="Icon 2">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="31.333333333333332" height="36"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="57" height="72"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Wyniki uzyskano przy użyciu oprogramowania Met Office." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqM-tk-ebb" userLabel="Msg 2">
-                                                                        <rect key="frame" x="46.333333333333343" y="0.0" width="288.66666666666663" height="36"/>
+                                                                        <rect key="frame" x="72" y="0.0" width="263" height="72"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
                                                             </stackView>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="JQ6-7U-Ugf">
-                                                                <rect key="frame" x="0.0" y="407.66666666666663" width="335" height="38"/>
-                                                                <subviews>
-                                                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="info-mail" translatesAutoresizingMaskIntoConstraints="NO" id="xQP-w5-8vU" userLabel="Icon 3">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="31.333333333333332" height="38"/>
-                                                                    </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="W przypadku pytań, problemów lub sugestii napisz do nas" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goB-rh-WOg" userLabel="Msg 3">
-                                                                        <rect key="frame" x="46.333333333333343" y="0.0" width="288.66666666666663" height="38"/>
-                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
-                                                                        <color key="textColor" red="0.062388241291046143" green="0.48353224992752075" blue="0.38298630714416504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                </subviews>
-                                                            </stackView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zasługi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pji-mP-zET">
-                                                                <rect key="frame" x="0.0" y="465.66666666666663" width="335" height="24"/>
+                                                                <rect key="frame" x="0.0" y="462.5" width="335" height="24"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                                                 <color key="textColor" red="0.062745098040000002" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gry-4a-bdc">
-                                                                <rect key="frame" x="0.0" y="509.66666666666657" width="335" height="70.333333333333314"/>
+                                                                <rect key="frame" x="0.0" y="506.5" width="335" height="70.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ikony (pogoda)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLo-fj-Ucp">
                                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="18"/>
@@ -464,7 +458,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="The Weather is Nice Today  / Laura Reen / CC BY-NC 3.0" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="s8I-wu-MDi">
-                                                                        <rect key="frame" x="0.0" y="18.000000000000004" width="335" height="52.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="18" width="335" height="52.5"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
@@ -477,7 +471,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pyu-0I-Fjk">
-                                                                <rect key="frame" x="0.0" y="600" width="335" height="52.333333333333371"/>
+                                                                <rect key="frame" x="0.0" y="597" width="335" height="52.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QA Support" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKB-7Z-eSg">
                                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="18"/>
@@ -486,7 +480,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Bartosz Świeżawski" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lCy-ES-ffY">
-                                                                        <rect key="frame" x="0.0" y="18.000000000000004" width="335" height="34.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="18" width="335" height="34.5"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
@@ -499,7 +493,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="QJh-bw-Qjn">
-                                                                <rect key="frame" x="0.0" y="672.33333333333337" width="335" height="52.333333333333371"/>
+                                                                <rect key="frame" x="0.0" y="669.5" width="335" height="52.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Autor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oho-M1-ztd">
                                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="18"/>
@@ -508,7 +502,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Kamil Szostakowski / GitHub / Stack Overflow" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yFU-HU-BO4">
-                                                                        <rect key="frame" x="0.0" y="18.000000000000004" width="335" height="34.333333333333343"/>
+                                                                        <rect key="frame" x="0.0" y="18" width="335" height="34.5"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
@@ -520,31 +514,57 @@
                                                                     </textView>
                                                                 </subviews>
                                                             </stackView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6r0-eC-u3K">
+                                                                <rect key="frame" x="0.0" y="742" width="335" height="38"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="onboarding"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                                                <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
+                                                                <state key="normal" title="Przewodnik"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                                        <integer key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                        <integer key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <segue destination="iB0-qg-jCg" kind="presentation" identifier="DisplayOnboarding" customClass="MMTPartialCoverSegue" customModule="MobileMeteo" customModuleProvider="target" id="rlR-MO-tdi"/>
+                                                                </connections>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fme-qe-1IX">
+                                                                <rect key="frame" x="0.0" y="800" width="335" height="38"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="feedback"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
+                                                                <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
+                                                                <state key="normal" title="Napisz do nas">
+                                                                    <color key="titleColor" red="0.062388241291046143" green="0.48353224992752075" blue="0.38298630714416504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                        <integer key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                                        <integer key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="feedbackBtnDidTap:" destination="sj4-kp-3OW" eventType="touchUpInside" id="EMb-c0-fmW"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="xAo-CG-xaa" firstAttribute="trailing" secondItem="biw-C5-3Xd" secondAttribute="trailing" id="DEN-gk-ev8"/>
+                                                            <constraint firstItem="xAo-CG-xaa" firstAttribute="leading" secondItem="biw-C5-3Xd" secondAttribute="leading" id="btu-CF-0s5"/>
+                                                        </constraints>
                                                     </stackView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fme-qe-1IX">
-                                                        <rect key="frame" x="0.0" y="407.66666666666663" width="335" height="38"/>
-                                                        <accessibility key="accessibilityConfiguration" label="napisz do nas"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
-                                                        <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
-                                                        <state key="normal">
-                                                            <color key="titleColor" red="0.062388241291046143" green="0.48353224992752075" blue="0.38298630714416504" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="feedbackBtnDidTap:" destination="sj4-kp-3OW" eventType="touchUpInside" id="EMb-c0-fmW"/>
-                                                        </connections>
-                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstItem="fme-qe-1IX" firstAttribute="trailing" secondItem="JQ6-7U-Ugf" secondAttribute="trailing" id="Deb-NR-g4v"/>
                                                     <constraint firstAttribute="trailing" secondItem="Gpp-aq-egl" secondAttribute="trailing" id="Gwf-YV-1qP"/>
                                                     <constraint firstItem="Gpp-aq-egl" firstAttribute="leading" secondItem="PE8-1C-i4E" secondAttribute="leading" id="HzS-fl-vSJ"/>
-                                                    <constraint firstItem="fme-qe-1IX" firstAttribute="top" secondItem="JQ6-7U-Ugf" secondAttribute="top" id="MfB-8i-a1I"/>
                                                     <constraint firstAttribute="bottom" secondItem="Gpp-aq-egl" secondAttribute="bottom" id="o7X-TC-YsL"/>
                                                     <constraint firstItem="Gpp-aq-egl" firstAttribute="top" secondItem="PE8-1C-i4E" secondAttribute="top" id="pje-2e-ZAy"/>
-                                                    <constraint firstItem="fme-qe-1IX" firstAttribute="leading" secondItem="JQ6-7U-Ugf" secondAttribute="leading" id="skU-fP-Jyw"/>
-                                                    <constraint firstItem="fme-qe-1IX" firstAttribute="bottom" secondItem="JQ6-7U-Ugf" secondAttribute="bottom" id="zVo-X5-hoD"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -567,7 +587,7 @@
                                 </constraints>
                             </view>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJD-M1-X8o">
-                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <color key="barTintColor" red="0.92150187492370605" green="0.92147433757781982" blue="0.92148995399475098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
                                     <navigationItem title="ICM Meteo" id="0gD-dT-mE5"/>
@@ -592,34 +612,35 @@
                     </tabBarItem>
                     <connections>
                         <outlet property="authorCredit" destination="yFU-HU-BO4" id="9Tp-0M-c3j"/>
+                        <outlet property="feedbackButton" destination="fme-qe-1IX" id="W37-WD-abs"/>
                         <outlet property="iconsCredit" destination="s8I-wu-MDi" id="30z-NY-WRF"/>
+                        <outlet property="onboardingButton" destination="6r0-eC-u3K" id="Nv5-Jx-w1H"/>
                         <outlet property="qaCredit" destination="lCy-ES-ffY" id="kyA-4A-vUg"/>
-                        <outletCollection property="icons" destination="xQP-w5-8vU" collectionClass="NSMutableArray" id="aKl-Xa-1sF"/>
                         <outletCollection property="icons" destination="xAo-CG-xaa" collectionClass="NSMutableArray" id="fVY-pZ-6IF"/>
                         <outletCollection property="icons" destination="biw-C5-3Xd" collectionClass="NSMutableArray" id="9M9-KD-G5E"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SRB-zu-26c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-599" y="709"/>
+            <point key="canvasLocation" x="-623" y="717"/>
         </scene>
         <!--City Map Picker Controller-->
         <scene sceneID="pFM-Pp-k6s">
             <objects>
                 <viewController id="i3E-TH-02Z" customClass="MMTCityMapPickerController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="gg7-CK-wch">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="b3x-5F-DcE">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Pvd-JI-8jf" appends="YES" id="aaS-ND-fbW"/>
                                 </connections>
                             </mapView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oj7-vk-Ve9">
-                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="XsE-jz-81i"/>
                                 </constraints>
@@ -676,14 +697,14 @@
             <objects>
                 <viewController id="nRU-bg-HIN" customClass="MMTForecasterCommentController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oiT-Qd-xNm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wi0-7Z-ITu" userLabel="Container">
-                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wuJ-i2-Dd3">
-                                        <rect key="frame" x="8" y="8" width="359" height="708"/>
+                                        <rect key="frame" x="8" y="8" width="359" height="587"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <accessibility key="accessibilityConfiguration" identifier="comment-content"/>
                                         <attributedString key="attributedText">
@@ -708,7 +729,7 @@
                                 </constraints>
                             </view>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BON-cV-xSx">
-                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <color key="barTintColor" red="0.92150187490000002" green="0.92147433759999997" blue="0.921489954" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
                                     <navigationItem title="Komentarz synoptyka" id="fdc-wP-Nso"/>
@@ -741,11 +762,11 @@
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="DF6-dW-Nzk" customClass="MMTDetailedMapsListController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zuJ-oD-xht">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eTY-oc-5iV" userLabel="Model Bar">
-                                <rect key="frame" x="0.0" y="88" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="50"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Y5m-Lt-Km3">
                                         <rect key="frame" x="8" y="11" width="359" height="29"/>
@@ -779,18 +800,18 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tQf-Ha-W9r">
-                                <rect key="frame" x="0.0" y="138" width="375" height="591"/>
+                                <rect key="frame" x="0.0" y="114" width="375" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DetailedMapCell" textLabel="HKj-Df-dQ3" style="IBUITableViewCellStyleDefault" id="hxA-kp-cU0">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hxA-kp-cU0" id="Q54-5k-d54">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.666666666666664"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Ciśnienie na poziomie morza" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="HKj-Df-dQ3">
-                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.666666666666664"/>
+                                                    <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
@@ -808,7 +829,7 @@
                                 </connections>
                             </tableView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fkW-yY-Xe8">
-                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="RpX-Kv-Y7j"/>
                                 </constraints>
@@ -852,19 +873,19 @@
             <objects>
                 <viewController id="PxB-id-yZw" customClass="MMTDetailedMapPreviewController" customModule="MobileMeteo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GKg-uw-yVK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view autoresizesSubviews="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="52B-Qj-oTm">
-                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vibrant-bg" translatesAutoresizingMaskIntoConstraints="NO" id="rId-d0-TbQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                     </imageView>
                                     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rww-sD-ifd">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="VfA-yJ-cxm">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </view>
                                         <blurEffect style="light"/>
@@ -906,7 +927,7 @@
                                         </constraints>
                                     </view>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="4CZ-2C-Qc4">
-                                        <rect key="frame" x="0.0" y="53" width="375" height="591"/>
+                                        <rect key="frame" x="0.0" y="53" width="375" height="504"/>
                                         <subviews>
                                             <imageView contentMode="scaleToFill" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="fe7-r6-aDL">
                                                 <rect key="frame" x="0.0" y="0.0" width="669" height="740"/>
@@ -934,7 +955,7 @@
                                         </connections>
                                     </scrollView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sMR-io-vYw" userLabel="Bottom Bar">
-                                        <rect key="frame" x="0.0" y="644" width="375" height="80"/>
+                                        <rect key="frame" x="0.0" y="557" width="375" height="46"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9mr-Tg-uSv">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="46"/>
@@ -1000,7 +1021,7 @@
                                 </constraints>
                             </view>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h2q-fB-xDy">
-                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="gmo-Vy-cGP"/>
                                 </constraints>
@@ -1051,14 +1072,16 @@
         </scene>
     </scenes>
     <resources>
-        <image name="detailed-maps" width="32" height="32"/>
-        <image name="forecaster-comment" width="32" height="32"/>
-        <image name="info" width="32" height="32"/>
-        <image name="info-computer" width="36" height="36"/>
-        <image name="info-mail" width="36" height="36"/>
-        <image name="info-university" width="36" height="36"/>
-        <image name="logo" width="341" height="218"/>
-        <image name="model-um" width="32" height="32"/>
+        <image name="detailed-maps" width="64" height="64"/>
+        <image name="forecaster-comment" width="64" height="64"/>
+        <image name="info" width="64" height="64"/>
+        <image name="info-computer" width="72" height="72"/>
+        <image name="info-university" width="72" height="72"/>
+        <image name="logo" width="283.56924438476562" height="181.66154479980469"/>
+        <image name="model-um" width="64" height="64"/>
         <image name="vibrant-bg" width="750" height="1334"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="rlR-MO-tdi"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -1,16 +1,12 @@
 
-/* Class = "UINavigationItem"; title = "ICM Meteo"; ObjectID = "0gD-dT-mE5"; */
 "0gD-dT-mE5.title" = "ICM Meteo";
 
 "fdc-wP-Nso.title" = "Komentarz synoptyka";
 
-/* Class = "UILabel"; text = "Prognoza została udostępniona nieodpłatnie przez serwis meteo.pl prowadzony przez ICM, Uniwersytet Warszawski. "; ObjectID = "2Vd-h5-NfU"; */
 "2Vd-h5-NfU.text" = "Prognoza została udostępniona nieodpłatnie przez serwis meteo.pl prowadzony przez ICM, Uniwersytet Warszawski. ";
 
-/* Class = "UILabel"; text = "Wskaż lokalizację na mapie"; ObjectID = "IZE-Jf-c7U"; */
 "IZE-Jf-c7U.text" = "Wskaż lokalizację na mapie";
 
-/* Class = "UITabBarItem"; title = "Źródło"; ObjectID = "Quj-BL-oec"; */
 "Quj-BL-oec.title" = "Informacje";
 
 "br9-OC-Jd1.title" = "Komentarz";
@@ -19,31 +15,20 @@
 
 "7Vu-Dc-7ts.title" = "Pogoda";
 
-/* Class = "UIBarButtonItem"; title = "Pokaż"; ObjectID = "SxL-e7-iV7"; */
 "SxL-e7-iV7.title" = "Pokaż";
 
-/* Class = "UILabel"; text = "Długość prognozy: 84h, Siatka 4km"; ObjectID = "TB7-Qq-V0f"; */
 "TB7-Qq-V0f.text" = "Długość prognozy: 84h, Siatka 4km";
 
-/* Class = "UINavigationItem"; title = "Wybierz lokalizację"; ObjectID = "aYU-fT-aKy"; */
 "aYU-fT-aKy.title" = "Wybierz lokalizację";
 
-/* Class = "UISearchBar"; placeholder = "szukaj miasta"; ObjectID = "duU-CU-zjU"; */
 "duU-CU-zjU.placeholder" = "szukaj miasta";
 
-/* Class = "UIBarButtonItem"; title = "Pokaż"; ObjectID = "fvc-eg-Voa"; */
 "fvc-eg-Voa.title" = "Pokaż";
 
-/* Class = "UILabel"; text = "W przypadku pytań, problemów lub sugestii napisz do nas"; ObjectID = "goB-rh-WOg"; */
-"goB-rh-WOg.text" = "W przypadku pytań, problemów lub sugestii napisz do nas";
-
-/* Class = "UILabel"; text = "Wyniki uzyskano przy użyciu oprogramowania Met Office."; ObjectID = "oqM-tk-ebb"; */
 "oqM-tk-ebb.text" = "Wyniki uzyskano przy użyciu oprogramowania Met Office.";
 
-/* Class = "UINavigationItem"; title = "Miasto"; ObjectID = "pkw-kA-ZXA"; */
 "pkw-kA-ZXA.title" = "Miasto";
 
-/* Class = "UIButton"; normalTitle = "wybierz"; ObjectID = "xOP-VD-VM0"; */
 "xOP-VD-VM0.normalTitle" = "wybierz";
 
 "p0N-cN-cSS.title" = "Mapy szczegółowe";
@@ -59,3 +44,7 @@
 "hxn-ye-fln.text" = "Źródło";
 
 "Pji-mP-zET.text" = "Zasługi";
+
+"fme-qe-1IX.normalTitle" = "Napisz do nas";
+
+"6r0-eC-u3K.normalTitle" = "Przewodnik";

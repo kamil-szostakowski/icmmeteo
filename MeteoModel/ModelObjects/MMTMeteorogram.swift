@@ -49,7 +49,7 @@ public struct MMTMeteorogram: Equatable
     }
 }
 
-public struct MMTMapMeteorogram
+public struct MMTMapMeteorogram: Equatable
 {
     public let model: MMTClimateModel
     public var startDate: Date
@@ -62,5 +62,13 @@ public struct MMTMapMeteorogram
         self.startDate = model.startDate(for: Date())
         self.images = []
         self.moments = []
+    }
+    
+    public static func == (lhs: MMTMapMeteorogram, rhs: MMTMapMeteorogram) -> Bool
+    {
+        let left = (lhs.model.type, lhs.startDate)
+        let right = (rhs.model.type, rhs.startDate)
+        
+        return left == right
     }
 }

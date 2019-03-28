@@ -19,6 +19,7 @@ enum MMTSegue: String
     case DisplayMapScreen
     case DisplayDetailedMapsList
     case DisplayDetailedMap
+    case DisplayOnboarding
 }
 
 extension UIViewController

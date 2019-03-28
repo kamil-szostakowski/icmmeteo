@@ -1,16 +1,12 @@
 
-/* Class = "UINavigationItem"; title = "ICM Meteo"; ObjectID = "0gD-dT-mE5"; */
 "0gD-dT-mE5.title" = "ICM Meteo";
 
 "fdc-wP-Nso.title" = "Forecaster comment";
 
-/* Class = "UILabel"; text = "Prognoza została udostępniona nieodpłatnie przez serwis meteo.pl prowadzony przez ICM, Uniwersytet Warszawski. "; ObjectID = "2Vd-h5-NfU"; */
 "2Vd-h5-NfU.text" = "Forecast provided for free by meteo.pl created by ICM, Warsaw University. ";
 
-/* Class = "UILabel"; text = "Wskaż lokalizację na mapie"; ObjectID = "IZE-Jf-c7U"; */
 "IZE-Jf-c7U.text" = "Find location on map";
 
-/* Class = "UITabBarItem"; title = "Źródło"; ObjectID = "Quj-BL-oec"; */
 "Quj-BL-oec.title" = "Info";
 
 "br9-OC-Jd1.title" = "Comment";
@@ -19,31 +15,20 @@
 
 "7Vu-Dc-7ts.title" = "Weather";
 
-/* Class = "UIBarButtonItem"; title = "Pokaż"; ObjectID = "SxL-e7-iV7"; */
 "SxL-e7-iV7.title" = "Show";
 
-/* Class = "UILabel"; text = "Długość prognozy: 84h, Siatka 4km"; ObjectID = "TB7-Qq-V0f"; */
 "TB7-Qq-V0f.text" = "Forecast lenght: 84h, Grid 4km";
 
-/* Class = "UINavigationItem"; title = "Wybierz lokalizację"; ObjectID = "aYU-fT-aKy"; */
 "aYU-fT-aKy.title" = "Choose a location";
 
-/* Class = "UISearchBar"; placeholder = "szukaj miasta"; ObjectID = "duU-CU-zjU"; */
 "duU-CU-zjU.placeholder" = "search for a city";
 
-/* Class = "UIBarButtonItem"; title = "Pokaż"; ObjectID = "fvc-eg-Voa"; */
 "fvc-eg-Voa.title" = "Show";
 
-/* Class = "UILabel"; text = "W przypadku pytań, problemów lub sugestii napisz do nas"; ObjectID = "goB-rh-WOg"; */
-"goB-rh-WOg.text" = "In case of any problems or suggestions, contact us.";
-
-/* Class = "UILabel"; text = "Wyniki uzyskano przy użyciu oprogramowania Met Office."; ObjectID = "oqM-tk-ebb"; */
 "oqM-tk-ebb.text" = "Material produced using Met Office Software.";
 
-/* Class = "UINavigationItem"; title = "Miasto"; ObjectID = "pkw-kA-ZXA"; */
 "pkw-kA-ZXA.title" = "City";
 
-/* Class = "UIButton"; normalTitle = "wybierz"; ObjectID = "xOP-VD-VM0"; */
 "xOP-VD-VM0.normalTitle" = "select";
 
 "p0N-cN-cSS.title" = "Detailed maps";
@@ -59,3 +44,7 @@
 "hxn-ye-fln.text" = "Source";
 
 "Pji-mP-zET.text" = "Credits";
+
+"fme-qe-1IX.normalTitle" = "Contact us";
+
+"6r0-eC-u3K.normalTitle" = "Take a tour";
