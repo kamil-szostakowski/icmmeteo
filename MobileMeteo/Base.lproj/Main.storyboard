@@ -515,6 +515,7 @@
                                                             </stackView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6r0-eC-u3K">
                                                                 <rect key="frame" x="0.0" y="742" width="335" height="38"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="onboarding"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                                                 <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
                                                                 <state key="normal" title="Przewodnik"/>
@@ -532,7 +533,7 @@
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fme-qe-1IX">
                                                                 <rect key="frame" x="0.0" y="800" width="335" height="38"/>
-                                                                <accessibility key="accessibilityConfiguration" label="napisz do nas"/>
+                                                                <accessibility key="accessibilityConfiguration" identifier="feedback"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                                                 <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
                                                                 <state key="normal" title="Napisz do nas">

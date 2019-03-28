@@ -13,8 +13,7 @@ class MMTInfoScreenTests: XCTestCase
 {
     var app: XCUIApplication!
     
-    // MARK: Setup methods
-    
+    // MARK: Setup methods    
     override func setUp()
     {
         super.setUp()
@@ -35,10 +34,26 @@ class MMTInfoScreenTests: XCTestCase
     }
     
     // MARK: Test methods
-    
     func test_displayMailComposeScreen()
     {
-        app.tabBars.buttons["Źródło"].tap()
-        app.buttons["napisz do nas"].tap()
+        app.tabBars.buttons.element(boundBy: 3).tap()
+        app.scrollViews.element.swipeUp()
+        app.buttons["feedback"].tap()
+    }
+    
+    func test_displayOnboardingScreen()
+    {
+        // Open onboarding screen
+        app.tabBars.buttons.element(boundBy: 3).tap()
+        app.scrollViews.element.swipeUp()
+        app.buttons["onboarding"].tap()
+        
+        // Step through all the screens
+        app.scrollViews.element.swipeLeft()
+        app.scrollViews.element.swipeLeft()
+        app.scrollViews.element.swipeLeft()
+        
+        // Close the screen
+        app.buttons["close"].tap()
     }
 }

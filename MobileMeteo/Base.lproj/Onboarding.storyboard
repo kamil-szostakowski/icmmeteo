@@ -247,6 +247,7 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLy-h9-nlu">
                                 <rect key="frame" x="20" y="617" width="335" height="30"/>
+                                <accessibility key="accessibilityConfiguration" identifier="close"/>
                                 <state key="normal" title="ZACZYNAMY"/>
                                 <connections>
                                     <action selector="onTapCloseButton:" destination="DfK-f6-Nf4" eventType="touchUpInside" id="byd-hp-vBr"/>
