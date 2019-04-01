@@ -26,8 +26,8 @@
 "detailed-maps.Visibility" = "Widzialność";
 "detailed-maps.Fog" = "Mgła";
 "detailed-maps.RelativeHumidity" = "Wigotność względna";
-"detailed-maps.RelativeHumidityAboveIce" = "Wilgotność względna nad lodem";
-"detailed-maps.RelativeHumidityAboveWater" = "Wilgotność względna nad wodą";
+"detailed-maps.RelativeHumidityAboveIce" = "Wilgotność względna względem lodu";
+"detailed-maps.RelativeHumidityAboveWater" = "Wilgotność względna względem wody";
 "detailed-maps.VeryLowClouds" = "Chmury bardzo niskie";
 "detailed-maps.LowClouds" = "Chmury niskie";
 "detailed-maps.MediumClouds" = "Chmury średnie";
