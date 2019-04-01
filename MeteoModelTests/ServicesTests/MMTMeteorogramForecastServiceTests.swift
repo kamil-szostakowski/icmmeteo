@@ -17,6 +17,7 @@ class MMTMeteorogramForecastServiceTests: XCTestCase
     var forecastStore: MMTMockForecastStore!
     var meteorogramStore: MMTMockMeteorogramStore!
     var cache = MMTMockMeteorogramCache()
+    var mlModel = MMTMockPredictionModel([.snow, .rain])
     var meteorogram: MMTMeteorogram!
     
     // MARK: Setup methods
@@ -31,6 +32,7 @@ class MMTMeteorogramForecastServiceTests: XCTestCase
         meteorogram = MMTMeteorogram.loremCity
         meteorogram.startDate = startDate
         meteorogram.image = UIImage(thisBundle: "2018092900-381-199-full")
+        meteorogram.prediction = nil
         
         meteorogramStore = MMTMockMeteorogramStore()
         meteorogramStore.meteorogram = .success(meteorogram)
@@ -38,7 +40,92 @@ class MMTMeteorogramForecastServiceTests: XCTestCase
         service = MMTMeteorogramForecastService(forecastStore, meteorogramStore, cache)
     }
     
-    // MARK: Test methods
+    override func tearDown()
+    {
+        super.tearDown()
+        cache.cleanup()
+    }
+}
+
+// MARK: Prediction tests
+extension MMTMeteorogramForecastServiceTests
+{
+    func testPredictionForCachedMeteorogramWhenNoPredictionExists()
+    {
+        service = MMTMeteorogramForecastService(forecastStore, meteorogramStore, cache, mlModel)
+        cache.store(meteorogram)
+        
+        verifyPrediction(mlModel.prediction, .noData)
+    }
+    
+    func testPredictionForCachedMeteorogramWhenPredictionAlreadyExists()
+    {
+        service = MMTMeteorogramForecastService(forecastStore, meteorogramStore, cache, mlModel)
+        meteorogram.prediction = [.snow]
+        cache.store(meteorogram)
+        
+        verifyPrediction([.snow], .noData)
+    }
+    
+    func testPredictionForFetchedMeteorogram()
+    {
+        service = MMTMeteorogramForecastService(forecastStore, meteorogramStore, cache, mlModel)
+
+        verifyPrediction(mlModel.prediction, .newData)
+    }
+    
+    // Helpers
+    fileprivate func verifyPrediction(_ prediction: MMTMeteorogram.Prediction?, _ updateStatus: MMTUpdateResult)
+    {
+        let completion = expectation(description: "update completion")
+        
+        service.update(for: meteorogram.city) {
+            completion.fulfill()
+            XCTAssertEqual($0, updateStatus)
+        }
+        
+        wait(for: [completion], timeout: 2)
+        XCTAssertEqual(service.currentMeteorogram?.prediction, prediction)
+        XCTAssertEqual(cache.restore()?.prediction, prediction)
+    }
+}
+
+// MARK: Caching tests
+extension MMTMeteorogramForecastServiceTests
+{
+    func testInitFromCache()
+    {
+        let completion = expectation(description: "update completion")
+        cache.store(meteorogram)
+        
+        service.update(for: meteorogram.city) {
+            completion.fulfill()
+            XCTAssertEqual($0, .noData)
+        }
+        
+        wait(for: [completion], timeout: 2)
+        XCTAssertNotNil(cache.restore())
+        XCTAssertEqual(service.currentMeteorogram, meteorogram)
+    }
+    
+    func testCachingFetchedMeteorogram()
+    {
+        let completion = expectation(description: "update completion")
+        
+        service.update(for: meteorogram.city) {
+            completion.fulfill()
+            XCTAssertEqual($0, .newData)
+        }
+        
+        wait(for: [completion], timeout: 2)
+        XCTAssertNotNil(cache.restore())
+        XCTAssertEqual(service.currentMeteorogram?.city, meteorogram.city)
+    }
+}
+
+// MARK: Status update tests
+extension MMTMeteorogramForecastServiceTests
+{
     func testUpdateNotRequired()
     {
         let completion = expectation(description: "update completion")
@@ -61,21 +148,6 @@ class MMTMeteorogramForecastServiceTests: XCTestCase
         service.update(for: meteorogram.city) {
             completion.fulfill()
             XCTAssertEqual($0, .newData)
-        }
-        
-        wait(for: [completion], timeout: 2)
-        XCTAssertNotNil(cache.restore())
-        XCTAssertEqual(service.currentMeteorogram, meteorogram)
-    }
-    
-    func testInitFromCache()
-    {
-        let completion = expectation(description: "update completion")
-        cache.store(meteorogram)
-        
-        service.update(for: meteorogram.city) {
-            completion.fulfill()
-            XCTAssertEqual($0, .noData)
         }
         
         wait(for: [completion], timeout: 2)
@@ -147,23 +219,12 @@ class MMTMeteorogramForecastServiceTests: XCTestCase
         XCTAssertNil(cache.restore())
         XCTAssertNil(service.currentMeteorogram)
     }
-    
-    func testCachingFetchedMeteorogram()
-    {
-        let completion = expectation(description: "update completion")
-        
-        service.update(for: meteorogram.city) {
-            completion.fulfill()
-            XCTAssertEqual($0, .newData)
-        }
-        
-        wait(for: [completion], timeout: 2)
-        XCTAssertNotNil(cache.restore())
-        XCTAssertEqual(service.currentMeteorogram?.city, meteorogram.city)
-    }
-    
-    // MARK: Helper methods
-    func performInitialUpdate()
+}
+
+// MARK: Helper extension
+extension MMTMeteorogramForecastServiceTests
+{
+    fileprivate func performInitialUpdate()
     {
         let completion = expectation(description: "initial update completion")
         service.update(for: meteorogram.city) { _ in completion.fulfill() }

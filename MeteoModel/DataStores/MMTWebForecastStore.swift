@@ -8,6 +8,7 @@
 
 import Foundation
 
+// TODO: Should consider merging that into meteorogram store.
 public protocol MMTForecastStore
 {    
     func startDate(_ completion: @escaping (MMTResult<Date>) -> Void)
