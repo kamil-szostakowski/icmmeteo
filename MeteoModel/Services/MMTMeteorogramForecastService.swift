@@ -16,16 +16,30 @@ class MMTMeteorogramForecastService: MMTForecastService
     fileprivate var forecastStore: MMTForecastStore
     fileprivate var meteorogramStore: MMTMeteorogramDataStore
     fileprivate var cache: MMTMeteorogramCache
+    fileprivate var mlModel: MMTPredictionModel?
     
-    private(set) var currentMeteorogram: MMTMeteorogram?
+    private(set) var currentMeteorogram: MMTMeteorogram? {
+        didSet {
+            defer {
+                if let meteorogram = currentMeteorogram {
+                    self.cache.store(meteorogram)
+                }
+            }            
+            guard let model = mlModel else { return }
+            guard let meteorogram = currentMeteorogram, meteorogram.prediction == nil else { return }
+            currentMeteorogram?.prediction = try? model.predict(meteorogram)
+        }
+    }
     
     // MARK: Initializers    
     init(_ forecastStore: MMTForecastStore,
          _ meteorogramStore: MMTMeteorogramDataStore,
-         _ cache: MMTMeteorogramCache)
+         _ cache: MMTMeteorogramCache,
+         _ mlModel: MMTPredictionModel? = nil)
     {
         self.forecastStore = forecastStore
         self.meteorogramStore = meteorogramStore
+        self.mlModel = mlModel
         self.cache = cache
     }
     
@@ -63,10 +77,8 @@ class MMTMeteorogramForecastService: MMTForecastService
             }
             
             self.meteorogramStore.meteorogram(for: location) {
-                
                 if case let .success(meteorogram) = $0 {
                     self.currentMeteorogram = meteorogram
-                    self.cache.store(meteorogram)                    
                     ui.async { completion(.newData) }
                 }
                 
