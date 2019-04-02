@@ -43,6 +43,7 @@
 "error.locationNotFound" = "Nie udało się odnaleźć szczegółów lokalizacji. Wybierz inną lokalizację lub spróbuj ponownie później.";
 "error.mailNotAvailable" = "Zanim będziesz mógł przesłać nam swoją opinię, powinieneś skonfigurować swoją skrzynkę pocztową.";
 "error.commentFetchFailure" = "Nie udało się pobrać komentarza, spróbuj ponownie później.";
+"error.locationServicesDisabled" = "Usługi lokalizacyjne są niedostępne.";
 
 "label.close" = "zamknij";
 "label.try.coamps" = "spróbuj COAMPS";

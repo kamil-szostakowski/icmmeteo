@@ -258,10 +258,12 @@ struct MMTMockPlacemark: MMTPlacemark
 class MMTMockMeteorogramCache: MMTMeteorogramCache
 {
     var meteorogram: MMTMeteorogram?
+    var storeCount: Int = 0
     
     @discardableResult
     func store(_ meteorogram: MMTMeteorogram) -> Bool {
         self.meteorogram = meteorogram
+        self.storeCount += 1
         return true
     }
     

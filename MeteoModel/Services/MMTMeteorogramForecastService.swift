@@ -18,18 +18,7 @@ class MMTMeteorogramForecastService: MMTForecastService
     fileprivate var cache: MMTMeteorogramCache
     fileprivate var mlModel: MMTPredictionModel?
     
-    private(set) var currentMeteorogram: MMTMeteorogram? {
-        didSet {
-            defer {
-                if let meteorogram = currentMeteorogram {
-                    self.cache.store(meteorogram)
-                }
-            }            
-            guard let model = mlModel else { return }
-            guard let meteorogram = currentMeteorogram, meteorogram.prediction == nil else { return }
-            currentMeteorogram?.prediction = try? model.predict(meteorogram)
-        }
-    }
+    private(set) var currentMeteorogram: MMTMeteorogram?
     
     // MARK: Initializers    
     init(_ forecastStore: MMTForecastStore,
@@ -54,6 +43,7 @@ class MMTMeteorogramForecastService: MMTForecastService
         group.enter()
         queue.async(group: group) {
             self.currentMeteorogram = self.cache.restore()
+            self.updatePrediction(forceCacheUpdate: false)
             group.leave()
         }
 
@@ -79,6 +69,7 @@ class MMTMeteorogramForecastService: MMTForecastService
             self.meteorogramStore.meteorogram(for: location) {
                 if case let .success(meteorogram) = $0 {
                     self.currentMeteorogram = meteorogram
+                    self.updatePrediction(forceCacheUpdate: true)
                     ui.async { completion(.newData) }
                 }
                 
@@ -99,5 +90,21 @@ extension MMTMeteorogramForecastService
         let new: (MMTCityProt?, Date?) = (city, startDate)
         
         return old != new
-    }    
+    }
+        
+    fileprivate func updatePrediction(forceCacheUpdate: Bool = false)
+    {
+        guard var meteorogram = currentMeteorogram else { return }
+        
+        if let model = mlModel, meteorogram.prediction == nil
+        {
+            meteorogram.prediction = try? model.predict(meteorogram)
+            currentMeteorogram = meteorogram
+            cache.store(meteorogram)
+            print("Cache updated")
+        } else if forceCacheUpdate {
+            cache.store(meteorogram)
+            print("Cache updated")
+        }
+    }
 }
