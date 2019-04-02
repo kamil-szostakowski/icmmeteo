@@ -95,30 +95,29 @@ extension MMTMeteorogramForecastServiceTests
 {
     func testInitFromCache()
     {
-        let completion = expectation(description: "update completion")
         cache.store(meteorogram)
-        
+        verifyCache(meteorogram, .noData)
+        XCTAssertEqual(cache.storeCount, 1)
+    }
+    
+    func testCachingFetchedMeteorogram()
+    {
+        verifyCache(meteorogram, .newData)
+        XCTAssertEqual(cache.storeCount, 1)
+    }    
+    
+    fileprivate func verifyCache(_ meteorogram: MMTMeteorogram,
+                                 _ updateStatus: MMTUpdateResult)
+    {
+        let completion = expectation(description: "update completion")
         service.update(for: meteorogram.city) {
             completion.fulfill()
-            XCTAssertEqual($0, .noData)
+            XCTAssertEqual($0, updateStatus)
         }
         
         wait(for: [completion], timeout: 2)
         XCTAssertNotNil(cache.restore())
         XCTAssertEqual(service.currentMeteorogram, meteorogram)
-    }
-    
-    func testCachingFetchedMeteorogram()
-    {
-        let completion = expectation(description: "update completion")
-        
-        service.update(for: meteorogram.city) {
-            completion.fulfill()
-            XCTAssertEqual($0, .newData)
-        }
-        
-        wait(for: [completion], timeout: 2)
-        XCTAssertNotNil(cache.restore())
         XCTAssertEqual(service.currentMeteorogram?.city, meteorogram.city)
     }
 }

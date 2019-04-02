@@ -22,7 +22,6 @@ public let MMTDebugActionSkipOnboarding = "SKIP_ONBOARDING"
 {
     // MARK: Properties
     var window: UIWindow?
-    var locationService: MMTCoreLocationService!
     var todayModelController: MMTTodayModelController!
     var navigator: MMTNavigator!
     var factory: MMTFactory = MMTDefaultFactory()
@@ -41,7 +40,7 @@ public let MMTDebugActionSkipOnboarding = "SKIP_ONBOARDING"
         setupAnalytics()
         setupLocationService()
         
-        navigator = MMTNavigator(rootViewController, locationService)
+        navigator = MMTNavigator(rootViewController, factory.locationService)
         todayModelController = factory.createTodayModelController(.normal)
         
         #if DEBUG
@@ -157,8 +156,6 @@ extension MMTAppDelegate
         
         NotificationCenter.default.addObserver(self, selector: locationHandler, name: .locationChangedNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: authHandler, name: .locationAuthChangedNotification, object: nil)
-        
-        locationService = MMTCoreLocationService(CLLocationManager())
     }    
     
     private func performMigration()
@@ -195,7 +192,7 @@ extension MMTAppDelegate
 {
     @objc func handleLocationAuthDidChange(notification: Notification)
     {
-        let status = locationService.authorizationStatus
+        let status = factory.locationService.authorizationStatus
         let authorized = status == .whenInUse
         
         NCWidgetController().setHasContent(authorized, forWidgetWithBundleIdentifier: "com.szostakowski.meteo.MeteoWidget")
@@ -212,6 +209,6 @@ extension MMTAppDelegate
 extension UIApplication
 {
     var locationService: MMTLocationService? {
-        return (delegate as? MMTAppDelegate)?.locationService
+        return (delegate as? MMTAppDelegate)?.factory.locationService
     }
 }
