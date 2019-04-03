@@ -34,7 +34,7 @@ public let MMTDebugActionSkipOnboarding = "SKIP_ONBOARDING"
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         UserDefaults.standard.importSettings()
-        application.setMinimumBackgroundFetchInterval(3600)
+        application.setMinimumBackgroundFetchInterval(360)
         
         setupAppearance()
         setupAnalytics()
