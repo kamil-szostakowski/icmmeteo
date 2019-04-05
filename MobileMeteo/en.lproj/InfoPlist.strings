@@ -6,8 +6,8 @@
   Copyright © 2019 Kamil Szostakowski. All rights reserved.
 */
 
-"NSLocationAlwaysUsageDescription" = "We use location services for providing you with fast access to accurate weather forecast for your location. We also use them to display a widget on the Spotlight screen.";
+// "NSLocationAlwaysUsageDescription" = "We use location services for providing you with fast access to accurate weather forecast for your location. We also use them to display a widget on the Spotlight screen.";
 
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "We use location services for providing you with fast access to accurate weather forecast for your location. We also use them to display a widget on the Spotlight screen.";
+// "NSLocationAlwaysAndWhenInUseUsageDescription" = "We use location services for providing you with fast access to accurate weather forecast for your location. We also use them to display a widget on the Spotlight screen.";
 
 "NSLocationWhenInUseUsageDescription" = "We use location services for providing you with fast access to accurate weather forecast for your location. We also use them to display a widget on the Spotlight screen.";

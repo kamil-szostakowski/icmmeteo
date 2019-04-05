@@ -6,8 +6,8 @@
   Copyright © 2019 Kamil Szostakowski. All rights reserved.
 */
 
-"NSLocationAlwaysUsageDescription" = "Usługi lokalizacyjne pozwalają nam zapewnić Ci szybki dostęp do prognozy pogody dla miejscowości, w której aktualnie przebywasz. Potrzebujemy ich również aby prezentować widget z aktualną prognozą bezpośrednio na ekranie Spotlight.";
+// "NSLocationAlwaysUsageDescription" = "Usługi lokalizacyjne pozwalają nam zapewnić Ci szybki dostęp do prognozy pogody dla miejscowości, w której aktualnie przebywasz. Potrzebujemy ich również aby prezentować widget z aktualną prognozą bezpośrednio na ekranie Spotlight.";
 
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Usługi lokalizacyjne pozwalają nam zapewnić Ci szybki dostęp do prognozy pogody dla miejscowości, w której aktualnie przebywasz. Potrzebujemy ich również aby prezentować widget z aktualną prognozą bezpośrednio na ekranie Spotlight.";
+// "NSLocationAlwaysAndWhenInUseUsageDescription" = "Usługi lokalizacyjne pozwalają nam zapewnić Ci szybki dostęp do prognozy pogody dla miejscowości, w której aktualnie przebywasz. Potrzebujemy ich również aby prezentować widget z aktualną prognozą bezpośrednio na ekranie Spotlight.";
 
 "NSLocationWhenInUseUsageDescription" = "Usługi lokalizacyjne pozwalają nam zapewnić Ci szybki dostęp do prognozy pogody dla miejscowości, w której aktualnie przebywasz. Potrzebujemy ich również aby prezentować widget z aktualną prognozą bezpośrednio na ekranie Spotlight.";
