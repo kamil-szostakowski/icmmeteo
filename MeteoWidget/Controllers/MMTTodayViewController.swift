@@ -48,7 +48,7 @@ extension MMTTodayViewController
     // MARK: Setup methods
     fileprivate func setupModelController()
     {                
-        modelController = factory.createTodayModelController(.memoryConstrained)
+        modelController = factory.createTodayModelController(.widget)
         modelController.delegate = self
     }
 }

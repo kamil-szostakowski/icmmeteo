@@ -47,7 +47,7 @@ public class MMTDefaultFactory: MMTFactory
     // MARK: Methods
     public func createTodayModelController(_ env: MMTEnvironment) -> MMTTodayModelController
     {
-        let mlModel = env == .normal ? MMTCoreMLPredictionModel() : nil
+        let mlModel = env != .widget ? MMTCoreMLPredictionModel() : nil
         let forecastService = createForecastService(mlModel)
         let locationServ = createLocationService(env)
         
@@ -69,7 +69,7 @@ extension MMTDefaultFactory
     
     fileprivate func createLocationService(_ env: MMTEnvironment) -> MMTLocationService
     {
-        return env == .normal ? locationService : MMTCachedLocationService(meteorogramCache)
+        return env == .appBackground ? MMTCachedLocationService(meteorogramCache) : locationService
     }
 }
 
