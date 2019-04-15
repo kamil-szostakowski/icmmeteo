@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VAh-Ln-Mxc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VAh-Ln-Mxc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -393,10 +393,10 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PE8-1C-i4E" userLabel="Container">
-                                                <rect key="frame" x="20" y="20" width="335" height="838"/>
+                                                <rect key="frame" x="20" y="20" width="335" height="693"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Gpp-aq-egl">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="838"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="693"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="HSw-Xp-6FR">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="214.5"/>
@@ -411,13 +411,13 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="aXG-J0-waj">
-                                                                <rect key="frame" x="0.0" y="278.5" width="335" height="72"/>
+                                                                <rect key="frame" x="0.0" y="278.5" width="335" height="53.5"/>
                                                                 <subviews>
                                                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="info-university" translatesAutoresizingMaskIntoConstraints="NO" id="biw-C5-3Xd" userLabel="Icon 1">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="57" height="72"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="31" height="53.5"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Prognoza została udostępniona nieodpłatnie przez serwis meteo.pl prowadzony przez ICM, Uniwersytet Warszawski. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Vd-h5-NfU" userLabel="Msg 1">
-                                                                        <rect key="frame" x="72" y="0.0" width="263" height="72"/>
+                                                                        <rect key="frame" x="46" y="0.0" width="289" height="53.5"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -425,13 +425,13 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="f6l-JL-Atc">
-                                                                <rect key="frame" x="0.0" y="370.5" width="335" height="72"/>
+                                                                <rect key="frame" x="0.0" y="352" width="335" height="36"/>
                                                                 <subviews>
                                                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="info-computer" translatesAutoresizingMaskIntoConstraints="NO" id="xAo-CG-xaa" userLabel="Icon 2">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="57" height="72"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="31" height="36"/>
                                                                     </imageView>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Wyniki uzyskano przy użyciu oprogramowania Met Office." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqM-tk-ebb" userLabel="Msg 2">
-                                                                        <rect key="frame" x="72" y="0.0" width="263" height="72"/>
+                                                                        <rect key="frame" x="46" y="0.0" width="289" height="36"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
@@ -439,22 +439,22 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zasługi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pji-mP-zET">
-                                                                <rect key="frame" x="0.0" y="462.5" width="335" height="24"/>
+                                                                <rect key="frame" x="0.0" y="408" width="335" height="24"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                                                 <color key="textColor" red="0.062745098040000002" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gry-4a-bdc">
-                                                                <rect key="frame" x="0.0" y="506.5" width="335" height="70.5"/>
+                                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Gry-4a-bdc">
+                                                                <rect key="frame" x="0.0" y="442" width="335" height="0.0"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ikony (pogoda)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SLo-fj-Ucp">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="18"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="0.0"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                                                         <color key="textColor" red="0.062745098040000002" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="The Weather is Nice Today  / Laura Reen / CC BY-NC 3.0" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="s8I-wu-MDi">
-                                                                        <rect key="frame" x="0.0" y="18" width="335" height="52.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="0.0"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
@@ -467,7 +467,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Pyu-0I-Fjk">
-                                                                <rect key="frame" x="0.0" y="597" width="335" height="52.5"/>
+                                                                <rect key="frame" x="0.0" y="452" width="335" height="52.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QA Support" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xKB-7Z-eSg">
                                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="18"/>
@@ -489,7 +489,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="QJh-bw-Qjn">
-                                                                <rect key="frame" x="0.0" y="669.5" width="335" height="52.5"/>
+                                                                <rect key="frame" x="0.0" y="524.5" width="335" height="52.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Autor" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oho-M1-ztd">
                                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="18"/>
@@ -511,7 +511,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6r0-eC-u3K">
-                                                                <rect key="frame" x="0.0" y="742" width="335" height="38"/>
+                                                                <rect key="frame" x="0.0" y="597" width="335" height="38"/>
                                                                 <accessibility key="accessibilityConfiguration" identifier="onboarding"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                                                 <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
@@ -529,7 +529,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fme-qe-1IX">
-                                                                <rect key="frame" x="0.0" y="800" width="335" height="38"/>
+                                                                <rect key="frame" x="0.0" y="655" width="335" height="38"/>
                                                                 <accessibility key="accessibilityConfiguration" identifier="feedback"/>
                                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
                                                                 <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
@@ -1068,13 +1068,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="detailed-maps" width="64" height="64"/>
-        <image name="forecaster-comment" width="64" height="64"/>
-        <image name="info" width="64" height="64"/>
-        <image name="info-computer" width="72" height="72"/>
-        <image name="info-university" width="72" height="72"/>
-        <image name="logo" width="283.56924438476562" height="181.66154479980469"/>
-        <image name="model-um" width="64" height="64"/>
+        <image name="detailed-maps" width="32" height="32"/>
+        <image name="forecaster-comment" width="32" height="32"/>
+        <image name="info" width="32" height="32"/>
+        <image name="info-computer" width="36" height="36"/>
+        <image name="info-university" width="36" height="36"/>
+        <image name="logo" width="341.33334350585938" height="218.66667175292969"/>
+        <image name="model-um" width="32" height="32"/>
         <image name="vibrant-bg" width="750" height="1334"/>
     </resources>
     <inferredMetricsTieBreakers>
