@@ -10,6 +10,7 @@ import Foundation
 
 public enum MMTEnvironment
 {
-    case normal
-    case memoryConstrained
+    case widget
+    case appForeground
+    case appBackground
 }

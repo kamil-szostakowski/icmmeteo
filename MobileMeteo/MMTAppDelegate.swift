@@ -41,7 +41,7 @@ public let MMTDebugActionSkipOnboarding = "SKIP_ONBOARDING"
         setupLocationService()
         
         navigator = MMTNavigator(rootViewController, factory.locationService)
-        todayModelController = factory.createTodayModelController(.normal)
+        todayModelController = factory.createTodayModelController(.appForeground)
         
         #if DEBUG
         setupDebugEnvironment()
@@ -91,7 +91,7 @@ public let MMTDebugActionSkipOnboarding = "SKIP_ONBOARDING"
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
     {
         // TODO: Should I cleanup cache when auth status changes?
-        self.todayModelController.onUpdate {
+        factory.createTodayModelController(.appBackground).onUpdate {
             self.analytics?.sendUserActionReport(.Locations, action: .BackgroundUpdateDidFinish)
             completionHandler(UIBackgroundFetchResult(updateStatus: $0))
         }
