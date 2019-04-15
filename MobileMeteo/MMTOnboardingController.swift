@@ -22,7 +22,7 @@ class MMTOnboardingController: UIPageViewController, MTPartialCoverPresentationS
     lazy var onboardingDelegate: MMTOnboardingDelegate = {
         return MMTOnboardingDelegate(pages: [
             viewController(for: .widgetExpanded),
-            viewController(for: .widgetCompact),
+            // viewController(for: .widgetCompact),
             viewController(for: .whatsNext),
             viewController(for: .contact),
         ])
