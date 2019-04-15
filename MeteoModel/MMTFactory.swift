@@ -47,8 +47,8 @@ public class MMTDefaultFactory: MMTFactory
     // MARK: Methods
     public func createTodayModelController(_ env: MMTEnvironment) -> MMTTodayModelController
     {
-        let mlModel = env != .widget ? MMTCoreMLPredictionModel() : nil
-        let forecastService = createForecastService(mlModel)
+        // let mlModel = env != .widget ? MMTCoreMLPredictionModel() : nil
+        let forecastService = createForecastService(nil)
         let locationServ = createLocationService(env)
         
         return MMTTodayModelControllerImpl(forecastService, locationServ)
