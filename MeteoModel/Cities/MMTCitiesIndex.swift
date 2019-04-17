@@ -71,6 +71,6 @@ public struct MMTCitiesIndex
     
     public subscript(sections: [MMTCitiesIndexSectionType]) -> [MMTCityProt]
     {
-        get { return content.filter(){ sections.index(of: $0.type) != nil }.flatMap() { $0.cities } }
+        get { return content.filter(){ sections.firstIndex(of: $0.type) != nil }.flatMap() { $0.cities } }
     }    
 }

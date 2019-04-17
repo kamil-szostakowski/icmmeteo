@@ -34,7 +34,8 @@ class MMTExtensionViewModeFactory
                 switch context.widgetActiveDisplayMode {
                     case .compact: return configureCompactView(for: meteorogram)
                     case .expanded: return configureExpandedView(for: meteorogram)
-                }
+                    @unknown default: return configureCompactView(for: meteorogram)                    
+            }
         }
     }    
     

@@ -24,7 +24,7 @@ extension UIApplication : MMTShortcutRegister
     
     func unregister(_ shortcut: MMTShortcut)
     {
-        guard let index = (shortcutItems?.index{ $0.type == shortcut.identifier }) else {
+        guard let index = (shortcutItems?.firstIndex{ $0.type == shortcut.identifier }) else {
             return
         }
         

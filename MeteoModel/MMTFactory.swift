@@ -93,7 +93,7 @@ public class MeteoModel
 // MARK: Convinience initializers
 public extension MMTRemoteCityGeocoder
 {
-    public convenience init()
+    convenience init()
     {
         self.init(general: CLGeocoder())
     }
@@ -101,7 +101,7 @@ public extension MMTRemoteCityGeocoder
 
 public extension MMTCoreDataCitiesStore
 {
-    public init()
+    init()
     {
         self.init(MMTCoreData.instance.context, MMTRemoteCityGeocoder())
     }

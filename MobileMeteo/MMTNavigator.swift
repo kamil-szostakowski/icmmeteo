@@ -116,7 +116,7 @@ extension MMTNavigator
     
     fileprivate func prepare(_ target: UIViewController, completion: @escaping () -> Void)
     {
-        tabbar.selectedIndex = (tabbar.viewControllers?.index(of: target))!
+        tabbar.selectedIndex = (tabbar.viewControllers?.firstIndex(of: target))!
         
         guard target.presentedViewController == nil else {
             target.dismiss(animated: false, completion: completion)
