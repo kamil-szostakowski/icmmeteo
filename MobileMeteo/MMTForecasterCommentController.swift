@@ -96,11 +96,11 @@ extension MMTForecasterCommentController: MMTModelControllerDelegate
     {
         setActivityIndicator(visible: modelController.requestPending)
         
-        if let error = modelController.error {
-            displayErrorAlert(error)
-            return
+        switch modelController.comment {
+            case .failure(let error):
+                displayErrorAlert(error)
+            case .success(let comment):
+                setupTextView(content: comment)
         }
-        
-        setupTextView(content: modelController.comment)
     }
 }
