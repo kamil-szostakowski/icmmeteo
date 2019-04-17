@@ -15,6 +15,8 @@ class MMTForecasterCommentModelControllerTests: XCTestCase
     var dataStore: MMTMockForecasterStore!
     var modelController: MMTForecasterCommentModelController!
     var modelControllerDelegate: MMTMockModelControllerDelegate<MMTForecasterCommentModelController>!
+    var expectedResult = NSAttributedString(string: "Lorem ipsum").formattedAsComment()
+    var emptyResult = NSMutableAttributedString()
     
     // MARK: Setup methods
     override func setUp()
@@ -30,18 +32,16 @@ class MMTForecasterCommentModelControllerTests: XCTestCase
     // MARK: Test methods
     func testInitialization()
     {
-        XCTAssertNil(modelController.comment)
-        XCTAssertNil(modelController.error)
+        XCTAssertEqual(modelController.comment, .success(emptyResult))
     }
     
     func testFetchForecasterComment()
     {
-        dataStore.comment = .success(NSAttributedString(string: "Lorem ipsum"))
+        dataStore.comment = .success(expectedResult)
         
         let expectations = modelControllerDelegate.awaitModelUpdate(completions: [verifyPendingRequest, {
             XCTAssertFalse($0.requestPending)
-            XCTAssertEqual($0.comment?.string, "Lorem ipsum")
-            XCTAssertNil($0.error)
+            XCTAssertEqual($0.comment, self.dataStore.comment)
         }])
         
         modelController.activate()
@@ -53,10 +53,46 @@ class MMTForecasterCommentModelControllerTests: XCTestCase
         dataStore.comment = .failure(.commentFetchFailure)
         
         let expectations = modelControllerDelegate.awaitModelUpdate(completions: [verifyPendingRequest, {
-            XCTAssertEqual($0.error, .commentFetchFailure)
+            XCTAssertEqual($0.comment, .failure(.commentFetchFailure))
             XCTAssertFalse($0.requestPending)
-            XCTAssertNil($0.comment)
         }])
+        
+        modelController.activate()
+        wait(for: expectations, timeout: 2)
+    }
+    
+    func testFetchForecasterCommentSuccessAfterFailure()
+    {
+        modelController.comment = .failure(.commentFetchFailure)
+        dataStore.comment = .success(expectedResult)
+        
+        let expectations = modelControllerDelegate.awaitModelUpdate(completions: [verifyPendingRequest, {
+            XCTAssertFalse($0.requestPending)
+            XCTAssertEqual($0.comment, self.dataStore.comment)
+        }])
+        
+        modelController.activate()
+        wait(for: expectations, timeout: 2)
+    }
+    
+    /*
+     * - Open the app.
+     * - Go to the airplane mode.
+     * - Got to the comment tab.
+     * - Application should display an error.
+     * - Leave the airplane mode
+     * - Go to the comment tab again.
+     * - Application should load and present comment.
+     */
+    func testFetchForecasterCommentFailureAfterSuccess()
+    {
+        modelController.comment = .success(expectedResult)
+        dataStore.comment = .failure(.commentFetchFailure)
+        
+        let expectations = modelControllerDelegate.awaitModelUpdate(completions: [verifyPendingRequest, {
+            XCTAssertFalse($0.requestPending)
+            XCTAssertEqual($0.comment, self.dataStore.comment)
+            }])
         
         modelController.activate()
         wait(for: expectations, timeout: 2)
@@ -64,12 +100,11 @@ class MMTForecasterCommentModelControllerTests: XCTestCase
     
     func testFetchForcasterCommentBeforeCacheExpired()
     {
-        dataStore.comment = .success(NSAttributedString(string: "Lorem ipsum"))
+        dataStore.comment = .success(expectedResult)
         
         let expectations = modelControllerDelegate.awaitModelUpdate(completions: [verifyPendingRequest, {
             XCTAssertFalse($0.requestPending)
-            XCTAssertEqual($0.comment?.string, "Lorem ipsum")
-            XCTAssertNil($0.error)
+            XCTAssertEqual($0.comment, self.dataStore.comment)
         }])
         
         modelController.activate()
@@ -77,11 +112,35 @@ class MMTForecasterCommentModelControllerTests: XCTestCase
         modelController.activate()
     }
     
+    /*
+     * - Open the app.
+     * - Go to the airplane mode.
+     * - Got to the comment tab.
+     * - Application should display an error.
+     * - Leave the airplane mode
+     * - Go to the comment tab again.
+     * - Application should display activity indicator and no content underneath.
+     */
+    func testCommentValueDuringSecondFetch()
+    {
+        modelController.comment = .success(expectedResult)
+        dataStore.comment = .success(expectedResult)
+        
+        let expectations = modelControllerDelegate.awaitModelUpdate(completions: [{
+            XCTAssertTrue($0.requestPending)
+            XCTAssertEqual($0.comment, .success(self.emptyResult))
+        },{
+            XCTAssertFalse($0.requestPending)
+            XCTAssertEqual($0.comment, self.dataStore.comment)
+        }])
+        
+        modelController.activate()
+        wait(for: expectations, timeout: 2)
+    }
+    
     // MARK: Helper methods
     func verifyPendingRequest(controller: MMTForecasterCommentModelController)
     {
-        XCTAssertNil(controller.error)
-        XCTAssertNil(controller.comment)
         XCTAssertTrue(controller.requestPending)
     }
 }

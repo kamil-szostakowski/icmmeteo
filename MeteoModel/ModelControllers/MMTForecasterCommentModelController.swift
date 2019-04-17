@@ -11,9 +11,8 @@ import Foundation
 public class MMTForecasterCommentModelController: MMTBaseModelController
 {
     // MAKR: Properties
-    public var comment: NSAttributedString?
-    public var error: MMTError?
     public var requestPending = false
+    public var comment: MMTResult<NSAttributedString>
     
     fileprivate var dataStore: MMTForecasterCommentDataStore
     fileprivate var lastUpdate: Date = Date.distantPast
@@ -21,23 +20,27 @@ public class MMTForecasterCommentModelController: MMTBaseModelController
     // MARK: Initializers
     public init(dataStore: MMTForecasterCommentDataStore)
     {
+        self.comment = .success(NSMutableAttributedString())
         self.dataStore = dataStore
     }
     
     // MARK: Lifecycle methods
     public override func activate()
     {
-        guard Date().timeIntervalSince(lastUpdate) > TimeInterval(hours: 1) else {
-            return
-        }
+        let timeElapsed = Date().timeIntervalSince(lastUpdate) > TimeInterval(hours: 1)
         
-        updateTextViewContent()
+        if case .failure(_) = comment {
+            updateTextViewContent()
+        } else if timeElapsed {
+            updateTextViewContent()
+        }
     }
     
     // MARK: Interface methods
     func updateTextViewContent()
     {
-        requestPending = true                
+        requestPending = true
+        comment = .success(NSMutableAttributedString())
         delegate?.onModelUpdate(self)
         
         dataStore.forecasterComment {
@@ -46,8 +49,10 @@ public class MMTForecasterCommentModelController: MMTBaseModelController
             self.requestPending = false
             
             switch $0 {
-                case let .failure(error): self.error = error
-                case let .success(content): self.comment = content.formattedAsComment()
+                case let .failure(error):
+                    self.comment = .failure(error)
+                case let .success(content):
+                    self.comment = .success(content.formattedAsComment())
             }
             
             self.delegate?.onModelUpdate(self)

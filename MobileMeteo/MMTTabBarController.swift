@@ -36,7 +36,7 @@ class MMTTabBarController: UITabBarController, UITabBarControllerDelegate, MMTAc
     // MARK: UITabBarControllerDelegate methods
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController)
     {
-        guard let index =  tabBarController.viewControllers?.index(of: viewController) else {
+        guard let index =  tabBarController.viewControllers?.firstIndex(of: viewController) else {
             return
         }
 

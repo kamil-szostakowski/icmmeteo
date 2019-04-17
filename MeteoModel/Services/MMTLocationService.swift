@@ -11,8 +11,8 @@ import CoreLocation
 
 public extension Notification.Name
 {
-    public static let locationChangedNotification = Notification.Name(rawValue: "MMTLocationChangedNotification")
-    public static let locationAuthChangedNotification = Notification.Name(rawValue: "MMTLocationAuthChangedNotification")
+    static let locationChangedNotification = Notification.Name(rawValue: "MMTLocationChangedNotification")
+    static let locationAuthChangedNotification = Notification.Name(rawValue: "MMTLocationAuthChangedNotification")
 }
 
 public enum MMTLocationAuthStatus: CustomStringConvertible
