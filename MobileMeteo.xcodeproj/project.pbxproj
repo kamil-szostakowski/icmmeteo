@@ -21,6 +21,7 @@
 		1B2C534820E3E789003727A3 /* UIBackgroundFetchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C534720E3E789003727A3 /* UIBackgroundFetchResult.swift */; };
 		1B2C534C20E3EAF1003727A3 /* NCUpdateResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B2C534B20E3EAF1003727A3 /* NCUpdateResult.swift */; };
 		1B2F75E5222738C90077FADB /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1B2F75E4222738C90077FADB /* Settings.bundle */; };
+		1B38D913226F8FF100300AAB /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A5DD71E1711D300058B57 /* CGSize.swift */; };
 		1B39BEBB20DD8A60002495B5 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B39BEBA20DD8A60002495B5 /* NotificationCenter.framework */; };
 		1B39BEBE20DD8A60002495B5 /* MMTTodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B39BEBD20DD8A60002495B5 /* MMTTodayViewController.swift */; };
 		1B39BEC120DD8A60002495B5 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B39BEBF20DD8A60002495B5 /* MainInterface.storyboard */; };
@@ -1231,6 +1232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B38D913226F8FF100300AAB /* CGSize.swift in Sources */,
 				1B8A88C320EEA32C00BEB191 /* UIImageView.swift in Sources */,
 				1B8A88C020EEA2F500BEB191 /* MMTUpdatableView.swift in Sources */,
 				1B71864720ED476900E9B45E /* UIView.swift in Sources */,
