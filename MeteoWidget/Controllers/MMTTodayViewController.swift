@@ -28,7 +28,14 @@ class MMTTodayViewController: UIViewController, NCWidgetProviding
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize)
     {
-        preferredContentSize = maxSize
+        if activeDisplayMode == .expanded
+        {
+            let size = CGSize(meteorogram: .UM)!
+            let scale = maxSize.width / size.width
+            preferredContentSize = CGSize(width: maxSize.width, height: size.height*scale)
+        } else {
+            preferredContentSize = maxSize
+        }
         
         if currentView != nil {
             onModelUpdate(modelController)
