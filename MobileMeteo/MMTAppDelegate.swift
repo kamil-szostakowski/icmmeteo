@@ -17,6 +17,7 @@ import NotificationCenter
 public let MMTDebugActionCleanupDb = "CLEANUP_DB"
 public let MMTDebugActionSimulatedOfflineMode = "SIMULATED_OFFLINE_MODE"
 public let MMTDebugActionSkipOnboarding = "SKIP_ONBOARDING"
+public let MMTBundleId = "com.szostakowski.meteo.MeteoWidget"
 
 @UIApplicationMain class MMTAppDelegate: UIResponder, UIApplicationDelegate, MMTAnalyticsReporter
 {
@@ -34,6 +35,8 @@ public let MMTDebugActionSkipOnboarding = "SKIP_ONBOARDING"
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool
     {
         UserDefaults.standard.importSettings()
+        NCWidgetController().setHasContent(true, forWidgetWithBundleIdentifier: MMTBundleId)
+        
         application.setMinimumBackgroundFetchInterval(3600)
         
         setupAppearance()
@@ -151,12 +154,9 @@ extension MMTAppDelegate
     
     private func setupLocationService()
     {
-        let locationHandler = #selector(handleLocationDidChange(notification:))
-        let authHandler = #selector(handleLocationAuthDidChange(notification:))
-        
+        let locationHandler = #selector(handleLocationDidChange(notification:))        
         NotificationCenter.default.addObserver(self, selector: locationHandler, name: .locationChangedNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: authHandler, name: .locationAuthChangedNotification, object: nil)
-    }    
+    }
     
     private func performMigration()
     {
@@ -190,15 +190,6 @@ extension MMTAppDelegate
 // Location service extension
 extension MMTAppDelegate
 {
-    @objc func handleLocationAuthDidChange(notification: Notification)
-    {
-        let status = factory.locationService.authorizationStatus
-        let authorized = status == .whenInUse
-        
-        NCWidgetController().setHasContent(authorized, forWidgetWithBundleIdentifier: "com.szostakowski.meteo.MeteoWidget")
-        analytics?.sendUserActionReport(.Locations, action: .LocationDidChangeAuthorization, actionLabel: status.description)
-    }
-    
     @objc func handleLocationDidChange(notification: Notification)
     {
         try? MMTShortcutsMigrator().migrate()
