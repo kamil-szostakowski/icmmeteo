@@ -61,7 +61,7 @@ public let MMTBundleId = "com.szostakowski.meteo.MeteoWidget"
     func applicationDidBecomeActive(_ application: UIApplication)
     {
         MeteoModel.syncCaches()
-        navigator.navigate(to: .onboarding(1)) {}
+        navigator.navigate(to: .onboarding(2)) {}
     }
     
     func applicationWillTerminate(_ application: UIApplication)
