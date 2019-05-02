@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ET4-mJ-2MP">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ET4-mJ-2MP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,8 +27,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0zZ-mp-T03">
                                 <rect key="frame" x="20" y="89.5" width="335" height="557.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="Ze0-oz-XhY">
-                                        <rect key="frame" x="0.0" y="119.5" width="335" height="318.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="Ze0-oz-XhY">
+                                        <rect key="frame" x="0.0" y="94.5" width="335" height="369"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0H-Cm-flS">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="100.5"/>
@@ -37,8 +37,14 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Widget do działania wymaga włączonych usług lokalizacyjnych." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p5k-di-nxd">
+                                                <rect key="frame" x="0.0" y="125.5" width="335" height="40.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AEu-y9-z7y" userLabel="shadow">
-                                                <rect key="frame" x="0.0" y="140.5" width="335" height="178"/>
+                                                <rect key="frame" x="0.0" y="191" width="335" height="178"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="widget-expanded" translatesAutoresizingMaskIntoConstraints="NO" id="JWl-4f-iap">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="178"/>
@@ -186,7 +192,7 @@
                                 <rect key="frame" x="20" y="89.5" width="335" height="557.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="UC7-Fw-m9z">
-                                        <rect key="frame" x="0.0" y="157.5" width="335" height="242.5"/>
+                                        <rect key="frame" x="0.0" y="137.5" width="335" height="283"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mHn-ZM-XX7">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="120.5"/>
@@ -203,6 +209,12 @@
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rozszerzenie aplikacji na platformę Apple Watch" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tdo-o2-dza">
                                                 <rect key="frame" x="0.0" y="201.5" width="335" height="41"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                                                <color key="textColor" red="0.062745098040000002" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wsparcie dla iPada" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ag6-53-ABV">
+                                                <rect key="frame" x="0.0" y="262.5" width="335" height="20.5"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                                 <color key="textColor" red="0.062745098040000002" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -311,8 +323,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="widget-compact" width="715" height="299"/>
-        <image name="widget-expanded" width="715" height="299"/>
+        <image name="widget-compact" width="357.5" height="149.5"/>
+        <image name="widget-expanded" width="357.5" height="149.5"/>
     </resources>
     <color key="tintColor" red="0.062745098040000002" green="0.48353224989999999" blue="0.38298630709999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
