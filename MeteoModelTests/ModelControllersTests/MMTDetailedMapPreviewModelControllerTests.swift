@@ -32,9 +32,10 @@ class MMTDetailedMapPreviewModelControllerTests: XCTestCase
             Date(timeIntervalSince1970: 30),
             Date(timeIntervalSince1970: 40)
         ]
+        var index = 0
         mapMeteorogram.images.forEach {
-            let index = mapMeteorogram.images.firstIndex(of: $0)
-            $0?.accessibilityIdentifier = String(format: "%d", arguments: [index!])
+            $0?.accessibilityIdentifier = String(format: "%d", arguments: [index])
+            index += 1
         }
         
         meteorogramStore = MMTMockMeteorogramStore()

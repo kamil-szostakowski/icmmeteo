@@ -100,6 +100,6 @@ extension MMTTodayModelControllerImplTests
             completion.fulfill()
         }
         
-        wait(for: modelUpdate + [completion], timeout: 0.5, enforceOrder: true)
+        wait(for: modelUpdate + [completion], timeout: 1.5, enforceOrder: true)
     }
 }

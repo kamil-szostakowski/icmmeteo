@@ -10,6 +10,8 @@ import XCTest
 import MeteoModel
 @testable import MobileMeteo
 
+typealias UserInfo = [String:NSSecureCoding]
+
 class MMTMeteorogramHereShortcutConversion_3DTouchTests: XCTestCase
 {
     // MARK: Properties
@@ -29,7 +31,7 @@ class MMTMeteorogramHereShortcutConversion_3DTouchTests: XCTestCase
     
     func testConversionFromShortcutItem()
     {
-        let item = UIApplicationShortcutItem(type: "currentlocation", localizedTitle: "", localizedSubtitle: nil, icon:nil, userInfo: ["climate-model": "UM"])
+        let item = UIApplicationShortcutItem(type: "currentlocation", localizedTitle: "", localizedSubtitle: nil, icon:nil, userInfo: ["climate-model": "UM" as NSString])
         
         let shortcut = MMTMeteorogramHereShortcut(shortcut: item)
         
@@ -46,7 +48,7 @@ class MMTMeteorogramHereShortcutConversion_3DTouchTests: XCTestCase
     
     func testConversionFromShortcutItem_WrongType()
     {
-        let item = UIApplicationShortcutItem(type: "type", localizedTitle: "", localizedSubtitle: nil, icon:nil, userInfo: ["climate-model": "UM"])
+        let item = UIApplicationShortcutItem(type: "type", localizedTitle: "", localizedSubtitle: nil, icon:nil, userInfo: ["climate-model": "UM"] as? UserInfo)
         
         XCTAssertNil(MMTMeteorogramHereShortcut(shortcut: item))
     }

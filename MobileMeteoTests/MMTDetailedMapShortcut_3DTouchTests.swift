@@ -17,13 +17,13 @@ class MMTDetailedMapPreviewShortcut_3DTouchTests : XCTestCase
 {
     // MARK: Properties
     var type = "map/UM/Precipitation"
-    var userInfo: [String:Any] = [
+    var userInfo: [String : Any] = [
         "climate-model": "UM",
         "detailed-map": "Precipitation"
     ]
     
     var shortcutItem: UIApplicationShortcutItem {
-        return UIApplicationShortcutItem(type: type, localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: userInfo)
+        return UIApplicationShortcutItem(type: type, localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: userInfo as? UserInfo)
     }
     
     // MARK: Test methods

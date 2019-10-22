@@ -35,14 +35,16 @@ class MMTTodayModelControllerImpl: MMTBaseModelController, MMTTodayModelControll
     // MARK: Interface methods
     func onUpdate(completion: @escaping (MMTUpdateResult) -> Void)
     {
-        locationService.requestLocation().observe {
-            guard self.locationService.authorizationStatus == .whenInUse else {
-                self.updateResult = .failure(.locationServicesDisabled)
-                self.notifyWatchers(.failed, completion: completion)
-                return
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) {
+            self.locationService.requestLocation().observe {
+                guard self.locationService.authorizationStatus == .whenInUse else {
+                    self.updateResult = .failure(.locationServicesDisabled)
+                    self.notifyWatchers(.failed, completion: completion)
+                    return
+                }
+                
+                self.update($0, completion)
             }
-            
-            self.update($0, completion)
         }
     }
 }
