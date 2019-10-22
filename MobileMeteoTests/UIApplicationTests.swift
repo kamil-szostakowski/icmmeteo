@@ -66,21 +66,21 @@ class UIApplicationTests : XCTestCase
     
     func testConversionOfApplicationShortcutItemToDetailedMapPreviewShortcut()
     {
-        let item = UIApplicationShortcutItem(type: "map-UM-Precipitation", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: ["climate-model" : "UM", "detailed-map" : "Precipitation"])
+        let item = UIApplicationShortcutItem(type: "map-UM-Precipitation", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: ["climate-model" : "UM", "detailed-map" : "Precipitation"] as? UserInfo)
         
         XCTAssertTrue(UIApplication.shared.convert(from: item) is MMTDetailedMapShortcut)
     }
     
     func testConversionOfApplicationShortcutItemToMeteorogramPreviewShortcut()
     {
-        let item = UIApplicationShortcutItem(type: "meteorogram/UM/Lorem/Ipsum/2.2:3.3", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: ["latitude" : 2.2,                                                                                                                                                                 "longitude" : 3.3,                                                                                                                                                          "city-name" : "Lorem",                                                                                                                                                          "city-region" : "Ipsum",                                                                                                                                                          "climate-model" : "UM"])
+        let item = UIApplicationShortcutItem(type: "meteorogram/UM/Lorem/Ipsum/2.2:3.3", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: ["latitude" : 2.2,                                                                                                                                                                 "longitude" : 3.3,                                                                                                                                                          "city-name" : "Lorem",                                                                                                                                                          "city-region" : "Ipsum",                                                                                                                                                          "climate-model" : "UM"] as? UserInfo)
         
         XCTAssertTrue(UIApplication.shared.convert(from: item) is MMTMeteorogramShortcut)
     }
     
     func testConversionOfApplicationShortcutItemToCurrentLocationMeteorogramPreviewShortcut()
     {
-        let item = UIApplicationShortcutItem(type: "currentlocation", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: ["latitude" : 0,                                                                                                                                                                 "longitude" : 0,                                                                                                                                                          "city-name" : "",                                                                                                                                                          "city-region" : "",                                                                                                                                                          "climate-model" : "UM"])
+        let item = UIApplicationShortcutItem(type: "currentlocation", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: ["latitude" : 0,                                                                                                                                                                 "longitude" : 0,                                                                                                                                                          "city-name" : "",                                                                                                                                                          "city-region" : "",                                                                                                                                                          "climate-model" : "UM"] as? UserInfo)
         
         XCTAssertTrue(UIApplication.shared.convert(from: item) is MMTMeteorogramHereShortcut)
     }

@@ -42,6 +42,15 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       codeCoverageEnabled = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F9E696631AFCC06600273DA3"
+            BuildableName = "MobileMeteo.app"
+            BlueprintName = "MobileMeteo"
+            ReferencedContainer = "container:MobileMeteo.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -57,24 +66,18 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F9941A631BECE32300700313"
-               BuildableName = "MeteoUITests.xctest"
-               BlueprintName = "MeteoUITests"
-               ReferencedContainer = "container:MobileMeteo.xcodeproj">
+               BlueprintIdentifier = "1B9C71E32049B42D00856476"
+               BuildableName = "MeteoModelTests.xctest"
+               BlueprintName = "MeteoModelTests"
+               ReferencedContainer = "container:MeteoModel.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "MMTPredictionModelImplTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "F9E696631AFCC06600273DA3"
-            BuildableName = "MobileMeteo.app"
-            BlueprintName = "MobileMeteo"
-            ReferencedContainer = "container:MobileMeteo.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -96,8 +99,6 @@
             ReferencedContainer = "container:MobileMeteo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

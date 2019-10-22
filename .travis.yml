@@ -1,5 +1,5 @@
 language: swift
-osx_image: xcode10.1
+osx_image: xcode11.0
 
 branches:
   only:
@@ -10,6 +10,6 @@ before_install:
 - gem install xcpretty -N
 
 script:
-- xcodebuild test -workspace MobileMeteo.xcworkspace -scheme MobileMeteo -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=12.1' | xcpretty -c; test ${PIPESTATUS[0]} -eq 0
+- xcodebuild test -workspace MobileMeteo.xcworkspace -scheme MobileMeteo -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.4' | xcpretty -c; test ${PIPESTATUS[0]} -eq 0
 after_success:
 - bash <(curl -s https://codecov.io/bash)

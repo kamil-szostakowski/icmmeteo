@@ -1147,7 +1147,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "version=$(/usr/libexec/PlistBuddy -c \"Print CFBundleShortVersionString\" \"$PROJECT_DIR/$INFOPLIST_FILE\")\nbuild=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$PROJECT_DIR/$INFOPLIST_FILE\")\n/usr/libexec/PlistBuddy -c \"Set PreferenceSpecifiers:0:DefaultValue $version ($build)\" \"$CODESIGNING_FOLDER_PATH/Settings.bundle/Root.plist\"\n";
+			shellScript = "/usr/libexec/PlistBuddy -c \"Set PreferenceSpecifiers:0:DefaultValue ${MARKETING_VERSION} (${CURRENT_PROJECT_VERSION})\" \"$CODESIGNING_FOLDER_PATH/Settings.bundle/Root.plist\"\n";
 		};
 		3D2D95754509F00DEC5C65E3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1663,6 +1663,7 @@
 				CODE_SIGN_ENTITLEMENTS = MobileMeteo/MobileMeteo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = GMU6W6K8X6;
 				ENABLE_BITCODE = NO;
@@ -1675,6 +1676,7 @@
 				INFOPLIST_FILE = MobileMeteo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.7;
 				OTHER_SWIFT_FLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.meteo;
 				PRODUCT_NAME = MobileMeteo;
@@ -1696,6 +1698,7 @@
 				CODE_SIGN_ENTITLEMENTS = MobileMeteo/MobileMeteo.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = GMU6W6K8X6;
 				ENABLE_BITCODE = NO;
@@ -1708,6 +1711,7 @@
 				INFOPLIST_FILE = MobileMeteo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.szostakowski.meteo;
 				PRODUCT_NAME = MobileMeteo;
 				PROVISIONING_PROFILE = "";
