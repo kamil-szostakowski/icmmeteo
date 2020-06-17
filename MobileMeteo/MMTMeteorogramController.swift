@@ -15,7 +15,6 @@ import MeteoUIKit
 class MMTMeteorogramController: UIViewController, MMTActivityIndicating
 {
     // MARK: Outlets
-    @IBOutlet weak var modelSegmentedControl: UISegmentedControl!
     @IBOutlet weak var forecastStartLabel: UILabel!
     @IBOutlet var navigationBar: UINavigationBar!
     @IBOutlet var meteorogramImage: UIImageView!
@@ -134,15 +133,6 @@ extension MMTMeteorogramController
             self.onCloseBtnTouchAction(self.navigationBar.topItem!.leftBarButtonItem!)
         }
         
-        if modelController.climateModel.type == .UM {
-            let actionTitle = MMTLocalizedString("label.try.coamps")
-            let tryCoampsAction = UIAlertAction(title: actionTitle, style: .default) { action in
-                self.modelSegmentedControl.selectedSegmentIndex = 1
-                self.modelTypeDidChange(self.modelSegmentedControl)
-            }
-            alert.addAction(tryCoampsAction)
-        }
-        
         present(alert, animated: true, completion: nil)
     }
 }
@@ -229,9 +219,7 @@ extension MMTMeteorogramController: MMTModelControllerDelegate
         if btnFavourite.isSelected != modelController.city.isFavourite {
             btnFavourite.isSelected = modelController.city.isFavourite
             btnFavourite.imageView?.layer.add(CAAnimation.defaultScaleAnimation(), forKey: "scale")
-        }
-        
-        modelSegmentedControl.isEnabled = modelController.meteorogram != nil
+        }        
         
         if let error = modelController.error {
             display(error: error)

@@ -154,7 +154,7 @@
                                 <blurEffect style="light"/>
                             </visualEffectView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WG3-jp-oXw">
-                                <rect key="frame" x="0.0" y="44" width="375" height="551"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="590"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="inx-gO-O0P" userLabel="Container">
                                         <rect key="frame" x="0.0" y="0.0" width="640" height="660"/>
@@ -208,10 +208,10 @@
                                 </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMZ-dc-XIY" userLabel="Bottom Bar">
-                                <rect key="frame" x="0.0" y="595" width="375" height="72"/>
+                                <rect key="frame" x="0.0" y="634" width="375" height="33"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2qQ-bN-M64">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="33"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ttt-As-lq8" userLabel="Border">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
@@ -220,18 +220,6 @@
                                                     <constraint firstAttribute="height" constant="1" id="cum-tj-agA"/>
                                                 </constraints>
                                             </view>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="SqV-hs-h36">
-                                                <rect key="frame" x="8" y="33" width="359" height="32"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <segments>
-                                                    <segment title="UM (60h)"/>
-                                                    <segment title="COAMPS (84h)"/>
-                                                </segments>
-                                                <connections>
-                                                    <action selector="modelTypeDidChange:" destination="lDT-Dp-3bJ" eventType="valueChanged" id="DKz-Gc-gfO"/>
-                                                    <action selector="selectedModelDidChange:" destination="DF6-dW-Nzk" eventType="valueChanged" id="jV2-uf-1iF"/>
-                                                </connections>
-                                            </segmentedControl>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="start prognozy t0 : 2015.07.23 00:00 UTC" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bfe-IB-zr9">
                                                 <rect key="frame" x="8" y="9" width="359" height="16"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
@@ -241,16 +229,13 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.92156862745098034" green="0.92156862745098034" blue="0.92156862745098034" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="SqV-hs-h36" secondAttribute="trailing" constant="8" id="18e-eQ-Jkg"/>
                                             <constraint firstItem="ttt-As-lq8" firstAttribute="leading" secondItem="2qQ-bN-M64" secondAttribute="leading" id="DCD-w5-LZy"/>
                                             <constraint firstItem="bfe-IB-zr9" firstAttribute="leading" secondItem="2qQ-bN-M64" secondAttribute="leading" constant="8" id="DYf-Qj-vY6"/>
                                             <constraint firstItem="ttt-As-lq8" firstAttribute="top" secondItem="2qQ-bN-M64" secondAttribute="top" id="SLX-b3-oAQ"/>
-                                            <constraint firstItem="SqV-hs-h36" firstAttribute="leading" secondItem="2qQ-bN-M64" secondAttribute="leading" constant="8" id="Vor-pa-XnE"/>
                                             <constraint firstItem="bfe-IB-zr9" firstAttribute="top" secondItem="ttt-As-lq8" secondAttribute="bottom" constant="8" id="Xc0-Z7-I1T"/>
+                                            <constraint firstAttribute="bottom" secondItem="bfe-IB-zr9" secondAttribute="bottom" constant="8" id="YMT-IJ-4Ku"/>
                                             <constraint firstAttribute="trailing" secondItem="ttt-As-lq8" secondAttribute="trailing" id="cEA-hz-hfv"/>
                                             <constraint firstAttribute="trailing" secondItem="bfe-IB-zr9" secondAttribute="trailing" constant="8" id="iDe-Qz-y59"/>
-                                            <constraint firstAttribute="bottom" secondItem="SqV-hs-h36" secondAttribute="bottom" constant="8" id="sqZ-n8-z5W"/>
-                                            <constraint firstItem="SqV-hs-h36" firstAttribute="top" secondItem="bfe-IB-zr9" secondAttribute="bottom" constant="8" id="uFl-C4-UB0"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -327,7 +312,6 @@
                         <outlet property="forecastStartLabel" destination="bfe-IB-zr9" id="c25-yN-ubX"/>
                         <outlet property="legendImage" destination="e9l-Lv-tF2" id="AV4-BI-mrA"/>
                         <outlet property="meteorogramImage" destination="zo9-bc-FiZ" id="AoA-w2-YjM"/>
-                        <outlet property="modelSegmentedControl" destination="SqV-hs-h36" id="Kcf-ZF-CRy"/>
                         <outlet property="navigationBar" destination="tNU-2w-XXV" id="9Ll-kq-ZPX"/>
                         <outlet property="scrollView" destination="WG3-jp-oXw" id="T2V-bj-dQS"/>
                         <outlet property="scrollViewContainer" destination="inx-gO-O0P" id="pYE-ii-z1m"/>
@@ -767,7 +751,6 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <segments>
                                             <segment title="UM"/>
-                                            <segment title="COAMPS"/>
                                             <segment title="WAM"/>
                                         </segments>
                                         <connections>

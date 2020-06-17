@@ -75,7 +75,9 @@ public struct MMTMeteorogramStore: MMTMeteorogramDataStore
         forecastStore.startDate {(result: MMTResult<Date>) in
             
             guard case let .success(startDate) = result else {
-                completion(.failure(.meteorogramFetchFailure))
+                DispatchQueue.main.async {
+                    completion(.failure(.meteorogramFetchFailure))
+                }
                 return
             }            
             
