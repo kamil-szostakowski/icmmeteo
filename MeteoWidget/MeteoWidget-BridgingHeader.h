@@ -9,8 +9,4 @@
 #ifndef MeteoWidget_BridgingHeader_h
 #define MeteoWidget_BridgingHeader_h
 
-#import "GAI.h"
-#import "GAIDictionaryBuilder.h"
-#import "GAIFields.h"
-
 #endif /* MeteoWidget_BridgingHeader_h */

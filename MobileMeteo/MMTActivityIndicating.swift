@@ -6,6 +6,7 @@
 //  Copyright © 2018 Kamil Szostakowski. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 protocol MMTActivityIndicating: AnyObject

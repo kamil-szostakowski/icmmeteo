@@ -6,6 +6,8 @@
 //  Copyright © 2017 Kamil Szostakowski. All rights reserved.
 //
 
+import UIKit
+
 // MARK: Register extension
 extension UIApplication : MMTShortcutRegister
 {    
