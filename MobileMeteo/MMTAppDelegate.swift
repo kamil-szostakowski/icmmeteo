@@ -40,7 +40,6 @@ public let MMTBundleId = "com.szostakowski.meteo.MeteoWidget"
         application.setMinimumBackgroundFetchInterval(3600)
         
         setupAppearance()
-        setupAnalytics()
         setupLocationService()
         
         navigator = MMTNavigator(rootViewController, factory.locationService)
@@ -139,17 +138,6 @@ extension MMTAppDelegate
         page = UIPageControl.appearance()
         page.pageIndicatorTintColor = UIColor.lightGray
         page.currentPageIndicatorTintColor = MMTAppearance.meteoGreenColor
-    }
-    
-    private func setupAnalytics()
-    {
-        guard let gai = GAI.sharedInstance() else {
-            assert(false, "Google Analytics not configured correctly")
-            return
-        }
-        
-        gai.tracker(withTrackingId: "UA-71334623-2")
-        gai.trackUncaughtExceptions = false
     }
     
     private func setupLocationService()

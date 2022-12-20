@@ -6,6 +6,7 @@
 //  Copyright (c) 2015 Kamil Szostakowski. All rights reserved.
 //
 
+import UIKit
 import Foundation
 import MeteoModel
 import CoreLocation

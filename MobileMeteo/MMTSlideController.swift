@@ -6,6 +6,7 @@
 //  Copyright © 2019 Kamil Szostakowski. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 class MMTSlideController: UIViewController

@@ -5,7 +5,6 @@ platform :ios, '11.0'
 project 'MobileMeteo.xcodeproj'
 
 def common
-	pod 'GoogleAnalytics'
 end
 
 target 'MobileMeteo' do
