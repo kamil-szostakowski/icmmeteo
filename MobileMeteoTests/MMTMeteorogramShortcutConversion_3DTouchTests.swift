@@ -35,7 +35,7 @@ class MMTMeteorogramPreviewShortcutConversion_3DTouchTests: XCTestCase
     ]
     
     var shortcut: MMTMeteorogramShortcut? {
-        return MMTMeteorogramShortcut(shortcut: UIApplicationShortcutItem(type: "", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: userInfo))
+        return MMTMeteorogramShortcut(shortcut: UIApplicationShortcutItem(type: "", localizedTitle: "", localizedSubtitle: "", icon: nil, userInfo: userInfo as? UserInfo))
     }
     
     // MARK: Test methods
