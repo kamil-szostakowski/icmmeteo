@@ -6,6 +6,7 @@
 //  Copyright © 2017 Kamil Szostakowski. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 enum MMTSegue: String

@@ -6,6 +6,7 @@
 //  Copyright © 2016 Kamil Szostakowski. All rights reserved.
 //
 
+import UIKit
 import Foundation
 
 class MMTCitiesListSectionHeader: UITableViewHeaderFooterView
