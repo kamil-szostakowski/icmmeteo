@@ -102,24 +102,24 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
     // MARK: NSURLSessionTaskDelegate delegate methods
     public func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void)
     {
-        var req: URLRequest?
+        var req: URLRequest? = request
         
         defer { completionHandler(req) }
         guard let redirectionUrl = request.url else { task.cancel(); return }
-        guard let destinationUrl = meteorogramDownloadUrl(from: redirectionUrl) else { task.cancel(); return }
-    
+        guard let destinationUrl = meteorogramDownloadUrl(from: redirectionUrl) else { return }
         req = URLRequest(url: destinationUrl)
     }
     
     private func meteorogramDownloadUrl(from redirectionUrl: URL) -> URL?
     {
-        let urlComponents = redirectionUrl.absoluteString.components(separatedBy: "?")
-
-        guard urlComponents.count == 2 else {
+        let urlString = redirectionUrl.absoluteString
+        let getParameters = urlString.components(separatedBy: "?").last
+        
+        guard let getParameters = getParameters, urlString.contains("meteorogram_map_um.php") else {
             return nil
         }
-        
-        return URL(string: "?\(urlComponents.last!)", relativeTo: redirectionBaseUrl)
+
+        return URL(string: "?\(getParameters)", relativeTo: redirectionBaseUrl)
     }
     
     // MARK: Helper methods
@@ -131,7 +131,6 @@ public class MMTMeteorogramUrlSession: NSObject, URLSessionTaskDelegate
             #if DEBUG
             error = MMTMeteorogramUrlSession.simulatedError ?? error
             #endif
-            
             completion(data, response, error)
         }
         
