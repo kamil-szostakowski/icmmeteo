@@ -136,7 +136,7 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
     // MARK: Test methods for handling redirection
     func testHandlingOfRedirection()
     {
-        let req = URLRequest(url: URL(string: "http://lorem-ipsum.com?aaa=bbb&ccc=dddd")!)
+        let req = URLRequest(url: URL(string: "http://lorem-ipsum.com/meteorogram_map_um.php?aaa=bbb&ccc=dddd")!)
         let session = MMTMockMeteorogramUrlSession(nil, nil, nil)
 
         session.urlSession(URLSession(), task: MMTMockTask(), willPerformHTTPRedirection: HTTPURLResponse(), newRequest: req) {
@@ -152,18 +152,18 @@ class MMTMeteorogramUrlSessionTests: XCTestCase
 
         let session = MMTMockMeteorogramUrlSession(nil, nil, nil)
 
-        session.urlSession(URLSession(), task: MMTMockTask(), willPerformHTTPRedirection: HTTPURLResponse(), newRequest: req) {
-            XCTAssertNil($0)
+        session.urlSession(URLSession(), task: MMTMockTask(), willPerformHTTPRedirection: HTTPURLResponse(), newRequest: req) { redirectionRequest in
+            XCTAssertNil(redirectionRequest?.url)
         }
     }
 
-    func testHandlingOfRedirectionWhenRedirectionUrlIsInvalid()
+    func testHandlingOfRedirectionWhenRedirectionUrlDoesntMatchExpectation()
     {
         let req = URLRequest(url: URL(string: "example.com")!)
         let session = MMTMockMeteorogramUrlSession(nil, nil, nil)
 
-        session.urlSession(URLSession(), task: MMTMockTask(), willPerformHTTPRedirection: HTTPURLResponse(), newRequest: req) {
-            XCTAssertNil($0)
+        session.urlSession(URLSession(), task: MMTMockTask(), willPerformHTTPRedirection: HTTPURLResponse(), newRequest: req) { redirectionRequest in
+            XCTAssertEqual(req.url, redirectionRequest?.url)
         }
     }
 }
